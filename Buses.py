@@ -24,7 +24,7 @@ def _gen_command(source, func, **kwargs):
   result = _sources[source] + _api[func] 
   params = ''
   for k,v in kwargs.items():
-    params = params + k + '=' + v + '&'
+    params = params + k + '=' + str(v) + '&'
   if params:
     result += '?' + params[:-1]
   return result
