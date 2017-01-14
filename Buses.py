@@ -15,7 +15,6 @@ _api = {
   'stop_predicitons': 'getStopPredictions.jsp',
   'bus_predictions': 'getBusPredictions.jsp',
   'buses_for_route': 'getBusesForRoute.jsp',
-  'buses_for_route_all': 'getBusesForRouteAll.jsp',
   'schedules': 'schedules.jsp',
   'time_and_temp': 'getTimeAndTemp.jsp',
   'route_directions_xml':  'routeDirectionStopAsXML',
