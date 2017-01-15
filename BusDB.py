@@ -30,8 +30,11 @@ _columns = [ 'lat',
 def _bus_to_sql(format_string, bus, timestamp):
     for var in _columns: 
         if not hasattr(bus, var):
-            setattr(bus, var, '')
- 
+            if var == 'lat' or var == 'lon':
+                setattr(bus, var, 0.0)
+            else: 
+                setattr(bus, var, '')
+  
     return format_string % (float(bus.lat), float(bus.lon), bus.ar, bus.bid, bus.c, bus.cars, bus.consist, bus.d, bus.dd, bus.dn, bus.fs, bus.id, bus.m, bus.op, bus.pd, bus.pdRtpiFeedName, bus.pid, bus.rt, bus.rtRtpiFeedName, bus.rtdd, bus.rtpiFeedName, bus.run, bus.wid1, bus.wid2, str(timestamp)) 
 
 class DB:
@@ -53,6 +56,8 @@ class DB:
         self.conn.commit()
 
     def insert_positions(self, buses, timestamp):
+        import ipdb
+        ipdb.set_trace()
         self._batch_execute([_bus_to_sql(self.insert_string, b, timestamp) for b in buses])
 
 class SQLite(DB):
