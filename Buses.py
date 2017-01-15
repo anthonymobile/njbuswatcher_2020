@@ -32,8 +32,10 @@ def _gen_command(source, func, **kwargs):
 
 
 def _cond_get_single(tree, key, default=''):
-    res = tree.get(key)
-    return res.text if res else default
+    res = tree.find(key)
+    if res is not None:
+        return res.text 
+    return default 
 
 
 class KeyValueData:
