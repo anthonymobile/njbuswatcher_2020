@@ -12,7 +12,7 @@ _api = {
   'all_buses': 'getBusesForRouteAll.jsp',
   'routes': 'getRoutePoints.jsp',
   'pattern_points': 'getPatternPoints.jsp',
-  'stop_predicitons': 'getStopPredictions.jsp',
+  'stop_predictions': 'getStopPredictions.jsp',
   'bus_predictions': 'getBusPredictions.jsp',
   'buses_for_route': 'getBusesForRoute.jsp',
   'schedules': 'schedules.jsp',
@@ -87,6 +87,39 @@ class Route(KeyValueData):
         self.identity = ''
         self.paths = []
 
+# AT working below --------------------------------------------
+class StopPrediction(KeyValueData):
+    def __init__(self, **kwargs):
+        KeyValueData.__init__(self, **kwargs)
+        self.name = 'StopPrediction' 
+
+def parse_stopprediction_xml(data):
+    results = []
+    e = xml.etree.ElementTree.fromstring(data)
+
+    for atype in e.findall('pre'):
+        fields = {}
+        for field in atype.getchildren():
+            if field.tag not in fields and hasattr(field, 'text'):
+                if field.text is None:
+                    fields[field.tag] = ''
+                    continue
+                fields[field.tag] = field.text
+
+        results.append(StopPrediction(**fields))
+
+        # go through and append the stop info to every result
+        stop_id = e.find('id').text
+        stop_nm = e.find('nm').text
+        for prediction in results:
+            prediction.stop_id = stop_id 
+            prediction.stop_name = stop_nm 
+            # and split the integer out of the prediction
+            prediction.pt = prediction.pt.split(' ')[0]
+        print results
+    return results
+
+# AT working above --------------------------------------------
 
 def parse_bus_xml(data):
     results = []
