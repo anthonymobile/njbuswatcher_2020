@@ -20,6 +20,10 @@ _api = {
   'route_directions_xml':  'routeDirectionStopAsXML',
 }
 
+# parsers done for all_buses, routes, stop_predictions
+# ignored: time_and_temp
+# not available / not fully documented: schedules (not sure what the right kwargs are, agency=1 & route=87 ?)
+
 
 def _gen_command(source, func, **kwargs):
     result = _sources[source] + _api[func]
@@ -87,7 +91,7 @@ class Route(KeyValueData):
         self.identity = ''
         self.paths = []
 
-# AT working below --------------------------------------------
+# need to check output format
 class StopPrediction(KeyValueData):
     def __init__(self, **kwargs):
         KeyValueData.__init__(self, **kwargs)
@@ -108,7 +112,7 @@ def parse_stopprediction_xml(data):
 
         results.append(StopPrediction(**fields))
 
-        # go through and append the stop info to every result
+        # go through and append the stop id and name to every result
         stop_id = e.find('id').text
         stop_nm = e.find('nm').text
         for prediction in results:
@@ -118,8 +122,8 @@ def parse_stopprediction_xml(data):
             prediction.pt = prediction.pt.split(' ')[0]
         print results
     return results
-
-# AT working above --------------------------------------------
+    
+# end of stops add
 
 def parse_bus_xml(data):
     results = []
@@ -137,7 +141,7 @@ def parse_bus_xml(data):
         results.append(Bus(**fields))
     return results
 
-
+# test with  import Buses; Buses.parse_route_xml(Buses.get_xml_data('nj', 'routes', route=126));
 def parse_route_xml(data):
     route = Route()
     e = xml.etree.ElementTree.fromstring(data)
