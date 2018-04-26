@@ -23,7 +23,8 @@ def main():
     sqlite_parser = subparsers.add_parser('sqlite')
     sqlite_parser.add_argument('--sqlite-file', dest='sqlite_file', required=True, help='location of the sqlite file', default=None)
 
-    # requires database created, or user specified with CREATE DATABASE privs
+    # script cannot create database
+    # requirements: database already exists, or the user specified has CREATE DATABASE privs
     mysql_parser = subparsers.add_parser('mysql') 
     mysql_parser.add_argument('--db-name', dest='db_name', required=True, help='name of the mysql database')
     mysql_parser.add_argument('--db-user', dest='db_user', required=True, help='name of the mysql user')
