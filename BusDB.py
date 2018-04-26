@@ -57,7 +57,7 @@ class DB:
 
     def insert_positions(self, buses, timestamp):
         import ipdb
-        ipdb.set_trace()
+        # ipdb.set_trace()
         self._batch_execute([_bus_to_sql(self.insert_string, b, timestamp) for b in buses])
 
 class SQLite(DB):

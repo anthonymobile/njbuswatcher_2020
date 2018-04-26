@@ -17,9 +17,9 @@ python2 buswatcher.py -s nj --save-raw buslocations.csv
 
 ### Log to sqlite
 
-This will simply start to append new observations to a file that will quickly become unmanageable. Not reccommended for ongoing collection.
+This will simply start to append new observations to a file (absolute path e.g. ~/file) that will quickly become unmanageable. Not reccommended for ongoing collection.
 ```
-python2 buswatcher.py -s nj --sqlite-file buslog.sqlite
+python2 buswatcher.py -s nj sqlite --sqlite-file buslog.sqlite
 ```
 
 ### Log to MySQL
