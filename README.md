@@ -15,11 +15,11 @@ python2 buswatcher.py -s nj --save-raw buslocations.csv
 ```
 
 
-### Log to sqlite
+### Log to sqlite (working)
 
 This will simply start to append new observations to a file (absolute path e.g. ~/file) that will quickly become unmanageable. Not reccommended for ongoing collection.
 ```
-python2 buswatcher.py -s nj sqlite --sqlite-file buslog.sqlite
+python buswatcher.py -s nj sqlite --sqlite-file buslog.sqlite
 ```
 
 ### Log to MySQL
@@ -28,4 +28,13 @@ Recommended for ongoing data grabs and long-term storage with integrity (statewi
 
 ```
 python2 buswatcher.py -s nj --db-name {tk} --db-user {tk} --db-pw {not required} --db-host {default 127.0.0.1}
+```
+
+## Ongoing Collection
+
+You want to cron it, any more than once a minute is probably overkill. Full paths alwasy better in cron in my experience.
+
+```bash
+* * * * * /home/anthony/miniconda2/bin/python /home/anthony/buswatcher/buswatcher.py -s nj sqlite --sqlite-file /home/anthony/buslog.sqlite
+
 ```
