@@ -41,3 +41,5 @@ You want to cron it, any more than once a minute is probably overkill - though t
 ```bash
 * * * * * /home/anthony/miniconda2/bin/python /home/anthony/buswatcher/buswatcher.py -s nj mysql --db-name bus_position_log --db-user buswatcher --db-pw njtransit
 ```
+
+For New Jersey, this will tuck in at around 100-150 GB a year in SQLite, snapping once a minute. YMMV with higher frequency or different databases. Currently, we have this setup on a Digital Ocean ubuntu 16 droplet, pushign the data to a MYsql database vault stored on Amazon S3 via a FUSE mount. Here are how-tos on [moving your database directory](https://www.digitalocean.com/community/tutorials/how-to-move-a-mysql-data-directory-to-a-new-location-on-ubuntu-16-04) and [connecting Ubuntu and S3](https://firefli.de/tutorials/s3fs-and-aws.html). 
