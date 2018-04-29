@@ -32,7 +32,12 @@ python2 buswatcher.py -s nj --db-name {tk} --db-user {tk} --db-pw {not required}
 
 ### Logging to mongodb
 
-TBD. Would love to add if someone wants to rewrite or extend one of the current classes. Not sure if or when this would start to become necessary given size and use of the log.
+Just starting to test is this is better for long-term storage of very large archives, but added support anyways. No support for remote or access-restricted databases yet, only local.
+
+```
+python2 buswatcher.py -s nj mongo --mongo-name {tk}
+```
+
 
 ## Ongoing Collection
 

@@ -30,6 +30,11 @@ def main():
     mysql_parser.add_argument('--db-user', dest='db_user', required=True, help='name of the mysql user')
     mysql_parser.add_argument('--db-pw', dest='db_password', required=False, help='name of the mysql password')
     mysql_parser.add_argument('--db-host', dest='db_host', required=False, default='127.0.0.1', help='host of the mysql database')
+
+
+    mongo_parser = subparsers.add_parser('mongo')
+    mongo_parser.add_argument('--mongo-name', dest='mongo_name', required=True, help='name of the mongo database')
+
     args = parser.parse_args()
 
     if args.source not in Buses._sources:
@@ -38,6 +43,8 @@ def main():
    
     if hasattr(args, 'db_name'):
         db = BusDB.MySQL(args.db_name, args.db_user, args.db_password, args.db_host)
+    elif hasattr(args, 'mongo_name'):
+        db = BusDB.Mongo(args.mongo_name)
     elif hasattr(args, 'sqlite_file'): 
         db = BusDB.SQLite(args.sqlite_file)
     else:

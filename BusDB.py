@@ -1,50 +1,91 @@
 import os
 import sqlite3
-from mysql.connector import connection 
+from mysql.connector import connection
+import mongoengine as mongo
+import datetime
 
-_columns = [ 'lat',
- 'lon',
- 'ar',
- 'bid',
- 'c',
- 'cars',
- 'consist',
- 'd',
- 'dd',
- 'dn',
- 'fs',
- 'id',
- 'm',
- 'op',
- 'pd',
- 'pdRtpiFeedName',
- 'pid',
- 'rt',
- 'rtRtpiFeedName',
- 'rtdd',
- 'rtpiFeedName',
- 'run',
- 'wid1',
- 'wid2' ]
+_columns = ['lat','lon','ar','bid','c','cars','consist','d','dd','dn','fs','id','m','op','pd','pdRtpiFeedName','pid','rt','rtRtpiFeedName','rtdd','rtpiFeedName','run','wid1','wid2']
+
+
+class Position(mongo.Document):
+    lat = mongo.StringField(max_length=20)
+    lon = mongo.StringField(max_length=20)
+    ar = mongo.StringField(max_length=20)
+    bid = mongo.StringField(max_length=20)
+    c = mongo.StringField(max_length=20)
+    cars = mongo.StringField(max_length=20)
+    consist = mongo.StringField(max_length=20)
+    d = mongo.StringField(max_length=20)
+    dd = mongo.StringField(max_length=20)
+    dn = mongo.StringField(max_length=20)
+    fs = mongo.StringField(max_length=200)
+    id_bus = mongo.StringField(max_length=20)
+    m = mongo.StringField(max_length=20)
+    op = mongo.StringField(max_length=20)
+    pd = mongo.StringField(max_length=20)
+    pdRtpiFeedName = mongo.StringField(max_length=20)
+    pid = mongo.StringField(max_length=20)
+    rt = mongo.StringField(max_length=20)
+    rtRtpiFeedName = mongo.StringField(max_length=20)
+    rtdd = mongo.StringField(max_length=20)
+    rtpiFeedName = mongo.StringField(max_length=20)
+    run = mongo.StringField(max_length=20)
+    wid1 = mongo.StringField(max_length=20)
+    wid2 = mongo.StringField(max_length=20)
+    # timestamp = mongo.DateTimeField(default=datetime.datetime.now)
+
 
 def _bus_to_sql(format_string, bus, timestamp):
-    for var in _columns: 
+    for var in _columns:
         if not hasattr(bus, var):
             if var == 'lat' or var == 'lon':
                 setattr(bus, var, 0.0)
-            else: 
+            else:
                 setattr(bus, var, '')
-  
-    return format_string % (float(bus.lat), float(bus.lon), bus.ar, bus.bid, bus.c, bus.cars, bus.consist, bus.d, bus.dd, bus.dn, bus.fs, bus.id, bus.m, bus.op, bus.pd, bus.pdRtpiFeedName, bus.pid, bus.rt, bus.rtRtpiFeedName, bus.rtdd, bus.rtpiFeedName, bus.run, bus.wid1, bus.wid2, str(timestamp)) 
+
+    return format_string % (
+    float(bus.lat), float(bus.lon), bus.ar, bus.bid, bus.c, bus.cars, bus.consist, bus.d, bus.dd, bus.dn, bus.fs,
+    bus.id, bus.m, bus.op, bus.pd, bus.pdRtpiFeedName, bus.pid, bus.rt, bus.rtRtpiFeedName, bus.rtdd, bus.rtpiFeedName,
+    bus.run, bus.wid1, bus.wid2, str(timestamp))
+
+
+def _bus_to_instance(bus, timestampnow):     # i turn a bus record into an instance of the Position class
+    bus_position = Position(
+                        lat=bus.lat,
+                        lon=bus.lon,
+                        bid=bus.bid,
+                        c=bus.c,
+                        cars=bus.cars,
+                        consist=bus.consist,
+                        d=bus.d,
+                        dd=bus.dd,
+                        dn=bus.dn,
+                        fs=bus.fs,
+                        id_bus=bus.id,
+                        m=bus.m,
+                        op=bus.op,
+                        pd=bus.pd,
+                        pdRtpiFeedName=bus.pdRtpiFeedName,
+                        pid=bus.pid,
+                        rt=bus.rt,
+                        rtRtpiFeedName=bus.rtRtpiFeedName,
+                        rtdd=bus.rtdd,
+                        rtpiFeedName=bus.rtpiFeedName,
+                        run=bus.run,
+                        wid1=bus.wid1,
+                        wid2=bus.wid2,
+                        )
+    return bus_position
+
 
 class DB:
     def __init__(self, insert_string):
-       self.conn = None
-       self.insert_string = insert_string
+        self.conn = None
+        self.insert_string = insert_string
 
     def __del__(self):
-       if self.conn is not None:
-           self.conn.close()
+        if self.conn is not None:
+            self.conn.close()
 
     def _execute(self, command):
         self._batch_execute([command])
@@ -59,6 +100,7 @@ class DB:
         import ipdb
         # ipdb.set_trace()
         self._batch_execute([_bus_to_sql(self.insert_string, b, timestamp) for b in buses])
+
 
 class SQLite(DB):
     _create_db_string = '''CREATE TABLE buses (pkey integer primary key autoincrement, lat real, lon real, ar text, bid text, c text, cars text, consist text, d text, dd text, dn text, fs text, id text, m text, op text, pd text, pdRtpiFeedName text, pid text, rt text, rtRtpiFeedName text, rtdd text, rtpiFeedName text, run text, wid1 text, wid2 text, timestamp text)'''
@@ -78,9 +120,10 @@ class SQLite(DB):
         else:
             self.conn = sqlite3.connect(self.fname)
 
+
 class MySQL(DB):
     _create_table_string = '''CREATE TABLE IF NOT EXISTS positions (pkey integer primary key auto_increment, lat real, lon real, ar varchar(255), bid varchar(255), c varchar(255), cars varchar(255), consist varchar(255), d varchar(255), dd varchar(255), dn varchar(255), fs varchar(255), id varchar(255), m varchar(255), op varchar(255), pd varchar(255), pdRtpiFeedName varchar(255), pid varchar(255), rt varchar(255), rtRtpiFeedName varchar(255), rtdd varchar(255), rtpiFeedName varchar(255), run varchar(255), wid1 varchar(255), wid2 varchar(255), timestamp varchar(255))'''
- 
+
     _insert_string = 'INSERT INTO positions VALUES(NULL, %f, %f, "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s")'
 
     def __init__(self, db_name, db_user, db_password, db_host='127.0.0.1'):
@@ -92,7 +135,7 @@ class MySQL(DB):
         self._setup_db()
 
     def _setup_db(self):
-        self.conn = connection.MySQLConnection(user=self.db_user, password=self.db_password, host=self.db_host) 
+        self.conn = connection.MySQLConnection(user=self.db_user, password=self.db_password, host=self.db_host)
         self._execute('CREATE DATABASE IF NOT EXISTS %s;' % self.db_name)
         self.conn.database = self.db_name
 
@@ -100,3 +143,43 @@ class MySQL(DB):
             self._execute(MySQL._create_table_string)
         except mysql.connector.Error as err:
             pass
+
+
+class Mongo(DB):
+    """
+     ##not sure what to do with this.
+    def __del__(self):
+       if self.conn is not None:
+           self.conn.close()
+
+    ##not sure what to do with this.
+    def _execute(self, command):
+        self._batch_execute([command])
+    """
+
+    _insert_string = 'TK INSERT STRING TK'
+
+    def _batch_execute(self, insertions):
+        for each in insertions:
+            each.save()
+
+    def insert_positions(self, buses, timestamp):
+        self._batch_execute([_bus_to_instance(b, timestamp) for b in buses])
+
+    def __init__(self, mongo_name):
+        # DB.__init__(self, SQLite._insert_string)
+        DB.__init__(self, Mongo._insert_string)
+        self.mongo_name = mongo_name
+        self.mongo_host = '127.0.0.1'
+        self._setup_db()
+
+    def _setup_db(self):
+        host_url = 'mongodb://localhost:27017/%s' % self.mongo_name
+        print host_url
+        mongo.connect(self.mongo_name, host=host_url)
+        # create and delete a record to test since mongo doesnt require a defined table structure
+
+        dummy = Position(lat='abc')  # create an object
+        print dummy
+        dummy.save()  # save it
+        Position.objects(lat="abc").delete()  # then delete it
