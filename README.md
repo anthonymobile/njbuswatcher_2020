@@ -48,3 +48,24 @@ You want to cron it, any more than once a minute is probably overkill - though t
 ```
 
 For New Jersey, this will tuck in at around 100-150 GB a year in SQLite, snapping once a minute. YMMV with higher frequency or different databases. Currently, we have this setup on a Digital Ocean ubuntu 16 droplet, pushign the data to a MYsql database vault stored on Amazon S3 via a FUSE mount. Here are how-tos on [moving your database directory](https://www.digitalocean.com/community/tutorials/how-to-move-a-mysql-data-directory-to-a-new-location-on-ubuntu-16-04) and [connecting Ubuntu and S3](https://firefli.de/tutorials/s3fs-and-aws.html). 
+
+## API
+
+###v1.0 (Under development)
+Implemented with flask and flask-mysql.
+http://buswatcher.code4jc.org/api-1.0
+- /{n} - returns all the position reports for a given route over all time
+- /daily/{n} - all of the position reports since midnight local time for a given route.
+- /weekly/{n} 
+- /monthly/{n}
+
+- /bus/{n} - returns all the position reports for a specific  vehicle over all time. 
+- /bus/daily/{n} - all of the position reports since midnight local time for a given route.
+- /bus/weekly/{n}
+- /bus/monthly/{n}
+
+
+###v1.1 (TBD)
+TBD. Implemented with flask-restful and sqlalchemy
+Endpoints include
+http://buswatcher.code4jc.org/api-1.1
