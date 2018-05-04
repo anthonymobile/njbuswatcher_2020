@@ -122,7 +122,7 @@ class SQLite(DB):
 
 
 class MySQL(DB):
-    _create_table_string = '''CREATE TABLE IF NOT EXISTS positions (pkey integer primary key auto_increment, lat real, lon real, ar varchar(255), bid varchar(255), c varchar(255), cars varchar(255), consist varchar(255), d varchar(255), dd varchar(255), dn varchar(255), fs varchar(255), id varchar(255), m varchar(255), op varchar(255), pd varchar(255), pdRtpiFeedName varchar(255), pid varchar(255), rt varchar(255), rtRtpiFeedName varchar(255), rtdd varchar(255), rtpiFeedName varchar(255), run varchar(255), wid1 varchar(255), wid2 varchar(255), timestamp varchar(255))'''
+    _create_table_string = '''CREATE TABLE IF NOT EXISTS positions (pkey integer primary key auto_increment, lat real, lon real, ar varchar(20), bid varchar(20), c varchar(20), cars varchar(20), consist varchar(20), d varchar(20), dd varchar(20), dn varchar(20), fs varchar(20), id varchar(20), m varchar(20), op varchar(20), pd varchar(20), pdRtpiFeedName varchar(20), pid varchar(20), rt varchar(20), rtRtpiFeedName varchar(20), rtdd varchar(20), rtpiFeedName varchar(20), run varchar(20), wid1 varchar(20), wid2 varchar(20), timestamp varchar(255))'''
 
     _insert_string = 'INSERT INTO positions VALUES(NULL, %f, %f, "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s")'
 
