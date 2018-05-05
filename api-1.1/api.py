@@ -18,12 +18,12 @@ def main():
     api = Api(app)
 
     class Routes(Resource):
-        def get(self, route_no):
+        def get(self, rt):
             conn = e.connect()
-            query = conn.execute("select * from positions where rt='%s' from positions" % route_no)
+            query = conn.execute("select * from positions where rt='%s'" % rt)
             return {'departments': [i[0] for i in query.cursor.fetchall()]} # how to jsonify the results?
 
-    api.add_resource(Routes, '/route/<string:rt>')
+    api.add_resource(Routes, '/route/<int:rt>')
 
     '''
     class Departmental_Salary(Resource):
