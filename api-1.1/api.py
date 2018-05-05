@@ -10,29 +10,52 @@ from flask import Flask, request
 from flask_restful import Resource, Api
 from sqlalchemy import create_engine
 from json import dumps
+from datetime import datetime
 
 
 e = create_engine('mysql+mysqlconnector://buswatcher:njtransit@localhost/bus_position_log')
 app = Flask(__name__)
 api = Api(app)
 
+# /route/{n} - all of the position reports for a given route LIMIT 50 records
+
 class Routes(Resource):
     def get(self, rt):
         conn = e.connect()
-        query = conn.execute("select * from positions where rt='%s'" % rt)
-        return {'departments': [i[0] for i in query.cursor.fetchall()]} # how to jsonify the results?
-
+        query = conn.execute("select * from positions where rt='%s' LIMIT 50" % rt)
+        #return {'departments': [i[0] for i in query.cursor.fetchall()]} # how to jsonify the results?
+        return dumps(query)
 api.add_resource(Routes, '/route/<int:rt>')
 
-'''
-class Departmental_Salary(Resource):
-    def get(self, department_name):
-        conn = e.connect()
-        query = conn.execute("select * from salaries where Department='%s'" % department_name.upper())
-        # Query the result and get cursor.Dumping that data to a JSON is looked by extension
-        result = {'data': [dict(zip(tuple(query.keys()), i)) for i in query.cursor]}
-        return result
-        # We can have PUT,DELETE,POST here. But in our API GET implementation is sufficient
+# Good resource on running these queries using native MYsql
+# http://sys-exit.blogspot.com/2013/06/mysql-today-tomorrow-yesterday-this.html
 
-api.add_resource(Departments_Meta, '/departments')
-'''
+# /route/daily/{n} - all of the position reports since midnight local time for a given route.
+class RoutesDaily(Resource):
+    def get(self, rt):
+        conn = e.connect()
+        query = conn.execute("SELECT * FROM table WHERE (rt='%s' AND (timestamp BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 1 day)))" % rt)
+        return dumps(query)
+api.add_resource(Routes, '/route/daily/<int:rt>')
+
+
+
+#
+# route for the monthly
+class RoutesMonthly(Resource):
+    def get(self, year,month,rt):
+        # fetch the json and put it into the appropriate container if any and return it)
+        return # render_template('index.html', message=message) <--- is this right?
+api.add_resource(Routes, '/route/monthly/<int:year>/<int:month><int:rt>')
+
+
+
+# functions for batch processing
+
+def make_route_monthly(year,month,rt):
+    conn = e.connect()
+    query = conn.execute("select * from positions where (rt='%s' AND (YEAR(timestamp)=year and MONTH(timestamp)=month)" % rt)
+    results=dumps(query)
+    path=('/'+str(year)+'/'+str(month)+'/'+'%s.json' % rt)
+    return path,results
+
