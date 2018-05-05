@@ -1,34 +1,31 @@
 
-#
-# METHOD 2 flask_restful and SQLalchemy
-# https://impythonist.wordpress.com/2015/07/12/build-an-api-under-30-lines-of-code-with-python-and-flask/
-# more docs here https://flask-restful.readthedocs.io/en/latest/quickstart.html
+# buswatcher.code4jc.org
+# v1.1 API
+# implemented with flask_restful and SQLalchemy
+# as described at https://impythonist.wordpress.com/2015/07/12/build-an-api-under-30-lines-of-code-with-python-and-flask/
+# other docs https://flask-restful.readthedocs.io/en/latest/quickstart.html
+# other docs https://flask-restless.readthedocs.io/en/latest/basicusage.html
 
 from flask import Flask, request
 from flask_restful import Resource, Api
 from sqlalchemy import create_engine
 from json import dumps
 
-# Create a engine for connecting to SQLite3.
-# Assuming salaries.db is in your app root folder
-
 def main():
 
-    e = create_engine('sqlite:///salaries.db')
-
+    e = create_engine('mysql+mysqlconnector://buswatcher:njtransit@localhost/bus_position_log')
     app = Flask(__name__)
     api = Api(app)
 
-
-    class Departments_Meta(Resource):
-        def get(self):
-            # Connect to databse
+    class Routes(Resource):
+        def get(self, route_no):
             conn = e.connect()
-            # Perform query and return JSON data
-            query = conn.execute("select distinct DEPARTMENT from salaries")
-            return {'departments': [i[0] for i in query.cursor.fetchall()]}
+            query = conn.execute("select * from positions where rt='%s' from positions" % route_no)
+            return {'departments': [i[0] for i in query.cursor.fetchall()]} # how to jsonify the results?
 
+    api.add_resource(Routes, '/route/<string:rt>')
 
+    '''
     class Departmental_Salary(Resource):
         def get(self, department_name):
             conn = e.connect()
@@ -37,10 +34,9 @@ def main():
             result = {'data': [dict(zip(tuple(query.keys()), i)) for i in query.cursor]}
             return result
             # We can have PUT,DELETE,POST here. But in our API GET implementation is sufficient
-
-
-    api.add_resource(Departmental_Salary, '/dept/<string:department_name>')
+   
     api.add_resource(Departments_Meta, '/departments')
+    '''
 
 if __name__ == '__main__':
     app.run()

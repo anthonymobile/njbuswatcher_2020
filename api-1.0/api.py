@@ -24,7 +24,7 @@ def top(rt):
 
 
 # /{n} - returns all the position reports for a given route over all time
-@app.route('/<rt>')
+@app.route('/route/<rt>')
 def routehistory(rt):
     cur = mysql.connect().cursor()
     cur.execute('''select * from bus_position_log.positions where rt=rt''')
