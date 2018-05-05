@@ -1,3 +1,4 @@
+USE bus_position_log;
 CREATE TABLE positions_new LIKE positions;
 ALTER TABLE positions_new MODIFY COLUMN ar VARCHAR(20);
 ALTER TABLE positions_new MODIFY COLUMN bid VARCHAR(20);
