@@ -51,27 +51,39 @@ For New Jersey, this will tuck in at around 100-150 GB a year in SQLite, snappin
 
 ## API
 
-###v1.0
+###v1.0 (deprecated)
 Implemented with flask and flask-mysql.
 
 Working:
 http://buswatcher.code4jc.org/api-1.0
-- /{n} - returns all the position reports for a given route over all time
+- /{n} - returns all the position reports for all vehicles for a given route over all time
+
+
+###v1.1 (Under development)
+Implemented will be with flask-restful and sqlalchemy
+
+Working:
+http://buswatcher.code4jc.org/api-1.1
+- /route/{n} - all position reports, all vehicles, for route {n}, limit 50. This is jsut for inspection, testing services, etc.
 
 Under development:
-- /daily/{n} - all of the position reports since midnight local time for a given route.
-- /weekly/{n} 
-- /monthly/{n}
-- /bus/{n} - returns all the position reports for a specific  vehicle over all time. 
-- /bus/daily/{n} - all of the position reports since midnight local time for a given route.
+
+- /route/daily/{n} - all of the position reports since midnight local time for a given route.
+
+- /bus/{n} - all the position reports for a specific  vehicle over all time. 
+- /bus/daily/{n} 
 - /bus/weekly/{n}
-- /bus/monthly/{n}
 
-
-###v1.1 (TBD)
-TBD. Implemented will be with flask-restful and sqlalchemy
-http://buswatcher.code4jc.org/api-1.1
 
 ###v2.0 (TBD)
-Implementation will be mostly batch processed by python scripts and served up as static files. Requests for anything older than the last week will be basically implemented with the same method as API v1.1 (Assuming that turns out faster)
+All of the above plus:
 http://buswatcher.code4jc.org/api-2.0
+- /route/monthly/{n}
+- /route/yearly/{n}
+- /route/history/{n}
+
+- /bus/monthly/{n}
+- /bus/yearly/{n}
+- /bus/history/{n}
+
+Implementation will be mostly batch processed by python scripts and served up as static files. Requests for anything older than the last week will be basically implemented with the same method as API v1.1 (Assuming that turns out faster)

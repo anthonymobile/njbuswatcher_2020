@@ -46,6 +46,27 @@ class RoutesMonthly(Resource):
     def get(self, year,month,rt):
         # fetch the json and put it into the appropriate container if any and return it)
         return # render_template('index.html', message=message) <--- is this right?
+
+#
+#
+# Static route methods
+#
+# USING url_for
+# https://stackoverflow.com/questions/16351826/link-to-flask-static-files-with-url-for
+#
+# USING send_from_directory
+# https://www.google.com/amp/s/amp.reddit.com/r/learnpython/comments/3g08o6/problem_to_get_a_file_using_send_from_directory/
+#
+# @app.route('/media/', methods=['GET','POST'])
+# def send_foo(filename):
+# return send_from_directory('/media/usbhdd1/downloads/', filename, as_attachment=True)
+#
+# @app.route('/route//', methods=['GET','POST'])
+# def fetch_log((logpath+’/%s/%s/%s’+’.json’) % year, month, rt):
+# return send_from_directory('/TJ/', filename, as_attachment=False)
+
+
+
 api.add_resource(Routes, '/route/monthly/<int:year>/<int:month><int:rt>')
 
 
