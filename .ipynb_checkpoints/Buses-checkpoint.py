@@ -120,6 +120,7 @@ def parse_stopprediction_xml(data):
             prediction.stop_name = stop_nm 
             # and split the integer out of the prediction
             prediction.pt = prediction.pt.split(' ')[0]
+        print results
     return results
     
 # end of stops add
