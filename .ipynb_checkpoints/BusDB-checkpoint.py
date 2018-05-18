@@ -6,6 +6,35 @@ import datetime
 
 _columns = ['lat','lon','ar','bid','c','cars','consist','d','dd','dn','fs','id','m','op','pd','pdRtpiFeedName','pid','rt','rtRtpiFeedName','rtdd','rtpiFeedName','run','wid1','wid2']
 
+
+class Position(mongo.Document):
+    lat = mongo.StringField(max_length=20)
+    lon = mongo.StringField(max_length=20)
+    ar = mongo.StringField(max_length=20)
+    bid = mongo.StringField(max_length=20)
+    c = mongo.StringField(max_length=20)
+    cars = mongo.StringField(max_length=20)
+    consist = mongo.StringField(max_length=20)
+    d = mongo.StringField(max_length=20)
+    dd = mongo.StringField(max_length=20)
+    dn = mongo.StringField(max_length=20)
+    fs = mongo.StringField(max_length=255)
+    id_bus = mongo.StringField(max_length=20)
+    m = mongo.StringField(max_length=20)
+    op = mongo.StringField(max_length=20)
+    pd = mongo.StringField(max_length=20)
+    pdRtpiFeedName = mongo.StringField(max_length=20)
+    pid = mongo.StringField(max_length=20)
+    rt = mongo.StringField(max_length=20)
+    rtRtpiFeedName = mongo.StringField(max_length=20)
+    rtdd = mongo.StringField(max_length=20)
+    rtpiFeedName = mongo.StringField(max_length=20)
+    run = mongo.StringField(max_length=20)
+    wid1 = mongo.StringField(max_length=20)
+    wid2 = mongo.StringField(max_length=20)
+    # timestamp = mongo.DateTimeField(default=datetime.datetime.now)
+
+
 def _bus_to_sql(format_string, bus, timestamp):
     for var in _columns:
         if not hasattr(bus, var):
@@ -18,6 +47,7 @@ def _bus_to_sql(format_string, bus, timestamp):
     float(bus.lat), float(bus.lon), bus.ar, bus.bid, bus.c, bus.cars, bus.consist, bus.d, bus.dd, bus.dn, bus.fs,
     bus.id, bus.m, bus.op, bus.pd, bus.pdRtpiFeedName, bus.pid, bus.rt, bus.rtRtpiFeedName, bus.rtdd, bus.rtpiFeedName,
     bus.run, bus.wid1, bus.wid2, str(timestamp))
+
 
 def _bus_to_instance(bus, timestampnow):     # i turn a bus record into an instance of the Position class
     bus_position = Position(
@@ -66,10 +96,10 @@ class DB:
             cursor.execute(command)
         self.conn.commit()
 
-    def insert_positions(self, records, timestamp):
+    def insert_positions(self, buses, timestamp):
         import ipdb
         # ipdb.set_trace()
-        self._batch_execute([_bus_to_sql(self.insert_string, r, timestamp) for r in records])
+        self._batch_execute([_bus_to_sql(self.insert_string, b, timestamp) for b in buses])
 
 
 class SQLite(DB):
@@ -113,3 +143,43 @@ class MySQL(DB):
             self._execute(MySQL._create_table_string)
         except mysql.connector.Error as err:
             pass
+
+
+class Mongo(DB):
+    """
+     ##not sure what to do with this.
+    def __del__(self):
+       if self.conn is not None:
+           self.conn.close()
+
+    ##not sure what to do with this.
+    def _execute(self, command):
+        self._batch_execute([command])
+    """
+
+    _insert_string = 'TK INSERT STRING TK'
+
+    def _batch_execute(self, insertions):
+        for each in insertions:
+            each.save()
+
+    def insert_positions(self, buses, timestamp):
+        self._batch_execute([_bus_to_instance(b, timestamp) for b in buses])
+
+    def __init__(self, mongo_name):
+        # DB.__init__(self, SQLite._insert_string)
+        DB.__init__(self, Mongo._insert_string)
+        self.mongo_name = mongo_name
+        self.mongo_host = '127.0.0.1'
+        self._setup_db()
+
+    def _setup_db(self):
+        host_url = 'mongodb://localhost:27017/%s' % self.mongo_name
+        print host_url
+        mongo.connect(self.mongo_name, host=host_url)
+        # create and delete a record to test since mongo doesnt require a defined table structure
+
+        dummy = Position(lat='abc')  # create an object
+        print dummy
+        dummy.save()  # save it
+        Position.objects(lat="abc").delete()  # then delete it

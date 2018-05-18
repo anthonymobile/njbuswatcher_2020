@@ -2,12 +2,22 @@
 <project version="4">
   <component name="BookmarkManager">
     <bookmark url="file://$PROJECT_DIR$/api-1.1/api.py" description="Fix query parsing for proper output... not just the first field." line="25" />
+    <bookmark url="file://$PROJECT_DIR$/report_card/grabber.py" description="Need to abstract _batch_execute or create a new version for stops not just buses" line="20" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e9c35431-0764-488c-bbb0-431ede0ff16b" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/StopsDB.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/report_card/shower.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/buswatcher.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/buswatcher.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-1.1/api.py" beforeDir="false" afterPath="$PROJECT_DIR$/api-1.1/api.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ipynb_checkpoints/Testing Parsers-checkpoint.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/.ipynb_checkpoints/Testing Parsers-checkpoint.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BusDB.py" beforeDir="false" afterPath="$PROJECT_DIR$/BusDB.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Buses.py" beforeDir="false" afterPath="$PROJECT_DIR$/Buses.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Testing Parsers.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Testing Parsers.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/buswatcher.py" beforeDir="false" afterPath="$PROJECT_DIR$/buswatcher.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/report_card/grabber.py" beforeDir="false" afterPath="$PROJECT_DIR$/report_card/grabber.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_command.sh" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -21,13 +31,46 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="api.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/api-1.1/api.py">
+      <file leaf-file-name="grabber.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/report_card/grabber.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="197">
-              <caret line="57" column="24" lean-forward="true" selection-start-line="57" selection-start-column="24" selection-end-line="57" selection-end-column="24" />
+            <state relative-caret-position="105">
+              <caret line="18" column="22" lean-forward="true" selection-start-line="18" selection-start-column="22" selection-end-line="18" selection-end-column="22" />
               <folding>
-                <element signature="e#361#393#0" expanded="true" />
+                <element signature="e#142#156#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="StopsDB.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/StopsDB.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="163">
+              <caret line="43" column="56" selection-start-line="43" selection-start-column="56" selection-end-line="43" selection-end-column="56" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Buses.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Buses.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2299">
+              <caret line="121" column="55" selection-start-line="121" selection-start-column="55" selection-end-line="121" selection-end-column="55" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="buswatcher.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/buswatcher.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="44" column="43" selection-start-line="44" selection-start-column="43" selection-end-line="44" selection-end-column="43" />
+              <folding>
+                <element signature="e#137#146#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -49,6 +92,10 @@
       <find>bus_to</find>
       <find>commands</find>
       <find>StringField</find>
+      <find>lat</find>
+      <find>print</find>
+      <find>consist</find>
+      <find>bus_to_sql</find>
     </findStrings>
     <replaceStrings>
       <replace>mongo.StringField</replace>
@@ -62,23 +109,26 @@
       <list>
         <option value="$PROJECT_DIR$/api/API-start.py" />
         <option value="$PROJECT_DIR$/dbtest.py" />
-        <option value="$PROJECT_DIR$/buswatcher.py" />
         <option value="$PROJECT_DIR$/api-1.0/API-start.py" />
         <option value="$PROJECT_DIR$/api-1.0/routes.py" />
-        <option value="$PROJECT_DIR$/BusDB.py" />
         <option value="$PROJECT_DIR$/update_table.sql" />
         <option value="$PROJECT_DIR$/api-2.0/api.py" />
         <option value="$PROJECT_DIR$/api-1.0/api.py" />
         <option value="$PROJECT_DIR$/db-optimization-sql.txt" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/api-1.1/api.py" />
+        <option value="$PROJECT_DIR$/Buses.py" />
+        <option value="$PROJECT_DIR$/BusDB.py" />
+        <option value="$PROJECT_DIR$/buswatcher.py" />
+        <option value="$PROJECT_DIR$/report_card/grabber.py" />
+        <option value="$PROJECT_DIR$/StopsDB.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="y" value="23" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="y" value="27" />
     <option name="width" value="1366" />
-    <option name="height" value="745" />
+    <option name="height" value="741" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -95,17 +145,7 @@
             <path>
               <item name="buswatcher" type="b2602c69:ProjectViewProjectNode" />
               <item name="buswatcher" type="462c0819:PsiDirectoryNode" />
-              <item name="api-1.0" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="buswatcher" type="b2602c69:ProjectViewProjectNode" />
-              <item name="buswatcher" type="462c0819:PsiDirectoryNode" />
-              <item name="api-1.1" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="buswatcher" type="b2602c69:ProjectViewProjectNode" />
-              <item name="buswatcher" type="462c0819:PsiDirectoryNode" />
-              <item name="api-2.0" type="462c0819:PsiDirectoryNode" />
+              <item name="report_card" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -115,11 +155,15 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/buswatcher.py" />
     <property name="settings.editor.selected.configurable" value="preferences.editor" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/report_card" />
       <recent name="$PROJECT_DIR$/api-1.1" />
     </key>
   </component>
@@ -135,7 +179,25 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.buswatcher">
+  <component name="RunManager" selected="Python.grab 119 (4 stops)">
+    <configuration name="bus grab 119" type="PythonConfigurationType" factoryName="Python">
+      <module name="buswatcher" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="$USER_HOME$/anaconda2/envs/buswatcher/bin/python2.7" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/buswatcher.py" />
+      <option name="PARAMETERS" value="-s nj sqlite --sqlite-file busgrab.db" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
     <configuration name="buswatcher" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="buswatcher" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -172,7 +234,46 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
+    <configuration name="grab 119 (1 stop)" type="PythonConfigurationType" factoryName="Python">
+      <module name="buswatcher" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="$USER_HOME$/anaconda2/envs/buswatcher/bin/python2.7" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/report_card" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/report_card/grabber.py" />
+      <option name="PARAMETERS" value="30189,119" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <configuration name="grab 119 (4 stops)" type="PythonConfigurationType" factoryName="Python">
+      <module name="buswatcher" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="$USER_HOME$/anaconda2/envs/buswatcher/bin/python2.7" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/report_card" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/report_card/grabber.py" />
+      <option name="PARAMETERS" value="31732,119 20615,119 30189,119 21853,119" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
     <list>
+      <item itemvalue="Python.grab 119 (4 stops)" />
+      <item itemvalue="Python.grab 119 (1 stop)" />
+      <item itemvalue="Python.bus grab 119" />
       <item itemvalue="Python.buswatcher" />
       <item itemvalue="Python.dbtest" />
     </list>
@@ -257,28 +358,48 @@
       <option name="project" value="LOCAL" />
       <updated>1525554672238</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="report card grabber mostly done">
+      <created>1526558245440</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1526558245440</updated>
+    </task>
+    <task id="LOCAL-00011" summary="making some progress debugging the grabber">
+      <created>1526607164295</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1526607164295</updated>
+    </task>
+    <task id="LOCAL-00012" summary="close to debug">
+      <created>1526614017299</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1526614017299</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1366" height="745" extended-state="0" />
-    <editor active="true" />
+    <frame x="0" y="25" width="1366" height="743" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49776453" visible="true" weight="0.24963397" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49605057" visible="true" weight="0.21229868" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32935917" />
       <window_info anchor="bottom" id="Python Console" order="7" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.42175856" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.42022118" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info id="Favorites" order="2" sideWeight="0.5022355" side_tool="true" weight="0.24963397" />
+      <window_info id="Favorites" order="2" sideWeight="0.50394946" side_tool="true" weight="0.21229868" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39940387" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Find" order="1" />
     </layout>
@@ -315,38 +436,17 @@
     <MESSAGE value="1st draft of api v1.0" />
     <MESSAGE value="mysql table structure update script added" />
     <MESSAGE value="v1.1 routes monthly reading for testing" />
-    <option name="LAST_COMMIT_MESSAGE" value="v1.1 routes monthly reading for testing" />
+    <MESSAGE value="report card grabber mostly done" />
+    <MESSAGE value="making some progress debugging the grabber" />
+    <MESSAGE value="close to debug" />
+    <option name="LAST_COMMIT_MESSAGE" value="close to debug" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="1" />
+      <option name="time" value="5" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/api-1.1/api.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1159">
-          <caret line="61" lean-forward="true" selection-start-line="61" selection-end-line="61" />
-          <folding>
-            <element signature="e#361#393#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/api-1.0/api.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="24" selection-start-line="24" selection-end-line="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Buses.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="11" column="16" selection-start-line="11" selection-start-column="16" selection-end-line="11" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/BusDB.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2280">
@@ -615,35 +715,8 @@
         <state relative-caret-position="-4770" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dbtest.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" selection-start-line="2" selection-end-line="2" selection-end-column="63" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/buswatcher.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="36" selection-start-line="36" selection-end-line="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Buses.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="11" column="16" selection-start-line="11" selection-start-column="16" selection-end-line="11" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/dbtest.py" />
     <entry file="file://$PROJECT_DIR$/update_table.sql" />
-    <entry file="file://$PROJECT_DIR$/BusDB.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="365">
-          <caret line="124" column="27" selection-start-line="124" selection-start-column="27" selection-end-line="124" selection-end-column="554" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/api-1.0/api.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="206">
@@ -651,13 +724,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/db-optimization-sql.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/db-optimization-sql.txt" />
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
@@ -670,10 +737,54 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/api-1.1/api.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="57" column="24" lean-forward="true" selection-start-line="57" selection-start-column="24" selection-end-line="57" selection-end-column="24" />
+        <state relative-caret-position="76">
+          <caret line="12" column="28" selection-end-line="82" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BusDB.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_command.sh">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Buses.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2299">
+          <caret line="121" column="55" selection-start-line="121" selection-start-column="55" selection-end-line="121" selection-end-column="55" />
           <folding>
-            <element signature="e#361#393#0" expanded="true" />
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/report_card/grabber.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="18" column="22" lean-forward="true" selection-start-line="18" selection-start-column="22" selection-end-line="18" selection-end-column="22" />
+          <folding>
+            <element signature="e#142#156#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/StopsDB.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="163">
+          <caret line="43" column="56" selection-start-line="43" selection-start-column="56" selection-end-line="43" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/buswatcher.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="44" column="43" selection-start-line="44" selection-start-column="43" selection-end-line="44" selection-end-column="43" />
+          <folding>
+            <element signature="e#137#146#0" expanded="true" />
           </folding>
         </state>
       </provider>
