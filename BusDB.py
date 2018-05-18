@@ -111,18 +111,19 @@ class SQLite_Stops(DB):
         else:
             self.conn = sqlite3.connect(self.fname)
 
-
-    def _stops_to_sql(format_string, stopprediction, timestamp):
+    def _stops_to_sql(format_string, prediction, timestamp):
+        print dir(prediction)
         for var in _stop_columns:
-            if not hasattr(stopprediction, var):
-                print var
-                print stopprediction
-                setattr(stopprediction, var, '')
+            if not hasattr(prediction, var):
+                setattr(prediction, var, '')
 
-        return format_string % (stopprediction.cars, stopprediction.consist, stopprediction.fd, stopprediction.m, stopprediction.name, stopprediction.pt, stopprediction.rd, stopprediction.rn, stopprediction.scheduled, stopprediction.stop_id, stopprediction.stop_name, stopprediction.v, str(timestamp))
+        return format_string % (prediction.cars, prediction.consist, prediction.fd, prediction.m, prediction.name,
+                                prediction.pt, prediction.rd, prediction.rn, prediction.scheduled, prediction.stop_id,
+                                prediction.stop_name, prediction.v, str(timestamp))
 
-    def insert_positions(self, records, timestamp):
-        self._batch_execute([self._stops_to_sql(self.insert_string, r) for r in records])
+
+    def insert_positions(self, predictions, timestamp):
+        self._batch_execute([_stops_to_sql(self.insert_string, p, timestamp) for p in predictions])
 
 
 class MySQL(DB):
