@@ -5,34 +5,7 @@ import mongoengine as mongo
 import datetime
 
 _columns = ['lat','lon','ar','bid','c','cars','consist','d','dd','dn','fs','id','m','op','pd','pdRtpiFeedName','pid','rt','rtRtpiFeedName','rtdd','rtpiFeedName','run','wid1','wid2']
-
-
-class Position(mongo.Document):
-    lat = mongo.StringField(max_length=20)
-    lon = mongo.StringField(max_length=20)
-    ar = mongo.StringField(max_length=20)
-    bid = mongo.StringField(max_length=20)
-    c = mongo.StringField(max_length=20)
-    cars = mongo.StringField(max_length=20)
-    consist = mongo.StringField(max_length=20)
-    d = mongo.StringField(max_length=20)
-    dd = mongo.StringField(max_length=20)
-    dn = mongo.StringField(max_length=20)
-    fs = mongo.StringField(max_length=255)
-    id_bus = mongo.StringField(max_length=20)
-    m = mongo.StringField(max_length=20)
-    op = mongo.StringField(max_length=20)
-    pd = mongo.StringField(max_length=20)
-    pdRtpiFeedName = mongo.StringField(max_length=20)
-    pid = mongo.StringField(max_length=20)
-    rt = mongo.StringField(max_length=20)
-    rtRtpiFeedName = mongo.StringField(max_length=20)
-    rtdd = mongo.StringField(max_length=20)
-    rtpiFeedName = mongo.StringField(max_length=20)
-    run = mongo.StringField(max_length=20)
-    wid1 = mongo.StringField(max_length=20)
-    wid2 = mongo.StringField(max_length=20)
-    # timestamp = mongo.DateTimeField(default=datetime.datetime.now)
+_stop_columns = ['cars','consist','fd','m','name','pt','rd','rn','scheduled','stop_id','stop_name','v']
 
 
 def _bus_to_sql(format_string, bus, timestamp):
@@ -96,10 +69,10 @@ class DB:
             cursor.execute(command)
         self.conn.commit()
 
-    def insert_positions(self, buses, timestamp):
+    def insert_positions(self, records, timestamp):
         import ipdb
         # ipdb.set_trace()
-        self._batch_execute([_bus_to_sql(self.insert_string, b, timestamp) for b in buses])
+        self._batch_execute([_bus_to_sql(self.insert_string, r, timestamp) for r in records])
 
 
 class SQLite(DB):
@@ -119,6 +92,37 @@ class SQLite(DB):
             self._execute(SQLite._create_db_string)
         else:
             self.conn = sqlite3.connect(self.fname)
+
+class SQLite_Stops(DB):
+    _create_db_string = '''CREATE TABLE stops (pkey integer primary key autoincrement, cars text, consist text, fd text, m text, name text, pt text, rd text, rn text, scheduled text, stop_id text, stop_name text, v text, timestamp text)'''
+
+    _insert_string = 'INSERT INTO stop_predictions VALUES(NULL, "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s")'
+
+    def __init__(self, fname):
+        DB.__init__(self, SQLite_Stops._insert_string)
+        self.conn = None
+        self.fname = fname
+
+        if not os.path.exists(self.fname):
+            if not os.path.exists(os.path.dirname(self.fname)):
+                os.makedirs(os.path.dirname(self.fname))
+            self.conn = sqlite3.connect(self.fname)
+            self._execute(SQLite_Stops._create_db_string)
+        else:
+            self.conn = sqlite3.connect(self.fname)
+
+
+    def _stops_to_sql(format_string, stopprediction, timestamp):
+        for var in _stop_columns:
+            if not hasattr(stopprediction, var):
+                print var
+                print stopprediction
+                setattr(stopprediction, var, '')
+
+        return format_string % (stopprediction.cars, stopprediction.consist, stopprediction.fd, stopprediction.m, stopprediction.name, stopprediction.pt, stopprediction.rd, stopprediction.rn, stopprediction.scheduled, stopprediction.stop_id, stopprediction.stop_name, stopprediction.v, str(timestamp))
+
+    def insert_positions(self, records, timestamp):
+        self._batch_execute([self._stops_to_sql(self.insert_string, r) for r in records])
 
 
 class MySQL(DB):
@@ -144,42 +148,3 @@ class MySQL(DB):
         except mysql.connector.Error as err:
             pass
 
-
-class Mongo(DB):
-    """
-     ##not sure what to do with this.
-    def __del__(self):
-       if self.conn is not None:
-           self.conn.close()
-
-    ##not sure what to do with this.
-    def _execute(self, command):
-        self._batch_execute([command])
-    """
-
-    _insert_string = 'TK INSERT STRING TK'
-
-    def _batch_execute(self, insertions):
-        for each in insertions:
-            each.save()
-
-    def insert_positions(self, buses, timestamp):
-        self._batch_execute([_bus_to_instance(b, timestamp) for b in buses])
-
-    def __init__(self, mongo_name):
-        # DB.__init__(self, SQLite._insert_string)
-        DB.__init__(self, Mongo._insert_string)
-        self.mongo_name = mongo_name
-        self.mongo_host = '127.0.0.1'
-        self._setup_db()
-
-    def _setup_db(self):
-        host_url = 'mongodb://localhost:27017/%s' % self.mongo_name
-        print host_url
-        mongo.connect(self.mongo_name, host=host_url)
-        # create and delete a record to test since mongo doesnt require a defined table structure
-
-        dummy = Position(lat='abc')  # create an object
-        print dummy
-        dummy.save()  # save it
-        Position.objects(lat="abc").delete()  # then delete it
