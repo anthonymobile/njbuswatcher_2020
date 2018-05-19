@@ -3,7 +3,7 @@
 # 31732 (j sq)  20615 (central and manhattan)   30189 (webster and congress)    21853 (willow 19th)
 
 import StopsDB
-import Buses
+from .. import Buses
 import argparse,datetime
 
 def main():
