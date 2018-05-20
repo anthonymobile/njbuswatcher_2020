@@ -2,12 +2,16 @@
 <project version="4">
   <component name="BookmarkManager">
     <bookmark url="file://$PROJECT_DIR$/api-1.1/api.py" description="Fix query parsing for proper output... not just the first field." line="25" />
-    <bookmark url="file://$PROJECT_DIR$/report_card/grabber.py" description="Need to abstract _batch_execute or create a new version for stops not just buses" line="20" />
+    <bookmark url="file://$PROJECT_DIR$/report_card/grabber.py" description="Need to abstract _batch_execute or create a new version for stops not just buses" line="44" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e9c35431-0764-488c-bbb0-431ede0ff16b" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/report_card/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Buses.py" beforeDir="false" afterPath="$PROJECT_DIR$/Buses.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/report_card/StopsDB.py" beforeDir="false" afterPath="$PROJECT_DIR$/report_card/StopsDB.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/report_card/data/119.db" beforeDir="false" afterPath="$PROJECT_DIR$/report_card/data/119.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/report_card/grabber.py" beforeDir="false" afterPath="$PROJECT_DIR$/report_card/grabber.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/report_card/shower.py" beforeDir="false" afterPath="$PROJECT_DIR$/report_card/shower.py" afterDir="false" />
     </list>
@@ -23,11 +27,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="shower.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/report_card/shower.py">
+      <file leaf-file-name="grabber.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/report_card/grabber.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="467">
-              <caret line="38" lean-forward="true" selection-start-line="38" selection-end-line="38" />
+            <state relative-caret-position="760">
+              <caret line="38" column="5" lean-forward="true" selection-start-line="38" selection-start-column="5" selection-end-line="38" selection-end-column="5" />
+              <folding>
+                <element signature="e#21#31#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -35,17 +42,8 @@
       <file leaf-file-name="Buses.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Buses.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="568">
-              <caret line="121" column="55" selection-start-line="121" selection-start-column="55" selection-end-line="121" selection-end-column="55" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="buswatcher.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/buswatcher.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="17" lean-forward="true" selection-start-column="17" selection-end-line="25" selection-end-column="14" />
+            <state relative-caret-position="123">
+              <caret line="102" lean-forward="true" selection-start-line="98" selection-start-column="10" selection-end-line="102" />
             </state>
           </provider>
         </entry>
@@ -71,6 +69,7 @@
       <find>consist</find>
       <find>bus_to_sql</find>
       <find>conn</find>
+      <find>get_xml</find>
     </findStrings>
     <replaceStrings>
       <replace>mongo.StringField</replace>
@@ -91,27 +90,28 @@
         <option value="$PROJECT_DIR$/api-1.0/api.py" />
         <option value="$PROJECT_DIR$/db-optimization-sql.txt" />
         <option value="$PROJECT_DIR$/api-1.1/api.py" />
-        <option value="$PROJECT_DIR$/Buses.py" />
         <option value="$PROJECT_DIR$/BusDB.py" />
         <option value="$PROJECT_DIR$/buswatcher.py" />
         <option value="$PROJECT_DIR$/StopsDB.py" />
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/report_card/grabber.py" />
+        <option value="$PROJECT_DIR$/report_card/StopsDB.py" />
+        <option value="$PROJECT_DIR$/__init__.py" />
         <option value="$PROJECT_DIR$/report_card/shower.py" />
+        <option value="$PROJECT_DIR$/Buses.py" />
+        <option value="$PROJECT_DIR$/report_card/grabber.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="y" value="27" />
-    <option name="width" value="1366" />
-    <option name="height" value="741" />
+  <component name="ProjectFrameBounds" fullScreen="true">
+    <option name="y" value="23" />
+    <option name="width" value="1920" />
+    <option name="height" value="1057" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -128,11 +128,12 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/report_card/shower.py" />
-    <property name="settings.editor.selected.configurable" value="terminal" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -155,7 +156,25 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.shower 119">
+  <component name="RunManager" selected="Python.report_card:grabber 119">
+    <configuration name="__init__" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="buswatcher" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/__init__.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
     <configuration name="bus grab 119" type="PythonConfigurationType" factoryName="Python">
       <module name="buswatcher" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -210,20 +229,20 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="grab 119 (1 stop)" type="PythonConfigurationType" factoryName="Python">
+    <configuration name="report_card:grabber 119" type="PythonConfigurationType" factoryName="Python">
       <module name="buswatcher" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="$USER_HOME$/anaconda2/envs/buswatcher/bin/python2.7" />
+      <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/report_card" />
-      <option name="IS_MODULE_SDK" value="false" />
+      <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/report_card/grabber.py" />
-      <option name="PARAMETERS" value="30189,119" />
+      <option name="PARAMETERS" value="-s nj -r 119" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -235,7 +254,7 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="$USER_HOME$/anaconda2/envs/buswatcher/bin/python2.7" />
+      <option name="SDK_HOME" value="$USER_HOME$/anaconda3/envs/buswatcher/bin/python" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/report_card" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -248,13 +267,15 @@
     </configuration>
     <list>
       <item itemvalue="Python.shower 119" />
-      <item itemvalue="Python.grab 119 (1 stop)" />
+      <item itemvalue="Python.report_card:grabber 119" />
       <item itemvalue="Python.bus grab 119" />
       <item itemvalue="Python.buswatcher" />
       <item itemvalue="Python.dbtest" />
+      <item itemvalue="Python.__init__" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.__init__" />
         <item itemvalue="Python.buswatcher" />
         <item itemvalue="Python.dbtest" />
       </list>
@@ -366,12 +387,12 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="25" width="1366" height="743" extended-state="6" />
+    <frame x="0" y="0" width="1366" height="768" extended-state="0" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49605057" visible="true" weight="0.21229868" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49605057" visible="true" weight="0.21156661" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.42022118" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.41899443" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32935917" />
       <window_info anchor="bottom" id="Python Console" order="7" weight="0.328594" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -379,30 +400,30 @@
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39940387" />
       <window_info id="Favorites" order="2" sideWeight="0.50394946" side_tool="true" weight="0.21229868" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" />
     </layout>
     <layout-to-restore>
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49605057" visible="true" weight="0.21229868" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.41899443" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49605057" weight="0.21156661" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="10" weight="0.32935917" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.42022118" />
-      <window_info anchor="bottom" id="Python Console" order="7" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39940387" />
-      <window_info anchor="bottom" id="Terminal" order="8" />
-      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Python Console" order="7" weight="0.328594" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39940387" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.328594" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Version Control" order="10" weight="0.32935917" />
+      <window_info anchor="bottom" id="Message" order="0" />
       <window_info id="Favorites" order="2" sideWeight="0.50394946" side_tool="true" weight="0.21229868" />
     </layout-to-restore>
   </component>
@@ -427,18 +448,24 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="5" />
+      <option name="time" value="6" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/update_table.sql" />
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="1140">
-            <caret line="60" selection-start-line="60" selection-end-line="60" />
-          </first_editor>
-          <second_editor />
+    <entry file="file://$PROJECT_DIR$/report_card/grabber.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="17" column="128" selection-start-line="17" selection-start-column="128" selection-end-line="17" selection-end-column="128" />
+          <folding>
+            <element signature="e#21#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/report_card/shower.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="28" column="10" selection-start-line="28" selection-start-column="10" selection-end-line="28" selection-end-column="10" />
         </state>
       </provider>
     </entry>
@@ -680,11 +707,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/anaconda2/envs/buswatcher/lib/python2.7/site-packages/mongoengine/connection.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4770" />
-      </provider>
-    </entry>
+    <entry file="file://$USER_HOME$/anaconda2/envs/buswatcher/lib/python2.7/site-packages/mongoengine/connection.py" />
     <entry file="file://$PROJECT_DIR$/dbtest.py" />
     <entry file="file://$PROJECT_DIR$/update_table.sql" />
     <entry file="file://$PROJECT_DIR$/api-1.0/api.py">
@@ -720,26 +743,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/report_card/grabber.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="12" column="30" selection-start-line="10" selection-start-column="3" selection-end-line="14" selection-end-column="70" />
-          <folding>
-            <element signature="e#142#156#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/report_card/StopsDB.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="551">
-          <caret line="33" column="26" selection-start-line="33" selection-start-column="22" selection-end-line="33" selection-end-column="26" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/report_card/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
@@ -750,24 +753,41 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Buses.py">
+    <entry file="file://$PROJECT_DIR$/report_card/StopsDB.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="568">
-          <caret line="121" column="55" selection-start-line="121" selection-start-column="55" selection-end-line="121" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/buswatcher.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="17" lean-forward="true" selection-start-column="17" selection-end-line="25" selection-end-column="14" />
+        <state relative-caret-position="30">
+          <caret line="2" column="38" selection-start-line="2" selection-start-column="38" selection-end-line="2" selection-end-column="38" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/report_card/shower.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="467">
-          <caret line="38" lean-forward="true" selection-start-line="38" selection-end-line="38" />
+        <state relative-caret-position="375">
+          <caret line="25" column="27" selection-start-line="25" selection-start-column="27" selection-end-line="25" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/buswatcher.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="134">
+          <caret line="18" column="4" selection-start-line="17" selection-start-column="4" selection-end-line="18" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Buses.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="123">
+          <caret line="102" lean-forward="true" selection-start-line="98" selection-start-column="10" selection-end-line="102" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/report_card/grabber.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="760">
+          <caret line="38" column="5" lean-forward="true" selection-start-line="38" selection-start-column="5" selection-end-line="38" selection-end-column="5" />
+          <folding>
+            <element signature="e#21#31#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
