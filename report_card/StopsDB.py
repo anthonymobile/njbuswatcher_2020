@@ -1,7 +1,6 @@
 import os
 import sqlite3
 from mysql.connector import connection
-import mongoengine as mongo
 import datetime
 
 _columns = ['cars','consist','fd','m','name','pt','rd','rn','scheduled','stop_id','stop_name','v']

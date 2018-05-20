@@ -67,16 +67,27 @@ class Bus(KeyValueData):
 
 
 class Route(KeyValueData):
+
     class Path(KeyValueData):
         def __init__(self):
             KeyValueData.__init__(self)
             self.name = 'Path'
             self.points = []
 
+        # def __iter__(self):
+        #     for attr in dir(self):
+        #         if not attr.startswith("__"):
+        #             yield attr
+
     class Point:
         def __init__(self):
             self.lat = ''
             self.lon = ''
+
+        # def __iter__(self):
+        #     for attr in dir(self):
+        #         if not attr.startswith("__"):
+        #             yield attr
 
     class Stop:
         def __init__(self):
@@ -85,11 +96,18 @@ class Route(KeyValueData):
             self.lat = ''
             self.lon = ''
 
+        # def __iter__(self):
+        #     for attr in dir(self):
+        #         if not attr.startswith("__"):
+        #             yield attr
+
     def __init__(self):
         KeyValueData.__init__(self)
         self.name = 'route'
         self.identity = ''
         self.paths = []
+
+
 
 # need to check output format
 class StopPrediction(KeyValueData):
