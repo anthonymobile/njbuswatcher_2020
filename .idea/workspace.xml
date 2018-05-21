@@ -5,16 +5,7 @@
     <bookmark url="file://$PROJECT_DIR$/report_card/grabber.py" description="Need to abstract _batch_execute or create a new version for stops not just buses" line="44" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9c35431-0764-488c-bbb0-431ede0ff16b" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/report_card/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Buses.py" beforeDir="false" afterPath="$PROJECT_DIR$/Buses.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/report_card/StopsDB.py" beforeDir="false" afterPath="$PROJECT_DIR$/report_card/StopsDB.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/report_card/data/119.db" beforeDir="false" afterPath="$PROJECT_DIR$/report_card/data/119.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/report_card/grabber.py" beforeDir="false" afterPath="$PROJECT_DIR$/report_card/grabber.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/report_card/shower.py" beforeDir="false" afterPath="$PROJECT_DIR$/report_card/shower.py" afterDir="false" />
-    </list>
+    <list default="true" id="e9c35431-0764-488c-bbb0-431ede0ff16b" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -30,11 +21,8 @@
       <file leaf-file-name="grabber.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/report_card/grabber.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="760">
-              <caret line="38" column="5" lean-forward="true" selection-start-line="38" selection-start-column="5" selection-end-line="38" selection-end-column="5" />
-              <folding>
-                <element signature="e#21#31#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="510">
+              <caret line="46" selection-start-line="46" selection-end-line="46" />
             </state>
           </provider>
         </entry>
@@ -42,8 +30,8 @@
       <file leaf-file-name="Buses.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Buses.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="123">
-              <caret line="102" lean-forward="true" selection-start-line="98" selection-start-column="10" selection-end-line="102" />
+            <state relative-caret-position="1500">
+              <caret line="120" selection-start-line="116" selection-end-line="120" />
             </state>
           </provider>
         </entry>
@@ -102,7 +90,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" fullScreen="true">
+  <component name="ProjectFrameBounds" extendedState="6" fullScreen="true">
     <option name="y" value="23" />
     <option name="width" value="1920" />
     <option name="height" value="1057" />
@@ -112,6 +100,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -128,7 +117,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -383,48 +371,65 @@
       <option name="project" value="LOCAL" />
       <updated>1526681443580</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="automatic entire line arrival prediction grabber working">
+      <created>1526855844421</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1526855844422</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1366" height="768" extended-state="0" />
+    <frame x="0" y="0" width="1920" height="1080" extended-state="0" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49605057" visible="true" weight="0.21156661" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49605057" visible="true" weight="0.21145834" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.41899443" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32935917" />
-      <window_info anchor="bottom" id="Python Console" order="7" weight="0.328594" />
+      <window_info active="true" anchor="bottom" id="Python Console" order="7" visible="true" weight="0.32782102" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.41828793" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.328594" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39940387" />
       <window_info id="Favorites" order="2" sideWeight="0.50394946" side_tool="true" weight="0.21229868" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39940387" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.41899443" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49605057" visible="true" weight="0.21156661" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Version Control" order="7" weight="0.32935917" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39940387" />
       <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info id="Favorites" order="2" sideWeight="0.50394946" side_tool="true" weight="0.21229868" />
       <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.328594" />
+      <window_info anchor="bottom" id="Python Console" order="7" weight="0.328594" />
     </layout>
     <layout-to-restore>
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.41899443" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49605057" weight="0.21156661" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Python Console" order="7" weight="0.328594" />
+      <window_info anchor="bottom" id="Version Control" order="10" weight="0.32935917" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.41899443" />
+      <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39940387" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.328594" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="Version Control" order="10" weight="0.32935917" />
-      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info id="Favorites" order="2" sideWeight="0.50394946" side_tool="true" weight="0.21229868" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Python Console" order="7" weight="0.328594" />
     </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -444,7 +449,8 @@
     <MESSAGE value="making some progress debugging the grabber" />
     <MESSAGE value="close to debug" />
     <MESSAGE value="merged report_card ux sketch and readme" />
-    <option name="LAST_COMMIT_MESSAGE" value="merged report_card ux sketch and readme" />
+    <MESSAGE value="automatic entire line arrival prediction grabber working" />
+    <option name="LAST_COMMIT_MESSAGE" value="automatic entire line arrival prediction grabber working" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -456,9 +462,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
           <caret line="17" column="128" selection-start-line="17" selection-start-column="128" selection-end-line="17" selection-end-column="128" />
-          <folding>
-            <element signature="e#21#31#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -776,18 +779,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Buses.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="123">
-          <caret line="102" lean-forward="true" selection-start-line="98" selection-start-column="10" selection-end-line="102" />
+        <state relative-caret-position="1500">
+          <caret line="120" selection-start-line="116" selection-end-line="120" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/report_card/grabber.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="760">
-          <caret line="38" column="5" lean-forward="true" selection-start-line="38" selection-start-column="5" selection-end-line="38" selection-end-column="5" />
-          <folding>
-            <element signature="e#21#31#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="510">
+          <caret line="46" selection-start-line="46" selection-end-line="46" />
         </state>
       </provider>
     </entry>
