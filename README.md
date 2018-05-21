@@ -99,7 +99,7 @@ Web app that displays real-time and aggregated performance data for NJTransit bu
 
 This is a sketch of what we hope to build out. (The OmniGraffle drawing is in the /ux folder of the repo.)
 
-![the thing](report_card/ux/wireframe.png)
+![the thing](reportcard_ux/wireframe.png)
 
 
 ### Data and Metrics
