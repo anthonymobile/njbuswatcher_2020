@@ -28,18 +28,17 @@ def main():
     # print dir(routedata.paths)
     stoplist=[]
     for i in routedata.paths: # just 1 item
-        for items in i.points:
-            if type_instance=Stop:
-                append.stoplist(st)
-
-    sys.exit()
+        for p in i.points:
+            if p.__class__.__name__== 'Stop':
+                stoplist.append(p.identity)
+                print p.identity
 
     #
     # and iterate grabbing all arrivals for all of those stops
     #
     for s in stoplist:
         arrivals = Buses.parse_stopprediction_xml(
-            Buses.get_xml_data('nj', 'stop_predictions', stop=s, route=route))
+            Buses.get_xml_data('nj', 'stop_predictions', stop=s, route=args.route))
         print arrivals
         now = datetime.datetime.now()
         db.insert_positions(arrivals, now)
