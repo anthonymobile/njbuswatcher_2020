@@ -1,17 +1,21 @@
-# bustime NJT v 0.1
+# bus report card v1.0
+# May-June 2018
 
 import StopsDB
 import Buses
 import datetime, argparse, sys, sqlite3
 import pandas as pd
-from operator import itemgetter
 
 
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-s', '--source', dest='source', default='nj', help='source name')
-    parser.add_argument('-r', '--route', dest='route', required=True, help='Route number')
-    args = parser.parse_args()
+app = Flask(__name__)
+
+parser = argparse.ArgumentParser()
+parser.add_argument('-s', '--source', dest='source', default='nj', help='source name')
+parser.add_argument('-r', '--route', dest='route', required=True, help='Route number')
+args = parser.parse_args()
+
+
+def delayboard():
 
     db = StopsDB.SQLite('data/%s.db' % args.route)
 
@@ -54,19 +58,17 @@ def main():
         # calculate the time difference
         df_stop['delta'] = df_stop.timestamp - df_stop.timestamp.shift(1)
         print df_stop['delta']
-        sys.exit()
-
-
-        #
-        # ------------------------------------------------------------ PROGRESS ----------------------
-        #
-
 
         # calculate average delay by hour
 
         hourly_average = df_stop['delta'].resample('H').mean()
         print hourly_average
 
+    sys.exit()
+
+    #
+    # ------------------------------------------------------------ PROGRESS ----------------------
+    #
 
     # NEXT
     # write a summary of the results
@@ -83,26 +85,15 @@ def main():
     # TransitLand API call?
 
 
-
-
     # 3. render the page
-
     # first in text, later in graphics
 
-    # 4. render the route
 
-    # app = Flask(__name__)
-    # api = Api(app)
-    # @app.route('/<path:path>')
-    # def staticHost(self, path):
-    #     try:
-    #         return flask.send_from_directory(app.config['RESULT_STATIC_PATH'], path)
-    #     except werkzeug.exceptions.NotFound as e:
-    #         if path.endswith("/"):
-    #             return flask.send_from_directory(app.config['RESULT_STATIC_PATH'], path + "index.html")
-    #         raise e
-
-
+# after https://www.youtube.com/watch?v=QJtWxm12Eo0
+@app.route('/')
+def hello_world(source,route):
+    delayboard(source,route) # call the mainroutine, not sure what goes into it
+    return webpages
 
 if __name__ == "__main__":
-    main()
+    app.run(debug=True)
