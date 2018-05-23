@@ -1,4 +1,4 @@
-# buswatcher and bus_report_card
+# bus_report_card and buswatcher
 
 Two frameworks for interacting with, logging, and presenting raw data and summaries of bus location and arrival prediciton data from the NJ transit MyBusNow service -- but should work with any transit agency using the CleverDevices API.
 
@@ -45,8 +45,8 @@ There are 3 separate sets of metrics that riders care about we need to calculate
 
 ## Buswatcher
 
-Some notebooks have been added as examples.
-
+Most of this is now on the back burner except as needed to continue feeding the bus_report_Card project.
+Also, some notebooks have been added as examples.
 
 ### Usage
 It's worth checking to make sure your pipeline is working before trying to automate the data collection. Otherwise you are asking for a lot of nasty emails from your cron daemon.
