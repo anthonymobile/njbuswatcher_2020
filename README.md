@@ -2,6 +2,47 @@
 
 Two frameworks for interacting with, logging, and presenting raw data and summaries of bus location and arrival prediciton data from the NJ transit MyBusNow service -- but should work with any transit agency using the CleverDevices API.
 
+
+
+## Bus Report Card
+Web app that displays real-time and aggregated performance data for NJTransit bus routes.
+
+### Usage
+
+Specify a data source and a route number. Cron it persistently to build up a log of past observations of arrivals along the route, once per minute is usually best. 
+```
+python reportcard.py -s nj -r 119
+```
+
+
+### UX Concept
+
+This is a sketch of what we hope to build out. (The OmniGraffle drawing is in the /ux folder of the repo.)
+
+![the thing](reportcard_ux/wireframe.png)
+
+
+
+### Data and Metrics
+The data collection is all being handled by the buswatcher project, and will pull from the API being developed there.
+
+There are 3 separate sets of metrics that riders care about we need to calculate.
+
+1. Frequency of service. This is simply calculated by looking at how often a bus on a particular route passes a given stop.
+2. Travel time. How long is it taking to get from one stop to the next. We can do this by tracking individual vehicles and seeing how long it takes them to get from one stop to the next.
+3. Schedule adherence. Is the bus actually hitting its scheduled stops. This is more of an issue on less frequent routes, and its becoming less important as more people use apps to meet the bus. At rush time its often not at all important. But its pretty easy to do, comparing against GTFS timetables, so lets do it.
+
+
+### Approach
+
+- Adapted the code used in Buses.py and BusDB.py to talk to getStopPrediction in the CleverDevices API
+- for a selected number of stops on a bus route, fetch current arrival predictions and log to a sqlite database
+- perform analysis of three metrics above and present to user
+    - key method is comparing instances of 'APPROACHING' predictions that indicate a bus arriving at the stop. intervals between these events indicate frequency of service at stops. progress of individual vehicles along route can be similar tracking by detecting these events at subsequent stops.
+- as historical data set scales, log historical results to avoid re-processing
+
+
+
 ## Buswatcher
 
 Some notebooks have been added as examples.
@@ -91,46 +132,5 @@ http://buswatcher.code4jc.org/api-2.0
 Implementation will be mostly batch processed by python scripts and served up as static files. Requests for anything older than the last week will be basically implemented with the same method as API v1.1 (Assuming that turns out faster)
 
 
-#Bus Report Card
-Web app that displays real-time and aggregated performance data for NJTransit bus routes.
 
 
-### UX Concept
-
-This is a sketch of what we hope to build out. (The OmniGraffle drawing is in the /ux folder of the repo.)
-
-![the thing](reportcard_ux/wireframe.png)
-
-
-### Data and Metrics
-The data collection is all being handled by the buswatcher project, and will pull from the API being developed there.
-
-There are 3 separate sets of metrics that riders care about we need to calculate.
-
-1. Frequency of service. This is simply calculated by looking at how often a bus on a particular route passes a given stop.
-2. Travel time. How long is it taking to get from one stop to the next. We can do this by tracking individual vehicles and seeing how long it takes them to get from one stop to the next.
-3. Schedule adherence. Is the bus actually hitting its scheduled stops. This is more of an issue on less frequent routes, and its becoming less important as more people use apps to meet the bus. At rush time its often not at all important. But its pretty easy to do, comparing against GTFS timetables, so lets do it.
-
-
-### Approach
-
-- Adapted the code used in Buses.py and BusDB.py to talk to getStopPrediction in the CleverDevices API
-- for a selected number of stops on a bus route, fetch current arrival predictions and log to a sqlite database
-- perform analysis of three metrics above and present to user
-    - key method is comparing instances of 'APPROACHING' predictions that indicate a bus arriving at the stop. intervals between these events indicate frequency of service at stops. progress of individual vehicles along route can be similar tracking by detecting these events at subsequent stops.
-- as historical data set scales, log historical results to avoid re-processing
-
-#### grabber.py
-
-Cron-able script that retrives the data. Example retrieving four stops between Journal Square and New York Port Authoity Bus Terminal along NJTransit 119 route.
-
-```
-python grabber.py -s nj 31732,119 20615,119 30189,119 21853,119
-```
-
-#### shower.py
-
-Flask app to present the report card visualizaton.
-```
-FLASK_APP=shower.py flask run
-```
