@@ -47,31 +47,26 @@ def main():
 
 
     for s in stoplist:
-        try:
-            # slice the stop
-            df_stop = df.loc[df.stop_id == s]
 
-            # calculate timedelta between each row in seconds
-            # https://stackoverflow.com/questions/16777570/calculate-time-difference-between-pandas-dataframe-indices
-            def delay(arrivaltime):
-                = (df_stop['timestamp'] - df_stop['timestamp'].shift()).fillna(0)
-                return delta
-            df_stop['delta'].apply(delay)
+        # slice the stop
+        df_stop = df.loc[df.stop_id == s]
 
-            # print list of delay values
-            print (df_stop['delta'])
+        # calculate the time difference
+        df_stop['delta'] = df_stop.timestamp - df_stop.timestamp.shift(1)
+        print df_stop['delta']
+        sys.exit()
 
-            # calculate average delay by hour
-            # add a sorting?
-            delay_histogram = df_stop.groupby(df_stop.timestamp.hour).mean(df_stop['delta'])
 
-            #
-            # ------------------------------------------------------------ PROGRESS ----------------------
-            #
+        #
+        # ------------------------------------------------------------ PROGRESS ----------------------
+        #
 
-        except KeyError:
-            print ('Stop %s has no arrivals in the log, log probably incomplete.' % s)
-            pass
+
+        # calculate average delay by hour
+
+        hourly_average = df_stop['delta'].resample('H').mean()
+        print hourly_average
+
 
     # NEXT
     # write a summary of the results
