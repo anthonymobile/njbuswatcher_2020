@@ -28,9 +28,9 @@ The data collection is all being handled by the buswatcher project, and will pul
 
 There are 3 separate sets of metrics that riders care about we need to calculate.
 
-1. Frequency of service. This is simply calculated by looking at how often a bus on a particular route passes a given stop.
-2. Travel time. How long is it taking to get from one stop to the next. We can do this by tracking individual vehicles and seeing how long it takes them to get from one stop to the next.
-3. Schedule adherence. Is the bus actually hitting its scheduled stops. This is more of an issue on less frequent routes, and its becoming less important as more people use apps to meet the bus. At rush time its often not at all important. But its pretty easy to do, comparing against GTFS timetables, so lets do it.
+1. Frequency of service. How often does a bus stop at my corner? This is simply calculated by looking at how often any in-service bus passes a given stop on a particular route.
+2. Travel time. How long is it taking buses to get from one stop to the next. What segments are contributing the most to delays along the line at any given instant, and over time?
+3. Schedule adherence. Is the bus actually hitting its scheduled stops? This is more of an issue on less frequent routes, and its becoming less important as more people use apps to meet the bus. At rush time its often not at all important. But its pretty easy to do, comparing against GTFS timetables, so lets do it.
 
 
 ### Approach
