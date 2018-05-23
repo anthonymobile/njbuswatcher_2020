@@ -5,22 +5,22 @@ import StopsDB
 import Buses
 import datetime, argparse, sys, sqlite3
 import pandas as pd
+from flask import Flask
 
 
 app = Flask(__name__)
 
-parser = argparse.ArgumentParser()
-parser.add_argument('-s', '--source', dest='source', default='nj', help='source name')
-parser.add_argument('-r', '--route', dest='route', required=True, help='Route number')
-args = parser.parse_args()
+def delayboard(source,route):
 
+    # parser = argparse.ArgumentParser()
+    # parser.add_argument('-s', '--source', dest='source', default='nj', help='source name')
+    # parser.add_argument('-r', '--route', dest='route', required=True, help='Route number')
+    # args = parser.parse_args()
 
-def delayboard():
-
-    db = StopsDB.SQLite('data/%s.db' % args.route)
+    db = StopsDB.SQLite('data/%s.db' % route)
 
     # grab list of all stops on this route from NJT API
-    routedata=Buses.parse_route_xml(Buses.get_xml_data(args.source,'routes',route=args.route))
+    routedata=Buses.parse_route_xml(Buses.get_xml_data(source,'routes',route=route))
     stoplist=[]
     for i in routedata.paths: # just 1 item
         for p in i.points:
@@ -31,15 +31,15 @@ def delayboard():
     sys.stdout.write('Fetching arrival predictions')
     for s in stoplist:
         arrivals = Buses.parse_stopprediction_xml(
-            Buses.get_xml_data('nj', 'stop_predictions', stop=s, route=args.route))
+            Buses.get_xml_data('nj', 'stop_predictions', stop=s, route=route))
 
         sys.stdout.write('.')
         now = datetime.datetime.now()
         db.insert_positions(arrivals, now)
 
     # from all time, copy observations of 'approaching'(e.g. 0-1? min ETA) buses into a data frame, sorted by stop and time
-    conn = sqlite3.connect('data/%s.db' % args.route)
-    arrival_query = ('SELECT * FROM stop_predictions WHERE (rd = %s AND pt = "APPROACHING") ORDER BY stop_id,timestamp;' % args.route)
+    conn = sqlite3.connect('data/%s.db' % route)
+    arrival_query = ('SELECT * FROM stop_predictions WHERE (rd = %s AND pt = "APPROACHING") ORDER BY stop_id,timestamp;' % route)
     df = pd.read_sql_query(arrival_query, conn)
 
     # A. frequency analysis
@@ -90,7 +90,7 @@ def delayboard():
 
 
 # after https://www.youtube.com/watch?v=QJtWxm12Eo0
-@app.route('/')
+@app.route('/<source>/<route>')
 def hello_world(source,route):
     delayboard(source,route) # call the mainroutine, not sure what goes into it
     return webpages
