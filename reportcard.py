@@ -3,15 +3,16 @@
 
 import StopsDB
 import Buses
-import datetime, argparse, sys, sqlite3
+import datetime, sys, sqlite3
 import pandas as pd
 from flask import Flask
 
 
 app = Flask(__name__)
 
-def delayboard(source,route):
 
+@app.route('/<source>/<route>')
+def delayboard(source,route):
 
     db = StopsDB.SQLite('data/%s.db' % route)
     routedata=Buses.parse_route_xml(Buses.get_xml_data(source,'routes',route=route))
@@ -23,8 +24,8 @@ def delayboard(source,route):
                 stoplist.append(p.identity)
 
     for s in stoplist:
-        arrivals = Buses.parse_stopprediction_xml(
-            Buses.get_xml_data('nj', 'stop_predictions', stop=s, route=route))
+        arrivals = Buses.parse_stopprediction_xml(Buses.get_xml_data('nj', 'stop_predictions', stop=s, route=route))
+        sys.stdout.write('.')
 
         now = datetime.datetime.now()
         db.insert_positions(arrivals, now)
@@ -37,51 +38,48 @@ def delayboard(source,route):
 
     df['timestamp'] = df['timestamp'].str.split('.').str.get(0)
     df['timestamp'] = pd.to_datetime(df['timestamp'])
+    df['timestamp_bak'] = df['timestamp']
     df = df.set_index('timestamp')
 
-    results=[]
-    results.append(['stop_id','hourly_delay'])
+    frequency_board_full = []
+    frequency_board_full.append(['stop_id', 'vehicle', 'time', 'last arrival ago(min)'])
+
+    frequency_board_hrly=[]
+    frequency_board_hrly.append(['stop_id','date','hour','avg_freq'])
+
+
     for s in stoplist:
 
         # slice the stop
         df_stop = df.loc[df.stop_id == s]
 
-        # calculate the time difference
-        df_stop['delta'] = df_stop['timestamp'] - df_stop['timestamp'].shift(1)
+        # compute interval between this bus and next in log
+        df_stop['delta'] = df_stop['timestamp_bak'] - df_stop['timestamp_bak'].shift(1)
 
-        # calculate average delay by hour
-        results.append([df.stop_id,(df_stop.delta.resample('H').mean())])
+        # add it to a frequency_board
+        frequency_board_full.append(['stop_id', 'vehicle', 'time', 'last arrival ago(min)'])
 
-    return results
+        #
+        working = [df_stop.stop_id,(df_stop.delta.resample('H').mean())]
+
+        frequency_board_hrly.append([working['stop_id'], working.index.date, working.index.hour, working['delta']])
+
+    return str(results)
 
     #
     # ------------------------------------------------------------ PROGRESS ----------------------
     #
 
-    # NEXT
-    # write a summary of the results
-    # to a new data file for archiving
-    # and only recalc current day or week
+    # NEXT = write a summary of the results to a new data file for archiving and only recalc current day or week
 
 
-    # B. delays (observed travel time)
-    # compare bus at stop n and stop n+5 using vehicle id and stopid
-    # average across last n vehicles?
-
-    # C. schedule adherence
-    # compared observed arrival time against GTFS schedule using run #
-    # TransitLand API call?
+    # B. delays (observed travel time) = compare bus at stop n and stop n+5 using vehicle id and stopid and average across last n vehicles?
+    # C. schedule adherence = compared observed arrival time against GTFS schedule using run w/ TransitLand API call?
 
 
-    # 3. render the page
-    # first in text, later in graphics
+    # 3. render the page = first in text, later in graphics
 
 
-# after https://www.youtube.com/watch?v=QJtWxm12Eo0
-@app.route('/<source>/<route>')
-def hello_world(source,route):
-
-    return delayboard(source,route) # call the mainroutine, not sure what goes into it
 
 if __name__ == "__main__":
     app.run(debug=True)
