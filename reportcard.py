@@ -3,10 +3,14 @@
 
 import StopsDB
 import Buses
-import datetime, sys, sqlite3
+import datetime, sys, sqlite3, argparse
 import pandas as pd
 from flask import Flask
 
+parser = argparse.ArgumentParser()
+parser.add_argument('--nofetch', action='store_true',  help='Do not fetch new arrival predictions, '
+                                                            'load cached data from local db')
+args = parser.parse_args()
 
 app = Flask(__name__)
 
@@ -15,20 +19,35 @@ app = Flask(__name__)
 def delayboard(source,route):
 
     db = StopsDB.SQLite('data/%s.db' % route)
-    routedata=Buses.parse_route_xml(Buses.get_xml_data(source,'routes',route=route))
-    stoplist=[]
+    stoplist = []
 
-    for i in routedata.paths:
-        for p in i.points:
-            if p.__class__.__name__== 'Stop':
-                stoplist.append(p.identity)
+    if args.nofetch is False:
+        routedata=Buses.parse_route_xml(Buses.get_xml_data(source,'routes',route=route))
 
-    for s in stoplist:
-        arrivals = Buses.parse_stopprediction_xml(Buses.get_xml_data('nj', 'stop_predictions', stop=s, route=route))
-        sys.stdout.write('.')
 
-        now = datetime.datetime.now()
-        db.insert_positions(arrivals, now)
+        for i in routedata.paths:
+            for p in i.points:
+                if p.__class__.__name__== 'Stop':
+                    stoplist.append(p.identity)
+
+        for s in stoplist:
+            arrivals = Buses.parse_stopprediction_xml(Buses.get_xml_data('nj', 'stop_predictions', stop=s, route=route))
+            sys.stdout.write('.')
+
+            now = datetime.datetime.now()
+            db.insert_positions(arrivals, now)
+
+    elif args.nofetch is True:
+        # build stoplist from the db
+
+        conn = sqlite3.connect('data/%s.db' % route)
+        stoplist_query = (
+                    'SELECT stop_id FROM stop_predictions WHERE rd = %s GROUP BY stop_id;' % route)
+        stoplist = pd.read_sql_query(stoplist_query, conn)
+
+        # print stoplist
+
+        pass
 
     # A. frequency analysis
 
@@ -60,7 +79,7 @@ def delayboard(source,route):
         frequency_board_full.append(['stop_id', 'vehicle', 'time', 'last arrival ago(min)'])
 
         #
-        working = [df_stop.stop_id,(df_stop.delta.resample('H').mean())]
+        working = [df_stop.stop_id,(df_stop.resample('H').mean('delta'))]
 
         frequency_board_hrly.append([working['stop_id'], working.index.date, working.index.hour, working['delta']])
 
