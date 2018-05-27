@@ -6,17 +6,18 @@ import Buses
 import datetime, sys, sqlite3, argparse
 import pandas as pd
 import jsonify, json
-from flask import Flask
+from flask import Flask, render_template
 
 
 
 app = Flask(__name__)
 
-@app.route('/<source>/<route>')
+@app.route('/<source>/<route>/history')
 def getArrivalHistory(source,route):
     stoplist = fetch_arrivals(source,route)
-    results = delayboard_history(source,route,stoplist)
-    return results
+    history = render_arrivals_history_full(source,route,stoplist)
+
+    return render_template('arrivals_history_full.html', history=history)
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--nofetch', action='store_true',  help='Do not fetch new arrival predictions load cached data from local db')
@@ -50,7 +51,7 @@ def fetch_arrivals(source,route):
     return stoplist.stop_id
 
 
-def delayboard_history(source,route,stoplist):
+def render_arrivals_history_full(source,route,stoplist):
     (conn,db) = db_setup(route)
     arrival_query = ('SELECT * FROM stop_predictions WHERE (rd = %s AND pt = "APPROACHING") ORDER BY stop_id,timestamp;' % route)
     df = pd.read_sql_query(arrival_query, conn)
@@ -59,39 +60,43 @@ def delayboard_history(source,route,stoplist):
     df['timestamp'] = df['timestamp'].str.split('.').str.get(0)
     df['timestamp'] = pd.to_datetime(df['timestamp'])
     df['timestamp_bak'] = df['timestamp']
-    df = df.set_index('timestamp')
+    df = df.set_index('timestamp', drop=False)
 
-    delayboard_history = []
-    delayboard_history.append(['stop_id', 'vehicle', 'time', 'last arrival ago(min)'])
+    arrivals_history_full = []
+    arrivals_history_full.append(['stop_id', 'vehicle', 'time', 'last arrival ago(min)'])
 
+    x=0
     for s in stoplist:
 
         # slice the stop
         df_stop = df.loc[df.stop_id == s]
 
-        # compute interval between this bus and next in log
-        df_stop['delta'] = df_stop['timestamp_bak'] - df_stop['timestamp_bak'].shift(1)
-
-        # add it to a frequency_board
-        delayboard_history.append([df_stop['stop_id'], df_stop['v'], df_stop['delta']])
-
-        # jsonify and return
-        jsonStr = json.dumps(delayboard_history)
-
-    return jsonify(Arrivals=jsonStr)
+        # compute interval between this bus and next in log (WORKING)
+        df_stop['delta'] = df_stop['timestamp'] - df_stop['timestamp'].shift(1)
 
 
+        # append it
+
+        print df_stop.iloc[x].stop_id,
+        print df_stop.iloc[x].v,
+        print df_stop.iloc[x].timestamp,
+        print df_stop.iloc[x].delta
+        sys.exit()
+
+        # not sure why this isn't working
+        ins_line = [(df_stop.iloc[x].stop_id, df_stop.iloc[x].v, df_stop.iloc[x].timestamp,df_stop.iloc[x].delta)]
+        arrivals_history_full.append(ins_line)
+
+        x += 1
+
+    # print arrivals_history_full[0:5]
+    # sys.exit()
+
+    return arrivals_history_full
 
 
 
-# @app.route('/<source>/<route>/history')
-#     delayboard_history(source,route)
-#     return render_template('templates/tk????.html', arrivals=arrivals)
 
-# @app.route('/<source>/<route>/history')
-#     delayboard_history(source,route)
-#     return render_template('templates/tk????.html', arrivals=arrivals)
-#
 # @app.route('/<source>/<route>/current')
 #
 #     delayboard_current(source,route)
@@ -102,23 +107,20 @@ def delayboard_history(source,route,stoplist):
 #     delayboard_hourly(source,route)
 #     return render_template('templates/tk????.html', arrivals=arrivals)
 
+# working = [df_stop.stop_id,(df_stop.resample('H').mean('delta'))]
+# frequency_board_hrly.append([working['stop_id'], working.index.date, working.index.hour, working['delta']])
 
 
-        # working = [df_stop.stop_id,(df_stop.resample('H').mean('delta'))]
-        # frequency_board_hrly.append([working['stop_id'], working.index.date, working.index.hour, working['delta']])
+# NEXT = write a summary of the results to a new data file for archiving and only recalc current day or week
+
+# open(('data/frequency_board_hrly_%s.txt' % route),w)
 
 
-    # NEXT = write a summary of the results to a new data file for archiving and only recalc current day or week
-
-    # open(('data/frequency_board_hrly_%s.txt' % route),w)
-
+# B. delays (observed travel time) = compare bus at stop n and stop n+5 using vehicle id and stopid and average across last n vehicles?
+# C. schedule adherence = compared observed arrival time against GTFS schedule using run w/ TransitLand API call?
 
 
-    # B. delays (observed travel time) = compare bus at stop n and stop n+5 using vehicle id and stopid and average across last n vehicles?
-    # C. schedule adherence = compared observed arrival time against GTFS schedule using run w/ TransitLand API call?
-
-
-    # 3. render the page = first in text, later in graphics
+# 3. render the page = first in text, later in graphics
 
 
 

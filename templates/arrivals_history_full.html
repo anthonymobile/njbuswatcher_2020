@@ -1,0 +1,24 @@
+<html>
+<head>
+    <title>Frequency Board Full</title>
+</head>
+<body>
+          <h1>Arrivals - All History</h1>
+
+<table>
+<tbody>
+  {% for bus in history %}
+    <tr>
+      <td>{{ bus[0] }}</td>
+      <td>{{ bus[1] }}</td>
+      <td>{{ bus[2] }}</td>
+      <td>{{ bus[3] }}</td>
+    </tr>
+  {% endfor %}
+</tbody>
+</table>
+
+</body>
+</html>
+
+
