@@ -7,12 +7,16 @@
 
 <table>
 <tbody>
-  {% for bus in history %}
+  {% for row in history %}
     <tr>
-      <td>{{ bus[0] }}</td>
-      <td>{{ bus[1] }}</td>
-      <td>{{ bus[2] }}</td>
-      <td>{{ bus[3] }}</td>
+      {% for dict_item in row %}
+      <td>
+        {% for key, value in dict_item.items() %}
+        <h1>Key: {{key}}</h1>
+        <h2>Value: {{value}}</h2>
+        {% endfor %}
+      </td>
+      {% endfor %}
     </tr>
   {% endfor %}
 </tbody>
