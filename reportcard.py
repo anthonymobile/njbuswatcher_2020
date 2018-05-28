@@ -9,7 +9,6 @@ import random
 from flask import Flask, render_template
 
 
-
 app = Flask(__name__)
 
 @app.route('/<source>/<route>/history')
@@ -120,4 +119,4 @@ def render_arrivals_history_full(source,route,stoplist):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0', debug=True)
