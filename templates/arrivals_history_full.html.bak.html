@@ -1,0 +1,28 @@
+<html>
+<head>
+    <title>Frequency Board Full</title>
+</head>
+<body>
+          <h1>Arrivals - All History</h1>
+
+<table>
+<tbody>
+  {% for row in history %}
+    <tr>
+      {% for dict_item in row %}
+      <td>
+        {% for key, value in dict_item.items() %}
+        <h1>Key: {{key}}</h1>
+        <h2>Value: {{value}}</h2>
+        {% endfor %}
+      </td>
+      {% endfor %}
+    </tr>
+  {% endfor %}
+</tbody>
+</table>
+
+</body>
+</html>
+
+

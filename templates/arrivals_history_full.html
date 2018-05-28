@@ -3,22 +3,19 @@
     <title>Frequency Board Full</title>
 </head>
 <body>
-          <h1>Arrivals - All History</h1>
+<h1>Arrivals - All History</h1>
 
 <table>
 <tbody>
-  {% for row in history %}
+{% for dict_item in history %}
     <tr>
-      {% for dict_item in row %}
-      <td>
-        {% for key, value in dict_item.items() %}
-        <h1>Key: {{key}}</h1>
-        <h2>Value: {{value}}</h2>
-        {% endfor %}
-      </td>
-      {% endfor %}
+    {% for key, value in dict_item.items() %}
+        <td>
+        <pre>{{value}}</pre>
+        </td>
+    {% endfor %}
     </tr>
-  {% endfor %}
+{% endfor %}
 </tbody>
 </table>
 
