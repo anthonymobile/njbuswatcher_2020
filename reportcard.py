@@ -5,6 +5,7 @@ import StopsDB
 import Buses
 import datetime, sys, sqlite3, argparse
 import pandas as pd
+import random
 from flask import Flask, render_template
 
 
@@ -72,7 +73,6 @@ def render_arrivals_history_full(source,route,stoplist):
     df = df.set_index('timestamp', drop=False)
 
     arrivals_history_full = []
-    arrivals_history_full.append(['stop_id', 'vehicle', 'time', 'last arrival ago(min)'])
 
     for s in stoplist:
 
@@ -85,13 +85,13 @@ def render_arrivals_history_full(source,route,stoplist):
         # append it
 
         for index, row in df_stop.iterrows():
-            ins_line = {
-                'stop_id': row['stop_id'],
-                'v': row['v'],
-                'timestamp': row['timestamp'],
-                'delta': row['delta'],
-                }
-            arrivals_history_full.append(ins_line)
+            dict_ins={}
+            dict_ins ['stop_id'] =  row['stop_id']
+            dict_ins['v'] = row['v']
+            dict_ins['timestamp'] = row['timestamp']
+            dict_ins['delta'] = row['delta']
+            arrivals_history_full.append(dict_ins)
+            # print dict_ins
 
     return arrivals_history_full
 
