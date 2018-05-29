@@ -124,15 +124,14 @@ def render_arrivals_hourly_mean(source,route,stoplist):
 
         # need to convert delta to numeric type first per...
         # https://stackoverflow.com/questions/44616546/finding-the-mean-and-standard-deviation-of-a-timedelta-object-in-pandas-df
-        stop_id_bak = df_stop['stop_id']
         df_stop['delta_int'] = df_stop['delta'].values.astype(np.int64)
         df_stop = df_stop.delta_int.resample('H').mean()
 
-        for index, value in df_stop.items():
+        for hour in df_stop.iteritems():
             dict_ins = {}
-            dict_ins['hour_top'] = index
-            dict_ins['stop_id'] = stop_id_bak
-            dict_ins['avg_interval'] = value
+            dict_ins['hour_top'] = hour[0]
+            # dict_ins['stop_id'] = df_stop['stop_id']
+            dict_ins['avg_interval'] = hour[1]
             arrivals_history_hourly.append(dict_ins)
 
     return arrivals_history_hourly
