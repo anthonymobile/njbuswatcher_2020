@@ -1,13 +1,13 @@
 <html>
 <head>
-    <title>Frequency Board Full</title>
+    <title>Frequency Board - Hourly MEan</title>
 </head>
 <body>
-<h1>Arrivals - All History</h1>
+<h1>Arrivals - Hourly Frequency Average (All History)</h1>
 
 <table width="100%">
 <tbody>
-{% for dict_item in history %}
+{% for dict_item in hourly %}
     <tr>
     {% for key, value in dict_item.items() %}
         <td align="center">
