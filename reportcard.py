@@ -45,7 +45,9 @@ def db_setup(route):
 # python ' from reportcard import fetch_arrivalsl; fetch_arrivals ('nj',119,false);'
 #
 
+
 def fetch_arrivals(source,route,flag):
+
     (conn, db) = db_setup(route)
     stoplist = []
     if flag is False:
@@ -63,7 +65,17 @@ def fetch_arrivals(source,route,flag):
         stoplist_query = (
                 'SELECT stop_id FROM stop_predictions WHERE rd = %s GROUP BY stop_id;' % route)
         stoplist = pd.read_sql_query(stoplist_query, conn)
+
     return stoplist.stop_id
+
+
+def timestamp_fix(data):
+
+    data['timestamp'] = data['timestamp'].str.split('.').str.get(0)
+    data['timestamp'] = pd.to_datetime(data['timestamp'])
+    data = data.set_index('timestamp', drop=False)
+
+    return data
 
 
 def render_arrivals_history_full(source,route,stoplist):
@@ -72,9 +84,11 @@ def render_arrivals_history_full(source,route,stoplist):
     arrival_query = ('SELECT * FROM stop_predictions WHERE (rd = %s AND pt = "APPROACHING") ORDER BY stop_id,timestamp;' % route)
     df = pd.read_sql_query(arrival_query, conn)
 
-    df['timestamp'] = df['timestamp'].str.split('.').str.get(0)
-    df['timestamp'] = pd.to_datetime(df['timestamp'])
-    df = df.set_index('timestamp', drop=False)
+    # CUT
+    # df['timestamp'] = df['timestamp'].str.split('.').str.get(0)
+    # df['timestamp'] = pd.to_datetime(df['timestamp'])
+    # df = df.set_index('timestamp', drop=False)
+    df = timestamp_fix(df)
 
     arrivals_history_full = []
 
@@ -106,9 +120,11 @@ def render_arrivals_hourly_mean(source,route,stoplist):
                 'SELECT * FROM stop_predictions WHERE (rd = %s AND pt = "APPROACHING") ORDER BY stop_id,timestamp;' % route)
     df = pd.read_sql_query(arrival_query, conn)
 
-    df['timestamp'] = df['timestamp'].str.split('.').str.get(0)
-    df['timestamp'] = pd.to_datetime(df['timestamp'])
-    df = df.set_index('timestamp', drop=False)
+    # CUT
+    # df['timestamp'] = df['timestamp'].str.split('.').str.get(0)
+    # df['timestamp'] = pd.to_datetime(df['timestamp'])
+    # df = df.set_index('timestamp', drop=False)
+    df = timestamp_fix(df)
 
     arrivals_history_hourly = []
 
