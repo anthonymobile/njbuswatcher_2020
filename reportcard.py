@@ -13,27 +13,22 @@ app = Flask(__name__)
 
 @app.route('/<source>/<route>/history')
 def getArrivalHistory(source,route):
-    stoplist = fetch_arrivals(source,route)
+
+    stoplist = fetch_arrivals(source,route,args.nofetch)
     history = render_arrivals_history_full(source,route,stoplist)
-
     return render_template('arrivals_history_full.html', history=history)
-
 
 @app.route('/<source>/<route>/hourly')
 def getHourlyHistory(source,route):
-    stoplist = fetch_arrivals(source,route)
+    stoplist = fetch_arrivals(source,route,args.nofetch)
     hourly = render_arrivals_hourly_mean(source,route,stoplist)
-
     return render_template('arrivals_history_hourly.html', hourly=hourly)
-
 
 # @app.route('/<source>/<route>/current')
 #
 #     delayboard_current(source,route)
 #     return render_template('templates/tk????.html', arrivals=arrivals)
 #
-
-
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--nofetch', action='store_true',  help='Do not fetch new arrival predictions load cached data from local db')
@@ -45,10 +40,15 @@ def db_setup(route):
     conn = sqlite3.connect('data/%s.db' % route)
     return conn,db
 
-def fetch_arrivals(source,route):
+#
+# also call this from a python script running under cron for persistent grabbing to db
+# python ' from reportcard import fetch_arrivalsl; fetch_arrivals ('nj',119,false);'
+#
+
+def fetch_arrivals(source,route,flag):
     (conn, db) = db_setup(route)
     stoplist = []
-    if args.nofetch is False:
+    if flag is False:
         routedata = Buses.parse_route_xml(Buses.get_xml_data(source, 'routes', route=route))
         for i in routedata.paths:
             for p in i.points:
@@ -56,10 +56,10 @@ def fetch_arrivals(source,route):
                     stoplist.append(p.identity)
         for s in stoplist:
             arrivals = Buses.parse_stopprediction_xml(Buses.get_xml_data('nj', 'stop_predictions', stop=s, route=route))
-            sys.stdout.write('.')
+            # sys.stdout.write('.')
             now = datetime.datetime.now()
             db.insert_positions(arrivals, now)
-    elif args.nofetch is True:
+    elif flag is True:
         stoplist_query = (
                 'SELECT stop_id FROM stop_predictions WHERE rd = %s GROUP BY stop_id;' % route)
         stoplist = pd.read_sql_query(stoplist_query, conn)
