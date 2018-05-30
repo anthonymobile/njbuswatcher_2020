@@ -35,40 +35,6 @@ parser.add_argument('--nofetch', action='store_true',
 args = parser.parse_args()
 
 
-#
-# THIS GOT MOVED TO arrival_grabber.py
-#
-# def db_setup(route):
-#     db = StopsDB.SQLite('data/%s.db' % route)
-#     conn = sqlite3.connect('data/%s.db' % route)
-#     return conn, db
-
-
-#
-# THIS GOT MOVED TO arrival_grabber.py
-#
-# def fetch_arrivals(source, route, flag):
-#     (conn, db) = db_setup(route)
-#     stoplist = []
-#     if flag is False:
-#         routedata = Buses.parse_route_xml(Buses.get_xml_data(source, 'routes', route=route))
-#         for i in routedata.paths:
-#             for p in i.points:
-#                 if p.__class__.__name__ == 'Stop':
-#                     stoplist.append(p.identity)
-#         for s in stoplist:
-#             arrivals = Buses.parse_stopprediction_xml(Buses.get_xml_data('nj', 'stop_predictions', stop=s, route=route))
-#             # sys.stdout.write('.')
-#             now = datetime.datetime.now()
-#             db.insert_positions(arrivals, now)
-#     elif flag is True:
-#         stoplist_query = (
-#                 'SELECT stop_id FROM stop_predictions WHERE rd = %s GROUP BY stop_id;' % route)
-#         stoplist = pd.read_sql_query(stoplist_query, conn)
-#
-#     return stoplist.stop_id
-
-
 def timestamp_fix(data):
     data['timestamp'] = data['timestamp'].str.split('.').str.get(0)
     data['timestamp'] = pd.to_datetime(data['timestamp'])
@@ -78,28 +44,21 @@ def timestamp_fix(data):
 
 
 def render_arrivals_history_full(source, route, stoplist):
+
     (conn, db) = db_setup(route)
     arrival_query = (
                 'SELECT * FROM stop_predictions WHERE (rd = %s AND pt = "APPROACHING") ORDER BY stop_id,timestamp;' % route)
     df = pd.read_sql_query(arrival_query, conn)
 
-    # CUT
-    # df['timestamp'] = df['timestamp'].str.split('.').str.get(0)
-    # df['timestamp'] = pd.to_datetime(df['timestamp'])
-    # df = df.set_index('timestamp', drop=False)
+
     df = timestamp_fix(df)
 
     arrivals_history_full = []
 
     for s in stoplist:
 
-        # slice the stop
         df_stop = df.loc[df.stop_id == s]
-
-        # compute interval between this bus and next in log
         df_stop['delta'] = df_stop['timestamp'] - df_stop['timestamp'].shift(1)
-
-        # append it
 
         for index, row in df_stop.iterrows():
             dict_ins = {}
@@ -113,34 +72,27 @@ def render_arrivals_history_full(source, route, stoplist):
 
 
 def render_arrivals_hourly_mean(source, route, stoplist):
+
     (conn, db) = db_setup(route)
     arrival_query = (
             'SELECT * FROM stop_predictions WHERE (rd = %s AND pt = "APPROACHING") ORDER BY stop_id,timestamp;' % route)
+
     df = pd.read_sql_query(arrival_query, conn)
 
-    # CUT
-    # df['timestamp'] = df['timestamp'].str.split('.').str.get(0)
-    # df['timestamp'] = pd.to_datetime(df['timestamp'])
-    # df = df.set_index('timestamp', drop=False)
     df = timestamp_fix(df)
 
     arrivals_history_hourly = []
 
     for s in stoplist:
 
-        # slice the stop
         df_stop = df.loc[df.stop_id == s]
 
-        # compute interval between this bus and next in log
         df_stop['delta'] = df_stop['timestamp'] - df_stop['timestamp'].shift(1)
 
         # resample hourly average
-
         # need to convert delta to numeric type first per...
         # https://stackoverflow.com/questions/44616546/finding-the-mean-and-standard-deviation-of-a-timedelta-object-in-pandas-df
         df_stop['delta_int'] = df_stop['delta'].values.astype(np.int64)
-        # df_stop_resample = df_stop.delta_int.resample('H').mean()
-
         for hour in df_stop.delta_int.resample('H').mean().iteritems():
             dict_ins = {}
             dict_ins['stop_id'] = s
