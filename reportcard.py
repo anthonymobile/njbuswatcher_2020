@@ -40,11 +40,6 @@ def db_setup(route):
     conn = sqlite3.connect('data/%s.db' % route)
     return conn,db
 
-#
-# also call this from a python script running under cron for persistent grabbing to db
-# python ' from reportcard import fetch_arrivalsl; fetch_arrivals ('nj',119,false);'
-#
-
 
 def fetch_arrivals(source,route,flag):
 
