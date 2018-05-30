@@ -4,10 +4,9 @@
     <bookmark url="file://$PROJECT_DIR$/api-1.1/api.py" description="Fix query parsing for proper output... not just the first field." line="25" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9c35431-0764-488c-bbb0-431ede0ff16b" name="Default" comment="added timestamp_fix function">
-      <change afterPath="$PROJECT_DIR$/arrival_grabber.py" afterDir="false" />
+    <list default="true" id="e9c35431-0764-488c-bbb0-431ede0ff16b" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reportcard.py" beforeDir="false" afterPath="$PROJECT_DIR$/reportcard.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/arrival_grabber.py" beforeDir="false" afterPath="$PROJECT_DIR$/arrival_grabber.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -25,10 +24,7 @@
         <entry file="file://$PROJECT_DIR$/arrival_grabber.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="95">
-              <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
-              <folding>
-                <element signature="e#95#110#0" expanded="true" />
-              </folding>
+              <caret line="6" column="20" selection-start-line="6" selection-start-column="20" selection-end-line="6" selection-end-column="20" />
             </state>
           </provider>
         </entry>
@@ -104,7 +100,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" fullScreen="true">
+  <component name="ProjectFrameBounds" extendedState="6" fullScreen="true">
     <option name="width" value="1366" />
     <option name="height" value="768" />
   </component>
@@ -120,11 +116,6 @@
             <path>
               <item name="buswatcher" type="b2602c69:ProjectViewProjectNode" />
               <item name="buswatcher" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="buswatcher" type="b2602c69:ProjectViewProjectNode" />
-              <item name="buswatcher" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -161,8 +152,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.reportcard: 87 --nofetch">
-    <configuration name="__init__" type="PythonConfigurationType" factoryName="Python" temporary="true">
+  <component name="RunManager" selected="Python.arrival_grabber 87">
+    <configuration name="arrival_grabber 87" type="PythonConfigurationType" factoryName="Python">
       <module name="buswatcher" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -174,8 +165,8 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/__init__.py" />
-      <option name="PARAMETERS" value="" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/arrival_grabber.py" />
+      <option name="PARAMETERS" value="-s nj -r 119" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -194,42 +185,6 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/buswatcher.py" />
       <option name="PARAMETERS" value="-s nj sqlite --sqlite-file busgrab.db" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
-    <configuration name="buswatcher" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="buswatcher" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/buswatcher.py" />
-      <option name="PARAMETERS" value="-s nj mongo --mongo-name buswatcher_new" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
-    <configuration name="dbtest" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="buswatcher" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/dbtest.py" />
-      <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -289,21 +244,12 @@
       <option name="MODULE_MODE" value="false" />
     </configuration>
     <list>
+      <item itemvalue="Python.arrival_grabber 87" />
       <item itemvalue="Python.reportcard: 87" />
       <item itemvalue="Python.reportcard: 87 --nofetch" />
       <item itemvalue="Python.reportcard: 119" />
       <item itemvalue="Python.bus grab 119" />
-      <item itemvalue="Python.buswatcher" />
-      <item itemvalue="Python.dbtest" />
-      <item itemvalue="Python.__init__" />
     </list>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Python.__init__" />
-        <item itemvalue="Python.buswatcher" />
-        <item itemvalue="Python.dbtest" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -540,23 +486,30 @@
       <option name="project" value="LOCAL" />
       <updated>1527627362453</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="added standalone cron-able arrival grabber">
+      <created>1527709371399</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1527709371399</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1366" height="768" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.48076922" visible="true" weight="0.21083455" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.48076922" visible="true" weight="0.21083455" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50073206" side_tool="true" weight="0.3980447" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.47346368" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.3282123" />
       <window_info anchor="bottom" id="Python Console" order="7" weight="0.3282123" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.6689944" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.328594" />
-      <window_info id="Favorites" order="2" sideWeight="0.5192308" side_tool="true" weight="0.21083455" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49926794" weight="0.3980447" />
+      <window_info id="Favorites" order="2" sideWeight="0.5192308" side_tool="true" weight="0.21083455" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -568,28 +521,27 @@
     <layout-to-restore>
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49004975" weight="0.21083455" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="10" weight="0.32935917" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.34776536" />
-      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Python Console" order="7" weight="0.328594" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49926794" weight="0.3980447" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.328594" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50073206" side_tool="true" weight="0.3980447" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Version Control" order="10" weight="0.32935917" />
+      <window_info anchor="bottom" id="Message" order="0" />
       <window_info id="Favorites" order="2" sideWeight="0.5099502" side_tool="true" visible="true" weight="0.21083455" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Python Console" order="7" weight="0.328594" />
     </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added mongo support (beta)" />
     <MESSAGE value="1st draft of api v1.0" />
     <MESSAGE value="mysql table structure update script added" />
     <MESSAGE value="v1.1 routes monthly reading for testing" />
@@ -614,7 +566,8 @@
     <MESSAGE value="/source/route/hourly working - except for unit conversion" />
     <MESSAGE value="chunked out code for cron-able arrival data grabber" />
     <MESSAGE value="added timestamp_fix function" />
-    <option name="LAST_COMMIT_MESSAGE" value="added timestamp_fix function" />
+    <MESSAGE value="added standalone cron-able arrival grabber" />
+    <option name="LAST_COMMIT_MESSAGE" value="added standalone cron-able arrival grabber" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -924,13 +877,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/arrival_grabber.py.ipynb">
-      <provider selected="true" editor-type-id="ipnb-editor">
-        <state>
-          <selected id="0" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/arrival_grabber.py.ipynb" />
     <entry file="file://$PROJECT_DIR$/buswatcher.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="514">
@@ -951,10 +898,7 @@
     <entry file="file://$PROJECT_DIR$/arrival_grabber.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="95">
-          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
-          <folding>
-            <element signature="e#95#110#0" expanded="true" />
-          </folding>
+          <caret line="6" column="20" selection-start-line="6" selection-start-column="20" selection-end-line="6" selection-end-column="20" />
         </state>
       </provider>
     </entry>
