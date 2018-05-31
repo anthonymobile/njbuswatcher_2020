@@ -1,4 +1,4 @@
-# bus_report_card and buswatcher
+# bus_report_card and busdumper
 
 Two frameworks for interacting with, logging, and presenting raw data and summaries of bus location and arrival prediciton data from the NJ transit MyBusNow service -- but should work with any transit agency using the CleverDevices API.
 
@@ -43,24 +43,24 @@ There are 3 separate sets of metrics that riders care about we need to calculate
 
 
 
-## Buswatcher
+## busdumper
 
-Most of this is now on the back burner except as needed to continue feeding the bus_report_Card project.
-Also, some notebooks have been added as examples.
+This will grab an entire transit system's worth of bus current locations (in this case, the entire NJTransit statewide system). Not actively working on this.
+
 
 ### Usage
 It's worth checking to make sure your pipeline is working before trying to automate the data collection. Otherwise you are asking for a lot of nasty emails from your cron daemon.
 
 
 ```
-python2 buswatcher.py -s nj --save-raw buslocations.csv
+python2 busdumper.py -s nj --save-raw buslocations.csv
 ```
 
 ####Logging to sqlite
 
 This will simply start to append new observations to a file (absolute path e.g. ~/file) that will quickly become unmanageable. Not recommended for ongoing collection.
 ```
-python buswatcher.py -s nj sqlite --sqlite-file buslog.sqlite
+python busdumper.py -s nj sqlite --sqlite-file buslog.sqlite
 ```
 
 #### Logging to MySQL
@@ -68,7 +68,7 @@ python buswatcher.py -s nj sqlite --sqlite-file buslog.sqlite
 Recommended for ongoing data grabs and long-term storage with integrity (statewide grab is about TK GB/week as of 2018). Make sure you've created a user, and a database.
 
 ```
-python2 buswatcher.py -s nj --db-name {tk} --db-user {tk} --db-pw {not required} --db-host {default 127.0.0.1}
+python2 busdumper.py -s nj --db-name {tk} --db-user {tk} --db-pw {not required} --db-host {default 127.0.0.1}
 ```
 
 
@@ -77,7 +77,7 @@ python2 buswatcher.py -s nj --db-name {tk} --db-user {tk} --db-pw {not required}
 Just starting to test if this is better for long-term storage of very large archives, but added support anyways. No support for remote or access-restricted databases yet, only local.
 
 ```
-python2 buswatcher.py -s nj mongo --mongo-name {tk}
+python2 busdumper.py -s nj mongo --mongo-name {tk}
 ```
 
 

@@ -4,14 +4,12 @@
 # cron it every minute or 10 seconds or daemon-ize it?
 
 
-
-import os
 import sys
 import argparse
 import datetime
 
-import Buses
-import BusDB
+from lib import BusDB, Buses
+
 
 def main():
     parser = argparse.ArgumentParser()
