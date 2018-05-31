@@ -1,16 +1,6 @@
 # bus reportcard v1.0
 # June 2018
 
-# this flask app shows the routes
-# http://host.org/source/route/function
-# e.g. http://bus.host.org:5000/nj/87/history
-# e.g. http://bus.host.org:5000/nj/87/hourly
-
-# all it does is make calls to the database. never talks to any of the fetcher functions
-# database should be the only point of contact between reportcard.py and stopwatcher.py
-
-import sys
-
 from flask import Flask, render_template
 from lib.reportcard_helpers import *
 
@@ -24,11 +14,32 @@ def getArrivalHistory(source, route):
     return render_template('arrivals_history_full.html', history=history)
 
 
+@app.route('/<source>/<route>/<stop>/history')
+def getArrivalHistory1Stop(source, route, stop):
+
+    history1stop = render_arrivals_history_1stop(source, route, stop)
+    return render_template('arrivals_history_1stop.html', history1stop=history1stop)
+
+
 @app.route('/<source>/<route>/hourly')
 def getHourlyHistory(source, route):
 
     hourly = render_arrivals_hourly_mean(source, route, get_stoplist(route))
     return render_template('arrivals_history_hourly.html', hourly=hourly)
+
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', debug=True)
+
+
+# this flask app shows the routes
+# http://host.org/source/route/function
+# e.g. http://bus.host.org:5000/nj/87/history
+# e.g. http://bus.host.org:5000/nj/87/hourly
+
+# all it does is make calls to the database. never talks to any of the fetcher functions
+# database should be the only point of contact between reportcard.py and stopwatcher.py
+
 
 #######################################################
 # TO DO
@@ -46,8 +57,3 @@ def getHourlyHistory(source, route):
 
 #   1   think about how to set up processors to rotate / batch yesterdays, last weeks, last months data to static files, and have the routes serve those instead.
 
-
-
-
-if __name__ == "__main__":
-    app.run(host='0.0.0.0', debug=True)
