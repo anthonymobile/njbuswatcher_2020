@@ -1,0 +1,25 @@
+<html>
+<head>
+    <title>Frequency Board Full</title>
+</head>
+<body>
+<h1>Arrivals - All History for Single Stop</h1>
+
+<table width="100%">
+<tbody>
+{% for dict_item in history1stop %}
+    <tr>
+    {% for key, value in dict_item.items() %}
+        <td align="center">
+        <pre>{{value}}</pre>
+        </td>
+    {% endfor %}
+    </tr>
+{% endfor %}
+</tbody>
+</table>
+
+</body>
+</html>
+
+
