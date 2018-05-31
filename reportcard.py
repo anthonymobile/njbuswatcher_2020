@@ -2,7 +2,7 @@
 # May-June 2018
 
 
-import argparse
+import argparse, sys
 
 import pandas as pd
 import numpy as np
@@ -56,9 +56,12 @@ def render_arrivals_history_full(source, route, stoplist):
     arrivals_history_full = []
 
     for s in stoplist:
-
+        print df_stop
         df_stop = df.loc[df.stop_id == s]
         df_stop['delta'] = df_stop['timestamp'] - df_stop['timestamp'].shift(1)
+
+        print df_stop
+        sys.exit()
 
         for index, row in df_stop.iterrows():
             dict_ins = {}
@@ -67,6 +70,11 @@ def render_arrivals_history_full(source, route, stoplist):
             dict_ins['timestamp'] = row['timestamp']
             dict_ins['delta'] = row['delta']
             arrivals_history_full.append(dict_ins)
+
+            print 'here'
+            print dict_ins
+            sys.exit()
+
 
     return arrivals_history_full
 

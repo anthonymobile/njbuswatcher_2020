@@ -66,3 +66,8 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+# TO DO
+# 1 rewrite to use mysql
+# 2 deploy to webster.hopto.org
