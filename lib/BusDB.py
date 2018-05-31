@@ -66,8 +66,7 @@ class DB:
         self.conn.commit()
 
     def insert_positions(self, records, timestamp):
-        import ipdb
-        # ipdb.set_trace()
+
         self._batch_execute([_bus_to_sql(self.insert_string, r, timestamp) for r in records])
 
 
