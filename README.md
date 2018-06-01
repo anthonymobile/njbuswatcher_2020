@@ -19,7 +19,7 @@ python reportcard.py -s nj -r 119
 
 This is a sketch of what we hope to build out. (The OmniGraffle drawing is in the /ux folder of the repo.)
 
-![the thing](reportcard_ux/wireframe.png)
+![the thing](doc/reportcard_ux/wireframe.png)
 
 
 
