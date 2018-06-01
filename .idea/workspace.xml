@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e9c35431-0764-488c-bbb0-431ede0ff16b" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/busdumper.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/stopwatcher.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -27,13 +25,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="busdumper.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="busdumper.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/busdumper.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
+            <state relative-caret-position="343">
+              <caret line="44" column="17" selection-start-line="44" selection-start-column="17" selection-end-line="44" selection-end-column="17" />
               <folding>
                 <element signature="e#136#146#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BusDB.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/lib/BusDB.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="68" selection-start-line="68" selection-end-line="68" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -67,6 +77,7 @@
       <find>print</find>
       <find>arrivals_historyprint</find>
       <find>timestamp_bak</find>
+      <find>mongo</find>
     </findStrings>
     <replaceStrings>
       <replace>mongo.StringField</replace>
@@ -114,6 +125,7 @@
         <option value="$PROJECT_DIR$/reportcard.py" />
         <option value="$PROJECT_DIR$/lib/reportcard_helpers.py" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch.txt" />
+        <option value="$PROJECT_DIR$/lib/BusDB.py" />
       </list>
     </option>
   </component>
@@ -143,6 +155,31 @@
               <item name="buswatcher" type="b2602c69:ProjectViewProjectNode" />
               <item name="buswatcher" type="462c0819:PsiDirectoryNode" />
               <item name="data" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="buswatcher" type="b2602c69:ProjectViewProjectNode" />
+              <item name="buswatcher" type="462c0819:PsiDirectoryNode" />
+              <item name="db" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="buswatcher" type="b2602c69:ProjectViewProjectNode" />
+              <item name="buswatcher" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="buswatcher" type="b2602c69:ProjectViewProjectNode" />
+              <item name="buswatcher" type="462c0819:PsiDirectoryNode" />
+              <item name="notebooks" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="buswatcher" type="b2602c69:ProjectViewProjectNode" />
+              <item name="buswatcher" type="462c0819:PsiDirectoryNode" />
+              <item name="reportcard_ux" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="buswatcher" type="b2602c69:ProjectViewProjectNode" />
+              <item name="buswatcher" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -500,18 +537,47 @@
       <option name="project" value="LOCAL" />
       <updated>1527808079405</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="refactor into busdumper and stopwatcher">
+      <created>1527808361443</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1527808361443</updated>
+    </task>
+    <task id="LOCAL-00040" summary="add /lib files">
+      <created>1527808462481</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1527808462481</updated>
+    </task>
+    <task id="LOCAL-00041" summary="removed mongo">
+      <created>1527808600131</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1527808600131</updated>
+    </task>
+    <task id="LOCAL-00042" summary="removed debugging import">
+      <created>1527808707902</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1527808707902</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1366" height="768" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4741784" visible="true" weight="0.21083455" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50073206" side_tool="true" weight="0.3980447" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.3282123" />
       <window_info anchor="bottom" id="Python Console" order="7" weight="0.3282123" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.40223464" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.40223464" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.328594" />
       <window_info id="Favorites" order="2" sideWeight="0.52582157" side_tool="true" weight="0.21083455" />
@@ -548,10 +614,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="making some progress debugging the grabber" />
-    <MESSAGE value="close to debug" />
-    <MESSAGE value="merged report_card ux sketch and readme" />
-    <MESSAGE value="automatic entire line arrival prediction grabber working" />
     <MESSAGE value="refactor everything into reportcard.py, working ingester to dataframe of only buses seen at stops" />
     <MESSAGE value="first attempt to flaskify" />
     <MESSAGE value="flask route http://localhost:5000/source/route working" />
@@ -573,7 +635,11 @@
     <MESSAGE value="big refactor - need to debug the flask routes again" />
     <MESSAGE value="pre huge refactor" />
     <MESSAGE value="huge refactor - no testing yet" />
-    <option name="LAST_COMMIT_MESSAGE" value="huge refactor - no testing yet" />
+    <MESSAGE value="refactor into busdumper and stopwatcher" />
+    <MESSAGE value="add /lib files" />
+    <MESSAGE value="removed mongo" />
+    <MESSAGE value="removed debugging import" />
+    <option name="LAST_COMMIT_MESSAGE" value="removed debugging import" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -834,34 +900,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/Buses.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-205">
-          <caret line="7" column="9" lean-forward="true" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/BusDB.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="5" selection-start-line="5" selection-end-line="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/arrivals_history_1stop.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="171">
           <caret line="9" column="32" selection-start-line="9" selection-start-column="32" selection-end-line="9" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/reportcard_helpers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="85" column="56" selection-start-line="85" selection-start-column="49" selection-end-line="85" selection-end-column="56" />
-          <folding>
-            <element signature="e#29#59#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -889,12 +931,39 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/lib/Buses.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3698">
+          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/reportcard_helpers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1624">
+          <caret line="85" column="56" selection-start-line="85" selection-start-column="49" selection-end-line="85" selection-end-column="56" />
+          <folding>
+            <element signature="e#29#59#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/busdumper.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
+        <state relative-caret-position="343">
+          <caret line="44" column="17" selection-start-line="44" selection-start-column="17" selection-end-line="44" selection-end-column="17" />
           <folding>
             <element signature="e#136#146#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/BusDB.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="68" selection-start-line="68" selection-end-line="68" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>
