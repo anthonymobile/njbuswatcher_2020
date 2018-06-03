@@ -8,7 +8,7 @@
 #
 
 
-import argparse
+import argparse, sys
 from lib.reportcard_helpers import *
 
 
@@ -19,9 +19,7 @@ def main():
     parser.add_argument('-r', '--route', dest='route', required=True, help='route # ')
     args = parser.parse_args()
 
-    flag = False
-
-    fetch_arrivals(args.source, args.route, flag)
+    fetch_arrivals(args.source, args.route)
 
 if __name__ == "__main__":
     main()
