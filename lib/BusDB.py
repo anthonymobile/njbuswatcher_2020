@@ -66,9 +66,14 @@ class DB:
         self.conn.commit()
 
     def insert_positions(self, records, timestamp):
-
         self._batch_execute([_bus_to_sql(self.insert_string, r, timestamp) for r in records])
 
+    def fetch_records(self,query):
+        cursor = self.conn.cursor()
+        results = cursor.execute(query)
+        cursor.close()
+        conn.close()
+        return results
 
 class SQLite(DB):
     _create_db_string = '''CREATE TABLE buses (pkey integer primary key autoincrement, lat real, lon real, ar text, bid text, c text, cars text, consist text, d text, dd text, dn text, fs text, id text, m text, op text, pd text, pdRtpiFeedName text, pid text, rt text, rtRtpiFeedName text, rtdd text, rtpiFeedName text, run text, wid1 text, wid2 text, timestamp text)'''

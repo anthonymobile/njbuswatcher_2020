@@ -2,21 +2,27 @@
 # database interactions
 #
 
-from lib import Buses, StopsDB
+
 import sqlite3, datetime, sys
-import pandas as pd
+
 import numpy as np
+import pandas as pd
+pd.set_option('display.width', 1000)
+
+from lib import Buses, StopsDB
 
 def db_setup(route):
     db = StopsDB.SQLite('data/%s.db' % route)
     conn = sqlite3.connect('data/%s.db' % route)
     return conn, db
 
-def fetch_arrivals(source, route, stoplist):
+def fetch_arrivals(source, route):
 
     (conn, db) = db_setup(route)
 
     routedata = Buses.parse_route_xml(Buses.get_xml_data(source, 'routes', route=route))
+
+    stoplist = []
 
     for i in routedata.paths:
         for p in i.points:
