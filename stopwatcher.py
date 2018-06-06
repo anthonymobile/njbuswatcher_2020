@@ -1,7 +1,7 @@
 # this python app should run cron as a cron job
 # grabs the current arrivals for every stop on a source, route
 
-# all it does is talk to the database. never talks to flask or the web
+# all it does is talk to the database. never talks to flask
 
 #
 # python stopwatcher.py -s nj -r 87

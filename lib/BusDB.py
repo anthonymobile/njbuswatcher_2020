@@ -70,10 +70,9 @@ class DB:
 
     def fetch_records(self,query):
         cursor = self.conn.cursor()
-        results = cursor.execute(query)
-        cursor.close()
-        conn.close()
-        return results
+        cursor.execute(query)
+        rows = cursor.fetchall()
+        return rows
 
 class SQLite(DB):
     _create_db_string = '''CREATE TABLE buses (pkey integer primary key autoincrement, lat real, lon real, ar text, bid text, c text, cars text, consist text, d text, dd text, dn text, fs text, id text, m text, op text, pd text, pdRtpiFeedName text, pid text, rt text, rtRtpiFeedName text, rtdd text, rtpiFeedName text, run text, wid1 text, wid2 text, timestamp text)'''
