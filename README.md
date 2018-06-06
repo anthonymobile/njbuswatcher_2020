@@ -5,6 +5,9 @@ Two frameworks for interacting with, logging, and presenting raw data and summar
 
 
 ## Bus Report Card
+
+n.b. PROJECT ARCHITECTURE IS IN A LOT OF FLUX RIGHT NOW
+
 Web app that displays real-time and aggregated performance data for NJTransit bus routes.
 
 ### Usage
