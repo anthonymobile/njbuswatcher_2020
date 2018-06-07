@@ -108,8 +108,6 @@ class Route(KeyValueData):
         self.paths = []
 
 
-
-# need to check output format
 class StopPrediction(KeyValueData):
     def __init__(self, **kwargs):
         KeyValueData.__init__(self, **kwargs)
@@ -158,8 +156,11 @@ def parse_bus_xml(data):
         results.append(Bus(**fields))
     return results
 
-# test with  import Buses; Buses.parse_route_xml(Buses.get_xml_data('nj', 'routes', route=126));
+
 def parse_route_xml(data):
+
+    routes = list()
+
     route = Route()
     e = xml.etree.ElementTree.fromstring(data)
     for child in e.getchildren():
@@ -170,7 +171,9 @@ def parse_route_xml(data):
                 route.add_kv(child.tag, child.text)
 
         if child.tag == 'pas':
+
             for pa in child.findall('pa'):
+
                 path = Route.Path()
                 for path_child in pa.getchildren():
                     if len(path_child.getchildren()) == 0:
@@ -201,8 +204,21 @@ def parse_route_xml(data):
                         path.points.append(p)
 
                 route.paths.append(path)
-            break  # assume one pas for now
-    return route
+
+
+                # no errors but no output either --------------------------------------------------------
+                insertion = dict()
+                insertion['id'] = pa.find('id').text
+                insertion['l'] = pa.find('l').text
+                insertion['d'] = pa.find('d').text
+                insertion['dd'] = pa.find('dd').text
+                insertion['geo'] = route
+
+                routes.append(insertion)
+
+            break  # assume one pas for now, haven't seen any with more than one
+
+    return routes # returns a list of dicts, one item for each route (usually two, one in each direction)
 
 
 def get_xml_data(source, function, **kwargs):
