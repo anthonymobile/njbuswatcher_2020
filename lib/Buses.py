@@ -34,13 +34,11 @@ def _gen_command(source, func, **kwargs):
         result += '?' + params[:-1]
     return result
 
-
 def _cond_get_single(tree, key, default=''):
     res = tree.find(key)
     if res is not None:
         return res.text 
-    return default 
-
+    return default
 
 class KeyValueData:
     def __init__(self, **kwargs):
@@ -59,12 +57,10 @@ class KeyValueData:
         out_string = ' '.join([k + '=' + str(v) for k, v in line])
         return self.name + '[%s]' % out_string
 
-
 class Bus(KeyValueData):
     def __init__(self, **kwargs):
         KeyValueData.__init__(self, **kwargs)
         self.name = 'Bus'
-
 
 class Route(KeyValueData):
 
@@ -73,21 +69,14 @@ class Route(KeyValueData):
             KeyValueData.__init__(self)
             self.name = 'Path'
             self.points = []
-
-        # def __iter__(self):
-        #     for attr in dir(self):
-        #         if not attr.startswith("__"):
-        #             yield attr
+            self.id = ''
+            self.d = ''
+            self.dd = ''
 
     class Point:
         def __init__(self):
             self.lat = ''
             self.lon = ''
-
-        # def __iter__(self):
-        #     for attr in dir(self):
-        #         if not attr.startswith("__"):
-        #             yield attr
 
     class Stop:
         def __init__(self):
@@ -96,17 +85,11 @@ class Route(KeyValueData):
             self.lat = ''
             self.lon = ''
 
-        # def __iter__(self):
-        #     for attr in dir(self):
-        #         if not attr.startswith("__"):
-        #             yield attr
-
     def __init__(self):
         KeyValueData.__init__(self)
         self.name = 'route'
         self.identity = ''
         self.paths = []
-
 
 class StopPrediction(KeyValueData):
     def __init__(self, **kwargs):
@@ -160,10 +143,11 @@ def parse_bus_xml(data):
 def parse_route_xml(data):
 
     routes = list()
-
     route = Route()
+
     e = xml.etree.ElementTree.fromstring(data)
     for child in e.getchildren():
+
         if len(child.getchildren()) == 0:
             if child.tag == 'id':
                 route.identity = child.text
@@ -175,10 +159,15 @@ def parse_route_xml(data):
             for pa in child.findall('pa'):
 
                 path = Route.Path()
+
                 for path_child in pa.getchildren():
                     if len(path_child.getchildren()) == 0:
                         if path_child.tag == 'id':
-                            path.identity = path_child.text
+                            path.id = path_child.text
+                        elif path_child.tag == 'd':
+                            path.d = path_child.text
+                        elif path_child.tag == 'dd':
+                            path.dd = path_child.text
                         else:
                             path.add_kv(path_child.tag, path_child.text)
                     elif path_child.tag == 'pt':
@@ -205,21 +194,11 @@ def parse_route_xml(data):
 
                 route.paths.append(path)
 
+                routes.append(route)
 
-                # no errors but no output either --------------------------------------------------------
-                insertion = dict()
-                insertion['id'] = pa.find('id').text
-                insertion['l'] = pa.find('l').text
-                insertion['d'] = pa.find('d').text
-                insertion['dd'] = pa.find('dd').text
-                insertion['geo'] = route
+            break
 
-                routes.append(insertion)
-
-            break  # assume one pas for now, haven't seen any with more than one
-
-    return routes # returns a list of dicts, one item for each route (usually two, one in each direction)
-
+    return routes
 
 def get_xml_data(source, function, **kwargs):
     import urllib2
