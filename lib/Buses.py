@@ -77,6 +77,7 @@ class Route(KeyValueData):
         def __init__(self):
             self.lat = ''
             self.lon = ''
+            self.d = ''
 
     class Stop:
         def __init__(self):
@@ -84,6 +85,7 @@ class Route(KeyValueData):
             self.st = ''
             self.lat = ''
             self.lon = ''
+            self.d = ''
 
     def __init__(self):
         KeyValueData.__init__(self)
@@ -143,6 +145,7 @@ def parse_bus_xml(data):
 def parse_route_xml(data):
 
     routes = list()
+
     route = Route()
 
     e = xml.etree.ElementTree.fromstring(data)
@@ -187,10 +190,17 @@ def parse_route_xml(data):
                             p.identity = _stop_id
                             p.st = _stop_st
 
+                        p.d = path.d
                         p.lat = _cond_get_single(pt, 'lat')
                         p.lon = _cond_get_single(pt, 'lon')
 
-                        path.points.append(p)
+                        # diagnostic
+                        if isinstance(p,Route.Stop):
+                            print p.d, p.st,p.lat,p.lon
+                        else:
+                            print p.d,p.lat, p.lon
+
+                        path.points.append(p) # <------ dont append to same list each time
 
                 route.paths.append(path)
 
