@@ -194,17 +194,11 @@ def parse_route_xml(data):
                         p.lat = _cond_get_single(pt, 'lat')
                         p.lon = _cond_get_single(pt, 'lon')
 
-                        # diagnostic
-                        if isinstance(p,Route.Stop):
-                            print p.d, p.st,p.lat,p.lon
-                        else:
-                            print p.d,p.lat, p.lon
-
                         path.points.append(p) # <------ dont append to same list each time
 
                 route.paths.append(path)
 
-                routes.append(route)
+                routes.append(route.paths)
 
             break
 
