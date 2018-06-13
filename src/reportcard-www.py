@@ -38,7 +38,7 @@ if __name__ == "__main__":
 # e.g. http://bus.host.org:5000/nj/87/hourly
 
 # all it does is make calls to the database. never talks to any of the fetcher functions
-# database should be the only point of contact between reportcard.py and stopwatcher.py
+# database should be the only point of contact between reportcard-www.py and stopwatcher.py
 
 
 #######################################################

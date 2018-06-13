@@ -9,7 +9,8 @@ import numpy as np
 import pandas as pd
 pd.set_option('display.width', 1000)
 
-from lib import Buses, StopsDB
+from src.lib import Buses, StopsDB
+
 
 def db_setup(route):
     db = StopsDB.SQLite('data/%s.db' % route)
