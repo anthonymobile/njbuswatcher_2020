@@ -1,25 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/src/lib/Buses.py" line="196" />
+    <bookmark url="file://$PROJECT_DIR$/src/buses/Buses.py" line="196" />
+    <bookmark url="file://$PROJECT_DIR$/src/reportcard.py" line="27" />
+    <bookmark url="file://$PROJECT_DIR$/src/reportcard.py" line="34" />
+    <bookmark url="file://$PROJECT_DIR$/src/buses/reportcard_helpers.py" line="50" />
+    <bookmark url="file://$PROJECT_DIR$/src/stopwatcher.py" line="43" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e9c35431-0764-488c-bbb0-431ede0ff16b" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/lib/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/notebooks/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/notebooks/nb-new_stopwatcher_data_structure.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/buses/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/buses/reportcard_helpers.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reportcard.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/stopwatcher.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/666-README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bus-debugger.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/busdumper.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/busdumper-statewide.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/BusDB.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/BusDB.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Buses.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/Buses.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/StopsDB.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/StopsDB.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/reportcard_helpers.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/reportcard_helpers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nb-map_route_waypoints.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/nb-map_route_waypoints.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nb-parse_routes_xml NEW.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/reportcard.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/reportcard-www.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stopwatcher.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/stopwatcher_new.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stopwatcher_new.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/666-README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/1.0/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/1.0/api.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/api/1.0/api.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/1.1/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/api/1.0/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/1.1/api.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/api/1.1/api.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/2.0/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/api/1.1/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/2.0/api.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/api/2.0/api.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/api/2.0/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/reportcard_ux/bus_report_card_homepage_wireframe.graffle/data.plist" beforeDir="false" afterPath="$PROJECT_DIR$/archive/doc/reportcard_ux/bus_report_card_homepage_wireframe.graffle/data.plist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/reportcard_ux/bus_report_card_homepage_wireframe.graffle/image1.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/archive/doc/reportcard_ux/bus_report_card_homepage_wireframe.graffle/image1.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/reportcard_ux/wireframe.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/doc/reportcard_ux/wireframe.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gtfs/agency.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/gtfs/agency.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gtfs/calendar_dates.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/gtfs/calendar_dates.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gtfs/routes.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/gtfs/routes.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gtfs/shapes.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/gtfs/shapes.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gtfs/stop_times.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/gtfs/stop_times.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gtfs/stops.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/gtfs/stops.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gtfs/trips.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/gtfs/trips.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nb-buswatcher_db_connector.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/nb-buswatcher_db_connector.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nb-connect_bus_datastore_to_inferno.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/nb-connect_bus_datastore_to_inferno.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nb-map_api_test.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/nb-map_api_test.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nb-map_bus_live_nj_all.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/nb-map_bus_live_nj_all.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nb-map_route_waypoints.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/nb-map_route_waypoints.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nb-new_stopwatcher_data_structure.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nb-snippets.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/nb-snippets.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/busdumper-statewide.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/busdumper-statewide.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/BusDB.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/buses/BusDB.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/Buses.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/buses/Buses.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/StopsDB.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/buses/StopsDB.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/api/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/reportcard_helpers.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/reportcard-www.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/stopwatcher_new.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/arrivals_history_1stop.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/templates/arrivals_history_1stop.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/arrivals_history_full.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/templates/arrivals_history_full.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/arrivals_history_hourly.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/templates/arrivals_history_hourly.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -32,17 +65,10 @@
     <favorites_list name="buswatcher" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="stopwatcher_new.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/stopwatcher_new.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="172">
-              <caret line="37" column="1" lean-forward="true" selection-start-line="37" selection-start-column="1" selection-end-line="37" selection-end-column="1" />
-              <folding>
-                <element signature="e#1#16#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="inferno NJ plans.txt" pinned="false" current-in-tab="true">
+        <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/inferno NJ plans.txt">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
@@ -74,6 +100,7 @@
       <find>arrivals_historyprint</find>
       <find>timestamp_bak</find>
       <find>mongo</find>
+      <find>fetch_Arrivals</find>
     </findStrings>
     <replaceStrings>
       <replace>mongo.StringField</replace>
@@ -85,8 +112,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/api/API-start.py" />
-        <option value="$PROJECT_DIR$/dbtest.py" />
         <option value="$PROJECT_DIR$/api-1.0/API-start.py" />
         <option value="$PROJECT_DIR$/api-1.0/routes.py" />
         <option value="$PROJECT_DIR$/update_table.sql" />
@@ -98,7 +123,6 @@
         <option value="$PROJECT_DIR$/buswatcher.py" />
         <option value="$PROJECT_DIR$/StopsDB.py" />
         <option value="$PROJECT_DIR$/report_card/StopsDB.py" />
-        <option value="$PROJECT_DIR$/__init__.py" />
         <option value="$PROJECT_DIR$/Buses.py" />
         <option value="$PROJECT_DIR$/report_card/shower.py" />
         <option value="$PROJECT_DIR$/report_card/grabber.py" />
@@ -131,6 +155,14 @@
         <option value="$PROJECT_DIR$/lib/Buses.py" />
         <option value="$PROJECT_DIR$/src/reportcard-www.py" />
         <option value="$PROJECT_DIR$/src/stopwatcher_new.py" />
+        <option value="$PROJECT_DIR$/src/reportcard.py" />
+        <option value="$PROJECT_DIR$/src/lib/tmp.py" />
+        <option value="$PROJECT_DIR$/src/lib/reportcard_helpers.py" />
+        <option value="$PROJECT_DIR$/src/stopwatcher.py" />
+        <option value="$PROJECT_DIR$/src/lib/Buses.py" />
+        <option value="$PROJECT_DIR$/src/importtest.py" />
+        <option value="$PROJECT_DIR$/__init__.py" />
+        <option value="$PROJECT_DIR$/buses/__init__.py" />
       </list>
     </option>
   </component>
@@ -156,6 +188,15 @@
               <item name="buswatcher" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="buswatcher" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Scratches and Consoles" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
+            </path>
+            <path>
+              <item name="buswatcher" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Scratches and Consoles" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
+              <item name="Scratches" type="d62648e6:ScratchProjectViewPane$MyRootNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -164,21 +205,23 @@
   </component>
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="ToolWindowRun.ShowToolbar" value="false" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$2/Languages" value="TEXT&#10;Python" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lib" />
       <recent name="$PROJECT_DIR$/templates" />
       <recent name="$PROJECT_DIR$" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/scripts" />
-      <recent name="$PROJECT_DIR$/doc" />
-      <recent name="$PROJECT_DIR$/api" />
-      <recent name="$PROJECT_DIR$/lib" />
-      <recent name="$PROJECT_DIR$/notebooks/.ipynb_checkpoints" />
+      <recent name="$PROJECT_DIR$/src" />
+      <recent name="$PROJECT_DIR$/archive" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/notebooks" />
+      <recent name="$PROJECT_DIR$/data" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -193,8 +236,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.bus debugger">
-    <configuration name="bus debugger" type="PythonConfigurationType" factoryName="Python">
+  <component name="RunManager" selected="Python.Unnamed">
+    <configuration name="Unnamed" type="PythonConfigurationType" factoryName="Python">
       <module name="buswatcher" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -202,17 +245,17 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="$USER_HOME$/anaconda2/envs/buswatcher/bin/python" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/" />
       <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/bus-debugger.py" />
+      <option name="ADD_CONTENT_ROOTS" value="false" />
+      <option name="ADD_SOURCE_ROOTS" value="false" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/importtest.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="busdumper" type="PythonConfigurationType" factoryName="Python">
+    <configuration name="busdumper --&gt; data/tmpdump.db" type="PythonConfigurationType" factoryName="Python">
       <module name="buswatcher" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -242,13 +285,13 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/reportcard-www.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/reportcard.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="test" type="PythonConfigurationType" factoryName="Python">
+    <configuration name="stopwatcher 87" type="PythonConfigurationType" factoryName="Python">
       <module name="buswatcher" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -256,21 +299,21 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="$USER_HOME$/anaconda2/envs/buswatcher/bin/python" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test.py" />
-      <option name="PARAMETERS" value="" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/stopwatcher.py" />
+      <option name="PARAMETERS" value="-s nj -r 87" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
     <list>
-      <item itemvalue="Python.bus debugger" />
       <item itemvalue="Python.reportcard" />
-      <item itemvalue="Python.busdumper" />
-      <item itemvalue="Python.test" />
+      <item itemvalue="Python.stopwatcher 87" />
+      <item itemvalue="Python.Unnamed" />
+      <item itemvalue="Python.busdumper --&gt; data/tmpdump.db" />
     </list>
   </component>
   <component name="SvnConfiguration">
@@ -620,55 +663,61 @@
       <option name="project" value="LOCAL" />
       <updated>1528855315980</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="refactor and cleanup">
+      <created>1528906706395</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1528906706395</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1366" height="768" extended-state="0" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.47206703" visible="true" weight="0.29648608" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50073206" side_tool="true" weight="0.3980447" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32960895" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.2877095" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4706704" visible="true" weight="0.29648608" />
+      <window_info anchor="bottom" id="TODO" order="5" />
+      <window_info anchor="bottom" id="Event Log" order="6" sideWeight="0.50073206" side_tool="true" weight="0.3980447" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.3282123" />
-      <window_info anchor="bottom" id="Python Console" order="7" weight="0.3282123" />
+      <window_info anchor="bottom" id="Python Console" order="8" weight="0.3282123" />
+      <window_info anchor="right" id="Run" order="3" weight="0.5270864" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.328594" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49926794" weight="0.50139666" />
-      <window_info id="Favorites" order="2" sideWeight="0.52793294" side_tool="true" weight="0.29648608" />
+      <window_info anchor="bottom" id="Terminal" order="9" weight="0.328594" />
+      <window_info id="Favorites" order="2" sideWeight="0.5293296" side_tool="true" weight="0.29648608" />
+      <window_info anchor="bottom" id="Debug" order="2" sideWeight="0.49926794" weight="0.36173186" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32960895" />
     </layout>
     <layout-to-restore>
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49004975" weight="0.21083455" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="10" weight="0.32935917" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.34776536" />
-      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Python Console" order="7" weight="0.328594" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49926794" weight="0.3980447" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.328594" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50073206" side_tool="true" weight="0.3980447" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Version Control" order="10" weight="0.32935917" />
+      <window_info anchor="bottom" id="Message" order="0" />
       <window_info id="Favorites" order="2" sideWeight="0.5099502" side_tool="true" visible="true" weight="0.21083455" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Python Console" order="7" weight="0.328594" />
     </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="partly there with all history json dump view" />
     <MESSAGE value="delta compute working. flask table working -- but still entire df in each cell" />
     <MESSAGE value="full arrivals board dict gen working, on to the flask template" />
     <MESSAGE value="full arrivals board working" />
@@ -693,7 +742,8 @@
     <MESSAGE value="still debugging route parser - seems to be mixing up/doubling inbound and outbound routes" />
     <MESSAGE value="fixed parse_route_xml" />
     <MESSAGE value="route mapper notebook with waypoints working!" />
-    <option name="LAST_COMMIT_MESSAGE" value="route mapper notebook with waypoints working!" />
+    <MESSAGE value="refactor and cleanup" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor and cleanup" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -704,15 +754,15 @@
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/src/lib/reportcard_helpers.py</url>
-          <line>79</line>
-          <option name="timeStamp" value="13" />
+          <url>file://$PROJECT_DIR$/src/buses/reportcard_helpers.py</url>
+          <line>50</line>
+          <option name="timeStamp" value="20" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="19" />
+      <option name="time" value="21" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
@@ -721,53 +771,7 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/busdumper-statewide.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="36" selection-start-line="36" selection-end-line="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/lib/BusDB.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1482">
-          <caret line="78" column="25" selection-start-line="78" selection-start-column="25" selection-end-line="78" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/lib/BusDB.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3382">
-          <caret line="178" column="32" lean-forward="true" selection-start-line="178" selection-start-column="32" selection-end-line="178" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/busdumper-statewide.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1121">
-          <caret line="65" column="10" lean-forward="true" selection-start-line="65" selection-start-column="10" selection-end-line="65" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/lib/Buses.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="15" column="7" selection-start-line="15" selection-start-column="7" selection-end-line="15" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/api/API-start.py" />
-    <entry file="file://$PROJECT_DIR$/666-README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="266">
-            <caret line="14" column="3" selection-start-line="14" selection-start-column="3" selection-end-line="14" selection-end-column="3" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/666-README.md">
+    <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="266">
@@ -781,7 +785,7 @@
     <entry file="file://$USER_HOME$/anaconda2/envs/buswatcher/lib/python2.7/site-packages/mongoengine/connection.py" />
     <entry file="file://$PROJECT_DIR$/dbtest.py" />
     <entry file="file://$PROJECT_DIR$/update_table.sql" />
-    <entry file="file://$PROJECT_DIR$/api/1.0/api.py">
+    <entry file="file://$PROJECT_DIR$/archive/api/1.0/api.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="206">
           <caret line="29" column="18" selection-start-line="29" selection-start-column="18" selection-end-line="29" selection-end-column="18" />
@@ -789,7 +793,7 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/db-optimization-sql.txt" />
-    <entry file="file://$PROJECT_DIR$/src/lib/StopsDB.py" />
+    <entry file="file://$PROJECT_DIR$/src/buses/StopsDB.py" />
     <entry file="file://$PROJECT_DIR$/report_card.py" />
     <entry file="file://$PROJECT_DIR$/README-reportcard.md" />
     <entry file="file://$USER_HOME$/anaconda2/envs/buswatcher/lib/python2.7/httplib.py">
@@ -801,13 +805,6 @@
     </entry>
     <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch.py" />
     <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_1.py" />
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="349">
-          <caret line="1067" selection-start-line="1067" selection-end-line="1067" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/arrivals_history_full.html.bak.html" />
     <entry file="file://$USER_HOME$/anaconda2/envs/buswatcher/lib/python2.7/socket.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -823,14 +820,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/anaconda2/envs/buswatcher/lib/python2.7/site-packages/flask/app.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="134">
-          <caret line="826" selection-start-line="826" selection-end-line="826" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/arrivals_history_hourly.html">
+    <entry file="file://$PROJECT_DIR$/src/templates/arrivals_history_hourly.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="214">
           <caret line="13" column="22" selection-start-line="13" selection-start-column="22" selection-end-line="13" selection-end-column="22" />
@@ -842,21 +832,21 @@
     <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_2.py" />
     <entry file="file://$PROJECT_DIR$/bak_arrival_grabber.py" />
     <entry file="file://$PROJECT_DIR$/bak_reportcard.py" />
-    <entry file="file://$PROJECT_DIR$/api/1.1/api.py">
+    <entry file="file://$PROJECT_DIR$/archive/api/1.1/api.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="281">
           <caret line="25" column="2" selection-start-line="25" selection-start-column="2" selection-end-line="25" selection-end-column="2" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/arrivals_history_1stop.html">
+    <entry file="file://$PROJECT_DIR$/src/templates/arrivals_history_1stop.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="171">
           <caret line="9" column="32" selection-start-line="9" selection-start-column="32" selection-end-line="9" selection-end-column="32" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/arrivals_history_full.html">
+    <entry file="file://$PROJECT_DIR$/src/templates/arrivals_history_full.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="247">
           <caret line="13" column="22" lean-forward="true" selection-start-line="13" selection-start-column="22" selection-end-line="13" selection-end-column="22" />
@@ -865,31 +855,21 @@
     </entry>
     <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_1.txt" />
     <entry file="file://$PROJECT_DIR$/test.py" />
-    <entry file="file://$PROJECT_DIR$/src/lib/StopsDB.py">
+    <entry file="file://$PROJECT_DIR$/src/buses/StopsDB.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="817">
           <caret line="46" selection-start-line="46" selection-end-line="46" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/lib/BusDB.py">
+    <entry file="file://$PROJECT_DIR$/src/buses/BusDB.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="383">
           <caret line="73" column="31" selection-start-line="73" selection-start-column="31" selection-end-line="73" selection-end-column="31" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/lib/reportcard_helpers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="13" selection-start-line="13" selection-end-line="16" selection-end-column="19" />
-          <folding>
-            <element signature="e#30#59#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/666-README.md">
+    <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="304">
@@ -899,14 +879,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config.py" />
-    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="574">
-          <caret line="40" column="5" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/notebooks/config.py" />
     <entry file="file://$USER_HOME$/anaconda2/envs/buswatcher/lib/python2.7/urllib2.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="343">
@@ -915,37 +888,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/notebook.tex" />
-    <entry file="file://$PROJECT_DIR$/nb-snippets.ipynb">
+    <entry file="file://$PROJECT_DIR$/notebooks/nb-snippets.ipynb">
       <provider selected="true" editor-type-id="ipnb-editor">
         <state>
           <selected id="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/lib/Buses.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="195" selection-start-line="195" selection-end-line="195" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/reportcard-www.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="12" column="12" selection-start-line="12" selection-start-column="12" selection-end-line="12" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/bus-debugger.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/bus-debugger.py" />
     <entry file="file://$PROJECT_DIR$/src/busdumper-statewide.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="893">
@@ -956,22 +906,101 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/stopwatcher.py">
+    <entry file="file://$PROJECT_DIR$/src/stopwatcher.py" />
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="5" column="1" lean-forward="true" selection-end-line="30" />
+        <state relative-caret-position="369">
+          <caret line="1067" selection-start-line="1067" selection-end-line="1067" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/stopwatcher_new.py">
+    <entry file="file://$PROJECT_DIR$/src/lib/tmp.py" />
+    <entry file="file://$USER_HOME$/anaconda2/envs/buswatcher/lib/python2.7/site-packages/flask/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="37" column="1" lean-forward="true" selection-start-line="37" selection-start-column="1" selection-end-line="37" selection-end-column="1" />
+        <state relative-caret-position="156">
+          <caret line="1981" selection-start-line="1981" selection-end-line="1981" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/buses/Buses.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1126">
           <folding>
-            <element signature="e#1#16#0" expanded="true" />
+            <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/importtest.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/buses/Buses.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1159">
+          <caret line="198" column="40" selection-start-line="198" selection-start-column="40" selection-end-line="198" selection-end-column="40" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/stopwatcher.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="10" column="12" selection-start-line="10" selection-start-column="12" selection-end-line="10" selection-end-column="12" />
+          <folding>
+            <element signature="e#186#206#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/buses/reportcard_helpers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="650">
+          <caret line="60" column="70" selection-start-line="60" selection-start-column="70" selection-end-line="60" selection-end-column="70" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/reportcard.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="22" column="44" selection-start-line="22" selection-start-column="37" selection-end-line="22" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/buses/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="4" selection-start-line="4" selection-end-line="4" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="574">
+          <caret line="40" column="5" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/inferno NJ plans.txt">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
   </component>
 </project>

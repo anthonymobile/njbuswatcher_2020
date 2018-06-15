@@ -8,7 +8,7 @@ import sys
 import argparse
 import datetime
 
-from lib import BusDB, Buses
+from src.buses import BusDB, Buses
 
 
 def main():

@@ -198,7 +198,8 @@ def parse_route_xml(data):
 
                 route.paths.append(path)
 
-                routes.append(route.paths)
+                routes.append(route.paths) # is this the change that broke stopwatcher? used to just be routes.append (route)
+                # how can i change the waypoint map thing so this doesnt have to change, or change stopwatcher...
 
             break
 
