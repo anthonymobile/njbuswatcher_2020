@@ -5,7 +5,10 @@
 # the current arrivals for every stop on a source, route
 # and stick it in the database
 
-import argparse
+import buses.Buses as Buses
+from buses.reportcard_helpers import *
+
+import argparse, sys, datetime
 
 
 def fetch_arrivals(source, route):
@@ -16,10 +19,11 @@ def fetch_arrivals(source, route):
 
     stoplist = []
 
-    for i in routedata.paths:
-        for p in i.points:
-            if p.__class__.__name__ == 'Stop':
-                stoplist.append(p.identity)
+    for rt in routedata:
+        for path in rt.paths:
+            for p in path.points:
+                if p.__class__.__name__ == 'Stop':
+                    stoplist.append(p.identity)
 
     for s in stoplist:
         arrivals = Buses.parse_stopprediction_xml(Buses.get_xml_data('nj', 'stop_predictions', stop=s, route=route))
