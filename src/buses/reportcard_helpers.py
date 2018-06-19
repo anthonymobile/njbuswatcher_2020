@@ -5,15 +5,15 @@
 import sqlite3
 import pandas as pd
 pd.set_option('display.width', 1000)
-from src.buses import StopsDB
+import StopsDB
 
 
 # database interactions--------------------------
 
 ### initialize database connection
 def db_setup(route):
-    db = StopsDB.SQLite('data/%s.db' % route)
-    conn = sqlite3.connect('data/%s.db' % route)
+    db = StopsDB.SQLite('../data/%s.db' % route)
+    conn = sqlite3.connect('../data/%s.db' % route)
     return conn, db
 
 
