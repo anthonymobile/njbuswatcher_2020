@@ -37,8 +37,9 @@ def get_stoplist(route):
 def timestamp_fix(data):
 
     data['timestamp'] = data['timestamp'].str.split('.').str.get(0)
-    data['timestamp'] = pd.to_datetime(data['timestamp'])
-    data = data.set_index('timestamp', drop=False)
+    # data['timestamp'] = pd.to_datetime(data['timestamp'])
+    # data = data.set_index('timestamp', drop=False)
+    data = data.set_index(pd.DatetimeIndex(data['timestamp']), drop=False)
 
     return data
 
