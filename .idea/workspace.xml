@@ -4,20 +4,16 @@
     <bookmark url="file://$PROJECT_DIR$/src/buses/Buses.py" line="196" />
     <bookmark url="file://$PROJECT_DIR$/src/reportcard.py" line="27" />
     <bookmark url="file://$PROJECT_DIR$/src/reportcard.py" line="34" />
-    <bookmark url="file://$PROJECT_DIR$/src/buses/reportcard_helpers.py" line="50" />
+    <bookmark url="file://$PROJECT_DIR$/src/buses/reportcard_helpers.py" line="51" />
     <bookmark url="file://$PROJECT_DIR$/src/stopwatcher.py" line="47" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e9c35431-0764-488c-bbb0-431ede0ff16b" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/stopwatcher_new.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebooks/nb-buswatcher_db_connector.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebooks/nb-connect_bus_datastore_to_inferno.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebooks/nb-map_api_test.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebooks/nb-map_bus_live_nj_all.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebooks/nb-map_route_waypoints.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebooks/nb-new_stopwatcher_data_structure.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebooks/nb-snippets.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/*** NEW stopwatcher data structure.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/*** NEW stopwatcher data structure.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/*** fixing parse_route_xml.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/*** inferno - test sample NJT bus location dataset.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/Snippets useful.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/Snippets useful.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/buses/reportcard_helpers.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/buses/reportcard_helpers.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -35,20 +31,26 @@
       <file leaf-file-name="TO DO.txt" pinned="false" current-in-tab="false">
         <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/TO DO.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="156">
-              <caret line="7" column="199" selection-start-line="7" selection-start-column="199" selection-end-line="7" selection-end-column="199" />
+            <state relative-caret-position="399">
+              <caret line="21" column="182" selection-start-line="13" selection-end-line="21" selection-end-column="182" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="stopwatcher_new.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="reportcard_helpers.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/buses/reportcard_helpers.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="398">
+              <caret line="41" column="74" lean-forward="true" selection-start-line="38" selection-start-column="4" selection-end-line="41" selection-end-column="74" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="stopwatcher_new.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/stopwatcher_new.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1117">
-              <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
-              <folding>
-                <element signature="e#61#72#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="209">
+              <caret line="13" selection-start-line="13" selection-end-line="13" />
             </state>
           </provider>
         </entry>
@@ -145,8 +147,8 @@
         <option value="$PROJECT_DIR$/src/buses/Buses.py" />
         <option value="$PROJECT_DIR$/src/stopwatcher.py" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/TO DO.txt" />
-        <option value="$PROJECT_DIR$/src/buses/reportcard_helpers.py" />
         <option value="$PROJECT_DIR$/src/stopwatcher_new.py" />
+        <option value="$PROJECT_DIR$/src/buses/reportcard_helpers.py" />
       </list>
     </option>
   </component>
@@ -170,6 +172,12 @@
               <item name="buswatcher" type="b2602c69:ProjectViewProjectNode" />
               <item name="buswatcher" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="buswatcher" type="b2602c69:ProjectViewProjectNode" />
+              <item name="buswatcher" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="buses" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="buswatcher" type="b2602c69:ProjectViewProjectNode" />
@@ -310,13 +318,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1524759532211</updated>
-    </task>
-    <task id="LOCAL-00003" summary="sqlite working and deployed for cron testing">
-      <created>1524762281826</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1524762281826</updated>
     </task>
     <task id="LOCAL-00004" summary="everything working and deployed on D.O.">
       <created>1524773093929</created>
@@ -654,13 +655,21 @@
       <option name="project" value="LOCAL" />
       <updated>1529113536619</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="WIP">
+      <created>1529443472193</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1529443472195</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1366" height="768" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4706704" visible="true" weight="0.23792094" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.46648043" visible="true" weight="0.23792094" />
       <window_info anchor="bottom" id="TODO" order="5" />
       <window_info anchor="bottom" id="Event Log" order="6" sideWeight="0.50073206" side_tool="true" weight="0.3980447" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.3282123" />
@@ -668,7 +677,7 @@
       <window_info anchor="bottom" id="Run" order="10" weight="0.38128492" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="9" weight="0.328594" />
-      <window_info id="Favorites" order="2" sideWeight="0.5293296" side_tool="true" weight="0.29648608" />
+      <window_info id="Favorites" order="2" sideWeight="0.53351957" side_tool="true" visible="true" weight="0.23792094" />
       <window_info anchor="bottom" id="Debug" order="2" sideWeight="0.49926794" weight="0.36173186" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -703,7 +712,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="full arrivals board working" />
     <MESSAGE value="change flask app.run(host='0.0.0.0', debug=True)" />
     <MESSAGE value="some output from hourly view, not yet right." />
     <MESSAGE value="hourly output 50% - still not showing stop_id, or proper units conversion for time delta" />
@@ -728,7 +736,8 @@
     <MESSAGE value="refactor and cleanup" />
     <MESSAGE value="major re-org" />
     <MESSAGE value="fixed parse_route_xml again" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed parse_route_xml again" />
+    <MESSAGE value="WIP" />
+    <option name="LAST_COMMIT_MESSAGE" value="WIP" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -737,11 +746,6 @@
           <url>file://$PROJECT_DIR$/src/busdumper-statewide.py</url>
           <line>6</line>
           <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/src/buses/reportcard_helpers.py</url>
-          <line>50</line>
-          <option name="timeStamp" value="20" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/src/stopwatcher.py</url>
@@ -930,20 +934,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/reportcard.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="22" column="44" selection-start-line="22" selection-start-column="37" selection-end-line="22" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/buses/reportcard_helpers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="15" column="28" selection-start-line="15" selection-start-column="28" selection-end-line="15" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/stopwatcher.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="133">
@@ -968,20 +958,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/TO DO.txt">
+    <entry file="file://$PROJECT_DIR$/src/stopwatcher_new.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="7" column="199" selection-start-line="7" selection-start-column="199" selection-end-line="7" selection-end-column="199" />
+        <state relative-caret-position="209">
+          <caret line="13" selection-start-line="13" selection-end-line="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/stopwatcher_new.py">
+    <entry file="file://$PROJECT_DIR$/src/reportcard.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1117">
-          <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
-          <folding>
-            <element signature="e#61#72#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="418">
+          <caret line="22" column="44" selection-start-line="22" selection-start-column="37" selection-end-line="22" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/TO DO.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="21" column="182" selection-start-line="13" selection-end-line="21" selection-end-column="182" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/buses/reportcard_helpers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="398">
+          <caret line="41" column="74" lean-forward="true" selection-start-line="38" selection-start-column="4" selection-end-line="41" selection-end-column="74" />
         </state>
       </provider>
     </entry>
