@@ -1,0 +1,12 @@
+# download the NJT gtfs bus schedule from the NJT developer site (acct required)
+# https://www.njtransit.com/mt/mt_servlet.srv?hdnPageAction=MTDevLoginTo
+# 
+# install pygtfs
+# pip install pygtfs
+#
+# run gtfsdb creator
+# 
+
+gtfs2db append bus_data.zip njtbus.sqlite
+
+# could take up to 30 minutes
