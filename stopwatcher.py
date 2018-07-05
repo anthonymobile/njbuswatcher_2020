@@ -15,7 +15,7 @@ def fetch_arrivals(source, route):
 
     (conn, db) = db_setup(route)
 
-    routedata = Buses.parse_route_xml(Buses.get_xml_data(source, 'routes', route=route))
+    routedata = Buses.parse_xml_getRoutePoints(Buses.get_xml_data(source, 'routes', route=route))
 
     stoplist = []
 
@@ -26,7 +26,7 @@ def fetch_arrivals(source, route):
                     stoplist.append(p.identity)
 
     for s in stoplist:
-        arrivals = Buses.parse_stopprediction_xml(Buses.get_xml_data('nj', 'stop_predictions', stop=s, route=route))
+        arrivals = Buses.parse_xml_getStopPredictions(Buses.get_xml_data('nj', 'stop_predictions', stop=s, route=route))
         # sys.stdout.write('.')
         now = datetime.datetime.now()
         db.insert_positions(arrivals, now)

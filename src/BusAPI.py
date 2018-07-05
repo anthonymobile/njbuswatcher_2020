@@ -20,10 +20,6 @@ _api = {
   'route_directions_xml':  'routeDirectionStopAsXML',
 }
 
-# parsers done for all_buses, routes, stop_predictions
-# ignored: time_and_temp
-# not available / not fully documented: schedules (not sure what the right kwargs are, agency=1 & route=87 ?)
-
 
 def _gen_command(source, func, **kwargs):
     result = _sources[source] + _api[func]
@@ -98,7 +94,16 @@ class StopPrediction(KeyValueData):
         KeyValueData.__init__(self, **kwargs)
         self.name = 'StopPrediction' 
 
-def parse_stopprediction_xml(data):
+
+#
+# parsers for specific API calls
+#
+# parsers done for all_buses, routes, stop_predictions
+# ignored: time_and_temp
+# not available / not fully documented: schedules (not sure what the right kwargs are, agency=1 & route=87 ?)
+
+
+def parse_xml_getStopPredictions(data):
     results = []
     e = xml.etree.ElementTree.fromstring(data)
 
@@ -122,10 +127,8 @@ def parse_stopprediction_xml(data):
             # and split the integer out of the prediction
             prediction.pt = prediction.pt.split(' ')[0]
     return results
-    
-# end of stops add
 
-def parse_bus_xml(data):
+def parse_xml_getBusesForRouteAll(data):
     results = []
 
     e = xml.etree.ElementTree.fromstring(data)
@@ -142,7 +145,26 @@ def parse_bus_xml(data):
     return results
 
 
-def parse_route_xml(data):
+# http://mybusnow.njtransit.com/bustime/map/getBusesForRoute.jsp?route=119
+def parse_xml_getBusesForRoute(data):
+    results = []
+
+    e = xml.etree.ElementTree.fromstring(data)
+    for atype in e.findall('bus'):
+        fields = {}
+        for field in atype.getchildren():
+            if field.tag not in fields and hasattr(field, 'text'):
+                if field.text is None:
+                    fields[field.tag] = ''
+                    continue
+                fields[field.tag] = field.text
+
+        results.append(Bus(**fields))
+    return results
+
+
+
+def parse_xml_getRoutePoints(data):
 
     routes = list()
 
@@ -220,6 +242,6 @@ def get_xml_data_save_raw(source, function, raw_dir, **kwargs):
     handle.close()
     return data
 
-
-def parse_bus_xml_file(fname):
-    return parse_bus_xml(open(fname, 'r').read())
+# vestigial?
+# def parse_bus_xml_file(fname):
+#    return parse_xml_getBusesForRouteAll(open(fname, 'r').read())
