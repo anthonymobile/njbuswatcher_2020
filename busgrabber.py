@@ -8,7 +8,8 @@ import sys
 import argparse
 import datetime
 
-from src.buses import BusDB, Buses
+from src.BusAPI import *
+from src.BusDB import *
 
 
 def main():
@@ -36,20 +37,20 @@ def main():
         sys.exit(-1)
    
     if hasattr(args, 'db_name'):
-        db = BusDB.MySQL(args.db_name, args.db_user, args.db_password, args.db_host)
+        db = MySQL(args.db_name, args.db_user, args.db_password, args.db_host)
     elif hasattr(args, 'mongo_name'):
-        db = BusDB.Mongo(args.mongo_name)
+        db = Mongo(args.mongo_name)
     elif hasattr(args, 'sqlite_file'): 
-        db = BusDB.SQLite(args.sqlite_file)
+        db = SQLite(args.sqlite_file)
     else:
         print 'cannot deduce database type'
         sys.exit(-2)
 
     now = datetime.datetime.now()
     if args.raw:
-        bus_data = Buses.parse_bus_xml(Buses.get_xml_data_save_raw(args.source, 'all_buses', args.raw))
+        bus_data = parse_xml_getBusesForRouteAll(get_xml_data_save_raw(args.source, 'all_buses', args.raw))
     else:
-        bus_data = Buses.parse_bus_xml(Buses.get_xml_data(args.source, 'all_buses'))
+        bus_data = parse_xml_getBusesForRouteAll(get_xml_data(args.source, 'all_buses'))
     db.insert_positions(bus_data, now)
 
 if __name__ == "__main__":
