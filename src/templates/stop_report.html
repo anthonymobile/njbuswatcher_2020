@@ -1,13 +1,13 @@
 <html>
 <head>
-    <title>Frequency Board Full</title>
+    <title>Bus Report Card: Stop</title>
 </head>
 <body>
-<h1>Arrivals - All History for Single Stop</h1>
+<h1>Arrivals - {stop_report.period} History for Stop {stop_report.stop} on Route {stop_report.route }</h1>
 
 <table width="100%">
 <tbody>
-{% for dict_item in history1stop %}
+{% for dict_item in stop_report %}
     <tr>
     {% for key, value in dict_item.items() %}
         <td align="center">

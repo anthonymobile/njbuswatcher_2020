@@ -1,3 +1,9 @@
+# this is all deprecated as of 5 July 2018
+
+
+
+
+
 # bus_report_card and busdumper
 
 Two frameworks for interacting with, logging, and presenting raw data and summaries of bus location and arrival prediciton data from the NJ transit MyBusNow service -- but should work with any transit agency using the CleverDevices API.

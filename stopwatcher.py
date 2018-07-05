@@ -5,8 +5,8 @@
 # the current arrivals for every stop on a source, route
 # and stick it in the database
 
-import buses.Buses as Buses
-from buses.reportcard_helpers import *
+import src.BusAPI as Buses
+from src.reportcard_helpers import *
 
 import argparse, sys, datetime
 
