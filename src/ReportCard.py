@@ -121,12 +121,6 @@ def another_common_function(source, function, **kwargs):
 
 # database interactions--------------------------
 
-### initialize database connection
-def db_setup(route):
-    db = StopsDB.SQLite('data/%s.db' % route)
-    conn = sqlite3.connect('data/%s.db' % route)
-    return conn, db
-
 
 ### get list of all stops for 'route' currently observed in the entire database
 def get_stoplist(route):
