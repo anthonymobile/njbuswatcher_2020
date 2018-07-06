@@ -1,22 +1,16 @@
-# should run as a cron job
-# python stopwatcher.py -s nj -r 87
+# fetch arrival predictions for all stops on a given source, route
+# write to database
 
-# all this program does is fetch
-# the current arrivals for every stop on a source, route
-# and stick it in the database
+import src.BusAPI as BusAPI
+import src.StopsDB as StopsDB
 
-import src.BusAPI as Buses
-from src.reportcard_helpers import *
-
-import argparse, sys, datetime
+import argparse, datetime, sqlite3
 
 
 def fetch_arrivals(source, route):
 
     (conn, db) = db_setup(route)
-
-    routedata = Buses.parse_xml_getRoutePoints(Buses.get_xml_data(source, 'routes', route=route))
-
+    routedata = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(source, 'routes', route=route))
     stoplist = []
 
     for rt in routedata:
@@ -26,12 +20,17 @@ def fetch_arrivals(source, route):
                     stoplist.append(p.identity)
 
     for s in stoplist:
-        arrivals = Buses.parse_xml_getStopPredictions(Buses.get_xml_data('nj', 'stop_predictions', stop=s, route=route))
+        arrivals = BusAPI.parse_xml_getStopPredictions(BusAPI.get_xml_data('nj', 'stop_predictions', stop=s, route=route))
         # sys.stdout.write('.')
         now = datetime.datetime.now()
         db.insert_positions(arrivals, now)
 
     return
+
+def db_setup(route):
+    db = StopsDB.SQLite('data/%s.db' % route)
+    conn = sqlite3.connect('data/%s.db' % route)
+    return conn, db
 
 
 def main():
@@ -42,6 +41,7 @@ def main():
     args = parser.parse_args()
 
     fetch_arrivals(args.source, args.route)
+
 
 if __name__ == "__main__":
     main()

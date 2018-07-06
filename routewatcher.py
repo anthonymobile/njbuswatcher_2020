@@ -1,7 +1,8 @@
-#!/usr/bin/python
+# fetches the NJT arrival predictions for
+#  bus feed and dumps it to database
 
-# fetches the NJT statewide bus feed and dumps it to sqlite
-# cron it every minute or 10 seconds or daemon-ize it?
+# fetches all buses currently in operation on a given route and writes them to the main database
+# using a table for that line
 
 
 import sys
@@ -9,13 +10,13 @@ import argparse
 import datetime
 
 from src.BusAPI import *
-from src.BusDB import *
+from src.BusLineDB import *
 
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('-s', '--source', dest='source', default='nj', help='source name')
-    parser.add_argument('--save-raw', dest='raw', default=None, required=False, help='directory to save the raw data to')
+    parser.add_argument('-r', '--route', dest='route', required=True, help='route number')
 
     # sqlite backend - just requires write privs on the file
     subparsers = parser.add_subparsers() 
@@ -38,20 +39,20 @@ def main():
    
     if hasattr(args, 'db_name'):
         db = MySQL(args.db_name, args.db_user, args.db_password, args.db_host)
-    elif hasattr(args, 'mongo_name'):
-        db = Mongo(args.mongo_name)
     elif hasattr(args, 'sqlite_file'): 
         db = SQLite(args.sqlite_file)
     else:
         print 'cannot deduce database type'
         sys.exit(-2)
 
+
+
+
     now = datetime.datetime.now()
-    if args.raw:
-        bus_data = parse_xml_getBusesForRouteAll(get_xml_data_save_raw(args.source, 'all_buses', args.raw))
-    else:
-        bus_data = parse_xml_getBusesForRouteAll(get_xml_data(args.source, 'all_buses'))
+    bus_data = parse_xml_getBusesForRoute(get_xml_data(args.source, 'buses_for_route','route'=args.route))
     db.insert_positions(bus_data, now)
+
+
 
 if __name__ == "__main__":
     main()
