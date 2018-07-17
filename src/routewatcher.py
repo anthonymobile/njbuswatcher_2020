@@ -6,8 +6,11 @@ import sys
 import argparse
 import datetime
 
-from src.lib.BusAPI import *
-from src.lib.BusLineDB import *
+#from src.lib.BusAPI import *
+#from src.lib.BusLineDB import *
+import src.lib.BusAPI as BusAPI
+import src.lib.BusLineDB as BusLineDB
+
 
 
 def main():
@@ -30,14 +33,14 @@ def main():
 
     args = parser.parse_args()
 
-    if args.source not in Buses._sources:
-        print args.source + ' is not a valid source.  Valid sources=' + str(Buses._sources.keys())
+    if args.source not in BusAPI._sources:
+        print args.source + ' is not a valid source.  Valid sources=' + str(BusAPI._sources.keys())
         sys.exit(-1)
    
     if hasattr(args, 'db_name'):
-        db = MySQL(args.db_name, args.db_user, args.db_password, args.db_host)
+        db = BusLineDB.MySQL(args.db_name, args.db_user, args.db_password, args.db_host)
     elif hasattr(args, 'sqlite_file'): 
-        db = SQLite(args.sqlite_file,route)
+        db = BusLineDB.SQLite(args.sqlite_file,route)
     else:
         print 'cannot deduce database type'
         sys.exit(-2)
@@ -45,7 +48,7 @@ def main():
 
     now = datetime.datetime.now()
     rt = 'route'+args.route
-    bus_data = parse_xml_getBusesForRoute(get_xml_data(args.source, 'buses_for_route',rt))
+    bus_data = BusAPI.parse_xml_getBusesForRoute(get_xml_data(args.source, 'buses_for_route',rt))
     db.insert_positions(bus_data, now)
 
 
