@@ -1,7 +1,7 @@
 import os
 import sqlite3
 from mysql.connector import connection
-import datetime
+
 
 _columns = ['cars','consist','fd','m','name','pt','rd','rn','scheduled','stop_id','stop_name','v']
 
@@ -56,3 +56,27 @@ class SQLite(DB):
             self._execute(SQLite._create_db_string)
         else:
             self.conn = sqlite3.connect(self.fname)
+
+class MySQL(DB):
+    _create_table_string = '''CREATE TABLE stop_predictions (pkey integer primary key auto_increment, cars varchar(20), consist varchar(20), fd varchar(255), m varchar(20), name varchar(20), pt varchar(20), rd varchar(20), rn varchar(20), scheduled varchar(20), stop_id varchar(20), stop_name varchar(255), v varchar(20), timestamp varchar(255))'''
+
+    _insert_string = 'INSERT INTO stop_predictions VALUES(NULL, "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s")'
+
+    def __init__(self, db_name, db_user, db_password, db_host='127.0.0.1'):
+        DB.__init__(self, MySQL._insert_string)
+        self.db_name = db_name
+        self.db_user = db_user
+        self.db_password = db_password
+        self.db_host = db_host
+        self._setup_db()
+
+    def _setup_db(self):
+        self.conn = connection.MySQLConnection(user=self.db_user, password=self.db_password, host=self.db_host)
+        self._execute('CREATE DATABASE IF NOT EXISTS %s;' % self.db_name)
+        self.conn.database = self.db_name
+
+        try:
+            self._execute(MySQL._create_table_string)
+        # except mysql.connector.errors as err:
+        except:
+            pass
