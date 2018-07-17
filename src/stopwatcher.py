@@ -1,8 +1,9 @@
-# fetch arrival predictions for all stops on a given source, route
-# write to database
+# fetches the NJT arrival predictions for all stops on a given source, route
+# and dumps it to sqlite database
 
-import src.BusAPI as BusAPI
-import src.StopsDB as StopsDB
+
+import src.lib.BusAPI as BusAPI
+import src.lib.StopsDB as StopsDB
 
 import argparse, datetime, sqlite3
 
@@ -20,7 +21,8 @@ def fetch_arrivals(source, route):
                     stoplist.append(p.identity)
 
     for s in stoplist:
-        arrivals = BusAPI.parse_xml_getStopPredictions(BusAPI.get_xml_data('nj', 'stop_predictions', stop=s, route=route))
+        arrivals = BusAPI.parse_xml_getStopPredictions(
+            BusAPI.get_xml_data('nj', 'stop_predictions', stop=s, route=route))
         # sys.stdout.write('.')
         now = datetime.datetime.now()
         db.insert_positions(arrivals, now)
