@@ -78,7 +78,7 @@ class SQLite(DB):
     _create_db_string = '''CREATE TABLE %s (pkey integer primary key autoincrement, lat real, lon real, ar text, bid text, cars text, consist text, d text, dip text, fs text, id text, m text, op text, pd text, pdRtpiFeedName text, pid text, rt text, rtRtpiFeedName text, rtdd text, rtpiFeedName text, run text, wid1 text, wid2 text, timestamp text)''' % _table_name
     _insert_string = 'INSERT INTO %s VALUES(NULL, %f, %f, "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s")' % _table_name
 
-    def __init__(self, fname):
+    def __init__(self, fname,route):
         DB.__init__(self, SQLite._insert_string)
         self.conn = None
         self.fname = fname
@@ -95,7 +95,7 @@ class SQLite(DB):
 
 class MySQL(DB):
 
-    _table_name = route
+    _table_name = 'routelog_'+route
     _create_table_string = '''CREATE TABLE IF NOT EXISTS %s (pkey integer primary key auto_increment, lat real, lon real, bid varchar(20), cars varchar(20), consist varchar(20), d varchar(20), dip varchar(20), fs varchar(255), id varchar(20), m varchar(20), op varchar(20), pd varchar(20), pdRtpiFeedName varchar(20), pid varchar(20), rt varchar(20), rtRtpiFeedName varchar(20), rtdd varchar(20), rtpiFeedName varchar(20), run varchar(20), wid1 varchar(20), wid2 varchar(20), timestamp varchar(255))''' % _table_name
 
     _insert_string = 'INSERT INTO %s VALUES(NULL, %f, %f, "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s")' % _table_name

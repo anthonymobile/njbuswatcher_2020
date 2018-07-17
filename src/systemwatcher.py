@@ -1,22 +1,18 @@
-# fetches the NJT arrival predictions for
-#  bus feed and dumps it to database
-
-# fetches all buses currently in operation on a given route and writes them to the main database
-# using a table for that line
-
+# fetches the NJT statewide bus feed
+# and dumps it to sqlite, mysql database
 
 import sys
 import argparse
 import datetime
 
-from src.BusAPI import *
-from src.BusLineDB import *
+import src.lib.BusAPI as BusAPI
+import src.lib.BusDB as BusDB
 
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('-s', '--source', dest='source', default='nj', help='source name')
-    parser.add_argument('-r', '--route', dest='route', required=True, help='route number')
+    parser.add_argument('--save-raw', dest='raw', default=None, required=False, help='directory to save the raw data to')
 
     # sqlite backend - just requires write privs on the file
     subparsers = parser.add_subparsers() 
@@ -33,26 +29,25 @@ def main():
 
     args = parser.parse_args()
 
-    if args.source not in Buses._sources:
+    if args.source not in BusAPI._sources:
         print args.source + ' is not a valid source.  Valid sources=' + str(Buses._sources.keys())
         sys.exit(-1)
    
     if hasattr(args, 'db_name'):
-        db = MySQL(args.db_name, args.db_user, args.db_password, args.db_host)
+        db = BusDB.MySQL(args.db_name, args.db_user, args.db_password, args.db_host)
     elif hasattr(args, 'sqlite_file'): 
-        db = SQLite(args.sqlite_file)
+        db = BusDB.SQLite(args.sqlite_file)
     else:
         print 'cannot deduce database type'
         sys.exit(-2)
 
-
-
-
     now = datetime.datetime.now()
-    bus_data = parse_xml_getBusesForRoute(get_xml_data(args.source, 'buses_for_route','route'=args.route))
+    if args.raw:
+        bus_data = BusAPI.parse_xml_getBusesForRouteAll(
+            BusAPI.get_xml_data_save_raw(args.source, 'all_buses', args.raw))
+    else:
+        bus_data = BusAPI.parse_xml_getBusesForRouteAll(BusAPI.get_xml_data(args.source, 'all_buses'))
     db.insert_positions(bus_data, now)
-
-
 
 if __name__ == "__main__":
     main()
