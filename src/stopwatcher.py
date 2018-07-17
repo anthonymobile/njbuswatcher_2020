@@ -10,7 +10,9 @@ import argparse, datetime, sqlite3
 
 def fetch_arrivals(source, route):
 
-    (conn, db) = db_setup(route)
+    # (conn, db) = db_setup(route)
+    (conn, db) = db_setup_mysql(route)
+
     routedata = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(source, 'routes', route=route))
     stoplist = []
 
@@ -23,7 +25,6 @@ def fetch_arrivals(source, route):
     for s in stoplist:
         arrivals = BusAPI.parse_xml_getStopPredictions(
             BusAPI.get_xml_data('nj', 'stop_predictions', stop=s, route=route))
-        # sys.stdout.write('.')
         now = datetime.datetime.now()
         db.insert_positions(arrivals, now)
 
@@ -34,6 +35,10 @@ def db_setup(route):
     conn = sqlite3.connect('data/%s.db' % route)
     return conn, db
 
+def db_setup_mysql(route):
+    db = StopsDB.MySQL('buses', 'buswatcher', 'njtransit')
+    conn = db.conn
+    return conn, db
 
 def main():
 
