@@ -8,8 +8,8 @@ import datetime
 
 #from src.lib.BusAPI import *
 #from src.lib.BusLineDB import *
-import src.lib.BusAPI as BusAPI
-import src.lib.BusLineDB as BusLineDB
+import lib.BusAPI as BusAPI
+import lib.BusLineDB as BusLineDB
 
 
 

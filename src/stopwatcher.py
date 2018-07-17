@@ -2,8 +2,8 @@
 # and dumps it to sqlite database
 
 
-import src.lib.BusAPI as BusAPI
-import src.lib.StopsDB as StopsDB
+import lib.BusAPI as BusAPI
+import lib.StopsDB as StopsDB
 
 import argparse, datetime, sqlite3
 
