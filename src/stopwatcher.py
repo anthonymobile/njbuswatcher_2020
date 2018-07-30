@@ -1,17 +1,15 @@
 # fetches the NJT arrival predictions for all stops on a given source, route
 # and dumps it to sqlite database
 
-
 import lib.BusAPI as BusAPI
 import lib.StopsDB as StopsDB
 
-import argparse, datetime, sqlite3
+import argparse, datetime
 
 
 def fetch_arrivals(source, route):
 
-    # (conn, db) = db_setup(route)
-    (conn, db) = db_setup_mysql(route)
+    (conn, db) = db_setup(route)
 
     routedata = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(source, 'routes', route=route))
     stoplist = []
@@ -30,12 +28,13 @@ def fetch_arrivals(source, route):
 
     return
 
-def db_setup(route):
-    db = StopsDB.SQLite('data/%s.db' % route)
-    conn = sqlite3.connect('data/%s.db' % route)
-    return conn, db
+# def db_setup(route):
+#     db = StopsDB.SQLite('data/%s.db' % route)
+#     conn = sqlite3.connect('data/%s.db' % route)
+#     return conn, db
 
-def db_setup_mysql(route):
+def db_setup(route):
+
     db = StopsDB.MySQL('buses', 'buswatcher', 'njtransit')
     conn = db.conn
     return conn, db

@@ -9,7 +9,18 @@ import datetime
 #from src.lib.BusAPI import *
 #from src.lib.BusLineDB import *
 import lib.BusAPI as BusAPI
-import lib.BusLineDB as BusLineDB
+import lib.BusRouteLogsDB as BusRouteLogsDB
+
+#
+# database setup
+# c. table name should be: (approaches) with query to select, or (approaches_30189) ?
+#
+#
+# def db_setup(route):
+#
+#     db = StopsDB.MySQL('buses', 'buswatcher', 'njtransit')
+#     conn = db.conn
+#     return conn, db
 
 
 
@@ -38,17 +49,17 @@ def main():
         sys.exit(-1)
    
     if hasattr(args, 'db_name'):
-        db = BusLineDB.MySQL(args.db_name, args.db_user, args.db_password, args.db_host)
+                db = BusRouteLogsDB.MySQL(args.db_name, args.db_user, args.db_password, args.db_host, args.route)
     elif hasattr(args, 'sqlite_file'): 
-        db = BusLineDB.SQLite(args.sqlite_file,route)
+        db = BusRouteLogsDB.SQLite(args.sqlite_file, args.route)
     else:
         print 'cannot deduce database type'
         sys.exit(-2)
 
 
     now = datetime.datetime.now()
-    rt = 'route'+args.route
-    bus_data = BusAPI.parse_xml_getBusesForRoute(get_xml_data(args.source, 'buses_for_route',rt))
+    bus_data = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data(args.source, 'buses_for_route',route=args.route))
+    print bus_data
     db.insert_positions(bus_data, now)
 
 
