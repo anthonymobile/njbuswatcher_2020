@@ -31,7 +31,7 @@ def fetch_arrivals(source, route):
 
 def db_setup(route):
 
-    db = StopsDB.MySQL('buses', 'buswatcher', 'njtransit')
+    db = StopsDB.MySQL('buses', 'buswatcher', 'njtransit','127.0.0.1', route)
     conn = db.conn
     return conn, db
 
