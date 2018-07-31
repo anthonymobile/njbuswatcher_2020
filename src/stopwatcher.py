@@ -1,5 +1,6 @@
-# fetches the NJT arrival predictions for all stops on a given source, route
-# and dumps it to sqlite database
+# fetches the NJT arrival predictions for all stops on a given source, route and dumps it to sqlite database
+# usage python stopwatcher.py -s nj -r 87
+
 
 import lib.BusAPI as BusAPI
 import lib.StopsDB as StopsDB
@@ -27,11 +28,6 @@ def fetch_arrivals(source, route):
         db.insert_positions(arrivals, now)
 
     return
-
-# def db_setup(route):
-#     db = StopsDB.SQLite('data/%s.db' % route)
-#     conn = sqlite3.connect('data/%s.db' % route)
-#     return conn, db
 
 def db_setup(route):
 
