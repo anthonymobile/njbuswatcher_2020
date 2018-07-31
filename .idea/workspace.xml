@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BookmarkManager">
+    <bookmark url="file://$PROJECT_DIR$/src/lib/BusRouteLogsDB.py" description="handle mysql errors better" line="71" mnemonic="1" />
+    <bookmark url="file://$PROJECT_DIR$/src/lib/StopsDB.py" description="handle mysql errors better" line="74" mnemonic="2" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="e9c35431-0764-488c-bbb0-431ede0ff16b" name="Default" comment="routewatcher working">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/lib/BusRouteLogsDB.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/BusRouteLogsDB.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routewatcher.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/routewatcher.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/StopsDB.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/StopsDB.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/stopwatcher.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/stopwatcher.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -25,27 +30,27 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="13" />
+          <entry key="py" value="18" />
           <entry key="txt" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Python" value="13" />
+          <entry key="Python" value="18" />
           <entry key="Scratch" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="11" />
-          <entry key="py" value="367" />
+          <entry key="py" value="543" />
           <entry key="txt" value="119" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="33" />
-          <entry key="Python" value="367" />
+          <entry key="Python" value="543" />
           <entry key="Scratch" value="97" />
         </counts>
       </usages-collector>
@@ -58,11 +63,27 @@
     <splitter split-orientation="horizontal" split-proportion="0.5">
       <split-first>
         <leaf>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/stopwatcher.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1232">
-                  <caret line="44" column="4" lean-forward="true" selection-start-line="44" selection-start-column="4" selection-end-line="44" selection-end-column="43" />
+                <state relative-caret-position="399">
+                  <caret line="33" column="71" selection-start-line="33" selection-start-column="71" selection-end-line="33" selection-end-column="71" />
+                  <folding>
+                    <element signature="e#112#139#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/lib/StopsDB.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="304">
+                  <caret line="49" column="61" selection-start-line="49" selection-start-column="61" selection-end-line="49" selection-end-column="61" />
+                  <folding>
+                    <element signature="e#0#38#0" expanded="true" />
+                    <element signature="e#222#569#0" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -71,24 +92,27 @@
       </split-first>
       <split-second>
         <leaf>
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/routewatcher.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="22">
-                  <caret line="15" column="18" lean-forward="true" selection-start-line="15" selection-start-column="18" selection-end-line="15" selection-end-column="18" />
+                <state relative-caret-position="204">
+                  <caret line="14" column="66" lean-forward="true" selection-start-line="14" selection-start-column="66" selection-end-line="14" selection-end-column="79" />
                   <folding>
-                    <element signature="e#138#148#0" expanded="true" />
-                    <marker date="1533072168991" expanded="true" signature="542:763" ph="..." />
+                    <element signature="e#178#188#0" expanded="true" />
+                    <marker date="1533074535021" expanded="true" signature="542:763" ph="..." />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/lib/BusRouteLogsDB.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="283">
-                  <caret line="120" column="14" selection-start-line="120" selection-start-column="14" selection-end-line="120" selection-end-column="14" />
+                <state relative-caret-position="22">
+                  <caret line="1" selection-start-line="1" selection-end-line="2" selection-end-column="10" />
+                  <folding>
+                    <element signature="e#311#796#0" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -120,7 +144,6 @@
       <find>get_xml</find>
       <find>args</find>
       <find>fetch</find>
-      <find>print</find>
       <find>arrivals_historyprint</find>
       <find>timestamp_bak</find>
       <find>mongo</find>
@@ -130,6 +153,7 @@
       <find>parse_bus_xml_file</find>
       <find>mysql.connector</find>
       <find>pt</find>
+      <find>print</find>
     </findStrings>
     <replaceStrings>
       <replace>mongo.StringField</replace>
@@ -186,12 +210,12 @@
         <option value="$PROJECT_DIR$/src/BusLineDB.py" />
         <option value="$PROJECT_DIR$/routewatcher.py" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/to do.txt" />
-        <option value="$PROJECT_DIR$/src/lib/StopsDB.py" />
         <option value="$PROJECT_DIR$/src/lib/BusLineDB.py" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch.txt" />
-        <option value="$PROJECT_DIR$/src/stopwatcher.py" />
-        <option value="$PROJECT_DIR$/src/routewatcher.py" />
         <option value="$PROJECT_DIR$/src/lib/BusRouteLogsDB.py" />
+        <option value="$PROJECT_DIR$/src/routewatcher.py" />
+        <option value="$PROJECT_DIR$/src/stopwatcher.py" />
+        <option value="$PROJECT_DIR$/src/lib/StopsDB.py" />
       </list>
     </option>
   </component>
@@ -275,7 +299,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.routewatcher 119">
+  <component name="RunManager" selected="Python.stopwatcher 87">
     <configuration name="buswatcher" type="JupiterNotebook" factoryName="Jupyter Notebook">
       <module name="buswatcher" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -768,9 +792,9 @@
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4433735" visible="true" weight="0.24594785" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.44216868" weight="0.24594785" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Favorites" order="2" sideWeight="0.5566265" side_tool="true" weight="0.24594785" />
+      <window_info id="Favorites" order="2" sideWeight="0.55783135" side_tool="true" weight="0.24594785" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32900944" />
       <window_info anchor="bottom" id="Debug" order="2" sideWeight="0.49926794" weight="0.36144578" />
@@ -781,7 +805,7 @@
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.3282123" />
       <window_info anchor="bottom" id="Python Console" order="8" weight="0.3282123" />
       <window_info anchor="bottom" id="Terminal" order="9" weight="0.328594" />
-      <window_info anchor="bottom" id="Run" order="10" visible="true" weight="0.3253012" />
+      <window_info active="true" anchor="bottom" id="Run" order="10" visible="true" weight="0.3253012" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -843,7 +867,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/src/lib/BusRouteLogsDB.py</url>
-          <line>66</line>
+          <line>37</line>
           <option name="timeStamp" value="12" />
         </line-breakpoint>
       </breakpoints>
@@ -972,13 +996,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/lib/StopsDB.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="49" column="14" selection-start-line="49" selection-start-column="14" selection-end-line="49" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/systemwatcher.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-474">
@@ -1010,28 +1027,45 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/stopwatcher.py">
+    <entry file="file://$PROJECT_DIR$/src/lib/BusRouteLogsDB.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1232">
-          <caret line="44" column="4" lean-forward="true" selection-start-line="44" selection-start-column="4" selection-end-line="44" selection-end-column="43" />
+        <state relative-caret-position="22">
+          <caret line="1" selection-start-line="1" selection-end-line="2" selection-end-column="10" />
+          <folding>
+            <element signature="e#311#796#0" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/routewatcher.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="15" column="18" lean-forward="true" selection-start-line="15" selection-start-column="18" selection-end-line="15" selection-end-column="18" />
+        <state relative-caret-position="204">
+          <caret line="14" column="66" lean-forward="true" selection-start-line="14" selection-start-column="66" selection-end-line="14" selection-end-column="79" />
           <folding>
-            <element signature="e#138#148#0" expanded="true" />
-            <marker date="1533072168991" expanded="true" signature="542:763" ph="..." />
+            <element signature="e#178#188#0" expanded="true" />
+            <marker date="1533074535021" expanded="true" signature="542:763" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/lib/BusRouteLogsDB.py">
+    <entry file="file://$PROJECT_DIR$/src/stopwatcher.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="283">
-          <caret line="120" column="14" selection-start-line="120" selection-start-column="14" selection-end-line="120" selection-end-column="14" />
+        <state relative-caret-position="399">
+          <caret line="33" column="71" selection-start-line="33" selection-start-column="71" selection-end-line="33" selection-end-column="71" />
+          <folding>
+            <element signature="e#112#139#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lib/StopsDB.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="49" column="61" selection-start-line="49" selection-start-column="61" selection-end-line="49" selection-end-column="61" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
+            <element signature="e#222#569#0" />
+          </folding>
         </state>
       </provider>
     </entry>
