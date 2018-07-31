@@ -118,6 +118,6 @@ class MySQL(DB):
 
         try:
             self._execute(create_table_string)
-            print create_table_string
+            # print create_table_string
         except:
             pass
