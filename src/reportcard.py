@@ -17,9 +17,9 @@ app = Flask(__name__)
 
 @app.route('/<source>/<route>/<stop>/<period>')
 def getArrivalHistory1Stop(source, route, stop, period):
-
-    from ReportCard import *
-    report = ReportCard(source, route, stop, period)
+    
+    import src.lib.ReportCard
+    report = ReportCard.RouteReport(source, route, stop, period)
     return render_template('route_report.html', route_report=report)
 
 # STOP VIEW
