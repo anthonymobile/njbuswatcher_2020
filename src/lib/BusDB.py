@@ -74,31 +74,13 @@ class DB:
         rows = cursor.fetchall()
         return rows
 
-class SQLite(DB):
-    _create_db_string = '''CREATE TABLE buses (pkey integer primary key autoincrement, lat real, lon real, ar text, bid text, c text, cars text, consist text, d text, dd text, dn text, fs text, id text, m text, op text, pd text, pdRtpiFeedName text, pid text, rt text, rtRtpiFeedName text, rtdd text, rtpiFeedName text, run text, wid1 text, wid2 text, timestamp text)'''
-
-    _insert_string = 'INSERT INTO buses VALUES(NULL, %f, %f, "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s")'
-
-    def __init__(self, fname):
-        DB.__init__(self, SQLite._insert_string)
-        self.conn = None
-        self.fname = fname
-
-        if not os.path.exists(self.fname):
-            if not os.path.exists(os.path.dirname(self.fname)):
-                os.makedirs(os.path.dirname(self.fname))
-            self.conn = sqlite3.connect(self.fname)
-            self._execute(SQLite._create_db_string)
-        else:
-            self.conn = sqlite3.connect(self.fname)
-
 
 class MySQL(DB):
     _create_table_string = '''CREATE TABLE IF NOT EXISTS positions (pkey integer primary key auto_increment, lat real, lon real, ar varchar(20), bid varchar(20), c varchar(20), cars varchar(20), consist varchar(20), d varchar(20), dd varchar(20), dn varchar(20), fs varchar(255), id varchar(20), m varchar(20), op varchar(20), pd varchar(20), pdRtpiFeedName varchar(20), pid varchar(20), rt varchar(20), rtRtpiFeedName varchar(20), rtdd varchar(20), rtpiFeedName varchar(20), run varchar(20), wid1 varchar(20), wid2 varchar(20), timestamp varchar(255))'''
 
     _insert_string = 'INSERT INTO positions VALUES(NULL, %f, %f, "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s")'
 
-    def __init__(self, db_name, db_user, db_password, db_host='127.0.0.1'):
+    def __init__(self, db_name, db_user, db_password, db_host):
         DB.__init__(self, MySQL._insert_string)
         self.db_name = db_name
         self.db_user = db_user
