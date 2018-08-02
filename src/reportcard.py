@@ -3,26 +3,26 @@
 #
 
 from flask import Flask, render_template
-import lib.ReportCard
+import lib.ReportCard as rc
 
 app = Flask(__name__)
 
 
 # DEVELOPMENT VIEWS
 
-# list all arrivals for a specific source, route, stop, period
+# list all approaches for a specific source, route, stop, period
 @app.route('/<source>/<route>/<stop>/<period>')
-def getArrivals(source, route, stop, period):
-    report = ReportCard.StopReport(source, route)
-    return render_template('stop_report.html', stop_report=report.show_arrivals(period,stop))
+def getApproaches(source, route, stop, period):
+    report = rc.Report.StopReport(source, route)
+    return render_template('dev/stop_report.html', stop_report=report.get_approaches(stop,period))
 
-# same thing, but for every stop on a route
-# list all arrivals for a specific source, route,period
-@app.route('/<source>/<route>/<period>')
-def getArrivals(source, route, period):
-    report = ReportCard.RouteReport(source, route, period)
-    return render_template('route_report.html', route_report=report)
-
+# # same thing, but for every stop on a route
+# # list all arrivals (last approach in a contiguous sequence with 'approaching' (method 1) or geolocated bus to stop (method 2)  for a specific source, route,period
+# @app.route('/<source>/<route>/<period>')
+# def getArrivals(source, route, period):
+#     report = ReportCard.RouteReport(source, route, period)
+#     return render_template('dev/route_report.html', route_report=report)
+#
 
 
 # REPORT CARD VIEWS

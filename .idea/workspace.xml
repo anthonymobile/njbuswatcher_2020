@@ -5,11 +5,15 @@
     <bookmark url="file://$PROJECT_DIR$/src/lib/StopsDB.py" description="handle mysql errors better" line="74" mnemonic="2" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9c35431-0764-488c-bbb0-431ede0ff16b" name="Default" comment="removed sqlite support from systemwatcher">
+    <list default="true" id="e9c35431-0764-488c-bbb0-431ede0ff16b" name="Default" comment="first crack at report card class architecture">
+      <change afterPath="$PROJECT_DIR$/src/lib/ReportCard-raw.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/lib/ReportCard.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/ReportCard.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/lib/StopsDB.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/StopsDB.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/reportcard.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/reportcard.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routewatcher.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/routewatcher.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/templates/route_report.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/templates/dev/route_report.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/templates/stop_report.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/templates/dev/stop_report.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -21,37 +25,42 @@
     <session id="438890131">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="5" />
+          <entry key="project.closed" value="6" />
+          <entry key="project.open.time.10" value="1" />
           <entry key="project.open.time.5" value="1" />
           <entry key="project.open.time.6" value="1" />
           <entry key="project.open.time.7" value="3" />
           <entry key="project.open.time.8" value="1" />
-          <entry key="project.opened" value="6" />
+          <entry key="project.opened" value="7" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="31" />
+          <entry key="html" value="2" />
+          <entry key="py" value="37" />
           <entry key="txt" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Python" value="31" />
+          <entry key="HTML" value="2" />
+          <entry key="Python" value="37" />
           <entry key="Scratch" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="11" />
-          <entry key="py" value="2470" />
-          <entry key="txt" value="161" />
+          <entry key="html" value="28" />
+          <entry key="py" value="3035" />
+          <entry key="txt" value="206" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="75" />
-          <entry key="Python" value="2470" />
+          <entry key="HTML" value="28" />
+          <entry key="PLAIN_TEXT" value="120" />
+          <entry key="Python" value="3035" />
           <entry key="Scratch" value="97" />
         </counts>
       </usages-collector>
@@ -65,8 +74,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/reportcard.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="15" column="48" selection-start-line="15" selection-start-column="48" selection-end-line="15" selection-end-column="48" />
+            <state relative-caret-position="660">
+              <caret line="29" column="1" selection-start-line="29" selection-start-column="1" selection-end-line="29" selection-end-column="1" />
               <folding>
                 <element signature="e#66#106#0" expanded="true" />
               </folding>
@@ -74,11 +83,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/lib/ReportCard.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="166" column="8" lean-forward="true" selection-start-line="166" selection-start-column="8" selection-end-line="166" selection-end-column="8" />
+            <state relative-caret-position="648">
+              <caret line="111" selection-start-line="111" selection-end-line="111" />
               <folding>
                 <element signature="e#78#134#0" />
                 <element signature="e#144#533#0" />
@@ -86,43 +95,18 @@
                 <element signature="e#824#911#0" />
                 <element signature="e#965#1071#0" />
                 <element signature="e#1133#1239#0" />
-                <element signature="e#1365#1633#0" />
                 <element signature="e#1658#2144#0" />
-                <marker date="1533180287952" expanded="true" signature="2278:2283" ph="..." />
+                <marker date="1533246915407" expanded="true" signature="3070:4131" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/lib/BusAPI.py">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/lib/ReportCard-raw.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-94">
-              <caret line="62" lean-forward="true" selection-start-line="62" selection-end-line="69" selection-end-column="24" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/lib/BusRouteLogsDB.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="364">
-              <caret line="39" selection-start-line="39" selection-end-line="43" selection-end-column="19" />
-              <folding>
-                <element signature="e#0#38#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/lib/StopsDB.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="249">
-              <caret line="41" column="10" lean-forward="true" selection-start-line="41" selection-start-column="10" selection-end-line="41" selection-end-column="10" />
-              <folding>
-                <element signature="e#0#38#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="-1772">
+              <caret lean-forward="true" />
             </state>
           </provider>
         </entry>
@@ -173,8 +157,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/templates/arrivals_history_1stop.html" />
-        <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch_1.txt" />
         <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/lib/reportcard_helpers.py" />
         <option value="$PROJECT_DIR$/busdumper.py" />
@@ -217,13 +199,15 @@
         <option value="$PROJECT_DIR$/src/lib/BusLineDB.py" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch.txt" />
         <option value="$PROJECT_DIR$/src/lib/BusRouteLogsDB.py" />
-        <option value="$PROJECT_DIR$/src/routewatcher.py" />
         <option value="$PROJECT_DIR$/src/stopwatcher.py" />
         <option value="$PROJECT_DIR$/src/systemwatcher.py" />
         <option value="$PROJECT_DIR$/src/lib/BusDB.py" />
-        <option value="$PROJECT_DIR$/src/reportcard.py" />
         <option value="$PROJECT_DIR$/src/lib/StopsDB.py" />
+        <option value="$PROJECT_DIR$/src/routewatcher.py" />
+        <option value="$PROJECT_DIR$/src/reportcard.py" />
+        <option value="$PROJECT_DIR$/src/templates/dev/stop_report.html" />
         <option value="$PROJECT_DIR$/src/lib/ReportCard.py" />
+        <option value="$PROJECT_DIR$/src/lib/ReportCard-raw.py" />
       </list>
     </option>
   </component>
@@ -236,7 +220,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -257,6 +240,19 @@
             </path>
             <path>
               <item name="buswatcher" type="b2602c69:ProjectViewProjectNode" />
+              <item name="buswatcher" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="buswatcher" type="b2602c69:ProjectViewProjectNode" />
+              <item name="buswatcher" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="dev" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="buswatcher" type="b2602c69:ProjectViewProjectNode" />
               <item name="Scratches and Consoles" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
             </path>
             <path>
@@ -268,6 +264,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -280,19 +277,19 @@
     <property name="settings.editor.selected.configurable" value="preferences.toDoOptions" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src" />
-      <recent name="$PROJECT_DIR$/src/lib" />
-      <recent name="$PROJECT_DIR$/doc" />
-      <recent name="$PROJECT_DIR$/archive/doc" />
-      <recent name="$PROJECT_DIR$/notebooks" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/lib" />
       <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/src/templates" />
       <recent name="$PROJECT_DIR$/lib" />
-      <recent name="$PROJECT_DIR$/templates" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/templates/dev" />
+      <recent name="$PROJECT_DIR$/src" />
+      <recent name="$PROJECT_DIR$/src/lib" />
+      <recent name="$PROJECT_DIR$/doc" />
+      <recent name="$PROJECT_DIR$/archive/doc" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -307,7 +304,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.systemwatcher">
+  <component name="RunManager" selected="Python.reportcard www">
     <configuration name="buswatcher" type="JupiterNotebook" factoryName="Jupyter Notebook">
       <module name="buswatcher" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -323,6 +320,27 @@
       <option name="additionalOptions" value="" />
       <option name="ipnbHost" value="127.0.0.1" />
       <option name="ipnbPort" value="8888" />
+      <method v="2" />
+    </configuration>
+    <configuration name="reportcard www" type="PythonConfigurationType" factoryName="Python">
+      <module name="buswatcher" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="$USER_HOME$/anaconda2/envs/buswatcher/bin/python" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/reportcard.py" />
+      <option name="PARAMETERS" value="-s nj" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
     <configuration name="routewatcher 119" type="PythonConfigurationType" factoryName="Python">
@@ -433,6 +451,7 @@
     <list>
       <item itemvalue="Jupyter Notebook.buswatcher" />
       <item itemvalue="Python.systemwatcher" />
+      <item itemvalue="Python.reportcard www" />
       <item itemvalue="Python.stopwatcher 87" />
       <item itemvalue="Python.stopwatcher 119" />
       <item itemvalue="Python.routewatcher 87" />
@@ -449,13 +468,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1524759532211</updated>
-    </task>
-    <task id="LOCAL-00010" summary="report card grabber mostly done">
-      <created>1526558245440</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1526558245440</updated>
     </task>
     <task id="LOCAL-00011" summary="making some progress debugging the grabber">
       <created>1526607164295</created>
@@ -793,7 +805,14 @@
       <option name="project" value="LOCAL" />
       <updated>1533122618372</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="first crack at report card class architecture">
+      <created>1533180313686</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1533180313689</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
     <servers />
   </component>
   <component name="TodoView">
@@ -852,7 +871,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="added standalone cron-able arrival grabber" />
     <MESSAGE value="WIP2" />
     <MESSAGE value="big refactor - need to debug the flask routes again" />
     <MESSAGE value="pre huge refactor" />
@@ -877,7 +895,8 @@
     <MESSAGE value="updated stopwatcher to use MySQL instead of SQLite" />
     <MESSAGE value="routewatcher working" />
     <MESSAGE value="removed sqlite support from systemwatcher" />
-    <option name="LAST_COMMIT_MESSAGE" value="removed sqlite support from systemwatcher" />
+    <MESSAGE value="first crack at report card class architecture" />
+    <option name="LAST_COMMIT_MESSAGE" value="first crack at report card class architecture" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -967,14 +986,7 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/reportcard_helpers.py" />
-    <entry file="file://$PROJECT_DIR$/src/templates/stop_report.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="15" column="16" lean-forward="true" selection-start-line="15" selection-start-column="16" selection-end-line="15" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/templates/route_report.html">
+    <entry file="file://$PROJECT_DIR$/src/templates/dev/route_report.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
           <caret line="9" column="32" selection-start-line="9" selection-start-column="32" selection-end-line="9" selection-end-column="32" />
@@ -1011,13 +1023,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/stopwatcher.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="33" column="71" selection-start-line="33" selection-start-column="71" selection-end-line="33" selection-end-column="71" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/systemwatcher.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="173">
@@ -1032,23 +1037,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/routewatcher.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="15" column="18" lean-forward="true" selection-start-line="14" selection-start-column="4" selection-end-line="15" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/reportcard.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="15" column="48" selection-start-line="15" selection-start-column="48" selection-end-line="15" selection-end-column="48" />
-          <folding>
-            <element signature="e#66#106#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/lib/BusRouteLogsDB.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="364">
@@ -1059,27 +1047,58 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/lib/BusAPI.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="62" selection-start-line="62" selection-end-line="69" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/routewatcher.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="142">
+          <caret line="22" selection-start-line="22" selection-end-line="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/stopwatcher.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="660">
+          <caret line="33" column="71" selection-start-line="33" selection-start-column="71" selection-end-line="33" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/lib/StopsDB.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="249">
-          <caret line="41" column="10" lean-forward="true" selection-start-line="41" selection-start-column="10" selection-end-line="41" selection-end-column="10" />
+        <state relative-caret-position="1122">
+          <caret line="51" column="37" selection-start-line="51" selection-start-column="37" selection-end-line="51" selection-end-column="37" />
           <folding>
             <element signature="e#0#38#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/lib/BusAPI.py">
+    <entry file="file://$PROJECT_DIR$/src/templates/dev/stop_report.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-94">
-          <caret line="62" lean-forward="true" selection-start-line="62" selection-end-line="69" selection-end-column="24" />
+        <state relative-caret-position="308">
+          <caret line="14" column="13" lean-forward="true" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/reportcard.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="660">
+          <caret line="29" column="1" selection-start-line="29" selection-start-column="1" selection-end-line="29" selection-end-column="1" />
+          <folding>
+            <element signature="e#66#106#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/lib/ReportCard.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="166" column="8" lean-forward="true" selection-start-line="166" selection-start-column="8" selection-end-line="166" selection-end-column="8" />
+        <state relative-caret-position="648">
+          <caret line="111" selection-start-line="111" selection-end-line="111" />
           <folding>
             <element signature="e#78#134#0" />
             <element signature="e#144#533#0" />
@@ -1087,10 +1106,16 @@
             <element signature="e#824#911#0" />
             <element signature="e#965#1071#0" />
             <element signature="e#1133#1239#0" />
-            <element signature="e#1365#1633#0" />
             <element signature="e#1658#2144#0" />
-            <marker date="1533180287952" expanded="true" signature="2278:2283" ph="..." />
+            <marker date="1533246915407" expanded="true" signature="3070:4131" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lib/ReportCard-raw.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1772">
+          <caret lean-forward="true" />
         </state>
       </provider>
     </entry>

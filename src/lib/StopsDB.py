@@ -49,7 +49,7 @@ class MySQL(DB):
 
     def __init__(self, db_name, db_user, db_password, db_host,route):
 
-        table_name = 'stop_arrival_predictions_log_' + route
+        table_name = 'stop_approaches_log_' + route
 
 
         insert_string = 'INSERT INTO '+ table_name + ' VALUES(NULL, "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s")'
