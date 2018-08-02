@@ -38,11 +38,11 @@ class DB:
         self._batch_execute([_stops_to_sql(self.insert_string, r, timestamp) for r in records])
 
     # UNTESTED
-    # def fetch_records(self,query):
-    #     cursor = self.conn.cursor()
-    #     cursor.execute(query)
-    #     rows = cursor.fetchall()
-    #     return rows
+    def fetch_records(self,query):
+        cursor = self.conn.cursor()
+        cursor.execute(query)
+        rows = cursor.fetchall()
+        return rows
 
 
 class MySQL(DB):
