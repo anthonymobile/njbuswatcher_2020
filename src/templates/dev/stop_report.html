@@ -7,9 +7,9 @@
 
 <table width="100%">
 <tbody>
-{% for dict_item in stop_report %}
+{% for approach in stop_report.approach_results %}
     <tr>
-    {% for key, value in dict_item.items() %}
+    {% for key, value in approach.items() %}
         <td align="center">
         <pre>{{value}}</pre>
         </td>
