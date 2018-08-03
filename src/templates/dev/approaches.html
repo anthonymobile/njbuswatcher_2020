@@ -3,13 +3,13 @@
     <title>Bus Report Card: Stop</title>
 </head>
 <body>
-<h1>Arrivals - {stop_report.period} History for Stop {stop_report.stop} on Route {stop_report.route }</h1>
+<h1>Arrivals - {{approaches.period}} for Stop {{approaches.stop}} on Route {{approaches.route }}</h1>
 
 <table width="100%">
 <tbody>
-{% for approach in stop_report.approach_results %}
+{% for n in approaches.approach_results %}
     <tr>
-    {% for key, value in approach.items() %}
+    {% for key, value in n.items() %}
         <td align="center">
         <pre>{{value}}</pre>
         </td>
