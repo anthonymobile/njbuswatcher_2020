@@ -1,5 +1,6 @@
 import pandas as pd
 import StopsDB,BusRouteLogsDB
+import datetime
 
 def timestamp_fix(data): # trim the microseconds off the timestamp and convert it to datetime format
     data['timestamp'] = data['timestamp'].str.split('.').str.get(0)
@@ -44,78 +45,40 @@ class StopReport: #---------------------------------------------
         return
 
 
-    def get_arrivals1(self, period): # method 1: last approach in a contiguous sequence with 'approaching'
+    def get_arrivals(self, period): # method 1: last approach in a contiguous sequence with 'approaching'
 
+        self.arrivals_table_generated = None
         self.period = period
         if period == "daily":
-            arrival_query = ('SELECT * FROM %s WHERE (stop_id= %s AND pt = "APPROACHING" AND (DATE(`timestamp`) = CURDATE()) ORDER BY stop_id,timestamp;' % (self.table_name,self.stop))
+            final_approach_query = ('SELECT * FROM %s WHERE (stop_id= %s AND pt = "APPROACHING" AND (DATE(`timestamp`) = CURDATE()) ORDER BY timestamp;' % (self.table_name,self.stop))
 
         elif period=="weekly":
-            arrival_query = ('SELECT * FROM %s WHERE (stop_id= %s AND pt = "APPROACHING" AND (YEARWEEK(`timestamp`, 1) = YEARWEEK(CURDATE(), 1))) ORDER BY stop_id,timestamp;' % (self.table_name,self.stop))
+            final_approach_query = ('SELECT * FROM %s WHERE (stop_id= %s AND pt = "APPROACHING" AND (YEARWEEK(`timestamp`, 1) = YEARWEEK(CURDATE(), 1))) ORDER BY timestamp;' % (self.table_name,self.stop))
 
         elif period=="history":
-            arrival_query = ('SELECT * FROM %s WHERE (stop_id= %s AND pt = "APPROACHING") ORDER BY stop_id,timestamp;' % (self.table_name,self.stop))
+            final_approach_query = ('SELECT * FROM %s WHERE (stop_id= %s AND pt = "APPROACHING") ORDER BY timestamp;' % (self.table_name,self.stop))
 
-        df = pd.read_sql_query(arrival_query, self.conn)
-        df = timestamp_fix(df)
+        # get data and basic cleanup
+        df_temp = pd.read_sql_query(final_approach_query, self.conn)
+        df_temp = df_temp.drop(columns=['cars', 'consist', 'fd', 'm', 'name', 'rn', 'scheduled', 'stop_name'])
+        df_temp = timestamp_fix(df_temp)
 
-        # slice the dataframe by vehicle
-        # each group is now a list of 'near approaches' (e.g. pt="APPROACHING") for a single vehicle, single stop, sorted by time for the period in question
-        df_vehicles = df.groupby('v')
+        # split final approach history (sorted by timestamp) at each change in vehicle_id
+        # per https://stackoverflow.com/questions/41144231/python-how-to-split-pandas-dataframe-into-subsets-based-on-the-value-in-the-fir
+        #outputs a list of dfs
 
-        # then we calculate time interval between rows
-        df_vehicles['delta'] = df_vehicles['timestamp'] - df_vehicles['timestamp'].shift(1)
+        final_approach_dfs = [g for i, g in df_temp.groupby(df_temp['v'].ne(df_temp['v'].shift()).cumsum())]
 
-        # and any big gaps of more than 5 min? should indicate where the breakpoints are
-        # and we take the last take the last one from each 'approaching' sequence as the arrival time
-        print
+        # take the last V in each df and  add it to final list of arrivals
+        self.arrivals_list_final_df = pd.DataFrame()
+        for final_approach in final_approach_dfs:  # iterate over every final approach
+            arrival_insert_df = final_approach.tail(1)  # take the last observation
+            self.arrivals_list_final_df = self.arrivals_list_final_df.append(arrival_insert_df)  # insert into df
 
-        # build up tables BY VEHICLE - a history of observations of each vehicle
-        # then can go and reconstruct unique history for each VEHICLE, based on last observeration before it STOPPED APPROACHING the stop
-
-            # calculate
+        # log the time arrivals table was generated
+        self.arrivals_table_generated = datetime.datetime.now()
 
 
         #
-        # process the df to only
-        #
-
-
-        #     for s in stoplist:
-        #
-        #
-        #         df_stop['delta'] = df_stop['timestamp'] - df_stop['timestamp'].shift(1)
-        #
-        #
-        #         for index, row in df_stop.iterrows():
-        #             dict_ins = {}
-        #             dict_ins['stop_id'] = row['stop_id']
-        #             dict_ins['v'] = row['v']
-        #             dict_ins['timestamp'] = row['timestamp']
-        #             try:
-        #                 dict_ins['delta'] = row['delta'].seconds
-        #             except:
-        #                 dict_ins['delta'] = row['delta']
-        #             arrivals_history_full.append(dict_ins)
-        #
-
-        # return final list of arrivals
-        self.arrivals = []
-        for index, row in df.iterrows():
-            dict_ins = {}
-            dict_ins['stop_id'] = row['stop_id']
-            dict_ins['v'] = row['v']
-            dict_ins['timestamp'] = row['timestamp']
-            dict_ins['delta'] = row['delta']
-            self.arrivals.append(dict_ins)
+        # arrival_list_of_dict=arrival_df.to_dict('records')    # turn it into a dict and put it in a list container
         return
-
-
-    def get_arrivals2(self, period):
-        # method 2: geolocated bus to stop using route log tables
-        # (e.g. routelog_87) and stop lat/lon from Route.Stop class
-
-        self.db_routelog = BusRouteLogsDB.MySQL('buses', 'buswatcher', 'njtransit', '127.0.0.1', self.route)
-
-        return
-
