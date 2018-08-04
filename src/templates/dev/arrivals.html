@@ -8,13 +8,17 @@
 
 <table width="80%">
 <tbody>
-{% for index,row in arrivals.arrivals_list_final_df %}
+{% for (index,row) in arrivals.arrivals_list_final_df.iterrows() %}
     <tr>
+    <pre>{{row}}</pre>
+
+    <!--
     {% for column, value in row.items() %}
         <td align="center">
         <pre>{{value}}</pre>
         </td>
     {% endfor %}
+    -->
     </tr>
 {% endfor %}
 </tbody>
