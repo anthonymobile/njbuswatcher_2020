@@ -19,24 +19,23 @@ def getApproaches(source, route, stop, period):
 
 # 2 list all arrivals for a specific source, route, stop, period
 # method 1: last approach in a contiguous sequence with 'approaching'
-@app.route('/<source>/<route>/<stop>/<period>/arrivals')
+@app.route('/<source>/<route>/<stop>/<period>/arrivals1')
 def getArrivals1(source, route, stop, period):
     arrivals1 = rc.StopReport(route,stop)
     arrivals1.get_arrivals1(period)
     return render_template('dev/arrivals.html', arrivals=arrivals1)
 
-# method 2: geolocated bus to stop using route log tables (e.g. routelog_87) and stop lat/lon from Route.Stop class
-@app.route('/<source>/<route>/<stop>/<period>/arrivals')
-def getArrivals2(source, route, stop, period):
-    arrivals2 = rc.StopReport(route,stop)
-    arrivals2.get_arrivals2(period)
-    return render_template('dev/arrivals.html', arrivals=arrivals2)
-
-
+# # method 2: geolocated bus to stop using route log tables (e.g. routelog_87) and stop lat/lon from Route.Stop class
+# @app.route('/<source>/<route>/<stop>/<period>/arrivals2')
+# def getArrivals2(source, route, stop, period):
+#     arrivals2 = rc.StopReport(route,stop)
+#     arrivals2.get_arrivals2(period)
+#     return render_template('dev/arrivals.html', arrivals=arrivals2)
 
 
 
 # REPORT CARD VIEWS
+
 # see OmniGraffle for wireframes
 #
 # /<source>/<route>/history = entire line all arrivals ever
@@ -47,7 +46,6 @@ def getArrivals2(source, route, stop, period):
 # def getArrivalHistory1Stop(source, route, stop, period):
 #     report = ReportCard.RouteReport(source, route, stop, period)
 #     return render_template('route_report.html', route_report=report)
-
 
 
 

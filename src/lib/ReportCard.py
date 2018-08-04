@@ -18,7 +18,6 @@ class StopReport: #---------------------------------------------
         self.conn = self.db.conn
         self.table_name = 'stop_approaches_log_' + self.route
 
-
     def get_approaches(self,period):
         self.period = period
         if period == "daily":
@@ -39,6 +38,7 @@ class StopReport: #---------------------------------------------
             dict_ins = {}
             dict_ins['stop_id'] = row['stop_id']
             dict_ins['v'] = row['v']
+            dict_ins['pt'] = row['pt']
             dict_ins['timestamp'] = row['timestamp']
             self.approach_results.append(dict_ins)
         return
@@ -59,11 +59,30 @@ class StopReport: #---------------------------------------------
         df = pd.read_sql_query(arrival_query, self.conn)
         df = timestamp_fix(df)
 
+        # slice the dataframe by vehicle
+        # each group is now a list of 'near approaches' (e.g. pt="APPROACHING") for a single vehicle, single stop, sorted by time for the period in question
+        df_vehicles = df.groupby('v')
+
+        # then we calculate time interval between rows
+        df_vehicles['delta'] = df_vehicles['timestamp'] - df_vehicles['timestamp'].shift(1)
+
+        # and any big gaps of more than 5 min? should indicate where the breakpoints are
+        # and we take the last take the last one from each 'approaching' sequence as the arrival time
+        print
+
+        # build up tables BY VEHICLE - a history of observations of each vehicle
+        # then can go and reconstruct unique history for each VEHICLE, based on last observeration before it STOPPED APPROACHING the stop
+
+            # calculate
+
+
         #
-        # process the df to only take the last one from each 'approaching' sequence
+        # process the df to only
         #
+
+
         #     for s in stoplist:
-        #         df_stop = df.loc[df.stop_id == s]
+        #
         #
         #         df_stop['delta'] = df_stop['timestamp'] - df_stop['timestamp'].shift(1)
         #
@@ -84,9 +103,10 @@ class StopReport: #---------------------------------------------
         self.arrivals = []
         for index, row in df.iterrows():
             dict_ins = {}
-            # dict_ins['stop_id'] = row['stop_id']
-            # dict_ins['v'] = row['v']
-            # dict_ins['timestamp'] = row['timestamp']
+            dict_ins['stop_id'] = row['stop_id']
+            dict_ins['v'] = row['v']
+            dict_ins['timestamp'] = row['timestamp']
+            dict_ins['delta'] = row['delta']
             self.arrivals.append(dict_ins)
         return
 
