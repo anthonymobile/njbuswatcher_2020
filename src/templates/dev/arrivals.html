@@ -8,9 +8,9 @@
 
 <table width="80%">
 <tbody>
-{% for n in arrivals.arrivals %}
+{% for index,row in arrivals.arrivals_list_final_df %}
     <tr>
-    {% for key, value in n.items() %}
+    {% for column, value in row.items() %}
         <td align="center">
         <pre>{{value}}</pre>
         </td>
