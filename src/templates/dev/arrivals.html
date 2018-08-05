@@ -10,15 +10,11 @@
 <tbody>
 {% for (index,row) in arrivals.arrivals_list_final_df.iterrows() %}
     <tr>
-    <pre>{{row}}</pre>
-
-    <!--
-    {% for column, value in row.items() %}
+    {% for column_val in row %}
         <td align="center">
-        <pre>{{value}}</pre>
+        <pre>{{column_val}}</pre>
         </td>
     {% endfor %}
-    -->
     </tr>
 {% endfor %}
 </tbody>
