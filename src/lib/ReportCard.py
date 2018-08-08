@@ -50,7 +50,7 @@ class StopReport: #---------------------------------------------
         self.arrivals_table_generated = None
         self.period = period
         if period == "daily":
-            final_approach_query = ('SELECT * FROM %s WHERE (stop_id= %s AND pt = "APPROACHING" AND (DATE(`timestamp`) = CURDATE()) ORDER BY timestamp;' % (self.table_name,self.stop))
+            final_approach_query = ('SELECT * FROM %s WHERE (stop_id= %s AND pt = "APPROACHING" AND DATE(`timestamp`)=CURDATE() ) ORDER BY timestamp;' % (self.table_name, self.stop))
 
         elif period=="weekly":
             final_approach_query = ('SELECT * FROM %s WHERE (stop_id= %s AND pt = "APPROACHING" AND (YEARWEEK(`timestamp`, 1) = YEARWEEK(CURDATE(), 1))) ORDER BY timestamp;' % (self.table_name,self.stop))
@@ -82,3 +82,12 @@ class StopReport: #---------------------------------------------
         #
         # arrival_list_of_dict=arrival_df.to_dict('records')    # turn it into a dict and put it in a list container
         return
+
+
+    def delta_list(self): # create a list of tuples [arrivaltime, time since last bus]
+
+        self.arrivals_list_final_df['delta']=self.arrivals_list_final_df['timestamp'] - self.arrivals_list_final_df['timestamp'].shift(0)
+
+        return
+
+
