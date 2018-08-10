@@ -24,6 +24,17 @@ def getArrivals(source, route, stop, period):
     arrivals.get_arrivals(period)
     return render_template('dev/arrivals.html', arrivals=arrivals)
 
+# 3 simple arrival list with delta
+@app.route('/<source>/<route>/<stop>/<period>/delta')
+def getDelta(source, route, stop, period):
+    arrivals = rc.StopReport(route,stop)
+    arrivals.get_arrivals(period)
+    delta_list = arrivals.delta_list()
+    return render_template('dev/delta.html', delta_list=delta_list)
+
+
+
+# PRODUCTION VIEWS
 
 
 if __name__ == "__main__":

@@ -7,7 +7,7 @@
         #     df = timestamp_fix(df)
 
 
-            # todo this is the simpler all time version
+            #  this is the simpler all time version
             # def render_arrivals_history_full(source, route, stoplist):
             #
             #     (conn, db) = db_setup(route)
@@ -38,7 +38,7 @@
             #     return arrivals_history_full
 
 
-            # todo abstract below for 'period'
+            #  abstract below for 'period'
 
             #     arrivals_history = []
             #
@@ -48,7 +48,7 @@
             #
             #         df_stop['delta'] = df_stop['timestamp'] - df_stop['timestamp'].shift(1)
             #
-            # todo resample based on period
+            #  resample based on period
             #         # resample hourly average
             #         # need to convert delta to numeric type first per...
             #         # https://stackoverflow.com/questions/44616546/finding-the-mean-and-standard-deviation-of-a-timedelta-object-in-pandas-df
@@ -75,8 +75,8 @@
     #         self.stops = []
     #
     #
-    #     # todo this should really just be a loop over stops
-    #     # todo or better - get the list of stops from the BusAPI.Route class
+    #     # this should really just be a loop over stops
+    #     #  or better - get the list of stops from the BusAPI.Route class
     #
     #     def get_stoplist:  # get list of all stops for 'route' currently observed in the entire database
     #         stoplist_query = (
@@ -86,7 +86,7 @@
     #         return stoplist['stop_id']
     #
     #
-    #     # todo logic to handle three different <<period>> = 'history, daily, now'
+    #     # logic to handle three different <<period>> = 'history, daily, now'
 
         # # for a single stop, all buses seen in history
         # def render_arrivals_history_1stop(source, route, stop):

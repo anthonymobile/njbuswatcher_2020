@@ -3,8 +3,13 @@ import StopsDB,BusRouteLogsDB
 import datetime
 
 def timestamp_fix(data): # trim the microseconds off the timestamp and convert it to datetime format
+
     data['timestamp'] = data['timestamp'].str.split('.').str.get(0)
-    data = data.set_index(pd.DatetimeIndex(data['timestamp']), drop=False)
+    data['timestamp'] = pd.to_datetime(data['timestamp'],errors='coerce')
+    data = data.set_index(pd.DatetimeIndex(data['timestamp']))
+
+    # data = data.set_index(pd.DatetimeIndex(data['timestamp'], drop=False)
+
     return data
 
 
@@ -86,7 +91,16 @@ class StopReport: #---------------------------------------------
 
     def delta_list(self): # create a list of tuples [arrivaltime, time since last bus]
 
-        self.arrivals_list_final_df['delta']=self.arrivals_list_final_df['timestamp'] - self.arrivals_list_final_df['timestamp'].shift(0)
+        ## FROM OLD CODE
+        ## compute interval between this bus and next in log (WORKING)
+        #df_stop['delta'] = df_stop['timestamp'] - df_stop['timestamp'].shift(1)
+        print (self.arrivals_list_final_df.iloc[2]['timestamp'])
+        print type(self.arrivals_list_final_df.iloc[2]['timestamp'])
+
+        self.arrivals_list_final_df['delta']=datetime.datetime.now()
+        # print self.arrivals_list_final_df['timestamp'],type(self.arrivals_list_final_df['timestamp'])
+        # print self.arrivals_list_final_df['timestamp'].shift(1),type(self.arrivals_list_final_df['timestamp'].shift(1))
+        self.arrivals_list_final_df['delta']=self.arrivals_list_final_df['timestamp'] - self.arrivals_list_final_df['timestamp'].shift()
 
         return
 
