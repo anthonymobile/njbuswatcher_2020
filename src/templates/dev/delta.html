@@ -11,16 +11,29 @@
 
 <table width="80%">
 <tbody>
-<
-{% for row in delta_list %}
+
+<tr>
+{% for (index,row) in arrivals.arrivals_list_final_df.iterrows() %}
+
+        {{row.timestamp}}---{{row.delta}} •
+{% endfor %}
+</tr>
+
+{% for (index,row) in arrivals.arrivals_list_final_df.iterrows() %}
     <tr>
-    {% for k,v in row %}
         <td align="center">
-        <pre>{{v}}</pre>
+        <pre>{{row.timestamp}}</pre>
         </td>
-    {% endfor %}
+        <td align="center">
+        <pre>---</pre>
+        </td>
+        <td align="center">
+        <pre>{{row.delta}}</pre>
+        </td>
     </tr>
 {% endfor %}
+
+
 
 </tbody>
 </table>

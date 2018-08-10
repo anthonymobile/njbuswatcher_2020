@@ -29,8 +29,8 @@ def getArrivals(source, route, stop, period):
 def getDelta(source, route, stop, period):
     arrivals = rc.StopReport(route,stop)
     arrivals.get_arrivals(period)
-    delta_list = arrivals.delta_list()
-    return render_template('dev/delta.html', delta_list=delta_list)
+    arrivals.delta_list()
+    return render_template('dev/delta.html', arrivals=arrivals)
 
 
 
