@@ -8,9 +8,6 @@
 
 <p>To do:
 <ul>
-    <li>(*) add column headers
-    <li>(1) remove pkey,pt,rt,stop_id columns
-    <li>(2) convert datetime to Fri 8 Aug 2018 08:59a or something simple
     <li>(3) render a condensed view: Fri 8 Aug 3:23a(#4394) 4:55a(#4390)...
 </ul>
 </p>
@@ -18,14 +15,26 @@
 
 <table width="80%">
 <tbody>
-{% for (index,row) in arrivals.arrivals_list_final_df.iterrows() %}
     <tr>
+        <td align="center">arrival time</td>
+        <td align="center">bus vehicle number</td>
+    </tr>
+{% for (index,row) in arrivals.arrivals_list_final_df.iterrows() %}
+
+    <tr>
+        <!-- <td align="center">{{row.timestamp.strftime('%Y %a %b %d %I:%M %p')}}</td> -->
+        <td align="center">{{row.timestamp|strftime_custom}}</td>
+        <td align="center">{{row.v}}</td>
+    </tr>
+
+    <!-- display all columns in dataframe
     {% for column_val in row %}
         <td align="center">
         <pre>{{column_val}}</pre>
         </td>
     {% endfor %}
-    </tr>
+    -->
+
 {% endfor %}
 </tbody>
 </table>
