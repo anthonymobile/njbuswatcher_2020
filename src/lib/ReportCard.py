@@ -83,9 +83,6 @@ class StopReport: #---------------------------------------------
         # log the time arrivals table was generated
         self.arrivals_table_generated = datetime.datetime.now()
 
-
-        #
-        # arrival_list_of_dict=arrival_df.to_dict('records')    # turn it into a dict and put it in a list container
         return
 
 

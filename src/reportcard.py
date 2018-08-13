@@ -45,7 +45,6 @@ def _jinja2_filter_datetime(timestamp, format='%Y %a %b %d %I:%M %p'):
 
 # PRODUCTION VIEWS
 
-
 if __name__ == "__main__":
     app.run(host='0.0.0.0', debug=True)
 
