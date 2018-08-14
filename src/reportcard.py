@@ -4,7 +4,6 @@
 
 from flask import Flask, render_template
 import lib.ReportCard as rc
-import dateutil
 
 app = Flask(__name__)
 
@@ -23,7 +22,10 @@ def getApproaches(source, route, stop, period):
 def getArrivals(source, route, stop, period):
     arrivals = rc.StopReport(route,stop)
     arrivals.get_arrivals(period)
-    return render_template('dev/arrivals.html', arrivals=arrivals)
+    stoplist=rc.get_stoplist(source,route)
+    return render_template('dev/arrivals.html', arrivals=arrivals, stoplist=stoplist)
+
+
 
 # 3 simple arrival list with delta
 @app.route('/<source>/<route>/<stop>/<period>/delta')

@@ -1,5 +1,5 @@
 import pandas as pd
-import StopsDB,BusRouteLogsDB
+import StopsDB, BusAPI
 import datetime
 
 def timestamp_fix(data): # trim the microseconds off the timestamp and convert it to datetime format
@@ -13,6 +13,31 @@ def timestamp_fix(data): # trim the microseconds off the timestamp and convert i
     return data
 
 
+def get_stoplist(source,route):
+
+    stops_points_inbound = []
+    stops_points_outbound = []
+
+    route = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(source, 'routes',route=route))
+
+    stops_points_inbound_outbound = route
+
+    # for j in route[0].paths[0]:
+    #    for k in points[j]:
+    #         if isinstance(k, Buses.Route.Stop):
+    #             stops_points_inbound.append(k)
+    #
+    # for j in route[0].paths[1]:
+    #    for k in points[j]:
+    #        if isinstance(k, Buses.Route.Stop):
+    #            stops_points_outbound.append(k)
+    #
+    # stops_points_inbound_outbound = [stops_points_inbound,stops_points_outbound]
+
+    return stops_points_inbound_outbound
+
+
+
 class StopReport: #---------------------------------------------
     # creates a object with properties that contain all the content that will be
     # rendered by the template - e.g. lists that will get iterated over into tables for display
@@ -20,6 +45,7 @@ class StopReport: #---------------------------------------------
     def __init__(self,route,stop):
         self.route=route
         self.stop=stop
+        #todo self.stop_name = tk
         self.db = StopsDB.MySQL('buses', 'buswatcher', 'njtransit', '127.0.0.1', self.route)
         self.conn = self.db.conn
         self.table_name = 'stop_approaches_log_' + self.route
@@ -43,6 +69,7 @@ class StopReport: #---------------------------------------------
         for index, row in df.iterrows():
             dict_ins = {}
             dict_ins['stop_id'] = row['stop_id']
+            # dict_ins['stop_name'] = row['stop_name']
             dict_ins['v'] = row['v']
             dict_ins['pt'] = row['pt']
             dict_ins['timestamp'] = row['timestamp']
@@ -65,7 +92,7 @@ class StopReport: #---------------------------------------------
 
         # get data and basic cleanup
         df_temp = pd.read_sql_query(final_approach_query, self.conn)
-        df_temp = df_temp.drop(columns=['cars', 'consist', 'fd', 'm', 'name', 'rn', 'scheduled', 'stop_name'])
+        df_temp = df_temp.drop(columns=['cars', 'consist', 'fd', 'm', 'name', 'rn', 'scheduled'])
         df_temp = timestamp_fix(df_temp)
 
         # split final approach history (sorted by timestamp) at each change in vehicle_id

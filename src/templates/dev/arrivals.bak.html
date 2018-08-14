@@ -1,19 +1,20 @@
-{% extends 'dev/arrivals-base.html' %}
+<html>
+<head>
+    <title>Bus Report Card: Arrivals {{arrivals.period}} for Route {{arrivals.route }}, Stop {{arrivals.stop}}</title>
+</head>
+<body>
+<h1>Bus Report Card</h1>
+<h2>Arrivals {{arrivals.period}} for Route {{arrivals.route }}, Stop {{arrivals.stop}}</h2>
 
-{% block container %}
-  <div class="top-pad">
-<table width="80%">
-<tbody>
-
-<tr>
 <p>To do:
 <ul>
     <li>(3) render a condensed view: Fri 8 Aug 3:23a(#4394) 4:55a(#4390)...
 </ul>
 </p>
-</tr>
 
 
+<table width="80%">
+<tbody>
     <tr>
         <td align="center">arrival time</td>
         <td align="center">bus vehicle number</td>
@@ -37,15 +38,8 @@
 {% endfor %}
 </tbody>
 </table>
-  </div>
-{% endblock %}
+
+</body>
+</html>
 
 
-{% block container2 %}
-direction inbound, direction outbound<-- TK fillin direction print scheme
-<tr>
-    <td align="center">{{stoplist.stops_points_inbound_outbound}}</td>
-</tr>
-
-
-{% endblock %}
