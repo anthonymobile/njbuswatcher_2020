@@ -15,26 +15,24 @@ def timestamp_fix(data): # trim the microseconds off the timestamp and convert i
 
 def get_stoplist(source,route):
 
-    stops_points_inbound = []
-    stops_points_outbound = []
+   routedata = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(source, 'routes',route=route))
 
-    route = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(source, 'routes',route=route))
+    route_list = []
+    for i in routedata:
+        path_list = []
+        for path in i.paths:
+            stops_points = []
+            for point in path.points:
+                if isinstance(point, Buses.Route.Stop):
+                    stops_points.append(point)
 
-    stops_points_inbound_outbound = route
+            path_list.append(stops_points)
 
-    # for j in route[0].paths[0]:
-    #    for k in points[j]:
-    #         if isinstance(k, Buses.Route.Stop):
-    #             stops_points_inbound.append(k)
-    #
-    # for j in route[0].paths[1]:
-    #    for k in points[j]:
-    #        if isinstance(k, Buses.Route.Stop):
-    #            stops_points_outbound.append(k)
-    #
-    # stops_points_inbound_outbound = [stops_points_inbound,stops_points_outbound]
+        route_list.append(path_list)
 
-    return stops_points_inbound_outbound
+    route_list = route_list[0] # chop off the duplicate half
+
+    return route_list # list with 2 lists of stops for inbound and outbound
 
 
 
