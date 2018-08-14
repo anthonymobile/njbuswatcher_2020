@@ -1,38 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/src/lib/ReportCard.py" description="trap possibility that never 'approaching' only 1min or 2min?" line="66" />
-    <bookmark url="file://$PROJECT_DIR$/src/lib/ReportCard.py" description="making no sense here" line="24" mnemonic="1" />
+    <bookmark url="file://$PROJECT_DIR$/src/lib/ReportCard.py" description="trap possibility that never 'approaching' only 1min or 2min?" line="64" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9c35431-0764-488c-bbb0-431ede0ff16b" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/static/css/bootstrap-grid.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/static/css/bootstrap-grid.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/static/css/bootstrap-grid.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/static/css/bootstrap-grid.min.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/static/css/bootstrap-reboot.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/static/css/bootstrap-reboot.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/static/css/bootstrap-reboot.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/static/css/bootstrap-reboot.min.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/static/css/bootstrap.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/static/css/bootstrap.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/static/css/bootstrap.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/static/css/bootstrap.min.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/static/css/main.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/static/js/bootstrap.bundle.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/static/js/bootstrap.bundle.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/static/js/bootstrap.bundle.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/static/js/bootstrap.bundle.min.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/static/js/bootstrap.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/static/js/bootstrap.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/static/js/bootstrap.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/static/js/bootstrap.min.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/templates/dev/arrivals-base.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/templates/dev/arrivals.bak.html" afterDir="false" />
+    <list default="true" id="e9c35431-0764-488c-bbb0-431ede0ff16b" name="Default" comment="big UX update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/notebooks/Map - gmap NJT route with waypoints.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/Map - gmap NJT route with waypoints.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/Snippets useful.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/Snippets useful.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/ReportCard-raw.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/ReportCard-raw.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/lib/ReportCard.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/ReportCard.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/reportcard.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/reportcard.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/templates/dev/arrivals.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/templates/dev/arrivals.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -45,16 +22,17 @@
     <session id="438890131">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="17" />
+          <entry key="project.closed" value="18" />
           <entry key="project.open.time.10" value="2" />
           <entry key="project.open.time.11" value="1" />
+          <entry key="project.open.time.13" value="1" />
           <entry key="project.open.time.15" value="1" />
           <entry key="project.open.time.5" value="2" />
           <entry key="project.open.time.6" value="3" />
           <entry key="project.open.time.7" value="3" />
-          <entry key="project.open.time.8" value="4" />
+          <entry key="project.open.time.8" value="5" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="17" />
+          <entry key="project.opened" value="19" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -63,7 +41,7 @@
           <entry key="css" value="3" />
           <entry key="html" value="24" />
           <entry key="ipynb" value="3" />
-          <entry key="py" value="71" />
+          <entry key="py" value="73" />
           <entry key="txt" value="2" />
         </counts>
       </usages-collector>
@@ -73,23 +51,23 @@
           <entry key="HTML" value="24" />
           <entry key="IPNB" value="3" />
           <entry key="PLAIN_TEXT" value="1" />
-          <entry key="Python" value="71" />
+          <entry key="Python" value="73" />
           <entry key="Scratch" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="11" />
-          <entry key="html" value="2947" />
-          <entry key="py" value="5751" />
-          <entry key="txt" value="548" />
+          <entry key="html" value="3026" />
+          <entry key="py" value="5887" />
+          <entry key="txt" value="563" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="HTML" value="2947" />
-          <entry key="PLAIN_TEXT" value="462" />
-          <entry key="Python" value="5751" />
+          <entry key="HTML" value="3026" />
+          <entry key="PLAIN_TEXT" value="477" />
+          <entry key="Python" value="5887" />
           <entry key="Scratch" value="97" />
         </counts>
       </usages-collector>
@@ -100,11 +78,33 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/templates/dev/arrivals.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1012">
-              <caret line="46" column="25" selection-start-line="46" selection-start-column="25" selection-end-line="46" selection-end-column="25" />
+            <state relative-caret-position="332">
+              <caret line="34" column="14" selection-start-line="34" selection-start-column="14" selection-end-line="34" selection-end-column="14" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/lib/BusAPI.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="3630">
+              <caret line="166" column="4" selection-start-line="166" selection-start-column="4" selection-end-line="166" selection-end-column="28" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/lib/ReportCard.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="444">
+              <caret line="32" column="60" selection-start-line="32" selection-start-column="60" selection-end-line="32" selection-end-column="60" />
+              <folding>
+                <element signature="e#0#19#0" expanded="true" />
+                <marker date="1534280463676" expanded="true" signature="494:1086" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -205,8 +205,8 @@
         <option value="$PROJECT_DIR$/src/templates/dev/base.html" />
         <option value="$PROJECT_DIR$/src/templates/dev/arrivals-base.html" />
         <option value="$PROJECT_DIR$/src/reportcard.py" />
-        <option value="$PROJECT_DIR$/src/lib/ReportCard.py" />
         <option value="$PROJECT_DIR$/src/templates/dev/arrivals.html" />
+        <option value="$PROJECT_DIR$/src/lib/ReportCard.py" />
       </list>
     </option>
   </component>
@@ -267,19 +267,19 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/archive" />
+      <recent name="$PROJECT_DIR$/src/static/css" />
+      <recent name="$PROJECT_DIR$/src/static" />
+      <recent name="$PROJECT_DIR$/src/templates/dev" />
+      <recent name="$PROJECT_DIR$/src" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/templates/dev" />
       <recent name="$PROJECT_DIR$/src/static" />
       <recent name="$PROJECT_DIR$/src/lib" />
       <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/static/css" />
-      <recent name="$PROJECT_DIR$/src/static" />
-      <recent name="$PROJECT_DIR$/archive" />
-      <recent name="$PROJECT_DIR$/src/templates/dev" />
-      <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -458,13 +458,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1524759532211</updated>
-    </task>
-    <task id="LOCAL-00019" summary="flask route http://localhost:5000/source/route working">
-      <created>1527111113754</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1527111113754</updated>
     </task>
     <task id="LOCAL-00020" summary="stop slice and datetime index working">
       <created>1527167365938</created>
@@ -802,7 +795,14 @@
       <option name="project" value="LOCAL" />
       <updated>1534126078822</updated>
     </task>
-    <option name="localTasksCounter" value="68" />
+    <task id="LOCAL-00068" summary="big UX update">
+      <created>1534246142625</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1534246142627</updated>
+    </task>
+    <option name="localTasksCounter" value="69" />
     <servers />
   </component>
   <component name="TodoView">
@@ -861,7 +861,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="re-org tree" />
     <MESSAGE value="revised route parser to split inbound+outbound direction into 2 separate routes" />
     <MESSAGE value="refactored notebooks: added statewide map, waypoint-based map, new stopwatcher data structure workbench" />
     <MESSAGE value="still debugging route parser - seems to be mixing up/doubling inbound and outbound routes" />
@@ -886,7 +885,8 @@
     <MESSAGE value="arrivals view working! ready to deploy on live db" />
     <MESSAGE value="daily view working" />
     <MESSAGE value="wip" />
-    <option name="LAST_COMMIT_MESSAGE" value="wip" />
+    <MESSAGE value="big UX update" />
+    <option name="LAST_COMMIT_MESSAGE" value="big UX update" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -945,17 +945,17 @@
     <entry file="file://$PROJECT_DIR$/src/reportcard_helpers.py" />
     <entry file="file://$PROJECT_DIR$/src/tester.ipynb" />
     <entry file="file://$PROJECT_DIR$/README.md">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="362">
             <caret line="37" column="73" selection-start-line="37" selection-start-column="73" selection-end-line="37" selection-end-column="73" />
           </first_editor>
           <second_editor />
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
         </state>
       </provider>
     </entry>
@@ -1005,7 +1005,7 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/templates/dev/arrivals.html.bak" />
-    <entry file="file://$PROJECT_DIR$/src/lib/ReportCard-raw.py" />
+    <entry file="file://$PROJECT_DIR$/archive/ReportCard-raw.py" />
     <entry file="file://$PROJECT_DIR$/src/templates/dev/delta.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="396">
@@ -1020,11 +1020,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/static/bootstrap.min.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-30241" />
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/static/bootstrap.min.css" />
     <entry file="file://$PROJECT_DIR$/src/static/css/bootstrap.min.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="232">
@@ -1046,13 +1042,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/templates/dev/base-extends.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="8" column="16" selection-start-line="8" selection-start-column="16" selection-end-line="8" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/templates/dev/base-extends.html" />
     <entry file="file://$PROJECT_DIR$/src/templates/dev/arrivals-base.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="172">
@@ -1100,37 +1090,31 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-263">
           <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
-          <folding>
-            <element signature="e#65#105#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/lib/BusAPI.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2401">
-          <caret line="166" column="4" selection-start-line="166" selection-start-column="4" selection-end-line="166" selection-end-column="28" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/lib/ReportCard.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="22" column="4" lean-forward="true" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="33" />
-          <folding>
-            <element signature="e#0#19#0" expanded="true" />
-            <marker date="1534219887376" expanded="true" signature="494:1160" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/templates/dev/arrivals.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1012">
-          <caret line="46" column="25" selection-start-line="46" selection-start-column="25" selection-end-line="46" selection-end-column="25" />
+        <state relative-caret-position="332">
+          <caret line="34" column="14" selection-start-line="34" selection-start-column="14" selection-end-line="34" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lib/BusAPI.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3630">
+          <caret line="166" column="4" selection-start-line="166" selection-start-column="4" selection-end-line="166" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lib/ReportCard.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="444">
+          <caret line="32" column="60" selection-start-line="32" selection-start-column="60" selection-end-line="32" selection-end-column="60" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+            <marker date="1534280463676" expanded="true" signature="494:1086" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
