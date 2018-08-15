@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Bus Report Card: {{arrivals.period}} arrivals for Route {{arrivals.route }}, {{arrivals.arrivals_list_final_df['stop_name'].iloc[0]}}
+        <title>Bus Report Card: {{arrivals.period}} arrivals for Route {{arrivals.route}}, {{arrivals.arrivals_list_final_df['stop_name'].iloc[0]}}
         </title>
     <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
@@ -29,17 +29,24 @@
           <p><a class="btn btn-default" href="#" role="button">More about the project &raquo;</a></p>
         </div>
         <div class="col-md-4">
-          <h2>Line Info</h2>
-          <p>Here is where basic info about the line will go. Here is where a list of the stops will go and a map.</p>
-            <p>{% block container2 %}
-                {% endblock %}</p>
-          <p><a class="btn btn-default" href="#" role="button">Download PDF schedule at NJT &raquo;</a></p>
-       </div>
-        <div class="col-md-4">
-          <h2>Report Card</h2>
-          <p>{{arrivals.period}} arrivals:</p>
-            <p>{% block container %}{% endblock %}</p>
+          <h2>Arrivals: {{arrivals.period}}</h2>
+          <p>
+            {% block container_arrivals %}
+            {% endblock %}
+          </p>
 
+ </div>
+        <div class="col-md-4">
+          <h2>Stops on the {{arrivals.route}}</h2>
+          <p>Click on a stop to reload the report card.</p>
+
+          <p>
+            {% block container_route %}
+            {% endblock %}
+          </p>
+          <p>
+            <a class="btn btn-default" href="#" role="button">Download PDF schedule at NJT &raquo;</a>
+          </p>
         </div>
       </div>
 

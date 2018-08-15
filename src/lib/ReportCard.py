@@ -15,7 +15,7 @@ def timestamp_fix(data): # trim the microseconds off the timestamp and convert i
 
 def get_stoplist(source,route):
 
-   routedata = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(source, 'routes',route=route))
+    routedata = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(source, 'routes',route=route))
 
     route_list = []
     for i in routedata:
@@ -23,16 +23,16 @@ def get_stoplist(source,route):
         for path in i.paths:
             stops_points = []
             for point in path.points:
-                if isinstance(point, Buses.Route.Stop):
+                if isinstance(point, BusAPI.Route.Stop):
                     stops_points.append(point)
 
             path_list.append(stops_points)
 
         route_list.append(path_list)
 
-    route_list = route_list[0] # chop off the duplicate half
+    route_stop_list = route_list[0] # chop off the duplicate half
 
-    return route_list # list with 2 lists of stops for inbound and outbound
+    return route_stop_list # list with 2 lists of stops for inbound and outbound
 
 
 
@@ -80,13 +80,16 @@ class StopReport: #---------------------------------------------
         self.arrivals_table_generated = None
         self.period = period
         if period == "daily":
-            final_approach_query = ('SELECT * FROM %s WHERE (stop_id= %s AND pt = "APPROACHING" AND DATE(`timestamp`)=CURDATE() ) ORDER BY timestamp;' % (self.table_name, self.stop))
+            final_approach_query = ('SELECT * FROM %s WHERE (stop_id= %s AND pt = "APPROACHING" AND DATE(`timestamp`)=CURDATE() ) ORDER BY timestamp DESC;' % (self.table_name, self.stop))
 
         elif period=="weekly":
-            final_approach_query = ('SELECT * FROM %s WHERE (stop_id= %s AND pt = "APPROACHING" AND (YEARWEEK(`timestamp`, 1) = YEARWEEK(CURDATE(), 1))) ORDER BY timestamp;' % (self.table_name,self.stop))
+            final_approach_query = ('SELECT * FROM %s WHERE (stop_id= %s AND pt = "APPROACHING" AND (YEARWEEK(`timestamp`, 1) = YEARWEEK(CURDATE(), 1))) ORDER BY timestamp DESC;' % (self.table_name,self.stop))
 
         elif period=="history":
-            final_approach_query = ('SELECT * FROM %s WHERE (stop_id= %s AND pt = "APPROACHING") ORDER BY timestamp;' % (self.table_name,self.stop))
+            final_approach_query = ('SELECT * FROM %s WHERE (stop_id= %s AND pt = "APPROACHING") ORDER BY timestamp DESC;' % (self.table_name,self.stop))
+        else:
+            raise RuntimeError('Bad request sucker!')
+
 
         # get data and basic cleanup
         df_temp = pd.read_sql_query(final_approach_query, self.conn)

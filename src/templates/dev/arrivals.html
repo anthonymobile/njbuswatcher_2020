@@ -1,55 +1,51 @@
 {% extends 'dev/arrivals-base.html' %}
 
-{% block container %}
-  <div class="top-pad">
-<table width="80%">
-<tbody>
+{% block container_route %}
 
+<table class="table table-sm table-striped">
+  <thead>
     <tr>
-        <td align="center">arrival time</td>
-        <td align="center">bus vehicle number</td>
+      <th scope="col">direction</th>
+      <th scope="col">stop</th>
     </tr>
-{% for (index,row) in arrivals.arrivals_list_final_df.iterrows() %}
-
-    <tr>
-        <!-- <td align="center">{{row.timestamp.strftime('%Y %a %b %d %I:%M %p')}}</td> -->
-        <td align="center">{{row.timestamp|strftime_custom}}</td>
-        <td align="center">{{row.v}}</td>
-    </tr>
-
-    <!-- display all columns in dataframe
-    {% for column_val in row %}
-        <td align="center">
-        <pre>{{column_val}}</pre>
-        </td>
+  </thead>
+  <tbody>
+    {% for stop in route_stop_list[0] %}
+        <tr>
+            <td>{{stop.d}}</td>
+            <td>{{stop.st}}</td>
+        </tr>
     {% endfor %}
-    -->
 
-{% endfor %}
-
-
-<tr>
-<p>To do:
-<ul>
-    <li>(1) replace tables here with proper bootstrap tables https://getbootstrap.com/docs/4.0/content/tables/
-    <li>(2) render a condensed view: Fri 8 Aug 3:23a(#4394) 4:55a(#4390)...
-</ul>
-</p>
-</tr>
-
-
-
-</tbody>
+    {% for stop in route_stop_list[1] %}
+        <tr>
+            <td>{{stop.d}}</td>
+            <td>{{stop.st}}</td>
+        </tr>
+    {% endfor %}
+  </tbody>
 </table>
-  </div>
-{% endblock %}
-
-
-{% block container2 %}
-direction inbound, direction outbound<-- TK fillin direction print scheme
-<tr>
-    <td align="center">{{stoplist.stops_points_inbound_outbound}}</td>
-</tr>
-
 
 {% endblock %}
+
+{% block container_arrivals %}
+
+<table class="table table-sm table-striped">
+  <thead>
+    <tr>
+      <th scope="col">arrival time</th>
+      <th scope="col">bus #</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for (index,row) in arrivals.arrivals_list_final_df.iterrows() %}
+        <tr>
+            <td>{{row.timestamp|strftime_custom}}</td>
+            <td>{{row.v}}</td>
+        </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
+
