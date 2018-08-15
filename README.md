@@ -82,7 +82,7 @@ FWIW, we always deploy routewatcher.py alongside stopwatcher.py, so we are grabb
 
 ##### URLs
 
-Here are the URLs currently exposed by the flask app.
+Here are the URLs currently exposed by the flask app.*
 
 ###### /nj/{route}/{stop}{period}/approaches
 The raw underlying data, pulled from the arrival predictions API for the stop. We cron stopwatcher.py to record the predicted arrival time for each bus once per minute.
@@ -91,3 +91,4 @@ The raw underlying data, pulled from the arrival predictions API for the stop. W
 
 List of actual "observed" arrival times. These are approximated by reviewing the appraoch log and recording the time of the last observed "APPROACHING" prediction for that vehicle as the time of arrival.
 
+*n.b. the /nj in these routes. we are writing this to be source-agnostic, so they -should- work with any transit agency API provided by Clever Devices. Most of the documentation we used to figure out the API (which is uncodumented), came from the [unofficial guide to the Chicago CTA Bustracker API](https://github.com/harperreed/transitapi/wiki/Unofficial-Bustracker-API]) for instance.
