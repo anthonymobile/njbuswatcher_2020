@@ -1,0 +1,70 @@
+{% extends 'route-base.html' %}
+
+{% block grade %}
+{{grade.grade}}
+{% endblock %}
+
+{% block summary %}
+The route summary needs to be fetched from a database - which will have to be come kind of CMS. Or perhaps just a flat text file or maybe a Google doc that can be easily scraped.
+{% endblock %}
+
+{% block map %}
+
+<img class="d-block img-fluid" src="https://maps.googleapis.com/maps/api/staticmap?key=AIzaSyDW8nO9JhT_pEjebobq9pgUF2cEp0EUb1I&amp;markers=New+York+City&amp;center=New+York+City&amp;zoom=12&amp;size=640x480&amp;sensor=false"> </div>
+{% endblock %}
+
+{% block arrivals %}
+
+          <a href="#" class="btn btn-outline-primary">{{arrivals.arrivals_list_final_df['stop_name'].iloc[0]}}</a>
+          <table class="table table-sm">
+            <thead>
+              <tr>
+                <th>time</th>
+                <th>bus #</th>
+                <th>time since last</th>
+              </tr>
+            </thead>
+            <tbody>
+
+            {% for (index,row) in arrivals.arrivals_list_final_df.iterrows() %}
+                <tr>
+                    <td>{{row.timestamp|strftime_today}}</td>
+                    <td>{{row.v}}</td>
+                    <td>{{row.delta}}</td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+          </table>
+
+{% endblock %}
+
+{% block stoplist %}
+
+          <table class="table table-sm">
+              <a href="#" class="btn btn-outline-primary">To {{route_stop_list[0][0].d}}</a>
+              {% for stop in route_stop_list[0] %}
+                <tr>
+                    <td>{{stop.st}}</td>
+                </tr>
+              {% endfor %}
+          </table>
+
+          <table class="table table-sm">
+              <a href="#" class="btn btn-outline-primary">To {{route_stop_list[1][0].d}}</a>
+              {% for stop in route_stop_list[1] %}
+                <tr>
+                    <td>{{stop.st}}</td>
+                </tr>
+              {% endfor %}
+          </table>
+
+
+{% endblock %}
+
+{% block bunching_report %}
+{% endblock %}
+
+{% block reliability_report %}
+{% endblock %}
+

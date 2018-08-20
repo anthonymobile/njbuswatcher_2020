@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
+
+  {% assets "route_css" %}
+      <link rel="stylesheet" href="{{ ASSET_URL }}" type="text/css">
+  {% endassets %}
+
+</head>
+
+<body>
+  <div class="py-2 bg-dark">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h1 class="">Route Report</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="py-1">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h1 class="display-3">
+            <b>119 </b>Journal Square - New York</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="py-3">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="alert alert-primary" role="alert">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <h4 class="alert-heading">Current Grade:
+              {% block grade %}
+              {% endblock %}
+            </h4>
+            <p class="mb-0">A short decription of the grade from a lookup table here?</p>
+          </div>
+          <p class="">
+            <b>
+              <u>Route Summary</u>. </b>
+            {% block summary %}
+            {% endblock %}
+
+          <p class=""><a class="ml-3 btn navbar-btn btn-secondary" href="#">Sign the petition for better bus service</a></p>
+        </div>
+        <div class="col-md-8">
+          {% block map %}
+          {% endblock %}
+      </div>
+    </div>
+  </div>
+  <div class="py-5 bg-light">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <h1 class="">Recent Arrivals</h1>
+          {% block arrivals %}
+          {% endblock %}
+
+        </div>
+        <div class="col-md-4">
+          <h1 class="">Stops</h1>
+          {% block stoplist %}
+          {% endblock %}
+
+        </div>
+        <div class="col-md-4">
+          <h1 class="">Service Metrics</h1>
+          <p class="lead">Bunching.</p>
+          <p class="">Bunching is when buses arrive too close to each other, meaning lots of buses are too crowded, and others are empty. Nullam tristique velit volutpat, laoreet ipsum quis, ultricies dui. Nunc mattis est nec leo sodales, et vestibulum lorem sodales
+            lorem sodales.&nbsp;
+            <br>
+            <br>The 119 is currently experiencing a
+            <b style="font-weight: bold;">moderate</b> leve
+            <b>l&nbsp;of bunching. The trouble spots are listed below.</b>
+          </p>
+          {% block bunching_report %}
+          {% endblock %}
+
+          <!--
+          <table class="table">
+            <thead>
+              <tr>
+                <th>start</th>
+                <th>end</th>
+                <th>period</th>
+                <th>incidents/week</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Webster Ave &amp; Congress St&nbsp;</td>
+                <td>Webster Ave &amp; Palisade Ave</td>
+                <td>evening rush</td>
+                <td>21</td>
+              </tr>
+              <tr>
+                <td>Webster Ave &amp; Congress St&nbsp;</td>
+                <td>Webster Ave &amp; Palisade Ave</td>
+                <td>morning rush</td>
+                <td>14</td>
+              </tr>
+              <tr>
+                <td>JFK Blvd &amp; 36th St</td>
+                <td>JFK Blvd &amp; 38th St</td>
+                <td>morning rush</td>
+                <td>3</td>
+              </tr>
+            </tbody>
+          </table>
+          -->
+          <p class="lead">Reliability.</p>
+          <p class="">Realiabilty answers the question "can I depend on the bus to get me there on time?" and measures the consistency of scheduled travel times over longer period of times. Nullam tristique velit volutpat, laoreet ipsum quis, ultricies dui. Nunc
+            mattis est nec leo sodales, et vestibulum lorem sodales lorem sodales. The following shows how many days in the last month the route has had rush hour delays average more than a certain amount.
+            <br> </p>
+          {% block reliability_report %}
+          {% endblock %}
+          <!--
+          <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center">More than 30 minutes&nbsp;
+              <span class="badge badge-primary badge-pill">14</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">More than 15 minutes&nbsp;
+              <span class="badge badge-primary badge-pill">2</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center"> More than an hour&nbsp;
+              <span class="badge badge-primary badge-pill">1</span>
+            </li>
+          </ul>
+          -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-dark text-white">
+    <div class="container">
+      <div class="row">
+        <div class="p-4 col-md-6">
+          <h2 class="mb-4 text-secondary">About RNA</h2>
+          <p class="text-white">A company for whatever you may need, from website prototyping to publishing</p>
+        </div>
+        <div class="p-4 col-md-6">
+          <h2 class="mb-4">Contact</h2>
+          <p>
+            <a href="mailto:info@pingendo.com" class="text-white">
+              <i class="fa d-inline mr-3 text-secondary fa-envelope-o"></i>info@pingendo.com</a>
+          </p>
+          <p>
+            <a href="https://goo.gl/maps/AUq7b9W7yYJ2" class="text-white" target="_blank">
+              <i class="fa d-inline mr-3 fa-map-marker text-secondary"></i>w</a>ww.riverviewassociation.org</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 mt-3">
+          <p class="text-center text-white">© Copyright 2018 Bits and Atoms LLC - MIT License (pending). </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+
+</html>
