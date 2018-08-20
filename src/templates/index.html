@@ -4,12 +4,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
-  {% assets "route_css" %}
-      <link rel="stylesheet" href="{{ ASSET_URL }}" type="text/css">
-  {% endassets %} </head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css"> </head>
 
-<body>
+<body>{% assets "route_css" %}
+  <link rel="stylesheet" href="{{ ASSET_URL }}" type="text/css"> {% endassets %}
   <div class="py-5 text-center " style="background-image: url('static/banner.jpg');">
     <div class="container py-5 transparent">
       <div class="row">
@@ -17,37 +15,41 @@
           <h1 class="display-3 mb-4 text-dark text-capitalize">Buses are the backbone&nbsp;
             <br>of our neighborhoods.&nbsp;</h1>
           <p class="lead text-left">Jersey City residents depend on buses to get to work, school, and the homes of friends and loved ones.</p>
-
-            <p class="lead text-left">That's why the Riverview Neighborhood Association is leading the way in informing residents, businesses, and public officials in The Heights about the opportunities and challenges in local bus service. On this website you can learn about current bus service and take action.</p>
-          <a href="#" class="btn btn-lg mx-1 btn-secondary">Check Out the Route Report Cards</a>
+          <p class="lead text-left">That's why the Riverview Neighborhood Association is leading the way in informing residents, businesses, and public officials in The Heights about the opportunities and challenges in local bus service. On this website you can learn about current
+            bus service and take action.</p>
+          <a href="#routepanel" class="btn btn-lg mx-1 btn-secondary">Check Out the Route Report Cards Below</a>
           <a href="#" class="btn btn-lg btn-primary mx-1">Sign the Petition for Better Bus Service</a>
         </div>
       </div>
     </div>
   </div>
-  <div class="py-5">
+
+
+  <div id="routepanel" class="py-5">
     <div class="container">
       <div class="row">
         <div class="col-md-2">
-          <h3 class="text-center">86</h3>
-          <p class="">Paragraph. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <a href = {{ url_for('genRouteReport' ,source='nj',route=routesdict.route1['route']) }}><h3 class="text-center">{{routesdict.route1['route']}}</h3></a>
+          <p class="">{{routesdict.route1['description']}}</p>
         </div>
         <div class="col-md-2">
-          <h3 class="text-center">86P</h3>
-          <p class="">Paragraph. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <a href = {{ url_for('genRouteReport' ,source='nj',route=routesdict.route2['route']) }}><h3 class="text-center">{{routesdict.route2['route']}}</h3></a>
+          <p class="">{{routesdict.route2['description']}}</p>
         </div>
         <div class="col-md-2">
-          <h3 class="text-center">87</h3>
-          <p class="">Paragraph. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <a href = {{ url_for('genRouteReport' ,source='nj',route=routesdict.route3['route']) }}><h3 class="text-center">{{routesdict.route3['route']}}</h3></a>
+          <p class="">{{routesdict.route3['description']}}</p>
         </div>
         <div class="col-md-2">
-          <h3 class="text-center">119</h3>
-          <p class="">Paragraph. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          <p class=""><a href="https://www.njtransit.com/pdf/bus/T0119.pdf">Schedule (PDF).</a></p>
+          <a href = {{ url_for('genRouteReport' ,source='nj',route=routesdict.route4['route']) }}><h3 class="text-center">{{routesdict.route4['route']}}</h3></a>
+          <p class="">{{routesdict.route4['description']}}</p>
+          <p class="">
+
+          </p>
         </div>
         <div class="col-md-2">
-          <h3 class="text-center">123</h3>
-          <p class="">Paragraph. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <a href = {{ url_for('genRouteReport' ,source='nj',route=routesdict.route5['route']) }}><h3 class="text-center">{{routesdict.route5['route']}}</h3></a>
+          <p class="">{{routesdict.route5['description']}}</p>
         </div>
         <div class="col-md-2">
           <h3 class="text-center">TBD</h3>
