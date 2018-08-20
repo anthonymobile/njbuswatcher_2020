@@ -3,7 +3,8 @@
 
 from flask import Flask, render_template
 import lib.ReportCard as rc
-from util import assets
+
+from route_config import routesdict
 
 app = Flask(__name__)
 
@@ -33,29 +34,28 @@ assets.register(bundles)
 #1 home page
 @app.route('/')
 def displayHome():
-#    return app.send_static_file('/index.html')
-    return render_template('index.html')
+    return render_template('index.html', routesdict=routesdict)
 
+#2 route report
+@app.route('/<source>/<route>')
+def genRouteReport(source, route):
 
-# 2 reportcard - for a route
+    routereport=rc.RouteGrade(route)
+    routereport.compute_grade()
+    route_stop_list = rc.get_stoplist(source, route)
+
+    return render_template('route.html', routereport=routereport,  route_stop_list=route_stop_list)
+
+# # todo write stop view
+# 3 stop report
+
 @app.route('/<source>/<route>/<stop>')
-def genReportCard(source, route, stop, period='history'):
-
+def genStopReport(source, route, stop, period='history'):
     arrivals = rc.StopReport(route, stop)
     arrivals.get_arrivals(period)
 
-    grade=rc.RouteGrade(route)
-    grade.compute_grade()
+    return render_template('stop.html', arrivals=arrivals, grade=grade,  route_stop_list=route_stop_list)
 
-    route_stop_list = rc.get_stoplist(source, route)
-
-    # map = arrivals.route_map() # doesnt work, wont... need to replace
-    # bunching_report = TK
-    # reliability_report = TK
-
-    # return render_template('route.html', arrivals=arrivals, route_stop_list=route_stop_list, map=map, bunching_report=bunching_report, reliability_report=reliability_report)
-
-    return render_template('route.html', arrivals=arrivals, grade=grade,  route_stop_list=route_stop_list)
 
 
 ################################################
