@@ -39,7 +39,7 @@ def displayHome():
 
 # 2 reportcard - for a route
 @app.route('/<source>/<route>/<stop>')
-def genReportCard(source, route, stop, period='daily'):
+def genReportCard(source, route, stop, period='history'):
 
     arrivals = rc.StopReport(route, stop)
     arrivals.get_arrivals(period)
@@ -79,8 +79,8 @@ def genReportCard(source, route, stop, period='daily'):
 #     return render_template('dev-oldtemplates/arrivals.html', arrivals=arrivals, route_stop_list=route_stop_list,map=map)
 
 # custom filters
-@app.template_filter('strftime_custom')
-def _jinja2_filter_datetime(timestamp, format='%a %b %d %I:%M %p'):
+@app.template_filter('strftime_today')
+def _jinja2_filter_datetime(timestamp, format='%I:%M %p'):
     return timestamp.strftime(format)
 
 

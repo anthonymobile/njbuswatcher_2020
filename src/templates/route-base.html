@@ -42,14 +42,15 @@
               {% block grade %}
               {% endblock %}
             </h4>
-            <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
+            <p class="mb-0">A short decription of the grade from a lookup table here?</p>
           </div>
           <p class="">
             <b>
-              <u>Route Summary</u>. </b>The 119 is Hudson County's most vital connection into New York city, but serves double duty as a north-south internal route. As such, it does both poorly.
-            <br>
-            <br>Trouble points include here and there. Service could be improved by doing this and that.</p>
-          <a class="ml-3 btn navbar-btn btn-secondary" href="#">Sign the petition for better bus service</a>
+              <u>Route Summary</u>. </b>
+            {% block summary %}
+            {% endblock %}
+
+          <p class=""><a class="ml-3 btn navbar-btn btn-secondary" href="#">Sign the petition for better bus service</a></p>
         </div>
         <div class="col-md-8">
           {% block map %}
@@ -64,117 +65,13 @@
           <h1 class="">Recent Arrivals</h1>
           {% block arrivals %}
           {% endblock %}
-          <!--
-          <a href="#" class="btn btn-outline-primary">Congress St &amp; Webster Ave (30189)</a>
-          <table class="table">
-            <thead>
-              <tr>
-                <th>time</th>
-                <th>bus #</th>
-                <th>time since last bus</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>8:32 am</td>
-                <td>3829</td>
-                <td>18 min</td>
-              </tr>
-              <tr>
-                <td>8:14</td>
-                <td>3239</td>
-                <td>15 min</td>
-              </tr>
-              <tr>
-                <td>7:59</td>
-                <td>2993</td>
-                <td> 8 min
-                  <ul class="nav nav-pills flex-column">
-                    <li class="nav-item"> </li>
-                  </ul>
-                </td>
-              </tr>
-              <tr>
-                <td>7:51</td>
-                <td>4324</td>
-                <td>7 min</td>
-              </tr>
-              <tr>
-                <td>7:44</td>
-                <td>6324</td>
-                <td>2 min</td>
-              </tr>
-              <tr>
-                <td>7:42</td>
-                <td>4324</td>
-                <td>4 min</td>
-              </tr>
-              <tr>
-                <td>7:40</td>
-                <td>2342</td>
-                <td>9 min</td>
-              </tr>
-              <tr>
-                <td>7:31</td>
-                <td>6673</td>
-                <td>
-                  <u>more &gt;&gt;</u>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          -->
+
         </div>
         <div class="col-md-4">
           <h1 class="">Stops</h1>
           {% block stoplist %}
           {% endblock %}
-          <!--
-          <div class="btn-group btn-group-sm">
-            <a href="#" class="btn btn-outline-primary">to Journal Square</a>
-            <a href="#" class="btn btn-outline-primary">to New York</a>
-          </div>
-          <table class="table">
-            <thead>
-              <tr></tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Journal Square Transportation Center</td>
-              </tr>
-              <tr>
-                <td>JFK Blvd + 36th St</td>
-              </tr>
-              <tr>
-                <td>JFK Blvd + 36th St</td>
-              </tr>
-              <tr>
-                <td>JFK Blvd + 36th St</td>
-              </tr>
-              <tr>
-                <td>JFK Blvd + 36th St</td>
-              </tr>
-              <tr>
-                <td>JFK Blvd + 36th St</td>
-              </tr>
-              <tr>
-                <td>JFK Blvd + 36th St</td>
-              </tr>
-              <tr>
-                <td>JFK Blvd + 36th St</td>
-              </tr>
-              <tr>
-                <td>JFK Blvd + 36th St</td>
-              </tr>
-              <tr>
-                <td>JFK Blvd + 36th St</td>
-              </tr>
-              <tr>
-                <td>Congress St &amp; Webster Ave</td>
-              </tr>
-            </tbody>
-          </table>
-          -->
+
         </div>
         <div class="col-md-4">
           <h1 class="">Service Metrics</h1>
