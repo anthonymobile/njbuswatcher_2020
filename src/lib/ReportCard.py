@@ -33,47 +33,18 @@ def get_stoplist(source,route):
         route_list.append(path_list)
 
     route_stop_list = route_list[0] # chop off the duplicate half
+    # route_stop_list = route_list
 
     return route_stop_list # list with 2 lists of stops for inbound and outbound
 
 class StopReport: #---------------------------------------------
-    # creates a object with properties that contain all the content that will be
-    # rendered by the template - e.g. lists that will get iterated over into tables for display
 
     def __init__(self,route,stop):
         self.route=route
         self.stop=stop
-        #todo self.stop_name = tk
         self.db = StopsDB.MySQL('buses', 'buswatcher', 'njtransit', '127.0.0.1', self.route)
         self.conn = self.db.conn
         self.table_name = 'stop_approaches_log_' + self.route
-
-    def get_approaches(self,period):
-        self.period = period
-        if period == "daily":
-            approach_query = ('SELECT * FROM %s WHERE (stop_id= %s AND (DATE(`timestamp`) = CURDATE()) ORDER BY stop_id,timestamp;' % (self.table_name,self.stop))
-
-        elif period=="weekly":
-            approach_query = ('SELECT * FROM %s WHERE (stop_id= %s AND (YEARWEEK(`timestamp`, 1) = YEARWEEK(CURDATE(), 1))) ORDER BY stop_id,timestamp;' % (self.table_name,self.stop))
-
-        elif period=="history":
-            approach_query = ('SELECT * FROM %s WHERE stop_id= %s ORDER BY stop_id,timestamp;' % (self.table_name,self.stop))
-
-        df = pd.read_sql_query(approach_query, self.conn)
-        df = timestamp_fix(df)
-
-        # return raw list of approaches
-        self.approach_results = []
-        for index, row in df.iterrows():
-            dict_ins = {}
-            dict_ins['stop_id'] = row['stop_id']
-            # dict_ins['stop_name'] = row['stop_name']
-            dict_ins['v'] = row['v']
-            dict_ins['pt'] = row['pt']
-            dict_ins['timestamp'] = row['timestamp']
-            self.approach_results.append(dict_ins)
-        return
-
 
     def get_arrivals(self, period): # method 1: last approach in a contiguous sequence with 'approaching'
 
@@ -102,7 +73,7 @@ class StopReport: #---------------------------------------------
 
         final_approach_dfs = [g for i, g in df_temp.groupby(df_temp['v'].ne(df_temp['v'].shift()).cumsum())]
 
-        # take the last V in each df and  add it to final list of arrivals
+        # take the last V in each df and add it to final list of arrivals
         self.arrivals_list_final_df = pd.DataFrame()
         for final_approach in final_approach_dfs:  # iterate over every final approach
             arrival_insert_df = final_approach.tail(1)  # take the last observation
@@ -111,23 +82,14 @@ class StopReport: #---------------------------------------------
         # log the time arrivals table was generated
         self.arrivals_table_generated = datetime.datetime.now()
 
-        return
-
-
-    def delta_list(self): # create a list of tuples [arrivaltime, time since last bus]
-
-        ## FROM OLD CODE
-        ## compute interval between this bus and next in log (WORKING)
-        #df_stop['delta'] = df_stop['timestamp'] - df_stop['timestamp'].shift(1)
-        print (self.arrivals_list_final_df.iloc[2]['timestamp'])
-        print type(self.arrivals_list_final_df.iloc[2]['timestamp'])
-
-        self.arrivals_list_final_df['delta']=datetime.datetime.now()
-        # print self.arrivals_list_final_df['timestamp'],type(self.arrivals_list_final_df['timestamp'])
-        # print self.arrivals_list_final_df['timestamp'].shift(1),type(self.arrivals_list_final_df['timestamp'].shift(1))
-        self.arrivals_list_final_df['delta']=self.arrivals_list_final_df['timestamp'] - self.arrivals_list_final_df['timestamp'].shift()
+        # loop and calc delta for each row, fill NaNs
+        for index,row in self.arrivals_list_final_df.iterrows():
+            # row['delta']=row['timestamp']-row['timestamp'].shift()
+            row['delta']='0 min'
+        # self.arrivals_list_final_df['delta'].fillna(0)
 
         return
+
 
     def route_map(self):
 
@@ -144,6 +106,31 @@ class StopReport: #---------------------------------------------
         self.m.add_layer(gmaps.symbol_layer([(float(b.lat), float(b.lon)) for b in bus_points], fill_color='green', stroke_color='green', scale=2))
         return
 
+    # def get_approaches(self,period):
+    #     self.period = period
+    #     if period == "daily":
+    #         approach_query = ('SELECT * FROM %s WHERE (stop_id= %s AND (DATE(`timestamp`) = CURDATE()) ORDER BY stop_id,timestamp;' % (self.table_name,self.stop))
+    #
+    #     elif period=="weekly":
+    #         approach_query = ('SELECT * FROM %s WHERE (stop_id= %s AND (YEARWEEK(`timestamp`, 1) = YEARWEEK(CURDATE(), 1))) ORDER BY stop_id,timestamp;' % (self.table_name,self.stop))
+    #
+    #     elif period=="history":
+    #         approach_query = ('SELECT * FROM %s WHERE stop_id= %s ORDER BY stop_id,timestamp;' % (self.table_name,self.stop))
+    #
+    #     df = pd.read_sql_query(approach_query, self.conn)
+    #     df = timestamp_fix(df)
+    #
+    #     # return raw list of approaches
+    #     self.approach_results = []
+    #     for index, row in df.iterrows():
+    #         dict_ins = {}
+    #         dict_ins['stop_id'] = row['stop_id']
+    #         # dict_ins['stop_name'] = row['stop_name']
+    #         dict_ins['v'] = row['v']
+    #         dict_ins['pt'] = row['pt']
+    #         dict_ins['timestamp'] = row['timestamp']
+    #         self.approach_results.append(dict_ins)
+    #     return
 
 
 class RouteGrade:
