@@ -1,9 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BookmarkManager">
+    <bookmark url="file://$PROJECT_DIR$/src/reportcard.py" description="global 'stop' not defined" line="43" mnemonic="2" />
+    <bookmark url="file://$PROJECT_DIR$/src/reportcard.py" description="probably need to change the pingendo project to put the css in /static too so the relative urls are all correct in the HTML" line="7" mnemonic="1" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9c35431-0764-488c-bbb0-431ede0ff16b" name="Default" comment="big update to UX">
+    <list default="true" id="e9c35431-0764-488c-bbb0-431ede0ff16b" name="Default" comment="major README update">
+      <change afterPath="$PROJECT_DIR$/src/templates/route-base.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/util/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/util/assets.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/Map - gmap NJT route with waypoints.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/Map - gmap NJT route with waypoints.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/Map - gmap all NJ buses in real-time.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/ReportCard.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/ReportCard.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/reportcard.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/reportcard.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/static/css/bootstrap-grid.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/static/css/bootstrap-grid.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/static/css/bootstrap-grid.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/static/css/bootstrap-grid.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/static/css/bootstrap-reboot.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/static/css/bootstrap-reboot.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/static/css/bootstrap-reboot.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/static/css/bootstrap-reboot.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/static/css/bootstrap.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/static/css/bootstrap.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/static/css/bootstrap.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/static/css/bootstrap.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/static/css/main.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/static/js/bootstrap.bundle.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/static/js/bootstrap.bundle.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/static/js/bootstrap.bundle.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/static/js/bootstrap.bundle.min.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/static/js/bootstrap.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/static/js/bootstrap.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/static/js/bootstrap.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/static/js/bootstrap.min.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/templates/banner.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/static/banner.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/templates/dev/approaches.html" beforeDir="false" afterPath="$PROJECT_DIR$/archive/dev-oldtemplates/approaches.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/templates/dev/arrivals-base.html" beforeDir="false" afterPath="$PROJECT_DIR$/archive/dev-oldtemplates/arrivals-base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/templates/dev/arrivals.bak.html" beforeDir="false" afterPath="$PROJECT_DIR$/archive/dev-oldtemplates/arrivals.bak.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/templates/dev/arrivals.html" beforeDir="false" afterPath="$PROJECT_DIR$/archive/dev-oldtemplates/arrivals.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/templates/dev/delta.html" beforeDir="false" afterPath="$PROJECT_DIR$/archive/dev-oldtemplates/delta.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/templates/route.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/templates/route.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/templates/theme.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/static/css/theme.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/templates/theme.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/static/css/theme.scss" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,57 +58,58 @@
     <session id="438890131">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="19" />
+          <entry key="project.closed" value="25" />
           <entry key="project.open.time.10" value="2" />
           <entry key="project.open.time.11" value="1" />
           <entry key="project.open.time.12" value="1" />
-          <entry key="project.open.time.13" value="1" />
+          <entry key="project.open.time.13" value="2" />
           <entry key="project.open.time.15" value="1" />
-          <entry key="project.open.time.5" value="2" />
+          <entry key="project.open.time.5" value="3" />
           <entry key="project.open.time.6" value="3" />
-          <entry key="project.open.time.7" value="3" />
-          <entry key="project.open.time.8" value="5" />
-          <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="20" />
+          <entry key="project.open.time.7" value="5" />
+          <entry key="project.open.time.8" value="6" />
+          <entry key="project.open.time.9" value="2" />
+          <entry key="project.opened" value="26" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="bak" value="1" />
-          <entry key="css" value="3" />
-          <entry key="html" value="27" />
+          <entry key="css" value="5" />
+          <entry key="gitignore" value="1" />
+          <entry key="html" value="40" />
           <entry key="ipynb" value="3" />
-          <entry key="md" value="1" />
-          <entry key="py" value="77" />
+          <entry key="md" value="2" />
+          <entry key="py" value="97" />
           <entry key="txt" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="CSS" value="3" />
-          <entry key="HTML" value="27" />
+          <entry key="CSS" value="5" />
+          <entry key="HTML" value="40" />
           <entry key="IPNB" value="3" />
-          <entry key="Markdown" value="1" />
-          <entry key="PLAIN_TEXT" value="1" />
-          <entry key="Python" value="77" />
+          <entry key="Markdown" value="2" />
+          <entry key="PLAIN_TEXT" value="2" />
+          <entry key="Python" value="97" />
           <entry key="Scratch" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="11" />
-          <entry key="html" value="3354" />
-          <entry key="md" value="5936" />
-          <entry key="py" value="5973" />
-          <entry key="txt" value="653" />
+          <entry key="html" value="3577" />
+          <entry key="md" value="6641" />
+          <entry key="py" value="6868" />
+          <entry key="txt" value="712" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="HTML" value="3354" />
-          <entry key="Markdown" value="5936" />
-          <entry key="PLAIN_TEXT" value="567" />
-          <entry key="Python" value="5973" />
+          <entry key="HTML" value="3577" />
+          <entry key="Markdown" value="6641" />
+          <entry key="PLAIN_TEXT" value="626" />
+          <entry key="Python" value="6868" />
           <entry key="Scratch" value="97" />
         </counts>
       </usages-collector>
@@ -76,23 +120,25 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/templates/dev/arrivals.html">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/reportcard.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="467">
-              <caret line="28" column="14" selection-start-line="28" selection-start-column="14" selection-end-line="28" selection-end-column="14" />
+            <state relative-caret-position="319">
+              <caret line="20" column="25" selection-start-line="20" selection-start-column="25" selection-end-line="20" selection-end-column="25" />
+              <folding>
+                <element signature="e#64#104#0" expanded="true" />
+                <marker date="1534743286922" expanded="true" signature="900:1505" ph="..." />
+                <marker date="1534743286922" expanded="true" signature="1505:1507" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/README.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="695">
-                <caret line="45" lean-forward="true" selection-start-line="45" selection-end-line="45" />
-              </first_editor>
-              <second_editor />
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/util/assets.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="44">
+              <caret line="2" selection-start-line="2" selection-end-line="2" />
             </state>
           </provider>
         </entry>
@@ -103,8 +149,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Jupyter Notebook" />
-        <option value="Python Script" />
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -133,6 +179,8 @@
       <find>pt</find>
       <find>print</find>
       <find>heading</find>
+      <find>self.route</find>
+      <find>filter-light</find>
     </findStrings>
     <replaceStrings>
       <replace>mongo.StringField</replace>
@@ -144,13 +192,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/lib/Buses.py" />
-        <option value="$PROJECT_DIR$/src/reportcard-www.py" />
-        <option value="$PROJECT_DIR$/src/lib/tmp.py" />
-        <option value="$PROJECT_DIR$/src/lib/reportcard_helpers.py" />
-        <option value="$PROJECT_DIR$/src/lib/Buses.py" />
-        <option value="$PROJECT_DIR$/src/importtest.py" />
-        <option value="$PROJECT_DIR$/__init__.py" />
         <option value="$PROJECT_DIR$/buses/__init__.py" />
         <option value="$PROJECT_DIR$/src/buses/Buses.py" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/TO DO.txt" />
@@ -190,11 +231,18 @@
         <option value="$PROJECT_DIR$/src/templates/dev/extends-base.html" />
         <option value="$PROJECT_DIR$/src/static/main.css" />
         <option value="$PROJECT_DIR$/src/templates/dev/base.html" />
-        <option value="$PROJECT_DIR$/src/reportcard.py" />
-        <option value="$PROJECT_DIR$/src/lib/ReportCard.py" />
-        <option value="$PROJECT_DIR$/src/templates/dev/arrivals-base.html" />
         <option value="$PROJECT_DIR$/src/templates/dev/arrivals.html" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/config.py" />
+        <option value="$PROJECT_DIR$/src/templates/dev/arrivals-base.html" />
+        <option value="$PROJECT_DIR$/src/templates/index.html" />
+        <option value="$PROJECT_DIR$/src/lib/ReportCard.py" />
+        <option value="$PROJECT_DIR$/src/templates/route.html" />
+        <option value="$PROJECT_DIR$/src/util/__init__.py" />
+        <option value="$PROJECT_DIR$/src/templates/route-base.html" />
+        <option value="$PROJECT_DIR$/src/__init__.py" />
+        <option value="$PROJECT_DIR$/src/util/assets.py" />
+        <option value="$PROJECT_DIR$/src/reportcard.py" />
       </list>
     </option>
   </component>
@@ -207,7 +255,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -215,10 +262,34 @@
               <item name="buswatcher" type="b2602c69:ProjectViewProjectNode" />
               <item name="buswatcher" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="buswatcher" type="b2602c69:ProjectViewProjectNode" />
+              <item name="buswatcher" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="buswatcher" type="b2602c69:ProjectViewProjectNode" />
+              <item name="buswatcher" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="buswatcher" type="b2602c69:ProjectViewProjectNode" />
+              <item name="buswatcher" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="buswatcher" type="b2602c69:ProjectViewProjectNode" />
+              <item name="buswatcher" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="util" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -231,19 +302,19 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/archive" />
-      <recent name="$PROJECT_DIR$/src/static/css" />
-      <recent name="$PROJECT_DIR$/src/static" />
-      <recent name="$PROJECT_DIR$/src/templates/dev" />
-      <recent name="$PROJECT_DIR$/src" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/src/templates/dev" />
       <recent name="$PROJECT_DIR$/src/static" />
       <recent name="$PROJECT_DIR$/src/lib" />
       <recent name="$PROJECT_DIR$/src" />
-      <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/static/css" />
+      <recent name="$PROJECT_DIR$/archive" />
+      <recent name="$PROJECT_DIR$/src/templates" />
+      <recent name="$PROJECT_DIR$/src/static" />
+      <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -422,27 +493,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1524759532211</updated>
-    </task>
-    <task id="LOCAL-00022" summary="added --nofetch command line switch for faster offline development">
-      <created>1527293687174</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1527293687174</updated>
-    </task>
-    <task id="LOCAL-00023" summary="partly there with all history json dump view">
-      <created>1527306318901</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1527306318901</updated>
-    </task>
-    <task id="LOCAL-00024" summary="delta compute working. flask table working -- but still entire df in each cell">
-      <created>1527438519361</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1527438519361</updated>
     </task>
     <task id="LOCAL-00025" summary="full arrivals board dict gen working, on to the flask template">
       <created>1527484795667</created>
@@ -766,7 +816,28 @@
       <option name="project" value="LOCAL" />
       <updated>1534304715304</updated>
     </task>
-    <option name="localTasksCounter" value="71" />
+    <task id="LOCAL-00071" summary="major README update">
+      <created>1534375387219</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1534375387220</updated>
+    </task>
+    <task id="LOCAL-00072" summary="tiny README update">
+      <created>1534376344757</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1534376344758</updated>
+    </task>
+    <task id="LOCAL-00073" summary="first draft of new UX">
+      <created>1534636812602</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1534636812604</updated>
+    </task>
+    <option name="localTasksCounter" value="74" />
     <servers />
   </component>
   <component name="TodoView">
@@ -782,9 +853,9 @@
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.42602494" weight="0.23044397" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.42424244" visible="true" weight="0.23044397" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Favorites" order="2" sideWeight="0.573975" side_tool="true" weight="0.23044397" />
+      <window_info id="Favorites" order="2" sideWeight="0.57575756" side_tool="true" weight="0.23044397" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32891566" />
       <window_info anchor="bottom" id="Debug" order="2" sideWeight="0.49926794" weight="0.36144578" />
@@ -795,7 +866,7 @@
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.3282123" />
       <window_info anchor="bottom" id="Python Console" order="8" weight="0.3282123" />
       <window_info anchor="bottom" id="Terminal" order="9" weight="0.328594" />
-      <window_info anchor="bottom" id="Run" order="10" weight="0.32409638" />
+      <window_info anchor="bottom" id="Run" order="10" visible="true" weight="0.32409638" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -825,9 +896,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="still debugging route parser - seems to be mixing up/doubling inbound and outbound routes" />
-    <MESSAGE value="fixed parse_route_xml" />
-    <MESSAGE value="route mapper notebook with waypoints working!" />
     <MESSAGE value="refactor and cleanup" />
     <MESSAGE value="major re-org" />
     <MESSAGE value="fixed parse_route_xml again" />
@@ -850,7 +918,10 @@
     <MESSAGE value="big UX update" />
     <MESSAGE value="get_stoplist working - pulls list of stops for a route" />
     <MESSAGE value="big update to UX" />
-    <option name="LAST_COMMIT_MESSAGE" value="big update to UX" />
+    <MESSAGE value="major README update" />
+    <MESSAGE value="tiny README update" />
+    <MESSAGE value="first draft of new UX" />
+    <option name="LAST_COMMIT_MESSAGE" value="first draft of new UX" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -881,23 +952,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/bak_reportcard.py" />
-    <entry file="file://$PROJECT_DIR$/src/templates/arrivals_history_full.html" />
-    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_1.txt" />
-    <entry file="file://$PROJECT_DIR$/test.py" />
-    <entry file="file://$PROJECT_DIR$/notebooks/config.py" />
-    <entry file="file://$USER_HOME$/anaconda2/envs/buswatcher/lib/python2.7/urllib2.py" />
-    <entry file="file://$PROJECT_DIR$/notebook.tex" />
-    <entry file="file://$PROJECT_DIR$/notebooks/nb-snippets.ipynb" />
-    <entry file="file://$PROJECT_DIR$/src/bus-debugger.py" />
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="369">
-          <caret line="1067" selection-start-line="1067" selection-end-line="1067" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/lib/tmp.py" />
     <entry file="file://$USER_HOME$/anaconda2/envs/buswatcher/lib/python2.7/site-packages/flask/app.py" />
     <entry file="file://$PROJECT_DIR$/src/importtest.py" />
     <entry file="file://$PROJECT_DIR$/src/buses/__init__.py" />
@@ -920,13 +974,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="401">
           <caret line="83" column="47" lean-forward="true" selection-start-line="83" selection-start-column="47" selection-end-line="83" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/stopwatcher.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="660">
-          <caret line="33" column="71" selection-start-line="33" selection-start-column="71" selection-end-line="33" selection-end-column="71" />
         </state>
       </provider>
     </entry>
@@ -955,28 +1002,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/templates/dev/arrivals.html.bak" />
     <entry file="file://$PROJECT_DIR$/archive/ReportCard-raw.py" />
-    <entry file="file://$PROJECT_DIR$/src/templates/dev/delta.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="17" column="43" lean-forward="true" selection-start-line="17" selection-start-column="43" selection-end-line="17" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/static/css/main.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="6" column="1" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/static/css/main.css" />
     <entry file="file://$PROJECT_DIR$/src/static/bootstrap.min.css" />
-    <entry file="file://$PROJECT_DIR$/src/static/css/bootstrap.min.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="5" column="80848" selection-start-line="5" selection-start-column="80848" selection-end-line="5" selection-end-column="80848" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/static/css/bootstrap.min.css" />
     <entry file="file://$PROJECT_DIR$/src/lib/StopsDB.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-258">
@@ -984,7 +1012,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/templates/dev/arrivals.bak.html">
+    <entry file="file://$PROJECT_DIR$/archive/dev-oldtemplates/arrivals.bak.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
           <caret line="8" selection-start-line="8" selection-end-line="13" />
@@ -992,7 +1020,7 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/templates/dev/base-extends.html" />
-    <entry file="file://$PROJECT_DIR$/src/templates/dev/approaches.html">
+    <entry file="file://$PROJECT_DIR$/archive/dev-oldtemplates/approaches.html">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/archive/api/1.0/api.py">
@@ -1021,60 +1049,138 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/stopwatcher.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="33" column="71" selection-start-line="33" selection-start-column="71" selection-end-line="33" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="376">
+            <caret line="106" selection-start-line="106" selection-end-line="106" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Map - gmap NJTransit buses in real-time (all or single route).py" />
     <entry file="file://$PROJECT_DIR$/src/routewatcher.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
+        <state relative-caret-position="374">
           <caret line="23" selection-start-line="23" selection-end-line="23" selection-end-column="108" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/lib/BusAPI.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3630">
-          <caret line="166" column="4" selection-start-line="166" selection-start-column="4" selection-end-line="166" selection-end-column="28" />
+        <state relative-caret-position="55">
+          <caret line="130" column="4" selection-start-line="130" selection-start-column="4" selection-end-line="130" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="1" column="66" selection-start-line="1" selection-start-column="66" selection-end-line="1" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/archive/dev-oldtemplates/arrivals.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="2" column="8" selection-end-line="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/archive/dev-oldtemplates/delta.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="17" column="43" lean-forward="true" selection-start-line="17" selection-start-column="43" selection-end-line="17" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/archive/dev-oldtemplates/arrivals-base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="419">
+          <caret line="40" column="21" selection-start-line="40" selection-start-column="21" selection-end-line="40" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/templates/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/static/css/theme.css">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lib/ReportCard.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3388">
+          <caret line="158" column="14" selection-start-line="150" selection-start-column="5" selection-end-line="158" selection-end-column="14" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+            <marker date="1534714490630" expanded="true" signature="1122:1123" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/theme.css">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/templates/route-base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="8" selection-start-line="8" selection-end-line="10" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/util/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/templates/route.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="66">
+          <caret line="3" column="15" selection-start-line="3" selection-start-column="15" selection-end-line="3" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/util/assets.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/reportcard.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-46">
-          <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/lib/ReportCard.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="90" column="51" selection-start-line="90" selection-start-column="51" selection-end-line="90" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/templates/dev/arrivals-base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="43" column="36" selection-start-line="43" selection-start-column="36" selection-end-line="43" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/templates/dev/arrivals.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="467">
-          <caret line="28" column="14" selection-start-line="28" selection-start-column="14" selection-end-line="28" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="695">
-            <caret line="45" lean-forward="true" selection-start-line="45" selection-end-line="45" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        <state relative-caret-position="319">
+          <caret line="20" column="25" selection-start-line="20" selection-start-column="25" selection-end-line="20" selection-end-column="25" />
+          <folding>
+            <element signature="e#64#104#0" expanded="true" />
+            <marker date="1534743286922" expanded="true" signature="900:1505" ph="..." />
+            <marker date="1534743286922" expanded="true" signature="1505:1507" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
