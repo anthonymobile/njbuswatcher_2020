@@ -1,6 +1,8 @@
 import pandas as pd
 import StopsDB, BusAPI
 import datetime
+import gmaps
+import config
 
 def timestamp_fix(data): # trim the microseconds off the timestamp and convert it to datetime format
 
@@ -33,8 +35,6 @@ def get_stoplist(source,route):
     route_stop_list = route_list[0] # chop off the duplicate half
 
     return route_stop_list # list with 2 lists of stops for inbound and outbound
-
-
 
 class StopReport: #---------------------------------------------
     # creates a object with properties that contain all the content that will be
@@ -129,4 +129,32 @@ class StopReport: #---------------------------------------------
 
         return
 
+    def route_map(self):
+
+        gmaps.configure(api_key=config.free_maps_api_key)
+
+        bus_reports = BusAPI.parse_xml_getBusesForRouteAll(BusAPI.get_xml_data('nj', 'all_buses'))
+
+        bus_points = []
+        for bus in bus_reports:
+            if bus.rt == self.route:
+                bus_points.append(bus)
+
+        self.m = gmaps.Map()
+        self.m.add_layer(gmaps.symbol_layer([(float(b.lat), float(b.lon)) for b in bus_points], fill_color='green', stroke_color='green', scale=2))
+        return
+
+
+
+class RouteGrade:
+
+    def __init__(self, route):
+        self.route = route
+        self.db = StopsDB.MySQL('buses', 'buswatcher', 'njtransit', '127.0.0.1', self.route)
+        self.conn = self.db.conn
+        self.table_name = 'stop_approaches_log_' + self.route
+
+    def compute_grade(self):
+        self.grade = 'B-'
+        return
 
