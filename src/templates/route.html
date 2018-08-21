@@ -16,22 +16,18 @@ The route summary needs to be fetched from a database - which will have to be co
 {% block stoplist %}
 
           <table class="table table-sm">
-              <a href="#" class="btn btn-outline-primary">To {{route_stop_list[0][0].d}}</a>
-              {% for stop in route_stop_list[0] %}
-                <tr>
-                    <td><a href = {{url_for('genStopReport',source='nj',route=routereport.route,stop=stop.identity) }}>{{stop.st}}</a></td>
-                </tr>
-              {% endfor %}
+                {% for direction in route_stop_list %}
+
+              <!-- #todo this is all wrong but... iterate over the 1 to n services in routereport.route_stop_list -->
+              <a href="#" class="btn btn-outline-primary">To route_stop_list.something.d</a>
+                  {% for service in route_stop_list %}
+                    <tr>
+                        <td><a href = {{url_for('genStopReport',source=routereport.source,route=routereport.route,stop=stop.identity) }}>service.something.{{stop.st}}</a></td>
+                    </tr>
+                  {% endfor %}
+                {% endfor %}
           </table>
 
-          <table class="table table-sm">
-              <a href="#" class="btn btn-outline-primary">To {{route_stop_list[1][0].d}}</a>
-              {% for stop in route_stop_list[1] %}
-                <tr>
-                    <td><a href = {{url_for('genStopReport',source='nj',route=routereport.route,stop=stop.identity) }}>{{stop.st}}</a></td>
-                </tr>
-              {% endfor %}
-          </table>
 
 
 {% endblock %}
