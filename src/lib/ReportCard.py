@@ -5,29 +5,80 @@ import gmaps
 import config
 
 
-class RouteGrade:
+class RouteReport:
 
-    def __init__(self, route):
+    def __init__(self, source, route, reportcard_routes):
+
+        # apply passed parameters to instance
+        self.source = source
         self.route = route
+        self.reportcard_routes = reportcard_routes
+
+        # database initialization
         self.db = StopsDB.MySQL('buses', 'buswatcher', 'njtransit', '127.0.0.1', self.route)
         self.conn = self.db.conn
         self.table_name = 'stop_approaches_log_' + self.route
 
-    def compute_grade(self):
-        self.grade = 'B-'
+        # populate report card data
+        self.get_routename()
+        self.compute_grade()
+        self.get_stoplist()
+
+    def get_routename(self):
+
+        routedata = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=self.route))
+        self.routename=routedata[0].nm
         return
 
+    def compute_grade(self):
 
-class StopReport: #---------------------------------------------
+        # for now, grade is coded manually in route_config.py
+        for route in reportcard_routes:
+            if route.route = self.route:
+                self.grade = route.grade
+            else:
+                pass
+        # todo fancier grade calculation based on historical data
+        return
+
+    def get_stoplist(self): # todo rework this big time - may be looping improperly (why it repeats 2x for 2 services, 3x for 3 etc.)
+
+        routedata = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=self.route))
+
+        route_list = []
+        for i in routedata:
+            path_list = []
+            for path in i.paths:
+                stops_points = []
+                for point in path.points:
+                    if isinstance(point, BusAPI.Route.Stop):
+                        stops_points.append(point)
+
+                path_list.append(stops_points)
+
+            route_list.append(path_list)
+
+        self.route_stop_list = route_list[0]  # keep only a single copy of the services list
+
+
+class StopReport:
 
     def __init__(self,route,stop):
+
+        # apply passed parameters to instance
         self.route=route
         self.stop=stop
+
+        # database initialization
         self.db = StopsDB.MySQL('buses', 'buswatcher', 'njtransit', '127.0.0.1', self.route)
         self.conn = self.db.conn
         self.table_name = 'stop_approaches_log_' + self.route
 
-    def get_arrivals(self, period): # method 1: last approach in a contiguous sequence with 'approaching'
+        # populate stop report data
+        self.get_arrivals(period='daily')
+
+    def get_arrivals(self, period):
+        # method 1: last approach in a contiguous sequence with 'approaching'
 
         self.arrivals_table_generated = None
         self.period = period
@@ -99,25 +150,3 @@ def timestamp_fix(data): # trim the microseconds off the timestamp and convert i
 
     return data
 
-
-def get_stoplist(source,route):
-
-    routedata = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(source, 'routes',route=route))
-
-    route_list = []
-    for i in routedata:
-        path_list = []
-        for path in i.paths:
-            stops_points = []
-            for point in path.points:
-                if isinstance(point, BusAPI.Route.Stop):
-                    stops_points.append(point)
-
-            path_list.append(stops_points)
-
-        route_list.append(path_list)
-
-    route_stop_list = route_list[0] # chop off the duplicate half
-    # route_stop_list = route_list
-
-    return route_stop_list # list with 2 lists of stops for inbound and outbound

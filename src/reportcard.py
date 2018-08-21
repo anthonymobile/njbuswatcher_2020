@@ -4,7 +4,7 @@
 from flask import Flask, render_template
 import lib.ReportCard as rc
 
-from route_config import routesdict
+from route_config import reportcard_routes
 
 app = Flask(__name__)
 
@@ -34,17 +34,15 @@ assets.register(bundles)
 #1 home page
 @app.route('/')
 def displayHome():
-    return render_template('index.html', routesdict=routesdict)
+    return render_template('index.html', reportcard_routes=reportcard_routes)
 
 #2 route report
 @app.route('/<source>/<route>')
 def genRouteReport(source, route):
 
-    routereport=rc.RouteGrade(route)
-    routereport.compute_grade()
-    route_stop_list = rc.get_stoplist(source, route)
+    routereport=rc.RouteReport(source,route,reportcard_routes)
 
-    return render_template('route.html', routereport=routereport,  route_stop_list=route_stop_list)
+    return render_template('route.html', routereport=routereport)
 
 # # todo write stop view
 # 3 stop report
