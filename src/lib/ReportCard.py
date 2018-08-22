@@ -33,9 +33,10 @@ class RouteReport:
     def compute_grade(self):
 
         # for now, grade is coded manually in route_config.py
-        for route in reportcard_routes:
-            if route.route = self.route:
-                self.grade = route.grade
+        for route in self.reportcard_routes:
+
+            if route['route'] == self.route:
+                self.grade = route['grade']
             else:
                 pass
         # todo fancier grade calculation based on historical data
