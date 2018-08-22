@@ -16,14 +16,13 @@ The route summary needs to be fetched from a database - which will have to be co
 {% block stoplist %}
 
           <table class="table table-sm">
-                {% for direction in route_stop_list %}
-
-              <!-- #todo this is all wrong but... iterate over the 1 to n services in routereport.route_stop_list -->
-              <a href="#" class="btn btn-outline-primary">To route_stop_list.something.d</a>
-                  {% for service in route_stop_list %}
-                    <tr>
-                        <td><a href = {{url_for('genStopReport',source=routereport.source,route=routereport.route,stop=stop.identity) }}>service.something.{{stop.st}}</a></td>
-                    </tr>
+              test
+                {% for path in routereport.route_stop_list %}
+                <a href="#" class="btn btn-outline-primary">To -need to add destination to the instance data structure for each path</a>
+                  {% for stop in path %}
+                    <tr>test
+                        <!-- <td><a href = {{url_for('genStopReport',source=routereport.source,route=routereport.route,stop=stop.identity) }}>{{stop.st}}</a></td>
+                    </tr>-->
                   {% endfor %}
                 {% endfor %}
           </table>
@@ -33,6 +32,7 @@ The route summary needs to be fetched from a database - which will have to be co
 {% endblock %}
 
 {% block bunching_report %}
+<!-- #todo bunching report v1 see written notes -->
 <p>Eventually we'll create a histogram or something here.</p>
 {% endblock %}
 

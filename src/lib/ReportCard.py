@@ -7,6 +7,14 @@ import config
 
 class RouteReport:
 
+    class Path():
+        def __init__(self):
+            self.name = 'Path'
+            self.stops = []
+            self.id = ''
+            self.d = ''
+            self.dd = ''
+
     def __init__(self, source, route, reportcard_routes):
 
         # apply passed parameters to instance
@@ -42,24 +50,28 @@ class RouteReport:
         # todo fancier grade calculation based on historical data
         return
 
-    def get_stoplist(self): # todo rework this big time - may be looping improperly (why it repeats 2x for 2 services, 3x for 3 etc.)
+    def get_stoplist(self):
 
         routedata = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=self.route))
 
-        route_list = []
-        for i in routedata:
+        route_stop_list_temp = []
+        for r in routedata:
+
             path_list = []
-            for path in i.paths:
-                stops_points = []
+            for path in r.paths:
+                stops_points = RouteReport.Path()
                 for point in path.points:
                     if isinstance(point, BusAPI.Route.Stop):
-                        stops_points.append(point)
+                        stops_points.stops.append(point)
+                stops_points.id=path.id
+                stops_points.d=path.d
+                stops_points.dd=path.dd
 
-                path_list.append(stops_points)
+                path_list.append(stops_points) # path_list is now a couple of Path instances, plus the metadata id,d,dd fields
 
-            route_list.append(path_list)
+            route_stop_list_temp.append(path_list)
 
-        self.route_stop_list = route_list[0]  # keep only a single copy of the services list
+        self.route_stop_list = route_stop_list_temp[0] # transpose a single copy since the others are all repeats (can be verified by path ids)
 
 
 class StopReport:
