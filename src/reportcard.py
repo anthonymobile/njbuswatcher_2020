@@ -39,9 +39,7 @@ def displayHome():
 #2 route report
 @app.route('/<source>/<route>')
 def genRouteReport(source, route):
-
     routereport=rc.RouteReport(source,route,reportcard_routes)
-
     return render_template('route.html', routereport=routereport)
 
 # # todo write stop view
