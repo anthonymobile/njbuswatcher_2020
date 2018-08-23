@@ -15,12 +15,13 @@ class RouteReport:
             self.d = ''
             self.dd = ''
 
-    def __init__(self, source, route, reportcard_routes):
+    def __init__(self, source, route, reportcard_routes,grade_descriptions):
 
         # apply passed parameters to instance
         self.source = source
         self.route = route
         self.reportcard_routes = reportcard_routes
+        self.grade_descriptions = grade_descriptions
 
         # database initialization
         self.db = StopsDB.MySQL('buses', 'buswatcher', 'njtransit', '127.0.0.1', self.route)
@@ -41,13 +42,28 @@ class RouteReport:
     def compute_grade(self):
 
         # for now, grade is coded manually in route_config.py
+        # todo FUTURE fancier grade calculation based on historical data
+
         for route in self.reportcard_routes:
 
             if route['route'] == self.route:
                 self.grade = route['grade']
+                self.description_long = route['description_long']
+
+                for entry in self.grade_descriptions:
+                    if self.grade == entry['grade']:
+                        self.grade_description = entry['description']
+                    else:
+                        pass
+
+                if not self.grade_description:
+                    grade_description = 'Cannot find a description for that grade.'
+                else:
+                    pass
+
             else:
                 pass
-        # todo fancier grade calculation based on historical data
+
         return
 
     def get_stoplist(self):
@@ -127,6 +143,7 @@ class StopReport:
         # log the time arrivals table was generated
         self.arrivals_table_generated = datetime.datetime.now()
 
+        # todo NOW3a calc deltas
         # loop and calc delta for each row, fill NaNs
         for index,row in self.arrivals_list_final_df.iterrows():
             # row['delta']=row['timestamp']-row['timestamp'].shift()
