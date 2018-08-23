@@ -2,9 +2,9 @@
 # flask app running on https://host:5000
 
 from flask import Flask, render_template
-import lib.ReportCard as rc
+import lib.ReportCard
 
-from route_config import reportcard_routes
+from route_config import reportcard_routes,grade_descriptions
 
 app = Flask(__name__)
 
@@ -39,15 +39,15 @@ def displayHome():
 #2 route report
 @app.route('/<source>/<route>')
 def genRouteReport(source, route):
-    routereport=rc.RouteReport(source,route,reportcard_routes)
+    routereport=lib.ReportCard.RouteReport(source,route,reportcard_routes,grade_descriptions)
     return render_template('route.html', routereport=routereport)
 
-# # todo write stop view
+# # todo NOW3 write basic stop view
 # 3 stop report
 
 @app.route('/<source>/<route>/<stop>')
 def genStopReport(source, route, stop, period='history'):
-    arrivals = rc.StopReport(route, stop)
+    arrivals = lib.ReportCard.StopReport(route, stop)
     arrivals.get_arrivals(period)
 
     return render_template('stop.html', arrivals=arrivals, grade=grade,  route_stop_list=route_stop_list)

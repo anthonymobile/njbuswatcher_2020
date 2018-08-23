@@ -1,42 +1,58 @@
 {% extends 'route-base.html' %}
 
 {% block grade %}
-{{routereport.grade}}
+          <div class="alert alert-primary" role="alert">
+
+            <h4 class="alert-heading">Current Grade:
+                {{routereport.grade}} <!-- #todo FUTURE box color change based on grade -->
+            </h4>
+            <p class="mb-0"> {{routereport.grade_description}}</p>
+          </div>
 {% endblock %}
 
 {% block summary %}
-The route summary needs to be fetched from a database - which will have to be come kind of CMS. Or perhaps just a flat text file or maybe a Google doc that can be easily scraped.
+{{routereport.description_long}}
 {% endblock %}
 
 {% block map %}
 
+<!-- #todo NOW add static map for each line, switch to interactive later -->
 <img class="d-block img-fluid" src="https://maps.googleapis.com/maps/api/staticmap?key=AIzaSyDW8nO9JhT_pEjebobq9pgUF2cEp0EUb1I&amp;markers=New+York+City&amp;center=New+York+City&amp;zoom=12&amp;size=640x480&amp;sensor=false"> </div>
 {% endblock %}
 
 {% block stoplist %}
 
-          <table class="table table-sm">
-              test
-                {% for path in routereport.route_stop_list %}
-                <a href="#" class="btn btn-outline-primary">To -need to add destination to the instance data structure for each path</a>
-                  {% for stop in path %}
-                    <tr>test
-                        <!-- <td><a href = {{url_for('genStopReport',source=routereport.source,route=routereport.route,stop=stop.identity) }}>{{stop.st}}</a></td>
-                    </tr>-->
-                  {% endfor %}
-                {% endfor %}
-          </table>
+              {% for path in routereport.route_stop_list %}
+
+              <div>
+                  <a href="#" class="btn btn-outline-primary">To {{path.d}}</a>
+              </div>
+
+                <div>
+                <table class="table table-sm">
+                    {% for stop in path.stops %}
+                        <tr>
+                            <td><a href = {{url_for('genStopReport',source=routereport.source,route=routereport.route,stop=stop.identity) }}>{{stop.st}}</a></td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                </div>
+
+              {% endfor %}
+
+
 
 
 
 {% endblock %}
 
 {% block bunching_report %}
-<!-- #todo bunching report v1 see written notes -->
+<!-- #todo NOW2 bunching report v1 see written notes -->
 <p>Eventually we'll create a histogram or something here.</p>
 {% endblock %}
 
 {% block reliability_report %}
+<!-- #todo FUTURE reliability report v1 -- coming soon, histogram of travel time based on differential arrival time of same bus id at 1st, last and middlest stop # of std deviations -->
 <p>Eventually we'll create a histogram or something here.</p>
 {% endblock %}
 

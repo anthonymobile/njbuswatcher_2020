@@ -36,14 +36,10 @@
     <div class="container">
       <div class="row">
         <div class="col-md-4">
-          <div class="alert alert-primary" role="alert">
-            <button type="button" class="close" data-dismiss="alert">×</button>
-            <h4 class="alert-heading">Current Grade:
+
               {% block grade %}
               {% endblock %}
-            </h4>
-            <p class="mb-0">A short decription of the grade from a lookup table here?</p>
-          </div>
+
           <p class="">
             <b>
               <u>Route Summary</u>. </b>
@@ -91,7 +87,7 @@
 
         <div class="col-md-4">
           <h1 class="">Stops</h1>
-          <p class="lead">Click a stop in either direction to see a stop-level performance report view.</p>
+          <p class="lead">To see more detailed info about service on the {{routereport.route}} in your area, scroll down in the list below to the direction of travel you want and click on your stop .</p>
 
           {% block stoplist %}
           {% endblock %}
