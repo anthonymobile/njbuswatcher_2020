@@ -6,6 +6,10 @@ import lib.ReportCard
 
 from route_config import reportcard_routes,grade_descriptions
 
+import config
+
+
+
 app = Flask(__name__)
 
 ################################################
@@ -36,14 +40,21 @@ assets.register(bundles)
 def displayHome():
     return render_template('index.html', reportcard_routes=reportcard_routes)
 
-#2 route report
+#2 route report - choose service
 @app.route('/<source>/<route>')
-def genRouteReport(source, route):
-    routereport=lib.ReportCard.RouteReport(source,route,reportcard_routes,grade_descriptions)
-    return render_template('route.html', routereport=routereport)
+def genRouteReport_ServicePicker(source, route):
+    routereport=lib.ReportCard.RouteReport(source,route,reportcard_routes,grade_descriptions,config.mapbox_access_key)
+    return render_template('route_servicepicker.html', routereport=routereport)
+
+#3 route report - with service
+@app.route('/<source>/<route>/<path>')
+def genRouteReport_ServiceStoplist(source, route,path):
+    routereport=lib.ReportCard.RouteReport(source,route,reportcard_routes,grade_descriptions,config.mapbox_access_key)
+    return render_template('route_servicestoplist.html', routereport=routereport)
+
 
 # # todo NOW3 write basic stop view
-# 3 stop report
+# 4 stop report
 
 @app.route('/<source>/<route>/<stop>')
 def genStopReport(source, route, stop, period='history'):
@@ -53,26 +64,13 @@ def genStopReport(source, route, stop, period='history'):
     return render_template('stop.html', arrivals=arrivals, grade=grade,  route_stop_list=route_stop_list)
 
 
+@app.route('/<source>/<route>/mapbox_js')
+def mapbox_js(source,route):
+    routereport=lib.ReportCard.RouteReport(source,route,reportcard_routes,grade_descriptions,config.mapbox_access_key)
+    return render_template(
+        'mapbox_js.html', ACCESS_KEY=config.mapbox_access_key, route_data=routereport.route_data
+    )
 
-################################################
-# DEVELOPMENT URLS
-################################################
-
-# # 1 list all approaches for a specific source, route, stop, period
-# @app.route('/<source>/<route>/<stop>/<period>/approaches')
-# def getApproaches(source, route, stop, period):
-#     approaches = rc.StopReport(route,stop)
-#     approaches.get_approaches(period)
-#     return render_template('dev-oldtemplates/approaches.html', approaches=approaches)
-#
-# # 2 list all arrivals for a specific source, route, stop, period
-# @app.route('/<source>/<route>/<stop>/<period>/arrivals')
-# def getArrivals(source, route, stop, period):
-#     arrivals = rc.StopReport(route,stop)
-#     arrivals.get_arrivals(period)
-#     route_stop_list=rc.get_stoplist(source,route)
-#     map=arrivals.route_map()
-#     return render_template('dev-oldtemplates/arrivals.html', arrivals=arrivals, route_stop_list=route_stop_list,map=map)
 
 # custom filters
 @app.template_filter('strftime_today')
