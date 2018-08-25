@@ -1,0 +1,90 @@
+{% extends 'route-base.html' %}
+
+{% block grade %}
+          <div class="alert alert-primary" role="alert">
+
+            <h4 class="alert-heading">Current Grade:
+                {{routereport.grade}} <!-- #todo FUTURE box color change based on grade -->
+            </h4>
+            <p class="mb-0"> {{routereport.grade_description}}</p>
+          </div>
+{% endblock %}
+
+{% block summary %}
+{{routereport.description_long}}
+{% endblock %}
+
+{% block map %}
+
+<a href="/nj/{{routereport.route}}/mapbox_js">link to routemap</a>
+
+
+<link href='https://api.tiles.mapbox.com/mapbox.js/v2.2.3/mapbox.css' rel='stylesheet' />
+<script src='https://api.tiles.mapbox.com/mapbox.js/v2.2.3/mapbox.js'></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<div id="map"></div>
+<script>
+    L.mapbox.accessToken = '{{ACCESS_KEY}}';
+
+    var map = L.mapbox.map('map', 'mapbox.streets', {
+      scrollWheelZoom: false,
+      zoomControl: false
+    }).setView([40.72,-74.07], 13);
+
+    // templates/mapbox_js.html
+
+    L.mapbox.accessToken = '{{ACCESS_KEY}}';
+
+    var map = L.mapbox.map('map', 'mapbox.streets', {
+      scrollWheelZoom: false,
+      zoomControl: false
+    }).setView([65.0,-18.73], 7);
+
+    L.mapbox.featureLayer({{ route_data|safe }}).addTo(map);
+
+</script>
+
+
+
+
+
+{% endblock %}
+
+{% block stoplist %}
+
+              <!-- todo update to only output the direction in url for <path> -->
+              {% for path in routereport.route_stop_list %}
+
+              <div>
+                  <a href="#" class="btn btn-outline-primary">To {{path.d}}</a>
+              </div>
+
+                <div>
+                <table class="table table-sm">
+                    {% for stop in path.stops %}
+                        <tr>
+                            <td><a href = {{url_for('genStopReport',source=routereport.source,route=routereport.route,stop=stop.identity) }}>{{stop.st}}</a></td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                </div>
+
+              {% endfor %}
+
+
+
+
+
+{% endblock %}
+
+{% block bunching_report %}
+<!-- #todo NOW2 bunching report v1 see written notes -->
+<p>Eventually we'll create a histogram or something here.</p>
+{% endblock %}
+
+{% block reliability_report %}
+<!-- #todo FUTURE reliability report v1 -- coming soon, histogram of travel time based on differential arrival time of same bus id at 1st, last and middlest stop # of std deviations -->
+<p>Eventually we'll create a histogram or something here.</p>
+{% endblock %}
+
