@@ -42,7 +42,7 @@ class RouteReport:
     def compute_grade(self):
 
         # for now, grade is coded manually in route_config.py
-        # todo FUTURE fancier grade calculation based on historical data
+        # FUTURE fancier grade calculation based on historical data
 
         for route in self.reportcard_routes:
 
@@ -122,8 +122,6 @@ class RouteReport:
 
     # def get_buslocations_map_html(self):
     #
-    #     # todo map: 1) just produce javascript and stick in a div in map block, 2) add a layer for the stops
-    #
     #     # bus locations
     #     bus_position_reports = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data('nj', 'buses_for_route', route=self.route))
     #     bus_current_latlons = []
@@ -197,7 +195,7 @@ class StopReport:
         # log the time arrivals table was generated
         self.arrivals_table_generated = datetime.datetime.now()
 
-        # todo NOW3a calc deltas
+        # todo NOW5 calc deltas
         # loop and calc delta for each row, fill NaNs
         for index,row in self.arrivals_list_final_df.iterrows():
             # row['delta']=row['timestamp']-row['timestamp'].shift()

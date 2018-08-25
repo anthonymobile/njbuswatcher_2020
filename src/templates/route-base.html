@@ -57,6 +57,13 @@
   <div class="py-5 bg-light">
     <div class="container">
       <div class="row">
+
+
+        <div class="col-md-4">
+          {% block service_stops_block %}
+          {% endblock %}
+        </div>
+        <!-- #todo remove these from the servicepicker view -->
         <div class="col-md-4">
           <h1 class="">Bunching</h1>
           <p class="lead">Bunching is when buses arrive too close to each other.</p>
@@ -68,9 +75,7 @@
           </p>
           {% block bunching_report %}
           {% endblock %}
-
         </div>
-
 
         <div class="col-md-4">
           <h1 class="">Reliability</h1>
@@ -85,16 +90,6 @@
 
         </div>
 
-        <div class="col-md-4">
-          <h1 class="">Stops</h1>
-          <p class="lead">To see more detailed info about service on the {{routereport.route}} in your area, scroll down in the list below to the direction of travel you want and click on your stop .</p>
-
-          {% block stoplist %}
-          {% endblock %}
-
-
-
-        </div>
       </div>
     </div>
   </div>
