@@ -47,16 +47,16 @@ def genRouteReport_ServicePicker(source, route):
     return render_template('route_servicepicker.html', routereport=routereport)
 
 #3 route report - with service
-@app.route('/<source>/<route>/<path>')
-def genRouteReport_ServiceStoplist(source, route,path):
+@app.route('/<source>/<route>/service/<service>')
+def genRouteReport_ServiceStoplist(source, route, service):
     routereport=lib.ReportCard.RouteReport(source,route,reportcard_routes,grade_descriptions,config.mapbox_access_key)
-    return render_template('route_servicestoplist.html', routereport=routereport)
+    return render_template('route_servicestoplist.html', routereport=routereport,service=service)
 
 
-# # todo NOW3 write basic stop view
+# # todo NOW4 write basic stop view
 # 4 stop report
 
-@app.route('/<source>/<route>/<stop>')
+@app.route('/<source>/<route>/stop/<stop>')
 def genStopReport(source, route, stop, period='history'):
     arrivals = lib.ReportCard.StopReport(route, stop)
     arrivals.get_arrivals(period)
