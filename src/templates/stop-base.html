@@ -17,7 +17,7 @@
 	<div class="container">
 	  <div class="row">
 		<div class="col-md-12">
-		  <h1 class="">Stop Report</h1>
+		  <h1 class="">{{routereport.routename}}</h1>
 		</div>
 	  </div>
 	</div>
@@ -27,49 +27,25 @@
 	  <div class="row">
 		<div class="col-md-12">
 		  <h1 class="display-3">
-			<b>{{routereport.routename}}</b></h1>
+			<b>{{stopreport.stop_name}}</b></h1>
 		</div>
 	  </div>
 	</div>
   </div>
-  <div class="py-3">
-	<div class="container">
-	  <div class="row">
-		<div class="col-md-4">
-
-          {% block grade %}
-          {% endblock %}
-
-          {% block summary %}
-          {% endblock %}
-
-          {% block map %}
-          {% endblock %}
-
-        </div>
-	  </div>
-	</div>
-  </div>
-
 
   <div class="py-5 bg-light">
 	<div class="container">
 	  <div class="row">
-		<div class="col-md-4">
+		<div class="col-md-8">
 		  <h1 class="">Recent Arrivals</h1>
 		  {% block arrivals %}
 		  {% endblock %}
 		</div>
 
-		<div class="col-md-4">
-		  <h1 class="">Report_Middle</h1>
-		  {% block report_middle %}
-		  {% endblock %}
-		</div>
 
         <div class="col-md-4">
-		  <h1 class="">Report_Right</h1>
-		  {% block report_right %}
+		  <h1 class="">Methodology</h1>
+		  {% block stopreport_right %}
 		  {% endblock %}
 		</div>
 

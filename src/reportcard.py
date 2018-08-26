@@ -7,6 +7,7 @@ import lib.ReportCard
 from route_config import reportcard_routes,grade_descriptions
 
 import config
+import datetime
 
 
 
@@ -54,12 +55,10 @@ def genRouteReport_ServiceStoplist(source, route, service):
 
 
 # 4 stop report
-
 @app.route('/<source>/<route>/stop/<stop>')
-def genStopReport(source, route, stop, period='history'):
+def genStopReport(source, route, stop, period='daily'):
     stopreport = lib.ReportCard.StopReport(route, stop, period)
-    routereport = lib.ReportCard.RouteReport(source, route, reportcard_routes, grade_descriptions,
-                                             config.mapbox_access_key) # need this stuff to display route-level info on stop page: e.g. routename,grade, etc.
+    routereport = lib.ReportCard.RouteReport(source, route, reportcard_routes, grade_descriptions, config.mapbox_access_key)
     return render_template('stop.html', stopreport=stopreport, routereport=routereport)
 
 
@@ -77,6 +76,23 @@ def mapbox_js(source,route):
 @app.template_filter('strftime_today')
 def _jinja2_filter_datetime(timestamp, format='%I:%M %p'):
     return timestamp.strftime(format)
+
+# custom filters
+@app.template_filter('strftime_forever')
+def _jinja2_filter_datetime(timestamp, format='%Y-%m-%d %I:%M %p'):
+    return timestamp.strftime(format)
+
+# pass a variable
+@app.context_processor
+def example():
+    return dict(myexample='This is an example')
+
+# pass a function
+@app.context_processor
+def utility_processor():
+    def format_price(amount, currency=u'$'):
+        return u'{0:.2f}{1}'.format(amount, currency)
+    return dict(format_price=format_price)
 
 
 if __name__ == "__main__":

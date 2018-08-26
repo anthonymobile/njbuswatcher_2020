@@ -17,21 +17,12 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <h1 class="">Route Report</h1>
+          <h1 class="">{{routereport.routename}}</h1>
         </div>
       </div>
     </div>
   </div>
-  <div class="py-1">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <h1 class="display-3">
-            <b>{{routereport.routename}}</b></h1>
-        </div>
-      </div>
-    </div>
-  </div>
+
   <div class="py-3">
     <div class="container">
       <div class="row">
@@ -65,21 +56,9 @@
           {% endblock %}
         </div>
 
-
-
-
-
         <div class="col-md-4">
-          <h1 class="">Reliability</h1>
-          <p class="lead">Reliability measures how consistent travel time is.</p>
-          <p class="">This means lots of buses are too crowded, and others are empty. Nullam tristique velit volutpat, laoreet ipsum quis, ultricies dui. Nunc mattis est nec leo sodales, et vestibulum lorem sodales lorem sodales.&nbsp;
-            <br>
-            <br>The {{routereport.route}} is currently
-            <b style="font-weight: bold;">very/not very/TK</b> reliable. The trouble spots are listed below.</b>
-          </p>
           {% block reliability_report %}
           {% endblock %}
-
         </div>
 
       </div>
