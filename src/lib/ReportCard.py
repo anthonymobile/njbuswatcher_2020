@@ -156,12 +156,12 @@ class StopReport:
         self.table_name = 'stop_approaches_log_' + self.route
 
         # populate stop report data
-        self.get_arrivals(period='daily')
+        self.get_arrivals(period='weekly') #todo DEPLOY change back to daily
 
-    def get_arrivals(self, period):
+    def get_arrivals(self, period): # should this move to a superclass since both RouteReport + StopReport will use it?
         # method 1: last approach in a contiguous sequence with 'approaching'
 
-        self.arrivals_table_generated = None
+        self.arrivals_table_time_created = None
         self.period = period
         if period == "daily":
             final_approach_query = ('SELECT * FROM %s WHERE (stop_id= %s AND pt = "APPROACHING" AND DATE(`timestamp`)=CURDATE() ) ORDER BY timestamp DESC;' % (self.table_name, self.stop))
@@ -176,37 +176,27 @@ class StopReport:
 
 
         # get data and basic cleanup
-        df_temp = pd.read_sql_query(final_approach_query, self.conn)
+        df_temp = pd.read_sql_query(final_approach_query, self.conn) # todo arrivals table and deltas are all re-generated on the fly for every view now -- easier, but might lead to inconsistent/innaccurate results over time?
         df_temp = df_temp.drop(columns=['cars', 'consist', 'fd', 'm', 'name', 'rn', 'scheduled'])
         df_temp = timestamp_fix(df_temp)
 
-        # split final approach history (sorted by timestamp) at each change in vehicle_id
-        # per https://stackoverflow.com/questions/41144231/python-how-to-split-pandas-dataframe-into-subsets-based-on-the-value-in-the-fir
-        #outputs a list of dfs
-
+        # split final approach history (sorted by timestamp) at each change in vehicle_id outputs a list of dfs -- per https://stackoverflow.com/questions/41144231/python-how-to-split-pandas-dataframe-into-subsets-based-on-the-value-in-the-fir
         final_approach_dfs = [g for i, g in df_temp.groupby(df_temp['v'].ne(df_temp['v'].shift()).cumsum())]
 
-        # take the last V in each df and add it to final list of arrivals
+        # take the last V(ehicle) approach in each df and add it to final list of arrivals
         self.arrivals_list_final_df = pd.DataFrame()
         for final_approach in final_approach_dfs:  # iterate over every final approach
             arrival_insert_df = final_approach.tail(1)  # take the last observation
             self.arrivals_list_final_df = self.arrivals_list_final_df.append(arrival_insert_df)  # insert into df
 
         # log the time arrivals table was generated
-        self.arrivals_table_generated = datetime.datetime.now()
+        self.arrivals_table_time_created = datetime.datetime.now()
 
-        # todo NOW5 calc deltas
         # loop and calc delta for each row, fill NaNs
-        for index,row in self.arrivals_list_final_df.iterrows():
-            # row['delta']=row['timestamp']-row['timestamp'].shift()
-            row['delta']='0 min'
-        # self.arrivals_list_final_df['delta'].fillna(0)
+        self.arrivals_list_final_df['delta']=self.arrivals_list_final_df['timestamp']-self.arrivals_list_final_df['timestamp'].shift(1)
+        self.arrivals_list_final_df['delta'].fillna(0) # todo NOW fill NaT with 0 <-- not workoing now
 
         return
-
-
-
-
 
 
 def timestamp_fix(data): # trim the microseconds off the timestamp and convert it to datetime format

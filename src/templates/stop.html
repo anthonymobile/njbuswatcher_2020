@@ -1,12 +1,23 @@
 {% extends 'stop-base.html' %}
 
+{% block grade %}
+          <div class="alert alert-primary" role="alert">
+
+            <h4 class="alert-heading">Current Grade:
+                {{routereport.grade}} <!-- FUTURE box color change based on grade -->
+            </h4>
+            <p class="mb-0"> {{routereport.grade_description}}</p>
+          </div>
+{% endblock %}
+
 
 {% block summary %}
-Something something somthing summary.
+{{routereport.description_long}}
 {% endblock %}
 
 {% block map %}
-<p>This should just be a map of the stop area.</p>
+<!-- todo NOW2 map - use this model https://github.com/charliedotau/mapbox-gl-js-bootstrap-boilerplate -->
+TK The routemap on route pages will live here and show the route, plus current location of buses when the page was generated. On stop pages, its will show the stop area plus a marker for the stop.
 
 {% endblock %}
 
@@ -18,17 +29,25 @@ Something something somthing summary.
               <tr>
                 <th>time</th>
                 <th>bus #</th>
-                <th>time since last</th>
+                <th>last arrival</th>
               </tr>
             </thead>
             <tbody>
 
             {% for (index,row) in arrivals.arrivals_list_final_df.iterrows() %}
-                <tr>
-                    <td>{{row.timestamp|strftime_today}}</td>
-                    <td>{{row.v}}</td>
-                    <td>{{row.delta}}</td>
-                </tr>
+                {% if row.delta <= '3:00' %}
+                    <tr class='warning'>
+                        <td>{{row.timestamp|strftime_today}}</td>
+                        <td>{{row.v}}</td>
+                        <td>{{row.delta}}</td> min ago
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td>{{row.timestamp|strftime_today}}</td>
+                        <td>{{row.v}}</td>
+                        <td>{{row.delta}}</td>
+                    </tr>
+                {% endif %}
             {% endfor %}
 
             </tbody>
