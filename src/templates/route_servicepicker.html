@@ -1,5 +1,6 @@
 {% extends 'route-base.html' %}
 
+
 {% block grade %}
           <div class="alert alert-primary" role="alert">
 
@@ -10,41 +11,41 @@
           </div>
 {% endblock %}
 
+
 {% block summary %}
-{{routereport.description_long}}
+            <p class="">
+            <b>
+              <u>Route Summary</u>. </b>
+                {{routereport.description_long}}
+            <p class=""><a class="ml-3 btn navbar-btn btn-secondary" href="#">Sign the petition for better bus service</a></p>
 {% endblock %}
+
 
 {% block map %}
-
+<div class="col-md-8">
 <!-- todo NOW2 map - use this model https://github.com/charliedotau/mapbox-gl-js-bootstrap-boilerplate -->
 TK The routemap on route pages will live here and show the route, plus current location of buses when the page was generated. On stop pages, its will show the stop area plus a marker for the stop.
-
+</div>
 {% endblock %}
+
 
 {% block service_stops_block %}
-
           <h1 class="">Services</h1>
           <p class="lead">Pick the direction of travel or specific service on the route for which you'd like to see scheduled stops. Then you can choose a stop for more a detailed performance report.</p>
-
               {% for path in routereport.route_stop_list %}
-
               <div>
                   <td><a href = {{url_for('genRouteReport_ServiceStoplist',source=routereport.source,route=routereport.route,service=path.id)}}>To {{path.d}}</a></td>
-
               </div>
-
               {% endfor %}
-
 {% endblock %}
 
-{% block bunching_report %}
 
+{% block bunching_report %}
         <div class="col-md-4">
           <h1 class="">TK</h1>
           <p class="lead">Future Use</p>
           <p class="">What to use this space for in the service picker?</p>
         </div>
-
 {% endblock %}
 
 {% block reliability_report %}
@@ -54,6 +55,5 @@ TK The routemap on route pages will live here and show the route, plus current l
           <p class="lead">Future Use 2</p>
           <p class="">What to use this space for in the service picker?</p>
         </div>
-
 {% endblock %}
 

@@ -12,17 +12,23 @@
 
 
 {% block summary %}
-{{routereport.description_long}}
+            <p class="">
+            <b>
+              <u>Route Summary</u>. </b>
+                {{routereport.description_long}}
+            <p class=""><a class="ml-3 btn navbar-btn btn-secondary" href="#">Sign the petition for better bus service</a></p>
 {% endblock %}
+
 
 {% block map %}
+<div class="col-md-8">
 <!-- todo NOW2 map - use this model https://github.com/charliedotau/mapbox-gl-js-bootstrap-boilerplate -->
 TK The routemap on route pages will live here and show the route, plus current location of buses when the page was generated. On stop pages, its will show the stop area plus a marker for the stop.
-
+</div>
 {% endblock %}
 
-{% block arrivals %}
 
+{% block arrivals %}
           <a href="#" class="btn btn-outline-primary">{{arrivals.arrivals_list_final_df['stop_name'].iloc[0]}}</a>
           <table class="table table-sm">
             <thead>
@@ -33,7 +39,6 @@ TK The routemap on route pages will live here and show the route, plus current l
               </tr>
             </thead>
             <tbody>
-
             {% for (index,row) in arrivals.arrivals_list_final_df.iterrows() %}
                 {% if row.delta <= '3:00' %}
                     <tr class='warning'>
@@ -49,13 +54,14 @@ TK The routemap on route pages will live here and show the route, plus current l
                     </tr>
                 {% endif %}
             {% endfor %}
-
             </tbody>
           </table>
-
 {% endblock %}
 
 {% block report_middle %}
+TK not sure what to put here
+{% endblock %}
 
-
+{% block report_right %}
+TK not sure what to put here
 {% endblock %}

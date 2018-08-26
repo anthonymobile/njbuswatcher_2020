@@ -37,20 +37,16 @@
       <div class="row">
         <div class="col-md-4">
 
-              {% block grade %}
-              {% endblock %}
+          {% block grade %}
+          {% endblock %}
 
-          <p class="">
-            <b>
-              <u>Route Summary</u>. </b>
-            {% block summary %}
-            {% endblock %}
+          {% block summary %}
+          {% endblock %}
 
-          <p class=""><a class="ml-3 btn navbar-btn btn-secondary" href="#">Sign the petition for better bus service</a></p>
-        </div>
-        <div class="col-md-8">
           {% block map %}
           {% endblock %}
+
+        </div>
       </div>
     </div>
   </div>
