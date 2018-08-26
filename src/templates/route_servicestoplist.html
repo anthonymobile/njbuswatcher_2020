@@ -1,5 +1,6 @@
 {% extends 'route-base.html' %}
 
+
 {% block grade %}
           <div class="alert alert-primary" role="alert">
 
@@ -10,22 +11,29 @@
           </div>
 {% endblock %}
 
+
 {% block summary %}
-{{routereport.description_long}}
+
+            <p class="">
+            <b>
+              <u>Route Summary</u>. </b>
+                {{routereport.description_long}}
+            <p class=""><a class="ml-3 btn navbar-btn btn-secondary" href="#">Sign the petition for better bus service</a></p>
 {% endblock %}
+
 
 {% block map %}
-
+<!-- todo NOW2 map - use this model https://github.com/charliedotau/mapbox-gl-js-bootstrap-boilerplate -->
+<div class="col-md-8">
 <!-- todo NOW2 map - use this model https://github.com/charliedotau/mapbox-gl-js-bootstrap-boilerplate -->
 TK The routemap on route pages will live here and show the route, plus current location of buses when the page was generated. On stop pages, its will show the stop area plus a marker for the stop.
-
+</div>
 {% endblock %}
 
-{% block service_stops_block %}
 
+{% block service_stops_block %}
           <h1 class="">Stops</h1>
           <p class="lead">To see more detailed info about service on the {{routereport.route}} in your area, scroll down in the list below to the direction of travel you want and click on your stop .</p>
-
               {% for path in routereport.route_stop_list %}
                     {% if path.id == service %}
 
@@ -43,14 +51,9 @@ TK The routemap on route pages will live here and show the route, plus current l
                         </table>
                         </div>
                       {% endif %}
-
               {% endfor %}
-
-
-
-
-
 {% endblock %}
+
 
 {% block bunching_report %}
 <!-- #todo NOW3 bunching report v1 see written notes -->
@@ -62,6 +65,7 @@ TK The routemap on route pages will live here and show the route, plus current l
         </div>
 
 {% endblock %}
+
 
 {% block reliability_report %}
 <!-- FUTURE reliability report v1 -- coming soon, histogram of travel time based on differential arrival time of same bus id at 1st, last and middlest stop # of std deviations -->
