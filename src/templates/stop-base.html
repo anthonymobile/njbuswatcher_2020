@@ -7,112 +7,111 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
 
   {% assets "route_css" %}
-      <link rel="stylesheet" href="{{ ASSET_URL }}" type="text/css">
+	  <link rel="stylesheet" href="{{ ASSET_URL }}" type="text/css">
   {% endassets %}
 
 </head>
 
 <body>
   <div class="py-2 bg-dark">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <h1 class="">Stop Report</h1>
-        </div>
-      </div>
-    </div>
+	<div class="container">
+	  <div class="row">
+		<div class="col-md-12">
+		  <h1 class="">Stop Report</h1>
+		</div>
+	  </div>
+	</div>
   </div>
   <div class="py-1">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <h1 class="display-3">
-            <b>TK-pass routenumber </b>TBD_lookup_route_name</h1>
-        </div>
-      </div>
-    </div>
+	<div class="container">
+	  <div class="row">
+		<div class="col-md-12">
+		  <h1 class="display-3">
+			<b>{{routereport.routename}}</b></h1>
+		</div>
+	  </div>
+	</div>
   </div>
   <div class="py-3">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-4">
-          <div class="alert alert-primary" role="alert">
-            <button type="button" class="close" data-dismiss="alert">×</button>
-            <h4 class="alert-heading">Current Grade:
-              {% block grade %}
-              {% endblock %}
-            </h4>
-            <p class="mb-0">A short decription of the grade from a lookup table here?</p>
-          </div>
-          <p class="">
-            <b>
-              <u>Route Summary</u>. </b>
-            {% block summary %}
-            {% endblock %}
+	<div class="container">
+	  <div class="row">
+		<div class="col-md-4">
 
-          <p class=""><a class="ml-3 btn navbar-btn btn-secondary" href="#">Sign the petition for better bus service</a></p>
-        </div>
-        <div class="col-md-8">
-          {% block map %}
-          {% endblock %}
-      </div>
-    </div>
+
+			  {% block grade %}
+			  {% endblock %}
+
+		  <p class="">
+			<b>
+			  <u>Route Summary</u>. </b>
+			{% block summary %}
+			{% endblock %}
+
+		  <p class=""><a class="ml-3 btn navbar-btn btn-secondary" href="#">Sign the petition for better bus service</a></p>
+		</div>
+		<div class="col-md-8">
+		  {% block map %}
+		  {% endblock %}
+	  </div>
+	</div>
   </div>
+
+
   <div class="py-5 bg-light">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-4">
-          <h1 class="">Recent Arrivals</h1>
-          {% block arrivals %}
-          {% endblock %}
+	<div class="container">
+	  <div class="row">
+		<div class="col-md-4">
+		  <h1 class="">Recent Arrivals</h1>
+		  {% block arrivals %}
+		  {% endblock %}
 
-        </div>
-        <div class="col-md-4">
-          <h1 class="">Report_Middle</h1>
-          {% block report_middle %}
-          {% endblock %}
+		</div>
+		<div class="col-md-4">
+		  <h1 class="">Report_Middle</h1>
+		  {% block report_middle %}
+		  {% endblock %}
 
-        </div>
-        <div class="col-md-4">
-          <h1 class="">Replace</h1>
-          <p class="lead">Replace.</p>
-          <p class="">Something else. Nullam tristique velit volutpat, laoreet ipsum quis, ultricies dui. Nunc mattis est nec leo sodales, et vestibulum lorem sodales
-            lorem sodales.&nbsp;
-            <br>
-            <br>The 119 is currently experiencing a
-            <b style="font-weight: bold;">moderate</b> leve
-            <b>l&nbsp;of bunching. The trouble spots are listed below.</b>
-          </p>
+		</div>
+		<div class="col-md-4">
+		  <h1 class="">Replace</h1>
+		  <p class="lead">Replace.</p>
+		  <p class="">Something else. Nullam tristique velit volutpat, laoreet ipsum quis, ultricies dui. Nunc mattis est nec leo sodales, et vestibulum lorem sodales
+			lorem sodales.&nbsp;
+			<br>
+			<br>The 119 is currently experiencing a
+			<b style="font-weight: bold;">moderate</b> leve
+			<b>l&nbsp;of bunching. The trouble spots are listed below.</b>
+		  </p>
 
 
-        </div>
-      </div>
-    </div>
+		</div>
+	  </div>
+	</div>
   </div>
   <div class="bg-dark text-white">
-    <div class="container">
-      <div class="row">
-        <div class="p-4 col-md-6">
-          <h2 class="mb-4 text-secondary">About RNA</h2>
-          <p class="text-white">A company for whatever you may need, from website prototyping to publishing</p>
-        </div>
-        <div class="p-4 col-md-6">
-          <h2 class="mb-4">Contact</h2>
-          <p>
-            <a href="mailto:info@pingendo.com" class="text-white">
-              <i class="fa d-inline mr-3 text-secondary fa-envelope-o"></i>info@pingendo.com</a>
-          </p>
-          <p>
-            <a href="https://goo.gl/maps/AUq7b9W7yYJ2" class="text-white" target="_blank">
-              <i class="fa d-inline mr-3 fa-map-marker text-secondary"></i>w</a>ww.riverviewassociation.org</p>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12 mt-3">
-          <p class="text-center text-white">© Copyright 2018 Bits and Atoms LLC - MIT License (pending). </p>
-        </div>
-      </div>
-    </div>
+	<div class="container">
+	  <div class="row">
+		<div class="p-4 col-md-6">
+		  <h2 class="mb-4 text-secondary">About RNA</h2>
+		  <p class="text-white">A company for whatever you may need, from website prototyping to publishing</p>
+		</div>
+		<div class="p-4 col-md-6">
+		  <h2 class="mb-4">Contact</h2>
+		  <p>
+			<a href="mailto:info@pingendo.com" class="text-white">
+			  <i class="fa d-inline mr-3 text-secondary fa-envelope-o"></i>info@pingendo.com</a>
+		  </p>
+		  <p>
+			<a href="https://goo.gl/maps/AUq7b9W7yYJ2" class="text-white" target="_blank">
+			  <i class="fa d-inline mr-3 fa-map-marker text-secondary"></i>w</a>ww.riverviewassociation.org</p>
+		</div>
+	  </div>
+	  <div class="row">
+		<div class="col-md-12 mt-3">
+		  <p class="text-center text-white">© Copyright 2018 Bits and Atoms LLC - MIT License (pending). </p>
+		</div>
+	  </div>
+	</div>
   </div>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

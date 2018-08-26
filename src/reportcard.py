@@ -53,16 +53,17 @@ def genRouteReport_ServiceStoplist(source, route, service):
     return render_template('route_servicestoplist.html', routereport=routereport,service=service)
 
 
-# # todo NOW4 write basic stop view
 # 4 stop report
 
 @app.route('/<source>/<route>/stop/<stop>')
 def genStopReport(source, route, stop, period='history'):
-    arrivals = lib.ReportCard.StopReport(route, stop)
-    arrivals.get_arrivals(period)
+    stopreport = lib.ReportCard.StopReport(route, stop, period)
+    routereport = lib.ReportCard.RouteReport(source, route, reportcard_routes, grade_descriptions,
+                                             config.mapbox_access_key) # need this stuff to display route-level info on stop page: e.g. routename,grade, etc.
+    return render_template('stop.html', stopreport=stopreport, routereport=routereport)
 
-    return render_template('stop.html', arrivals=arrivals, grade=grade,  route_stop_list=route_stop_list)
 
+# x standalone route map for debugging
 
 @app.route('/<source>/<route>/mapbox_js')
 def mapbox_js(source,route):

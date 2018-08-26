@@ -16,7 +16,7 @@
 
 {% block map %}
 
-<!-- todo NOW1 map - use this model https://github.com/charliedotau/mapbox-gl-js-bootstrap-boilerplate -->
+<!-- todo NOW2 map - use this model https://github.com/charliedotau/mapbox-gl-js-bootstrap-boilerplate -->
 TK The routemap on route pages will live here and show the route, plus current location of buses when the page was generated. On stop pages, its will show the stop area plus a marker for the stop.
 
 {% endblock %}
@@ -26,7 +26,6 @@ TK The routemap on route pages will live here and show the route, plus current l
           <h1 class="">Stops</h1>
           <p class="lead">To see more detailed info about service on the {{routereport.route}} in your area, scroll down in the list below to the direction of travel you want and click on your stop .</p>
 
-              <!-- todo NOW1 update to only output the direction in url for <path> -->
               {% for path in routereport.route_stop_list %}
                     {% if path.id == service %}
 
@@ -55,7 +54,13 @@ TK The routemap on route pages will live here and show the route, plus current l
 
 {% block bunching_report %}
 <!-- #todo NOW3 bunching report v1 see written notes -->
-<p>Eventually we'll create a histogram or something here.</p>
+
+        <div class="col-md-4">
+          <h1 class="">Bunching</h1>
+          <p class="lead">Bunching is when buses arrive too close to each other.</p>
+          <p class="">Eventually we'll create a histogram or something here for each route/service.</p>
+        </div>
+
 {% endblock %}
 
 {% block reliability_report %}
