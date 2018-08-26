@@ -144,11 +144,12 @@ class RouteReport:
 
 class StopReport:
 
-    def __init__(self,route,stop):
+    def __init__(self,route,stop,period):
 
         # apply passed parameters to instance
         self.route=route
         self.stop=stop
+        self.period=period
 
         # database initialization
         self.db = StopsDB.MySQL('buses', 'buswatcher', 'njtransit', '127.0.0.1', self.route)
@@ -156,7 +157,7 @@ class StopReport:
         self.table_name = 'stop_approaches_log_' + self.route
 
         # populate stop report data
-        self.get_arrivals(period='weekly') #todo DEPLOY change back to daily
+        self.get_arrivals(self.period)
 
     def get_arrivals(self, period): # should this move to a superclass since both RouteReport + StopReport will use it?
         # method 1: last approach in a contiguous sequence with 'approaching'
@@ -176,7 +177,7 @@ class StopReport:
 
 
         # get data and basic cleanup
-        df_temp = pd.read_sql_query(final_approach_query, self.conn) # todo arrivals table and deltas are all re-generated on the fly for every view now -- easier, but might lead to inconsistent/innaccurate results over time?
+        df_temp = pd.read_sql_query(final_approach_query, self.conn) # arrivals table and deltas are all re-generated on the fly for every view now -- easier, but might lead to inconsistent/innaccurate results over time?
         df_temp = df_temp.drop(columns=['cars', 'consist', 'fd', 'm', 'name', 'rn', 'scheduled'])
         df_temp = timestamp_fix(df_temp)
 
@@ -189,12 +190,19 @@ class StopReport:
             arrival_insert_df = final_approach.tail(1)  # take the last observation
             self.arrivals_list_final_df = self.arrivals_list_final_df.append(arrival_insert_df)  # insert into df
 
+        # calc interval between last bus for each row, fill NaNs
+        self.arrivals_list_final_df['delta']=(self.arrivals_list_final_df['timestamp'].shift() - self.arrivals_list_final_df['timestamp']).fillna(0)
+        # todo NOW convert delta from seconds back to minutes (divide by 60 and round using modulo)
+
+        # housekeeping
         # log the time arrivals table was generated
         self.arrivals_table_time_created = datetime.datetime.now()
-
-        # loop and calc delta for each row, fill NaNs
-        self.arrivals_list_final_df['delta']=self.arrivals_list_final_df['timestamp']-self.arrivals_list_final_df['timestamp'].shift(1)
-        self.arrivals_list_final_df['delta'].fillna(0) # todo NOW fill NaT with 0 <-- not workoing now
+        # set stop_name
+        self.stop_name = self.arrivals_list_final_df['stop_name'].iloc[0]
+        # set timedelta constant for later use in bunching analysis
+        self.bunching_interval = datetime.timedelta(minutes=3)
+        # set a timedelta for zero
+        self.bigbang = datetime.timedelta(seconds=0)
 
         return
 
