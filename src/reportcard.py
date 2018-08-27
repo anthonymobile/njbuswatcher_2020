@@ -77,17 +77,27 @@ def mapbox_js(source,route):
 def _jinja2_filter_datetime(timestamp, format='%I:%M %p'):
     return timestamp.strftime(format)
 
-# custom filters
 @app.template_filter('strftime_forever')
 def _jinja2_filter_datetime(timestamp, format='%Y-%m-%d %I:%M %p'):
     return timestamp.strftime(format)
 
-# pass a variable
+@app.template_filter('strftime_timedelta')
+def pretty_timedelta(td):
+    days, hours, minutes = td.days, td.seconds // 3600, td.seconds // 60 % 60
+    if days is True:
+        pretty_time = ("%s days %s hours %s mins") % days, hours, minutes
+    elif hours is True:
+        pretty_time = ("%s hours %s mins") % hours, minutes
+    else:
+        pretty_time = ("%s mins") % minutes
+    return pretty_time
+
+# sample - pass a variable into template
 @app.context_processor
 def example():
     return dict(myexample='This is an example')
 
-# pass a function
+# sample - pass a function into template
 @app.context_processor
 def utility_processor():
     def format_price(amount, currency=u'$'):
