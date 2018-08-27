@@ -12,8 +12,8 @@
             </thead>
             <tbody>
             {% for (index,row) in stopreport.arrivals_list_final_df.iterrows() %}
-                {% if (row.delta > stopreport.bigbang) and (row.delta <= stopreport.bunching_interval) %} <!-- #todo this stopped working? row.delta is different now after filter applied? -->
-                    <tr class='table-danger'> <!-- #todo NOW1 the red line is on the wrong line, so i think the shift may need to be shift(1) instead -->
+                {% if (row.delta > stopreport.bigbang) and (row.delta <= stopreport.bunching_interval) %}
+                    <tr class='table-danger'>
                         <td>{{row.timestamp|strftime_today}}</td>
                         <td>{{row.v}}</td>
                         <td>{{row.delta|strftime_timedelta}}</td>

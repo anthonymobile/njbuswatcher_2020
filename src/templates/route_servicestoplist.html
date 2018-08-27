@@ -24,10 +24,12 @@
 
 
 {% block map %}
-
 <div class="col-md-8">
-TK The routemap on route pages will live here and show the route, plus current location of buses when the page was generated. On stop pages, its will show the stop area plus a marker for the stop.
+<div id="map"></div>
 </div>
+
+<!-- local code to load and style the map -->
+  <script src="/static/mapbox-js/mapbox-route.js"></script>
 {% endblock %}
 
 
