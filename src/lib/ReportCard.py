@@ -160,7 +160,7 @@ class StopReport:
             arrival_insert_df = final_approach.tail(1)  # take the last observation
             self.arrivals_list_final_df = self.arrivals_list_final_df.append(arrival_insert_df)  # insert into df
         # calc interval between last bus for each row, fill NaNs
-        self.arrivals_list_final_df['delta']=(self.arrivals_list_final_df['timestamp'] - self.arrivals_list_final_df['timestamp'].shift(-1)).fillna(0) # todo NOW1 the interval is getting posted to the wrong line -- try as shift(1) or shift(-1) instead
+        self.arrivals_list_final_df['delta']=(self.arrivals_list_final_df['timestamp'] - self.arrivals_list_final_df['timestamp'].shift(-1)).fillna(0)
         # housekeeping ---------------------------------------------------
         # log the time arrivals table was generated
         self.arrivals_table_time_created = datetime.datetime.now()
