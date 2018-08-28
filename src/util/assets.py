@@ -1,2 +1,0 @@
-# src/util/assets.py
-

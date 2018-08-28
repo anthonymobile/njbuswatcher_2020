@@ -62,16 +62,6 @@ def genStopReport(source, route, stop, period='daily'):
     return render_template('stop.html', stopreport=stopreport, routereport=routereport)
 
 
-# x standalone route map for debugging
-
-@app.route('/<source>/<route>/mapbox_js')
-def mapbox_js(source,route):
-    routereport=lib.ReportCard.RouteReport(source,route,reportcard_routes,grade_descriptions,config.mapbox_access_key)
-    return render_template(
-        'mapbox_js.html', ACCESS_KEY=config.mapbox_access_key, route_data=routereport.route_data
-    )
-
-
 # custom filters
 @app.template_filter('strftime_today')
 def _jinja2_filter_datetime(timestamp, format='%I:%M %p'):

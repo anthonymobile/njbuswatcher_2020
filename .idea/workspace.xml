@@ -1,17 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e9c35431-0764-488c-bbb0-431ede0ff16b" name="Default" comment="1st draft of map working on route and stop pages">
-      <change afterPath="$PROJECT_DIR$/src/static/mapbox-js" afterDir="false" />
+    <list default="true" id="e9c35431-0764-488c-bbb0-431ede0ff16b" name="Default" comment="plain javascript mapbox map window rendering">
+      <change afterPath="$PROJECT_DIR$/src/static/mapbox/mapbox-route.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/static/mapbox/routemap-mapbox-generated-piece.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/static/mapbox/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/ReportCard.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/ReportCard.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/static/mapbox-js/my-mapbox.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/static/mapbox-js/mapbox-route.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/templates/mapbox-gl-js-bootstrap-boilerplate" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/archive/ReportCard-raw.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/archive/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/archive/dev-oldtemplates/approaches.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/archive/dev-oldtemplates/arrivals-base.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/archive/dev-oldtemplates/arrivals.bak.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/archive/dev-oldtemplates/arrivals.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/archive/dev-oldtemplates/delta.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/gtfs/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/gtfs/how-to-make-schedule.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dump.txt/20180823.233049.nj.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/reportcard.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/reportcard.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/static/mapbox-js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/templates/index-base.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/templates/index-base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/templates/mapbox_js.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/templates/mapbox_scratchpad.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/templates/route-base.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/templates/route-base.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/templates/route_servicepicker.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/templates/route_servicepicker.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/templates/route_servicestoplist.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/templates/route_servicestoplist.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/templates/stop-base.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/templates/stop-base.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/templates/stop.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/templates/stop.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/templates/styleguide.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/assets.py" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -23,7 +43,7 @@
     <session id="438890131">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="39" />
+          <entry key="project.closed" value="40" />
           <entry key="project.open.time.10" value="2" />
           <entry key="project.open.time.11" value="1" />
           <entry key="project.open.time.12" value="2" />
@@ -32,57 +52,62 @@
           <entry key="project.open.time.5" value="5" />
           <entry key="project.open.time.6" value="4" />
           <entry key="project.open.time.7" value="8" />
-          <entry key="project.open.time.8" value="12" />
+          <entry key="project.open.time.8" value="13" />
           <entry key="project.open.time.9" value="3" />
-          <entry key="project.opened" value="40" />
+          <entry key="project.opened" value="41" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
+          <entry key="#deploy_tasks" value="1" />
           <entry key="bak" value="1" />
-          <entry key="css" value="6" />
+          <entry key="cfg" value="1" />
+          <entry key="css" value="7" />
           <entry key="gitignore" value="1" />
-          <entry key="html" value="181" />
+          <entry key="html" value="214" />
           <entry key="ipynb" value="5" />
-          <entry key="js" value="1" />
-          <entry key="md" value="3" />
-          <entry key="py" value="207" />
-          <entry key="txt" value="2" />
+          <entry key="js" value="6" />
+          <entry key="md" value="5" />
+          <entry key="py" value="210" />
+          <entry key="txt" value="4" />
           <entry key="xml" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="CSS" value="6" />
-          <entry key="HTML" value="181" />
+          <entry key="CSS" value="7" />
+          <entry key="HTML" value="214" />
           <entry key="IPNB" value="5" />
-          <entry key="JavaScript" value="1" />
-          <entry key="Markdown" value="3" />
-          <entry key="PLAIN_TEXT" value="2" />
-          <entry key="Python" value="207" />
-          <entry key="Scratch" value="2" />
+          <entry key="JavaScript" value="6" />
+          <entry key="Markdown" value="5" />
+          <entry key="PLAIN_TEXT" value="4" />
+          <entry key="Python" value="210" />
+          <entry key="Scratch" value="4" />
           <entry key="XML" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
+          <entry key="#deploy_tasks" value="127" />
           <entry key="Python Console" value="301" />
           <entry key="css" value="21" />
           <entry key="dummy" value="17" />
-          <entry key="html" value="10958" />
+          <entry key="html" value="11539" />
+          <entry key="js" value="219" />
           <entry key="md" value="6641" />
-          <entry key="py" value="17873" />
-          <entry key="txt" value="1488" />
+          <entry key="py" value="17959" />
+          <entry key="txt" value="1693" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSS" value="21" />
-          <entry key="HTML" value="10958" />
+          <entry key="HTML" value="11539" />
+          <entry key="JavaScript" value="219" />
           <entry key="Markdown" value="6641" />
-          <entry key="PLAIN_TEXT" value="1408" />
-          <entry key="Python" value="18174" />
-          <entry key="Scratch" value="97" />
+          <entry key="PLAIN_TEXT" value="1733" />
+          <entry key="Python" value="18260" />
+          <entry key="Scratch" value="104" />
         </counts>
       </usages-collector>
     </session>
@@ -93,37 +118,42 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/templates/route_servicepicker.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="312">
-              <caret line="25" selection-start-line="25" selection-end-line="32" selection-end-column="14" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/templates/stop.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="14" column="105" selection-start-line="14" selection-start-column="105" selection-end-line="14" selection-end-column="105" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/templates/route_servicestoplist.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="361">
-              <caret line="32" column="14" lean-forward="true" selection-start-line="25" selection-end-line="32" selection-end-column="14" />
+            <state relative-caret-position="1148">
+              <caret line="58" column="190" selection-start-line="58" selection-start-column="190" selection-end-line="58" selection-end-column="190" />
             </state>
           </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/static/mapbox/mapbox-route.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1364">
+              <caret line="61" column="1" lean-forward="true" selection-start-line="61" selection-start-column="1" selection-end-line="61" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/templates/route_servicepicker.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="682">
+              <caret line="30" selection-start-line="30" selection-end-line="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/static/mapbox/style.css">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/templates/stop-base.html">
+        <entry file="file://$PROJECT_DIR$/src/templates/route-base.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+            <state relative-caret-position="655">
+              <caret line="34" column="2" selection-start-line="34" selection-start-column="2" selection-end-line="34" selection-end-column="2" />
             </state>
           </provider>
         </entry>
@@ -141,7 +171,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>bus_to_sql</find>
       <find>conn</find>
       <find>get_xml</find>
       <find>args</find>
@@ -171,10 +200,14 @@
       <find>arrivals</find>
       <find>period</find>
       <find>my</find>
+      <find>title</find>
     </findStrings>
     <replaceStrings>
       <replace>mongo.StringField</replace>
     </replaceStrings>
+  </component>
+  <component name="Git.Rebase.Settings">
+    <option name="ONTO" value="refs/remotes/origin/master" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -182,17 +215,10 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/busgrabber.py" />
-        <option value="$PROJECT_DIR$/src/BusAPI.py" />
-        <option value="$PROJECT_DIR$/src/BusDB.py" />
-        <option value="$PROJECT_DIR$/tester.ipynb" />
-        <option value="$PROJECT_DIR$/src/ReportCard.py" />
-        <option value="$PROJECT_DIR$/stopwatcher.py" />
         <option value="$PROJECT_DIR$/systemwatcher.py" />
         <option value="$PROJECT_DIR$/src/BusLineDB.py" />
         <option value="$PROJECT_DIR$/routewatcher.py" />
         <option value="$PROJECT_DIR$/src/lib/BusLineDB.py" />
-        <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch.txt" />
         <option value="$PROJECT_DIR$/src/lib/BusRouteLogsDB.py" />
         <option value="$PROJECT_DIR$/src/stopwatcher.py" />
         <option value="$PROJECT_DIR$/src/systemwatcher.py" />
@@ -217,22 +243,29 @@
         <option value="$PROJECT_DIR$/data/route_config.py" />
         <option value="$PROJECT_DIR$/src/routewatcher.py" />
         <option value="$PROJECT_DIR$/src/debug.py" />
-        <option value="$PROJECT_DIR$/src/templates/index-base.html" />
         <option value="$PROJECT_DIR$/src/lib/BusDB.py" />
         <option value="$PROJECT_DIR$/src/settings.py" />
         <option value="$PROJECT_DIR$/src/config.py" />
         <option value="$PROJECT_DIR$/src/templates/route.html" />
-        <option value="$PROJECT_DIR$/src/templates/index.html" />
         <option value="$PROJECT_DIR$/src/templates/mapbox_js.html" />
         <option value="$PROJECT_DIR$/src/templates/mapbox_scratchpad.html" />
         <option value="$PROJECT_DIR$/src/route_config.py" />
-        <option value="$PROJECT_DIR$/src/reportcard.py" />
         <option value="$PROJECT_DIR$/src/lib/ReportCard.py" />
-        <option value="$PROJECT_DIR$/src/templates/route-base.html" />
-        <option value="$PROJECT_DIR$/src/templates/route_servicepicker.html" />
-        <option value="$PROJECT_DIR$/src/templates/route_servicestoplist.html" />
+        <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch.txt" />
+        <option value="$PROJECT_DIR$/#todo.txt" />
+        <option value="$PROJECT_DIR$/#todo-deploy.txt" />
         <option value="$PROJECT_DIR$/src/templates/stop.html" />
+        <option value="$PROJECT_DIR$/#deploy_tasks" />
+        <option value="$PROJECT_DIR$/src/reportcard.py" />
+        <option value="$PROJECT_DIR$/src/templates/route_servicestoplist.html" />
+        <option value="$PROJECT_DIR$/src/templates/index.html" />
+        <option value="$PROJECT_DIR$/src/static/mapbox-js/mapbox-route.js" />
+        <option value="$PROJECT_DIR$/src/static/mapbox-js/mapbox_scratchpad.html" />
+        <option value="$PROJECT_DIR$/src/static/js/routemap-mapbox-generated-piece.js" />
+        <option value="$PROJECT_DIR$/src/templates/index-base.html" />
         <option value="$PROJECT_DIR$/src/templates/stop-base.html" />
+        <option value="$PROJECT_DIR$/src/templates/route_servicepicker.html" />
+        <option value="$PROJECT_DIR$/src/templates/route-base.html" />
       </list>
     </option>
   </component>
@@ -256,7 +289,18 @@
             <path>
               <item name="buswatcher" type="b2602c69:ProjectViewProjectNode" />
               <item name="buswatcher" type="462c0819:PsiDirectoryNode" />
+              <item name="archive" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="buswatcher" type="b2602c69:ProjectViewProjectNode" />
+              <item name="buswatcher" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="buswatcher" type="b2602c69:ProjectViewProjectNode" />
+              <item name="buswatcher" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="buswatcher" type="b2602c69:ProjectViewProjectNode" />
@@ -269,7 +313,7 @@
               <item name="buswatcher" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="mapbox-js" type="462c0819:PsiDirectoryNode" />
+              <item name="mapbox" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="buswatcher" type="b2602c69:ProjectViewProjectNode" />
@@ -290,25 +334,25 @@
     <property name="TODO_SCOPE" value="All Places" />
     <property name="ToolWindowRun.ShowToolbar" value="false" />
     <property name="ToolWindowVersion Control.ShowToolbar" value="false" />
-    <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="TEXT" />
+    <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="BuildoutCfg&#10;TEXT" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$2/Languages" value="TEXT&#10;Python" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/static" />
-      <recent name="$PROJECT_DIR$/src/lib" />
-      <recent name="$PROJECT_DIR$/src" />
-      <recent name="$PROJECT_DIR$/src/static/css" />
-      <recent name="$PROJECT_DIR$/archive" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/templates" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/src/templates/dev" />
       <recent name="$PROJECT_DIR$/src/static" />
       <recent name="$PROJECT_DIR$/src/lib" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/static/js" />
+      <recent name="$PROJECT_DIR$/src/static/mapbox-js" />
+      <recent name="$PROJECT_DIR$/src/static" />
+      <recent name="$PROJECT_DIR$/src/lib" />
+      <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -509,13 +553,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1524759532211</updated>
-    </task>
-    <task id="LOCAL-00039" summary="refactor into busdumper and stopwatcher">
-      <created>1527808361443</created>
-      <option name="number" value="00039" />
-      <option name="presentableId" value="LOCAL-00039" />
-      <option name="project" value="LOCAL" />
-      <updated>1527808361443</updated>
     </task>
     <task id="LOCAL-00040" summary="add /lib files">
       <created>1527808462481</created>
@@ -853,7 +890,14 @@
       <option name="project" value="LOCAL" />
       <updated>1535406216901</updated>
     </task>
-    <option name="localTasksCounter" value="88" />
+    <task id="LOCAL-00088" summary="plain javascript mapbox map window rendering">
+      <created>1535408049921</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1535408049921</updated>
+    </task>
+    <option name="localTasksCounter" value="89" />
     <servers />
   </component>
   <component name="TodoView">
@@ -872,7 +916,7 @@
       <window_info active="true" content_ui="combo" id="Project" order="1" sideWeight="0.59638554" visible="true" weight="0.18675123" />
       <window_info id="Favorites" order="2" show_stripe_button="false" sideWeight="0.5060241" weight="0.36011276" />
       <window_info id="Run" order="3" sideWeight="0.4982382" weight="0.30162087" />
-      <window_info id="TODO" order="4" sideWeight="0.4939759" weight="0.31148696" />
+      <window_info id="TODO" order="4" sideWeight="0.4939759" weight="0.36997885" />
       <window_info id="Version Control" order="5" weight="0.32699084" />
       <window_info auto_hide="true" x="184" y="95" width="1068" height="682" id="Python Console" order="6" type="FLOATING" weight="0.32699084" />
       <window_info x="273" y="46" width="1003" height="742" id="Terminal" order="7" type="FLOATING" weight="0.32699084" />
@@ -911,7 +955,11 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="arrival parser finished, working on template rendering" />
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/src/static/mapbox-js" />
+      <path value="$PROJECT_DIR$/src/templates/mapbox-gl-js-bootstrap-boilerplate" />
+      <path value="$PROJECT_DIR$/src/templates/mapbox-js" />
+    </ignored-roots>
     <MESSAGE value="arrivals view working rudimentary formatting" />
     <MESSAGE value="arrivals view working! ready to deploy on live db" />
     <MESSAGE value="daily view working" />
@@ -936,7 +984,8 @@
     <MESSAGE value="stops view ready for full debug" />
     <MESSAGE value="stops view 99% done. overall about 85% ready for alpha." />
     <MESSAGE value="stop view working perfectly with red highlights on bunched arrivals" />
-    <option name="LAST_COMMIT_MESSAGE" value="stop view working perfectly with red highlights on bunched arrivals" />
+    <MESSAGE value="plain javascript mapbox map window rendering" />
+    <option name="LAST_COMMIT_MESSAGE" value="plain javascript mapbox map window rendering" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -967,26 +1016,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/static/bootstrap.min.css" />
-    <entry file="file://$PROJECT_DIR$/src/static/css/bootstrap.min.css" />
-    <entry file="file://$PROJECT_DIR$/src/lib/StopsDB.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-258">
-          <caret line="51" column="37" selection-start-line="51" selection-start-column="37" selection-end-line="51" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/archive/dev-oldtemplates/arrivals.bak.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="8" selection-start-line="8" selection-end-line="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/templates/dev/base-extends.html" />
-    <entry file="file://$PROJECT_DIR$/archive/dev-oldtemplates/approaches.html">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/archive/api/1.0/api.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-589" />
@@ -1050,13 +1079,6 @@
     <entry file="file://$PROJECT_DIR$/src/util/__init__.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/util/assets.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="44">
-          <caret line="2" selection-start-line="2" selection-end-line="2" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/static/css/theme.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3928">
@@ -1082,13 +1104,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="88">
           <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/templates/index-base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="29" column="20" lean-forward="true" selection-start-line="29" selection-start-column="20" selection-end-line="29" selection-end-column="20" />
         </state>
       </provider>
     </entry>
@@ -1140,27 +1155,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/templates/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="6" column="62" selection-start-line="6" selection-start-column="62" selection-end-line="6" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/templates/mapbox_scratchpad.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="736">
-          <caret line="39" column="7" selection-start-line="39" selection-start-column="7" selection-end-line="39" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/templates/mapbox_js.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="19" column="19" selection-end-line="39" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/routewatcher.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="110">
@@ -1182,33 +1176,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/reportcard.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="97">
-          <caret line="58" column="52" selection-start-line="58" selection-start-column="52" selection-end-line="58" selection-end-column="52" />
-          <folding>
-            <element signature="e#64#104#0" expanded="true" />
-            <marker date="1535406117600" expanded="true" signature="944:1063" ph="..." />
-            <marker date="1535406117600" expanded="true" signature="944:1064" ph="..." />
-            <marker date="1535406117600" expanded="true" signature="1620:2261" ph="..." />
-            <marker date="1535406117600" expanded="true" signature="2633:2968" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/static/mapbox-js/readme.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor />
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/static/mapbox-js/mapbox-route.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-677" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/static/mapbox-js/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="328">
@@ -1216,9 +1183,78 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch.cfg" />
+    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch.txt" />
+    <entry file="file://$PROJECT_DIR$/#deploy_tasks">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="2" column="9" selection-start-line="2" selection-start-column="9" selection-end-line="2" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/templates/stop.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="2" column="6" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/reportcard.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="471">
+          <caret line="62" lean-forward="true" selection-start-line="62" selection-end-line="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/templates/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="6" column="23" selection-start-line="6" selection-start-column="23" selection-end-line="6" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/templates/mapbox_js.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="19" column="19" selection-end-line="39" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/templates/styleguide.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-22628" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/util/assets.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/static/mapbox-js/readme.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="66">
+            <caret line="2" column="17" lean-forward="true" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="44" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/static/mapbox-js/mapbox_scratchpad.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/static/mapbox/routemap-mapbox-generated-piece.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="506">
+          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/lib/ReportCard.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
+        <state relative-caret-position="4004">
           <caret line="162" column="150" selection-start-line="162" selection-start-column="150" selection-end-line="162" selection-end-column="150" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
@@ -1227,38 +1263,48 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/templates/route_servicepicker.html">
+    <entry file="file://$PROJECT_DIR$/src/templates/index-base.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="25" selection-start-line="25" selection-end-line="32" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/templates/route-base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="355">
-          <caret line="35" column="34" lean-forward="true" selection-start-line="4" selection-start-column="2" selection-end-line="35" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/templates/route_servicestoplist.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="32" column="14" lean-forward="true" selection-start-line="25" selection-end-line="32" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/templates/stop.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="14" column="105" selection-start-line="14" selection-start-column="105" selection-end-line="14" selection-end-column="105" />
+        <state relative-caret-position="198">
+          <caret line="8" column="20" selection-start-line="8" selection-start-column="20" selection-end-line="8" selection-end-column="20" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/templates/stop-base.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+        <state relative-caret-position="142">
+          <caret line="8" column="63" selection-start-line="8" selection-start-column="63" selection-end-line="8" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/templates/route_servicestoplist.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1148">
+          <caret line="58" column="190" selection-start-line="58" selection-start-column="190" selection-end-line="58" selection-end-column="190" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/static/mapbox/mapbox-route.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1364">
+          <caret line="61" column="1" lean-forward="true" selection-start-line="61" selection-start-column="1" selection-end-line="61" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/static/mapbox/style.css">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/templates/route_servicepicker.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="682">
+          <caret line="30" selection-start-line="30" selection-end-line="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/templates/route-base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="655">
+          <caret line="34" column="2" selection-start-line="34" selection-start-column="2" selection-end-line="34" selection-end-column="2" />
         </state>
       </provider>
     </entry>

@@ -1,6 +1,5 @@
 {% extends 'route-base.html' %}
 
-<!-- #todo breadcrumb nav elements -->
 
 {% block grade %}
           <div class="alert alert-primary" role="alert">
@@ -18,18 +17,18 @@
             <b>
               <u>Route Summary</u>. </b>
                 {{routereport.description_long}}
-            <p class=""><a class="ml-3 btn navbar-btn btn-secondary" href="#">Sign the petition for better bus service</a></p>
+            <p class=""><a class="ml-3 btn navbar-btn btn-secondary" href="https://goo.gl/forms/VF5S1Oclk9QTdZha2">Sign the petition for better bus service</a></p>
             </div>
 {% endblock %}
 
 
 {% block map %}
 <div class="col-md-8">
-<div id="map"></div>
+    <div id="map"></div>
+    <div id="geocoder-container"></div>
 </div>
-
 <!-- local code to load and style the map -->
-  <script src="/static/mapbox-js/mapbox-route.js"></script>
+<script src="/static/mapbox/mapbox-route.js"></script>
 {% endblock %}
 
 
