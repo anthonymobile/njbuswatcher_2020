@@ -1,0 +1,23 @@
+#map {
+    height: 600px;
+    margin-bottom: 10px;
+}
+
+#map img {
+ max-width: none;
+ min-width: 0px;
+ height: auto;
+
+}
+
+ #geocoder-container {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  margin-top: 10px;
+}
+
+#geocoder-container > div {
+  min-width: 50%;
+  margin-left: 25%;
+}

@@ -1,6 +1,5 @@
 {% extends 'route-base.html' %}
 
-<!-- #todo breadcrumb nav elements -->
 
 {% block grade %}
           <div class="alert alert-primary" role="alert">
@@ -18,7 +17,7 @@
             <b>
               <u>Route Summary</u>. </b>
                 {{routereport.description_long}}
-            <p class=""><a class="ml-3 btn navbar-btn btn-secondary" href="#">Sign the petition for better bus service</a></p>
+            <p class=""><a class="ml-3 btn navbar-btn btn-secondary" href="https://goo.gl/forms/VF5S1Oclk9QTdZha2">Sign the petition for better bus service</a></p>
             </div>
 {% endblock %}
 
@@ -56,7 +55,8 @@
 
 
 {% block bunching_report %}
-<!-- #todo NOW3 bunching report v1 see written notes -->
+<!-- #todo NOW3 bunching report show frequency count of stops with most bunching indcidents in last week
+ n.b. this will require running a StopReport for every stop on the line per page load. so maybe do it once, cache it, and expire it after an hour? so {if bunchingreport.cache exists load it: else generate a new one}-->
           <h1 class="">Bunching</h1>
           <p class="lead">Bunching is when buses arrive too close to each other.</p>
           <p class="">Eventually we'll create a histogram or something here for each route/service.</p>
