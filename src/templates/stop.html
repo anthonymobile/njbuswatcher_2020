@@ -1,6 +1,5 @@
 {% extends 'stop-base.html' %}
 
-<!-- #todo NOW2 breadcrumb nav elements -->
 {% block arrivals %}
           <table class="table">
             <thead>
@@ -32,5 +31,9 @@
 
 {% block stopreport_right %}
 			<p class="lead">We do our best to keep a complete list of arrivals but there may be gaps or errors in these records. This is provided for informational purposes only.</p>
-            <p class="">Morbi ac mi eu enim tempus aliquam nec et mi. Etiam in odio quis nunc aliquet ultricies. Nullam tristique velit volutpat, laoreet ipsum quis, ultricies dui. Nunc mattis est nec leo sodales, et vestibulum lorem sodales lorem sodales. Morbi ac mi eu enim tempus aliquam nec et mi. Etiam in odio quis nunc aliquet ultricies. Nullam tristique velit volutpat, laoreet ipsum quis, ultricies dui. Nunc mattis est nec leo sodales, et vestibulum lorem sodales lorem sodales.</p>
+          <div class="alert alert-danger" role="alert">
+            <h4 class="alert-heading">Bunching</h4>
+            <p class="">Bunching occurs when a bus arrives within 3 minutes of the previous arrival. Bunching indicates poor service, leading to empty buses, and more irregular and unreliable service.</p>
+          </div>
+
 {% endblock %}

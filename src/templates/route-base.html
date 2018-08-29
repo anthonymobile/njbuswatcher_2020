@@ -37,6 +37,9 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
 
+
+	<title>JC Bus Report Card (Route {{routereport.routename}})</title>
+
   {% assets "route_css" %}
       <link rel="stylesheet" href="{{ ASSET_URL }}" type="text/css">
   {% endassets %}
@@ -44,6 +47,23 @@
 </head>
 
 <body>
+
+
+    <div class="py-2 bg-white">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <ul class="breadcrumb" style="margin-bottom:0px;margin-top:0px">
+            <li class="breadcrumb-item">
+              <a href="/">Home</a>
+            </li>
+            <li class="breadcrumb-item active">{{routereport.routename}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="py-2 bg-dark">
     <div class="container">
       <div class="row">
@@ -54,19 +74,19 @@
     </div>
   </div>
 
-<!-- #todo NOW2 breadcrumb nav elements -->
+
 
   <div class="py-3">
     <div class="container">
       <div class="row">
         <div class="col-md-4">
-
-          {% block grade %}
-          {% endblock %}
-
           {% block summary %}
           {% endblock %}
 
+          {% block grade %}
+          {% endblock %}
+        </div>
+        <div class="col-md-8">
           {% block map %}
           {% endblock %}
 
@@ -74,31 +94,35 @@
       </div>
     </div>
   </div>
-  <div class="py-5 bg-light">
+
+
+    <div class="py-5 bg-light">
     <div class="container">
       <div class="row">
 
 
         <div class="col-md-4">
+
+
           {% block service_stops_block %}
           {% endblock %}
+
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-8">
           {% block bunching_report %}
-          {% endblock %}
-        </div>
-
-        <div class="col-md-4">
-          {% block reliability_report %}
           {% endblock %}
         </div>
 
       </div>
     </div>
   </div>
+
+
+
   <div class="bg-dark text-white">
     <div class="container">
+      <!--
       <div class="row">
         <div class="p-4 col-md-6">
           <h2 class="mb-4 text-secondary">About RNA</h2>
@@ -112,9 +136,10 @@
           </p>
           <p>
             <a href="https://goo.gl/maps/AUq7b9W7yYJ2" class="text-white" target="_blank">
-              <i class="fa d-inline mr-3 fa-map-marker text-secondary"></i>w</a>ww.riverviewassociation.org</p>
+              <i class="fa d-inline mr-3 fa-map-marker text-secondary"></i>w</a>www.riverviewassociation.org</p>
         </div>
       </div>
+      -->
       <div class="row">
         <div class="col-md-12 mt-3">
           <p class="text-center text-white">© Copyright 2018 Bits and Atoms LLC - MIT License (pending). </p>

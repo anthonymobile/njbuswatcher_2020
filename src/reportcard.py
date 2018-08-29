@@ -55,7 +55,7 @@ def genRouteReport_ServiceStoplist(source, route, service):
 @app.route('/<source>/<route>/stop/<stop>')
 def genStopReport(source, route, stop, period='daily'):
     stopreport = lib.ReportCard.StopReport(route, stop, period)
-    routereport = lib.ReportCard.RouteReport(source, route, reportcard_routes, grade_descriptionss)
+    routereport = lib.ReportCard.RouteReport(source, route, reportcard_routes, grade_descriptions)
     return render_template('stop.html', stopreport=stopreport, routereport=routereport)
 
 
@@ -79,17 +79,17 @@ def pretty_timedelta(td):
         pretty_time = ("%s mins") % minutes
     return pretty_time
 
-# sample - pass a variable into template
-@app.context_processor
-def example():
-    return dict(myexample='This is an example')
-
-# sample - pass a function into template
-@app.context_processor
-def utility_processor():
-    def format_price(amount, currency=u'$'):
-        return u'{0:.2f}{1}'.format(amount, currency)
-    return dict(format_price=format_price)
+# # sample - pass a variable into template
+# @app.context_processor
+# def example():
+#     return dict(myexample='This is an example')
+#
+# # sample - pass a function into template
+# @app.context_processor
+# def utility_processor():
+#     def format_price(amount, currency=u'$'):
+#         return u'{0:.2f}{1}'.format(amount, currency)
+#     return dict(format_price=format_price)
 
 
 if __name__ == "__main__":

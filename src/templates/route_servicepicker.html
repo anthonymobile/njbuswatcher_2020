@@ -1,6 +1,13 @@
 {% extends 'route-base.html' %}
 
 
+{% block summary %}
+<p class="lead">{{routereport.description_long}}</p>
+           <!-- <p class=""><a class="ml-3 btn navbar-btn btn-secondary" href="https://goo.gl/forms/VF5S1Oclk9QTdZha2">Sign the petition for better bus service</a></p> -->
+
+{% endblock %}
+
+
 {% block grade %}
           <div class="alert alert-primary" role="alert">
 
@@ -12,47 +19,64 @@
 {% endblock %}
 
 
-{% block summary %}
-            <p class="">
-            <b>
-              <u>Route Summary</u>. </b>
-                {{routereport.description_long}}
-            <p class=""><a class="ml-3 btn navbar-btn btn-secondary" href="https://goo.gl/forms/VF5S1Oclk9QTdZha2">Sign the petition for better bus service</a></p>
-            </div>
-{% endblock %}
-
-
 {% block map %}
+<div class="col-md-8">
+  <img class="img-fluid d-block" src="/static/map-default.png">
+</div>
+
+
+<!-- FUTURE
 <div class="col-md-8">
     <div id="map"></div>
     <div id="geocoder-container"></div>
 </div>
+-->
 <!-- local code to load and style the map -->
 <script src="/static/mapbox/mapbox-route.js"></script>
 {% endblock %}
 
 
 {% block service_stops_block %}
-          <h1 class="">Services</h1>
-          <p class="lead">Pick the direction of travel or specific service on the route for which you'd like to see scheduled stops. Then you can choose a stop for more a detailed performance report.</p>
-              {% for path in routereport.route_stop_list %}
-              <div>
-                  <td><a href = {{url_for('genRouteReport_ServiceStoplist',source=routereport.source,route=routereport.route,service=path.id)}}>To {{path.d}}</a></td>
-              </div>
-              {% endfor %}
+          <h1 class="">Get Stop Reports</h1>
+          <p class="lead">Pick the direction of travel and specific service for route {{routereport.route}} to see more detailed performance information. (Note: Many routes have more than one service.)</p>
+
+<div class="btn-group">
+    <button class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown">Choose direction/service...</button>
+    <div class="dropdown-menu">
+    {% for path in routereport.route_stop_list %}
+            <a class="dropdown-item" href = {{url_for('genRouteReport_ServiceStoplist',source=routereport.source,route=routereport.route,service=path.id)}} id="{{path.id}}">To {{path.d}}</a>
+    {% endfor %}
+    </div>
+</div>
 {% endblock %}
 
 
+
 {% block bunching_report %}
-          <h1 class="">TK</h1>
-          <p class="lead">Future Use</p>
-          <p class="">What to use this space for in the service picker?</p>
+          <h1 class="">Bunching Report</h1>
+          <p class="lead">What are the trouble spots slowing service on the {{routereport.route}}? Here's the stops on the {{routereport.route}} with the most bunching incidents in the last week.</p>
+
+<ul class="list-group" >
+            <li class="list-group-item d-flex justify-content-between align-items-center"> Webster & Congress
+              <span class="badge badge-primary badge-pill">14</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center"> Palisade and Something
+              <span class="badge badge-primary badge-pill">2</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center"> Central & Central
+              <span class="badge badge-primary badge-pill">1</span>
+            </li>
+          </ul>
+
+          <p class="">n.b. These data are not live.</p>
+
+
+
+
 {% endblock %}
 
 {% block reliability_report %}
 <!-- FUTURE reliability report v1 -- coming soon, histogram of travel time based on differential arrival time of same bus id at 1st, last and middlest stop # of std deviations -->
-          <h1 class="">TK</h1>
-          <p class="lead">Future Use 2</p>
-          <p class="">What to use this space for in the service picker?</p>
+
 {% endblock %}
 
