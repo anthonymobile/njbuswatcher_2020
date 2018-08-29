@@ -1,8 +1,11 @@
 import pandas as pd
 import StopsDB, BusAPI
 import datetime
-import requests
-from geojson import Feature
+from mapbox import Directions
+from geojson import Point
+import config
+
+
 
 class RouteReport:
 
@@ -14,22 +17,27 @@ class RouteReport:
             self.d = ''
             self.dd = ''
 
-    def __init__(self, source, route, reportcard_routes,grade_descriptions,mapbox_access_key):
+    def __init__(self, source, route, reportcard_routes,grade_descriptions):
+
         # apply passed parameters to instance
         self.source = source
         self.route = route
         self.reportcard_routes = reportcard_routes
         self.grade_descriptions = grade_descriptions
+
         # database initialization
         self.db = StopsDB.MySQL('buses', 'buswatcher', 'njtransit', '127.0.0.1', self.route)
         self.conn = self.db.conn
         self.table_name = 'stop_approaches_log_' + self.route
+
         # populate report card data
         self.get_routename()
         self.compute_grade()
         self.get_stoplist()
-        self.get_routemap(mapbox_access_key)
 
+        # map stuff
+        self.get_route_waypoints()
+        self.get_current_buslocations_geojson()
 
     def get_routename(self):
         routedata = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=self.route))
@@ -76,49 +84,59 @@ class RouteReport:
         self.route_stop_list = route_stop_list_temp[0] # transpose a single copy since the others are all repeats (can be verified by path ids)
         return
 
-    def get_routemap(self,mapbox_access_key):
-        # 1 assemble the waypoint lat,long from self.route_stop_list into geoJSON format - just one direction for now
-        geojson_route = []
+    def get_route_waypoints(self):
+
+        # 1 create list of waypoints in geoJSON
+        # from self.route_stop_list
+        # just 1 direction for now (will need to pass service if i want something more accurate)
+
+        route_latlons=[]
         for stop in self.route_stop_list[0].stops:
-            point = dict()
-            point['lat'] = stop.lat
-            point['long'] = stop.lon
-            geojson_route.append(point)
-        geojson_route = geojson_route[:25]
-        # 2 create the route URL (point in ROUTE below = stop in route_stop_list above...- http://kazuar.github.io/visualize-trip-with-flask-and-mapbox/
-        _route_url = "https://api.mapbox.com/directions/v5/mapbox/driving/{0}.json?access_token={1}&overview=full&geometries=geojson"
-        # Create a string with all the geo coordinates
-        lat_longs = ";".join(["{0},{1}".format(point["long"], point["lat"]) for point in geojson_route])
-        # Create a url with the geo coordinates and access token
-        routemap_url = _route_url.format(lat_longs, mapbox_access_key)
-        result = requests.get(routemap_url)
-        # Convert the return value to JSON
-        data = result.json()
-        # Create a geo json object from the routing data
-        geometry = data["routes"][0]["geometry"]
-        self.route_data = Feature(geometry=geometry, properties={})
+            route_latlons.append((stop.lat,stop.lon))
+
+
+        # sample 20 waypoints evenly spaced, plus the last one
+        n = len(route_latlons) / 20 # could be 24 if mapbox allows
+        chunks = [route_latlons[i:i + n] for i in xrange(0, len(route_latlons), n)]
+        route_latlons_sample=[]
+        for chunk in chunks:
+            route_latlons_sample.append(chunk[0]) # first item of each chunk
+            route_latlons_sample.append(route_latlons[-1]) #last item for total of 21 waypoints
+
+        # format as geoJson
+        route_latlons_sample_lats, route_latlons_sample_lons = zip(*route_latlons_sample)
+        route_waypoints_geojson=dict()
+        for x in range(0,len(route_latlons_sample_lats)):
+            insertion = Point((route_latlons_sample_lats[x],route_latlons_sample_lons[x]))
+            route_waypoints_geojson.update(insertion)
+
+        # get the route features from MapBox API
+        service = Directions(access_token=config.mapbox_access_key)
+        mapbox_response = service.directions([route_waypoints_geojson],'mapbox.driving')
+        self.route_geojson = mapbox_response.geojson()
+
+        # todo dump it to a file?
+
         return
 
-    # def get_buslocations_map_html(self):
-    #
-    #     # bus locations
-    #     bus_position_reports = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data('nj', 'buses_for_route', route=self.route))
-    #     bus_current_latlons = []
-    #
-    #     for bus in bus_position_reports:
-    #         if bus.rt == self.route:
-    #             bus_current_latlons.append((float(bus.lat),float(bus.lon)))
-    #     bus_current_lats, bus_current_lons = zip(*bus_current_latlons)
-    #
-    #     # Place map
-    #     gmap = gmplot.GoogleMapPlotter(40.730026, -74.068776, 13, api_key)
-    #     gmap.scatter(bus_current_lats, bus_current_lons, '#3B0B39', size=40, marker=True)
-    #     hidden_gem_lat, hidden_gem_lon = 40.730026, -74.068776
-    #     gmap.marker(hidden_gem_lat, hidden_gem_lon, 'cornflowerblue')
-    #
-    #     self.map_html = gmap.draw("raw.html")
-    #
-    #     return
+
+    def get_current_buslocations_geojson(self):
+
+        # get raw bus locations
+        bus_position_reports = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data('nj', 'buses_for_route', route=self.route))
+
+        self.current_buslocations_geojson = []
+
+        # populate
+        for bus in bus_position_reports:
+            if bus.rt == self.route:
+                point = dict()
+                point['lat'] = float(bus.lat)
+                point['long'] = float(bus.lon)
+                self.current_buslocations_geojson.append(point)
+        self.current_buslocations_geojson_timestamp=datetime.datetime.now()
+
+        return
 
 
 class StopReport:

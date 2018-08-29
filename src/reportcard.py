@@ -6,9 +6,6 @@ import lib.ReportCard
 
 from route_config import reportcard_routes,grade_descriptions
 
-import config
-import datetime
-
 
 
 app = Flask(__name__)
@@ -44,13 +41,13 @@ def displayHome():
 #2 route report - choose service
 @app.route('/<source>/<route>')
 def genRouteReport_ServicePicker(source, route):
-    routereport=lib.ReportCard.RouteReport(source,route,reportcard_routes,grade_descriptions,config.mapbox_access_key)
+    routereport=lib.ReportCard.RouteReport(source,route,reportcard_routes,grade_descriptions)
     return render_template('route_servicepicker.html', routereport=routereport)
 
 #3 route report - with service
 @app.route('/<source>/<route>/service/<service>')
 def genRouteReport_ServiceStoplist(source, route, service):
-    routereport=lib.ReportCard.RouteReport(source,route,reportcard_routes,grade_descriptions,config.mapbox_access_key)
+    routereport=lib.ReportCard.RouteReport(source,route,reportcard_routes,grade_descriptions)
     return render_template('route_servicestoplist.html', routereport=routereport,service=service)
 
 
@@ -58,7 +55,7 @@ def genRouteReport_ServiceStoplist(source, route, service):
 @app.route('/<source>/<route>/stop/<stop>')
 def genStopReport(source, route, stop, period='daily'):
     stopreport = lib.ReportCard.StopReport(route, stop, period)
-    routereport = lib.ReportCard.RouteReport(source, route, reportcard_routes, grade_descriptions, config.mapbox_access_key)
+    routereport = lib.ReportCard.RouteReport(source, route, reportcard_routes, grade_descriptionss)
     return render_template('stop.html', stopreport=stopreport, routereport=routereport)
 
 
