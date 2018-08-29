@@ -1,6 +1,6 @@
 // Map via Mapbox GL
 
-/* todo NOW1 <-- rebuild using script code in routemap-mapbox-generated.js */
+/* TODOMAP<-- rebuild using script code in routemap-mapbox-generated.js */
 
 $(document).ready(init);
 
@@ -46,7 +46,7 @@ function MapGL() {
       zoom: 11 // starting zoom
   });
 
-  var waypoints = L.mapbox.featureLayer({{ route_data|safe }}).addTo(map); //todo NOW1 map work here
+  var waypoints = L.mapbox.featureLayer({{ route_data|safe }}).addTo(map); //TODOMAP work here
 
   // geocoding
   newMap.addControl(new MapboxGeocoder({

@@ -35,9 +35,9 @@ class RouteReport:
         self.compute_grade()
         self.get_stoplist()
 
-        # map stuff
-        self.get_route_waypoints()
-        self.get_current_buslocations_geojson()
+        # map stuff TODOMAP activate map __init__
+        # self.get_route_waypoints()
+        # self.get_current_buslocations_geojson()
 
     def get_routename(self):
         routedata = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=self.route))
@@ -86,6 +86,8 @@ class RouteReport:
 
     def get_route_waypoints(self):
 
+        # TODOMAP check to see if the geojson file exists and is less than 24 hours old
+
         # 1 create list of waypoints in geoJSON
         # from self.route_stop_list
         # just 1 direction for now (will need to pass service if i want something more accurate)
@@ -107,7 +109,7 @@ class RouteReport:
         route_latlons_sample_lats, route_latlons_sample_lons = zip(*route_latlons_sample)
         route_waypoints_geojson=dict()
         for x in range(0,len(route_latlons_sample_lats)):
-            insertion = Point((route_latlons_sample_lats[x],route_latlons_sample_lons[x]))
+            insertion = Point((route_latlons_sample_lats[x],route_latlons_sample_lons[x])) # TODOMAP DEBUGGING HERE "not a JSON compliant number"
             route_waypoints_geojson.update(insertion)
 
         # get the route features from MapBox API
@@ -115,7 +117,7 @@ class RouteReport:
         mapbox_response = service.directions([route_waypoints_geojson],'mapbox.driving')
         self.route_geojson = mapbox_response.geojson()
 
-        # todo dump it to a file?
+        # TODOMAP dump it to a file. then the javascript loads the file and draws the points
 
         return
 

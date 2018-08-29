@@ -3142,10 +3142,10 @@ tbody.collapse.show {
 .breadcrumb {
   display: flex;
   flex-wrap: wrap;
-  padding: 0.75rem 1rem;
+  padding: 0.0rem 0rem;
   margin-bottom: 1rem;
   list-style: none;
-  background-color: #e9ecef;
+  background-color: #ffffff;
   border-radius: 0.25rem; }
 
 .breadcrumb-item + .breadcrumb-item::before {

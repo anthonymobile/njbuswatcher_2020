@@ -16,6 +16,27 @@
 </head>
 
 <body>
+
+
+    <div class="py-2 bg-white">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <ul class="breadcrumb" style="margin-bottom:0px;margin-top:0px">
+            <li class="breadcrumb-item">
+              <a href="/">Home</a>
+            </li>
+			  <li class="breadcrumb-item">
+				  <a href="/nj/{{routereport.route}}">{{routereport.routename}}</a>
+				  <!-- todo NOW1 fix this breadcrumb link -->
+			  </li>
+            <li class="breadcrumb-item active">{{stopreport.stop_name}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="py-2 bg-dark">
 	<div class="container">
 	  <div class="row">
@@ -25,11 +46,11 @@
 	  </div>
 	</div>
   </div>
-  <div class="py-1">
+  <div class="py-1 bg-light">
 	<div class="container">
 	  <div class="row">
 		<div class="col-md-12">
-		  <h1 class="display-3">
+		  <h1 class="display-4">
 			<b>{{stopreport.stop_name}}</b></h1>
 		</div>
 	  </div>
@@ -37,15 +58,16 @@
   </div>
 
 
-<!-- #todo NOW2 breadcrumb nav elements -->
 
-  <div class="py-5 bg-light">
+
+  <div class="py-5 bg-white">
 	<div class="container">
 	  <div class="row">
 		<div class="col-md-8">
-		  <h1 class="">Recent Arrivals</h1>
+		  <h1 class="">Today's Arrivals*</h1>
 		  {% block arrivals %}
 		  {% endblock %}
+			*n.b. Archival data coming soon.
 		</div>
 
 
@@ -60,6 +82,7 @@
   </div>
   <div class="bg-dark text-white">
 	<div class="container">
+	  <!--
 	  <div class="row">
 		<div class="p-4 col-md-6">
 		  <h2 class="mb-4 text-secondary">About RNA</h2>
@@ -76,6 +99,7 @@
 			  <i class="fa d-inline mr-3 fa-map-marker text-secondary"></i>w</a>ww.riverviewassociation.org</p>
 		</div>
 	  </div>
+	  -->
 	  <div class="row">
 		<div class="col-md-12 mt-3">
 		  <p class="text-center text-white">© Copyright 2018 Bits and Atoms LLC - MIT License (pending). </p>

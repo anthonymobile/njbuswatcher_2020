@@ -1,6 +1,13 @@
 {% extends 'route-base.html' %}
 
 
+{% block summary %}
+<p class="lead">{{routereport.description_long}}</p>
+           <!-- <p class=""><a class="ml-3 btn navbar-btn btn-secondary" href="https://goo.gl/forms/VF5S1Oclk9QTdZha2">Sign the petition for better bus service</a></p> -->
+
+{% endblock %}
+
+
 {% block grade %}
           <div class="alert alert-primary" role="alert">
 
@@ -12,54 +19,63 @@
 {% endblock %}
 
 
-{% block summary %}
-            <p class="">
-            <b>
-              <u>Route Summary</u>. </b>
-                {{routereport.description_long}}
-            <p class=""><a class="ml-3 btn navbar-btn btn-secondary" href="https://goo.gl/forms/VF5S1Oclk9QTdZha2">Sign the petition for better bus service</a></p>
-            </div>
-{% endblock %}
-
-
 {% block map %}
 <div class="col-md-8">
-<div id="map"></div>
+  <img class="img-fluid d-block" src="/static/map-default.png">
 </div>
 
+
+<!-- FUTURE
+<div class="col-md-8">
+    <div id="map"></div>
+    <div id="geocoder-container"></div>
+</div>
+-->
 <!-- local code to load and style the map -->
-  <script src="/static/mapbox-js/mapbox-route.js"></script>
+<script src="/static/mapbox/mapbox-route.js"></script>
 {% endblock %}
 
 
 {% block service_stops_block %}
-          <h1 class="">Stops</h1>
-          <p class="lead">To see more detailed info about service on the {{routereport.route}} in your area, scroll down in the list below to the direction of travel you want and click on your stop .</p>
-              {% for path in routereport.route_stop_list %}
-                    {% if path.id == service %}
-                      <div>
-                          <a href="#" class="btn btn-outline-primary">To {{path.d}}</a>
-                      </div>
-                        <div>
-                        <table class="table table-sm">
-                            {% for stop in path.stops %}
-                                <tr>
-                                    <td><a href = {{url_for('genStopReport',source=routereport.source,route=routereport.route,stop=stop.identity) }}>{{stop.st}}</a></td>
-                                </tr>
-                            {% endfor %}
-                        </table>
-                        </div>
-                      {% endif %}
-              {% endfor %}
+          <h1 class="">Get Stop Reports</h1>
+          <p class="lead">Choose a stop in this direction to see today's arrivals and more detailed performance statistics.</p>
+
+<div class="btn-group">
+    <button class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown">Choose direction/service...</button>
+    <div class="dropdown-menu">
+    {% for path in routereport.route_stop_list %}
+        {% if path.id == service %}
+            {% for stop in path.stops %}
+                <a class="dropdown-item" href = {{url_for('genStopReport',source=routereport.source,route=routereport.route,stop=stop.identity) }} id="{{stop.st}}">{{stop.st}}</a>
+            {% endfor %}
+        {% endif %}
+    {% endfor %}
+    </div>
+</div>
+
 {% endblock %}
 
 
 {% block bunching_report %}
-<!-- #todo NOW3 bunching report show frequency count of stops with most bunching indcidents in last week
- n.b. this will require running a StopReport for every stop on the line per page load. so maybe do it once, cache it, and expire it after an hour? so {if bunchingreport.cache exists load it: else generate a new one}-->
-          <h1 class="">Bunching</h1>
-          <p class="lead">Bunching is when buses arrive too close to each other.</p>
-          <p class="">Eventually we'll create a histogram or something here for each route/service.</p>
+          <h1 class="">Bunching Report</h1>
+          <p class="lead">What are the trouble spots slowing service on the {{routereport.route}}? Here's the stops on the {{routereport.route}} with the most bunching incidents today.</p>
+
+<!-- todo NOW write a for loop to generate this report on each pageload, calling a special function if needed--or adding that to RouteReport __init__ -->
+<ul class="list-group" >
+            <li class="list-group-item d-flex justify-content-between align-items-center"> Webster & Congress
+              <span class="badge badge-primary badge-pill">14</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center"> Palisade and Something
+              <span class="badge badge-primary badge-pill">2</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center"> Central & Central
+              <span class="badge badge-primary badge-pill">1</span>
+            </li>
+          </ul>
+
+          <p class="">n.b. These data are not live.</p>
+
+
 {% endblock %}
 
 
