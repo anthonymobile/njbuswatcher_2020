@@ -35,10 +35,6 @@ class RouteReport:
         self.get_stoplist()
         self.get_bunching_badboys()
 
-        # map stuff TODOMAP activate map __init__
-        # self.get_route_waypoints()
-        # self.get_current_buslocations_geojson()
-
     def get_routename(self):
         routedata = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=self.route))
         self.routename=routedata[0].nm
@@ -112,62 +108,6 @@ class RouteReport:
         # sort stops by number of bunchings, grad first 10
         self.bunching_badboys.sort(key=bunch_total, reverse=True)
         self.bunching_badboys=self.bunching_badboys[:10]
-
-        return
-
-    def get_route_waypoints(self):
-
-        # TODOMAP check to see if the geojson file exists and is less than 24 hours old
-
-        # 1 create list of waypoints in geoJSON
-        # from self.route_stop_list
-        # just 1 direction for now (will need to pass service if i want something more accurate)
-
-        route_latlons=[]
-        for stop in self.route_stop_list[0].stops:
-            route_latlons.append((stop.lat,stop.lon))
-
-
-        # sample 20 waypoints evenly spaced, plus the last one
-        n = len(route_latlons) / 20 # could be 24 if mapbox allows
-        chunks = [route_latlons[i:i + n] for i in xrange(0, len(route_latlons), n)]
-        route_latlons_sample=[]
-        for chunk in chunks:
-            route_latlons_sample.append(chunk[0]) # first item of each chunk
-            route_latlons_sample.append(route_latlons[-1]) #last item for total of 21 waypoints
-
-        # format as geoJson
-        route_latlons_sample_lats, route_latlons_sample_lons = zip(*route_latlons_sample)
-        route_waypoints_geojson=dict()
-        for x in range(0,len(route_latlons_sample_lats)):
-            insertion = Point((route_latlons_sample_lats[x],route_latlons_sample_lons[x])) # TODOMAP DEBUGGING HERE "not a JSON compliant number"
-            route_waypoints_geojson.update(insertion)
-
-        # get the route features from MapBox API
-        service = Directions(access_token=config.mapbox_access_key)
-        mapbox_response = service.directions([route_waypoints_geojson],'mapbox.driving')
-        self.route_geojson = mapbox_response.geojson()
-
-        # TODOMAP dump it to a file. then the javascript loads the file and draws the points
-
-        return
-
-
-    def get_current_buslocations_geojson(self):
-
-        # get raw bus locations
-        bus_position_reports = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data('nj', 'buses_for_route', route=self.route))
-
-        self.current_buslocations_geojson = []
-
-        # populate
-        for bus in bus_position_reports:
-            if bus.rt == self.route:
-                point = dict()
-                point['lat'] = float(bus.lat)
-                point['long'] = float(bus.lon)
-                self.current_buslocations_geojson.append(point)
-        self.current_buslocations_geojson_timestamp=datetime.datetime.now()
 
         return
 
