@@ -3,10 +3,7 @@
 
 from flask import Flask, render_template
 import lib.ReportCard
-
 from route_config import reportcard_routes,grade_descriptions
-
-
 
 app = Flask(__name__)
 
@@ -78,18 +75,6 @@ def pretty_timedelta(td):
     else:
         pretty_time = ("%s mins") % minutes
     return pretty_time
-
-# # sample - pass a variable into template
-# @app.context_processor
-# def example():
-#     return dict(myexample='This is an example')
-#
-# # sample - pass a function into template
-# @app.context_processor
-# def utility_processor():
-#     def format_price(amount, currency=u'$'):
-#         return u'{0:.2f}{1}'.format(amount, currency)
-#     return dict(format_price=format_price)
 
 
 if __name__ == "__main__":
