@@ -1,0 +1,10 @@
+server tasks
+
+todo PREFLIGHT move bunching_badboys to a batch cron job (hourly)
+todo PREFLIGHT strip out map stuff, create a clean non-javascript main branch, then fork out the mapbox stuff into a branch later
+todo PREFLIGHT update README.md
+
+todo DEPLOY finish webserver/gunicorn/flask app deploy https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xvii-deployment-on-linux (start at 'setting up nginx')
+todo DEPLOY cron routewatcher, stopwatcher for 82, 86, 88, 123, 125
+
+todo FUTURE DEPLOY setup daily mysqldb backup from Webster to s3

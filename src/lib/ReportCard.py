@@ -4,8 +4,7 @@ import datetime
 from mapbox import Directions
 from geojson import Point
 import config
-
-
+import sys
 
 class RouteReport:
 
@@ -34,6 +33,7 @@ class RouteReport:
         self.get_routename()
         self.compute_grade()
         self.get_stoplist()
+        self.get_bunching_badboys()
 
         # map stuff TODOMAP activate map __init__
         # self.get_route_waypoints()
@@ -67,7 +67,7 @@ class RouteReport:
 
 
     def get_stoplist(self):
-        routedata = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=self.route))
+        routedata = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=self.route)) # todo BUG why getting inconsistent service lists back from this? hardcode them instead?
         route_stop_list_temp = []
         for r in routedata:
             path_list = []
@@ -82,6 +82,37 @@ class RouteReport:
                 path_list.append(stops_points) # path_list is now a couple of Path instances, plus the metadata id,d,dd fields
             route_stop_list_temp.append(path_list)
         self.route_stop_list = route_stop_list_temp[0] # transpose a single copy since the others are all repeats (can be verified by path ids)
+        return
+
+    def get_bunching_badboys(self): #todo NOW1 bunching analysis WTD?
+        # generates top 10 list of stops on the route by # of bunching incidents in last week
+
+        self.bunching_badboys = []
+
+        # loop over each service and stop
+        bunch_total=0
+        print 'starting daily bunching analysis...'
+        for service in self.route_stop_list:
+            for stop in service.stops:
+                print stop.identity,
+                try:
+                    report=StopReport(self.route,stop.identity,'daily')
+                except:
+                    pass
+
+                # calculate number of bunches
+                for (index, row) in report.arrivals_list_final_df.iterrows(): # TODOD DEBUGGING HERE
+                    if (row.delta > report.bigbang) and (row.delta <= report.bunching_interval):
+                        bunch_total += 1
+                        sys.stdout.write('.'),
+                print
+            # append tuple to the list
+            self.bunching_badboys.append((stop.st, bunch_total))
+
+        # sort stops by number of bunchings, grad first 10
+        self.bunching_badboys.sort(key=bunch_total, reverse=True)
+        self.bunching_badboys=self.bunching_badboys[:10]
+
         return
 
     def get_route_waypoints(self):
@@ -156,8 +187,7 @@ class StopReport:
         self.get_arrivals(self.period)
 
 
-    def get_arrivals(self, period): # should this move to a superclass since both RouteReport + StopReport will use it?
-        # method 1: last approach in a contiguous sequence with 'approaching'
+    def get_arrivals(self, period):
         self.arrivals_table_time_created = None
         self.period = period
         if period == "daily":
@@ -168,19 +198,24 @@ class StopReport:
             final_approach_query = ('SELECT * FROM %s WHERE (stop_id= %s AND pt = "APPROACHING") ORDER BY timestamp DESC;' % (self.table_name,self.stop))
         else:
             raise RuntimeError('Bad request sucker!')
+
         # get data and basic cleanup
         df_temp = pd.read_sql_query(final_approach_query, self.conn) # arrivals table and deltas are all re-generated on the fly for every view now -- easier, but might lead to inconsistent/innaccurate results over time?
         df_temp = df_temp.drop(columns=['cars', 'consist', 'fd', 'm', 'name', 'rn', 'scheduled'])
         df_temp = timestamp_fix(df_temp)
+
         # split final approach history (sorted by timestamp) at each change in vehicle_id outputs a list of dfs -- per https://stackoverflow.com/questions/41144231/python-how-to-split-pandas-dataframe-into-subsets-based-on-the-value-in-the-fir
         final_approach_dfs = [g for i, g in df_temp.groupby(df_temp['v'].ne(df_temp['v'].shift()).cumsum())]
+
         # take the last V(ehicle) approach in each df and add it to final list of arrivals
         self.arrivals_list_final_df = pd.DataFrame()
         for final_approach in final_approach_dfs:  # iterate over every final approach
             arrival_insert_df = final_approach.tail(1)  # take the last observation
             self.arrivals_list_final_df = self.arrivals_list_final_df.append(arrival_insert_df)  # insert into df
+
         # calc interval between last bus for each row, fill NaNs
         self.arrivals_list_final_df['delta']=(self.arrivals_list_final_df['timestamp'] - self.arrivals_list_final_df['timestamp'].shift(-1)).fillna(0)
+
         # housekeeping ---------------------------------------------------
         # log the time arrivals table was generated
         self.arrivals_table_time_created = datetime.datetime.now()
@@ -190,9 +225,10 @@ class StopReport:
         self.bunching_interval = datetime.timedelta(minutes=3)
         # set a timedelta for zero
         self.bigbang = datetime.timedelta(seconds=0)
+
         return
 
-
+# common functions
 def timestamp_fix(data): # trim the microseconds off the timestamp and convert it to datetime format
     data['timestamp'] = data['timestamp'].str.split('.').str.get(0)
     data['timestamp'] = pd.to_datetime(data['timestamp'],errors='coerce')

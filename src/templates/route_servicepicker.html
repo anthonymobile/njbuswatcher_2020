@@ -1,8 +1,13 @@
 {% extends 'route-base.html' %}
 
-
 {% block summary %}
 <p class="lead">{{routereport.description_long}}</p>
+
+<div class="btn-group">
+            <a href="{{routereport.schedule_url}}" class="btn btn-primary">NJTransit Schedule (PDF)</a>
+            <a href="{{routereport.moovit_url}}" class="btn btn-primary">Moovit's {{routereport.route}} Page</a>
+</div>
+
            <!-- <p class=""><a class="ml-3 btn navbar-btn btn-secondary" href="https://goo.gl/forms/VF5S1Oclk9QTdZha2">Sign the petition for better bus service</a></p> -->
 
 {% endblock %}
