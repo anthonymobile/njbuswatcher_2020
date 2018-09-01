@@ -1,10 +1,30 @@
+import datetime, time, sys
 import pandas as pd
+
 import StopsDB, BusAPI
-import datetime
-from mapbox import Directions
-from geojson import Point
-import config
-import sys
+
+# common functions
+def timestamp_fix(data): # trim the microseconds off the timestamp and convert it to datetime format
+    data['timestamp'] = data['timestamp'].str.split('.').str.get(0)
+    data['timestamp'] = pd.to_datetime(data['timestamp'],errors='coerce')
+    data = data.set_index(pd.DatetimeIndex(data['timestamp']))
+    # data = data.set_index(pd.DatetimeIndex(data['timestamp'], drop=False)
+    return data
+
+def timeit(method):
+
+    def timed(*args, **kw):
+        ts = time.time()
+        result = method(*args, **kw)
+        te = time.time()
+
+        print '%r (%r, %r) %2.2f sec' % \
+              (method.__name__, args, kw, te-ts)
+        return result
+
+    return timed
+
+# primary classes
 
 class RouteReport:
 
@@ -33,7 +53,8 @@ class RouteReport:
         self.get_routename()
         self.compute_grade()
         self.get_stoplist()
-        self.get_bunching_badboys()
+        # self.get_bunching_badboys_v1()
+        # self.get_today_bunch_top10_v2()
 
     def get_routename(self):
         routedata = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=self.route))
@@ -48,6 +69,8 @@ class RouteReport:
             if route['route'] == self.route:
                 self.grade = route['grade']
                 self.description_long = route['description_long']
+                self.schedule_url = route['schedule_url']
+                self.moovit_url = route['moovit_url']
                 for entry in self.grade_descriptions:
                     if self.grade == entry['grade']:
                         self.grade_description = entry['description']
@@ -63,7 +86,8 @@ class RouteReport:
 
 
     def get_stoplist(self):
-        routedata = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=self.route)) # todo BUG why getting inconsistent service lists back from this? hardcode them instead?
+        # todo BUG NJT API serves up only the routes currently running? hardcode them instead?
+        routedata = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=self.route))
         route_stop_list_temp = []
         for r in routedata:
             path_list = []
@@ -80,7 +104,9 @@ class RouteReport:
         self.route_stop_list = route_stop_list_temp[0] # transpose a single copy since the others are all repeats (can be verified by path ids)
         return
 
-    def get_bunching_badboys(self): #todo NOW1 bunching analysis WTD?
+    @timeit
+    def get_bunching_badboys_v1(self):
+        # todo NOW bunching wtd?
         # generates top 10 list of stops on the route by # of bunching incidents in last week
 
         self.bunching_badboys = []
@@ -91,13 +117,10 @@ class RouteReport:
         for service in self.route_stop_list:
             for stop in service.stops:
                 print stop.identity,
-                try:
-                    report=StopReport(self.route,stop.identity,'daily')
-                except:
-                    pass
+                report = StopReport(self.route, stop.identity, 'daily')
 
                 # calculate number of bunches
-                for (index, row) in report.arrivals_list_final_df.iterrows(): # TODOD DEBUGGING HERE
+                for (index, row) in report.arrivals_list_final_df.iterrows():
                     if (row.delta > report.bigbang) and (row.delta <= report.bunching_interval):
                         bunch_total += 1
                         sys.stdout.write('.'),
@@ -105,11 +128,22 @@ class RouteReport:
             # append tuple to the list
             self.bunching_badboys.append((stop.st, bunch_total))
 
-        # sort stops by number of bunchings, grad first 10
+        # sort stops by number of bunchings, grab first 10
         self.bunching_badboys.sort(key=bunch_total, reverse=True)
         self.bunching_badboys=self.bunching_badboys[:10]
 
         return
+
+    @timeit
+    def get_today_bunch_top10_v2(self):
+
+        self.bunching_badboys = []
+
+        # sort stops by number of bunchings, grab first 10
+        self.bunching_badboys.sort(key=bunch_total, reverse=True)
+        self.bunching_badboys=self.bunching_badboys[:10]
+        return
+
 
 
 class StopReport:
@@ -168,11 +202,4 @@ class StopReport:
 
         return
 
-# common functions
-def timestamp_fix(data): # trim the microseconds off the timestamp and convert it to datetime format
-    data['timestamp'] = data['timestamp'].str.split('.').str.get(0)
-    data['timestamp'] = pd.to_datetime(data['timestamp'],errors='coerce')
-    data = data.set_index(pd.DatetimeIndex(data['timestamp']))
-    # data = data.set_index(pd.DatetimeIndex(data['timestamp'], drop=False)
-    return data
 
