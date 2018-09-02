@@ -3,11 +3,6 @@
 {% block summary %}
 <p class="lead">{{routereport.description_long}}</p>
 
-<div class="btn-group">
-            <a href="{{routereport.schedule_url}}" class="btn btn-outline-primary">Official Schedule (PDF)</a>
-            <a href="{{routereport.moovit_url}}" class="btn btn-outline-secondary">Moovit's {{routereport.route}} Page</a>
-</div>
-
            <!-- <p class=""><a class="ml-3 btn navbar-btn btn-secondary" href="https://goo.gl/forms/VF5S1Oclk9QTdZha2">Sign the petition for better bus service</a></p> -->
 
 {% endblock %}
@@ -37,12 +32,18 @@
 
 
 {% block map %}
-Replace with static or moovit image.
+<img class="img-fluid d-block" src="/static/images/map{{routereport.route}}.jpg" >
+
+<div class="btn-group">
+            <a href="{{routereport.schedule_url}}" class="btn btn-outline-primary">Official Schedule (PDF)</a>
+            <a href="{{routereport.moovit_url}}" class="btn btn-outline-secondary">Moovit's {{routereport.route}} Page</a>
+</div>
+
 {% endblock %}
 
 
 {% block service_stops_block %}
-          <h1 class="">Get Stop Reports</h1>
+          <h1 class="">Choose Direction...</h1>
           <p class="lead">Pick the direction of travel and specific service for route {{routereport.route}} to see more detailed performance information. (Note: Many routes have more than one service.)</p>
 
 <div class="btn-group">
@@ -57,6 +58,7 @@ Replace with static or moovit image.
 
 
 {% block bunching_report %}
+<!--
           <h1 class="">Bunching Report</h1>
           <p class="lead">What are the trouble spots slowing service on the {{routereport.route}}? Here's the stops on the {{routereport.route}} with the most bunching incidents TODAY (THIS WEEK) (ALL TIME).</p>
 
@@ -67,6 +69,7 @@ Replace with static or moovit image.
                     </li>
                 {% endfor %}
         </ul>
+-->
 {% endblock %}
 
 

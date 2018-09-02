@@ -1,12 +1,8 @@
 todo PREFLIGHT rewrite bunching_badboys
 todo PREFLIGHT test bunching badboys on webster, CLI for 87, time the whole thing using bash 'time python blah.py'
 
-todo DEPLOY cron routewatcher, stopwatcher for 82,84,85,86,88,123,125
-todo DEPLOY finish webserver/gunicorn/flask app deploy https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xvii-deployment-on-linux (start at 'setting up nginx')
-
 todo FUTURE update README.md
 todo FUTURE setup daily mysqldb backup from Webster to s3
-todo FUTURE write a weekly bunching badboys approach
 
 todo OPTIMIZE use python timeit and profile to see what could go faster?
 todo REFACTOR stopwatcher + StopReport shouldn't have to parse the whole route.path every time... we should be storing what we saw in the past...
