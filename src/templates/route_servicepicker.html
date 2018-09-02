@@ -17,13 +17,13 @@
         </div>
     {% endif %}
     {% if routereport.grade=='C' %}
-        <div class="alert alert-primary" role="warning">
+        <div class="alert alert-warning" role="alert">
             <h4 class="alert-heading">Current Grade:{{routereport.grade}}</h4>
             <p class="mb-0"> {{routereport.grade_description}}</p>
         </div>
     {% endif %}
     {% if (routereport.grade=='D' or routereport.grade=='F') %}
-        <div class="alert alert-primary" role="danger">
+        <div class="alert alert-danger" role="alert">
             <h4 class="alert-heading">Current Grade:{{routereport.grade}}</h4>
             <p class="mb-0"> {{routereport.grade_description}}</p>
         </div>
