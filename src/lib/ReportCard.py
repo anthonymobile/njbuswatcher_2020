@@ -207,20 +207,28 @@ class StopReport:
 
         # todo BUG move the entire below to a try-except, and the except creates an empty self.arrivals_list_final_df ? and self.arrivals_table_time_created -- to avoind the error of no content
 
-        # take the last V(ehicle) approach in each df and add it to final list of arrivals
-        self.arrivals_list_final_df = pd.DataFrame()
-        for final_approach in final_approach_dfs:  # iterate over every final approach
-            arrival_insert_df = final_approach.tail(1)  # take the last observation
-            self.arrivals_list_final_df = self.arrivals_list_final_df.append(arrival_insert_df)  # insert into df
+        try:
+            # take the last V(ehicle) approach in each df and add it to final list of arrivals
+            self.arrivals_list_final_df = pd.DataFrame()
+            for final_approach in final_approach_dfs:  # iterate over every final approach
+                arrival_insert_df = final_approach.tail(1)  # take the last observation
+                self.arrivals_list_final_df = self.arrivals_list_final_df.append(arrival_insert_df)  # insert into df
 
-        # calc interval between last bus for each row, fill NaNs
-        self.arrivals_list_final_df['delta']=(self.arrivals_list_final_df['timestamp'] - self.arrivals_list_final_df['timestamp'].shift(-1)).fillna(0)
+            # calc interval between last bus for each row, fill NaNs
+            self.arrivals_list_final_df['delta']=(self.arrivals_list_final_df['timestamp'] - self.arrivals_list_final_df['timestamp'].shift(-1)).fillna(0)
 
-        # housekeeping ---------------------------------------------------
-        # log the time arrivals table was generated
-        self.arrivals_table_time_created = datetime.datetime.now()
-        # set stop_name
-        self.stop_name = self.arrivals_list_final_df['stop_name'].iloc[0]
+            # housekeeping ---------------------------------------------------
+            # log the time arrivals table was generated
+            self.arrivals_table_time_created = datetime.datetime.now()
+            # set stop_name
+            self.stop_name = self.arrivals_list_final_df['stop_name'].iloc[0]
+
+        except:
+            self.arrivals_list_final_df=\
+                pd.DataFrame(\
+                    columns=['pkey','pt','rd','stop_id','stop_name','v','timestamp','delta'],\
+                    data=[['0000000', '3', self.route, self.stop,'N/A', 'N/A', datetime.time(0,1), datetime.timedelta(seconds=0)]])
+
         # set timedelta constant for later use in bunching analysis
         self.bunching_interval = datetime.timedelta(minutes=3)
         # set a timedelta for zero
