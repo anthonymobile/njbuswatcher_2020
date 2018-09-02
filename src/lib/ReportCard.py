@@ -53,8 +53,7 @@ class RouteReport:
         self.get_routename()
         self.compute_grade()
         self.get_stoplist()
-        # self.get_bunching_badboys_v1()
-        # self.get_today_bunch_top10_v2()
+        # self.get_bunching_leaderboard('yesterday')
 
     @timeit
     def get_routename(self):
@@ -106,18 +105,18 @@ class RouteReport:
         return
 
     @timeit
-    def get_bunching_badboys_v1(self):
-        # generates top 10 list of stops on the route by # of bunching incidents in last week
+    def get_bunching_leaderboard(self,period):
+        # generates top 10 list of stops on the route by # of bunching incidents for yesterday
 
         self.bunching_badboys = []
 
         # loop over each service and stop
         bunch_total=0
-        print 'starting daily bunching analysis...'
+        print 'starting bunching analysis for yesterday...'
         for service in self.route_stop_list:
             for stop in service.stops:
                 print stop.identity,
-                report = StopReport(self.route, stop.identity, 'daily') # todo change to yesterday
+                report = StopReport(self.route, stop.identity,period)
 
                 # calculate number of bunches
                 for (index, row) in report.arrivals_list_final_df.iterrows():
@@ -133,6 +132,24 @@ class RouteReport:
         self.bunching_badboys=self.bunching_badboys[:10]
 
         # todo write to a new db table for persistence
+        db = StopsDB.MySQL('buses', 'buswatcher', 'njtransit', '127.0.0.1', route)
+        conn = db.conn
+
+        table_name = 'bunching_leaderboard_%s' % self.route
+        create_table_string = '''CREATE TABLE IF NOT EXISTS %s (pkey integer primary key auto_increment, date varchar(20), route varchar(20), stop_id varchar(20), bunch_total varchar(20)''' % table_name
+
+        try:
+            self.conn = connection.MySQLConnection(user=self.db_user, password=self.db_password, host=self.db_host)
+            self._execute('CREATE DATABASE IF NOT EXISTS %s;' % self.db_name)
+            self.conn.database = self.db_name
+
+            self._execute(create_table_string)
+
+        except Error as err:
+            print 'something went wrong with mysql'
+            pass
+
+
 
         return
 
@@ -169,7 +186,10 @@ class StopReport:
 
         if period == "daily":
             final_approach_query = ('SELECT * FROM %s WHERE (stop_id= %s AND pt = "APPROACHING" AND DATE(`timestamp`)=CURDATE() ) ORDER BY timestamp DESC;' % (self.table_name, self.stop))
-        # todo add an elif period == "yesterday" option
+
+        elif period == "yesterday":
+            final_approach_query = ('SELECT * FROM %s WHERE (stop_id= %s AND pt = "APPROACHING" AND DATE(timestamp >= DATE_SUB(CURDATE(), INTERVAL 1 DAY) AND timestamp < CURDATE()) ) ORDER BY timestamp DESC;' % (self.table_name, self.stop))
+
         elif period=="weekly":
             final_approach_query = ('SELECT * FROM %s WHERE (stop_id= %s AND pt = "APPROACHING" AND (YEARWEEK(`timestamp`, 1) = YEARWEEK(CURDATE(), 1))) ORDER BY timestamp DESC;' % (self.table_name,self.stop))
         elif period=="history":

@@ -33,16 +33,53 @@
           <h1 class="">Choose A Stop...</h1>
           <p class="lead">Choose a stop in this direction to see today's arrivals and more detailed performance statistics.</p>
 
+
+<!--
+<div class="dropdown">
+    <button type="button" class="btn btn-lg btn-warning dropdown-toggle" data-toggle="dropdown">By industries <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+        <li><a href="#consumergoods" data-toggle="modal">Consumer goods</a></li>
+    </ul>
+</div>
+<div class="modal fade" id="consumergoods" data-target="#consumergoods">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header orange">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                 <h4 class="modal-title"><strong></strong>Consumer goods</h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+-->
+
+
+
 <div class="btn-group">
     <button class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown">Choose stop...</button>
     <div class="dropdown-menu">
     {% for path in routereport.route_stop_list %}
         {% if path.id == service %}
             {% for stop in path.stops %}
-                <a class="dropdown-item" href = {{url_for('genStopReport',source=routereport.source,route=routereport.route,stop=stop.identity) }} id="{{stop.st}}">{{stop.st}}</a>
+                <a class="dropdown-item" href = {{url_for('genStopReport',source=routereport.source,route=routereport.route,stop=stop.identity) }} id="{{stop.st}}" data-toggle="modal">{{stop.st}}</a>
             {% endfor %}
         {% endif %}
     {% endfor %}
+    </div>
+</div>
+
+<div class="modal fade" id="consumergoods" data-target="#consumergoods">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header orange">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                 <h4 class="modal-title"><strong></strong>Consumer goods</h4>
+            </div>
+        </div>
     </div>
 </div>
 
