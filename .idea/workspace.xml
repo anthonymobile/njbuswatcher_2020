@@ -5,13 +5,6 @@
       <change beforePath="$PROJECT_DIR$/#deploy_tasks" beforeDir="false" afterPath="$PROJECT_DIR$/#deploy_tasks" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/lib/ReportCard.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/ReportCard.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/static/banner.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/templates/index-base.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/templates/index-base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/templates/route-base.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/templates/route-base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/templates/route_servicepicker.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/templates/route_servicepicker.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/templates/route_servicestoplist.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/templates/route_servicestoplist.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/templates/stop-base.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/templates/stop-base.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -23,18 +16,18 @@
     <session id="438890131">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="51" />
+          <entry key="project.closed" value="54" />
           <entry key="project.open.time.10" value="2" />
           <entry key="project.open.time.11" value="2" />
           <entry key="project.open.time.12" value="2" />
           <entry key="project.open.time.13" value="2" />
           <entry key="project.open.time.15" value="1" />
           <entry key="project.open.time.5" value="5" />
-          <entry key="project.open.time.6" value="5" />
-          <entry key="project.open.time.7" value="10" />
+          <entry key="project.open.time.6" value="6" />
+          <entry key="project.open.time.7" value="11" />
           <entry key="project.open.time.8" value="17" />
           <entry key="project.open.time.9" value="6" />
-          <entry key="project.opened" value="52" />
+          <entry key="project.opened" value="54" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -48,7 +41,8 @@
           <entry key="ipynb" value="5" />
           <entry key="js" value="11" />
           <entry key="md" value="5" />
-          <entry key="py" value="237" />
+          <entry key="png" value="1" />
+          <entry key="py" value="238" />
           <entry key="txt" value="6" />
           <entry key="xml" value="4" />
         </counts>
@@ -58,24 +52,25 @@
           <entry key="CSS" value="12" />
           <entry key="HTML" value="268" />
           <entry key="IPNB" value="5" />
+          <entry key="Image" value="1" />
           <entry key="JavaScript" value="11" />
           <entry key="Markdown" value="5" />
           <entry key="PLAIN_TEXT" value="12" />
-          <entry key="Python" value="235" />
+          <entry key="Python" value="236" />
           <entry key="Scratch" value="8" />
           <entry key="XML" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="#deploy_tasks" value="725" />
+          <entry key="#deploy_tasks" value="1096" />
           <entry key="Python Console" value="493" />
           <entry key="css" value="29" />
           <entry key="dummy" value="17" />
           <entry key="html" value="14440" />
           <entry key="js" value="401" />
           <entry key="md" value="6641" />
-          <entry key="py" value="25207" />
+          <entry key="py" value="25570" />
           <entry key="txt" value="1897" />
         </counts>
       </usages-collector>
@@ -85,8 +80,8 @@
           <entry key="HTML" value="14440" />
           <entry key="JavaScript" value="401" />
           <entry key="Markdown" value="6641" />
-          <entry key="PLAIN_TEXT" value="2516" />
-          <entry key="Python" value="25700" />
+          <entry key="PLAIN_TEXT" value="2887" />
+          <entry key="Python" value="26063" />
           <entry key="Scratch" value="123" />
         </counts>
       </usages-collector>
@@ -100,31 +95,15 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/#deploy_tasks">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="77" selection-start-column="77" selection-end-column="77" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/templates/stop-base.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="276">
-              <caret line="30" column="23" selection-start-line="30" selection-start-column="23" selection-end-line="30" selection-end-column="23" />
+            <state relative-caret-position="264">
+              <caret line="10" column="72" selection-start-line="10" selection-start-column="72" selection-end-line="10" selection-end-column="72" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/lib/ReportCard.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="387">
-              <caret line="119" column="16" selection-start-line="119" selection-start-column="16" selection-end-line="119" selection-end-column="16" />
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
+        <entry file="file://$PROJECT_DIR$/src/static/map-default.png">
+          <provider selected="true" editor-type-id="images" />
         </entry>
       </file>
     </leaf>
@@ -243,7 +222,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6" fullScreen="true">
+  <component name="ProjectFrameBounds" fullScreen="true">
     <option name="width" value="1440" />
     <option name="height" value="900" />
   </component>
@@ -253,18 +232,12 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="buswatcher" type="b2602c69:ProjectViewProjectNode" />
               <item name="buswatcher" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="buswatcher" type="b2602c69:ProjectViewProjectNode" />
-              <item name="buswatcher" type="462c0819:PsiDirectoryNode" />
-              <item name="archive" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="buswatcher" type="b2602c69:ProjectViewProjectNode" />
@@ -288,7 +261,21 @@
               <item name="buswatcher" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name=".webassets-cache" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="buswatcher" type="b2602c69:ProjectViewProjectNode" />
+              <item name="buswatcher" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
               <item name="css" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="buswatcher" type="b2602c69:ProjectViewProjectNode" />
+              <item name="buswatcher" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="gen" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="buswatcher" type="b2602c69:ProjectViewProjectNode" />
@@ -300,6 +287,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -889,8 +877,8 @@
       <window_info active="true" content_ui="combo" id="Project" order="1" sideWeight="0.59638554" visible="true" weight="0.18675123" />
       <window_info id="Favorites" order="2" show_stripe_button="false" sideWeight="0.5060241" weight="0.36011276" />
       <window_info id="Run" order="3" sideWeight="0.4982382" weight="0.30162087" />
-      <window_info id="Version Control" internal_type="SLIDING" order="4" show_stripe_button="false" type="SLIDING" weight="0.32699084" />
-      <window_info id="TODO" order="5" sideWeight="0.4939759" weight="0.30514446" />
+      <window_info id="Version Control" internal_type="SLIDING" order="4" type="SLIDING" weight="0.32699084" />
+      <window_info id="TODO" order="5" sideWeight="0.4939759" weight="0.24947146" />
       <window_info auto_hide="true" x="105" y="22" width="1170" height="821" id="Python Console" order="6" type="FLOATING" weight="0.32699084" />
       <window_info x="242" y="61" width="1003" height="742" id="Terminal" order="7" type="FLOATING" weight="0.32699084" />
       <window_info id="Debug" order="8" sideWeight="0.49753347" weight="0.43904158" />
@@ -1001,10 +989,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/archive/dev-oldtemplates/delta.html" />
     <entry file="file://$PROJECT_DIR$/static/theme.css" />
     <entry file="file://$PROJECT_DIR$/src/util/__init__.py" />
     <entry file="file://$PROJECT_DIR$/archive/dev-oldtemplates/arrivals-base.html" />
@@ -1163,29 +1147,36 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/#deploy_tasks">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="77" selection-start-column="77" selection-end-column="77" />
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/src/stopwatcher.py">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/templates/stop-base.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
+        <state relative-caret-position="660">
           <caret line="30" column="23" selection-start-line="30" selection-start-column="23" selection-end-line="30" selection-end-column="23" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/lib/ReportCard.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="387">
-          <caret line="119" column="16" selection-start-line="119" selection-start-column="16" selection-end-line="119" selection-end-column="16" />
+        <state relative-caret-position="1276">
+          <caret line="58" column="11" selection-start-line="58" selection-start-column="11" selection-end-line="58" selection-end-column="11" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
+            <marker date="1535849452105" expanded="true" signature="2889:2898" ph="..." />
           </folding>
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/#deploy_tasks">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="10" column="72" selection-start-line="10" selection-start-column="72" selection-end-line="10" selection-end-column="72" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/static/map-default.png">
+      <provider selected="true" editor-type-id="images" />
     </entry>
   </component>
   <component name="masterDetails">
