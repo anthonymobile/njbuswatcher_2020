@@ -56,12 +56,13 @@ class RouteReport:
         # self.get_bunching_badboys_v1()
         # self.get_today_bunch_top10_v2()
 
+    @timeit
     def get_routename(self):
         routedata = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=self.route))
         self.routename=routedata[0].nm
         return
 
-
+    @timeit
     def compute_grade(self):
         # for now, grade is coded manually in route_config.py
         # FUTURE fancier grade calculation based on historical data
@@ -84,7 +85,7 @@ class RouteReport:
                 pass
         return
 
-
+    @timeit
     def get_stoplist(self):
         # todo BUG NJT API serves up only the routes currently running? hardcode them instead?
         routedata = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=self.route))
@@ -106,7 +107,6 @@ class RouteReport:
 
     @timeit
     def get_bunching_badboys_v1(self):
-        # todo NOW bunching wtd?
         # generates top 10 list of stops on the route by # of bunching incidents in last week
 
         self.bunching_badboys = []
@@ -117,7 +117,7 @@ class RouteReport:
         for service in self.route_stop_list:
             for stop in service.stops:
                 print stop.identity,
-                report = StopReport(self.route, stop.identity, 'daily')
+                report = StopReport(self.route, stop.identity, 'daily') # todo change to yesterday
 
                 # calculate number of bunches
                 for (index, row) in report.arrivals_list_final_df.iterrows():
@@ -131,6 +131,8 @@ class RouteReport:
         # sort stops by number of bunchings, grab first 10
         self.bunching_badboys.sort(key=bunch_total, reverse=True)
         self.bunching_badboys=self.bunching_badboys[:10]
+
+        # todo write to a new db table for persistence
 
         return
 
@@ -160,12 +162,14 @@ class StopReport:
         # populate stop report data
         self.get_arrivals(self.period)
 
-
+    @timeit
     def get_arrivals(self, period):
         self.arrivals_table_time_created = None
         self.period = period
+
         if period == "daily":
             final_approach_query = ('SELECT * FROM %s WHERE (stop_id= %s AND pt = "APPROACHING" AND DATE(`timestamp`)=CURDATE() ) ORDER BY timestamp DESC;' % (self.table_name, self.stop))
+        # todo add an elif period == "yesterday" option
         elif period=="weekly":
             final_approach_query = ('SELECT * FROM %s WHERE (stop_id= %s AND pt = "APPROACHING" AND (YEARWEEK(`timestamp`, 1) = YEARWEEK(CURDATE(), 1))) ORDER BY timestamp DESC;' % (self.table_name,self.stop))
         elif period=="history":
@@ -180,6 +184,8 @@ class StopReport:
 
         # split final approach history (sorted by timestamp) at each change in vehicle_id outputs a list of dfs -- per https://stackoverflow.com/questions/41144231/python-how-to-split-pandas-dataframe-into-subsets-based-on-the-value-in-the-fir
         final_approach_dfs = [g for i, g in df_temp.groupby(df_temp['v'].ne(df_temp['v'].shift()).cumsum())]
+
+        # todo BUG move the entire below to a try-except, and the except creates an empty self.arrivals_list_final_df ? and self.arrivals_table_time_created -- to avoind the error of no content
 
         # take the last V(ehicle) approach in each df and add it to final list of arrivals
         self.arrivals_list_final_df = pd.DataFrame()
