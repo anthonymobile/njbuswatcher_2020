@@ -1,8 +1,9 @@
-todo PREFLIGHT rewrite bunching_badboys
-todo PREFLIGHT test bunching badboys on webster, CLI for 87, time the whole thing using bash 'time python blah.py'
+todo PREFLIGHT rewrite bunching_leaderboard
+todo PREFLIGHT test bunching_leaderboard on webster, CLI for 87, time the whole thing using bash 'time python blah.py'
 
 todo FUTURE update README.md
 todo FUTURE setup daily mysqldb backup from Webster to another mysql (master --> slave?)
 
+todo OPTIMIZE purge old database records that are not pt='APPROACHING' using a sql script
 todo OPTIMIZE use python timeit and profile to see what could go faster?
 todo REFACTOR stopwatcher + StopReport shouldn't have to parse the whole route.path every time... we should be storing what we saw in the past...
