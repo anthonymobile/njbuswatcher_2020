@@ -8,7 +8,7 @@ import lib.StopsDB as StopsDB
 import argparse, datetime
 
 
-def fetch_arrivals(source, route):
+def fetch_approaches(source, route):
 
     (conn, db) = db_setup(route)
 
@@ -22,10 +22,17 @@ def fetch_arrivals(source, route):
                     stoplist.append(p.identity)
 
     for s in stoplist:
-        arrivals = BusAPI.parse_xml_getStopPredictions(
+        approaches = BusAPI.parse_xml_getStopPredictions(
             BusAPI.get_xml_data('nj', 'stop_predictions', stop=s, route=route))
         now = datetime.datetime.now()
-        db.insert_positions(arrivals, now)
+        # todo NOW DB_OVERHEAD eliminate non "APPROACH" readings before they even get into the database
+        approaches_clean = []
+        for approach in approaches:
+            if approach.pt=='APPROACHING':
+                approaches_clean.append(approach)
+            else:
+                pass
+        db.insert_positions(approaches_clean, now)
 
     return
 
@@ -42,7 +49,7 @@ def main():
     parser.add_argument('-r', '--route', dest='route', required=True, help='route # ')
     args = parser.parse_args()
 
-    fetch_arrivals(args.source, args.route)
+    fetch_approaches(args.source, args.route)
 
 
 if __name__ == "__main__":
