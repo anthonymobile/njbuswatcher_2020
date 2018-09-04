@@ -184,16 +184,18 @@ class StopReport:
         self.arrivals_table_time_created = None
         self.period = period
 
+        # todo NOW if fix in BusAPI works, can remove AND pt = "APPROACHING" from all these queries
+
         if period == "daily":
-            final_approach_query = ('SELECT * FROM %s WHERE (stop_id= %s AND pt = "APPROACHING" AND DATE(`timestamp`)=CURDATE() ) ORDER BY timestamp DESC;' % (self.table_name, self.stop))
+            final_approach_query = ('SELECT * FROM %s WHERE (stop_id= %s AND DATE(`timestamp`)=CURDATE() ) ORDER BY timestamp DESC;' % (self.table_name, self.stop))
 
         elif period == "yesterday":
-            final_approach_query = ('SELECT * FROM %s WHERE (stop_id= %s AND pt = "APPROACHING" AND DATE(timestamp >= DATE_SUB(CURDATE(), INTERVAL 1 DAY) AND timestamp < CURDATE()) ) ORDER BY timestamp DESC;' % (self.table_name, self.stop))
+            final_approach_query = ('SELECT * FROM %s WHERE (stop_id= %s AND DATE(timestamp >= DATE_SUB(CURDATE(), INTERVAL 1 DAY) AND timestamp < CURDATE()) ) ORDER BY timestamp DESC;' % (self.table_name, self.stop))
 
         elif period=="weekly":
-            final_approach_query = ('SELECT * FROM %s WHERE (stop_id= %s AND pt = "APPROACHING" AND (YEARWEEK(`timestamp`, 1) = YEARWEEK(CURDATE(), 1))) ORDER BY timestamp DESC;' % (self.table_name,self.stop))
+            final_approach_query = ('SELECT * FROM %s WHERE (stop_id= %s AND (YEARWEEK(`timestamp`, 1) = YEARWEEK(CURDATE(), 1))) ORDER BY timestamp DESC;' % (self.table_name,self.stop))
         elif period=="history":
-            final_approach_query = ('SELECT * FROM %s WHERE (stop_id= %s AND pt = "APPROACHING") ORDER BY timestamp DESC;' % (self.table_name,self.stop))
+            final_approach_query = ('SELECT * FROM %s WHERE stop_id= %s ORDER BY timestamp DESC;' % (self.table_name,self.stop))
         else:
             raise RuntimeError('Bad request sucker!')
 
@@ -204,8 +206,6 @@ class StopReport:
 
         # split final approach history (sorted by timestamp) at each change in vehicle_id outputs a list of dfs -- per https://stackoverflow.com/questions/41144231/python-how-to-split-pandas-dataframe-into-subsets-based-on-the-value-in-the-fir
         final_approach_dfs = [g for i, g in df_temp.groupby(df_temp['v'].ne(df_temp['v'].shift()).cumsum())]
-
-        # todo BUG move the entire below to a try-except, and the except creates an empty self.arrivals_list_final_df ? and self.arrivals_table_time_created -- to avoind the error of no content
 
         try:
             # take the last V(ehicle) approach in each df and add it to final list of arrivals
