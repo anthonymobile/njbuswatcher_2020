@@ -3,7 +3,6 @@ todo PREFLIGHT test bunching_leaderboard on webster, CLI for 87, time the whole 
 
 todo FUTURE update README.md
 todo FUTURE setup daily mysqldb backup from Webster to another mysql (master --> slave?)
+todo FUTURE process 2prune_ tables by copying records with pt='APPROACHING' to current tables
 
-todo OPTIMIZE purge old database records that are not pt='APPROACHING' using a sql script
-todo OPTIMIZE use python timeit and profile to see what could go faster?
-todo REFACTOR stopwatcher + StopReport shouldn't have to parse the whole route.path every time... we should be storing what we saw in the past...
+todo OPTIMIZE/REFACTOR (1) use python timeit and profile to see what could go faster? (2) stopwatcher + StopReport shouldn't have to parse the whole route.path every time... we should be storing what we saw in the past...
