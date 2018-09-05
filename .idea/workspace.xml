@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e9c35431-0764-488c-bbb0-431ede0ff16b" name="Default" comment="added description for 86 route.">
+    <list default="true" id="e9c35431-0764-488c-bbb0-431ede0ff16b" name="Default" comment="tweaks to imports">
       <change beforePath="$PROJECT_DIR$/#deploy_tasks" beforeDir="false" afterPath="$PROJECT_DIR$/#deploy_tasks" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/BusDB.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/BusDB.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/ReportCard.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/ReportCard.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stopwatcher.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/stopwatcher.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/templates/route_servicepicker.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/templates/route_servicepicker.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/templates/stop-base.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/templates/stop-base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README-server_setup.md" beforeDir="false" afterPath="$PROJECT_DIR$/README-server_setup.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/templates/stop.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/templates/stop.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -21,28 +17,28 @@
     <session id="438890131">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="62" />
+          <entry key="project.closed" value="64" />
           <entry key="project.open.time.10" value="2" />
           <entry key="project.open.time.11" value="2" />
           <entry key="project.open.time.12" value="2" />
           <entry key="project.open.time.13" value="2" />
           <entry key="project.open.time.15" value="1" />
           <entry key="project.open.time.5" value="6" />
-          <entry key="project.open.time.6" value="9" />
+          <entry key="project.open.time.6" value="10" />
           <entry key="project.open.time.7" value="12" />
           <entry key="project.open.time.8" value="18" />
-          <entry key="project.open.time.9" value="9" />
-          <entry key="project.opened" value="63" />
+          <entry key="project.open.time.9" value="10" />
+          <entry key="project.opened" value="65" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="#deploy_tasks" value="14" />
+          <entry key="#deploy_tasks" value="15" />
           <entry key="bak" value="1" />
           <entry key="cfg" value="1" />
           <entry key="css" value="12" />
           <entry key="gitignore" value="1" />
-          <entry key="html" value="288" />
+          <entry key="html" value="289" />
           <entry key="ipynb" value="5" />
           <entry key="js" value="11" />
           <entry key="md" value="6" />
@@ -55,12 +51,12 @@
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CSS" value="12" />
-          <entry key="HTML" value="288" />
+          <entry key="HTML" value="289" />
           <entry key="IPNB" value="5" />
           <entry key="Image" value="1" />
           <entry key="JavaScript" value="11" />
           <entry key="Markdown" value="6" />
-          <entry key="PLAIN_TEXT" value="17" />
+          <entry key="PLAIN_TEXT" value="18" />
           <entry key="Python" value="268" />
           <entry key="Scratch" value="8" />
           <entry key="XML" value="4" />
@@ -68,24 +64,24 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="#deploy_tasks" value="1728" />
+          <entry key="#deploy_tasks" value="2290" />
           <entry key="Python Console" value="493" />
           <entry key="css" value="29" />
           <entry key="dummy" value="17" />
-          <entry key="html" value="14971" />
+          <entry key="html" value="15136" />
           <entry key="js" value="401" />
-          <entry key="md" value="12493" />
+          <entry key="md" value="12538" />
           <entry key="py" value="26733" />
-          <entry key="txt" value="2138" />
+          <entry key="txt" value="2192" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSS" value="29" />
-          <entry key="HTML" value="14971" />
+          <entry key="HTML" value="15136" />
           <entry key="JavaScript" value="401" />
-          <entry key="Markdown" value="12493" />
-          <entry key="PLAIN_TEXT" value="3760" />
+          <entry key="Markdown" value="12538" />
+          <entry key="PLAIN_TEXT" value="4376" />
           <entry key="Python" value="27226" />
           <entry key="Scratch" value="123" />
         </counts>
@@ -97,14 +93,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/#deploy_tasks">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="220">
+              <caret line="8" selection-start-line="8" selection-end-line="8" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/doc/server_setup.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="446">
-                <caret line="328" column="4" selection-start-line="328" selection-start-column="4" selection-end-line="328" selection-end-column="4" />
-              </first_editor>
-              <second_editor />
+        <entry file="file://$PROJECT_DIR$/src/templates/stop.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="362">
+              <caret line="20" column="44" selection-start-line="20" selection-start-column="44" selection-end-line="20" selection-end-column="44" />
             </state>
           </provider>
         </entry>
@@ -171,7 +173,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$APPLICATION_CONFIG_DIR$/scratches/to do.txt" />
         <option value="$PROJECT_DIR$/src/lib/ReportCard-raw.py" />
         <option value="$PROJECT_DIR$/src/templates/dev/delta.html" />
         <option value="$PROJECT_DIR$/src/templates/dev/extends-base.html" />
@@ -218,10 +219,11 @@
         <option value="$PROJECT_DIR$/src/stopwatcher.py" />
         <option value="$PROJECT_DIR$/src/templates/stop-base.html" />
         <option value="$PROJECT_DIR$/src/templates/route_servicepicker.html" />
-        <option value="$PROJECT_DIR$/src/templates/stop.html" />
-        <option value="$PROJECT_DIR$/#deploy_tasks" />
         <option value="$PROJECT_DIR$/src/lib/BusDB.py" />
         <option value="$PROJECT_DIR$/doc/server_setup.md" />
+        <option value="$PROJECT_DIR$/README-server_setup.md" />
+        <option value="$PROJECT_DIR$/#deploy_tasks" />
+        <option value="$PROJECT_DIR$/src/templates/stop.html" />
       </list>
     </option>
   </component>
@@ -258,6 +260,12 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="lib" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="buswatcher" type="b2602c69:ProjectViewProjectNode" />
+              <item name="buswatcher" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -277,17 +285,17 @@
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/static/js" />
-      <recent name="$PROJECT_DIR$/src/static/mapbox-js" />
-      <recent name="$PROJECT_DIR$/src/static" />
-      <recent name="$PROJECT_DIR$/src/lib" />
-      <recent name="$PROJECT_DIR$/src" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/templates" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/src/templates/dev" />
+      <recent name="$PROJECT_DIR$/src/static" />
+      <recent name="$PROJECT_DIR$/src/lib" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/src/static/js" />
+      <recent name="$PROJECT_DIR$/src/static/mapbox-js" />
       <recent name="$PROJECT_DIR$/src/static" />
       <recent name="$PROJECT_DIR$/src/lib" />
     </key>
@@ -512,20 +520,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1524759532211</updated>
-    </task>
-    <task id="LOCAL-00050" summary="major re-org">
-      <created>1529026140570</created>
-      <option name="number" value="00050" />
-      <option name="presentableId" value="LOCAL-00050" />
-      <option name="project" value="LOCAL" />
-      <updated>1529026140573</updated>
-    </task>
-    <task id="LOCAL-00051" summary="fixed parse_route_xml again">
-      <created>1529113536618</created>
-      <option name="number" value="00051" />
-      <option name="presentableId" value="LOCAL-00051" />
-      <option name="project" value="LOCAL" />
-      <updated>1529113536619</updated>
     </task>
     <task id="LOCAL-00052" summary="WIP">
       <created>1529443472193</created>
@@ -856,7 +850,21 @@
       <option name="project" value="LOCAL" />
       <updated>1536028026056</updated>
     </task>
-    <option name="localTasksCounter" value="99" />
+    <task id="LOCAL-00099" summary="add extensive server setup README">
+      <created>1536123110362</created>
+      <option name="number" value="00099" />
+      <option name="presentableId" value="LOCAL-00099" />
+      <option name="project" value="LOCAL" />
+      <updated>1536123110363</updated>
+    </task>
+    <task id="LOCAL-00100" summary="tweaks to imports">
+      <created>1536123140354</created>
+      <option name="number" value="00100" />
+      <option name="presentableId" value="LOCAL-00100" />
+      <option name="project" value="LOCAL" />
+      <updated>1536123140355</updated>
+    </task>
+    <option name="localTasksCounter" value="101" />
     <servers />
   </component>
   <component name="TodoView">
@@ -872,7 +880,7 @@
     <editor active="true" />
     <layout>
       <window_info id="Structure" order="0" show_stripe_button="false" sideWeight="0.5060241" side_tool="true" weight="0.36011276" />
-      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.59638554" weight="0.18604651" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" sideWeight="0.59638554" visible="true" weight="0.18604651" />
       <window_info id="Favorites" order="2" show_stripe_button="false" sideWeight="0.5060241" side_tool="true" weight="0.36011276" />
       <window_info id="Run" order="3" sideWeight="0.4982382" weight="0.30162087" />
       <window_info id="Version Control" internal_type="SLIDING" order="4" type="SLIDING" weight="0.32699084" />
@@ -919,8 +927,6 @@
       <path value="$PROJECT_DIR$/src/templates/mapbox-gl-js-bootstrap-boilerplate" />
       <path value="$PROJECT_DIR$/src/templates/mapbox-js" />
     </ignored-roots>
-    <MESSAGE value="static content mostly setup, first live route view up and running" />
-    <MESSAGE value="most of live views working" />
     <MESSAGE value="index.html done with new 3-tier view scheme" />
     <MESSAGE value="most of route level view working" />
     <MESSAGE value="refactor of classes, adding a lot of functions to __init__ to simplify" />
@@ -944,7 +950,9 @@
     <MESSAGE value="fixed no data errors on stop view" />
     <MESSAGE value="stopwatcher no longer writes non &quot;APPROACHING&quot; pt observations to database" />
     <MESSAGE value="added description for 86 route." />
-    <option name="LAST_COMMIT_MESSAGE" value="added description for 86 route." />
+    <MESSAGE value="add extensive server setup README" />
+    <MESSAGE value="tweaks to imports" />
+    <option name="LAST_COMMIT_MESSAGE" value="tweaks to imports" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1058,24 +1066,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/templates/stop.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="376">
-          <caret line="33" column="41" selection-start-line="33" selection-start-column="41" selection-end-line="33" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/templates/stop-base.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="257">
           <caret line="76" column="29" selection-start-line="76" selection-start-column="19" selection-end-line="76" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/#deploy_tasks">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="660">
-          <caret line="20" column="59" selection-start-line="20" selection-start-column="59" selection-end-line="20" selection-end-column="59" />
         </state>
       </provider>
     </entry>
@@ -1131,13 +1125,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/doc/server_setup.md">
+    <entry file="file://$PROJECT_DIR$/README-server_setup.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="446">
-            <caret line="328" column="4" selection-start-line="328" selection-start-column="4" selection-end-line="328" selection-end-column="4" />
+          <first_editor relative-caret-position="21">
+            <caret line="293" column="36" selection-start-line="293" selection-start-column="36" selection-end-line="293" selection-end-column="36" />
           </first_editor>
           <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/#deploy_tasks">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/templates/stop.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="362">
+          <caret line="20" column="44" selection-start-line="20" selection-start-column="44" selection-end-line="20" selection-end-column="44" />
         </state>
       </provider>
     </entry>
