@@ -30,7 +30,8 @@
 {% endblock %}
 
 {% block stopreport_right %}
-			<p class="lead">We do our best to keep a complete list of arrivals but there may be gaps or errors in these records. This is provided for informational purposes only.</p>
+          <!-- todo NOW add live report here 'Next arrivals at this stop' from BusAPI.get_xml_data('nj', 'stop_predictions', stop=stopreport.st, route=routereport.route) -->
+          <p class="lead">We do our best to keep a complete list of arrivals but there may be gaps or errors in these records. This is provided for informational purposes only.</p>
           <div class="alert alert-danger" role="alert">
             <h4 class="alert-heading">Bunching</h4>
               <p class="">Bunching occurs when a bus arrives within 3 minutes of the previous arrival. Bunching indicates poor service, leading to empty buses, and more irregular and unreliable service. For a simple explanation of bunching, click here. For an extremely detailed technical explanation, <a href="https://t.co/wf8OaVtZYU?amp=1">click here</a>.</p>

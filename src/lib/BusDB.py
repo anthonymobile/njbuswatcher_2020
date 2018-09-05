@@ -1,7 +1,4 @@
-import os
-import sqlite3
 from mysql.connector import connection
-import datetime
 
 _columns = ['lat','lon','ar','bid','c','cars','consist','d','dd','dn','fs','id','m','op','pd','pdRtpiFeedName','pid','rt','rtRtpiFeedName','rtdd','rtpiFeedName','run','wid1','wid2']
 

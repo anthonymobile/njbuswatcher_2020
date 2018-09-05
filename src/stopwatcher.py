@@ -25,7 +25,6 @@ def fetch_approaches(source, route):
         approaches = BusAPI.parse_xml_getStopPredictions(
             BusAPI.get_xml_data('nj', 'stop_predictions', stop=s, route=route))
         now = datetime.datetime.now()
-        # todo NOW DB_OVERHEAD eliminate non "APPROACH" readings before they even get into the database
         approaches_clean = []
         for approach in approaches:
             if approach.pt=='APPROACHING':
