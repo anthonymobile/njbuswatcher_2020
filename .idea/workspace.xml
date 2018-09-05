@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e9c35431-0764-488c-bbb0-431ede0ff16b" name="Default" comment="changed stops view to green for good service">
+    <list default="true" id="e9c35431-0764-488c-bbb0-431ede0ff16b" name="Default" comment="update copyleft">
+      <change beforePath="$PROJECT_DIR$/src/templates/index-base.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/templates/index-base.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/templates/route-base.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/templates/route-base.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/templates/stop-base.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/templates/stop-base.html" afterDir="false" />
     </list>
@@ -66,20 +67,20 @@
           <entry key="Python Console" value="493" />
           <entry key="css" value="29" />
           <entry key="dummy" value="17" />
-          <entry key="html" value="15136" />
+          <entry key="html" value="15143" />
           <entry key="js" value="401" />
           <entry key="md" value="12538" />
           <entry key="py" value="26733" />
-          <entry key="txt" value="2284" />
+          <entry key="txt" value="2299" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSS" value="29" />
-          <entry key="HTML" value="15136" />
+          <entry key="HTML" value="15143" />
           <entry key="JavaScript" value="401" />
           <entry key="Markdown" value="12538" />
-          <entry key="PLAIN_TEXT" value="4468" />
+          <entry key="PLAIN_TEXT" value="4483" />
           <entry key="Python" value="27226" />
           <entry key="Scratch" value="123" />
         </counts>
@@ -114,27 +115,11 @@
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/templates/route-base.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="251">
-              <caret line="122" column="44" selection-start-line="122" selection-start-column="44" selection-end-line="122" selection-end-column="44" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/templates/index-base.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-563" />
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/templates/stop-base.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="251">
-              <caret line="105" column="44" selection-start-line="105" selection-start-column="44" selection-end-line="105" selection-end-column="44" />
+            <state relative-caret-position="704">
+              <caret line="29" selection-start-line="29" selection-end-line="29" />
             </state>
           </provider>
         </entry>
@@ -238,7 +223,6 @@
         <option value="$PROJECT_DIR$/src/reportcard.py" />
         <option value="$PROJECT_DIR$/src/__init__.py" />
         <option value="$PROJECT_DIR$/src/templates/index.html" />
-        <option value="$PROJECT_DIR$/src/templates/index-base.html" />
         <option value="$PROJECT_DIR$/src/lib/StopsDB.py" />
         <option value="$PROJECT_DIR$/src/templates/route_servicestoplist.html" />
         <option value="$PROJECT_DIR$/src/route_config.py" />
@@ -250,6 +234,7 @@
         <option value="$PROJECT_DIR$/README-server_setup.md" />
         <option value="$PROJECT_DIR$/#deploy_tasks" />
         <option value="$PROJECT_DIR$/src/templates/stop.html" />
+        <option value="$PROJECT_DIR$/src/templates/index-base.html" />
         <option value="$PROJECT_DIR$/src/templates/route-base.html" />
         <option value="$PROJECT_DIR$/src/templates/stop-base.html" />
       </list>
@@ -548,13 +533,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1524759532211</updated>
-    </task>
-    <task id="LOCAL-00054" summary="fixed routewatcher imports">
-      <created>1531787313235</created>
-      <option name="number" value="00054" />
-      <option name="presentableId" value="LOCAL-00054" />
-      <option name="project" value="LOCAL" />
-      <updated>1531787313237</updated>
     </task>
     <task id="LOCAL-00055" summary="import edit">
       <created>1531787473596</created>
@@ -892,7 +870,14 @@
       <option name="project" value="LOCAL" />
       <updated>1536163835082</updated>
     </task>
-    <option name="localTasksCounter" value="103" />
+    <task id="LOCAL-00103" summary="update copyleft">
+      <created>1536164803790</created>
+      <option name="number" value="00103" />
+      <option name="presentableId" value="LOCAL-00103" />
+      <option name="project" value="LOCAL" />
+      <updated>1536164803790</updated>
+    </task>
+    <option name="localTasksCounter" value="104" />
     <servers />
   </component>
   <component name="TodoView">
@@ -955,7 +940,6 @@
       <path value="$PROJECT_DIR$/src/templates/mapbox-gl-js-bootstrap-boilerplate" />
       <path value="$PROJECT_DIR$/src/templates/mapbox-js" />
     </ignored-roots>
-    <MESSAGE value="refactor of classes, adding a lot of functions to __init__ to simplify" />
     <MESSAGE value="grade lookup in route report from route_config.py working" />
     <MESSAGE value="new get_stopslist in route report working with clear data structure in object" />
     <MESSAGE value="almost done with route view" />
@@ -980,7 +964,8 @@
     <MESSAGE value="tweaks to imports" />
     <MESSAGE value="added 'good service' to stops arrivals board" />
     <MESSAGE value="changed stops view to green for good service" />
-    <option name="LAST_COMMIT_MESSAGE" value="changed stops view to green for good service" />
+    <MESSAGE value="update copyleft" />
+    <option name="LAST_COMMIT_MESSAGE" value="update copyleft" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1170,22 +1155,24 @@
     <entry file="file://$PROJECT_DIR$/src/templates/index.html">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/templates/route-base.html">
+    <entry file="file://$PROJECT_DIR$/src/templates/stop-base.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="251">
-          <caret line="122" column="44" selection-start-line="122" selection-start-column="44" selection-end-line="122" selection-end-column="44" />
+        <state relative-caret-position="352">
+          <caret line="15" column="12" selection-start-line="15" selection-start-column="12" selection-end-line="15" selection-end-column="12" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/templates/index-base.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-563" />
+        <state relative-caret-position="374">
+          <caret line="16" selection-start-line="16" selection-end-line="16" />
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/templates/stop-base.html">
+    <entry file="file://$PROJECT_DIR$/src/templates/route-base.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="251">
-          <caret line="105" column="44" selection-start-line="105" selection-start-column="44" selection-end-line="105" selection-end-column="44" />
+        <state relative-caret-position="704">
+          <caret line="29" selection-start-line="29" selection-end-line="29" />
         </state>
       </provider>
     </entry>
