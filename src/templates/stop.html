@@ -29,6 +29,44 @@
           </table>
 {% endblock %}
 
+
+{% block predictions %}
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th>route</th>
+                <th>bus #</th>
+                <th>eta</th>
+              </tr>
+            </thead>
+            <tbody>
+
+            {% for row in predictions %}
+                {% if row.pt == 'APPROACHING' %}
+                    <tr class='table-danger'>
+                        <td>{{row.rd}}</td>
+                        <td>{{row.v}}</td>
+                        <td>{{row.pt}}</td>
+                    </tr>
+                {% else %}
+                    <tr class='table-secondary'>
+                        <td>{{row.rd}}</td>
+                        <td>{{row.v}}</td>
+                        <td>{{row.pt}} mins</td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+
+            </tbody>
+          </table>
+
+
+
+
+{% endblock %}
+
+
 {% block stopreport_right %}
           <!-- todo NOW add live report here 'Next arrivals at this stop' from BusAPI.get_xml_data('nj', 'stop_predictions', stop=stopreport.st, route=routereport.route) -->
           <p class="lead">We do our best to keep a complete list of arrivals but there may be gaps or errors in these records. This is provided for informational purposes only.</p>
