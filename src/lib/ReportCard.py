@@ -131,23 +131,23 @@ class RouteReport:
         self.bunching_badboys.sort(key=bunch_total, reverse=True)
         self.bunching_badboys=self.bunching_badboys[:10]
 
-        # todo write to a new db table for persistence
-        db = StopsDB.MySQL('buses', 'buswatcher', 'njtransit', '127.0.0.1', route)
-        conn = db.conn
-
-        table_name = 'bunching_leaderboard_%s' % self.route
-        create_table_string = '''CREATE TABLE IF NOT EXISTS %s (pkey integer primary key auto_increment, date varchar(20), route varchar(20), stop_id varchar(20), bunch_total varchar(20)''' % table_name
-
-        try:
-            self.conn = connection.MySQLConnection(user=self.db_user, password=self.db_password, host=self.db_host)
-            self._execute('CREATE DATABASE IF NOT EXISTS %s;' % self.db_name)
-            self.conn.database = self.db_name
-
-            self._execute(create_table_string)
-
-        except Error as err:
-            print 'something went wrong with mysql'
-            pass
+        # FUTURE write to a new db table for persistence
+        # FUTURE can use this function with any period...
+        # db = StopsDB.MySQL('buses', 'buswatcher', 'njtransit', '127.0.0.1', route)
+        # conn = db.conn
+        # table_name = 'bunching_leaderboard_%s' % self.route
+        # # create_table_string = '''CREATE TABLE IF NOT EXISTS %s (pkey integer primary key auto_increment, date varchar(20), route varchar(20), stop_id varchar(20), bunch_total varchar(20)''' % table_name
+        #
+        # try:
+        #     self.conn = connection.MySQLConnection(user=self.db_user, password=self.db_password, host=self.db_host)
+        #     self._execute('CREATE DATABASE IF NOT EXISTS %s;' % self.db_name)
+        #     self.conn.database = self.db_name
+        #
+        #     self._execute(create_table_string)
+        #
+        # except Error as err:
+        #     print 'something went wrong with mysql'
+        #     pass
 
 
 
@@ -184,14 +184,10 @@ class StopReport:
         self.arrivals_table_time_created = None
         self.period = period
 
-        # todo NOW if fix in BusAPI works, can remove AND pt = "APPROACHING" from all these queries
-
         if period == "daily":
             final_approach_query = ('SELECT * FROM %s WHERE (stop_id= %s AND DATE(`timestamp`)=CURDATE() ) ORDER BY timestamp DESC;' % (self.table_name, self.stop))
-
         elif period == "yesterday":
             final_approach_query = ('SELECT * FROM %s WHERE (stop_id= %s AND DATE(timestamp >= DATE_SUB(CURDATE(), INTERVAL 1 DAY) AND timestamp < CURDATE()) ) ORDER BY timestamp DESC;' % (self.table_name, self.stop))
-
         elif period=="weekly":
             final_approach_query = ('SELECT * FROM %s WHERE (stop_id= %s AND (YEARWEEK(`timestamp`, 1) = YEARWEEK(CURDATE(), 1))) ORDER BY timestamp DESC;' % (self.table_name,self.stop))
         elif period=="history":

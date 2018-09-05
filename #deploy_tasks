@@ -1,8 +1,21 @@
-todo PREFLIGHT debug bunching_leaderboard, including write new db table
-todo PREFLIGHT test bunching_leaderboard on webster, CLI for 87, time the whole thing using bash 'time python blah.py'
-
 todo FUTURE update README.md
 todo FUTURE setup daily mysqldb backup from Webster to another mysql (master --> slave?)
 todo FUTURE process 2prune_ tables by copying records with pt='APPROACHING' to current tables
+todo FUTURE get_bunching_leaderboard --> wrute to db, so can use to do it for other periods.
 
 todo OPTIMIZE/REFACTOR (1) use python timeit and profile to see what could go faster? (2) stopwatcher + StopReport shouldn't have to parse the whole route.path every time... we should be storing what we saw in the past...
+
+COMMENTS
+
+SMK:
+I think it would be useful to have real time/recent historic ratings to help weigh the measure of reliability (like how flights are sometime rated with on-time percentage as you search).
+Also: Assume you're integrating traffic data into reliability index?
+Maybe build in a tweet-able hashtag, something like #CuomosMTA, that can help people express frustration with minimal effort?
+
+GOLDWYN:
+This looks cool!
+Have you looked at the New York City mobility report? In the 2016 version, not the newest one, it has a few interesting visualizations that convey great info, though a little janky. I really like how they show speeds along the route. If you look on pdf page 19, you can see the B41 crawls in downtown brooklyn, 3.4mph, but “busts” through prospect park at 8.2mph. I guess, I'm stating the obvious, averages are kind of useless without additional context to help tell a richer story.
+
+I think you tell the story of the route. So give the route a single grade, but maybe have some ability to dig inside the route. Something like an animation that shows the bus move through the route or a map that shows average travel speeds across the network so one could see how different legs perform.
+
+definitely a cool project. Have you spoken to NJT about it?
