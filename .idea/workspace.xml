@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e9c35431-0764-488c-bbb0-431ede0ff16b" name="Default" comment="update copyleft">
-      <change beforePath="$PROJECT_DIR$/src/templates/index-base.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/templates/index-base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/templates/route-base.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/templates/route-base.html" afterDir="false" />
+    <list default="true" id="e9c35431-0764-488c-bbb0-431ede0ff16b" name="Default" comment="added Google analytics code">
+      <change beforePath="$PROJECT_DIR$/#deploy_tasks" beforeDir="false" afterPath="$PROJECT_DIR$/#deploy_tasks" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/reportcard.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/reportcard.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/templates/stop-base.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/templates/stop-base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/templates/stop.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/templates/stop.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,33 +18,33 @@
     <session id="438890131">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="64" />
+          <entry key="project.closed" value="66" />
           <entry key="project.open.time.10" value="2" />
           <entry key="project.open.time.11" value="2" />
           <entry key="project.open.time.12" value="2" />
           <entry key="project.open.time.13" value="2" />
           <entry key="project.open.time.15" value="1" />
           <entry key="project.open.time.5" value="6" />
-          <entry key="project.open.time.6" value="10" />
+          <entry key="project.open.time.6" value="12" />
           <entry key="project.open.time.7" value="12" />
           <entry key="project.open.time.8" value="18" />
           <entry key="project.open.time.9" value="10" />
-          <entry key="project.opened" value="65" />
+          <entry key="project.opened" value="67" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="#deploy_tasks" value="15" />
+          <entry key="#deploy_tasks" value="18" />
           <entry key="bak" value="1" />
           <entry key="cfg" value="1" />
           <entry key="css" value="12" />
           <entry key="gitignore" value="1" />
-          <entry key="html" value="293" />
+          <entry key="html" value="296" />
           <entry key="ipynb" value="5" />
           <entry key="js" value="11" />
           <entry key="md" value="6" />
           <entry key="png" value="1" />
-          <entry key="py" value="270" />
+          <entry key="py" value="275" />
           <entry key="txt" value="6" />
           <entry key="xml" value="4" />
         </counts>
@@ -50,38 +52,38 @@
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CSS" value="12" />
-          <entry key="HTML" value="293" />
+          <entry key="HTML" value="296" />
           <entry key="IPNB" value="5" />
           <entry key="Image" value="1" />
           <entry key="JavaScript" value="11" />
           <entry key="Markdown" value="6" />
-          <entry key="PLAIN_TEXT" value="18" />
-          <entry key="Python" value="268" />
+          <entry key="PLAIN_TEXT" value="21" />
+          <entry key="Python" value="273" />
           <entry key="Scratch" value="8" />
           <entry key="XML" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="#deploy_tasks" value="2290" />
+          <entry key="#deploy_tasks" value="2560" />
           <entry key="Python Console" value="493" />
           <entry key="css" value="29" />
           <entry key="dummy" value="17" />
-          <entry key="html" value="15143" />
+          <entry key="html" value="15332" />
           <entry key="js" value="401" />
           <entry key="md" value="12538" />
-          <entry key="py" value="26733" />
-          <entry key="txt" value="2299" />
+          <entry key="py" value="26987" />
+          <entry key="txt" value="2327" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSS" value="29" />
-          <entry key="HTML" value="15143" />
+          <entry key="HTML" value="15332" />
           <entry key="JavaScript" value="401" />
           <entry key="Markdown" value="12538" />
-          <entry key="PLAIN_TEXT" value="4483" />
-          <entry key="Python" value="27226" />
+          <entry key="PLAIN_TEXT" value="4781" />
+          <entry key="Python" value="27480" />
           <entry key="Scratch" value="123" />
         </counts>
       </usages-collector>
@@ -91,35 +93,60 @@
     <favorites_list name="buswatcher" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/#deploy_tasks">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="8" selection-start-line="8" selection-end-line="8" />
-            </state>
-          </provider>
-        </entry>
-      </file>
+    <leaf>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/templates/stop.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="406">
-              <caret line="22" column="37" lean-forward="true" selection-start-line="22" selection-start-column="37" selection-end-line="22" selection-end-column="37" />
+            <state relative-caret-position="394">
+              <caret line="46" column="43" selection-start-line="46" selection-start-column="43" selection-end-line="46" selection-end-column="43" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/#deploy_tasks">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="66">
+              <caret line="2" column="36" selection-start-line="2" selection-start-column="36" selection-end-line="2" selection-end-column="36" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/templates/index.html">
-          <provider selected="true" editor-type-id="text-editor" />
+        <entry file="file://$PROJECT_DIR$/src/reportcard.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="452">
+              <caret line="72" column="129" selection-start-line="72" selection-start-column="129" selection-end-line="72" selection-end-column="129" />
+              <folding>
+                <element signature="e#64#104#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/templates/route-base.html">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/lib/BusAPI.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="704">
-              <caret line="29" selection-start-line="29" selection-end-line="29" />
+            <state relative-caret-position="-563">
+              <caret line="105" column="24" selection-start-line="105" selection-start-column="14" selection-end-line="105" selection-end-column="24" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/stopwatcher.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="462">
+              <caret line="24" column="8" lean-forward="true" selection-start-line="24" selection-start-column="8" selection-end-line="25" selection-end-column="78" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/templates/stop-base.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="332">
+              <caret line="85" column="10" selection-start-line="85" selection-start-column="10" selection-end-line="85" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -137,7 +164,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>mysql.connector</find>
       <find>pt</find>
       <find>print</find>
       <find>heading</find>
@@ -167,6 +193,7 @@
       <find>stopsdb</find>
       <find>approaching</find>
       <find>stopreport</find>
+      <find>getstoppre</find>
     </findStrings>
     <replaceStrings>
       <replace>mongo.StringField</replace>
@@ -220,7 +247,6 @@
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch_1.py" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch_1.txt" />
         <option value="$PROJECT_DIR$/src/static/mapbox/mapbox-route.js" />
-        <option value="$PROJECT_DIR$/src/reportcard.py" />
         <option value="$PROJECT_DIR$/src/__init__.py" />
         <option value="$PROJECT_DIR$/src/templates/index.html" />
         <option value="$PROJECT_DIR$/src/lib/StopsDB.py" />
@@ -232,11 +258,12 @@
         <option value="$PROJECT_DIR$/src/lib/BusDB.py" />
         <option value="$PROJECT_DIR$/doc/server_setup.md" />
         <option value="$PROJECT_DIR$/README-server_setup.md" />
-        <option value="$PROJECT_DIR$/#deploy_tasks" />
-        <option value="$PROJECT_DIR$/src/templates/stop.html" />
         <option value="$PROJECT_DIR$/src/templates/index-base.html" />
         <option value="$PROJECT_DIR$/src/templates/route-base.html" />
+        <option value="$PROJECT_DIR$/src/reportcard.py" />
         <option value="$PROJECT_DIR$/src/templates/stop-base.html" />
+        <option value="$PROJECT_DIR$/src/templates/stop.html" />
+        <option value="$PROJECT_DIR$/#deploy_tasks" />
       </list>
     </option>
   </component>
@@ -250,6 +277,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -283,7 +311,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -533,13 +560,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1524759532211</updated>
-    </task>
-    <task id="LOCAL-00055" summary="import edit">
-      <created>1531787473596</created>
-      <option name="number" value="00055" />
-      <option name="presentableId" value="LOCAL-00055" />
-      <option name="project" value="LOCAL" />
-      <updated>1531787473596</updated>
     </task>
     <task id="LOCAL-00056" summary="updated stopwatcher to use MySQL instead of SQLite">
       <created>1531795438707</created>
@@ -877,7 +897,14 @@
       <option name="project" value="LOCAL" />
       <updated>1536164803790</updated>
     </task>
-    <option name="localTasksCounter" value="104" />
+    <task id="LOCAL-00104" summary="added Google analytics code">
+      <created>1536165417429</created>
+      <option name="number" value="00104" />
+      <option name="presentableId" value="LOCAL-00104" />
+      <option name="project" value="LOCAL" />
+      <updated>1536165417429</updated>
+    </task>
+    <option name="localTasksCounter" value="105" />
     <servers />
   </component>
   <component name="TodoView">
@@ -893,11 +920,11 @@
     <editor active="true" />
     <layout>
       <window_info id="Structure" order="0" show_stripe_button="false" sideWeight="0.5060241" side_tool="true" weight="0.36011276" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" sideWeight="0.59638554" visible="true" weight="0.18604651" />
+      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.59638554" weight="0.18604651" />
       <window_info id="Favorites" order="2" show_stripe_button="false" sideWeight="0.5060241" side_tool="true" weight="0.36011276" />
       <window_info id="Run" order="3" sideWeight="0.4982382" weight="0.30162087" />
       <window_info id="Version Control" internal_type="SLIDING" order="4" type="SLIDING" weight="0.32699084" />
-      <window_info id="TODO" order="5" sideWeight="0.4939759" weight="0.31642002" />
+      <window_info active="true" id="TODO" order="5" sideWeight="0.4939759" visible="true" weight="0.31642002" />
       <window_info auto_hide="true" x="105" y="22" width="1170" height="821" id="Python Console" order="6" type="FLOATING" weight="0.32699084" />
       <window_info x="242" y="61" width="1003" height="742" id="Terminal" order="7" type="FLOATING" weight="0.32699084" />
       <window_info id="Debug" order="8" sideWeight="0.49753347" weight="0.43904158" />
@@ -940,7 +967,6 @@
       <path value="$PROJECT_DIR$/src/templates/mapbox-gl-js-bootstrap-boilerplate" />
       <path value="$PROJECT_DIR$/src/templates/mapbox-js" />
     </ignored-roots>
-    <MESSAGE value="grade lookup in route report from route_config.py working" />
     <MESSAGE value="new get_stopslist in route report working with clear data structure in object" />
     <MESSAGE value="almost done with route view" />
     <MESSAGE value="new url structure for source/route/services working 95 pct." />
@@ -965,7 +991,8 @@
     <MESSAGE value="added 'good service' to stops arrivals board" />
     <MESSAGE value="changed stops view to green for good service" />
     <MESSAGE value="update copyleft" />
-    <option name="LAST_COMMIT_MESSAGE" value="update copyleft" />
+    <MESSAGE value="added Google analytics code" />
+    <option name="LAST_COMMIT_MESSAGE" value="added Google analytics code" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1076,13 +1103,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/lib/BusAPI.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="14" column="2" lean-forward="true" selection-start-line="14" selection-start-column="2" selection-end-line="14" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/lib/BusDB.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -1107,24 +1127,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/reportcard.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1848">
-          <caret line="84" selection-start-line="84" selection-end-line="84" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/routewatcher.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="220">
           <caret line="9" selection-start-line="9" selection-end-line="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/stopwatcher.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="550">
-          <caret line="25" column="12" selection-start-line="25" selection-start-column="12" selection-end-line="25" selection-end-column="78" />
         </state>
       </provider>
     </entry>
@@ -1135,30 +1141,6 @@
             <caret line="293" column="36" selection-start-line="293" selection-start-column="36" selection-end-line="293" selection-end-column="36" />
           </first_editor>
           <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/#deploy_tasks">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="8" selection-start-line="8" selection-end-line="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/templates/stop.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="406">
-          <caret line="22" column="37" lean-forward="true" selection-start-line="22" selection-start-column="37" selection-end-line="22" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/templates/index.html">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/templates/stop-base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="15" column="12" selection-start-line="15" selection-start-column="12" selection-end-line="15" selection-end-column="12" />
         </state>
       </provider>
     </entry>
@@ -1173,6 +1155,54 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="704">
           <caret line="29" selection-start-line="29" selection-end-line="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/templates/index.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lib/BusAPI.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-563">
+          <caret line="105" column="24" selection-start-line="105" selection-start-column="14" selection-end-line="105" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/reportcard.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="452">
+          <caret line="72" column="129" selection-start-line="72" selection-start-column="129" selection-end-line="72" selection-end-column="129" />
+          <folding>
+            <element signature="e#64#104#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/stopwatcher.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="24" column="8" lean-forward="true" selection-start-line="24" selection-start-column="8" selection-end-line="25" selection-end-column="78" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/templates/stop-base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="332">
+          <caret line="85" column="10" selection-start-line="85" selection-start-column="10" selection-end-line="85" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/templates/stop.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="394">
+          <caret line="46" column="43" selection-start-line="46" selection-start-column="43" selection-end-line="46" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/#deploy_tasks">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="66">
+          <caret line="2" column="36" selection-start-line="2" selection-start-column="36" selection-end-line="2" selection-end-column="36" />
         </state>
       </provider>
     </entry>
