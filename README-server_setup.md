@@ -78,6 +78,7 @@
     ```bash
     conda create --name buswatcher python=2 mysql-connector-python pandas flask
     source activate buswatcher
+    conda update -n base conda
     ```
     conda installs a ton of python goodies for you. dont you just [love python](https://xkcd.com/353/)? 
 6. clone the buswatcher repo
@@ -264,13 +265,13 @@ this follows the instructions [here](https://blog.miguelgrinberg.com/post/the-fl
 1. get the linux software
 
     ```bash
-    sudo apt-get install postfix supervisor nginx 
+    sudo apt-get install supervisor nginx 
     ```
 
 2. and the right python stuff
     ```bash
     source activate buswatcher
-    conda install flask gunicorn 
+    conda install -c conda-forge flask-assets gunicorn 
     ```
 
 3. configure supervisor to run the reportcard.py flask app
@@ -290,6 +291,8 @@ this follows the instructions [here](https://blog.miguelgrinberg.com/post/the-fl
     stopasgroup=true
     killasgroup=true
     ```
+    then `sudo supervisorctl reload`
+    
 4. config nginx as proxy server. you gotta keep the Russians away from gunicorn. unicorns are pretty.
 
     remove the default config
@@ -299,7 +302,7 @@ this follows the instructions [here](https://blog.miguelgrinberg.com/post/the-fl
     
     install a new one
     ```bash
-    sudo /etc/nginx/sites-enabled/reportcard
+    sudo nano /etc/nginx/sites-enabled/reportcard
     ```
     with the following
     ```bash
