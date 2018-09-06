@@ -6,6 +6,7 @@ import lib.ReportCard
 import lib.BusAPI
 from route_config import reportcard_routes,grade_descriptions
 
+
 app = Flask(__name__)
 
 ################################################
@@ -45,29 +46,12 @@ def genRouteReport_ServicePicker(source, route):
 #3 route report - with service
 @app.route('/<source>/<route>/service/<service>')
 def genRouteReport_ServiceStoplist(source, route, service):
-
-    # to cache the historical views
-    # https://medium.com/the-python-corner/how-to-make-your-code-faster-by-using-a-cache-in-python-fb169fbcbb0b
-    #
-    # If period <> "daily"
-    #    IF current_time - last > X
-    #     G = calc_grade()
-    #     Cache(g) # Cache is hash lookup by bus route id
-    #     Last = current_time
-    #     Return g
-    #     g
-    #
-    # Else
-    #   Return get cache()
-
     routereport=lib.ReportCard.RouteReport(source,route,reportcard_routes,grade_descriptions)
     return render_template('route_servicestoplist.html', routereport=routereport,service=service)
-
 
 # 4 stop report
 @app.route('/<source>/<route>/stop/<stop>')
 def genStopReport(source, route, stop, period='daily'):
-
     stopreport = lib.ReportCard.StopReport(route, stop, period)
     routereport = lib.ReportCard.RouteReport(source, route, reportcard_routes, grade_descriptions)
     predictions = lib.BusAPI.parse_xml_getStopPredictions(lib.BusAPI.get_xml_data('nj', 'stop_predictions', stop=stop, route='all'))
