@@ -1,4 +1,5 @@
 import datetime, time, sys
+from operator import itemgetter
 import pandas as pd
 
 import StopsDB, BusAPI
@@ -11,18 +12,18 @@ def timestamp_fix(data): # trim the microseconds off the timestamp and convert i
     # data = data.set_index(pd.DatetimeIndex(data['timestamp'], drop=False)
     return data
 
-def timeit(method):
-
-    def timed(*args, **kw):
-        ts = time.time()
-        result = method(*args, **kw)
-        te = time.time()
-
-        print '%r (%r, %r) %2.2f sec' % \
-              (method.__name__, args, kw, te-ts)
-        return result
-
-    return timed
+# def timeit(method):
+#
+#     def timed(*args, **kw):
+#         ts = time.time()
+#         result = method(*args, **kw)
+#         te = time.time()
+#
+#         print '%r (%r, %r) %2.2f sec' % \
+#               (method.__name__, args, kw, te-ts)
+#         return result
+#
+#     return timed
 
 # primary classes
 
@@ -36,7 +37,7 @@ class RouteReport:
             self.d = ''
             self.dd = ''
 
-    def __init__(self, source, route, reportcard_routes,grade_descriptions):
+    def __init__(self, source, route, reportcard_routes, grade_descriptions):
 
         # apply passed parameters to instance
         self.source = source
@@ -51,17 +52,28 @@ class RouteReport:
 
         # populate report card data
         self.get_routename()
+        self.get_servicelist()
         self.compute_grade()
         self.get_stoplist()
-        # self.get_bunching_leaderboard('yesterday')
+        self.get_route_indicators('daily')
 
-    @timeit
     def get_routename(self):
         routedata = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=self.route))
         self.routename=routedata[0].nm
         return
 
-    @timeit
+    def get_servicelist(self):
+        for route in self.reportcard_routes:
+            if route['route'] == self.route:
+                self.servicelist = []
+                for service in route['services']:
+                    insertion = {'destination':service[0],'service_id':service[1]}
+                    self.servicelist.append(insertion)
+                # populate servicelist with stoplist?
+                # for service in self.servicelist:
+                #   how to do it?
+        return
+
     def compute_grade(self):
         # for now, grade is coded manually in route_config.py
         # FUTURE fancier grade calculation based on historical data
@@ -84,9 +96,8 @@ class RouteReport:
                 pass
         return
 
-    @timeit
+
     def get_stoplist(self):
-        # todo BUG NJT API serves up only the routes currently running? hardcode them instead?
         routedata = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=self.route))
         route_stop_list_temp = []
         for r in routedata:
@@ -104,64 +115,43 @@ class RouteReport:
         self.route_stop_list = route_stop_list_temp[0] # transpose a single copy since the others are all repeats (can be verified by path ids)
         return
 
-    @timeit
-    def get_bunching_leaderboard(self,period):
+    def get_route_indicators(self, period):
         # generates top 10 list of stops on the route by # of bunching incidents for yesterday
+        # as well as the hourly frequency table
 
-        self.bunching_badboys = []
+        # sample query
+        # SELECT * FROM stop_approaches_log_87 WHERE (stop_id= 20935 AND DATE(timestamp)=CURDATE()) ORDER BY timestamp DESC;
+
+        self.bunching_leaderboard = []
 
         # loop over each service and stop
-        bunch_total=0
-        print 'starting bunching analysis for yesterday...'
         for service in self.route_stop_list:
-            for stop in service.stops:
-                print stop.identity,
-                report = StopReport(self.route, stop.identity,period)
+            # print service.id
 
+            for stop in service.stops:
+                bunch_total = 0
+                report = StopReport(self.route, stop.identity,period)
                 # calculate number of bunches
                 for (index, row) in report.arrivals_list_final_df.iterrows():
                     if (row.delta > report.bigbang) and (row.delta <= report.bunching_interval):
+                        # print "\t",row.v,"\t",stop.st,"\t\t\t\t\t",row.timestamp,"\t",row.delta
                         bunch_total += 1
-                        sys.stdout.write('.'),
-                print
-            # append tuple to the list
-            self.bunching_badboys.append((stop.st, bunch_total))
+                        # sys.stdout.write('.'),
+
+                # append dict to the list
+                self.bunching_leaderboard.append((stop.st, bunch_total,stop.identity))
+
+                # now work on the hourly frequency report
+
+
 
         # sort stops by number of bunchings, grab first 10
-        self.bunching_badboys.sort(key=bunch_total, reverse=True)
-        self.bunching_badboys=self.bunching_badboys[:10]
-
-        # FUTURE write to a new db table for persistence
-        # FUTURE can use this function with any period...
-        # db = StopsDB.MySQL('buses', 'buswatcher', 'njtransit', '127.0.0.1', route)
-        # conn = db.conn
-        # table_name = 'bunching_leaderboard_%s' % self.route
-        # # create_table_string = '''CREATE TABLE IF NOT EXISTS %s (pkey integer primary key auto_increment, date varchar(20), route varchar(20), stop_id varchar(20), bunch_total varchar(20)''' % table_name
-        #
-        # try:
-        #     self.conn = connection.MySQLConnection(user=self.db_user, password=self.db_password, host=self.db_host)
-        #     self._execute('CREATE DATABASE IF NOT EXISTS %s;' % self.db_name)
-        #     self.conn.database = self.db_name
-        #
-        #     self._execute(create_table_string)
-        #
-        # except Error as err:
-        #     print 'something went wrong with mysql'
-        #     pass
-
+        self.bunching_leaderboard.sort(key=itemgetter(1), reverse=True)
+        self.bunching_leaderboard= self.bunching_leaderboard[:10]
 
 
         return
 
-    @timeit
-    def get_today_bunch_top10_v2(self):
-
-        self.bunching_badboys = []
-
-        # sort stops by number of bunchings, grab first 10
-        self.bunching_badboys.sort(key=bunch_total, reverse=True)
-        self.bunching_badboys=self.bunching_badboys[:10]
-        return
 
 
 
@@ -177,20 +167,18 @@ class StopReport:
         self.conn = self.db.conn
         self.table_name = 'stop_approaches_log_' + self.route
         # populate stop report data
-        self.get_arrivals(self.period)
+        self.get_arrivals()
 
-    @timeit
-    def get_arrivals(self, period):
+    def get_arrivals(self):
         self.arrivals_table_time_created = None
-        self.period = period
 
-        if period == "daily":
+        if self.period == "daily":
             final_approach_query = ('SELECT * FROM %s WHERE (stop_id= %s AND DATE(`timestamp`)=CURDATE() ) ORDER BY timestamp DESC;' % (self.table_name, self.stop))
-        elif period == "yesterday":
+        elif self.period == "yesterday": # todo 'yesterday' query returns empty set
             final_approach_query = ('SELECT * FROM %s WHERE (stop_id= %s AND DATE(timestamp >= DATE_SUB(CURDATE(), INTERVAL 1 DAY) AND timestamp < CURDATE()) ) ORDER BY timestamp DESC;' % (self.table_name, self.stop))
-        elif period=="weekly":
+        elif self.period=="weekly":
             final_approach_query = ('SELECT * FROM %s WHERE (stop_id= %s AND (YEARWEEK(`timestamp`, 1) = YEARWEEK(CURDATE(), 1))) ORDER BY timestamp DESC;' % (self.table_name,self.stop))
-        elif period=="history":
+        elif self.period=="history":
             final_approach_query = ('SELECT * FROM %s WHERE stop_id= %s ORDER BY timestamp DESC;' % (self.table_name,self.stop))
         else:
             raise RuntimeError('Bad request sucker!')
@@ -202,6 +190,9 @@ class StopReport:
 
         # split final approach history (sorted by timestamp) at each change in vehicle_id outputs a list of dfs -- per https://stackoverflow.com/questions/41144231/python-how-to-split-pandas-dataframe-into-subsets-based-on-the-value-in-the-fir
         final_approach_dfs = [g for i, g in df_temp.groupby(df_temp['v'].ne(df_temp['v'].shift()).cumsum())]
+
+
+        # todo NOW #1 weed out duplicate arrivals -- screwing up arrivals board and bunching reports https://www.dropbox.com/s/5i1cba7wu2zkgqo/Screenshot%202018-09-06%2010.14.35.png?dl=0
 
         try:
             # take the last V(ehicle) approach in each df and add it to final list of arrivals

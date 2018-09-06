@@ -61,6 +61,8 @@
     Query OK, 0 rows affected (0.00 sec)
     mysql> GRANT ALL PRIVILEGES ON buses . * TO 'buswatcher'@'localhost';
     Query OK, 0 rows affected (0.00 sec)
+    
+    mysql> ALTER USER 'buswatcher'@'localhost' IDENTIFIED WITH mysql_native_password BY 'njtransit';
     mysql> exit
     ```
     while the `buses` database doesn't exist yet, this will set things up so there's no problems when the buswatcher scripts do instantiate it later.
