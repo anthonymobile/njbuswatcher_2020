@@ -1,32 +1,20 @@
+todo NOW hourly frequency table on route view (average time between buses) -- take mean of delta by hour
 
-todo NOW BUG missing rows in arrivals board (check different conditions after delta added)
-todo NOW BUG erratic choice of routes in the dropdown
-todo NOW stops view -- add menubar on arrivals board for new views/url_routes for yesterday, this week, this month (e.g. call Stopreport(period='yesterday')
-todo NOW route view -- add bunching_leaderboard summary table (and caching for that object/portion per Alex's recommendation)
+todo SOON stops view -- add menubar on arrivals board for new views/url_routes for yesterday, this week, this month (e.g. call Stopreport(period='yesterday')
 
-todo FUTURE update README.md
-todo FUTURE setup daily mysqldb backup from AWS to ?
-todo FUTURE process 2prune_ tables by copying records with pt='APPROACHING' and migrate to current tables
+todo SOON finish populating hand-coded service list and activate
+
+todo FUTURE cache the route_servicestoplist results --> so that they dont dissappear when the service is turned off / servicepicker dropdown: how to handle services not operating? show in stopspicker:'service not currently operating, or no buses operating right now on route, or no arrival information available right now or archival only'
+todo HOWTO cache https://medium.com/the-python-corner/how-to-make-your-code-faster-by-using-a-cache-in-python-fb169fbcbb0b
+
+todo FUTURE caching for bunching_leaderboard, historical arrivals views?
 todo FUTURE reliability... on reports page. look at how long average it is taking buses to run the whole route end to end (looking at routereport?)
 
-todo OPTIMIZE/REFACTOR (1) use python timeit and profile to see what could go faster? (2) stopwatcher + StopReport shouldn't have to parse the whole route.path every time... we should be storing what we saw in the past...
-
-
-
-
-
-
-COMMENTS
-
-SMK:
-I think it would be useful to have real time/recent historic ratings to help weigh the measure of reliability (like how flights are sometime rated with on-time percentage as you search).
-Also: Assume you're integrating traffic data into reliability index?
-Maybe build in a tweet-able hashtag, something like #CuomosMTA, that can help people express frustration with minimal effort?
-
-GOLDWYN:
-This looks cool!
-Have you looked at the New York City mobility report? In the 2016 version, not the newest one, it has a few interesting visualizations that convey great info, though a little janky. I really like how they show speeds along the route. If you look on pdf page 19, you can see the B41 crawls in downtown brooklyn, 3.4mph, but “busts” through prospect park at 8.2mph. I guess, I'm stating the obvious, averages are kind of useless without additional context to help tell a richer story.
-
-I think you tell the story of the route. So give the route a single grade, but maybe have some ability to dig inside the route. Something like an animation that shows the bus move through the route or a map that shows average travel speeds across the network so one could see how different legs perform.
-
-definitely a cool project. Have you spoken to NJT about it?
+todo FUTURE import dump.gz --> process 2prune_ tables by keeping only records with pt='APPROACHING' and migrate to current tables
+todo FUTURE update README.md
+todo FUTURE setup daily mysqldb backup from AWS to ?
+todo FUTURE bigger/better maps
+todo FUTURE reliability (like flights rated as on-time percentage)
+todo FUTURE build in a tweet-able hashtag, something like #CuomosMTA, that can help people express frustration with minimal effort?
+todo FUTURE route diagram showing average delay/speed per segment (vs average) -  give the route a single grade, but maybe have some ability to dig inside the route. Something like an animation that shows the bus move through the route or a map that shows average travel speeds across the network so one could see how different legs perform.
+todo FUTURE SOLOMON: To me there are three key variables for bus service: frequency, reliability, and speed. I'd love a rating on each of those key aspects and/or some transparency as to how they come together for the grade

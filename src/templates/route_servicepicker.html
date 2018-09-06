@@ -10,6 +10,12 @@
 
 {% block grade %}
 
+        <div class="alert alert-primary" role="alert">
+            <h4 class="alert-heading">Coming Soon: Route Grades</h4>
+            <p class="mb-0">Soon we'll be adding grades that help you evaluate how well each bus route is doing in terms of service reliability.</p>
+        </div>
+
+<!--
     {% if (routereport.grade=='A' or routereport.grade=='B') %}
         <div class="alert alert-primary" role="alert">
             <h4 class="alert-heading">Current Grade:{{routereport.grade}}</h4>
@@ -28,6 +34,7 @@
             <p class="mb-0"> {{routereport.grade_description}}</p>
         </div>
     {% endif %}
+-->
 {% endblock %}
 
 
@@ -44,7 +51,7 @@
 
 {% block service_stops_block %}
           <h1 class="">Choose Direction...</h1>
-          <p class="lead">Pick the direction of travel and specific service for route {{routereport.route}} to see more detailed performance information. (Note: Many routes have more than one service.)</p>
+          <p class="lead">Pick the direction of travel and specific service for route {{routereport.route}} to see more detailed performance information. (Note: Many routes have more than one service and services not currently running won't display a list of stops.)</p>
 
 <div class="btn-group">
     <button class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown">Choose direction/service...</button>
@@ -54,22 +61,36 @@
     {% endfor %}
     </div>
 </div>
+
+<!--
+<div class="btn-group">
+    <p>NEW BUTTON</p>
+    <button class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown">Choose direction/service...</button>
+    <div class="dropdown-menu">
+    {% for service in routereport.servicelist %}
+            <a class="dropdown-item" href = {{url_for('genRouteReport_ServiceStoplist',source=routereport.source,route=routereport.route,service=service.service_id)}} id="{{service.service_id}}">To {{service.destination}}</a>
+    {% endfor %}
+    </div>
+</div>
+-->
+
 {% endblock %}
 
 
 {% block bunching_report %}
-<!-- todo NOW NO.1 bunching_report code and test
-          <h1 class="">Bunching Report</h1>
-          <p class="lead">What are the trouble spots slowing service on the {{routereport.route}}? Here's the stops on the {{routereport.route}} with the most bunching incidents TODAY (THIS WEEK) (ALL TIME).</p>
+
+          <h1 class="">Bunching Bottlenecks</h1>
+          <p class="lead">What are the trouble spots slowing service on the {{routereport.route}}? Here's the stops on the {{routereport.route}} with the most bunching incidents today. Click on a stop name to see today's arrivals.</p>
 
         <ul class="list-group" >
-                {% for stop in routereport.bunching_badboys %}
-                    <li class="list-group-item d-flex justify-content-between align-items-center"> {{stop[0]}}
+                {% for stop in routereport.bunching_leaderboard %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <a href = {{url_for('genStopReport',source=routereport.source,route=routereport.route,stop=stop[2])}}>{{stop[0]}}</a>
                       <span class="badge badge-primary badge-pill">{{stop[1]}}</span>
                     </li>
                 {% endfor %}
         </ul>
--->
+
 {% endblock %}
 
 
