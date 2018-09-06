@@ -4,6 +4,15 @@ import pandas as pd
 
 import StopsDB, BusAPI
 
+# caching stuff
+from cachetools import cached, TTLCache
+cache_30sec = TTLCache(maxsize=100, ttl=30)  # 30 sec cache
+cache_1min = TTLCache(maxsize=100, ttl=60)  # 1 min cache
+cache_5min = TTLCache(maxsize=100, ttl=300)  # 5 min cache
+cache_1hr = TTLCache(maxsize=100, ttl=3600)  # 1 hr cache
+cache_1day = TTLCache(maxsize=100, ttl=86400) # 1 day cache
+
+
 # common functions
 def timestamp_fix(data): # trim the microseconds off the timestamp and convert it to datetime format
     data['timestamp'] = data['timestamp'].str.split('.').str.get(0)
@@ -12,21 +21,8 @@ def timestamp_fix(data): # trim the microseconds off the timestamp and convert i
     # data = data.set_index(pd.DatetimeIndex(data['timestamp'], drop=False)
     return data
 
-# def timeit(method):
-#
-#     def timed(*args, **kw):
-#         ts = time.time()
-#         result = method(*args, **kw)
-#         te = time.time()
-#
-#         print '%r (%r, %r) %2.2f sec' % \
-#               (method.__name__, args, kw, te-ts)
-#         return result
-#
-#     return timed
 
 # primary classes
-
 class RouteReport:
 
     class Path():
@@ -96,7 +92,7 @@ class RouteReport:
                 pass
         return
 
-
+    @cached(cache_1day)
     def get_stoplist(self):
         routedata = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=self.route))
         route_stop_list_temp = []
@@ -115,6 +111,7 @@ class RouteReport:
         self.route_stop_list = route_stop_list_temp[0] # transpose a single copy since the others are all repeats (can be verified by path ids)
         return
 
+    @cached(cache_1hr)
     def get_route_indicators(self, period):
         # generates top 10 list of stops on the route by # of bunching incidents for yesterday
         # as well as the hourly frequency table
@@ -143,16 +140,11 @@ class RouteReport:
 
                 # now work on the hourly frequency report
 
-
-
         # sort stops by number of bunchings, grab first 10
         self.bunching_leaderboard.sort(key=itemgetter(1), reverse=True)
         self.bunching_leaderboard= self.bunching_leaderboard[:10]
 
-
         return
-
-
 
 
 class StopReport:
@@ -169,6 +161,7 @@ class StopReport:
         # populate stop report data
         self.get_arrivals()
 
+    @cached(cache_30sec)
     def get_arrivals(self):
         self.arrivals_table_time_created = None
 
@@ -190,9 +183,6 @@ class StopReport:
 
         # split final approach history (sorted by timestamp) at each change in vehicle_id outputs a list of dfs -- per https://stackoverflow.com/questions/41144231/python-how-to-split-pandas-dataframe-into-subsets-based-on-the-value-in-the-fir
         final_approach_dfs = [g for i, g in df_temp.groupby(df_temp['v'].ne(df_temp['v'].shift()).cumsum())]
-
-
-        # todo NOW #1 weed out duplicate arrivals -- screwing up arrivals board and bunching reports https://www.dropbox.com/s/5i1cba7wu2zkgqo/Screenshot%202018-09-06%2010.14.35.png?dl=0
 
         try:
             # take the last V(ehicle) approach in each df and add it to final list of arrivals
