@@ -4,14 +4,6 @@ import pandas as pd
 
 import StopsDB, BusAPI
 
-# caching stuff
-from cachetools import cached, TTLCache
-cache_30sec = TTLCache(maxsize=100, ttl=30)  # 30 sec cache
-cache_1min = TTLCache(maxsize=100, ttl=60)  # 1 min cache
-cache_5min = TTLCache(maxsize=100, ttl=300)  # 5 min cache
-cache_1hr = TTLCache(maxsize=100, ttl=3600)  # 1 hr cache
-cache_1day = TTLCache(maxsize=100, ttl=86400) # 1 day cache
-
 
 # common functions
 def timestamp_fix(data): # trim the microseconds off the timestamp and convert it to datetime format
@@ -51,7 +43,7 @@ class RouteReport:
         self.get_servicelist()
         self.compute_grade()
         self.get_stoplist()
-        self.get_route_indicators('daily')
+        # self.get_route_indicators('daily')
 
     def get_routename(self):
         routedata = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=self.route))
@@ -92,7 +84,7 @@ class RouteReport:
                 pass
         return
 
-    @cached(cache_1day)
+
     def get_stoplist(self):
         routedata = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=self.route))
         route_stop_list_temp = []
@@ -111,7 +103,7 @@ class RouteReport:
         self.route_stop_list = route_stop_list_temp[0] # transpose a single copy since the others are all repeats (can be verified by path ids)
         return
 
-    @cached(cache_1hr)
+
     def get_route_indicators(self, period):
         # generates top 10 list of stops on the route by # of bunching incidents for yesterday
         # as well as the hourly frequency table
@@ -161,7 +153,7 @@ class StopReport:
         # populate stop report data
         self.get_arrivals()
 
-    @cached(cache_30sec)
+
     def get_arrivals(self):
         self.arrivals_table_time_created = None
 

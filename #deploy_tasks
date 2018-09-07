@@ -1,20 +1,10 @@
+todo NOW BUG getting inconsistent results back from get_arrivals, which is borking both arrivals_board and bunching_badboys = http://buswatcher.code4jc.org/nj/87/stop/20577
+todo NOW reliability rating / grade - % on time (based on how long average it is taking buses to run the whole route end to end -- looking at routereport?)
 todo NOW hourly frequency table on route view (average time between buses) -- take mean of delta by hour
 
-todo SOON stops view -- add menubar on arrivals board for new views/url_routes for yesterday, this week, this month (e.g. call Stopreport(period='yesterday')
-
 todo SOON finish populating hand-coded service list and activate
-
-todo FUTURE cache the route_servicestoplist results --> so that they dont dissappear when the service is turned off / servicepicker dropdown: how to handle services not operating? show in stopspicker:'service not currently operating, or no buses operating right now on route, or no arrival information available right now or archival only'
-todo HOWTO cache https://medium.com/the-python-corner/how-to-make-your-code-faster-by-using-a-cache-in-python-fb169fbcbb0b
-
-todo FUTURE caching for bunching_leaderboard, historical arrivals views?
-todo FUTURE reliability... on reports page. look at how long average it is taking buses to run the whole route end to end (looking at routereport?)
-
+todo FUTURE bigger/better maps
+todo SOON stops view -- add menubar on arrivals board for new views/url_routes for yesterday, this week, this month (e.g. call Stopreport(period='yesterday')
 todo FUTURE import dump.gz --> process 2prune_ tables by keeping only records with pt='APPROACHING' and migrate to current tables
 todo FUTURE update README.md
 todo FUTURE setup daily mysqldb backup from AWS to ?
-todo FUTURE bigger/better maps
-todo FUTURE reliability (like flights rated as on-time percentage)
-todo FUTURE build in a tweet-able hashtag, something like #CuomosMTA, that can help people express frustration with minimal effort?
-todo FUTURE route diagram showing average delay/speed per segment (vs average) -  give the route a single grade, but maybe have some ability to dig inside the route. Something like an animation that shows the bus move through the route or a map that shows average travel speeds across the network so one could see how different legs perform.
-todo FUTURE SOLOMON: To me there are three key variables for bus service: frequency, reliability, and speed. I'd love a rating on each of those key aspects and/or some transparency as to how they come together for the grade

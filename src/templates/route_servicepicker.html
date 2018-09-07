@@ -51,7 +51,7 @@
 
 {% block service_stops_block %}
           <h1 class="">Choose Direction...</h1>
-          <p class="lead">Pick the direction of travel and specific service for route {{routereport.route}} to see more detailed performance information. (Note: Many routes have more than one service and services not currently running won't display a list of stops.)</p>
+          <p class="lead">Pick the direction of travel and specific service for route {{routereport.route}} to see more detailed performance information. (Note: Many routes have more than one service in the same direction. Services not currently running won't show up.)</p>
 
 <div class="btn-group">
     <button class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown">Choose direction/service...</button>
@@ -78,7 +78,7 @@
 
 
 {% block bunching_report %}
-
+<!--
           <h1 class="">Bunching Bottlenecks</h1>
           <p class="lead">What are the trouble spots slowing service on the {{routereport.route}}? Here's the stops on the {{routereport.route}} with the most bunching incidents today. Click on a stop name to see today's arrivals.</p>
 
@@ -90,7 +90,7 @@
                     </li>
                 {% endfor %}
         </ul>
-
+-->
 {% endblock %}
 
 
