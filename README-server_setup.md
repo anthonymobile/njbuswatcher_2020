@@ -50,7 +50,7 @@
     ```
     pick a password for your mysql root user and dont forget it!
     ```bash
-    mysql_secure_installation
+    sudo mysql_secure_installation
     ```
     basically you want to answer yes to all the questions. pick the level of password annoyance you want to deal with. you'll have to hard code the buswatcher database password later so its up to you.
 
@@ -59,10 +59,16 @@
     mysql -u root -p
     mysql> CREATE USER 'buswatcher'@'localhost' IDENTIFIED BY 'njtransit';
     Query OK, 0 rows affected (0.00 sec)
+    
     mysql> GRANT ALL PRIVILEGES ON buses . * TO 'buswatcher'@'localhost';
     Query OK, 0 rows affected (0.00 sec)
     
     mysql> ALTER USER 'buswatcher'@'localhost' IDENTIFIED WITH mysql_native_password BY 'njtransit';
+    Query OK, 0 rows affected (0.00 sec)
+    
+    mysql> flush privileges;
+    Query OK, 0 rows affected (0.00 sec)
+    
     mysql> exit
     ```
     while the `buses` database doesn't exist yet, this will set things up so there's no problems when the buswatcher scripts do instantiate it later.
@@ -331,7 +337,7 @@ this follows the instructions [here](https://blog.miguelgrinberg.com/post/the-fl
     }   
     ```
 
-    then `sudo service nginx reload` and you should be good to go. 
+    then `sudo service nginx reload` and open the firewall `sudo ufw allow 'Nginx HTTP'` and you should be good to go. 
 
 4. updating your app is as easy as 1-2-3...4
 

@@ -1,10 +1,46 @@
-todo NOW BUG getting inconsistent results back from get_arrivals, which is borking both arrivals_board and bunching_badboys = http://buswatcher.code4jc.org/nj/87/stop/20577
-todo NOW reliability rating / grade - % on time (based on how long average it is taking buses to run the whole route end to end -- looking at routereport?)
-todo NOW hourly frequency table on route view (average time between buses) -- take mean of delta by hour
+todo ASAP
+- https://pypi.org/project/easy-cache/
+- rewrite all of the class methods so that instead of setting instance variables in the functions, they are setting local and then returning the data, and it is set to instance(global) back in the init, so:
 
-todo SOON finish populating hand-coded service list and activate
-todo FUTURE bigger/better maps
-todo SOON stops view -- add menubar on arrivals board for new views/url_routes for yesterday, this week, this month (e.g. call Stopreport(period='yesterday')
-todo FUTURE import dump.gz --> process 2prune_ tables by keeping only records with pt='APPROACHING' and migrate to current tables
-todo FUTURE update README.md
-todo FUTURE setup daily mysqldb backup from AWS to ?
+class cacheme:
+    whatever
+
+class Something:
+
+    def __init__(self, route, arg2):
+        self.stoplist = self.makethatstoplist(route)
+        self.humbug = self.humbgger(arg2)
+
+    @cacheme
+    def makethatstoplist(arg1):
+        stoplist = things
+        return stoplist
+
+# https://pypi.org/project/easy-cache/
+#
+# @ecached('time_consuming_operation_{n}', 3600)
+# def time_consuming_operation(n):
+#     return sum(range(n + 1))
+#
+# def invalidate_cache(n):
+#     time_consuming_operation.invalidate_cache_by_key(n)
+
+
+
+
+
+
+todo NOW
+- BUG getting inconsistent results back from get_arrivals, which is borking both arrivals_board and bunching_badboys = http://buswatcher.code4jc.org/nj/87/stop/20577
+- reliability rating / grade - % on time (based on how long average it is taking buses to run the whole route end to end -- looking at routereport?)
+- hourly frequency table on route view (average time between buses) -- take mean of delta by hour
+
+todo SOON
+- finish populating hand-coded service list and activate
+- stops view -- add menubar on arrivals board for new views/url_routes for yesterday, this week, this month (e.g. call Stopreport(period='yesterday')
+
+todo FUTURE
+- bigger/better maps
+- import dump.gz --> process 2prune_ tables by keeping only records with pt='APPROACHING' and migrate to current tables
+- update README.md
+- setup daily mysqldb backup from AWS to ?

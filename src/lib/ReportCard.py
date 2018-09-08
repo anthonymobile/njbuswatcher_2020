@@ -2,8 +2,13 @@ import datetime, time, sys
 from operator import itemgetter
 import pandas as pd
 
+# import app libraries
 import StopsDB, BusAPI
 
+# setup cache
+from easy_cache import ecached
+from functools import partial
+memcached = partial(ecached, cache_alias='memcached')
 
 # common functions
 def timestamp_fix(data): # trim the microseconds off the timestamp and convert it to datetime format
@@ -12,7 +17,6 @@ def timestamp_fix(data): # trim the microseconds off the timestamp and convert i
     data = data.set_index(pd.DatetimeIndex(data['timestamp']))
     # data = data.set_index(pd.DatetimeIndex(data['timestamp'], drop=False)
     return data
-
 
 # primary classes
 class RouteReport:
@@ -43,7 +47,7 @@ class RouteReport:
         self.get_servicelist()
         self.compute_grade()
         self.get_stoplist()
-        # self.get_route_indicators('daily')
+        self.bunching_leaderboard = self.get_bunching_leaderboard('daily',self.route)
 
     def get_routename(self):
         routedata = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=self.route))
@@ -86,6 +90,7 @@ class RouteReport:
 
 
     def get_stoplist(self):
+
         routedata = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=self.route))
         route_stop_list_temp = []
         for r in routedata:
@@ -103,20 +108,19 @@ class RouteReport:
         self.route_stop_list = route_stop_list_temp[0] # transpose a single copy since the others are all repeats (can be verified by path ids)
         return
 
-
-    def get_route_indicators(self, period):
+    @memcached('get_bunching_leaderboard', timeout=600) # change this for dynamic cache name based on route number
+    def get_bunching_leaderboard(self, period,route):
         # generates top 10 list of stops on the route by # of bunching incidents for yesterday
         # as well as the hourly frequency table
 
         # sample query
         # SELECT * FROM stop_approaches_log_87 WHERE (stop_id= 20935 AND DATE(timestamp)=CURDATE()) ORDER BY timestamp DESC;
 
-        self.bunching_leaderboard = []
+        bunching_leaderboard = []
 
         # loop over each service and stop
         for service in self.route_stop_list:
             # print service.id
-
             for stop in service.stops:
                 bunch_total = 0
                 report = StopReport(self.route, stop.identity,period)
@@ -128,15 +132,15 @@ class RouteReport:
                         # sys.stdout.write('.'),
 
                 # append dict to the list
-                self.bunching_leaderboard.append((stop.st, bunch_total,stop.identity))
+                bunching_leaderboard.append((stop.st, bunch_total,stop.identity))
 
                 # now work on the hourly frequency report
 
         # sort stops by number of bunchings, grab first 10
-        self.bunching_leaderboard.sort(key=itemgetter(1), reverse=True)
-        self.bunching_leaderboard= self.bunching_leaderboard[:10]
+        bunching_leaderboard.sort(key=itemgetter(1), reverse=True)
+        bunching_leaderboard = bunching_leaderboard[:10]
 
-        return
+        return bunching_leaderboard
 
 
 class StopReport:
