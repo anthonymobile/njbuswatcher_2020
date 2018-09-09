@@ -44,16 +44,16 @@ class RouteReport:
         self.table_name = 'stop_approaches_log_' + self.route
 
         # populate report card data
-        self.get_routename()
+        self.routename = self.get_routename(self.route)
         self.get_servicelist()
         self.compute_grade()
-        self.get_stoplist()
+        self.route_stop_list = self.get_stoplist(self.route)
         self.bunching_leaderboard = self.get_bunching_leaderboard('daily',self.route)
 
-    def get_routename(self):
-        routedata = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=self.route))
-        self.routename=routedata[0].nm
-        return
+    @ecached('get_routename:{route}',86400) # cache per route, 24 hour expire
+    def get_routename(self,route):
+        routedata = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=route))
+        return routedata[0].nm
 
     def get_servicelist(self):
         for route in self.reportcard_routes:
@@ -66,6 +66,7 @@ class RouteReport:
                 # for service in self.servicelist:
                 #   how to do it?
         return
+
 
     def compute_grade(self):
         # for now, grade is coded manually in route_config.py
@@ -90,10 +91,10 @@ class RouteReport:
         return
 
 
-    def get_stoplist(self):
-
+    # ecached gives a pickling error on Route.Path here
+    def get_stoplist(self, route):
         routedata = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=self.route))
-        route_stop_list_temp = []
+        route_stop_list = []
         for r in routedata:
             path_list = []
             for path in r.paths:
@@ -105,13 +106,12 @@ class RouteReport:
                 stops_points.d=path.d
                 stops_points.dd=path.dd
                 path_list.append(stops_points) # path_list is now a couple of Path instances, plus the metadata id,d,dd fields
-            route_stop_list_temp.append(path_list)
-        self.route_stop_list = route_stop_list_temp[0] # transpose a single copy since the others are all repeats (can be verified by path ids)
-        return
+            route_stop_list.append(path_list)
+        return route_stop_list[0] # transpose a single copy since the others are all repeats (can be verified by path ids)
 
 
     @ecached('get_bunching_leaderboard:{route}:{period}',3600) # cache per route, period, 1 hour expire
-    def get_bunching_leaderboard(self, period,route):
+    def get_bunching_leaderboard(self, period, route):
         # generates top 10 list of stops on the route by # of bunching incidents for yesterday
         # as well as the hourly frequency table
 
@@ -148,20 +148,26 @@ class RouteReport:
 class StopReport:
 
     def __init__(self,route,stop,period):
+
         # apply passed parameters to instance
         self.route=route
         self.stop=stop
         self.period=period
+
         # database initialization
         self.db = StopsDB.MySQL('buses', 'buswatcher', 'njtransit', '127.0.0.1', self.route)
         self.conn = self.db.conn
         self.table_name = 'stop_approaches_log_' + self.route
+
         # populate stop report data
-        self.get_arrivals()
+        self.arrivals_list_final_df, self.stop_name = self.get_arrivals(self.route,self.stop)
 
+        # constants
+        self.bunching_interval = datetime.timedelta(minutes=3)
+        self.bigbang = datetime.timedelta(seconds=0)
 
-    def get_arrivals(self):
-        self.arrivals_table_time_created = None
+    @ecached('get_arrivals:{route}:{stop}', 60)  # cache per route, 1 minute expire
+    def get_arrivals(self,route,stop):
 
         if self.period == "daily":
             final_approach_query = ('SELECT * FROM %s WHERE (stop_id= %s AND DATE(`timestamp`)=CURDATE() ) ORDER BY timestamp DESC;' % (self.table_name, self.stop))
@@ -184,31 +190,27 @@ class StopReport:
 
         try:
             # take the last V(ehicle) approach in each df and add it to final list of arrivals
-            self.arrivals_list_final_df = pd.DataFrame()
+            arrivals_list_final_df = pd.DataFrame()
             for final_approach in final_approach_dfs:  # iterate over every final approach
                 arrival_insert_df = final_approach.tail(1)  # take the last observation
-                self.arrivals_list_final_df = self.arrivals_list_final_df.append(arrival_insert_df)  # insert into df
+                arrivals_list_final_df = arrivals_list_final_df.append(arrival_insert_df)  # insert into df
 
             # calc interval between last bus for each row, fill NaNs
-            self.arrivals_list_final_df['delta']=(self.arrivals_list_final_df['timestamp'] - self.arrivals_list_final_df['timestamp'].shift(-1)).fillna(0)
+            arrivals_list_final_df['delta']=(arrivals_list_final_df['timestamp'] - arrivals_list_final_df['timestamp'].shift(-1)).fillna(0)
 
             # housekeeping ---------------------------------------------------
-            # log the time arrivals table was generated
-            self.arrivals_table_time_created = datetime.datetime.now()
+
             # set stop_name
-            self.stop_name = self.arrivals_list_final_df['stop_name'].iloc[0]
+            stop_name = arrivals_list_final_df['stop_name'].iloc[0]
+            return arrivals_list_final_df, stop_name
 
         except:
-            self.arrivals_list_final_df=\
+            arrivals_list_final_df=\
                 pd.DataFrame(\
                     columns=['pkey','pt','rd','stop_id','stop_name','v','timestamp','delta'],\
                     data=[['0000000', '3', self.route, self.stop,'N/A', 'N/A', datetime.time(0,1), datetime.timedelta(seconds=0)]])
-
-        # set timedelta constant for later use in bunching analysis
-        self.bunching_interval = datetime.timedelta(minutes=3)
-        # set a timedelta for zero
-        self.bigbang = datetime.timedelta(seconds=0)
-
-        return
+            stop_name = 'N/A'
+            self.arrivals_table_time_created = datetime.datetime.now()
+            return arrivals_list_final_df, stop_name
 
 
