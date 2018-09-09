@@ -27,12 +27,9 @@ class Something:
 
 
 
-
-
-
 todo NOW
-- BUG getting inconsistent results back from get_arrivals, which is borking both arrivals_board and bunching_badboys = http://buswatcher.code4jc.org/nj/87/stop/20577
 - reliability rating / grade - % on time (based on how long average it is taking buses to run the whole route end to end -- looking at routereport?)
+- BUG getting inconsistent results back from get_arrivals, which is borking both arrivals_board and bunching_badboys = http://buswatcher.code4jc.org/nj/87/stop/20577
 - hourly frequency table on route view (average time between buses) -- take mean of delta by hour
 
 todo SOON
@@ -40,6 +37,7 @@ todo SOON
 - stops view -- add menubar on arrivals board for new views/url_routes for yesterday, this week, this month (e.g. call Stopreport(period='yesterday')
 
 todo FUTURE
+- convert codebase to Python3
 - bigger/better maps
 - import dump.gz --> process 2prune_ tables by keeping only records with pt='APPROACHING' and migrate to current tables
 - update README.md
