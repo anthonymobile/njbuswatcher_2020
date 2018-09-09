@@ -3,6 +3,12 @@
 #### I. the buswatcher (he who grabbeth the data)
 
 1. launch a free tier EC2 micro instance (because why pay?) with ubuntu.
+
+2. set the timezone
+    ```bash
+    sudo dpkg-reconfigure tzdata
+    ```
+
 2.  make sure you're up to date
     ```bash
     sudo apt-get update
@@ -84,11 +90,17 @@
 6. create a conda environment with the needed packages
 
     ```bash
-    conda create --name buswatcher python=2 mysql-connector-python pandas flask
+    conda create --name buswatcher python=2 mysql-connector-python pandas flask django
     source activate buswatcher
     conda update -n base conda
     ```
-    conda installs a ton of python goodies for you. dont you just [love python](https://xkcd.com/353/)? 
+    conda installs a ton of python goodies for you. dont you just [love python](https://xkcd.com/353/)? (Why flask AND django? because we're going to use django for the caching framework. more in a second) 
+
+11. install the caching framework
+
+    ```bash
+    pip install easy_cache
+    ```    
 6. clone the buswatcher repo
     ```bash
     cd ~

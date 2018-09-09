@@ -6,9 +6,10 @@ import pandas as pd
 import StopsDB, BusAPI
 
 # setup cache
-# from easy_cache import ecached
-# from functools import partial
-# memcached = partial(ecached, cache_alias='memcached')
+from easy_cache import ecached
+
+# def invalidate_cache(n):
+#     time_consuming_operation.invalidate_cache_by_key(n)
 
 # common functions
 def timestamp_fix(data): # trim the microseconds off the timestamp and convert it to datetime format
@@ -108,7 +109,8 @@ class RouteReport:
         self.route_stop_list = route_stop_list_temp[0] # transpose a single copy since the others are all repeats (can be verified by path ids)
         return
 
-    # @memcached('get_bunching_leaderboard', timeout=600) # change this for dynamic cache name based on route number
+
+    @ecached('get_bunching_leaderboard:{route}:{period}',3600) # cache per route, period, 1 hour expire
     def get_bunching_leaderboard(self, period,route):
         # generates top 10 list of stops on the route by # of bunching incidents for yesterday
         # as well as the hourly frequency table
