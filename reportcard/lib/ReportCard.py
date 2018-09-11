@@ -7,6 +7,8 @@ import StopsDB, BusAPI
 
 # setup cache
 from easy_cache import ecached
+from django.conf import settings
+settings.configure(DEBUG=True, DJANGO_SETTINGS_MODULE="mysite_django.settings")
 
 # def invalidate_cache(n):
 #     time_consuming_operation.invalidate_cache_by_key(n)
