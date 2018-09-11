@@ -10,6 +10,21 @@ from easy_cache import ecached
 from django.conf import settings
 settings.configure(DEBUG=True, DJANGO_SETTINGS_MODULE="mysite_django.settings")
 
+def get_cache_timeout(period):
+    if period == "hourly":
+        cache_timeout = 60 # 1 min
+    elif period == "daily":
+        cache_timeout = 3600  # 1 hour
+    elif period == "yesterday":
+        cache_timeout = 86400  # 1 day
+    elif period == "weekly":
+        cache_timeout = 86400  # 1 day
+    elif period == "history":
+        cache_timeout = 604800  # 1 week
+    else:
+        raise RuntimeError('Bad request sucker!')
+    return cache_timeout
+
 # def invalidate_cache(n):
 #     time_consuming_operation.invalidate_cache_by_key(n)
 
@@ -162,14 +177,15 @@ class StopReport:
         self.table_name = 'stop_approaches_log_' + self.route
 
         # populate stop report data
-        self.arrivals_list_final_df, self.stop_name = self.get_arrivals(self.route,self.stop)
+        self.arrivals_list_final_df, self.stop_name = self.get_arrivals(self.route,self.stop,self.period)
+        self.hourly_frequency = self.get_hourly_frequency(self.route,self.stop,self.period)
 
         # constants
         self.bunching_interval = datetime.timedelta(minutes=3)
         self.bigbang = datetime.timedelta(seconds=0)
 
-    @ecached('get_arrivals:{route}:{stop}', 60)  # cache per route, 1 minute expire
-    def get_arrivals(self,route,stop):
+    @ecached('get_arrivals:{route}:{stop}:{period}', get_cache_timeout(period))  # cache per route, expire based on period requested
+    def get_arrivals(self,route,stop,period):
 
         if self.period == "daily":
             final_approach_query = ('SELECT * FROM %s WHERE (stop_id= %s AND DATE(`timestamp`)=CURDATE() ) ORDER BY timestamp DESC;' % (self.table_name, self.stop))
@@ -215,4 +231,10 @@ class StopReport:
             self.arrivals_table_time_created = datetime.datetime.now()
             return arrivals_list_final_df, stop_name
 
+
+    @ecached('get_hourly_frequency:{route}:{stop}:{period}', get_cache_timeout(period))  # cache per route, expire based on period requested
+    def get_hourly_frequency(self,route,stop,period):
+
+        hourly_frequency=self.arrivals_list_final_df['timestamp'].td.resample('1H').mean()
+        return hourly_frequency
 
