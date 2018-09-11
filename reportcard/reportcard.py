@@ -7,8 +7,6 @@ import lib.BusAPI
 
 app = Flask(__name__)
 
-# import configurations
-# app.config.from_object('config.ProductionConfig')
 from route_config import reportcard_routes,grade_descriptions
 
 
