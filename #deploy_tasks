@@ -1,46 +1,44 @@
-todo ASAP
-- https://pypi.org/project/easy-cache/
-- rewrite all of the class methods so that instead of setting instance variables in the functions, they are setting local and then returning the data, and it is set to instance(global) back in the init, so:
+MIAMI ----------------------------------------------------------------------
 
-class cacheme:
-    whatever
+todo OVERNIGHT /// TEST DEPLOY CACHE FIX / ENV VARIABLE FIX TO SERVER. if not work, redact
 
-class Something:
+todo implement different routes for periods on stop views
 
-    def __init__(self, route, arg2):
-        self.stoplist = self.makethatstoplist(route)
-        self.humbug = self.humbgger(arg2)
+todo TEST-NOW  hourly frequency of service table to stop page
 
-    @cacheme
-    def makethatstoplist(arg1):
-        stoplist = things
-        return stoplist
+-----------------------------------------------------------------------------
 
-# https://pypi.org/project/easy-cache/
-#
-# @ecached('time_consuming_operation_{n}', 3600)
-# def time_consuming_operation(n):
-#     return sum(range(n + 1))
-#
-# def invalidate_cache(n):
-#     time_consuming_operation.invalidate_cache_by_key(n)
+todo NOW add reliability % on time to route page
+    task A: computing duration of each run
+    -- method 1: look at buses_for_route and simply compare when that v/run combo came online and went offline = duration observed
+    -- method 2: reconstruct the journey from approaches/stop perspective, when we saw it start and end the run
+    -- method 3: ???
+    -- method 4: ML? tell me what time a bus started and i'll tell you what time it will end?
+
+    task B: summary statistic?
+    -- 100% less percent more than 2 standard deviations late?
+    -- ???
+
+todo DEPLOY fix caching errors on buswatcher
+    ++ see p76 Flask book - refactor entire projects structure, including put DJANGO cache fix into config.py to import)
+    -- flask+gunicorn logging tips here(https://medium.com/@trstringer/logging-flask-and-gunicorn-the-manageable-way-2e6f0b8beb2f)
 
 
+todo BUGS
+    -- inconsistent results back from get_arrivals, which is borking both arrivals_board and bunching_badboys
 
-
-
-
-todo NOW
-- BUG getting inconsistent results back from get_arrivals, which is borking both arrivals_board and bunching_badboys = http://buswatcher.code4jc.org/nj/87/stop/20577
-- reliability rating / grade - % on time (based on how long average it is taking buses to run the whole route end to end -- looking at routereport?)
-- hourly frequency table on route view (average time between buses) -- take mean of delta by hour
-
-todo SOON
-- finish populating hand-coded service list and activate
-- stops view -- add menubar on arrivals board for new views/url_routes for yesterday, this week, this month (e.g. call Stopreport(period='yesterday')
+todo PYTHON3 REFACTOR
+    ++ python2-->python3
+    ++ flask-sqlalchemy (start with newest db and work back: route, stop, bus)
 
 todo FUTURE
-- bigger/better maps
-- import dump.gz --> process 2prune_ tables by keeping only records with pt='APPROACHING' and migrate to current tables
-- update README.md
-- setup daily mysqldb backup from AWS to ?
+    -- redo maps using javascript, bigger more interactive
+    -- rearchitect services picker architecture, perhaps using hard-coded routes?
+    -- import dumped archival data --> process 2prune_ tables by keeping only records with pt='APPROACHING' and migrate to current tables
+    -- update README.md
+    *****
+    From book
+    p45 any use for flask session? dictionary variable pass from page to page?
+    p54 convert one of the databases to sqlalchemy (BusRouteLogs, then Stops, the Bus)
+    p138 pagination widget for stops:arrivals_board, TK
+    *****
