@@ -5,8 +5,8 @@ import sys
 import argparse
 import datetime
 
-import lib.BusAPI as BusAPI
-import lib.BusDB as BusDB
+import reportcard.lib.BusAPI as BusAPI
+import reportcard.lib.BusDB as BusDB
 
 
 def main():

@@ -1,3 +1,3 @@
-# myapp/__init__.py
+# reportcard/__init__.py
 
 # [...] Initialize the app

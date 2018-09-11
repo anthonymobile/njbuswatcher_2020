@@ -4,10 +4,13 @@
 from flask import Flask, render_template
 import lib.ReportCard
 import lib.BusAPI
-from route_config import reportcard_routes,grade_descriptions
-
 
 app = Flask(__name__)
+
+# import configurations
+# app.config.from_object('config.ProductionConfig')
+from route_config import reportcard_routes,grade_descriptions
+
 
 ################################################
 # STATIC ASSETS
