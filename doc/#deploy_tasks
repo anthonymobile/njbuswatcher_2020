@@ -1,6 +1,5 @@
 todo ASAP
-- hourly frequency table on route view (average time between buses) -- take mean of delta by hour
-- test caching version on server (push the version deployed up to github as a new branch first)
+- test new_master version on bigger dataset + production server (caching features, and the hourly frequency table)
 
 todo NEXT
 - reliability rating / grade - % on time (based on how long average it is taking buses to run the whole route end to end -- looking at routereport?)
