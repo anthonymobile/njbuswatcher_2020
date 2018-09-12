@@ -1,5 +1,5 @@
-# bus reportcard v0.1
-# flask app running on https://host:5000
+# bus reportcard v1.0
+# september 2018 - anthony townsend anthony@bitsandatoms.net
 
 from flask import Flask, render_template
 import lib.ReportCard
