@@ -7,8 +7,19 @@ import lib.BusAPI
 
 app = Flask(__name__)
 app.config.from_pyfile('config.py')
-from route_config import reportcard_routes,grade_descriptions
 
+if app.config.environment == 'development':
+    from werkzeug.debug import DebuggedApplication
+    app_runtime = DebuggedApplication(app, evalex=False)
+else:
+    app_runtime = app
+
+
+################################################
+# APPLICATION DATA IMPORT
+################################################
+
+from route_config import reportcard_routes,grade_descriptions
 
 ################################################
 # STATIC ASSETS
