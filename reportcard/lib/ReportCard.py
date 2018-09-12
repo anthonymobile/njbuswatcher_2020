@@ -10,7 +10,7 @@ from easy_cache import ecached
 from django.conf import settings
 settings.configure(DEBUG=True, DJANGO_SETTINGS_MODULE="mysite_django.settings")
 
-def get_cache_timeout(period):
+def get_cache_timeout(self,route,stop,period):
     if period == "hourly":
         cache_timeout = 60 # 1 min
     elif period == "daily":
@@ -184,7 +184,8 @@ class StopReport:
         self.bunching_interval = datetime.timedelta(minutes=3)
         self.bigbang = datetime.timedelta(seconds=0)
 
-    @ecached('get_arrivals:{route}:{stop}:{period}', get_cache_timeout(period))  # cache per route, expire based on period requested
+
+    @ecached('get_arrivals:{route}:{stop}:{period}', timeout=get_cache_timeout) # dynamic timeout
     def get_arrivals(self,route,stop,period):
 
         if self.period == "daily":
@@ -232,9 +233,9 @@ class StopReport:
             return arrivals_list_final_df, stop_name
 
 
-    @ecached('get_hourly_frequency:{route}:{stop}:{period}', get_cache_timeout(period))  # cache per route, expire based on period requested
+    @ecached('get_hourly_frequency:{route}:{stop}:{period}', timeout=get_cache_timeout)
     def get_hourly_frequency(self,route,stop,period):
-
-        hourly_frequency=self.arrivals_list_final_df['timestamp'].td.resample('1H').mean()
+        hourly_frequency = self.arrivals_list_final_df.resample("1H").mean('delta') # todo hourly frequency table -- take mean of delta by hour?
+        # print hourly_frequency.head()
         return hourly_frequency
 
