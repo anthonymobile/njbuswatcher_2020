@@ -8,7 +8,7 @@ import StopsDB, BusAPI
 # setup cache
 from easy_cache import ecached
 from django.conf import settings
-settings.configure(DEBUG=True, DJANGO_SETTINGS_MODULE=mysite_django.settings)
+settings.configure(DEBUG=True, DJANGO_SETTINGS_MODULE="mysite_django.settings")
 
 def get_cache_timeout(self,route,stop,period):
     if period == "hourly":
