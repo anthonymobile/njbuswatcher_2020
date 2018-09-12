@@ -178,7 +178,7 @@ class StopReport:
 
         # populate stop report data
         self.arrivals_list_final_df, self.stop_name = self.get_arrivals(self.route,self.stop,self.period)
-        self.hourly_frequency = self.get_hourly_frequency(self.route,self.stop,self.period)
+        # self.hourly_frequency = self.get_hourly_frequency(self.route,self.stop,self.period)
 
         # constants
         self.bunching_interval = datetime.timedelta(minutes=3)
@@ -233,9 +233,9 @@ class StopReport:
             return arrivals_list_final_df, stop_name
 
 
-    @ecached('get_hourly_frequency:{route}:{stop}:{period}', timeout=get_cache_timeout)
-    def get_hourly_frequency(self,route,stop,period):
-        hourly_frequency = self.arrivals_list_final_df.resample("1H").mean('delta') # todo hourly frequency table -- take mean of delta by hour?
-        # print hourly_frequency.head()
-        return hourly_frequency
+    # @ecached('get_hourly_frequency:{route}:{stop}:{period}', timeout=get_cache_timeout)
+    # def get_hourly_frequency(self,route,stop,period):
+    #     hourly_frequency = self.arrivals_list_final_df.resample("1H").mean('delta') # todo hourly frequency table -- take mean of delta by hour?
+    #     # print hourly_frequency.head()
+    #     return hourly_frequency
 
