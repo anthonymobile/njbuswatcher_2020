@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e9c35431-0764-488c-bbb0-431ede0ff16b" name="Default" comment="commented out hourly, to test caching on server">
+    <list default="true" id="e9c35431-0764-488c-bbb0-431ede0ff16b" name="Default" comment="fixed bug in config">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reportcard/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/reportcard/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reportcard/lib/ReportCard.py" beforeDir="false" afterPath="$PROJECT_DIR$/reportcard/lib/ReportCard.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/reportcard/reportcard.py" beforeDir="false" afterPath="$PROJECT_DIR$/reportcard/reportcard.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -74,8 +72,8 @@
           <entry key="html" value="16191" />
           <entry key="js" value="401" />
           <entry key="md" value="12745" />
-          <entry key="py" value="30306" />
-          <entry key="txt" value="2744" />
+          <entry key="py" value="30458" />
+          <entry key="txt" value="2797" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
@@ -84,8 +82,8 @@
           <entry key="HTML" value="16191" />
           <entry key="JavaScript" value="401" />
           <entry key="Markdown" value="12745" />
-          <entry key="PLAIN_TEXT" value="7635" />
-          <entry key="Python" value="30969" />
+          <entry key="PLAIN_TEXT" value="7688" />
+          <entry key="Python" value="31121" />
           <entry key="Scratch" value="168" />
         </counts>
       </usages-collector>
@@ -102,11 +100,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/reportcard/reportcard.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="166">
-              <caret line="9" column="14" lean-forward="true" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="14" />
+            <state relative-caret-position="330">
+              <caret line="15" column="4" lean-forward="true" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="4" />
               <folding>
                 <element signature="e#64#104#0" expanded="true" />
               </folding>
@@ -114,11 +112,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/reportcard/config.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="22">
-              <caret line="1" column="46" selection-start-line="1" selection-start-column="46" selection-end-line="1" selection-end-column="46" />
+            <state relative-caret-position="66">
+              <caret line="3" selection-start-line="3" selection-end-line="3" />
             </state>
           </provider>
         </entry>
@@ -144,8 +142,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/reportcard/lib/ReportCard.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="12" column="46" lean-forward="true" selection-start-line="12" selection-start-column="46" selection-end-line="12" selection-end-column="46" />
+            <state relative-caret-position="220">
+              <caret line="10" column="78" selection-start-line="10" selection-start-column="78" selection-end-line="10" selection-end-column="78" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
                 <element signature="e#1304#6490#0" />
@@ -282,9 +280,9 @@
         <option value="$PROJECT_DIR$/reportcard/templates/stop.html" />
         <option value="$PROJECT_DIR$/doc/#deploy_tasks" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch.txt" />
-        <option value="$PROJECT_DIR$/reportcard/reportcard.py" />
         <option value="$PROJECT_DIR$/reportcard/lib/ReportCard.py" />
         <option value="$PROJECT_DIR$/reportcard/config.py" />
+        <option value="$PROJECT_DIR$/reportcard/reportcard.py" />
       </list>
     </option>
   </component>
@@ -326,6 +324,15 @@
               <item name="buswatcher" type="462c0819:PsiDirectoryNode" />
               <item name="reportcard" type="462c0819:PsiDirectoryNode" />
               <item name="lib" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="buswatcher" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+            </path>
+            <path>
+              <item name="buswatcher" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="&lt; Python 2.7 (buswatcher) &gt;" type="70bed36:NamedLibraryElementNode" />
             </path>
             <path>
               <item name="buswatcher" type="b2602c69:ProjectViewProjectNode" />
@@ -629,20 +636,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1524759532211</updated>
-    </task>
-    <task id="LOCAL-00070" summary="big update to UX">
-      <created>1534304715303</created>
-      <option name="number" value="00070" />
-      <option name="presentableId" value="LOCAL-00070" />
-      <option name="project" value="LOCAL" />
-      <updated>1534304715304</updated>
-    </task>
-    <task id="LOCAL-00071" summary="major README update">
-      <created>1534375387219</created>
-      <option name="number" value="00071" />
-      <option name="presentableId" value="LOCAL-00071" />
-      <option name="project" value="LOCAL" />
-      <updated>1534375387220</updated>
     </task>
     <task id="LOCAL-00072" summary="tiny README update">
       <created>1534376344757</created>
@@ -973,7 +966,21 @@
       <option name="project" value="LOCAL" />
       <updated>1536782447280</updated>
     </task>
-    <option name="localTasksCounter" value="119" />
+    <task id="LOCAL-00119" summary="new config options for flask debug">
+      <created>1536783298552</created>
+      <option name="number" value="00119" />
+      <option name="presentableId" value="LOCAL-00119" />
+      <option name="project" value="LOCAL" />
+      <updated>1536783298553</updated>
+    </task>
+    <task id="LOCAL-00120" summary="fixed bug in config">
+      <created>1536783618570</created>
+      <option name="number" value="00120" />
+      <option name="presentableId" value="LOCAL-00120" />
+      <option name="project" value="LOCAL" />
+      <updated>1536783618570</updated>
+    </task>
+    <option name="localTasksCounter" value="121" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1068,8 +1075,6 @@
       <path value="$PROJECT_DIR$/src/templates/mapbox-gl-js-bootstrap-boilerplate" />
       <path value="$PROJECT_DIR$/src/templates/mapbox-js" />
     </ignored-roots>
-    <MESSAGE value="first pre-flight test" />
-    <MESSAGE value="fixed grade color display" />
     <MESSAGE value="rewrote bunching leaderboard, needs debugging" />
     <MESSAGE value="fixed no data errors on stop view" />
     <MESSAGE value="stopwatcher no longer writes non &quot;APPROACHING&quot; pt observations to database" />
@@ -1093,7 +1098,9 @@
     <MESSAGE value="hourly frequency table ready for testing" />
     <MESSAGE value="cleaned away /src folder (forever?! finally?)" />
     <MESSAGE value="commented out hourly, to test caching on server" />
-    <option name="LAST_COMMIT_MESSAGE" value="commented out hourly, to test caching on server" />
+    <MESSAGE value="new config options for flask debug" />
+    <MESSAGE value="fixed bug in config" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed bug in config" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1110,7 +1117,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/reportcard/reportcard.py</url>
-          <line>58</line>
+          <line>69</line>
           <option name="timeStamp" value="11" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -1268,8 +1275,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/reportcard/lib/ReportCard.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="12" column="46" lean-forward="true" selection-start-line="12" selection-start-column="46" selection-end-line="12" selection-end-column="46" />
+        <state relative-caret-position="220">
+          <caret line="10" column="78" selection-start-line="10" selection-start-column="78" selection-end-line="10" selection-end-column="78" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
             <element signature="e#1304#6490#0" />
@@ -1277,20 +1284,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/reportcard/reportcard.py">
+    <entry file="file://$PROJECT_DIR$/reportcard/config.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="166">
-          <caret line="9" column="14" lean-forward="true" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="14" />
-          <folding>
-            <element signature="e#64#104#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="66">
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/reportcard/config.py">
+    <entry file="file://$PROJECT_DIR$/reportcard/reportcard.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="1" column="46" selection-start-line="1" selection-start-column="46" selection-end-line="1" selection-end-column="46" />
+        <state relative-caret-position="330">
+          <caret line="15" column="4" lean-forward="true" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="4" />
+          <folding>
+            <element signature="e#64#104#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
