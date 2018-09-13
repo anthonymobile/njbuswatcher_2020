@@ -56,8 +56,8 @@ def genRouteReport_ServiceStoplist(source, route, service):
     return render_template('route_servicestoplist.html', routereport=routereport,service=service)
 
 # 4 stop report
-@app.route('/<source>/<route>/stop/<stop>')
-def genStopReport(source, route, stop, period='daily'):
+@app.route('/<source>/<route>/stop/<stop>/<period>')
+def genStopReport(source, route, stop, period):
     stopreport = lib.ReportCard.StopReport(route, stop, period)
     routereport = lib.ReportCard.RouteReport(source, route, reportcard_routes, grade_descriptions)
     predictions = lib.BusAPI.parse_xml_getStopPredictions(lib.BusAPI.get_xml_data('nj', 'stop_predictions', stop=stop, route='all'))

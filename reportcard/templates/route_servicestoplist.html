@@ -39,7 +39,7 @@
     {% for path in routereport.route_stop_list %}
         {% if path.id == service %}
             {% for stop in path.stops %}
-                <a class="dropdown-item" href = {{url_for('genStopReport',source=routereport.source,route=routereport.route,stop=stop.identity) }} id="{{stop.st}}">{{stop.st}}</a>
+                <a class="dropdown-item" href = {{url_for('genStopReport',source=routereport.source,route=routereport.route,stop=stop.identity,period='daily') }} id="{{stop.st}}">{{stop.st}}</a>
             {% endfor %}
         {% endif %}
     {% endfor %}
@@ -51,21 +51,20 @@
 
 
 {% block bunching_report %}
-<!--
+
           <h1 class="">Bunching Bottlenecks</h1>
           <p class="lead">What are the trouble spots slowing service on the {{routereport.route}}? Here's the stops on the {{routereport.route}} with the most bunching incidents today. Click on a stop name to see today's arrivals.</p>
 
         <ul class="list-group" >
                 {% for stop in routereport.bunching_leaderboard %}
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <a href = {{url_for('genStopReport',source=routereport.source,route=routereport.route,stop=stop[2])}}>{{stop[0]}}</a>
+                        <a href = {{url_for('genStopReport',source=routereport.source,route=routereport.route,stop=stop[2],period='daily')}}>{{stop[0]}}</a>
                       <span class="badge badge-primary badge-pill">{{stop[1]}}</span>
                     </li>
                 {% endfor %}
         </ul>
--->
-{% endblock %}
 
+{% endblock %}
 
 {% block reliability_report %}
 <!-- FUTURE reliability report v1 -- coming soon, histogram of travel time based on differential arrival time of same bus id at 1st, last and middlest stop # of std deviations -->
