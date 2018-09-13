@@ -6,13 +6,7 @@ import lib.ReportCard
 import lib.BusAPI
 
 app = Flask(__name__)
-app.config.from_pyfile('config.py')
-
-if app.config.environment == 'development':
-    from werkzeug.debug import DebuggedApplication
-    app_runtime = DebuggedApplication(app, evalex=False)
-else:
-    app_runtime = app
+# app.config.from_pyfile('config.py')
 
 
 ################################################

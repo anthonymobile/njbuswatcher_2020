@@ -1,14 +1,17 @@
 todo ASAP
-- test new_master version on bigger dataset + production server (caching features, and the hourly frequency table)
+- fix mysql.connector issue on Macbook here
+- implement new period routing for stop pages (is this what's borking the caching?)
+- verify caching actually working on buswatcher.code4jc.org
+- Look at 87 xml response getrotepoints to fix parser - flatten nested it?
 
 todo NEXT
+- hourly frequency table
 - reliability rating / grade - % on time (based on how long average it is taking buses to run the whole route end to end -- looking at routereport?)
 
 todo FUTURE
 - convert to python 3
 - bigger/better maps
 - import dump.gz --> process 2prune_ tables by keeping only records with pt='APPROACHING' and migrate to current tables
-- update README.md
 - setup daily mysqldb backup
 
 todo BRYAN comments
