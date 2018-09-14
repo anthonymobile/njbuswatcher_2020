@@ -74,10 +74,10 @@
       <div class="row">
         <div class="col-md-12">
           <ul class="breadcrumb bg-light" style="margin-bottom:0px;margin-top:0px">
-            <li class="breadcrumb-item active">daily (or stopreport.period) {{stopreport.period}}</li>
-			  <li class="breadcrumb-item "><a href="">urlfor: period yesterday</a></li>
-		    <li class="breadcrumb-item "><a href="">weekly</a></li>
-		    <li class="breadcrumb-item "><a href="">this month</a></li>
+            <li class="breadcrumb-item active"><a href = {{url_for('genStopReport',source=routereport.source,route=routereport.route,stop=stopreport.stop,period='daily')}}>daily</a></li>
+			<li class="breadcrumb-item "><a href = {{url_for('genStopReport',source=routereport.source,route=routereport.route,stop=stopreport.stop,period='yesterday')}}>yesterday</a></li>
+		    <li class="breadcrumb-item "><a href = {{url_for('genStopReport',source=routereport.source,route=routereport.route,stop=stopreport.stop,period='weekly')}}>weekly</a></li>
+		    <li class="breadcrumb-item "><a href = {{url_for('genStopReport',source=routereport.source,route=routereport.route,stop=stopreport.stop,period='history')}}>history</a></li>
           </ul>
         </div>
       </div>

@@ -13,13 +13,13 @@
             {% for (index,row) in stopreport.arrivals_list_final_df.iterrows() %}
                 {% if (row.delta > stopreport.bigbang) and (row.delta <= stopreport.bunching_interval) %}
                     <tr class='table-danger'>
-                        <td>{{row.timestamp|strftime_today}}</td>
+                        <td>{{row.timestamp|strftime_period(period)}}</td>
                         <td>{{row.v}}</td>
                         <td>{{row.delta|strftime_timedelta}}</td>
                     </tr>
                 {% else %}
                     <tr class='table-success'>
-                        <td>{{row.timestamp|strftime_today}}</td>
+                        <td>{{row.timestamp|strftime_period(period)}}</td>
                         <td>{{row.v}}</td>
                         <td>{{row.delta|strftime_timedelta}}</td>
                     </tr>
