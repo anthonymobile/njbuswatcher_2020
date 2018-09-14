@@ -61,12 +61,25 @@ def genStopReport(source, route, stop, period):
     stopreport = lib.ReportCard.StopReport(route, stop, period)
     routereport = lib.ReportCard.RouteReport(source, route, reportcard_routes, grade_descriptions)
     predictions = lib.BusAPI.parse_xml_getStopPredictions(lib.BusAPI.get_xml_data('nj', 'stop_predictions', stop=stop, route='all'))
-    return render_template('stop.html', stopreport=stopreport, routereport=routereport, predictions=predictions)
+    return render_template('stop.html', stopreport=stopreport, routereport=routereport, predictions=predictions,period=period)
 
 
 # custom filters
 @app.template_filter('strftime_today')
 def _jinja2_filter_datetime(timestamp, format='%I:%M %p'):
+    return timestamp.strftime(format)
+
+@app.template_filter('strftime_period')
+def _jinja2_filter_datetime_by_period(timestamp, period):
+    if period == "daily":
+        format = '%I:%M %p'
+    elif period == "yesterday":
+        format = '%a %I:%M %p'
+    elif period == "weekly":
+        format = '%a %I:%M %p'
+    elif period == "history":
+        format = '%Y-%m-%d %I:%M %p'
+
     return timestamp.strftime(format)
 
 @app.template_filter('strftime_forever')

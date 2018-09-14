@@ -191,7 +191,7 @@ class StopReport:
         if self.period == "daily":
             final_approach_query = ('SELECT * FROM %s WHERE (stop_id= %s AND DATE(`timestamp`)=CURDATE() ) ORDER BY timestamp DESC;' % (self.table_name, self.stop))
         elif self.period == "yesterday": # todo 'yesterday' query returns empty set
-            final_approach_query = ('SELECT * FROM %s WHERE (stop_id= %s AND DATE(timestamp >= DATE_SUB(CURDATE(), INTERVAL 1 DAY) AND timestamp < CURDATE()) ) ORDER BY timestamp DESC;' % (self.table_name, self.stop))
+            final_approach_query = ('SELECT * FROM %s WHERE (stop_id= %s AND (timestamp >= CURDATE() - INTERVAL 1 DAY AND timestamp < CURDATE())) ORDER BY timestamp DESC;' % (self.table_name, self.stop))
         elif self.period=="weekly":
             final_approach_query = ('SELECT * FROM %s WHERE (stop_id= %s AND (YEARWEEK(`timestamp`, 1) = YEARWEEK(CURDATE(), 1))) ORDER BY timestamp DESC;' % (self.table_name,self.stop))
         elif self.period=="history":
