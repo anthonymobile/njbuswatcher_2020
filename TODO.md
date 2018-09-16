@@ -4,6 +4,26 @@
 
 ### todo BUGS
 [/]:# (todo BUGS)
+- #### setup way to override localhost as db_server
+    - environment variables? 2 different pycharm runtime configurations?
+    ```python
+      import os
+      os.environ['REPORTCARD_DEVELOPMENT'] = 'TRUE'
+    
+      then in the code (wherever db_setup is)
+    
+      if os.environ['REPORTCARD_DEVELOPMENT'] = 'TRUE':
+          db_server = '192.168.1.181'
+      else:
+          db_server = 'localhost'
+ 
+    ```
+    if that doesnt work
+    - using ? config.py
+    - using a switch/argparse?
+    - just hardcode it on a branch?
+    
+- arrivals board: often tables are incomplete -- buses are missing, or deltas seems ot be computed off of missing rows (Arrivals we know occured but are missing). is the error happening in sql, python, or jinja? -- when i see one debug and inspect back up the stack
 - arrivals board: 3 min interval as bunching but not a 0 minute one as bunching… seems counter intuitive?
 
 ### todo DATA_MODEL
