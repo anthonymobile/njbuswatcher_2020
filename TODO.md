@@ -8,11 +8,11 @@
     - environment variables? 2 different pycharm runtime configurations?
     ```python
       import os
-      os.environ['REPORTCARD_DEVELOPMENT'] = 'TRUE'
+      db_state = os.environ['REPORTCARD_PRODUCTION']
     
       then in the code (wherever db_setup is)
     
-      if os.environ['REPORTCARD_DEVELOPMENT'] = 'TRUE':
+      if db_state == 'TRUE':
           db_server = '192.168.1.181'
       else:
           db_server = 'localhost'
