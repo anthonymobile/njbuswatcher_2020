@@ -2,11 +2,12 @@
 # september 2018 - anthony townsend anthony@bitsandatoms.net
 
 from flask import Flask, render_template
+from flask_bootstrap import Bootstrap
 import lib.ReportCard
 import lib.BusAPI
 
 app = Flask(__name__)
-# app.config.from_pyfile('config.py')
+Bootstrap(app)
 
 
 ################################################
