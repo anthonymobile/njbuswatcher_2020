@@ -2,6 +2,15 @@ import datetime, time, sys
 from operator import itemgetter
 import pandas as pd
 
+# database config
+import os
+try:
+    db_state = os.environ['REPORTCARD_PRODUCTION']
+    db_server = '192.168.1.181'
+except:
+    db_server = '127.0.0.1'
+
+
 # import app libraries
 import StopsDB, BusAPI
 
@@ -56,7 +65,7 @@ class RouteReport:
         self.grade_descriptions = grade_descriptions
 
         # database initialization
-        self.db = StopsDB.MySQL('buses', 'buswatcher', 'njtransit', '127.0.0.1', self.route)
+        self.db = StopsDB.MySQL('buses', 'buswatcher', 'njtransit', db_server, self.route)
         self.conn = self.db.conn
         self.table_name = 'stop_approaches_log_' + self.route
 
@@ -172,13 +181,13 @@ class StopReport:
         self.period=period
 
         # database initialization
-        self.db = StopsDB.MySQL('buses', 'buswatcher', 'njtransit', '127.0.0.1', self.route)
+        self.db = StopsDB.MySQL('buses', 'buswatcher', 'njtransit', db_server,  self.route)
         self.conn = self.db.conn
         self.table_name = 'stop_approaches_log_' + self.route
 
         # populate stop report data
         self.arrivals_list_final_df, self.stop_name = self.get_arrivals(self.route,self.stop,self.period)
-        # self.hourly_frequency = self.get_hourly_frequency(self.route,self.stop,self.period)
+        # self.hourly_frequency = self.get_hourly_frequency(self.route,self.stop,self.period) # this dies if there are no arrivals in the period
 
         # constants
         self.bunching_interval = datetime.timedelta(minutes=3)
@@ -190,7 +199,7 @@ class StopReport:
 
         if self.period == "daily":
             final_approach_query = ('SELECT * FROM %s WHERE (stop_id= %s AND DATE(`timestamp`)=CURDATE() ) ORDER BY timestamp DESC;' % (self.table_name, self.stop))
-        elif self.period == "yesterday": # todo 'yesterday' query returns empty set
+        elif self.period == "yesterday":
             final_approach_query = ('SELECT * FROM %s WHERE (stop_id= %s AND (timestamp >= CURDATE() - INTERVAL 1 DAY AND timestamp < CURDATE())) ORDER BY timestamp DESC;' % (self.table_name, self.stop))
         elif self.period=="weekly":
             final_approach_query = ('SELECT * FROM %s WHERE (stop_id= %s AND (YEARWEEK(`timestamp`, 1) = YEARWEEK(CURDATE(), 1))) ORDER BY timestamp DESC;' % (self.table_name,self.stop))
@@ -234,8 +243,10 @@ class StopReport:
 
 
     # @ecached('get_hourly_frequency:{route}:{stop}:{period}', timeout=get_cache_timeout)
-    # def get_hourly_frequency(self,route,stop,period):
-    #     hourly_frequency = self.arrivals_list_final_df.resample("1H").mean('delta') # todo hourly frequency table -- take mean of delta by hour?
-    #     # print hourly_frequency.head()
-    #     return hourly_frequency
+    def get_hourly_frequency(self,route,stop,period):
+
+        self.arrivals_list_final_df['delta_int']=self.arrivals_list_final_df['delta'].dt.seconds
+        hourly_frequency = self.arrivals_list_final_df.resample('1H').mean('delta_int') # this works but it creates a groupby object, and doesn't actually compute the mean.
+
+        return hourly_frequency
 
