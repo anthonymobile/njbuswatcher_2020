@@ -1,6 +1,54 @@
-{% extends 'index-base.html' %}
+{# This simple template derives from ``base.html``. See ``base.html`` for
+   more information about template inheritance. #}
+{%- extends "base.html" %}
 
-{% block routelist %}
+{# Loads some of the macros included with Flask-Bootstrap. We are using the
+   utils module here to automatically render Flask's flashed messages in a
+   bootstrap friendly manner #}
+{% import "bootstrap/utils.html" as utils %}
+
+
+{# Inside the ``content`` is where you should place most of your own stuff.
+   This will keep scripts at the page end and a navbar you add on later
+   intact. #}
+{% block content %}
+
+<div class="container py-2">
+     <div class="row">
+        <div class="col-md-12">
+          <h1>beta testing. some features may be wobbly.</h1>
+        </div>
+     </div>
+</div>
+
+  <div class="py-5 text-center " style="background-image: url('static/images/banner.jpg');">
+    <div class="container py-5 transparent">
+      <div class="row">
+        <div class="col-md-12">
+          <h1 class="display-3 mb-4 text-dark text-capitalize">Buses are the backbone&nbsp;
+            <br>of our neighborhood.&nbsp;</h1>
+          <p class="lead text-left">Jersey City residents depend on buses to get to work, school, and the homes of friends and loved ones.</p>
+          <p class="lead text-left">That's why Code4JC is supporting neighborhood organizations in informing residents, businesses, and public officials about the opportunities and challenges in local bus service.
+            <p class="lead text-left">This website focuses on The Heights, where the Riverview Neighborhood Association has organized a petition drive to lobby for better bus service. You can learn about current
+            bus service and take action by signing the petition.</p>
+          <a href="#routepanel" class="btn btn-lg mx-1 btn-secondary">Check Out the Report Cards</a>
+          <a href="https://goo.gl/forms/VF5S1Oclk9QTdZha2" class="btn btn-lg btn-primary mx-1">Sign the Petition for Better Bus Service</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="routepanel" class="py-5">
+    <div class="container">
+      <div class="row">
+        {% block routelist %}
+        {% endblock %}
+      </div>
+    </div>
+  </div>
+
+
 
    {% for route in reportcard_routes %}
 
@@ -14,5 +62,4 @@
         </div>
     {% endfor %}
 
-{% endblock %}
-
+{%- endblock %}

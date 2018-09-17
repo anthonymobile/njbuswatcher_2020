@@ -45,7 +45,7 @@ api.add_resource(Routes, '/route/daily/<int:rt>')
 class RoutesMonthly(Resource):
     def get(self, year,month,rt):
         # fetch the json and put it into the appropriate container if any and return it)
-        return # render_template('index-base.html', message=message) <--- is this right?
+        return # render_template('index-base.html.bak', message=message) <--- is this right?
 
 #
 #
