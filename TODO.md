@@ -14,9 +14,6 @@
 
 ### todo CONTENT+UX
 [/]:# (todo CONTENT+UX)
-- home page hero: 1 graf up front: Tell people why it’s currently hard to evaluate bus service, what you did to make it easy, and why it matters.
-- tone: more pointed than “opportunities and challenges” language. "We made this site so you can tell how well the busses actually work. Knowing the status quo is critical to having a constructive discussion about how to improve service for all JC residents.”
-- Clicking “check out the report cards” does nothing.
 - Nine bus routes on bottom of page are ambiguous - are they buttons or not? Consider adding text above to the effect of “Click your route to see our analysis”
 - put grade or grade color code on home page too
 

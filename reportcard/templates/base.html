@@ -25,7 +25,7 @@
 
 {# We also set a default title, usually because we might forget to set one.
    In our sample app, we will most likely just opt not to change it #}
-{% block title %}Sample App for Flask-Bootstrap{% endblock %}
+{% block title %}JC Bus Watcher{% endblock %}
 
 {# While we are at it, we also enable fixes for legacy browsers. First we
    import the necessary macros: #}
@@ -34,6 +34,20 @@
 {# Then, inside the head block, we apply these. To not replace the header,
    ``super()`` is used: #}
 {% block head %}
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-109853808-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-109853808-2');
+</script>
+
 {{super()}}
 
 {#- Docs: http://pythonhosted.org/Flask-Bootstrap/macros.html#fixes
@@ -49,4 +63,6 @@
                     will disappear! #}
     <link rel="stylesheet" type="text/css"
           href="{{url_for('static', filename='sample-app.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
+
 {% endblock %}
