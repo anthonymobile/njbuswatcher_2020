@@ -42,7 +42,13 @@ assets.register(bundles)
 #1 home page
 @app.route('/')
 def displayHome():
-    return render_template('index.html', reportcard_routes=reportcard_routes)
+    # routereport = routereport # setup a dummy for the navbar
+    class Dummy():
+        def __init__(self):
+            self.routename = 'NJTransit' # todo replace with source argument if want to abstract repo for other transit services
+    routereport = Dummy()
+
+    return render_template('index.html', reportcard_routes=reportcard_routes, routereport=routereport)
 
 #2 route report - choose service
 @app.route('/<source>/<route>')
