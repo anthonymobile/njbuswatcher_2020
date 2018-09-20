@@ -203,10 +203,11 @@ Particularly the [district-level report cards](http://districts.busturnaround.ny
     ```
     conda installs a ton of python goodies for you. dont you just [love python](https://xkcd.com/353/)? (Why flask AND django? because we're going to use django for the caching framework. more in a second) 
 
-11. install the caching framework
+11. install the caching and templates framework  
 
     ```bash
     pip install easy_cache
+    pip install Flask-Bootstrap4
     ```    
 6. clone the buswatcher repo
     ```bash

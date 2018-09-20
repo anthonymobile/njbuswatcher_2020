@@ -1,0 +1,94 @@
+{# This simple template derives from ``base.html``. See ``base.html`` for
+   more information about template inheritance. #}
+{%- extends "base.html" %}
+
+{# Loads some of the macros included with Flask-Bootstrap. We are using the
+   utils module here to automatically render Flask's flashed messages in a
+   bootstrap friendly manner #}
+{% import "bootstrap/utils.html" as utils %}
+
+
+{# Unused for now but offer the opportunity to insert content before or after the breadcrumb navbar defined in route-based.html - position relative to super() call #}
+{% block navbar %}
+{{super()}}
+{%- endblock %}
+
+
+{# Inside the ``content`` is where you should place most of your own stuff.
+   This will keep scripts at the page end and a navbar you add on later
+   intact. #}
+{% block content %}
+
+  <div class="py-2 bg-dark">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h1 class="">{{routereport.routename}}</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="py-3">
+    <div class="container">
+      <div class="row">
+
+         <div class="col-md-6">
+          {% block grade %}
+          {% endblock %}
+
+          {% block summary %}
+          {% endblock %}
+
+        </div>
+
+
+
+        <div class="col-md-6">
+          {% block map %}
+          {% endblock %}
+        </div>
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+    <div class="py-5 bg-light">
+    <div class="container">
+      <div class="row">
+
+
+        <div class="col-md-4">
+
+
+          {% block service_stops_block %}
+          {% endblock %}
+
+        </div>
+
+        <div class="col-md-8">
+          {% block bunching_report %}
+          {% endblock %}
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="bg-dark text-white">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 mt-3">
+          <p class="text-center text-white">Data released under <a href="https://cdla.io/sharing-1-0/">Community Data License Agreement – Sharing, Version 1.0</a>, but may be subject to restrictions based on <a href="http://mybusnow.njtransit.com/bustime/home.jsp">origin</a>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
