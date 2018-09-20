@@ -1,19 +1,15 @@
 {% extends 'route-base.html' %}
 
-{% block summary %}
+{% block top_left %}
 <p class="lead">{{routereport.description_long}}</p>
 
-           <!-- <p class=""><a class="ml-3 btn navbar-btn btn-secondary" href="https://goo.gl/forms/VF5S1Oclk9QTdZha2">Sign the petition for better bus service</a></p> -->
-
-{% endblock %}
-
-
-{% block grade %}
 
         <div class="alert alert-primary" role="alert">
             <h4 class="alert-heading">Coming Soon: Route Grades</h4>
             <p class="mb-0">Soon we'll be adding grades that help you evaluate how well each bus route is doing in terms of service reliability.</p>
         </div>
+
+          <a href="https://goo.gl/forms/VF5S1Oclk9QTdZha2" class="btn btn-lg btn-primary mx-1">Sign the Petition for Better Bus Service</a>
 
 <!--
     {% if (routereport.grade=='A' or routereport.grade=='B') %}
@@ -38,7 +34,7 @@
 {% endblock %}
 
 
-{% block map %}
+{% block top_right %}
 <img class="img-fluid d-block" src="/static/images/map{{routereport.route}}.jpg" >
 
 <div class="btn-group">
@@ -49,7 +45,7 @@
 {% endblock %}
 
 
-{% block service_stops_block %}
+{% block bottom_left %}
           <h1 class="">Choose Direction...</h1>
           <p class="lead">Pick the direction of travel and specific service for route {{routereport.route}} to see more detailed performance information. (Note: Many routes have more than one service in the same direction. Services not currently running won't show up.)</p>
 
@@ -77,7 +73,7 @@
 {% endblock %}
 
 
-{% block bunching_report %}
+{% block bottom_right %}
 
           <h1 class="">Bunching Bottlenecks</h1>
           <p class="lead">What are the trouble spots slowing service on the {{routereport.route}}? Here's the stops on the {{routereport.route}} with the most bunching incidents today. Click on a stop name to see today's arrivals.</p>
