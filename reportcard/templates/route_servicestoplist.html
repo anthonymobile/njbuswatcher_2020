@@ -1,30 +1,18 @@
 {% extends 'route-base.html' %}
 
-{% block top_left %}
+{% block top_right %}
 
+<h1 class="">Overview</h1>
 <p class="lead">{{routereport.description_long}}</p>
 
-           <p class=""><a class="ml-3 btn navbar-btn btn-secondary" href="https://goo.gl/forms/VF5S1Oclk9QTdZha2">Sign the petition for better bus service</a></p>
+           <!-- <p class=""><a class="ml-3 btn navbar-btn btn-secondary" href="https://goo.gl/forms/VF5S1Oclk9QTdZha2">Sign the petition for better bus service</a></p>
 
         <div class="alert alert-primary" role="alert">
             <h4 class="alert-heading">Coming Soon: Route Grades</h4>
             <p class="mb-0">Soon we'll be adding grades that help you evaluate how well each bus route is doing in terms of service reliability.</p>
-        </div>
+        </div>-->
 
-{% endblock %}
-
-
-{% block top_right %}
-<img class="img-fluid d-block" src="/static/images/map{{routereport.route}}.jpg" >
-<div class="btn-group">
-            <a href="{{routereport.schedule_url}}" class="btn btn-outline-primary">Official Schedule (PDF)</a>
-            <a href="{{routereport.moovit_url}}" class="btn btn-outline-secondary">Moovit's {{routereport.route}} Page</a>
-</div>
-{% endblock %}
-
-
-{% block bottom_left %}
-          <h1 class="">Choose A Stop...</h1>
+  <h1 class="">Choose A Stop...</h1>
           <p class="lead">Choose a stop in this direction to see today's arrivals and more detailed performance statistics.</p>
 
 
@@ -45,10 +33,19 @@
 {% endblock %}
 
 
-{% block bottom_right %}
+{% block top_left %}
+<img class="img-fluid d-block" src="/static/images/map{{routereport.route}}.jpg" >
+<div class="btn-group">
+            <a href="{{routereport.schedule_url}}" class="btn btn-outline-primary">Official Schedule (PDF)</a>
+            <a href="{{routereport.moovit_url}}" class="btn btn-outline-secondary">Moovit's {{routereport.route}} Page</a>
+</div>
+{% endblock %}
 
-          <h1 class="">Bunching Bottlenecks</h1>
-          <p class="lead">What are the trouble spots slowing service on the {{routereport.route}}? Here's the stops on the {{routereport.route}} with the most bunching incidents today. Click on a stop name to see today's arrivals.</p>
+
+{% block bottom %}
+
+          <h1 class="">Bottlenecks</h1>
+          <p class="lead">Here's the stops on the {{routereport.route}} with the most bunching incidents today. Click on a stop to view the report card.</p>
 
         <ul class="list-group" >
                 {% for stop in routereport.bunching_leaderboard %}

@@ -114,15 +114,14 @@
               <tr>
                 <th>hour</th>
                 <th>bus every</th>
-                <th>eta</th>
               </tr>
             </thead>
             <tbody>
 
-            {% for row in stopreport.hourly_frequency %}
-                <tr class='table-danger'>
-                    <td>{{row.timestamp}}</td>
-                    <td>{{row.delta}} mins</td>
+            {% for (index,row) in hourly_frequency.iterrows() %}
+                <tr class='table'>
+                    <td>{{row.name|strftime_today}}</td>
+                    <td>{{row.frequency}} mins</td>
                 </tr>
             {% endfor %}
 
