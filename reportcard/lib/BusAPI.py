@@ -163,7 +163,7 @@ def parse_xml_getBusesForRoute(data):
     return results
 
 
-
+# http://mybusnow.njtransit.com/bustime/map/getRoutePoints.jsp?route=119
 def parse_xml_getRoutePoints(data):
 
     routes = list()
@@ -227,7 +227,14 @@ def parse_xml_getRoutePoints(data):
 
 def get_xml_data(source, function, **kwargs):
     import urllib2
-    data = urllib2.urlopen(_gen_command(source, function, **kwargs)).read()
+
+    try:
+        data = urllib2.urlopen(_gen_command(source, function, **kwargs)).read()
+    except:
+        from flask import abort
+        abort(404)
+        pass
+
     return data
 
 
@@ -241,7 +248,3 @@ def get_xml_data_save_raw(source, function, raw_dir, **kwargs):
     handle.write(data)
     handle.close()
     return data
-
-# vestigial?
-# def parse_bus_xml_file(fname):
-#    return parse_xml_getBusesForRouteAll(open(fname, 'r').read())

@@ -9,7 +9,7 @@ try:
     db_server = '192.168.1.181'
 except:
     db_server = '127.0.0.1'
-
+print 'db_server {db_server}'.format(db_server=db_server)
 
 # import app libraries
 import StopsDB, BusAPI
@@ -187,7 +187,6 @@ class StopReport:
 
         # populate stop report data
         self.arrivals_list_final_df, self.stop_name = self.get_arrivals(self.route,self.stop,self.period)
-        # self.hourly_frequency = self.get_hourly_frequency(self.route,self.stop,self.period) # this dies if there are no arrivals in the period
 
         # constants
         self.bunching_interval = datetime.timedelta(minutes=3)
@@ -198,13 +197,13 @@ class StopReport:
     def get_arrivals(self,route,stop,period):
 
         if self.period == "daily":
-            final_approach_query = ('SELECT * FROM %s WHERE (stop_id= %s AND DATE(`timestamp`)=CURDATE() ) ORDER BY timestamp DESC;' % (self.table_name, self.stop))
+            final_approach_query = ('SELECT * FROM %s WHERE (rd=%s AND stop_id= %s AND DATE(`timestamp`)=CURDATE() ) ORDER BY timestamp DESC;' % (self.table_name, self.route, self.stop))
         elif self.period == "yesterday":
-            final_approach_query = ('SELECT * FROM %s WHERE (stop_id= %s AND (timestamp >= CURDATE() - INTERVAL 1 DAY AND timestamp < CURDATE())) ORDER BY timestamp DESC;' % (self.table_name, self.stop))
+            final_approach_query = ('SELECT * FROM %s WHERE (rd=%s AND stop_id= %s AND (timestamp >= CURDATE() - INTERVAL 1 DAY AND timestamp < CURDATE())) ORDER BY timestamp DESC;' % (self.table_name, self.route, self.stop))
         elif self.period=="weekly":
-            final_approach_query = ('SELECT * FROM %s WHERE (stop_id= %s AND (YEARWEEK(`timestamp`, 1) = YEARWEEK(CURDATE(), 1))) ORDER BY timestamp DESC;' % (self.table_name,self.stop))
+            final_approach_query = ('SELECT * FROM %s WHERE (rd=%s AND stop_id= %s AND (YEARWEEK(`timestamp`, 1) = YEARWEEK(CURDATE(), 1))) ORDER BY timestamp DESC;' % (self.table_name, self.route, self.stop))
         elif self.period=="history":
-            final_approach_query = ('SELECT * FROM %s WHERE stop_id= %s ORDER BY timestamp DESC;' % (self.table_name,self.stop))
+            final_approach_query = ('SELECT * FROM %s WHERE (rd=%s AND stop_id= %s) ORDER BY timestamp DESC;' % (self.table_name, self.route, self.stop))
         else:
             raise RuntimeError('Bad request sucker!')
 
@@ -242,11 +241,28 @@ class StopReport:
             return arrivals_list_final_df, stop_name
 
 
-    # @ecached('get_hourly_frequency:{route}:{stop}:{period}', timeout=get_cache_timeout)
-    def get_hourly_frequency(self,route,stop,period):
+    # @ecached('get_hourly_frequency:{route}:{stop}:{period}', timeout=get_cache_timeout) # todo so slow this needs to be cached!
+    # need to add back route, stop, period args for cache to compute cache timeout dynamically
+    def get_hourly_frequency(self):
 
-        self.arrivals_list_final_df['delta_int']=self.arrivals_list_final_df['delta'].dt.seconds
-        hourly_frequency = self.arrivals_list_final_df.resample('1H').mean('delta_int') # this works but it creates a groupby object, and doesn't actually compute the mean.
+        # 0
+        # somethign to hold results - 24 hours of emptiness?
+        results = pd.DataFrame()
+        # f = pd.DataFrame(pd.date_range(pd.to_datetime(df['date'] + ' ' + df['hour']).min(),
+        #                                pd.to_datetime(df['date'] + ' ' + df['hour']).max(), freq='H'),
+        #                  columns=['date']).merge(df, on=['date'], how='outer').fillna(0)
 
-        return hourly_frequency
+        # 1 compute the delta as seconds integer
+        self.arrivals_list_final_df['delta_int'] = self.arrivals_list_final_df['delta'].dt.seconds
+
+        # 2 resample hourly
+        # 3 round
+        results['frequency']= (self.arrivals_list_final_df.delta_int.resample('H').mean())//60 # todo more accurate rounding
+
+        # alt to #0 above
+        # 4 reindex to fillin the missing periods
+        # https://pandas.pydata.org/pandas-docs/stable/generated/pandas.Series.reindex.html
+
+        # return as a new df
+        return results
 

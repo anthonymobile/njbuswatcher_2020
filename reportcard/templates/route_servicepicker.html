@@ -1,15 +1,17 @@
 {% extends 'route-base.html' %}
 
-{% block top_left %}
+{% block top_right %}
+<h1 class="">Overview</h1>
 <p class="lead">{{routereport.description_long}}</p>
 
 
-        <div class="alert alert-primary" role="alert">
+     <!--   <div class="alert alert-primary" role="alert">
             <h4 class="alert-heading">Coming Soon: Route Grades</h4>
             <p class="mb-0">Soon we'll be adding grades that help you evaluate how well each bus route is doing in terms of service reliability.</p>
         </div>
 
           <a href="https://goo.gl/forms/VF5S1Oclk9QTdZha2" class="btn btn-lg btn-primary mx-1">Sign the Petition for Better Bus Service</a>
+          -->
 
 <!--
     {% if (routereport.grade=='A' or routereport.grade=='B') %}
@@ -31,23 +33,9 @@
         </div>
     {% endif %}
 -->
-{% endblock %}
 
-
-{% block top_right %}
-<img class="img-fluid d-block" src="/static/images/map{{routereport.route}}.jpg" >
-
-<div class="btn-group">
-            <a href="{{routereport.schedule_url}}" class="btn btn-outline-primary">Official Schedule (PDF)</a>
-            <a href="{{routereport.moovit_url}}" class="btn btn-outline-secondary">Moovit's {{routereport.route}} Page</a>
-</div>
-
-{% endblock %}
-
-
-{% block bottom_left %}
-          <h1 class="">Choose Direction...</h1>
-          <p class="lead">Pick the direction of travel and specific service for route {{routereport.route}} to see more detailed performance information. (Note: Many routes have more than one service in the same direction. Services not currently running won't show up.)</p>
+          <h1 class="">Choose Service...</h1>
+          <p class="lead">Which service and direction do you want to explore?</p>
 
 <div class="btn-group">
     <button class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown">Choose direction/service...</button>
@@ -70,13 +58,26 @@
 </div>
 -->
 
+
 {% endblock %}
 
 
-{% block bottom_right %}
+{% block top_left %}
+<img class="img-fluid d-block" src="/static/images/map{{routereport.route}}.jpg" >
 
-          <h1 class="">Bunching Bottlenecks</h1>
-          <p class="lead">What are the trouble spots slowing service on the {{routereport.route}}? Here's the stops on the {{routereport.route}} with the most bunching incidents today. Click on a stop name to see today's arrivals.</p>
+<div class="btn-group">
+            <a href="{{routereport.schedule_url}}" class="btn btn-outline-primary">Official Schedule (PDF)</a>
+            <a href="{{routereport.moovit_url}}" class="btn btn-outline-secondary">Moovit's {{routereport.route}} Page</a>
+</div>
+
+{% endblock %}
+
+
+
+{% block bottom %}
+
+          <h1 class="">Bottlenecks</h1>
+          <p class="lead">Here's the stops on the {{routereport.route}} with the most bunching incidents today. Click on a stop to view the report card.</p>
 
         <ul class="list-group" >
                 {% for stop in routereport.bunching_leaderboard %}

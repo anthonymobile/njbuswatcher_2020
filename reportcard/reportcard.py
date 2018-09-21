@@ -1,6 +1,7 @@
 # bus reportcard v1.0
 # september 2018 - anthony townsend anthony@bitsandatoms.net
 
+import werkzeug
 from flask import Flask, render_template
 from flask_bootstrap import Bootstrap
 import lib.ReportCard
@@ -15,6 +16,8 @@ Bootstrap(app)
 ################################################
 
 from route_config import reportcard_routes,grade_descriptions
+
+
 
 ################################################
 # STATIC ASSETS
@@ -66,9 +69,18 @@ def genRouteReport_ServiceStoplist(source, route, service):
 @app.route('/<source>/<route>/stop/<stop>/<period>')
 def genStopReport(source, route, stop, period):
     stopreport = lib.ReportCard.StopReport(route, stop, period)
+    hourly_frequency = stopreport.get_hourly_frequency()
     routereport = lib.ReportCard.RouteReport(source, route, reportcard_routes, grade_descriptions)
     predictions = lib.BusAPI.parse_xml_getStopPredictions(lib.BusAPI.get_xml_data('nj', 'stop_predictions', stop=stop, route='all'))
-    return render_template('stop.html', stopreport=stopreport, routereport=routereport, predictions=predictions,period=period)
+    return render_template('stop.html', stopreport=stopreport, hourly_frequency=hourly_frequency, routereport=routereport, predictions=predictions,period=period)
+
+################################################
+# ERROR HANDLER
+################################################
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('error_API_down.html'), 404
+
 
 
 # custom filters
@@ -95,13 +107,18 @@ def _jinja2_filter_datetime(timestamp, format='%Y-%m-%d %I:%M %p'):
 
 @app.template_filter('strftime_timedelta')
 def pretty_timedelta(td):
-    days, hours, minutes = td.days, td.seconds // 3600, td.seconds // 60 % 60
-    if days is True:
-        pretty_time = ("%s days %s hours %s mins") % days, hours, minutes
-    elif hours is True:
-        pretty_time = ("%s hours %s mins") % hours, minutes
+    days = td.days
+    hours, remainder = divmod(td.seconds, 3600)
+    minutes, seconds = divmod(remainder, 60)
+    # print days, hours, minutes
+    if days <> 0:
+        pretty_time = ("{a} days {b} hrs {c} mins").format(a=days, b=hours, c=minutes)
+        return pretty_time
+    elif hours <> 0:
+        pretty_time = ("{a} hrs {b} mins").format(a=hours, b=minutes)
+        return pretty_time
     else:
-        pretty_time = ("%s mins") % minutes
+        pretty_time = ("{a} mins").format(a=minutes)
     return pretty_time
 
 
