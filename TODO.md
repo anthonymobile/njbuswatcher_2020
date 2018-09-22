@@ -1,26 +1,30 @@
 ### todo ASAP 
 [/]:# (todo ASAP)
-- stops: hourly frequency figure out how to get the data out for display in jinja
-- make bus boxes at bottoms linked buttons (not jsut the #s)
-- colorize the grades based on actual grade (see code in route_servicepicker)
-- fix BUG on yesterday query (from old commit? or just google againg)
-
+- route:Grade/Reliability calculation:
+    - add rd/rt/or route back to all arrival tables for diagnostics
+    - trap fatal errors like this (http://0.0.0.0:5000/nj/119/stop/31858/daily) -- is it just a 119 thing?
+    - reliability rating / grade - % on time
+    - average travel time over line, from start to end, from midpoint to end?
+    - think through efficient algorithm for finding + calculating when bus x arrives at stop y down the line on same run -- cross reference it in the two stopreports and routewatch with run id)
+    - activate the index page grades
+- hourly_frequency: replace 'nan' in jinja ('nan mins')
 
 ### todo NEXT 
 [/]:# (todo DEPLOY+TESTING)
--stops: put all arrivals (past and future) in one single list that’s organized descending (predictions first).
--stops: 3 min interval as bunching but not a 0 minute one as bunching… seems counter intuitive?.
--route:reliability(grade, really) average travel time from here to the end of the line during the period (think through efficient algorithm for finding + calculating when bus x arrives at stop y down the line on same run -- cross reference it in the two stopreports and routewatch with run id)
+- stops: 3 min interval as bunching but not a 0 minute one as bunching… seems counter intuitive?.
+- bug: duplicate arrivals esp at early stops on the 87, e.g. http://0.0.0.0:5000/nj/87/stop/20931/history (see sept 20)
 
 ### todo CONTENT+UX
 [/]:# (todo CONTENT+UX)
+- make bus boxes at bottoms linked buttons (not jsut the #s) (PITA)
+- stops: put all arrivals (past and future) in one single list that’s organized descending (predictions first).
 
 ### todo ROUTE_REPORTs
 [/]:# (todo ROUTE_REPORTs)
 - Route page: Can you compare today to historical trends? TODAY IS TYPICAL. TODAY IS WORSE THAN USUAL.
-- The route grades will help a lot. I think you want the grade to be the most obvious thing on the page so it’s clear WTF you’re looking at. The description of the route is nice but less important, especially since I think you already know about the route if you care enough to use the site.
-- reliability rating / grade - % on time (based on how long average it is taking buses to run the whole route end to end -- looking at routereport?)
-- I like the Bottlenecks list. Put the focus on the stops that need the most help. This should take precedence over “Choose Direction…” which I might consider replacing with a list of all of the stops do you don’t have to go through two drop downs to get to a stop page. Alternatively, replace the whole thing with a map interface that has RED icons for the bottleneck stops and GREEN ones for the good service stops, or some variation thereof.
+- make the grade to be the most obvious thing on the page so it’s clear WTF you’re looking at
+- "choose direction" = consider replacing with a list of all of the stops do you don’t have to go through two drop downs to get to a stop page.
+- Alternatively, replace the whole thing with a map interface that has RED icons for the bottleneck stops and GREEN ones for the good service stops, or some variation thereof.
 
 ### todo STOP_REPORTs
 [/]:# (todo STOP_REPORTs)

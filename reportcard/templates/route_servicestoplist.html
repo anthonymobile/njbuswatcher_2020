@@ -2,8 +2,8 @@
 
 {% block top_right %}
 
-<h1 class="">Overview</h1>
-<p class="lead">{{routereport.description_long}}</p>
+<!-- <h1 class="">Overview</h1>
+<p class="lead">{{routereport.description_long}}</p> -->
 
            <!-- <p class=""><a class="ml-3 btn navbar-btn btn-secondary" href="https://goo.gl/forms/VF5S1Oclk9QTdZha2">Sign the petition for better bus service</a></p>
 
@@ -34,16 +34,18 @@
 
 
 {% block top_left %}
+<!--
 <img class="img-fluid d-block" src="/static/images/map{{routereport.route}}.jpg" >
 <div class="btn-group">
             <a href="{{routereport.schedule_url}}" class="btn btn-outline-primary">Official Schedule (PDF)</a>
             <a href="{{routereport.moovit_url}}" class="btn btn-outline-secondary">Moovit's {{routereport.route}} Page</a>
 </div>
+-->
 {% endblock %}
 
 
 {% block bottom %}
-
+<!--
           <h1 class="">Bottlenecks</h1>
           <p class="lead">Here's the stops on the {{routereport.route}} with the most bunching incidents today. Click on a stop to view the report card.</p>
 
@@ -55,7 +57,7 @@
                     </li>
                 {% endfor %}
         </ul>
-
+-->
 {% endblock %}
 
 
