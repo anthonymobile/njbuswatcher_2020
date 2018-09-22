@@ -29,7 +29,7 @@ reportcard_routes=[ \
 
     {'route':'119', 'grade':'C', 'services':[('Bayonne','117992'),('New York City','38040'),('New York City (limited)','99396')],'schedule_url':'https://www.njtransit.com/pdf/bus/T0119.pdf','moovit_url':'https://moovitapp.com/index/en/public_transit-line-125-NYCNJ-121-516-433013-0',\
      'description_short':'The primary Manhattan commuter service in The Heights, despite recent service increases the 119 is often overcrowded.',\
-     'description_long':'The 119 does triple-duty: as a Central Avenue local and main express commuter line to midtown Manhattan, and fails at all three missions. The 119 provides a lifeline to Hudson County but is too long, infrequent, and overcrowded.'},
+     'description_long':'The 119 does triple-duty: as a Hudson County north-south connector, a Central Avenue local, and main express commuter line to midtown Manhattan, and fails at all three missions. The 119 is too long, infrequent, and overcrowded.'},
 
     {'route':'123', 'grade':'B','services':[('Jersey City (Christ Hospital)','1871'),('New York City','1876'),('New York City(limited)s','1877')],'schedule_url':'https://www.njtransit.com/pdf/bus/T0123.pdf','moovit_url':'https://moovitapp.com/index/en/public_transit-line-125-NYCNJ-121-516-433013-0',\
      'description_short':'Alternate Palisade Ave local service to Union City and Manhattan.',\

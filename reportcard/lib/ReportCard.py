@@ -9,7 +9,6 @@ try:
     db_server = '192.168.1.181'
 except:
     db_server = '127.0.0.1'
-print 'db_server {db_server}'.format(db_server=db_server)
 
 # import app libraries
 import StopsDB, BusAPI
@@ -148,14 +147,12 @@ class RouteReport:
 
         # loop over each service and stop
         for service in self.route_stop_list:
-            # print service.id
             for stop in service.stops:
                 bunch_total = 0
                 report = StopReport(self.route, stop.identity,period)
                 # calculate number of bunches
                 for (index, row) in report.arrivals_list_final_df.iterrows():
                     if (row.delta > report.bigbang) and (row.delta <= report.bunching_interval):
-                        # print "\t",row.v,"\t",stop.st,"\t\t\t\t\t",row.timestamp,"\t",row.delta
                         bunch_total += 1
                         # sys.stdout.write('.'),
 

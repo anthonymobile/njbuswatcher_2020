@@ -110,7 +110,6 @@ def pretty_timedelta(td):
     days = td.days
     hours, remainder = divmod(td.seconds, 3600)
     minutes, seconds = divmod(remainder, 60)
-    # print days, hours, minutes
     if days <> 0:
         pretty_time = ("{a} days {b} hrs {c} mins").format(a=days, b=hours, c=minutes)
         return pretty_time

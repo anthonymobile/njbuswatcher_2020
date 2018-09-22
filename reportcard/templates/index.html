@@ -14,7 +14,7 @@
 
 {% block content %}
 <link rel="stylesheet" href="/static/gen/route.css?262d6599" type="text/css">
-<!-- # warning banner
+
 <div class="container py-2">
      <div class="row">
         <div class="col-md-12">
@@ -22,54 +22,56 @@
         </div>
      </div>
 </div>
--->
 
-  <div class="py-5 text-center " style="background-image: url('static/images/banner.jpg');">
-    <div class="container py-5 transparent">
-      <div class="row">
-        <div class="col-md-12">
-          <h1 class="display-3 mb-4 text-dark text-capitalize">Buses are the backbone&nbsp;
-            <br>of our neighborhood.&nbsp;</h1>
-          <p class="lead large text-left">Jersey City residents depend on buses to get to work, school, and back home. But its hard to evaluate the quality of bus service.</p>
-          <p class="lead text-left">That's why Code4JC built this site to provide a one-stop shop for statistics and charts on actual bus performance, drawn from the same data that powers NJTransit's mobile apps.Our goal is inform residents, businesses, and elected officials about trouble spots in bus service.
-            <p class="lead text-left"> This website focuses on The Heights, where the Riverview Neighborhood Association has organized a petition drive for better bus service. You can learn about current bus service and take action by signing the petition.</p>
-          <!-- <a href="#routepanel" class="btn btn-lg mx-1 btn-secondary">Check Out the Report Cards</a>
-          <a href="https://goo.gl/forms/VF5S1Oclk9QTdZha2" class="btn btn-lg btn-primary mx-1">Sign the Petition for Better Bus Service</a> -->
-        </div>
 
-      </div>
-
-        <div id="routepanel" class="py-5 bg-dark">
-    <div class="container">
-        <div class="py-2 text-center " >
-            <h1 class="">Choose your route to read the report cards.</h1>
-
-        </div>
+  <div class="py-0 text-center" style="background-image: url('static/images/banner.jpg');">
+    <div class="container-fluid py-0 transparent">
 
       <div class="row">
+        <div class="col-md-12 ">
+          <div class="col-md-8 offset-md-2 p-5 bg-transparent">
+              <h1 class="display-2 mb-4 text-dark">Buses are the Backbone&nbsp;of <br>Our Neighborhoods</h1>
+              <h1 class="display-5 mb-4 text-left text-dark">Jersey City residents <code>depend on buses</code> to get to work, school, and back home. But its <code>hard to evaluate the quality of service</code>.</h1>
+              <h1 class="display-5 mb-4 text-left text-dark">That's why Code4JC built this site to provide a <code>one-stop shop for bus performance information</code>. Right now, we're focused on The Heights. In the future, we plan to expand this service citywide.</h1>
 
-        {% for route in reportcard_routes %}
-        <div class="col-md-3">
-            <a href = {{ url_for('genRouteReport_ServicePicker' ,source='nj',route=route.route) }}>
-            <h1 class="text-center">{{route.route}}</h1>
-            </a>
-            <p class="lead text-center text-warning">Current Grade: {{route.grade}}</p>
-          <p class="text-center">{{route.description_short}}</p>
+              <div id="routepanel" class="py-4 bg-transparent">
+                <div class="container-fluid col-md-12 py-4 bg-white">
+                <h1 class="display-5 mb-4">Click A Route to View the Reports</h1>
+                  <div class="row">
+                      {% for route in reportcard_routes %}
+                        <div class="col-md-3">
+                           <div class="container">
+                            <a href = {{ url_for('genRouteReport_ServicePicker' ,source='nj',route=route.route) }}>
+                                <h1 class="display-3 text-center">{{route.route}}</h1>
+                            </a>
 
+                               <!--
+                            {% if (route.grade=='A' or route.grade=='B') %}
+                                <p class="lead text-center text-success">Current Grade: {{route.grade}}</h1>
+                            {% endif %}
+                            {% if route.grade=='C' %}
+                                <p class="lead text-center text-warning">Current Grade: {{route.grade}}</pre>
+                            {% endif %}
+                            {% if (route.grade=='D' or route.grade=='F') %}
+                                <p class="lead text-center text-danger">Current Grade: {{route.grade}}</p>
+                            {% endif %}
+                            -->
 
+                            <p class="text-left">{{route.description_short}}</p>
+                           </div>
+                        </div>
+                      {% endfor %}
+                      <div class="col-md-9 align-self-center">
+                        <a href="https://goo.gl/forms/VF5S1Oclk9QTdZha2" class="btn btn-lg btn-primary mx-1">Sign the Petition for Better Bus Service</a>
+                      </div>
+                  </div>
+                </div>
+              </div>
+
+          </div>
         </div>
-    {% endfor %}
-
-
       </div>
     </div>
-  </div>
-    </div>
-  </div>
-
-
-
-
 
 
 {%- endblock %}

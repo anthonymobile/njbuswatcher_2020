@@ -1,9 +1,6 @@
 {% extends 'route-base.html' %}
 
 {% block top_right %}
-<h1 class="">Overview</h1>
-<p class="lead">{{routereport.description_long}}</p>
-
 
      <!--   <div class="alert alert-primary" role="alert">
             <h4 class="alert-heading">Coming Soon: Route Grades</h4>
@@ -34,17 +31,7 @@
     {% endif %}
 -->
 
-          <h1 class="">Choose Service...</h1>
-          <p class="lead">Which service and direction do you want to explore?</p>
 
-<div class="btn-group">
-    <button class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown">Choose direction/service...</button>
-    <div class="dropdown-menu">
-    {% for path in routereport.route_stop_list %}
-            <a class="dropdown-item" href = {{url_for('genRouteReport_ServiceStoplist',source=routereport.source,route=routereport.route,service=path.id)}} id="{{path.id}}">To {{path.d}}</a>
-    {% endfor %}
-    </div>
-</div>
 
 <!--
 <div class="btn-group-new">
@@ -58,24 +45,6 @@
 </div>
 -->
 
-
-{% endblock %}
-
-
-{% block top_left %}
-<img class="img-fluid d-block" src="/static/images/map{{routereport.route}}.jpg" >
-
-<div class="btn-group">
-            <a href="{{routereport.schedule_url}}" class="btn btn-outline-primary">Official Schedule (PDF)</a>
-            <a href="{{routereport.moovit_url}}" class="btn btn-outline-secondary">Moovit's {{routereport.route}} Page</a>
-</div>
-
-{% endblock %}
-
-
-
-{% block bottom %}
-
           <h1 class="">Bottlenecks</h1>
           <p class="lead">Here's the stops on the {{routereport.route}} with the most bunching incidents today. Click on a stop to view the report card.</p>
 
@@ -87,6 +56,47 @@
                     </li>
                 {% endfor %}
         </ul>
+
+
+
+
+{% endblock %}
+
+
+{% block top_left %}
+<h1 class="">Overview</h1>
+<p class="lead">{{routereport.description_long}}</p>
+
+<img class="img-fluid d-block" src="/static/images/map{{routereport.route}}.jpg" >
+
+<div class="btn-group">
+            <a href="{{routereport.schedule_url}}" class="btn btn-outline-primary">Official Schedule (PDF)</a>
+            <a href="{{routereport.moovit_url}}" class="btn btn-outline-secondary">Moovit's {{routereport.route}} Page</a>
+</div>
+
+
+
+
+{% endblock %}
+
+
+
+{% block bottom %}
+
+
+
+        <h1 class="">Get Stop Reports</h1>
+          <p class="lead">First, pick the service and direction you want to explore...</p>
+
+<div class="btn-group">
+    <button class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown">Choose direction/service...</button>
+    <div class="dropdown-menu">
+    {% for path in routereport.route_stop_list %}
+            <a class="dropdown-item" href = {{url_for('genRouteReport_ServiceStoplist',source=routereport.source,route=routereport.route,service=path.id)}} id="{{path.id}}">To {{path.d}}</a>
+    {% endfor %}
+    </div>
+</div>
+
 
 {% endblock %}
 
