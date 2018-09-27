@@ -45,17 +45,54 @@
 
 
 {% block bottom %}
-<!--
-          <h1 class="">Bottlenecks</h1>
-          <p class="lead">Here's the stops on the {{routereport.route}} with the most bunching incidents today. Click on a stop to view the report card.</p>
+
+
+
+
+  <div class="py-5">
+    <div class="container">
+          <h1 class="">Route Dashboard</h1>
+          <p class="lead">Here's the stops on the {{routereport.route}} running to {{service}} and what buses are arriving there soon.</p>
+      <div class="row">
+
+          {% for path in routereport.route_stop_list %}
+                {% if path.id == service %}
+                    {% for stop in path.stops %}
+
+                      <div class="col-md-6">
+                      <a class="btn btn-primary" href="#">{{stop.st}}</a>
+                    </div>
+          <!-- todo insert another loop to grab the arrival predictions for each stop.id from BusAPI.getStopPredictions, and display each as another nested <li> item -->
+                    <div class="col-md-6">
+                      <div class="btn-group">
+                        <a href="#" class="btn btn-outline-primary">Btn 1</a>
+                        <a href="#" class="btn btn-outline-primary">Btn 2</a>
+                        <a href="#" class="btn btn-outline-primary">Btn 3</a>
+                      </div>
+                    </div>
+                          {% endfor %}
+            {% endif %}
+        {% endfor %}
+                  </div>
+                </div>
+              </div>
+
+
+
 
         <ul class="list-group" >
-                {% for stop in routereport.bunching_leaderboard %}
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <a href = {{url_for('genStopReport',source=routereport.source,route=routereport.route,stop=stop[2],period='daily')}}>{{stop[0]}}</a>
-                      <span class="badge badge-primary badge-pill">{{stop[1]}}</span>
-                    </li>
+
+            {% for path in routereport.route_stop_list %}
+                {% if path.id == service %}
+                    {% for stop in path.stops %}
+                        <li>{{stop.st}}</li>
+                            <li>87 4 min</li>
+                            <li>87 14 min</li>
+                            <!-- todo insert another loop to grab the arrival predictions for each stop.id from BusAPI.getStopPredictions, and display each as another nested <li> item -->
                 {% endfor %}
+            {% endif %}
+        {% endfor %}
+
         </ul>
 -->
 {% endblock %}

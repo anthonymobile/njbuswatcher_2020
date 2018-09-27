@@ -67,7 +67,8 @@
           <table class="table table-sm">
             <thead>
               <tr>
-                <th>time</th>
+                <th>route</th>
+                  <th>time</th>
                 <th>bus #</th>
                 <th>interval</th>
               </tr>
@@ -76,12 +77,14 @@
             {% for (index,row) in stopreport.arrivals_list_final_df.iterrows() %}
                 {% if (row.delta > stopreport.bigbang) and (row.delta <= stopreport.bunching_interval) %}
                     <tr class='table-danger'>
+                        <td>{{row.rd}}</td>
                         <td>{{row.timestamp|strftime_period(period)}}</td>
                         <td>{{row.v}}</td>
                         <td>{{row.delta|strftime_timedelta}}</td>
                     </tr>
                 {% else %}
                     <tr class='table-success'>
+                        <td>{{row.rd}}</td>
                         <td>{{row.timestamp|strftime_period(period)}}</td>
                         <td>{{row.v}}</td>
                         <td>{{row.delta|strftime_timedelta}}</td>
@@ -124,7 +127,7 @@
 
             {% for (index,row) in hourly_frequency.iterrows() %}
                 <tr class='table'>
-                    <td>{{row.name|strftime_today}}</td>
+                    <td>{{row.name|strftime_period(period)}}</td>
                     <td>{{row.frequency}} mins</td>
                 </tr>
             {% endfor %}
