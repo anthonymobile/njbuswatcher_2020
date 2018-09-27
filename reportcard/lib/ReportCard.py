@@ -55,7 +55,7 @@ class RouteReport:
             self.d = ''
             self.dd = ''
 
-    def __init__(self, source, route, reportcard_routes, grade_descriptions):
+    def __init__(self, source, route, reportcard_routes, grade_descriptions): # replace last 2 with **kwargs to make them optional?
 
         # apply passed parameters to instance
         self.source = source

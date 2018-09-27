@@ -45,6 +45,22 @@
 </div>
 -->
 
+<div class="container py-2">
+        <h1 class="">Get Stop Reports</h1>
+          <p class="lead">First, pick the service and direction you want to explore...</p>
+
+
+<div class="btn-group">
+    <button class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown">Choose direction/service...</button>
+    <div class="dropdown-menu">
+    {% for path in routereport.route_stop_list %}
+            <a class="dropdown-item" href = {{url_for('genRouteReport_ServiceStoplist',source=routereport.source,route=routereport.route,service=path.id)}} id="{{path.id}}">To {{path.d}}</a>
+    {% endfor %}
+    </div>
+</div>
+</div>
+
+<div class="container py-2">
           <h1 class="">Bottlenecks</h1>
           <p class="lead">Here's the stops on the {{routereport.route}} with the most bunching incidents today. Click on a stop to view the report card.</p>
 
@@ -56,7 +72,7 @@
                     </li>
                 {% endfor %}
         </ul>
-
+</div>
 
 
 
@@ -85,17 +101,6 @@
 
 
 
-        <h1 class="">Get Stop Reports</h1>
-          <p class="lead">First, pick the service and direction you want to explore...</p>
-
-<div class="btn-group">
-    <button class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown">Choose direction/service...</button>
-    <div class="dropdown-menu">
-    {% for path in routereport.route_stop_list %}
-            <a class="dropdown-item" href = {{url_for('genRouteReport_ServiceStoplist',source=routereport.source,route=routereport.route,service=path.id)}} id="{{path.id}}">To {{path.d}}</a>
-    {% endfor %}
-    </div>
-</div>
 
 
 {% endblock %}
