@@ -23,6 +23,7 @@ def data2geojson(df):
                                     )
             , axis=1)
 
+
     return geojson.dumps(geojson.FeatureCollection(features), indent=4, sort_keys=True, default=str)
 
 def gen_query(route,period,**kwargs):
