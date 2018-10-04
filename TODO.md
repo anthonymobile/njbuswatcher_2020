@@ -8,17 +8,30 @@
     - trap [fatal errors like this](http://0.0.0.0:5000/nj/119/stop/31858/daily) -- is it just a 119 thing?
 - create data sources on Stae to ingest and archive 87 and 119 positions
 - Setup replication to slave for data backup
+    - fix slave server: get back in as root and create mountpoint directory for /mnt/db
+    - reinstall mysql-server `sudo apt-get install mysql-server`
+    - move the mysql database to /mnt/db - [howto](https://www.digitalocean.com/community/tutorials/how-to-move-a-mysql-data-directory-to-a-new-location-on-ubuntu-16-04)
+    - configure mysql slave [howto](https://www.digitalocean.com/community/tutorials/how-to-set-up-master-slave-replication-in-mysql)
+    - stop mysql on slave [howto](https://www.electricmonk.nl/log/2016/11/06/very-fast-mysql-slave-setup-with-zero-downtime-using-rsync/) `sudo /etc/init.d/mysql stop`
+    - login to master and rsync db binaries to slave, overwriting: `sudo rsync -Sa --progress --delete --exclude=mastername* --exclude=master.info --exclude=relay-log.info /mnt/db/mysql root@192.168.1.181:/var/lib`
+    - ALT TO ABOVE: simply archive buses to dump or a new table and start a new one, then start the replication on the slave (only slave backup going forward)
 
-## Ongoing Work
+
+## Ongoing Work (WEEK OF OCT 1)
 1. API
-    - build an API [tutorial](https://programminghistorian.org/en/lessons/creating-apis-with-python-and-flask) that dumps raw data needed to generate views in client javascript
-        - arrivals by route / stop / period
+    - exports geoJSON for positions table by route/period
+    - [tutorial](https://programminghistorian.org/en/lessons/creating-apis-with-python-and-flask) 
+
+## Ongoing Work (Weeklong Projects)
 1. Finalize current release
     - Finish refactor work to eliminate the stop picker, e.g. populate stop lists for all services at bottom of route page in columns
     - Develop simple route and stop grade calculator (e.g. add an overall assessment at the top.
         - route.html: TODAY IS TYPICAL. TODAY IS WORSE THAN USUAL. 
         - stop.html: THIS STATION USUALLY HAS DECENT SERVICE or THIS STATION HAS GOOD SERVICE TODAY or something like that.
         - grade based on average end-to-end travel time - e.g. how often does it get worse than the average (some statistical measure of on-time performance)
+1. postgres support
+    - add/rewrite postgres support for all db classes (look back at early commits -- had it for BusAPI, fairly similar except minor create table changes), as it will add advanced geoprocessing capaiblities
+
 1. New services data structure
     - Because the API doesn't return services in service list that are not current in operation...
     - Create a class for services, with tables in db
@@ -37,12 +50,13 @@
         - compute travel times from stop to stop and log, allowing us to go back and compute travel time for any A to B along route
     - new localization scheme
         - grab positions every 60 sec or more - routewatcher
-        - filter by proximity to stops - log v, timestamp, stop, distance to stop
+        - filter by proximity to stops - log v, timestamp, stop, distance to stop - using MYSQL spatial [howto](https://www.percona.com/blog/2013/10/21/using-the-new-mysql-spatial-functions-5-6-for-geo-enabled-applications/)
         - filter these approaches for point of closest approach (by distance) + log that
     
     
 ## Non-Critical Bugs/Issues
 
+- fix database tables: More efficient table structure for positions, routelog, arrivallog
 - BusAPI.Route
     - data structure seems unwieldy, look for opportunities to flatten if possible
 - ReportCard.Stop.get_arrivals
@@ -51,7 +65,6 @@
     - **duplicate arrivals**--esp at early stops on the 87, e.g. http://0.0.0.0:5000/nj/87/stop/20931/history (see sept 20)
 
 ## Long-term Work
-
 1. Database optimization: add relevant indices to all tables, ensure that not keeping any useless observations (e.g. non-"APPROACHING" arrival predictions)
 1. Migrate to Python 3
 1. Migrate archived data (in 'buses_summer2018' database)

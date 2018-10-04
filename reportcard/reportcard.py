@@ -39,7 +39,7 @@ assets.register(bundles)
 
 
 ################################################
-# PRODUCTION URLS
+# WEBSITES
 ################################################
 
 #1 home page
@@ -74,6 +74,44 @@ def genStopReport(source, route, stop, period):
     predictions = lib.BusAPI.parse_xml_getStopPredictions(lib.BusAPI.get_xml_data('nj', 'stop_predictions', stop=stop, route='all'))
     return render_template('stop.html', stopreport=stopreport, hourly_frequency=hourly_frequency, routereport=routereport, predictions=predictions,period=period)
 
+
+################################################
+# API
+################################################
+
+import lib.WebAPI as WebAPI
+
+# @app.route('/api')
+# def api_root(rt):
+#    print ("You cant fetch all the billions of positions, dum dum.")
+#    return
+
+
+# POSITIONS
+
+# /api/positions/{route}/{period} - returns timestamped positions for an entire route for the period specified
+# where period = [today, yesterday, weekly, history, date as 'yyyy-mm-dd' ]
+@app.route('/api/positions/<route>/<period>')
+def api_positions_route(route,period):
+    return WebAPI.get_positions(route,period)
+
+# POSITIONS for a single bus
+
+# /api/positions/{route}/{period}/bus/{v} - returns timestamped positions for an entire route for the period specified
+# where period = [today, yesterday, weekly, history, date as 'yyyy-mm-dd' ]
+#
+@app.route('/api/positions/<route>/<period>/bus/<bus_id>')
+def api_positions_v(route,period,bus_id):
+    return WebAPI.get_positions(route,period,v=bus_id)
+
+# ARRIVALS
+# /api/arrivals/{route}/{stop}/{period}/
+@app.route('/api/arrivals/<route>/<stop>/<period>')
+def api_arrivals(route,stop,period):
+    return WebAPI.get_arrivals(route,stop,period)
+
+
+
 ################################################
 # ERROR HANDLER
 ################################################
@@ -82,8 +120,10 @@ def page_not_found(e):
     return render_template('error_API_down.html'), 404
 
 
+################################################
+# CUSTOM FILTERS
+################################################
 
-# custom filters
 @app.template_filter('strftime_today')
 def _jinja2_filter_datetime(timestamp, format='%I:%M %p'):
     return timestamp.strftime(format)
