@@ -1,11 +1,11 @@
 # bus reportcard v1.0
 # september 2018 - anthony townsend anthony@bitsandatoms.net
 
-import werkzeug
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_bootstrap import Bootstrap
 import lib.ReportCard
 import lib.BusAPI
+from flask import jsonify
 
 app = Flask(__name__)
 Bootstrap(app)
@@ -87,22 +87,42 @@ import lib.WebAPI as WebAPI
 #    return
 
 
-# POSITIONS
+# POSITIONS URL-BASED
 
 # /api/positions/{route}/{period} - returns timestamped positions for an entire route for the period specified
 # where period = [today, yesterday, weekly, history, date as 'yyyy-mm-dd' ]
-@app.route('/api/positions/<route>/<period>')
+@app.route('/api/v1/positions/<route>/<period>')
 def api_positions_route(route,period):
-    return WebAPI.get_positions(route,period)
+    return WebAPI.get_positions_byurl(route, period)
+
+
+# POSITIONS ARGS-BASED
+# /api/positions?rd=119&period=daily - returns timestamped positions for an entire route for the period specified
+# where period = [today, yesterday, weekly, history, date as 'yyyy-mm-dd' ]
+@app.route('/api/v1/positions/')
+def api_positions2_route():
+
+    args=request.args
+
+    return jsonify(WebAPI.get_positions_byargs(args))
+
+    # return WebAPI.get_positions_byargs(args)
+
+
+
+
+
+
+
 
 # POSITIONS for a single bus
 
 # /api/positions/{route}/{period}/bus/{v} - returns timestamped positions for an entire route for the period specified
 # where period = [today, yesterday, weekly, history, date as 'yyyy-mm-dd' ]
 #
-@app.route('/api/positions/<route>/<period>/bus/<bus_id>')
+@app.route('/api/v1/positions/<route>/<period>/bus/<bus_id>')
 def api_positions_v(route,period,bus_id):
-    return WebAPI.get_positions(route,period,v=bus_id)
+    return WebAPI.get_positions_byurl(route, period, v=bus_id)
 
 # ARRIVALS
 # /api/arrivals/{route}/{stop}/{period}/
