@@ -31,47 +31,8 @@ def data2geojson(df):
             , axis=1)
 
 
-    # return geojson.dumps(geojson.FeatureCollection(features), indent=4, sort_keys=True, default=str)
     return geojson.FeatureCollection(features)
 
-
-
-def get_positions_byurl(route, period, **kwargs):
-
-    # database initialization
-    db = BusRouteLogsDB.MySQL('buses', 'buswatcher', 'njtransit', db_server, route)
-    conn = db.conn
-
-    table_name = 'routelog_' + route
-
-    if period == "daily":
-        query = ('SELECT * FROM %s WHERE (rt=%s AND DATE(`timestamp`)=CURDATE() ) ORDER BY timestamp DESC;' % (
-            table_name, route))
-    elif period == "yesterday":
-        query = (
-                'SELECT * FROM %s WHERE (rt=%s AND (timestamp >= CURDATE() - INTERVAL 1 DAY AND timestamp < CURDATE())) ORDER BY timestamp DESC;' % (
-            table_name, route))
-    elif period == "weekly":
-        query = (
-                'SELECT * FROM %s WHERE (rt=%s AND (YEARWEEK(`timestamp`, 1) = YEARWEEK(CURDATE(), 1))) ORDER BY timestamp DESC;' % (
-            table_name, route))
-    elif period == "history":
-        query = ('SELECT * FROM %s WHERE rt=%s ORDER BY timestamp DESC;' % (table_name, route))
-    # elif period like "2018-08-10":
-        # query = ('SELECT * FROM %s WHERE (rt=%s AND DATE(`timestamp`)=("2018-08-10") ORDER BY timestamp DESC;' % (table_name, route))
-        raise RuntimeError('Bad request sucker!')
-
-    # if v is not None:
-    #     query = # regexp replace the first AND with 'AND v=%s v') or something like that
-
-    # get data and basic cleanup
-    positions_log = pd.read_sql_query(query, conn)
-    # df_temp = df_temp.drop(columns=['cars', 'consist', 'fd', 'm', 'name', 'rn', 'scheduled'])
-    positions_log = timestamp_fix(positions_log)
-
-    positions_geojson = data2geojson(positions_log)
-
-    return positions_geojson
 
 
 def get_positions_byargs(args):
@@ -128,18 +89,3 @@ def get_positions_byargs(args):
     positions_geojson = data2geojson(positions_log)
 
     return positions_geojson
-
-
-def get_arrivals(route,stop,period, args):
-    # if v not None:
-    #     then get for single bus
-    # if period = blah:
-    #     query =
-    # elif
-    # elif
-    # elif
-    #
-    # positions_log = db.MySQL.fetch_records(elf, db_name, db_user, db_password, db_host, route)
-    #
-    # geojsonify something
-    return
