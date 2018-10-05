@@ -31,13 +31,29 @@
       <div class="row">
         <div class="col-md-12 ">
           <div class="col-md-8 offset-md-2 p-5 bg-transparent">
+              <!--
+              <h1 class="display-4 mb-4 text-dark">Buses are the Backbone&nbsp;of <br>Our Neighborhoods</h1>
+              <p class="lead mb-4 text-left text-dark">Jersey City residents <code>depend on buses</code> to get to work, school, and back home. But its <code>hard to evaluate the quality of service</code>.</p>
+              <p class="lead mb-4 text-left text-dark">That's why Code4JC built this site to provide a <code>one-stop shop for bus performance information</code>. Right now, we're focused on The Heights. In the future, we plan to expand this service citywide.</p>
+               -->
+
+              <!--
               <h1 class="display-2 mb-4 text-dark">Buses are the Backbone&nbsp;of <br>Our Neighborhoods</h1>
               <h1 class="display-5 mb-4 text-left text-dark">Jersey City residents <code>depend on buses</code> to get to work, school, and back home. But its <code>hard to evaluate the quality of service</code>.</h1>
               <h1 class="display-5 mb-4 text-left text-dark">That's why Code4JC built this site to provide a <code>one-stop shop for bus performance information</code>. Right now, we're focused on The Heights. In the future, we plan to expand this service citywide.</h1>
+              -->
 
               <div id="routepanel" class="py-4 bg-transparent">
+
                 <div class="container-fluid col-md-12 py-4 bg-white">
-                <h1 class="display-5 mb-4">Click A Route to View the Reports</h1>
+                    <h1 class="display-4 mb-4 text-dark">Buses are the Backbone&nbsp;of <br>Our Neighborhoods</h1>
+                    <h3 class="text-center text-dark mb-4">Jersey City residents <code>depend on buses</code> to get to work, school, and back home.</h3>
+                    <h3 class="text-center text-dark mb-4">But its <strong>hard to evaluate the quality of service</strong>.</h3>
+
+              <p class="lead mb-4 text-center text-dark">That's why Code4JC built this site to provide a <mark>one-stop shop for bus performance information</mark>.
+
+                    <h3 class="display-5 mb-4"><u>Click</u> on a route below to view the reports.</h3>
+
                   <div class="row">
                       {% for route in reportcard_routes %}
                         <div class="col-md-3">
