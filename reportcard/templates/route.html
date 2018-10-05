@@ -1,17 +1,19 @@
 {% extends 'route-base.html' %}
 
-{% block top_right %}
 
-     <!--   <div class="alert alert-primary" role="alert">
+{% block top_left %}
+
+<div class="alert alert-primary" role="alert">
             <h4 class="alert-heading">Coming Soon: Route Grades</h4>
             <p class="mb-0">Soon we'll be adding grades that help you evaluate how well each bus route is doing in terms of service reliability.</p>
         </div>
 
-          <a href="https://goo.gl/forms/VF5S1Oclk9QTdZha2" class="btn btn-lg btn-primary mx-1">Sign the Petition for Better Bus Service</a>
-          -->
-
 <!--
-    {% if (routereport.grade=='A' or routereport.grade=='B') %}
+          <a href="https://goo.gl/forms/VF5S1Oclk9QTdZha2" class="btn btn-lg btn-primary mx-1">Sign the Petition for Better Bus Service</a>
+-->
+
+
+ <!--   {% if (routereport.grade=='A' or routereport.grade=='B') %}
         <div class="alert alert-primary" role="alert">
             <h4 class="alert-heading">Current Grade:{{routereport.grade}}</h4>
             <p class="mb-0"> {{routereport.grade_description}}</p>
@@ -31,34 +33,20 @@
     {% endif %}
 -->
 
+<p class="lead">{{routereport.description_long}}</p>
 
-
-<!--
-<div class="btn-group-new">
-    <p>NEW BUTTON</p>
-    <button class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown">Choose direction/service...</button>
-    <div class="dropdown-menu">
-    {% for service in routereport.servicelist %}
-            <a class="dropdown-item" href = {{url_for('genRouteReport_ServiceStoplist',source=routereport.source,route=routereport.route,service=service.service_id)}} id="{{service.service_id}}">To {{service.destination}}</a>
-    {% endfor %}
-    </div>
-</div>
--->
-
-<div class="container py-2">
-        <h1 class="">Get Stop Reports</h1>
-          <p class="lead">First, pick the service and direction you want to explore...</p>
-
+<img class="img-fluid d-block" src="/static/images/map{{routereport.route}}.jpg" >
 
 <div class="btn-group">
-    <button class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown">Choose direction/service...</button>
-    <div class="dropdown-menu">
-    {% for path in routereport.route_stop_list %}
-            <a class="dropdown-item" href = {{url_for('genRouteReport_ServiceStoplist',source=routereport.source,route=routereport.route,service=path.id)}} id="{{path.id}}">To {{path.d}}</a>
-    {% endfor %}
-    </div>
+            <a href="{{routereport.schedule_url}}" class="btn btn-outline-primary">Official Schedule (PDF)</a>
+            <a href="{{routereport.moovit_url}}" class="btn btn-outline-secondary">Moovit's {{routereport.route}} Page</a>
 </div>
-</div>
+
+
+{% endblock %}
+
+{% block top_right %}
+
 
 <div class="container py-2">
           <h1 class="">Bottlenecks</h1>
@@ -74,32 +62,53 @@
         </ul>
 </div>
 
-
-
-{% endblock %}
-
-
-{% block top_left %}
-<h1 class="">Overview</h1>
-<p class="lead">{{routereport.description_long}}</p>
-
-<img class="img-fluid d-block" src="/static/images/map{{routereport.route}}.jpg" >
-
-<div class="btn-group">
-            <a href="{{routereport.schedule_url}}" class="btn btn-outline-primary">Official Schedule (PDF)</a>
-            <a href="{{routereport.moovit_url}}" class="btn btn-outline-secondary">Moovit's {{routereport.route}} Page</a>
-</div>
-
-
-
-
 {% endblock %}
 
 
 
 {% block bottom %}
 
+<!-- new column based stop list dashboard -->
 
+<div class="py-5">
+    <div class="container">
+          <h1 class="">Stop Reports</h1>
+        <p class="lead">Here are the currently running services. Click on a stop to see a detailed report.
+
+
+
+<!-- after https://stackoverflow.com/questions/16071864/how-to-create-tables-from-column-data-instead-of-row-data-in-html -->
+<div class="table-responsive">
+<table class="table table-borderless">
+<tr>
+
+{% for path in routereport.route_stop_list %}
+
+<td>
+    <table class="table-sm table-light ">
+        <thead>
+            <tr>
+                <td><p class="lead">To {{path.dd}}</p></td>
+            </tr>
+        </thead>
+        <tbody>
+        {% for stop in path.stops %}
+            <tr>
+                <td><a class="dropdown-item" href = {{url_for('genStopReport',source=routereport.source,route=routereport.route,stop=stop.identity,period='daily') }} id="{{stop.st}}">{{stop.st}}</a></td>
+
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+</td>
+
+{% endfor %}
+
+
+</tr>
+</table>
+    </div>
 
 
 

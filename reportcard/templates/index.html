@@ -15,6 +15,7 @@
 {% block content %}
 <link rel="stylesheet" href="/static/gen/route.css?262d6599" type="text/css">
 
+<!--
 <div class="container py-2">
      <div class="row">
         <div class="col-md-12">
@@ -22,7 +23,7 @@
         </div>
      </div>
 </div>
-
+-->
 
   <div class="py-0 text-center" style="background-image: url('static/images/banner.jpg');">
     <div class="container-fluid py-0 transparent">
@@ -41,7 +42,7 @@
                       {% for route in reportcard_routes %}
                         <div class="col-md-3">
                            <div class="container">
-                            <a href = {{ url_for('genRouteReport_ServicePicker' ,source='nj',route=route.route) }}>
+                            <a href = {{ url_for('genRouteReport' ,source='nj',route=route.route) }}>
                                 <h1 class="display-3 text-center">{{route.route}}</h1>
                             </a>
 

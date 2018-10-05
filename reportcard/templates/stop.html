@@ -55,14 +55,7 @@
 
 {% block top_left %}
 <h1 class="">Arrival History</h1>
-<div class="alert alert-success" role="alert">
-    <h4 class="alert-heading">Good Service</h4>
-              <p class="">Good service is when buses are spaced apart, reducing wait times and keeping more closely to posted schedules.</p>
-          </div>
-          <div class="alert alert-danger" role="alert">
-            <h4 class="alert-heading">Bunching</h4>
-              <p class="">Bunching occurs when a bus arrives at a stop within 3 minutes or less of the previous bus. Bunching indicates poor service, leading to empty buses, and more irregular and unreliable service.</p>
-          </div>
+
 
           <table class="table table-sm">
             <thead>
@@ -93,6 +86,18 @@
             {% endfor %}
             </tbody>
           </table>
+
+
+<h3 class="">What the Colors Mean</h3>
+<div class="alert alert-success" role="alert">
+    <h4 class="alert-heading">Good Service</h4>
+              <p class="">Good service is when buses are spaced apart, reducing wait times and keeping more closely to posted schedules.</p>
+          </div>
+          <div class="alert alert-danger" role="alert">
+            <h4 class="alert-heading">Bunching</h4>
+              <p class="">Bunching occurs when a bus arrives at a stop within 3 minutes or less of the previous bus. Bunching indicates poor service, leading to empty buses, and more irregular and unreliable service.</p>
+          </div>
+
 <p class="">*This is an experimental service provided for informational purposes only. We are not responsible for errors or omissions.</p>
 {% endblock %}
 
