@@ -51,7 +51,6 @@ def get_positions_byargs(args):
         else:
             _sql_snippet = (" AND {}={}").format(key,value)
             sql_insert+=_sql_snippet
-    # todo regexp find and delete first instance of " AND "
     sql_insert=("("+sql_insert+")")
 
 
