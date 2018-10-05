@@ -53,17 +53,17 @@ def displayHome():
 
     return render_template('index.html', reportcard_routes=reportcard_routes, routereport=routereport)
 
-#2 route report - choose service
+#2 route report
 @app.route('/<source>/<route>')
-def genRouteReport_ServicePicker(source, route):
+def genRouteReport(source, route):
     routereport=lib.ReportCard.RouteReport(source,route,reportcard_routes,grade_descriptions)
-    return render_template('route_servicepicker.html', routereport=routereport)
+    return render_template('route.html', routereport=routereport)
 
-#3 route report - with service
-@app.route('/<source>/<route>/service/<service>')
-def genRouteReport_ServiceStoplist(source, route, service):
-    routereport=lib.ReportCard.RouteReport(source,route,reportcard_routes,grade_descriptions)
-    return render_template('route_servicestoplist.html', routereport=routereport,service=service)
+# #3 route report - with service
+# @app.route('/<source>/<route>/service/<service>')
+# def genRouteReport_ServiceStoplist(source, route, service):
+#     routereport=lib.ReportCard.RouteReport(source,route,reportcard_routes,grade_descriptions)
+#     return render_template('route_servicestoplist.html', routereport=routereport,service=service)
 
 # 4 stop report
 @app.route('/<source>/<route>/stop/<stop>/<period>')
