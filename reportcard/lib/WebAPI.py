@@ -17,9 +17,16 @@ def data2geojson(df):
     df.apply(lambda X: features.append(
             geojson.Feature(geometry=geojson.Point((X["lon"],
                                                     X["lat"]    )),
-                properties=dict(v=X["bid"],
+                properties=dict(bid=X["bid"],
+                                run=X["run"],
+                                op=X["op"],
+                                dn=X["dn"],
+                                pid=X["pid"],
+                                dip=X["dip"],
+                                id=X["id"],
                                 timestamp=X["timestamp"],
-                                description=unicode(X["pd"].decode('utf8'))))
+                                fs = unicode(X["fs"].decode('utf8')),
+                                pd=unicode(X["pd"].decode('utf8'))))
                                     )
             , axis=1)
 
