@@ -130,7 +130,8 @@ Pulls arrival predictions from one API call for buses inbound to a specific stop
 Flask app which renders the report cards for various routes and views.
 
 ## How It All Works
-The basic theory here-since the NJTransit API doesn't provide a service to tell us when buses actually arrived at their stops--we instead constantly poll the arrival prediction endpointm once per minute, and take note of the last time we 'see' each bus about to reach the stop (e.g. the predicted arrival time is listed as "APPROACHING"). For instance, lets say we're pulling predicted arrivals for my corner stop on the 119, and our approach log looks like this:
+
+Most of the heavy lifting is done by lib/ReportCard.py. The basic theory here-since the NJTransit API doesn't provide a service to tell us when buses actually arrived at their stops--we instead constantly poll the arrival prediction endpointm once per minute, and take note of the last time we 'see' each bus about to reach the stop (e.g. the predicted arrival time is listed as "APPROACHING"). For instance, lets say we're pulling predicted arrivals for my corner stop on the 119, and our approach log looks like this:
 
 - 8:32 am:  3min, 13min, 27min
 - 8:33 am   APPROACHING, 12min, 25min
@@ -147,12 +148,14 @@ FWIW, we always deploy routewatcher.py alongside stopwatcher.py, so we are grabb
 
 Here are the URLs currently exposed by the flask app.*
 
-###### /nj/{route}/{stop}{period}/approaches
-The raw underlying data, pulled from the arrival predictions API for the stop. We cron stopwatcher.py to record the predicted arrival time for each bus once per minute.
+###### /nj/{route}
+A basic route reportcard -- shows a map (currently just a jpg we stole from Moovit), a list of the top 10 stops based on how many times buses have arrived bunched there today. At the bottom is a clickable list of all currently running services and all the stops on those services. The stops go to the stop report pages (next).
 
-###### /nj/{route}/{stop}{period}/arrivals
+###### /nj/{route}/stop/{stop}/{period}
 
-List of actual "observed" arrival times. These are approximated by reviewing the appraoch log and recording the time of the last observed "APPROACHING" prediction for that vehicle as the time of arrival.
+A basic stop reportcard -- shows an arrival history with route (just for diagnostics now we had some issues with stragglers coming up from other routes at the same stop and still trying to debug it), time, bus id, and the interval from last arrival. Red indicates that bus showed up 'bunched', 3 mins or less than the previous arrival. on the right is a summary of the average time between buses per hour -- everything updates for whatever period you chooce from the breadcrumb menu at the top.
+
+
 
 *n.b. the /nj in these routes. we are writing this to be source-agnostic, so they -should- work with any transit agency API provided by Clever Devices. Most of the documentation we used to figure out the API (which is uncodumented), came from the [unofficial guide to the Chicago CTA Bustracker API](https://github.com/harperreed/transitapi/wiki/Unofficial-Bustracker-API]) for instance.
 
