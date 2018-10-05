@@ -1,6 +1,6 @@
 # Bus Rider Report Card 
-### v 0.1 alpha
-##### 15 August 2018
+### v 1.0
+##### 5 October 2018
 
 
 ## Summary
@@ -20,14 +20,17 @@ The data gathered can be viewed along any combination of three criteria:
 
 ### Current Metrics
 
-V 0.1 provides a bare minimum of arrival information for any selected route, stop, and period
+- Arrival intevals - how long between buses
+- Average frequency - hourly, how long on average between buses
 
-- Actual arrivals.
-- Time between arrivals. 
+### Known Issues
+
+- Missing arrivals. Because of how we currently localize buses to stops, we are missing some buses. It's not a lot but if you see a gap or a particular long interval between buses that isn't on the schedule, that's probably what's up. We're working on fixing it. In the meantime, we have a second set of data that will let us go back and correct the historical data when we do fix it. The good news is that while this may mean there's some bunching that we miss, none of the bunching we do see are false positives.
+- Missing buses. The Lincoln Tunnel swallows them up. It's as simple as that. Whatever tracking and uplink Clever Devices is using just can't deal with buses being underground and it basically gives up and stops reporting. Not much we can do here.
 
 ### Future Metrics
 
-- **Frequency of service.**  How often does a bus stop at my corner? This is simply calculated by looking at how often any in-service bus passes a given stop on a particular route. This will require additional period options (e.g. 'weekly-rush hours' or 'history-late nights') or an additional set of filters to confine the resampling to a relevant time period.
+- **Frequency of service.**  How often does a bus stop at my corner? This is simply calculated by looking at how often any in-service bus passes a given stop on a particular route. This will require additional period options (e.g. 'weekly-rush hours' or 'history-late nights') or an additional set of filters to confine the resampling to a relevant time period. (n.b. the first take on this is working as of v1.0 -- hourly frequency by stop)
 - **Bunching.** Related to frequency of service, we want to highlight any events when a bus arrives at a stop within 3 minutes or less than the previous service on the same route. (This is how the NYC MTA is currently defining bunching, according to [Streetsblog](https://nyc.streetsblog.org/2018/08/13/how-the-mta-plans-to-harness-new-technology-to-eliminate-bus-bunching/).
 - **Travel time.** How long is it taking buses to get from one stop to the next? We can compare the arrival time of individual vehicles at successive stops along the line to identify which route segments are contributing the most to delays along the line at any given instant, and over time? This will require creating a data structure for route segments which doesn't currently exist (everything is organized around the stops themselves.) 
 - **Schedule adherence.** Is the bus actually hitting its scheduled stops? This will require importing and looking up scheduled arrival times in GTFS timetables--initial inspection indicates this will be challenging (but not impossible) as run/service id numbers returned by the API don't seem to correspond to those listed in the GTFS data. How much we prioritize this will depend on community priorities--for rush hour service, it will be much less important; for late-night service, it will be crucial. Generally speaking, as more people use apps to monitor actual arrivals, schedule adherence is less of a pressing concern.
@@ -37,16 +40,76 @@ V 0.1 provides a bare minimum of arrival information for any selected route, sto
 
 ### Look and Feel
 
-This is an earlier wireframe -- v0.1 departs from this somewhat. (The OmniGraffle drawing is in the /ux folder of the repo.)
-
-![the thing](doc/wireframe.png)
+Check out the live version at [buswatcher.code4jc.org](http://buswatcher.code4jc.org)
 
 
-Here's a screenshot from the alpha release mid-August WIP.
 
-![the thing](doc/screenshot-2018-08-15.png)
 
-There's a lot of work to do of course., but its kind of amazing how fast you can stand up a data-driven app with flask, jinja, and bootstrap.
+## API v1
+
+We have a simple API set up with one endpoint for the positions data -- this is the 2nd data set that we'll eventually use to localize the buses. It's not currently used in any of the web apps below but its more detailed and probably more accurate -- but we just haven't written the code to pinpoint these positions to nearby stops and determine when a bus has actually called at a stop. That's to come soon.
+
+### endpoint: /api/v1/positions
+
+Usage with arguments
+```
+http://buswatcher.code4jc.org/api/v1/positions?rt=119&period=weekly
+```
+
+#### required arguments
+`rt`    NJ transit route number (e.g. 119)
+#### optional arguments
+`period`  How much data to grab ('daily'=today, 'yesterday', 'weekly'=week to date,'history'=all time(default)) -- n.b. soon we'll add ability to query on specific dates in 'yyyy-mm-dd' format
+
+`pd` Destination name (be careful will need an exact match)
+
+`fs` Headsign display text
+
+`dn` Compass direction of vehicle travel
+
+`bid` Vehicle (e.g. bus) id, useful if you want to track a particular journey
+
+`run` A specific scheduled trip (which ought to be but is not the GTFS trip_id which drives me bananas.) Actually better for tracking a journey, as you can compare between days and over periods even if the equipment changes.
+
+`op` Probably operator(driver) id number.
+
+`pid` Unknown purpose. But possibly a service identfier (e.g. direction or local/express or branch or some combination).
+
+`dip` Unknown purpose.
+
+`id` Unknown purpose.
+
+
+
+#### response format
+
+Reponses are geoJSON. Here's a typical record.
+```
+    {
+      "geometry": {
+        "coordinates": [
+          -74.138438, 
+          40.647728
+        ], 
+        "type": "Point"
+      }, 
+      "properties": {
+        "bid": "8272", 
+        "dip": "72242", 
+        "dn": "SW", 
+        "fs": "119 JERSEY CITY VIA CENTRAL BAYOONNE VIA JFK BLVD", 
+        "id": "6053", 
+        "op": "1031", 
+        "pd": "Bayonne", 
+        "pid": "1860", 
+        "run": "916", 
+        "timestamp": "Thu, 04 Oct 2018 20:10:01 GMT"
+      }, 
+      "type": "Feature"
+    }, 
+
+```
+
 
 ## Implementation Details
 
@@ -93,7 +156,7 @@ List of actual "observed" arrival times. These are approximated by reviewing the
 
 *n.b. the /nj in these routes. we are writing this to be source-agnostic, so they -should- work with any transit agency API provided by Clever Devices. Most of the documentation we used to figure out the API (which is uncodumented), came from the [unofficial guide to the Chicago CTA Bustracker API](https://github.com/harperreed/transitapi/wiki/Unofficial-Bustracker-API]) for instance.
 
-## Resources
+## External Resources
 
 #### Transit Center Bus Turnaround
 Particularly the [district-level report cards](http://districts.busturnaround.nyc/). There's also some useful service metric definitions there that we may borrow in the future.
