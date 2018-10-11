@@ -13,49 +13,163 @@
    intact. #}
 
 {% block content %}
-<link rel="stylesheet" href="/static/gen/route.css?262d6599" type="text/css">
 
-<!--
-<div class="container py-2">
-     <div class="row">
-        <div class="col-md-12">
-          <h1>beta testing. some features may be wobbly.</h1>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="static/mdb/css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="static/mdb/css/mdb.min.css" rel="stylesheet">
+
+  <link href="static/mdb/css/style.min.css" rel="stylesheet">
+  <style type="text/css">
+    html,
+    body,
+    header,
+    .view {
+      height: 100%;
+    }
+
+    @media (max-width: 740px) {
+      html,
+      body,
+      header,
+      .view {
+        height: 1000px;
+      }
+    }
+
+    @media (min-width: 800px) and (max-width: 850px) {
+      html,
+      body,
+      header,
+      .view {
+        height: 650px;
+      }
+    }
+    @media (min-width: 800px) and (max-width: 850px) {
+              .navbar:not(.top-nav-collapse) {
+                  background: #1C2331!important;
+              }
+          }
+  </style>
+
+      <!-- Collapse -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Links -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <!-- Left -->
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://mdbootstrap.com/material-design-for-bootstrap/" target="_blank">About MDB</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://mdbootstrap.com/getting-started/" target="_blank">Free download</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://mdbootstrap.com/bootstrap-tutorial/" target="_blank">Free tutorials</a>
+          </li>
+        </ul>
+
+        <!-- Right -->
+        <ul class="navbar-nav nav-flex-icons">
+          <li class="nav-item">
+            <a href="https://www.facebook.com/mdbootstrap" class="nav-link" target="_blank">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="https://twitter.com/MDBootstrap" class="nav-link" target="_blank">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="https://github.com/mdbootstrap/bootstrap-material-design" class="nav-link border border-light rounded"
+              target="_blank">
+              <i class="fa fa-github mr-2"></i>MDB GitHub
+            </a>
+          </li>
+        </ul>
+
+      </div>
+
+    </div>
+  </nav>
+  <!-- Navbar -->
+
+  <!-- Full Page Intro -->
+  <div class="view full-page-intro" style="background-image: url('static/images/banner.jpg'); background-repeat: no-repeat; background-size: cover;">
+
+    <!-- Mask & flexbox options-->
+    <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
+
+      <!-- Content -->
+      <div class="container">
+
+        <!--Grid row-->
+        <div class="row wow fadeIn">
+
+          <!--Grid column-->
+          <div class="col-md-6 mb-4 white-text text-center text-md-left">
+
+            <h1 class="display-4 font-weight-bold">Buses are the backbone of <br> Jersey City's neighborhoods.</h1>
+
+            <hr class="hr-light">
+
+            <h2>
+              <strong>We depend on buses every day to get to work, school, and back home again.</strong>  But its hard to evaluate the quality of bus service. That's why we built this site to provide a one-stop shop for bus performance information.
+            </h2>
+
+            <a target="_blank" href="#reportcards" class="btn btn-indigo btn-lg">Go to the report cards
+              <i class="fa fa-graduation-cap ml-2"></i>
+            </a>
+
+          </div>
+          <!--Grid column-->
+
+          <!--Grid column-->
+          <div class="col-md-6 col-xl-5 mb-4">
+
+
+
+          </div>
+          <!--Grid column-->
+
         </div>
-     </div>
-</div>
--->
+        <!--Grid row-->
 
-  <div class="py-0 text-center" style="background-image: url('static/images/banner.jpg');">
-    <div class="container-fluid py-0 transparent">
+      </div>
+      <!-- Content -->
 
-      <div class="row">
-        <div class="col-md-12 ">
-          <div class="col-md-8 offset-md-2 p-5 bg-transparent">
-              <!--
-              <h1 class="display-4 mb-4 text-dark">Buses are the Backbone&nbsp;of <br>Our Neighborhoods</h1>
-              <p class="lead mb-4 text-left text-dark">Jersey City residents <code>depend on buses</code> to get to work, school, and back home. But its <code>hard to evaluate the quality of service</code>.</p>
-              <p class="lead mb-4 text-left text-dark">That's why Code4JC built this site to provide a <code>one-stop shop for bus performance information</code>. Right now, we're focused on The Heights. In the future, we plan to expand this service citywide.</p>
-               -->
+    </div>
+    <!-- Mask & flexbox options-->
 
-              <!--
-              <h1 class="display-2 mb-4 text-dark">Buses are the Backbone&nbsp;of <br>Our Neighborhoods</h1>
-              <h1 class="display-5 mb-4 text-left text-dark">Jersey City residents <code>depend on buses</code> to get to work, school, and back home. But its <code>hard to evaluate the quality of service</code>.</h1>
-              <h1 class="display-5 mb-4 text-left text-dark">That's why Code4JC built this site to provide a <code>one-stop shop for bus performance information</code>. Right now, we're focused on The Heights. In the future, we plan to expand this service citywide.</h1>
-              -->
+  </div>
+  <!-- Full Page Intro -->
 
-              <div id="routepanel" class="py-4 bg-transparent">
+  <!--Main layout-->
+  <main>
+    <div class="container">
 
-                <div class="container-fluid col-md-12 py-4 bg-white">
-                    <h1 class="display-4 mb-4 text-dark">Buses are the Backbone&nbsp;of <br>Our Neighborhoods</h1>
-                    <h3 class="text-center text-dark mb-4">Jersey City residents <code>depend on buses</code> to get to work, school, and back home.</h3>
-                    <h3 class="text-center text-dark mb-4">But its <strong>hard to evaluate the quality of service</strong>.</h3>
 
-              <p class="lead mb-4 text-center text-dark">That's why Code4JC built this site to provide a <mark>one-stop shop for bus performance information</mark>.
+      <!--Section: Routes-->
+      <section>
 
-                    <h3 class="display-5 mb-4"><u>Click</u> on a route below to view the reports.</h3>
+        <h2 class="my-5 h3 text-center"><u>Click</u> on a route below to view the reports.</h2>
 
-                  <div class="row">
-                      {% for route in reportcard_routes %}
+        <!--First row-->
+        <div id="reportcards" class="row features-small mt-5 wow fadeIn">
+
+                    {% for route in reportcard_routes %}
                         <div class="col-md-3">
                            <div class="container">
                             <a href = {{ url_for('genRouteReport' ,source='nj',route=route.route) }}>
@@ -78,17 +192,56 @@
                            </div>
                         </div>
                       {% endfor %}
-                      <div class="col-md-9 align-self-center">
-                        <a href="https://goo.gl/forms/VF5S1Oclk9QTdZha2" class="btn btn-lg btn-primary mx-1">Sign the Petition for Better Bus Service</a>
-                      </div>
-                  </div>
-                </div>
-              </div>
 
-          </div>
-        </div>
-      </div>
+
+
+      </section>
+      <!--Section: More-->
+
     </div>
+  </main>
+  <!--Main layout-->
 
+  <!--Footer-->
+  <footer class="page-footer text-center font-small mt-4 wow fadeIn">
+
+    <!--Call to action-->
+    <div class="pt-4">
+
+
+      <a class="btn btn-outline-white" href="https://goo.gl/forms/VF5S1Oclk9QTdZha2" target="_blank" role="button">Sign the Petition for Better Bus Service
+        <i class="fa fa-download ml-2"></i>
+      </a>
+
+    </div>
+    <!--/.Call to action-->
+
+    <hr class="my-4">
+
+
+    <!--Copyright-->
+    <div class="footer-copyright py-3">
+      © 2018 Site concept and design by
+      <a href="http://www.bitsandatoms.net" target="_blank"> Bits and Atoms</a> for Code4JC.
+    </div>
+    <!--/.Copyright-->
+
+  </footer>
+  <!--/.Footer-->
+
+  <!-- SCRIPTS -->
+  <!-- JQuery -->
+  <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="js/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="js/mdb.min.js"></script>
+  <!-- Initializations -->
+  <script type="text/javascript">
+    // Animations initialization
+    new WOW().init();
+  </script>
 
 {%- endblock %}

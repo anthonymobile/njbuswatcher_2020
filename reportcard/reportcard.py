@@ -53,6 +53,7 @@ def displayHome():
 
     return render_template('index.html', reportcard_routes=reportcard_routes, routereport=routereport)
 
+
 #2 route report
 @app.route('/<source>/<route>')
 def genRouteReport(source, route):
