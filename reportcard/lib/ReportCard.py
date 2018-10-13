@@ -75,7 +75,7 @@ class RouteReport:
         self.route_stop_list = self.get_stoplist(self.route)
         self.bunching_leaderboard = self.get_bunching_leaderboard('daily',self.route)
 
-    @ecached('get_routename:{route}',86400) # cache per route, 24 hour expire
+    # @ecached('get_routename:{route}',86400) # cache per route, 24 hour expire
     def get_routename(self,route):
         routedata = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=route))
         return routedata[0].nm
@@ -135,7 +135,7 @@ class RouteReport:
         return route_stop_list[0] # transpose a single copy since the others are all repeats (can be verified by path ids)
 
 
-    @ecached('get_bunching_leaderboard:{route}:{period}',3600) # cache per route, period, 1 hour expire
+    # @ecached('get_bunching_leaderboard:{route}:{period}',3600) # cache per route, period, 1 hour expire
     def get_bunching_leaderboard(self, period, route):
         # generates top 10 list of stops on the route by # of bunching incidents for yesterday
         # as well as the hourly frequency table
@@ -190,7 +190,7 @@ class StopReport:
         self.bigbang = datetime.timedelta(seconds=0)
 
 
-    @ecached('get_arrivals:{route}:{stop}:{period}', timeout=get_cache_timeout) # dynamic timeout
+    # @ecached('get_arrivals:{route}:{stop}:{period}', timeout=get_cache_timeout) # dynamic timeout
     def get_arrivals(self,route,stop,period):
 
         if self.period == "daily":
