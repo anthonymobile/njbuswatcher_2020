@@ -1,15 +1,11 @@
 # To Do
 
-## Current (WEEK OF OCT 1)
+## Current (WEEK OF OCT 16)
 
-1. Finish refactor work to eliminate the stop picker, e.g. populate stop lists for all services at bottom of route page in columns
-2. responsive: looks terrible on iOS
-3. ReportCard.Stop.get_hourly_frequency: replace 'nan' with 0 or 'n/a' 
-4. stop.html trap [fatal errors like this](http://0.0.0.0:5000/nj/119/stop/31858/daily) -- is it just a 119 thing? 
-5. create data sources on Stae to ingest and archive 87 and 119 positions json
-6. Push and publicize current release (esp. API)
- 
-## Ongoing Work (Weeklong Projects)
+1. ** bug: just after midnight: when there are no arrivals, stops page returns an error (Rangeindex because of empty arrivals)
+3. ReportCard.Stop.get_hourly_frequency: replace 'nan' with 0 or 'n/a' and eliminate decimal
+
+## Future Work (Weeklong Projects)
 1.  Grades: Develop simple route and stop grade calculator (e.g. add an overall assessment at the top.
         - route.html: TODAY IS TYPICAL. TODAY IS WORSE THAN USUAL. 
         - stop.html: THIS STATION USUALLY HAS DECENT SERVICE or THIS STATION HAS GOOD SERVICE TODAY or something like that.
