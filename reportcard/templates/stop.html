@@ -133,7 +133,11 @@
             {% for (index,row) in hourly_frequency.iterrows() %}
                 <tr class='table'>
                     <td>{{row.name|strftime_period(period)}}</td>
-                    <td>{{row.frequency}} mins</td>
+                    {% if row.frequency != row.frequency %}
+                        <td>- - -</td>
+                    {% else %}
+                        <td>{{row.frequency|int}} mins</td>
+                    {% endif %}
                 </tr>
             {% endfor %}
 
