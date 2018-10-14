@@ -12,6 +12,17 @@ Bootstrap(app)
 
 
 ################################################
+# LOGGING
+# per https://medium.com/@trstringer/logging-flask-and-gunicorn-the-manageable-way-2e6f0b8beb2f
+################################################
+
+if __name__ != ‘__main__’:
+    gunicorn_logger = logging.getLogger(‘gunicorn.error’)
+    app.logger.handlers = gunicorn_logger.handlers
+    app.logger.setLevel(gunicorn_logger.level)
+
+
+################################################
 # APPLICATION DATA IMPORT
 ################################################
 
