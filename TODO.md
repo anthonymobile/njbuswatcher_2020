@@ -1,9 +1,10 @@
-# To Do
+# ToDo
 
 ## Current (WEEK OF OCT 16)
 
 1. ** bug: just after midnight: when there are no arrivals, stops page returns an error (Rangeindex because of empty arrivals)
-3. ReportCard.Stop.get_hourly_frequency: replace 'nan' with 0 or 'n/a' and eliminate decimal
+3. redo / rewrite caching architecture (or more extensive tests)
+
 
 ## Future Work (Weeklong Projects)
 1.  Grades: Develop simple route and stop grade calculator (e.g. add an overall assessment at the top.
