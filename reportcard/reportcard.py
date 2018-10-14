@@ -1,6 +1,7 @@
 # bus reportcard v1.0
 # september 2018 - anthony townsend anthony@bitsandatoms.net
 
+import logging
 from flask import Flask, render_template, request
 from flask_bootstrap import Bootstrap
 import lib.ReportCard
