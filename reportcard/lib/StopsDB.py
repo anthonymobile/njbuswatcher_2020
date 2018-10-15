@@ -63,7 +63,11 @@ class MySQL(DB):
 
     def _setup_db(self,table_name):
 
-        create_table_string = '''CREATE TABLE IF NOT EXISTS %s (pkey integer primary key auto_increment, cars varchar(20), consist varchar(20), fd varchar(255), m varchar(20), name varchar(20), pt varchar(20), rd varchar(20), rn varchar(20), scheduled varchar(20), stop_id varchar(20), stop_name varchar(255), v varchar(20), timestamp varchar(255))'''  % table_name
+        create_table_string = '''CREATE TABLE IF NOT EXISTS %s (pkey integer primary key auto_increment, cars varchar(20), consist varchar(20), fd varchar(255), m varchar(20), name varchar(20), pt varchar(20), rd varchar(20), rn varchar(20), scheduled varchar(20), stop_id varchar(20), stop_name varchar(255), v varchar(20), timestamp varchar(255),
+                INDEX (rd),
+                INDEX (stop_id),
+                INDEX (v) 
+                )'''  % table_name
 
         try:
             self.conn = connection.MySQLConnection(user=self.db_user, password=self.db_password, host=self.db_host)
