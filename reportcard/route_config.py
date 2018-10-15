@@ -7,6 +7,12 @@ reportcard_routes=[ \
     'description_short':'Tracing a long-defunct streetcar line, the 82 connects a corner of The Heights to Downtown Jersey City at Exchange Place.',\
     'description_long':'Following an old streetcar line defunct since 1931, the 82 provides rush-hour only, one-direction commuter service from Summit Avenue to Exchange Place and back in the evening.'},
 
+    {'route': '83', 'grade': 'A', 'services': [('TK', '73012'), ('TK', '00000')],
+     'schedule_url': 'https://www.njtransit.com/pdf/bus/T0083.pdf',
+     'moovit_url': 'https://moovitapp.com/index/en/public_transit-line-83-NYCNJ-121-516-432984-0', \
+     'description_short': 'The 83 links Journal Square and downtown Hackensack via The Heights.', \
+     'description_long': 'The 83 links Journal Square and downtown Hackensack along JFK Boulevard in The Heights, making it one of the few inter-county routes served from Jersey City.'},
+
     {'route':'84','grade':'B','services':[('Journal Square (Via Bergenline Av)','3372'),('North Bergen (Via Bergenline Av)','3373'),('Journal Square (Via Park Av)','3374'),('North Bergen (Via Park Av)','3375')],'schedule_url':'https://www.njtransit.com/pdf/bus/T0084.pdf','moovit_url':'https://moovitapp.com/index/en/public_transit-line-84-NYCNJ-121-516-432985-0',\
      'description_short':'Palisade Avenue local connecting Journal Square, The Heights and Union City and North Bergen every 15-20 minutes throughout the day.',\
      'description_long':'One of the most frequent buses operating along the Palisade Ave corridor, the 84 provides a vital connector between the eastern side of The Heights and Journal Square, as well as points further north along the Palisades in Hudson County.'},\

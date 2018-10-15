@@ -82,7 +82,7 @@ def genRouteReport(source, route):
 @app.route('/<source>/<route>/stop/<stop>/<period>')
 def genStopReport(source, route, stop, period):
     stopreport = lib.ReportCard.StopReport(route, stop, period)
-    hourly_frequency = stopreport.get_hourly_frequency()
+    hourly_frequency = stopreport.get_hourly_frequency(route, stop, period)
     routereport = lib.ReportCard.RouteReport(source, route, reportcard_routes, grade_descriptions)
     predictions = lib.BusAPI.parse_xml_getStopPredictions(lib.BusAPI.get_xml_data('nj', 'stop_predictions', stop=stop, route='all'))
     return render_template('stop.html', stopreport=stopreport, hourly_frequency=hourly_frequency, routereport=routereport, predictions=predictions,period=period)
