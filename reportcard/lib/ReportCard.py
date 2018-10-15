@@ -14,7 +14,7 @@ except:
 import StopsDB, BusAPI
 
 # setup cache
-# from easy_cache import ecached
+from easy_cache import ecached
 from django.conf import settings
 settings.configure(DEBUG=True, DJANGO_SETTINGS_MODULE="mysite_django.settings")
 
@@ -75,7 +75,7 @@ class RouteReport:
         self.route_stop_list = self.get_stoplist(self.route)
         self.bunching_leaderboard = self.get_bunching_leaderboard('daily',self.route)
 
-    # @ecached('get_routename:{route}',86400) # cache per route, 24 hour expire
+    @ecached('get_routename:{route}',86400) # cache per route, 24 hour expire
     def get_routename(self,route):
         routedata = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=route))
         return routedata[0].nm
@@ -135,7 +135,7 @@ class RouteReport:
         return route_stop_list[0] # transpose a single copy since the others are all repeats (can be verified by path ids)
 
 
-    # @ecached('get_bunching_leaderboard:{route}:{period}',3600) # cache per route, period, 1 hour expire
+    @ecached('get_bunching_leaderboard:{route}:{period}',3600) # cache per route, period, 1 hour expire
     def get_bunching_leaderboard(self, period, route):
         # generates top 10 list of stops on the route by # of bunching incidents for yesterday
         # as well as the hourly frequency table
@@ -190,7 +190,7 @@ class StopReport:
         self.bigbang = datetime.timedelta(seconds=0)
 
 
-    # @ecached('get_arrivals:{route}:{stop}:{period}', timeout=get_cache_timeout) # dynamic timeout
+    @ecached('get_arrivals:{route}:{stop}:{period}', timeout=get_cache_timeout) # dynamic timeout
     def get_arrivals(self,route,stop,period):
 
         if self.period == "daily":
@@ -238,28 +238,11 @@ class StopReport:
             return arrivals_list_final_df, stop_name
 
 
-    # @ecached('get_hourly_frequency:{route}:{stop}:{period}', timeout=get_cache_timeout) # todo so slow this needs to be cached!
-    # need to add back route, stop, period args for cache to compute cache timeout dynamically
-    def get_hourly_frequency(self):
+    @ecached('get_hourly_frequency:{route}:{stop}:{period}', timeout=get_cache_timeout)
+    def get_hourly_frequency(self,route, stop, period):
 
-        # 0
-        # somethign to hold results - 24 hours of emptiness?
         results = pd.DataFrame()
-        # f = pd.DataFrame(pd.date_range(pd.to_datetime(df['date'] + ' ' + df['hour']).min(),
-        #                                pd.to_datetime(df['date'] + ' ' + df['hour']).max(), freq='H'),
-        #                  columns=['date']).merge(df, on=['date'], how='outer').fillna(0)
-
-        # 1 compute the delta as seconds integer
         self.arrivals_list_final_df['delta_int'] = self.arrivals_list_final_df['delta'].dt.seconds
-
-        # 2 resample hourly
-        # 3 round
-        results['frequency']= (self.arrivals_list_final_df.delta_int.resample('H').mean())//60 # todo more accurate rounding
-
-        # alt to #0 above
-        # 4 reindex to fillin the missing periods
-        # https://pandas.pydata.org/pandas-docs/stable/generated/pandas.Series.reindex.html
-
-        # return as a new df
+        results['frequency']= (self.arrivals_list_final_df.delta_int.resample('H').mean())//60
         return results
 

@@ -1,9 +1,10 @@
-# ToDo
+# TODO
 
 ## Current (WEEK OF OCT 16)
-
-1. ** bug: just after midnight: when there are no arrivals, stops page returns an error (Rangeindex because of empty arrivals)
-3. redo / rewrite caching architecture (or more extensive tests)
+1. nginx/gunicorn config: nginx "1270 no live upstreams while connecting to upstream" error --> https://stackoverflow.com/questions/49767001/how-to-solve-nginx-no-live-upstreams-while-connecting-to-upstream-client
+2. Add #83 bus to tracker
+3. ** bug: just after midnight: when there are no arrivals, stops page returns an error (Rangeindex because of empty arrivals)
+4. redo / rewrite caching architecture (or more extensive tests)
 
 
 ## Future Work (Weeklong Projects)
