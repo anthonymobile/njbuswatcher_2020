@@ -73,7 +73,7 @@ class RouteReport:
         self.get_servicelist()
         self.compute_grade()
         self.route_stop_list = self.get_stoplist(self.route)
-        self.bunching_leaderboard = self.get_bunching_leaderboard('daily',self.route)
+        # self.bunching_leaderboard = self.get_bunching_leaderboard('daily',self.route)
 
     @ecached('get_routename:{route}', timeout=86400) # cache per route, 24 hour expire
     def get_routename(self,route):
@@ -133,7 +133,6 @@ class RouteReport:
                 path_list.append(stops_points) # path_list is now a couple of Path instances, plus the metadata id,d,dd fields
             route_stop_list.append(path_list)
         return route_stop_list[0] # transpose a single copy since the others are all repeats (can be verified by path ids)
-
 
     @ecached('get_bunching_leaderboard:{route}:{period}', timeout=3600) # cache per route, period, 1 hour expire
     def get_bunching_leaderboard(self, period, route):

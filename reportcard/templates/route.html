@@ -3,14 +3,17 @@
 
 {% block top_left %}
 
+<p class="lead">{{routereport.description_long}}</p>
+
+<!--
 <div class="alert alert-primary" role="alert">
             <h4 class="alert-heading">Coming Soon: Route Grades</h4>
             <p class="mb-0">Soon we'll be adding grades that help you evaluate how well each bus route is doing in terms of service reliability.</p>
-        </div>
-
-<!--
-          <a href="https://goo.gl/forms/VF5S1Oclk9QTdZha2" class="btn btn-lg btn-primary mx-1">Sign the Petition for Better Bus Service</a>
+</div>
 -->
+
+          <a href="https://goo.gl/forms/VF5S1Oclk9QTdZha2" class="btn btn-lg btn-primary mx-1">Sign the Petition for Better Bus Service</a>
+
 
 
  <!--   {% if (routereport.grade=='A' or routereport.grade=='B') %}
@@ -33,7 +36,9 @@
     {% endif %}
 -->
 
-<p class="lead">{{routereport.description_long}}</p>
+{% endblock %}
+
+{% block top_right %}
 
 <img class="img-fluid d-block" src="/static/images/map{{routereport.route}}.jpg" >
 
@@ -42,12 +47,7 @@
             <a href="{{routereport.moovit_url}}" class="btn btn-outline-secondary">Moovit's {{routereport.route}} Page</a>
 </div>
 
-
-{% endblock %}
-
-{% block top_right %}
-
-
+<!--
 <div class="container py-2">
           <h1 class="">Bottlenecks</h1>
           <p class="lead">Here's the stops on the {{routereport.route}} with the most bunching incidents today. Click on a stop to view the report card.</p>
@@ -61,6 +61,7 @@
                 {% endfor %}
         </ul>
 </div>
+-->
 
 {% endblock %}
 
