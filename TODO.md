@@ -1,9 +1,10 @@
 # TODO
 
 ## Current (WEEK OF OCT 16)
-1. nginx/gunicorn config: nginx "1270 no live upstreams while connecting to upstream" error --> https://stackoverflow.com/questions/49767001/how-to-solve-nginx-no-live-upstreams-while-connecting-to-upstream-client
-1. ** bug: just after midnight: when there are no arrivals, stops page returns an error (Rangeindex because of empty arrivals)
-2. test whether new indeing working - if so, backup old database and dump on buswatcher.code4jc.org
+1. caching doesn't appear to be working for bunching_report
+1. manually add indices to stop_approach_log, routelog, and positions tables on production server
+1. work on code optimization -- its not the queries that are taking a long time
+1. bug: just after midnight: when there are no arrivals, stops page returns an error (Rangeindex because of empty arrivals)
 
 
 ## Future Work (Weeklong Projects)

@@ -75,7 +75,7 @@ class RouteReport:
         self.route_stop_list = self.get_stoplist(self.route)
         self.bunching_leaderboard = self.get_bunching_leaderboard('daily',self.route)
 
-    @ecached('get_routename:{route}',86400) # cache per route, 24 hour expire
+    @ecached('get_routename:{route}', timeout=86400) # cache per route, 24 hour expire
     def get_routename(self,route):
         routedata = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=route))
         return routedata[0].nm
@@ -135,33 +135,22 @@ class RouteReport:
         return route_stop_list[0] # transpose a single copy since the others are all repeats (can be verified by path ids)
 
 
-    @ecached('get_bunching_leaderboard:{route}:{period}',3600) # cache per route, period, 1 hour expire
+    @ecached('get_bunching_leaderboard:{route}:{period}', timeout=3600) # cache per route, period, 1 hour expire
     def get_bunching_leaderboard(self, period, route):
-        # generates top 10 list of stops on the route by # of bunching incidents for yesterday
-        # as well as the hourly frequency table
-
-        # sample query
-        # SELECT * FROM stop_approaches_log_87 WHERE (stop_id= 20935 AND DATE(timestamp)=CURDATE()) ORDER BY timestamp DESC;
+        # generates top 10 list of stops on the route by # of bunching incidents for period
 
         bunching_leaderboard = []
 
-        # loop over each service and stop
         for service in self.route_stop_list:
             for stop in service.stops:
                 bunch_total = 0
                 report = StopReport(self.route, stop.identity,period)
-                # calculate number of bunches
                 for (index, row) in report.arrivals_list_final_df.iterrows():
                     if (row.delta > report.bigbang) and (row.delta <= report.bunching_interval):
                         bunch_total += 1
-                        # sys.stdout.write('.'),
 
-                # append dict to the list
                 bunching_leaderboard.append((stop.st, bunch_total,stop.identity))
 
-                # now work on the hourly frequency report
-
-        # sort stops by number of bunchings, grab first 10
         bunching_leaderboard.sort(key=itemgetter(1), reverse=True)
         bunching_leaderboard = bunching_leaderboard[:10]
 
