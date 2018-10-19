@@ -95,5 +95,5 @@ class MySQL(DB):
 
         try:
             self._execute(MySQL._create_table_string)
-        except mysql.connector.Error as err:
+        except:
             pass
