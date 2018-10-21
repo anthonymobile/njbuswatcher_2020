@@ -2,21 +2,10 @@
 
 ## Current (WEEK OF OCT 16)
 
-1. Live maps
-    - use the 3 components in mapbox-gl-bootstrap code in ~/code
-        1. html code
-            - `<script>` tags in page`<head>`
-            - `<link>` tags in `<head>` for css (may be redundant)
-            - `<script>` tag in body to load 'my-mapbox.js' Javascript file display map
-        2. my-mapbox.js
-            - Javascript code to make map
-            - fetch static geoJSON of just a single route extracted from the big [transitland geojson file](https://transit.land/feed-registry/operators/o-dr5-nj~transit) in `/buswatcher/reportcard/maps/routes.transitland.geojson`
-            - fetch current vehicle positons from the Clever Devices getBusesForRoute api and parses the XML
-            - fetch something from buswatcher API?
-        3. style.css
-            - map specfici styling
-            - move/rename this to something less ambiguous
-            
+1. static maps
+    - fetch static geoJSON of just a single route extracted from the big [transitland geojson file](https://transit.land/feed-registry/operators/o-dr5-nj~transit) in `/buswatcher/reportcard/maps/routes.transitland.geojson`
+    - call python (or write to a geojson before calling the js) to fetch current vehicle positions from the Clever Devices getBusesForRoute api and parses the XML
+         
 1. caching doesn't appear to be working for bunching_report
 1. manually add indices to stop_approach_log, routelog, and positions tables on production server
 1. work on code optimization -- its not the queries that are taking a long time
@@ -30,7 +19,10 @@
     - shows by hour when buses typically arrive
     - (e.g. what times does the 85 usually arrive in the 8:00 hour)
 
-        
+1. live maps
+    - very complicated version.. live updating
+    [https://medium.com/@Scarysize/the-moving-city-visualizing-public-transport-877f581ca96e](link)    
+
 1. Average Speed calculator
     - calculate time and distance between every two routelog observations, and record average speed for that segment
     

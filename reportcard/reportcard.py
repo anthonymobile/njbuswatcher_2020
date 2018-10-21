@@ -70,6 +70,7 @@ def displayHome():
 @app.route('/<source>/<route>')
 def genRouteReport(source, route):
     routereport=lib.ReportCard.RouteReport(source,route,reportcard_routes,grade_descriptions)
+
     return render_template('route.html', routereport=routereport)
 
 # #3 route report - with service
