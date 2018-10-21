@@ -10,7 +10,7 @@
             - `<script>` tag in body to load 'my-mapbox.js' Javascript file display map
         2. my-mapbox.js
             - Javascript code to make map
-            - fetch static geoJSON of just a single route extracted from the big [transitland geojson file](https://transit.land/feed-registry/operators/o-dr5-nj~transit)
+            - fetch static geoJSON of just a single route extracted from the big [transitland geojson file](https://transit.land/feed-registry/operators/o-dr5-nj~transit) in `/buswatcher/reportcard/maps/routes.transitland.geojson`
             - fetch current vehicle positons from the Clever Devices getBusesForRoute api and parses the XML
             - fetch something from buswatcher API?
         3. style.css
