@@ -5,6 +5,8 @@
 1. static maps
     - fetch static geoJSON of just a single route extracted from the big [transitland geojson file](https://transit.land/feed-registry/operators/o-dr5-nj~transit) in `/buswatcher/reportcard/maps/routes.transitland.geojson`
     - call python (or write to a geojson before calling the js) to fetch current vehicle positions from the Clever Devices getBusesForRoute api and parses the XML
+    
+1. "playback" API call -- outputs timestamped geojson of all points in routelog for a single run, to be fed into a playback.html map using the Mapbox example -- can click on any run in route history and view a playback
          
 1. caching doesn't appear to be working for bunching_report
 1. manually add indices to stop_approach_log, routelog, and positions tables on production server
