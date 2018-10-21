@@ -61,7 +61,7 @@ class MySQL(DB):
 
     def _setup_db(self,table_name):
 
-        create_table_string = '''CREATE TABLE IF NOT EXISTS %s (pkey integer primary key auto_increment, lat real, lon real, bid varchar(20), cars varchar(20), consist varchar(20), d varchar(20), dip varchar(20), dn varchar(20), fs varchar(255), id varchar(20), m varchar(20), op varchar(20), pd varchar(20), pdRtpiFeedName varchar(20), pid varchar(20), rt varchar(20), rtRtpiFeedName varchar(20), rtdd varchar(20), rtpiFeedName varchar(20), run varchar(20), wid1 varchar(20), wid2 varchar(20), timestamp varchar(255),
+        create_table_string = '''CREATE TABLE IF NOT EXISTS %s (pkey integer primary key auto_increment, lat real, lon real, bid varchar(20), cars varchar(20), consist varchar(20), d varchar(20), dip varchar(20), dn varchar(20), fs varchar(255), id varchar(20), m varchar(20), op varchar(20), pd varchar(255), pdRtpiFeedName varchar(20), pid varchar(20), rt varchar(20), rtRtpiFeedName varchar(20), rtdd varchar(20), rtpiFeedName varchar(20), run varchar(20), wid1 varchar(20), wid2 varchar(20), timestamp varchar(255),
                 INDEX (bid),
                 INDEX (rt),
                 INDEX (run) 
