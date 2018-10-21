@@ -1,6 +1,7 @@
 # handles the API for the bustracker app itself
 
 import BusRouteLogsDB
+import BusAPI
 from ReportCard import timestamp_fix
 import geojson
 import pandas as pd
@@ -55,34 +56,31 @@ def get_positions_byargs(args):
 
 
     try:
-        if args['period'] == "daily":
-            query = ('SELECT * FROM %s WHERE (%s AND DATE(`timestamp`)=CURDATE() ) ORDER BY timestamp DESC;' % (
-                table_name, sql_insert))
-        elif args['period']  == "yesterday":
-            query = (
-                    'SELECT * FROM %s WHERE (%s AND (timestamp >= CURDATE() - INTERVAL 1 DAY AND timestamp < CURDATE())) ORDER BY timestamp DESC;' % (
-                table_name, sql_insert))
-        elif args['period']  == "weekly":
-            query = (
-                    'SELECT * FROM %s WHERE (%s AND (YEARWEEK(`timestamp`, 1) = YEARWEEK(CURDATE(), 1))) ORDER BY timestamp DESC;' % (
-                table_name, sql_insert))
-        elif args['period']  == "history":
-            query = ('SELECT * FROM %s WHERE %s ORDER BY timestamp DESC;' % (table_name, sql_insert))
-        # elif kwargs['period']  like "2018-08-10":
-            # query = ('SELECT * FROM %s WHERE (%s AND DATE(`timestamp`)=("2018-08-10") ORDER BY timestamp DESC;' % (table_name, sql_insert))
-            raise RuntimeError('Bad request sucker!')
+        args['period'] == "now"
+        print 'args is now'
+        positions_log = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data('nj', 'buses_for_route', rt=args['rt']))
 
     except:
-        # no period defined, fetch entire history
+        if args['period'] == "daily":
+            query = ('SELECT * FROM %s WHERE (%s AND DATE(`timestamp`)=CURDATE() ) ORDER BY timestamp DESC;' % (table_name, sql_insert))
+        elif args['period']  == "yesterday":
+            query = ('SELECT * FROM %s WHERE (%s AND (timestamp >= CURDATE() - INTERVAL 1 DAY AND timestamp < CURDATE())) ORDER BY timestamp DESC;' % (table_name, sql_insert))
+        elif args['period']  == "weekly":
+            query = ('SELECT * FROM %s WHERE (%s AND (YEARWEEK(`timestamp`, 1) = YEARWEEK(CURDATE(), 1))) ORDER BY timestamp DESC;' % (table_name, sql_insert))
+        elif args['period']  == "history":
+            query = ('SELECT * FROM %s WHERE %s ORDER BY timestamp DESC;' % (table_name, sql_insert))
 
-        query = ('SELECT * FROM %s WHERE %s ORDER BY timestamp DESC;' % (table_name, sql_insert))
+        # elif kwargs['period']  like "2018-08-10":
+            # query = ('SELECT * FROM %s WHERE (%s AND DATE(`timestamp`)=("2018-08-10") ORDER BY timestamp DESC;' % (table_name, sql_insert))
 
-    # remove the leading AND in query
-    query = query.replace(' AND ', '',1)
+        # remove the leading AND in query
+        query = query.replace(' AND ', '', 1)
 
-    # get data and basic cleanup
-    positions_log = pd.read_sql_query(query, conn)
-    # df_temp = df_temp.drop(columns=['cars', 'consist', 'fd', 'm', 'name', 'rn', 'scheduled'])
+        # get data and basic cleanup
+        positions_log = pd.read_sql_query(query, conn)
+        # df_temp = df_temp.drop(columns=['cars', 'consist', 'fd', 'm', 'name', 'rn', 'scheduled'])
+
+
     positions_log = timestamp_fix(positions_log)
 
     positions_geojson = data2geojson(positions_log)
