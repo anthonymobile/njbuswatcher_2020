@@ -1,6 +1,7 @@
 import os
 import datetime
 import xml.etree.ElementTree
+import geojson
 
 # API like: https://github.com/harperreed/transitapi/wiki/Unofficial-Bustracker-API
 
@@ -204,6 +205,7 @@ def parse_xml_getRoutePoints(data):
                             _stop_st = _cond_get_single(bs, 'st')
                             break
 
+                        # todo the Points between the Stops seem to me missing, but let's not worry for now.
                         p = None
                         if not stop:
                             p = Route.Point()
@@ -223,7 +225,23 @@ def parse_xml_getRoutePoints(data):
                 routes.append(route)
             break
 
-    return routes
+    # dump route points to 2 geojson files
+    # for now just draw the first service in the returned list
+    #
+    stop_coordinates=[]
+    for point in routes[0].paths[0].points:
+        #
+        #  1 = a linestring of all stops+points combined to draw the lines
+        #  waypoints_geojson=data2geojson(tk)
+        #
+        #  2 = just points to draw the stops
+        stop_coordinates.append((float(point.lat),float(point.lon)))
+
+    route_plot = geojson.LineString(stop_coordinates)
+    stops_geojson = geojson.dumps(route_plot, sort_keys=True)
+
+    # and return the route points in case we need them for something else
+    return routes,stops_geojson
 
 def get_xml_data(source, function, **kwargs):
     import urllib2

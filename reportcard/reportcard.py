@@ -7,6 +7,7 @@ from flask_bootstrap import Bootstrap
 import lib.ReportCard
 import lib.BusAPI
 from flask import jsonify
+import json
 
 app = Flask(__name__)
 Bootstrap(app)
@@ -73,11 +74,12 @@ def genRouteReport(source, route):
 
     return render_template('route.html', routereport=routereport)
 
-# #3 route report - with service
-# @app.route('/<source>/<route>/service/<service>')
-# def genRouteReport_ServiceStoplist(source, route, service):
-#     routereport=lib.ReportCard.RouteReport(source,route,reportcard_routes,grade_descriptions)
-#     return render_template('route_servicestoplist.html', routereport=routereport,service=service)
+
+
+
+
+
+
 
 # 4 stop report
 @app.route('/<source>/<route>/stop/<stop>/<period>')
