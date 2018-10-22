@@ -34,7 +34,7 @@ map.on('load', function () {
         // FUTURE - API SOURCE
         // map.addSource('new_map_data', { type: 'geojson', data: 'http://buswatcher.code4jc.org/api/v1/playback/?rt=119&date=20181031&run=910' });
 
-        // PARSED ROUTE GEOJSON FROM API
+        // ROUTES
         map.addSource('stops_geojson', { type: 'geojson', data:
             {
             "type": "Feature",
@@ -46,7 +46,7 @@ map.on('load', function () {
               );
 
         map.addLayer({
-            "id": "stops_geojson",
+            "id": "route",
             "type": "line",
             "source": "stops_geojson",
             "paint": {
@@ -57,8 +57,26 @@ map.on('load', function () {
               }
             );
 
+
+          // STOPS
+          map.addLayer({
+          "id": "stops",
+          "type": "circle",
+          "source": "stops_geojson",
+          "paint": {
+                        "circle-radius": 3,
+
+                        "circle-opacity": 1,
+                        "circle-stroke-width": 3,
+                        "circle-stroke-color": "#fff"
+                    }
+           });
+
+
         // setup the viewport
         map.jumpTo({ 'center': [-74.0501,40.7400], 'zoom': 12 });
+
+
 
 
     });
