@@ -60,18 +60,7 @@ map.on('load', function () {
         // setup the viewport
         map.jumpTo({ 'center': [-74.0501,40.7400], 'zoom': 12 });
 
-        // on a regular basis, add more coordinates from the saved list and update the map
-        var i = 0;
-        var timer = window.setInterval(function() {
-            if (i < coordinates.length) {
-                njt87.features[0].geometry.coordinates.push(coordinates[i]);
-                map.getSource('njt87').setData(data);
-                map.panTo(coordinates[i]);
-                i++;
-            } else {
-                window.clearInterval(timer);
-            }
-        }, 10);
+
     });
 
 </script>
