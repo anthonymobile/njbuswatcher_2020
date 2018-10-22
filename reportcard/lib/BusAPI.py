@@ -225,22 +225,16 @@ def parse_xml_getRoutePoints(data):
                 routes.append(route)
             break
 
-    # dump route points to 2 geojson files
-    # for now just draw the first service in the returned list
-    #
+    # dump stop coordinates to geojson
+
     stop_coordinates=[]
     for point in routes[0].paths[0].points:
-        #
-        #  1 = a linestring of all stops+points combined to draw the lines
-        #  waypoints_geojson=data2geojson(tk)
-        #
-        #  2 = just points to draw the stops
+        # reversed lon, lat for some reason for MapBox
         stop_coordinates.append((float(point.lon),float(point.lat)))
-
     route_plot = geojson.LineString(stop_coordinates)
+
     stops_geojson = geojson.dumps(route_plot, sort_keys=True)
 
-    # and return the route points in case we need them for something else
     return routes,stops_geojson
 
 def get_xml_data(source, function, **kwargs):
