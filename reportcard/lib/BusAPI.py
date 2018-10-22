@@ -235,7 +235,7 @@ def parse_xml_getRoutePoints(data):
         #  waypoints_geojson=data2geojson(tk)
         #
         #  2 = just points to draw the stops
-        stop_coordinates.append((float(point.lat),float(point.lon)))
+        stop_coordinates.append((float(point.lon),float(point.lat)))
 
     route_plot = geojson.LineString(stop_coordinates)
     stops_geojson = geojson.dumps(route_plot, sort_keys=True)
