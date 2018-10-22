@@ -25,62 +25,78 @@ var map = new mapboxgl.Map({
     zoom: 0
 });
 
-map.on('load', function () {
+map.on('load', function() {
 
-        // starting view
-        var mapCoordinates = [40.7400,-74.0501];
-        var mapZoom = 13;
+    // starting view
+    var mapCoordinates = [40.7400, -74.0501];
+    var mapZoom = 13;
 
-        // FUTURE - API SOURCE
-        // map.addSource('new_map_data', { type: 'geojson', data: 'http://buswatcher.code4jc.org/api/v1/playback/?rt=119&date=20181031&run=910' });
+    // FUTURE - API SOURCE
+    // map.addSource('new_map_data', { type: 'geojson', data: 'http://buswatcher.code4jc.org/api/v1/playback/?rt=119&date=20181031&run=910' });
 
-        // ROUTES
-        map.addSource('stops_geojson', { type: 'geojson', data:
-            {
+    // ROUTES
+    map.addSource('stops_geojson', {
+        type: 'geojson',
+        data: {
             "type": "Feature",
-                  "properties": {},
-                  "geometry":
-                      {{ routereport.stops_geojson|safe }}
-                  }
-                }
-              );
+            "properties": {},
+            "geometry": {{routereport.stops_geojson | safe}}
+        }
+    });
 
-        map.addLayer({
-            "id": "route",
-            "type": "line",
-            "source": "stops_geojson",
-            "paint": {
-                "line-color": "blue",
-                "line-opacity": 0.75,
-                "line-width": 5
-                }
-              }
-            );
+    map.addLayer({
+        "id": "route",
+        "type": "line",
+        "source": "stops_geojson",
+        "paint": {
+            "line-color": "blue",
+            "line-opacity": 0.75,
+            "line-width": 5
+        }
+    });
 
 
-          // STOPS
-          map.addLayer({
-          "id": "stops",
-          "type": "circle",
-          "source": "stops_geojson",
-          "paint": {
-                        "circle-radius": 3,
+    // STOPS
+    map.addLayer({
+        "id": "stops",
+        "type": "circle",
+        "source": "stops_geojson",
+        "paint": {
+            "circle-radius": 3,
+            "circle-opacity": 1,
+            "circle-stroke-width": 3,
+            "circle-stroke-color": "#fff"
+        }
+    });
 
-                        "circle-opacity": 1,
-                        "circle-stroke-width": 3,
-                        "circle-stroke-color": "#fff"
-                    }
-           });
+    // VEHICLES
 
+    map.addSource('vehicles_geojson', {
+        type: 'geojson',
+        data: 'http://0.0.0.0:5000/api/v1/positions/?period=now&rt={{routereport.route}}'
+    });
 
-        // setup the viewport
-        map.jumpTo({ 'center': [-74.0501,40.7400], 'zoom': 12 });
-
-
-
+    map.addLayer({
+        "id": "vehicles",
+        "type": "circle",
+        "source": "vehicles_geojson",
+        "paint": {
+            "circle-radius": 1,
+            "circle-opacity": 1,
+            "circle-stroke-width": 3,
+            "circle-stroke-color": "#666"
+        }
 
     });
 
+
+    // setup the viewport
+    map.jumpTo({
+        'center': [-74.0501, 40.7400],
+        'zoom': 12
+    });
+
+});
 </script>
 
 {% endblock %}
