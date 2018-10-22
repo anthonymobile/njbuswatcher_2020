@@ -35,54 +35,30 @@ map.on('load', function () {
         // map.addSource('new_map_data', { type: 'geojson', data: 'http://buswatcher.code4jc.org/api/v1/playback/?rt=119&date=20181031&run=910' });
 
         // PARSED ROUTE GEOJSON FROM API
-        // map.addSource('stops_geojson', { type: 'geojson', data: {{ routereport.stops_geojson|safe }} });
-
-        // TEST NJT Rt. 87
-        map.addSource('njt87', {type: 'geojson', data:
-                {
-                  "type": "Feature",
+        map.addSource('stops_geojson', { type: 'geojson', data:
+            {
+            "type": "Feature",
                   "properties": {},
                   "geometry":
-                    {
-                        "type": "LineString",
-                        "coordinates":
-                          [
-                              [-74.26103,40.88705],[-74.26234,40.88787],[-74.25858,40.88549],[-74.25902,40.88509],[-74.2592,40.88514],[-74.25954,40.8853],[-74.26217,40.8869],[-74.26257,40.88716],[-74.26283,40.88738],[-74.263,40.88759],[-74.26312,40.88783],[-74.26318,40.8881],[-74.26338,40.88962],[-74.26342,40.8904],[-74.26339,40.89058],[-74.26335,40.8907],[-74.26323,40.89092],[-74.26306,40.89113],[-74.26251,40.89159],[-74.26235,40.89164],[-74.26218,40.89175],[-74.26197,40.89185],[-74.26142,40.892],[-74.26,40.89214],[-74.26001,40.8926],[-74.25997,40.89276],[-74.25985,40.89283],[-74.25956,40.89296],[-74.25782,40.8931],[-74.257,40.89314],[-74.25569,40.89306],[-74.25516,40.89295],[-74.254,40.89285],[-74.25334,40.89286],[-74.25262,40.89302],[-74.25181,40.89335],[-74.25072,40.89373],[-74.25012,40.89391],[-74.24952,40.89404],[-74.24927,40.89411]
-                          ]
-                    }
+                      {{ routereport.stops_geojson|safe }}
+                  }
                 }
-              }
-
-            );
-
-
-        map.addLayer({
-            "id": "njt87",
-            "type": "line",
-            "source": "njt87",
-            "paint": {
-                "line-color": "yellow",
-                "line-opacity": 0.75,
-                "line-width": 5
-                }
-              }
-            );
+              );
 
         map.addLayer({
             "id": "stops_geojson",
             "type": "line",
-            "source": "njt87",
+            "source": "stops_geojson",
             "paint": {
-                "line-color": "yellow",
+                "line-color": "blue",
                 "line-opacity": 0.75,
                 "line-width": 5
                 }
               }
             );
 
-
         // setup the viewport
-        map.jumpTo({ 'center': [-74.26218,40.89175], 'zoom': 9 });
+        map.jumpTo({ 'center': [-74.0501,40.7400], 'zoom': 12 });
 
         // on a regular basis, add more coordinates from the saved list and update the map
         var i = 0;
