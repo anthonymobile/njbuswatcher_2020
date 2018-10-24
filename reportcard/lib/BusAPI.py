@@ -205,7 +205,6 @@ def parse_xml_getRoutePoints(data):
                             _stop_st = _cond_get_single(bs, 'st')
                             break
 
-                        # todo the Points between the Stops seem to me missing, but let's not worry for now.
                         p = None
                         if not stop:
                             p = Route.Point()
@@ -225,17 +224,25 @@ def parse_xml_getRoutePoints(data):
                 routes.append(route)
             break
 
-    # dump stop coordinates to geojson
 
-    stop_coordinates=[]
+    # dump waypoint coordinates to geojson
+    waypoint_coordinates=[]
     for point in routes[0].paths[0].points:
         # reversed lon, lat for some reason for MapBox
-        stop_coordinates.append((float(point.lon),float(point.lat)))
-    route_plot = geojson.LineString(stop_coordinates)
+        waypoint_coordinates.append((float(point.lon),float(point.lat)))
+    route_plot = geojson.LineString(waypoint_coordinates)
+    waypoints_geojson = geojson.dumps(route_plot, sort_keys=True)
 
-    stops_geojson = geojson.dumps(route_plot, sort_keys=True)
 
-    return routes,stops_geojson
+    # todo stop coordinates separately
+    stops_coordinates = []
+    for point in routes[0].paths[0].points:
+        if isinstance(point, Route.Stop):
+            stops_coordinates.append((float(point.lon), float(point.lat)))
+    stops_plot = geojson.MultiPoint(stops_coordinates)
+    stops_geojson = geojson.dumps(stops_plot, sort_keys=True)
+
+    return routes,waypoints_geojson,stops_geojson
 
 def get_xml_data(source, function, **kwargs):
     import urllib2

@@ -4,6 +4,7 @@
 
 import lib.BusAPI as BusAPI
 import lib.StopsDB as StopsDB
+import sys
 
 import argparse, datetime
 
@@ -12,7 +13,7 @@ def fetch_approaches(source, route):
 
     (conn, db) = db_setup(route)
 
-    routedata = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(source, 'routes', route=route))
+    routedata, stops_geojson = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(source, 'routes', route=route))
     stoplist = []
 
     for rt in routedata:
@@ -22,12 +23,13 @@ def fetch_approaches(source, route):
                     stoplist.append(p.identity)
 
     for s in stoplist:
+        sys.stdout.write('.'),
         approaches = BusAPI.parse_xml_getStopPredictions(
             BusAPI.get_xml_data('nj', 'stop_predictions', stop=s, route=route))
         now = datetime.datetime.now()
         approaches_clean = []
         for approach in approaches:
-            if approach.pt=='APPROACHING':
+            if approach.pt=='APPROACHING': # todo add logic here for also 2 min or less to catch those missing approaches?
                 approaches_clean.append(approach)
             else:
                 pass

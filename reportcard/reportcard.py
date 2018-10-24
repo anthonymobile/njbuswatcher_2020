@@ -75,12 +75,6 @@ def genRouteReport(source, route):
     return render_template('route.html', routereport=routereport)
 
 
-
-
-
-
-
-
 # 4 stop report
 @app.route('/<source>/<route>/stop/<stop>/<period>')
 def genStopReport(source, route, stop, period):

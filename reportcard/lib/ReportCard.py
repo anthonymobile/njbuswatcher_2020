@@ -69,16 +69,16 @@ class RouteReport:
         self.table_name = 'stop_approaches_log_' + self.route
 
         # populate report card data
-        self.routename,self.stops_geojson = self.get_routename(self.route)
+        self.routename, self.waypoints_geojson, self.stops_geojson = self.get_routename(self.route)
         self.get_servicelist()
         self.compute_grade()
         self.route_stop_list = self.get_stoplist(self.route)
         # self.bunching_leaderboard = self.get_bunching_leaderboard('daily',self.route)
 
-    @ecached('get_routename:{route}', timeout=86400) # cache per route, 24 hour expire
+    # @ecached('get_routename:{route}', timeout=86400) # cache per route, 24 hour expire
     def get_routename(self,route):
-        routedata,stops_geojson = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=route))
-        return routedata[0].nm, stops_geojson
+        routedata, waypoints_geojson, stops_geojson = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=route))
+        return routedata[0].nm, waypoints_geojson, stops_geojson
 
     def get_servicelist(self):
         for route in self.reportcard_routes:
@@ -118,7 +118,7 @@ class RouteReport:
 
     # ecached gives a pickling error on Route.Path here
     def get_stoplist(self, route):
-        routedata, stops_geojson = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=self.route))
+        routedata, waypoints_geojson, stops_geojson = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=self.route))
         route_stop_list = []
         for r in routedata:
             path_list = []

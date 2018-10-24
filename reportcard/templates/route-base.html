@@ -35,19 +35,22 @@ map.on('load', function() {
     // map.addSource('new_map_data', { type: 'geojson', data: 'http://buswatcher.code4jc.org/api/v1/playback/?rt=119&date=20181031&run=910' });
 
     // ROUTES
-    map.addSource('stops_geojson', {
+
+    var waypoints_geojson = {
         type: 'geojson',
         data: {
             "type": "Feature",
             "properties": {},
-            "geometry": {{routereport.stops_geojson | safe}}
+            "geometry": {{routereport.waypoints_geojson | safe}}
         }
-    });
+    };
+
+    map.addSource('waypoints_geojson', waypoints_geojson);
 
     map.addLayer({
         "id": "route",
         "type": "line",
-        "source": "stops_geojson",
+        "source": "waypoints_geojson",
         "paint": {
             "line-color": "blue",
             "line-opacity": 0.75,
@@ -57,23 +60,36 @@ map.on('load', function() {
 
 
     // STOPS
+
+        var stops_geojson = {
+        type: 'geojson',
+        data: {
+            "type": "Feature",
+            "properties": {},
+            "geometry": {{routereport.stops_geojson | safe}}
+        }
+    };
+
+    map.addSource('stops_geojson', stops_geojson);
+
     map.addLayer({
         "id": "stops",
         "type": "circle",
         "source": "stops_geojson",
         "paint": {
-            "circle-radius": 3,
+            "circle-radius": 2,
             "circle-opacity": 1,
-            "circle-stroke-width": 3,
+            "circle-stroke-width": 2,
             "circle-stroke-color": "#fff"
         }
     });
+
 
     // VEHICLES
 
     map.addSource('vehicles_geojson', {
         type: 'geojson',
-        data: 'http://0.0.0.0:5000/api/v1/positions/?period=now&rt={{routereport.route}}'
+        data: 'http://0.0.0.0:5000/api/v1/positions/?period=now&route={{routereport.route}}'
     });
 
     map.addLayer({
@@ -96,7 +112,18 @@ map.on('load', function() {
         'zoom': 12
     });
 
+    // ZOOM TO THE EXTENT
+
+    /*
+    var coordinates = stops_geojson.features[0].geometry.coordinates; // todo what is right var here!!!!
+    var bounds = coordinates.reduce(function(bounds, coord) {
+      return bounds.extend(coord);
+    }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
+    map.fitBounds(bounds, { padding: 20 });
+    */
+
 });
+
 </script>
 
 {% endblock %}

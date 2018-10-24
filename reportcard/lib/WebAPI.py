@@ -5,6 +5,7 @@ import BusAPI
 from ReportCard import timestamp_fix
 import geojson
 import pandas as pd
+import datetime
 
 try:
     db_state = os.environ['REPORTCARD_PRODUCTION']
@@ -39,10 +40,10 @@ def data2geojson(df):
 def get_positions_byargs(args):
 
     # database initialization
-    db = BusRouteLogsDB.MySQL('buses', 'buswatcher', 'njtransit', db_server, args['rt'])
+    db = BusRouteLogsDB.MySQL('buses', 'buswatcher', 'njtransit', db_server, args['route'])
     conn = db.conn
 
-    table_name = 'routelog_' + args['rt']
+    table_name = 'routelog_' + args['route']
 
 
     sql_insert=str()
@@ -54,13 +55,27 @@ def get_positions_byargs(args):
             sql_insert+=_sql_snippet
     sql_insert=("("+sql_insert+")")
 
+    # NOW - get current positions from NJT API and setup as a dataframe like others
+    if args['period'] == "now":
+        positions = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data('nj', 'buses_for_route', route=args['route']))
+        now = datetime.datetime.now()
+        labels = ['lon', 'lat', 'run', 'op', 'dn', 'pid', 'dip', 'id', 'timestamp', 'fs']
+        positions_log=pd.DataFrame(columns=labels)
+        for bus in positions:
+            update = dict()
+            for value in vars(bus).iteritems():
+                if value[0] in labels:
+                    update[value[0]] = value[1]
+            # update['timestamp']=now
+            positions_log = positions_log.append(update) #todo troubleshoot why the data isn't getting appended into here
 
-    try:
-        args['period'] == "now"
-        print 'args is now'
-        positions_log = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data('nj', 'buses_for_route', rt=args['rt']))
+        positions_log.set_index('timestamp',drop=True)
+        positions_log = timestamp_fix(positions_log)
+        positions_geojson = data2geojson(positions_log)
 
-    except:
+
+    # HISTORICAL GET FROM DB
+    else:
         if args['period'] == "daily":
             query = ('SELECT * FROM %s WHERE (%s AND DATE(`timestamp`)=CURDATE() ) ORDER BY timestamp DESC;' % (table_name, sql_insert))
         elif args['period']  == "yesterday":
@@ -81,8 +96,8 @@ def get_positions_byargs(args):
         # df_temp = df_temp.drop(columns=['cars', 'consist', 'fd', 'm', 'name', 'rn', 'scheduled'])
 
 
-    positions_log = timestamp_fix(positions_log)
+        positions_log = timestamp_fix(positions_log)
 
-    positions_geojson = data2geojson(positions_log)
+        positions_geojson = data2geojson(positions_log)
 
     return positions_geojson
