@@ -40,10 +40,10 @@ def data2geojson(df):
 def get_positions_byargs(args):
 
     # database initialization
-    db = BusRouteLogsDB.MySQL('buses', 'buswatcher', 'njtransit', db_server, args['route'])
+    db = BusRouteLogsDB.MySQL('buses', 'buswatcher', 'njtransit', db_server, args['rt'])
     conn = db.conn
 
-    table_name = 'routelog_' + args['route']
+    table_name = 'routelog_' + args['rt']
 
 
     sql_insert=str()
@@ -57,7 +57,7 @@ def get_positions_byargs(args):
 
     # NOW - get current positions from NJT API and setup as a dataframe like others
     if args['period'] == "now":
-        positions = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data('nj', 'buses_for_route', route=args['route']))
+        positions = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data('nj', 'buses_for_route', route=args['rt']))
         now = datetime.datetime.now()
         labels = ['lon', 'lat', 'run', 'op', 'dn', 'pid', 'dip', 'id', 'timestamp', 'fs']
         positions_log=pd.DataFrame(columns=labels)

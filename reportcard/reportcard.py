@@ -31,7 +31,6 @@ if __name__ != "__main__":
 from route_config import reportcard_routes,grade_descriptions
 
 
-
 ################################################
 # STATIC ASSETS
 ################################################
