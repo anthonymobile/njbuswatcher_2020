@@ -1,5 +1,12 @@
 # TODO
 
+## incoming ideas
+1. Find nearest stop to a bus breadcrumb (and then log a stop when it gets under a threshold and starts to go up again) — Nearest Neighbour Analysis — Geo-Python - AutoGIS documentation [link](https://automating-gis-processes.github.io/2017/lessons/L3/nearest-neighbour.html)
+
+2. playback a bus trip from a routelog [tutorial](https://www.mapbox.com/mapbox-gl-js/example/live-update-feature/)
+3. put back bunching report but on a separate page off route
+
+
 ## Current (WEEK OF OCT 16)
 
 1. static maps
