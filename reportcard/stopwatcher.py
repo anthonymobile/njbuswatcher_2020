@@ -13,7 +13,7 @@ def fetch_approaches(source, route):
 
     (conn, db) = db_setup(route)
 
-    routedata, stops_geojson = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(source, 'routes', route=route))
+    routedata, waypoints_geojson, stops_geojson = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(source, 'routes', route=route))
     stoplist = []
 
     for rt in routedata:
