@@ -31,9 +31,6 @@ map.on('load', function() {
     var mapCoordinates = [40.7400, -74.0501];
     var mapZoom = 13;
 
-    // FUTURE - API SOURCE
-    // map.addSource('new_map_data', { type: 'geojson', data: 'http://buswatcher.code4jc.org/api/v1/playback/?rt=119&date=20181031&run=910' });
-
     // ROUTES
 
     var waypoints_geojson = {
@@ -89,7 +86,7 @@ map.on('load', function() {
 
     map.addSource('vehicles_geojson', {
         type: 'geojson',
-        data: 'http://0.0.0.0:5000/api/v1/positions/?period=now&route={{routereport.route}}'
+        data: 'http://0.0.0.0:5000/api/v1/positions/?period=now&rt={{routereport.route}}'
     });
 
     map.addLayer({
@@ -97,10 +94,10 @@ map.on('load', function() {
         "type": "circle",
         "source": "vehicles_geojson",
         "paint": {
-            "circle-radius": 1,
+            "circle-radius": 4,
             "circle-opacity": 1,
             "circle-stroke-width": 3,
-            "circle-stroke-color": "#666"
+            "circle-stroke-color": "#f6c"
         }
 
     });
