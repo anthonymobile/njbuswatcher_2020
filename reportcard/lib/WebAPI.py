@@ -59,20 +59,27 @@ def get_positions_byargs(args):
     if args['period'] == "now":
         positions = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data('nj', 'buses_for_route', route=args['rt']))
         now = datetime.datetime.now()
-        labels = ['lon', 'lat', 'run', 'op', 'dn', 'pid', 'dip', 'id', 'timestamp', 'fs']
+        labels = ['bid','lon', 'lat', 'run', 'op', 'dn', 'pid', 'dip', 'id', 'timestamp', 'fs','pd']
         positions_log=pd.DataFrame(columns=labels)
+
         for bus in positions:
             update = dict()
-            for value in vars(bus).iteritems():
-                if value[0] in labels:
-                    update[value[0]] = value[1]
-            # update['timestamp']=now
-            positions_log = positions_log.append(update) #todo troubleshoot why the data isn't getting appended into here
+            for key,value in vars(bus).iteritems():
+                if key in labels:
+                    if key == 'lat' or key == 'lon':
+                        value = float(value)
+                    update[key] = value
+            update['timestamp'] = now
+            positions_log = positions_log.append(update,ignore_index=True)
 
-        positions_log.set_index('timestamp',drop=True)
-        positions_log = timestamp_fix(positions_log)
+        try:
+            positions_log = positions_log.set_index('timestamp',drop=False)
+            print ":)"
+        except:
+            print "!!"
+
+        # positions_log = timestamp_fix(positions_log)
         positions_geojson = data2geojson(positions_log)
-
 
     # HISTORICAL GET FROM DB
     else:
@@ -93,8 +100,7 @@ def get_positions_byargs(args):
 
         # get data and basic cleanup
         positions_log = pd.read_sql_query(query, conn)
-        # df_temp = df_temp.drop(columns=['cars', 'consist', 'fd', 'm', 'name', 'rn', 'scheduled'])
-
+        positions_log = positions_log.drop(columns=['cars', 'consist', 'm','pdRtpiFeedName','rt','rtRtpiFeedName','rtdd','wid1','wid2'])
 
         positions_log = timestamp_fix(positions_log)
 
