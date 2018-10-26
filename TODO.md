@@ -3,9 +3,10 @@ updated 25 oct 2018
 ####  punchlist
 
 1. merge development back into master
-2. redeploy master
+2. redeploy master to production server
 
 #### development branch to-do
+1. fix map zoom to extents of route polyline
 1. new page off route report for bunching report
 2. fix caching for bunching_report
 3. bug: just after midnight: when there are no arrivals, stops page returns an error (Rangeindex because of empty arrivals)
