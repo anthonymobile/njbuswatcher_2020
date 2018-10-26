@@ -74,6 +74,6 @@ class MySQL(DB):
             self.conn.database = self.db_name
             self._execute(create_table_string)
         except Error as err:
-            print('something went wrong with mysql')
+            print 'something went wrong with mysql'
             sys.exit()
             pass

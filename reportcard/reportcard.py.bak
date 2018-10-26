@@ -4,8 +4,8 @@
 import logging
 from flask import Flask, render_template, request
 from flask_bootstrap import Bootstrap
-from . import lib.ReportCard
-from . import lib.BusAPI
+import lib.ReportCard
+import lib.BusAPI
 from flask import jsonify
 import json
 
@@ -28,7 +28,7 @@ if __name__ != "__main__":
 # APPLICATION DATA IMPORT
 ################################################
 
-from .route_config import reportcard_routes,grade_descriptions
+from route_config import reportcard_routes,grade_descriptions
 
 
 ################################################
@@ -88,7 +88,7 @@ def genStopReport(source, route, stop, period):
 # API
 ################################################
 
-from . import lib.WebAPI as WebAPI
+import lib.WebAPI as WebAPI
 
 # POSITIONS ARGS-BASED
 # /api/positions?rd=119&period=daily - returns timestamped positions for an entire route for the period specified
@@ -138,10 +138,10 @@ def pretty_timedelta(td):
     days = td.days
     hours, remainder = divmod(td.seconds, 3600)
     minutes, seconds = divmod(remainder, 60)
-    if days != 0:
+    if days <> 0:
         pretty_time = ("{a} days {b} hrs {c} mins").format(a=days, b=hours, c=minutes)
         return pretty_time
-    elif hours != 0:
+    elif hours <> 0:
         pretty_time = ("{a} hrs {b} mins").format(a=hours, b=minutes)
         return pretty_time
     else:
