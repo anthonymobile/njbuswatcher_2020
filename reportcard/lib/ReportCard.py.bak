@@ -11,7 +11,7 @@ except:
     db_server = '127.0.0.1'
 
 # import app libraries
-from . import StopsDB, BusAPI
+import StopsDB, BusAPI
 
 # setup cache
 from easy_cache import ecached
