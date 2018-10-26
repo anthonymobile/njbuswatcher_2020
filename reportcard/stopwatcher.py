@@ -23,7 +23,7 @@ def fetch_approaches(source, route):
                     stoplist.append(p.identity)
 
     for s in stoplist:
-        sys.stdout.write('.'),
+        # sys.stdout.write('.'),
         approaches = BusAPI.parse_xml_getStopPredictions(
             BusAPI.get_xml_data('nj', 'stop_predictions', stop=s, route=route))
         now = datetime.datetime.now()
