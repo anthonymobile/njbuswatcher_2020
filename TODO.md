@@ -1,9 +1,10 @@
-updated 25 oct 2018
+updated 26 oct 2018
 
 ####  punchlist
-
+1. finish 2to3 conversion
+1. merge 2to3 branch backinto development
 1. merge development back into master
-2. redeploy master to production server
+2. redeploy master to production server (with setup python3 new environment)
 
 #### development branch to-do
 1. fix map zoom to extents of route polyline
@@ -49,10 +50,6 @@ updated 25 oct 2018
 1. generate a list of runs, linked to 'playback' pages
 2. API call that spits out geojson for all points in routelog for a single run, on a specific date
 3. display on a page using mapbox live update [tutorial](https://www.mapbox.com/mapbox-gl-js/example/live-update-feature/)
-
-#### Python 3 Migration
-1. evaluate all dependencies for any incompatibilities
-2. convert and test
 
 #### setup slave to backup db    
 - [howto](https://www.digitalocean.com/community/tutorials/how-to-move-a-mysql-data-directory-to-a-new-location-on-ubuntu-16-04)

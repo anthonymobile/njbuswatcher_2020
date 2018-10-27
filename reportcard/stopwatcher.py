@@ -2,8 +2,8 @@
 # usage python stopwatcher.py -s nj -r 87
 
 
-from . import lib.BusAPI as BusAPI
-from . import lib.StopsDB as StopsDB
+import lib.BusAPI as BusAPI
+import lib.StopsDB as StopsDB
 import sys
 
 import argparse, datetime
