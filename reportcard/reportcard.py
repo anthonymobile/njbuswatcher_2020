@@ -1,17 +1,24 @@
 # bus reportcard v1.0
 # september 2018 - anthony townsend anthony@bitsandatoms.net
 
-import logging
+################################################
+# IMPORTS
+################################################
+
 from flask import Flask, render_template, request
 from flask_bootstrap import Bootstrap
-from . import lib.ReportCard
-from . import lib.BusAPI
 from flask import jsonify
-import json
+import logging
+import lib.ReportCard as ReportCard
+import lib.BusAPI as BusAPI
+import lib.WebAPI as WebAPI
+
+################################################
+# APP
+################################################
 
 app = Flask(__name__)
 Bootstrap(app)
-
 
 ################################################
 # LOGGING
@@ -28,7 +35,7 @@ if __name__ != "__main__":
 # APPLICATION DATA IMPORT
 ################################################
 
-from .route_config import reportcard_routes,grade_descriptions
+from route_config import reportcard_routes,grade_descriptions
 
 
 ################################################
@@ -51,7 +58,7 @@ assets.register(bundles)
 
 
 ################################################
-# WEBSITES
+# URLS
 ################################################
 
 #1 home page
@@ -69,7 +76,7 @@ def displayHome():
 #2 route report
 @app.route('/<source>/<route>')
 def genRouteReport(source, route):
-    routereport=lib.ReportCard.RouteReport(source,route,reportcard_routes,grade_descriptions)
+    routereport=ReportCard.RouteReport(source,route,reportcard_routes,grade_descriptions)
 
     return render_template('route.html', routereport=routereport)
 
@@ -77,18 +84,16 @@ def genRouteReport(source, route):
 # 4 stop report
 @app.route('/<source>/<route>/stop/<stop>/<period>')
 def genStopReport(source, route, stop, period):
-    stopreport = lib.ReportCard.StopReport(route, stop, period)
+    stopreport = ReportCard.StopReport(route, stop, period)
     hourly_frequency = stopreport.get_hourly_frequency(route, stop, period)
-    routereport = lib.ReportCard.RouteReport(source, route, reportcard_routes, grade_descriptions)
-    predictions = lib.BusAPI.parse_xml_getStopPredictions(lib.BusAPI.get_xml_data('nj', 'stop_predictions', stop=stop, route='all'))
+    routereport = ReportCard.RouteReport(source, route, reportcard_routes, grade_descriptions)
+    predictions = BusAPI.parse_xml_getStopPredictions(lib.BusAPI.get_xml_data('nj', 'stop_predictions', stop=stop, route='all'))
     return render_template('stop.html', stopreport=stopreport, hourly_frequency=hourly_frequency, routereport=routereport, predictions=predictions,period=period)
 
 
 ################################################
 # API
 ################################################
-
-from . import lib.WebAPI as WebAPI
 
 # POSITIONS ARGS-BASED
 # /api/positions?rd=119&period=daily - returns timestamped positions for an entire route for the period specified
@@ -148,6 +153,9 @@ def pretty_timedelta(td):
         pretty_time = ("{a} mins").format(a=minutes)
     return pretty_time
 
+################################################
+# MAIN
+################################################
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', debug=True)

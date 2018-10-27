@@ -5,8 +5,8 @@ import sys
 import argparse
 import datetime
 
-from . import lib.BusAPI as BusAPI
-from . import lib.BusRouteLogsDB as BusRouteLogsDB
+import lib.BusAPI as BusAPI
+import lib.BusRouteLogsDB as BusRouteLogsDB
 
 def db_setup(route):
     db = BusRouteLogsDB.MySQL('buses', 'buswatcher', 'njtransit', '127.0.0.1', route)
