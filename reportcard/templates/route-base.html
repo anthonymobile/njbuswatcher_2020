@@ -104,6 +104,7 @@ map.on('load', function() {
     });
 
 
+
     // setup the viewport
     map.jumpTo({
         'center': [-74.0501, 40.7400],
@@ -111,14 +112,14 @@ map.on('load', function() {
     });
 
     // ZOOM TO THE EXTENT
+    // based on https://www.mapbox.com/mapbox-gl-js/example/zoomto-linestring/
 
-    /*
-    var coordinates = stops_geojson.features[0].geometry.coordinates; // todo what is right var here!!!!
+    var coordinates = stops_geojson.data.geometry.coordinates; //todo close to debugging (use 'sources' / 'watch = stops_geojson' in Chorme Javascript console
     var bounds = coordinates.reduce(function(bounds, coord) {
       return bounds.extend(coord);
     }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
     map.fitBounds(bounds, { padding: 20 });
-    */
+
 
 });
 
