@@ -17,7 +17,7 @@ def main():
     args = parser.parse_args()
 
     if args.source not in BusAPI._sources:
-        print(args.source + ' is not a valid source.  Valid sources=' + str(list(Buses._sources.keys())))
+        print args.source + ' is not a valid source.  Valid sources=' + str(Buses._sources.keys())
         sys.exit(-1)
 
     db = BusDB.MySQL('buses','buswatcher','njtransit','127.0.0.1')

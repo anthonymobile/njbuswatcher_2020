@@ -1,7 +1,7 @@
 # Bus Rider Report Card 
-### v 1.0
-##### 5 October 2018
-
+### v 1.1
+##### 27 October 2018
+######*n.b. as of v1.1 codebase is migrated to Python 3.*
 
 ## Summary
 
