@@ -27,8 +27,8 @@ def data2geojson(df):
                                 dip=X["dip"],
                                 id=X["id"],
                                 timestamp=X["timestamp"],
-                                fs = str(X["fs"].decode('utf8')),
-                                pd=str(X["pd"].decode('utf8'))))
+                                fs = str(X["fs"]),
+                                pd=str(X["pd"])))
                                     )
             , axis=1)
 
