@@ -32,7 +32,7 @@ def main():
     args = parser.parse_args()
 
     if args.source not in BusAPI._sources:
-        print(args.source + ' is not a valid source.  Valid sources=' + str(list(BusAPI._sources.keys())))
+        print args.source + ' is not a valid source.  Valid sources=' + str(BusAPI._sources.keys())
         sys.exit(-1)
 
     fetch_locations(args.source, args.route)

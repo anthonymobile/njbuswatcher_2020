@@ -1,8 +1,8 @@
 # handles the API for the bustracker app itself
 
-from . import BusRouteLogsDB
-from . import BusAPI
-from .ReportCard import timestamp_fix
+import BusRouteLogsDB
+import BusAPI
+from ReportCard import timestamp_fix
 import geojson
 import pandas as pd
 import datetime
@@ -27,8 +27,8 @@ def data2geojson(df):
                                 dip=X["dip"],
                                 id=X["id"],
                                 timestamp=X["timestamp"],
-                                fs = str(X["fs"].decode('utf8')),
-                                pd=str(X["pd"].decode('utf8'))))
+                                fs = unicode(X["fs"].decode('utf8')),
+                                pd=unicode(X["pd"].decode('utf8'))))
                                     )
             , axis=1)
 
@@ -47,7 +47,7 @@ def get_positions_byargs(args):
 
 
     sql_insert=str()
-    for key, value in list(args.items()):
+    for key, value in args.items():
         if key == 'period':
             pass
         else:
@@ -64,7 +64,7 @@ def get_positions_byargs(args):
 
         for bus in positions:
             update = dict()
-            for key,value in vars(bus).items():
+            for key,value in vars(bus).iteritems():
                 if key in labels:
                     if key == 'lat' or key == 'lon':
                         value = float(value)
@@ -74,9 +74,9 @@ def get_positions_byargs(args):
 
         try:
             positions_log = positions_log.set_index('timestamp',drop=False)
-            print(":)")
+            print ":)"
         except:
-            print("!!")
+            print "!!"
 
         # positions_log = timestamp_fix(positions_log)
         positions_geojson = data2geojson(positions_log)
