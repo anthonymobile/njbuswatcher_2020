@@ -1,5 +1,11 @@
 {% extends 'route-base.html' %}
 
+{%  block scripts %}
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<script src="/static/js/frequency_histogram_v1.js"></script>
+
+{% endblock %}
+
 {% block navbar %}
 
     <div class="py-2 bg-white">
@@ -54,6 +60,11 @@
 {% endblock %}
 
 {% block top_left %}
+
+    <div class="col-md-12" id ="arrivals-histogram">
+
+    </div>
+
 <h1 class="">Arrival History</h1>
 
 
@@ -105,10 +116,15 @@
 
 
 {% block top_right %}
+
+
+
+    <div>
     <h1 class="">Service Frequency</h1>
 <p class="head">
     <mark>**Experimental Feature**</mark> For each hour where data has been recorded, the table below shows the average time between arrivals on the {{routereport.route}} route at {{stopreport.stop_name}} for the current viewing period({{period}}).
 </p>
+
 <!--
 <div class="alert alert-success" role="alert">
          <h4 class="alert-heading">Meets Expectations</h4>
@@ -143,7 +159,11 @@
 
             </tbody>
           </table>
+</div>
 
+            <div class="col-md-12" id ="frequency-histogram">
+
+    </div>
 
 {% endblock %}
 

@@ -140,14 +140,16 @@
                                 <p class="lead text-center text-success">Current Grade: {{route.grade}}</h1>
                             {% endif %}
                             {% if route.grade=='C' %}
-                                <p class="lead text-center text-warning">Current Grade: {{route.grade}}</pre>
+                                <p class="lead text-center text-warning">Current Grade: {{route.grade}}</p>
                             {% endif %}
                             {% if (route.grade=='D' or route.grade=='F') %}
                                 <p class="lead text-center text-danger">Current Grade: {{route.grade}}</p>
                             {% endif %}
                             -->
 
-                            <p class="text-left">{{route.description_short}}</p>
+                           <h3 class="display-5 text-left">{{route.description_short}}</h3>
+
+                            <!-- <p class="lead text-left">{{route.description_short}}</p> -->
                            </div>
                         </div>
                       {% endfor %}
@@ -190,13 +192,13 @@
 
   <!-- SCRIPTS -->
   <!-- JQuery -->
-  <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+  <script type="text/javascript" src="static/mdb/js/jquery-3.3.1.min.js"></script>
   <!-- Bootstrap tooltips -->
-  <script type="text/javascript" src="js/popper.min.js"></script>
+  <script type="text/javascript" src="static/mdb/js/popper.min.js"></script>
   <!-- Bootstrap core JavaScript -->
-  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="static/mdb/js/bootstrap.min.js"></script>
   <!-- MDB core JavaScript -->
-  <script type="text/javascript" src="js/mdb.min.js"></script>
+  <script type="text/javascript" src="static/mdb/js/mdb.min.js"></script>
   <!-- Initializations -->
   <script type="text/javascript">
     // Animations initialization

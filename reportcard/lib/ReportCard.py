@@ -231,6 +231,10 @@ class StopReport:
 
         results = pd.DataFrame()
         self.arrivals_list_final_df['delta_int'] = self.arrivals_list_final_df['delta'].dt.seconds
-        results['frequency']= (self.arrivals_list_final_df.delta_int.resample('H').mean())//60
+
+        try:
+            results['frequency']= (self.arrivals_list_final_df.delta_int.resample('H').mean())//60
+        except TypeError:
+            pass
         return results
 
