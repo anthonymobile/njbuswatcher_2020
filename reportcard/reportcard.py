@@ -7,7 +7,7 @@
 
 from flask import Flask, render_template, request
 from flask_bootstrap import Bootstrap
-from flask import jsonify
+from flask import jsonify, send_from_directory
 import logging
 import lib.ReportCard as ReportCard
 import lib.BusAPI as BusAPI
@@ -17,7 +17,7 @@ import lib.WebAPI as WebAPI
 # APP
 ################################################
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 Bootstrap(app)
 
 ################################################
@@ -123,7 +123,6 @@ def api_positions_route():
 def api_arrivals_route():
     args=request.args
     return jsonify(WebAPI.get_arrivals_byargs(args))
-
 
 
 ################################################

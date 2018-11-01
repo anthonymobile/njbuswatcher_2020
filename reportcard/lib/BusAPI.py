@@ -233,8 +233,7 @@ def parse_xml_getRoutePoints(data):
     route_plot = geojson.LineString(waypoint_coordinates)
     waypoints_geojson = geojson.dumps(route_plot, sort_keys=True)
 
-
-    # todo stop coordinates separately
+    # dump stop coordinates to geojson
     stops_coordinates = []
     for point in routes[0].paths[0].points:
         if isinstance(point, Route.Stop):
