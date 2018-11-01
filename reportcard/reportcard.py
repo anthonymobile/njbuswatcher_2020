@@ -87,7 +87,21 @@ def genStopReport(source, route, stop, period):
     stopreport = ReportCard.StopReport(route, stop, period)
     hourly_frequency = stopreport.get_hourly_frequency(route, stop, period)
     routereport = ReportCard.RouteReport(source, route, reportcard_routes, grade_descriptions)
-    predictions = BusAPI.parse_xml_getStopPredictions(lib.BusAPI.get_xml_data('nj', 'stop_predictions', stop=stop, route='all'))
+    predictions = BusAPI.parse_xml_getStopPredictions(BusAPI.get_xml_data('nj', 'stop_predictions', stop=stop, route='all'))
+
+    # data to JSONify and pass through to javascripts
+    # make json here
+    # in stop.html use jinja to pass to the .js
+    # e.g.
+    # <script>
+    # $PASSED_DATA = {{config.PASSED_DATA|tojson|safe}};
+    # </script>
+    # and then in js can parse that however
+    # $PASSED_DATA ...
+    #
+    # stopreport.arrivals_list_final_df --> the list of arrived buses (do with the Nobel dot viz from book)
+    # hourly_frequency --> the hour by hour timestamped average interval between buses (do a simple bar chart)
+
     return render_template('stop.html', stopreport=stopreport, hourly_frequency=hourly_frequency, routereport=routereport, predictions=predictions,period=period)
 
 
@@ -96,12 +110,19 @@ def genStopReport(source, route, stop, period):
 ################################################
 
 # POSITIONS ARGS-BASED
-# /api/positions?rd=119&period=daily - returns timestamped positions for an entire route for the period specified
-# where period = [today, yesterday, weekly, history, date as 'yyyy-mm-dd' ]
-@app.route('/api/v1/positions/')
+# /api/v1/positions?rt=87&period=now -- real-time from NJT API
+# /api/v1/positions?rt=87&period={daily,yesterday,weekly,history} -- historical from routelog database
+@app.route('/api/v1/positions')
 def api_positions_route():
     args=request.args
     return jsonify(WebAPI.get_positions_byargs(args))
+
+# ARRIVALS ARGS-BASED
+# /api/v1/arrivals?rt=87&period={daily,yesterday,weekly,history} -- historical from stop_approaches_log database
+@app.route('/api/v1/arrivals')
+def api_arrivals_route():
+    args=request.args
+    return jsonify(WebAPI.get_arrivals_byargs(args))
 
 
 

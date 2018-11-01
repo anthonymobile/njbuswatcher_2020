@@ -2,6 +2,7 @@
 
 from . import BusRouteLogsDB
 from . import BusAPI
+from .ReportCard import StopReport
 from .ReportCard import timestamp_fix
 import geojson
 import pandas as pd
@@ -107,3 +108,13 @@ def get_positions_byargs(args):
         positions_geojson = data2geojson(positions_log)
 
     return positions_geojson
+
+
+
+def get_arrivals_byargs(args):
+
+
+    report = StopReport(args['rt'],args['stop_id'],args['period'])
+    arrivals_geojson = report.arrivals_list_final_df.to_json(orient='records')
+
+    return arrivals_geojson
