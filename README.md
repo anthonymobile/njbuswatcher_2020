@@ -110,6 +110,29 @@ Reponses are geoJSON. Here's a typical record.
 
 ```
 
+### endpoint: /api/v1/arrivals
+
+Usage with arguments
+```
+http://buswatcher.code4jc.org/api/v1/arrivals?rt=119&stop_id=30189&period=weekly
+```
+
+#### required arguments
+`rt`    NJ transit route number (e.g. 119)
+
+`stop_id`   NJ transit stop number (e.g. 30189)
+
+#### optional arguments
+
+Any of the fields in the JSON response below may be used as arguments. You'll get an error if you use an invalid query.
+
+#### response format
+
+Reponses are geoJSON. Here's a typical record.
+```
+    "{\"pkey\":28831,\"pt\":\"APPROACHING\",\"rd\":\"87\",\"stop_id\":\"21062\",\"stop_name\":\"PALISADE AVE + SOUTH ST\",\"v\":\"5737\",\"timestamp\":1540903024000,\"delta\":599000},
+```
+
 
 ## Implementation Details
 
