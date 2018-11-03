@@ -8,6 +8,7 @@
 from flask import Flask, render_template, request
 from flask_bootstrap import Bootstrap
 from flask import jsonify, send_from_directory
+from flask_cors import CORS, cross_origin
 import logging
 import lib.ReportCard as ReportCard
 import lib.BusAPI as BusAPI
@@ -18,6 +19,7 @@ import lib.WebAPI as WebAPI
 ################################################
 
 app = Flask(__name__, static_url_path='/static')
+CORS(app, support_credentials=True)
 Bootstrap(app)
 
 ################################################
@@ -67,7 +69,7 @@ def displayHome():
     # routereport = routereport # setup a dummy for the navbar
     class Dummy():
         def __init__(self):
-            self.routename = 'NJTransit' # todo replace with source argument if want to abstract repo for other transit services
+            self.routename = 'NJTransit'
     routereport = Dummy()
 
     return render_template('index.html', reportcard_routes=reportcard_routes, routereport=routereport)
@@ -113,6 +115,7 @@ def genStopReport(source, route, stop, period):
 # /api/v1/positions?rt=87&period=now -- real-time from NJT API
 # /api/v1/positions?rt=87&period={daily,yesterday,weekly,history} -- historical from routelog database
 @app.route('/api/v1/positions')
+@cross_origin()
 def api_positions_route():
     args=request.args
     return jsonify(WebAPI.get_positions_byargs(args))
@@ -120,6 +123,7 @@ def api_positions_route():
 # ARRIVALS ARGS-BASED
 # /api/v1/arrivals?rt=87&period={daily,yesterday,weekly,history} -- historical from stop_approaches_log database
 @app.route('/api/v1/arrivals')
+@cross_origin()
 def api_arrivals_route():
     args=request.args
     return jsonify(WebAPI.get_arrivals_byargs(args))
