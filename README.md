@@ -276,18 +276,18 @@ Particularly the [district-level report cards](http://districts.busturnaround.ny
     ```
     while the `buses` database doesn't exist yet, this will set things up so there's no problems when the buswatcher scripts do instantiate it later.
     
-4. install conda (n.b. buswatcher is python 2, so from here on out we are all python 2.7)
+4. install conda (n.b. buswatcher is python 3, so from here on out we are all python 3.x)
     ```bash
     cd ~
     mkdir tmp; cd tmp
-    wget https://repo.anaconda.com/archive/Anaconda2-5.2.0-Linux-x86_64.sh
-    bash ./Anaconda2-5.2.0-Linux-x86_64.sh
+    wget https://repo.anaconda.com/~~~~fill in yourself~~~~
+    bash ./Anaconda3~~~~fill in yourself~~~~
     ```
     
 6. create a conda environment with the needed packages
 
     ```bash
-    conda create --name buswatcher python=2 mysql-connector-python pandas flask django
+    conda create --name buswatcher python=3 mysql-connector-python pandas flask django
     source activate buswatcher
     conda update -n base conda
     ```
@@ -501,8 +501,8 @@ this follows the instructions [here](https://blog.miguelgrinberg.com/post/the-fl
     and paste the following text in
     ```bash
     [program:reportcard]
-    command=/home/ubuntu/anaconda2/envs/buswatcher/bin/gunicorn -b localhost:8000 -w 4 reportcard:app
-    directory=/home/ubuntu/buswatcher/src
+    command=/home/ubuntu/anaconda3/envs/buswatcher/bin/gunicorn -b localhost:8000 -w 4 reportcard:app
+    directory=/home/ubuntu/buswatcher/reportcard
     user=ubuntu
     autostart=true
     autorestart=true
@@ -540,7 +540,7 @@ this follows the instructions [here](https://blog.miguelgrinberg.com/post/the-fl
     
         location /static {
             # handle static files directly, without forwarding to the application
-            alias /home/ubuntu/buswatcher/src/static;
+            alias /home/ubuntu/buswatcher/reportcard/static;
             expires 30d;
         }
 
