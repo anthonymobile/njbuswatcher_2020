@@ -15,7 +15,7 @@ except:
     db_server = '127.0.0.1'
 
 
-def data2geojson(df):
+def positions2geojson(df):
     features = []
     df.apply(lambda X: features.append(
             geojson.Feature(geometry=geojson.Point((X["lon"],
@@ -35,6 +35,30 @@ def data2geojson(df):
 
 
     return geojson.FeatureCollection(features)
+
+
+
+def arrivals2geojson(df):
+    features = []
+    df.apply(lambda X: features.append(
+            geojson.Feature(geometry=geojson.Point((X["lon"],
+                                                    X["lat"]    )),
+                properties=dict(bid=X["bid"],
+                                run=X["run"],
+                                op=X["op"],
+                                dn=X["dn"],
+                                pid=X["pid"],
+                                dip=X["dip"],
+                                id=X["id"],
+                                timestamp=X["timestamp"],
+                                fs = str(X["fs"]),
+                                pd=str(X["pd"])))
+                                    )
+            , axis=1)
+
+
+    return geojson.FeatureCollection(features)
+
 
 
 
@@ -80,7 +104,7 @@ def get_positions_byargs(args):
             print("!!")
 
         # positions_log = timestamp_fix(positions_log)
-        positions_geojson = data2geojson(positions_log)
+        positions_geojson = positions2geojson(positions_log)
 
     # HISTORICAL GET FROM DB
     else:
@@ -105,7 +129,7 @@ def get_positions_byargs(args):
 
         positions_log = timestamp_fix(positions_log)
 
-        positions_geojson = data2geojson(positions_log)
+        positions_geojson = positions2geojson(positions_log)
 
     return positions_geojson
 
@@ -113,8 +137,19 @@ def get_positions_byargs(args):
 
 def get_arrivals_byargs(args):
 
+    arrivals_log = StopReport(args['rt'],args['stop_id'],args['period']).arrivals_list_final_df
+    arrivals_log = arrivals_log.reset_index(drop=True)
 
-    report = StopReport(args['rt'],args['stop_id'],args['period'])
-    arrivals_geojson = report.arrivals_list_final_df.to_json(orient='records')
+    # todo which columns to drop
+    # arrivals_log = arrivals_log.drop(columns=['cars', 'consist', 'm', 'pdRtpiFeedName', 'rt', 'rtRtpiFeedName', 'rtdd', 'wid1', 'wid2'])
+    arrivals_log['timestamp']=arrivals_log['timestamp'].astype(str)
+    arrivals_log = timestamp_fix(arrivals_log)
+
+    # arrivals_log["lon"] = pd.to_numeric(arrivals_log["lon"])
+    # arrivals_log["lat"] = pd.to_numeric(arrivals_log["lat"])
+
+    arrivals_geojson = arrivals2geojson(arrivals_log)
+
+    # arrivals_geojson = report.to_json(orient='records',force_ascii=False)
 
     return arrivals_geojson
