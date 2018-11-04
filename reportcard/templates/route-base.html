@@ -86,7 +86,7 @@ map.on('load', function() {
 
     map.addSource('vehicles_geojson', {
         type: 'geojson',
-        data: '/api/v1/positions/?period=now&rt={{routereport.route}}'
+        data: '/api/v1/positions?period=now&rt={{routereport.route}}'
     });
 
 
