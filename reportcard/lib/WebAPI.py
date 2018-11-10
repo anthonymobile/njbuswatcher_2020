@@ -38,29 +38,6 @@ def positions2geojson(df):
 
 
 
-def arrivals2geojson(df):
-    features = []
-    df.apply(lambda X: features.append(
-            geojson.Feature(geometry=geojson.Point((X["lon"],
-                                                    X["lat"]    )),
-                properties=dict(bid=X["bid"],
-                                run=X["run"],
-                                op=X["op"],
-                                dn=X["dn"],
-                                pid=X["pid"],
-                                dip=X["dip"],
-                                id=X["id"],
-                                timestamp=X["timestamp"],
-                                fs = str(X["fs"]),
-                                pd=str(X["pd"])))
-                                    )
-            , axis=1)
-
-
-    return geojson.FeatureCollection(features)
-
-
-
 
 def get_positions_byargs(args):
 
@@ -99,9 +76,10 @@ def get_positions_byargs(args):
 
         try:
             positions_log = positions_log.set_index('timestamp',drop=False)
-            print(":)")
+            # print(":)")
         except:
-            print("!!")
+            pass
+            # print("!!")
 
         # positions_log = timestamp_fix(positions_log)
         positions_geojson = positions2geojson(positions_log)
@@ -140,16 +118,27 @@ def get_arrivals_byargs(args):
     arrivals_log = StopReport(args['rt'],args['stop_id'],args['period']).arrivals_list_final_df
     arrivals_log = arrivals_log.reset_index(drop=True)
 
-    # todo which columns to drop
-    # arrivals_log = arrivals_log.drop(columns=['cars', 'consist', 'm', 'pdRtpiFeedName', 'rt', 'rtRtpiFeedName', 'rtdd', 'wid1', 'wid2'])
     arrivals_log['timestamp']=arrivals_log['timestamp'].astype(str)
-    arrivals_log = timestamp_fix(arrivals_log)
+    arrivals_log = timestamp_fix(arrivals_log) #todo why isnt this working
 
-    # arrivals_log["lon"] = pd.to_numeric(arrivals_log["lon"])
-    # arrivals_log["lat"] = pd.to_numeric(arrivals_log["lat"])
+    # arrivals_json = arrivals_log.to_json(orient='records')
 
-    arrivals_geojson = arrivals2geojson(arrivals_log)
+    return arrivals_log
 
-    # arrivals_geojson = report.to_json(orient='records',force_ascii=False)
 
-    return arrivals_geojson
+
+
+def get_frequency_byargs(args):
+
+    frequency_histogram = StopReport(args['rt'],args['stop_id'],args['period']).get_hourly_frequency(args['rt'],args['stop_id'],args['period'])
+
+
+    # arrivals_log = StopReport(args['rt'],args['stop_id'],args['period']).arrivals_list_final_df
+    # arrivals_log = arrivals_log.reset_index(drop=True)
+    #
+    # arrivals_log['timestamp']=arrivals_log['timestamp'].astype(str)
+    # arrivals_log = timestamp_fix(arrivals_log) #todo why isnt this working
+    #
+    # # arrivals_json = arrivals_log.to_json(orient='records')
+
+    return frequency_histogram

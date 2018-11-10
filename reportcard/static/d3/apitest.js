@@ -17,6 +17,6 @@ var displayJSON = function(query) {
     });
 };
 
-var query = '?rt=87&stop_id=21062&period=weekly';
+var query = '?rt=87&stop_id=21062&period=history';
 
 displayJSON(query);
