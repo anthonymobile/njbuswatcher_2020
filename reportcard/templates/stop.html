@@ -148,7 +148,7 @@
 
             {% for (index,row) in hourly_frequency.iterrows() %}
                 <tr class='table'>
-                    <td>{{row.name|strftime_period(period)}}</td>
+                    <td>{{row.hour|hour_as_int}}</td>
                     {% if row.frequency != row.frequency %}
                         <td>- - -</td>
                     {% else %}
