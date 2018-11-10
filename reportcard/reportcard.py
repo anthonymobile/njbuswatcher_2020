@@ -173,6 +173,27 @@ def _jinja2_filter_datetime_by_period(timestamp, period):
 
     return timestamp.strftime(format)
 
+
+@app.template_filter('hour_as_int')
+def _jinja2_filter_hour_as_int(hour):
+    hour = int(hour)
+    pretty_time = ''
+    if hour == 0:
+        pretty_time = ("12 am")
+    elif (hour > 0 and hour <10):
+        pretty_time = (" {a} am").format(a=hour)
+    elif (hour == 10 or hour == 11):
+        pretty_time = ("{a} am").format(a=hour)
+    elif hour == 12:
+        pretty_time = ("12 pm")
+    elif (hour > 12 and hour < 22):
+        hour = hour -12
+        pretty_time = (" {a} pm").format(a=hour)
+    elif hour > 22:
+        hour = hour - 12
+        pretty_time = ("{a} pm").format(a=hour)
+    return pretty_time
+
 @app.template_filter('strftime_forever')
 def _jinja2_filter_datetime(timestamp, format='%Y-%m-%d %I:%M %p'):
     return timestamp.strftime(format)

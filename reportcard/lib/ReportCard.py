@@ -232,11 +232,14 @@ class StopReport:
         results = pd.DataFrame()
         self.arrivals_list_final_df['delta_int'] = self.arrivals_list_final_df['delta'].dt.seconds
 
-        # todo do something different if period is not daily
-        # recalibrate how it sumamrizes the data (e.g. all the 3-4pm slots across all the days)
-
         try:
-            results['frequency']= (self.arrivals_list_final_df.delta_int.resample('H').mean())//60
+
+            # results['frequency']= (self.arrivals_list_final_df.delta_int.resample('H').mean())//60
+            results = (self.arrivals_list_final_df.groupby(self.arrivals_list_final_df.index.hour).mean())//60
+            results = results.rename(columns={'delta_int': 'frequency'})
+            results = results.drop(['pkey'], axis=1)
+            results['hour'] = results.index
+
         except TypeError:
             pass
 
