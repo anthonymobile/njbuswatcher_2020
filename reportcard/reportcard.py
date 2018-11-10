@@ -7,7 +7,7 @@
 
 from flask import Flask, render_template, request
 from flask_bootstrap import Bootstrap
-from flask import jsonify, send_from_directory
+from flask import jsonify, make_response, send_from_directory
 from flask_cors import CORS, cross_origin
 import logging
 import lib.ReportCard as ReportCard
@@ -126,7 +126,22 @@ def api_positions_route():
 @cross_origin()
 def api_arrivals_route():
     args=request.args
-    return jsonify(WebAPI.get_arrivals_byargs(args))
+    arrivals_log_df = WebAPI.get_arrivals_byargs(args)
+    arrivals_log_json = make_response(arrivals_log_df.to_json(orient="records"))
+    return arrivals_log_json
+
+
+# HOURLY FREQUENCY HISTOGRAM - BY ROUTE, STOP, PERIOD
+# /api/v1/frequency?rt=87&stop_id=87&period={daily,yesterday,weekly,history}
+@app.route('/api/v1/frequency')
+@cross_origin()
+def api_frequency_stop():
+    args=request.args
+    frequency_histogram_df = WebAPI.get_frequency_byargs(args)
+    frequency_histogram_json = make_response(frequency_histogram_df.to_json(orient="columns"))
+    return frequency_histogram_json
+
+
 
 
 ################################################

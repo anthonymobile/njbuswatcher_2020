@@ -40,8 +40,8 @@ def get_cache_timeout(self,route,stop,period):
 def timestamp_fix(data): # trim the microseconds off the timestamp and convert it to datetime format
     data['timestamp'] = data['timestamp'].str.split('.').str.get(0)
     data['timestamp'] = pd.to_datetime(data['timestamp'],errors='coerce')
-    data = data.set_index(pd.DatetimeIndex(data['timestamp']))
-    # data = data.set_index(pd.DatetimeIndex(data['timestamp'], drop=False)
+    # data = data.set_index(pd.DatetimeIndex(data['timestamp']))
+    data = data.set_index(pd.DatetimeIndex(data['timestamp']), drop=False)
     return data
 
 # primary classes
@@ -232,9 +232,13 @@ class StopReport:
         results = pd.DataFrame()
         self.arrivals_list_final_df['delta_int'] = self.arrivals_list_final_df['delta'].dt.seconds
 
+        # todo do something different if period is not daily
+        # recalibrate how it sumamrizes the data (e.g. all the 3-4pm slots across all the days)
+
         try:
             results['frequency']= (self.arrivals_list_final_df.delta_int.resample('H').mean())//60
         except TypeError:
             pass
+
         return results
 

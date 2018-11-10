@@ -1,24 +1,24 @@
-updated 26 oct 2018
-
-####  punchlist
-1. finish 2to3 conversion
-1. merge 2to3 branch backinto development
-1. merge development back into master
-2. redeploy master to production server (with setup python3 new environment)
+updated 8 nov 2018
 
 #### development branch to-do
-1. fix map zoom to extents of route polyline
 1. new page off route report for bunching report
-2. fix caching for bunching_report
+2. fix caching for bunching_report (doesnt work?)
 3. bug: just after midnight: when there are no arrivals, stops page returns an error (Rangeindex because of empty arrivals)
 
 ## Future Sprints
 
-#### Q.C. -- missed arrivals, duplicate arrivals
+#### D3 Charts
+1. route page
+    - route diagrams showing line, stops, current bus locations
 
-- **missing arrivals** - probably happening when approaching bus comes up as '2 min' and then disappears, never being observed as 'APPROACHING'
-        - debugging: Missing buses that never were ‘APPROACHING’ the stop = do a query in jupyter of those that were 2 mins and then dissappeared
-- **duplicate arrivals**--esp at early stops on the 87, e.g. http://0.0.0.0:5000/nj/87/stop/20931/history (see sept 20)
+2. stop page
+    - dot column (like nobel prize chart) on arrival list showing frequency by hour
+        - implement by concatenating the 3 nobel scripts into one external javascript and calling from route-base.html, passing the same {{arrivals_list_final_df|tojson}} to it
+    - bar column for service frequency
+
+#### import archival data
+- in 'buses_summer2018' database
+- in 'buses_fall018' database
 
 #### Reliability Grade
 1. ask Eric what the correct metric is (# of standard deviations for total start to end trip time?) e.g. how often does it get worse than the average 
@@ -27,6 +27,14 @@ updated 26 oct 2018
     - as letter grade and description, or
     - as literal: e.g. 'TODAY IS TYPICAL. TODAY IS WORSE THAN USUAL.'
     - dtop level metrics: - stop.html: THIS STATION USUALLY HAS DECENT SERVICE or THIS STATION HAS GOOD SERVICE TODAY or something like that.
+
+#### Q.C. -- missed arrivals, duplicate arrivals
+
+- **missing arrivals** - probably happening when approaching bus comes up as '2 min' and then disappears, never being observed as 'APPROACHING'
+        - debugging: Missing buses that never were ‘APPROACHING’ the stop = do a query in jupyter of those that were 2 mins and then dissappeared
+- **duplicate arrivals**--esp at early stops on the 87, e.g. http://0.0.0.0:5000/nj/87/stop/20931/history (see sept 20)
+
+
 
 #### Draw Routes Along Street Network
 1. Use Mapbox directions API?
@@ -68,9 +76,6 @@ updated 26 oct 2018
 - module to create lookup table GTFS:Clever_Devices - timestamp_hr_min+run_id --> gtfs: trip_id+start_time so we can match routelog.run to gtfs.trip_id
 - GTFS integration:  write a routine to match gtfs trip_id, start_time :: timestamp,run for first observation of a v in routelog series (e.g. map run to trip_id) -- either a machine learning model or something simpler 
    
-#### import archival data
-- in 'buses_summer2018' database
-
 
 
 
