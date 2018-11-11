@@ -1,8 +1,29 @@
 {% extends 'route-base.html' %}
 
+
+{%  block head %}
+
+<style>
+
+.chart-container {
+    width: 500px;
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-bottom: 40px;
+}
+
+</style>
+
+{%  endblock %}
+
 {%  block scripts %}
-<script src="https://d3js.org/d3.v5.min.js"></script>
-<script src="/static/js/frequency_histogram_v1.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="/static/chart/chart.js/dist/Chart.js"></script>
+<script src="/static/chart/frequency-histogram-steppedline.js"></script>
+
+<!-- alternative method to pass data vs calling API
+<script>createConfig({{hourly_frequency|tojson}})</script>
+-->
 
 {% endblock %}
 
@@ -120,9 +141,9 @@
 
 
     <div>
-    <h1 class="">Service Frequency</h1>
+    <h1 class="">How Often Do Buses Come?</h1>
 <p class="head">
-    <mark>**Experimental Feature**</mark> For each hour where data has been recorded, the table below shows the average time between arrivals on the {{routereport.route}} route at {{stopreport.stop_name}} for the current viewing period({{period}}).
+    <mark>Service Frequency</mark> is one important measure of how good bus service is at your corner. The table below shows the average interval between {{routereport.route}} buses at {{stopreport.stop_name}} for each hour of the day--today,yesterday,this week,since we started tracking ({{period}}).
 </p>
 
 <!--
@@ -161,7 +182,8 @@
           </table>
 </div>
 
-            <div class="col-md-12" id ="frequency-histogram">
+    <!-- CHART.JS stepped-line chart -->
+    <div class="col-md-12" id ="frequency-histogram">
 
     </div>
 
