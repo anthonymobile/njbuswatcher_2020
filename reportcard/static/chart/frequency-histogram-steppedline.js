@@ -1,38 +1,4 @@
-<!doctype html>
-<html>
-
-<head>
-	<title>Stepped Line Chart</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script src="chart.js/dist/Chart.js"></script>
-
-
-	<style>
-	canvas {
-		-moz-user-select: none;
-		-webkit-user-select: none;
-		-ms-user-select: none;
-	}
-	.chart-container {
-		width: 500px;
-		margin-left: 40px;
-		margin-right: 40px;
-		margin-bottom: 40px;
-	}
-	.container {
-		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
-		justify-content: center;
-	}
-	</style>
-</head>
-
-<body>
-	<div class="container">
-	</div>
-	<script>
-		function createConfig(details, data) {
+function createConfig(details, data) {
 			return {
 				type: 'line',
 				data: {
@@ -57,15 +23,37 @@
 
 
 		window.onload = function() {
-			var container = document.querySelector('.container');
+			var container = document.querySelector('.frequency-histogram');
 
+			/* two methods to get actual JSON
+			via AJAX API call -- used dummy data for now from http://0.0.0.0:5000/frequency?rt=87&stop_id=87&period=history
+			or pass from stop.html direct with template tag <script>createConfig({{hourly_frequency|tojson}})</script>
+			*/
 			var data = [
-				randomScalingFactor(),
-				randomScalingFactor(),
-				randomScalingFactor(),
-				randomScalingFactor(),
-				randomScalingFactor(),
-				randomScalingFactor()
+				{hour: '0', frequency: '60.0'},
+				{hour: '1', frequency: '90.0'},
+				{hour: '2', frequency: '0.0'},
+				{hour: '3', frequency: '0.0'},
+				{hour: '4', frequency: '0.0'},
+				{hour: '5', frequency: '240.0'},
+				{hour: '6', frequency: '40.0'},
+				{hour: '7', frequency: '20.0'},
+				{hour: '8', frequency: '15.0'},
+				{hour: '9', frequency: '15.0'},
+				{hour: '10', frequency: '20.0'},
+				{hour: '11', frequency: '35.0'},
+				{hour: '12', frequency: '45.0'},
+				{hour: '13', frequency: '45.0'},
+				{hour: '14', frequency: '55.0'},
+				{hour: '15', frequency: '45.0'},
+				{hour: '16', frequency: '30.0'},
+				{hour: '17', frequency: '20.0'},
+				{hour: '18', frequency: '20.0'},
+				{hour: '19', frequency: '45.0'},
+				{hour: '20', frequency: '45.0'},
+				{hour: '21', frequency: '55.0'},
+				{hour: '22', frequency: '60.0'},
+				{hour: '23', frequency: '90.0'},
 			];
 
 			var steppedLineSettings = [{
@@ -99,7 +87,3 @@
 				new Chart(ctx, config);
 			});
 		};
-	</script>
-</body>
-
-</html>
