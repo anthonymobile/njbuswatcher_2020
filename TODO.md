@@ -1,4 +1,8 @@
-updated 8 nov 2018
+updated 13 nov 2018
+
+#### known issues
+1. data quality -- reports that some times are off / significantly?
+2. responsive design v. bad on phones, people get trapped scrolling around inside the map
 
 #### development branch to-do
 1. new page off route report for bunching report
@@ -7,14 +11,28 @@ updated 8 nov 2018
 
 ## Future Sprints
 
-#### D3 Charts
+#### Chart.js Charts
 1. route page
     - route diagrams showing line, stops, current bus locations
-
 2. stop page
     - dot column (like nobel prize chart) on arrival list showing frequency by hour
         - implement by concatenating the 3 nobel scripts into one external javascript and calling from route-base.html, passing the same {{arrivals_list_final_df|tojson}} to it
     - bar column for service frequency
+
+#### Citywide Coverage and Map
+1. add rest of lines in JC
+2. add a map (using same code as route.html map) to front page looping over ALL the lines
+
+#### Animate Route Maps
+1. move position fetcher API call into the javascript
+    - call NJT api to fetch 1st position
+    - parse lat/lon for each bus on the route
+    - store it
+    - wait 5 seconds and fetch 2nd position
+2. animate transition 
+    - from 1st to 2nd position with the mapboxgl method (?) 
+    - using a scaled velocity
+        
 
 #### import archival data
 - in 'buses_summer2018' database
