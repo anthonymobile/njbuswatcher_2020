@@ -1,29 +1,10 @@
 {% extends 'route-base.html' %}
 
 
-{%  block head %}
-
-<style>
-
-.chart-container {
-    width: 500px;
-    margin-left: 40px;
-    margin-right: 40px;
-    margin-bottom: 40px;
-}
-
-</style>
-
-{%  endblock %}
-
 {%  block scripts %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="/static/chart/chart.js/dist/Chart.js"></script>
 <script src="/static/chart/frequency-histogram-steppedline.js"></script>
-
-<!-- alternative method to pass data vs calling API
-<script>createConfig({{hourly_frequency|tojson}})</script>
--->
 
 {% endblock %}
 
