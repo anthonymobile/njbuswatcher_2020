@@ -9,6 +9,7 @@ from flask import Flask, render_template, request
 from flask_bootstrap import Bootstrap
 from flask import jsonify, make_response, send_from_directory
 from flask_cors import CORS, cross_origin
+import geojson
 import logging
 import lib.ReportCard as ReportCard
 import lib.BusAPI as BusAPI
@@ -76,13 +77,21 @@ def displayHome():
     citywide_waypoints = []
     citywide_stops = []
     for i in reportcard_routes:
-        routedata, waypoints_geojson, stops_geojson = BusAPI.parse_xml_getRoutePoints(
+        routedata, waypoint_coordinates, stops_coordinates,waypoints_geojson, stops_geojson = BusAPI.parse_xml_getRoutePoints(
             BusAPI.get_xml_data('nj', 'routes', route=i['route']))
 
-        citywide_waypoints.append(waypoints_geojson)
-        citywide_stops.append(stops_geojson)
+        citywide_waypoints.append(waypoint_coordinates)
+        citywide_stops.append(stops_coordinates)
 
-    return render_template('index.html', citywide_waypoints=citywide_waypoints, citywide_stops=citywide_stops,routereport=routereport)
+    waypoints_plot = geojson.LineString(waypoint_coordinates)
+    waypoints_geojson = geojson.dumps(waypoints_plot, sort_keys=True)
+
+    stops_plot = geojson.MultiPoint(stops_coordinates)
+    stops_geojson = geojson.dumps(stops_plot, sort_keys=True)
+
+
+
+    return render_template('index.html', waypoints_geojson=waypoints_geojson, stops_geojson=stops_geojson,routereport=routereport,reportcard_routes=reportcard_routes)
 
 
 #2 route report

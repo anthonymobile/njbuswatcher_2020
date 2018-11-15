@@ -39,7 +39,7 @@ map.on('load', function() {
         data: {
             "type": "Feature",
             "properties": {},
-            "geometry": {{citywide_waypoints | safe}}
+            "geometry": {{routereport.waypoints_geojson | safe}}
         }
     };
 
@@ -65,7 +65,7 @@ map.on('load', function() {
         data: {
             "type": "Feature",
             "properties": {},
-            "geometry": {{citywide_stops | safe}}
+            "geometry": {{routereport.stops_geojson | safe}}
         }
     };
 
@@ -206,8 +206,12 @@ map.on('load', function() {
               <strong>We depend on buses every day to get to work, school, and back home again.</strong>  But its hard to evaluate the quality of bus service. That's why we built this site to provide a one-stop shop for bus performance information.
             </h2>
 
-            <a target="_blank" href="#reportcards" class="btn btn-indigo btn-lg">Go to the report cards
+            <a target="_self" href="#reportcards" class="btn btn-indigo btn-lg">Go to the report cards
               <i class="fa fa-graduation-cap ml-2"></i>
+            </a>
+
+              <a target="_self" href="#map" class="btn btn-indigo btn-lg">Go to the map
+              <i class="fa fa-map ml-2"></i>
             </a>
 
           </div>
@@ -284,6 +288,9 @@ map.on('load', function() {
   <!--Footer-->
   <footer class="page-footer text-center font-small mt-4 wow fadeIn">
 
+
+  <div id="map"></div>
+
     <!--Call to action-->
     <div class="pt-4">
 
@@ -297,7 +304,6 @@ map.on('load', function() {
 
 
 
-<div id="map"></div>
 
     <hr class="my-4">
 
