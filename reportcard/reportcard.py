@@ -72,7 +72,17 @@ def displayHome():
             self.routename = 'NJTransit'
     routereport = Dummy()
 
-    return render_template('index.html', reportcard_routes=reportcard_routes, routereport=routereport)
+    # grab routereports for all the routes so can pass the waypoints_geojson and stops_geojson to javascript
+    citywide_waypoints = []
+    citywide_stops = []
+    for i in reportcard_routes:
+        routedata, waypoints_geojson, stops_geojson = BusAPI.parse_xml_getRoutePoints(
+            BusAPI.get_xml_data('nj', 'routes', route=i['route']))
+
+        citywide_waypoints.append(waypoints_geojson)
+        citywide_stops.append(stops_geojson)
+
+    return render_template('index.html', citywide_waypoints=citywide_waypoints, citywide_stops=citywide_stops,routereport=routereport)
 
 
 #2 route report
