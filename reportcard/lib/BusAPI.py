@@ -241,7 +241,7 @@ def parse_xml_getRoutePoints(data):
     stops_plot = geojson.MultiPoint(stops_coordinates)
     stops_geojson = geojson.dumps(stops_plot, sort_keys=True)
 
-    return routes,waypoints_geojson,stops_geojson
+    return routes, waypoint_coordinates, stops_coordinates, waypoints_geojson,stops_geojson
 
 def get_xml_data(source, function, **kwargs):
     import urllib.request, urllib.error, urllib.parse
