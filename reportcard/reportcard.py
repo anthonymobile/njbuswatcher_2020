@@ -73,28 +73,7 @@ def displayHome():
             self.routename = 'NJTransit'
     routereport = Dummy()
 
-    # grab routereports for all the routes so can pass the waypoints_geojson and stops_geojson to javascript
-    citywide_waypoints = [] # todo dont concatenate into a list -- the resulting json is one list nested too deep
-    # e.g. "geometry": {"coordinates": [[[-74.03411999999956,
-    # vs. "geometry": {"coordinates": [[-74.0966800000009,
-    # todo get the points, concatenate all the points into one long list then geojson that?
-    citywide_stops = []
-    for i in reportcard_routes:
-        routedata, waypoint_coordinates, stops_coordinates,waypoints_geojson, stops_geojson = BusAPI.parse_xml_getRoutePoints(
-            BusAPI.get_xml_data('nj', 'routes', route=i['route']))
-
-        # todo dont concatenate into a list -- the resulting json is one list nested too deep
-        citywide_waypoints.append(waypoint_coordinates)
-        citywide_stops.append(stops_coordinates)
-        print ('.')
-
-    citywide_waypoints_plot = geojson.LineString(citywide_waypoints[0])
-    citywide_waypoints_geojson = geojson.dumps(citywide_waypoints_plot, sort_keys=True)
-
-    citywide_stops_plot = geojson.MultiPoint(citywide_stops[0])
-    citywide_stops_geojson = geojson.dumps(citywide_stops_plot, sort_keys=True)
-
-
+    citywide_waypoints_geojson, citywide_stops_geojson = WebAPI.render_citywide_map_geojson(reportcard_routes)
 
     return render_template('index.html', citywide_waypoints_geojson=citywide_waypoints_geojson, citywide_stops_geojson=citywide_stops_geojson,routereport=routereport,reportcard_routes=reportcard_routes)
 
@@ -114,19 +93,6 @@ def genStopReport(source, route, stop, period):
     hourly_frequency = stopreport.get_hourly_frequency(route, stop, period)
     routereport = ReportCard.RouteReport(source, route, reportcard_routes, grade_descriptions)
     predictions = BusAPI.parse_xml_getStopPredictions(BusAPI.get_xml_data('nj', 'stop_predictions', stop=stop, route='all'))
-
-    # data to JSONify and pass through to javascripts
-    # make json here
-    # in stop.html use jinja to pass to the .js
-    # e.g.
-    # <script>
-    # $PASSED_DATA = {{config.PASSED_DATA|tojson|safe}};
-    # </script>
-    # and then in js can parse that however
-    # $PASSED_DATA ...
-    #
-    # stopreport.arrivals_list_final_df --> the list of arrived buses (do with the Nobel dot viz from book)
-    # hourly_frequency --> the hour by hour timestamped average interval between buses (do a simple bar chart)
 
     return render_template('stop.html', stopreport=stopreport, hourly_frequency=hourly_frequency, routereport=routereport, predictions=predictions,period=period)
 
