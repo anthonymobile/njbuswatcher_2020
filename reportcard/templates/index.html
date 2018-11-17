@@ -13,6 +13,15 @@
    intact. #}
 
 
+{% block head %}
+{{ super() }}
+    <style>
+        #map { width:100%; }
+    </style>
+
+{% endblock %}
+
+
 {% block scripts %}
 
 <script src='//d3js.org/d3.v3.min.js' charset='utf-8'></script>
@@ -39,7 +48,7 @@ map.on('load', function() {
         data: {
             "type": "Feature",
             "properties": {},
-            "geometry": {{routereport.waypoints_geojson | safe}}
+            "geometry": {{citywide_waypoints_geojson | safe}}
         }
     };
 
@@ -65,7 +74,7 @@ map.on('load', function() {
         data: {
             "type": "Feature",
             "properties": {},
-            "geometry": {{routereport.stops_geojson | safe}}
+            "geometry": {{citywide_stops_geojson | safe}}
         }
     };
 
@@ -171,15 +180,6 @@ map.on('load', function() {
           }
   </style>
 
-        <!--
-        <div class="container py-2">
-          <div class="row">
-            <div class="col-md-12">
-              <h1>some pages are slow to load. we're working a speed-up.</h1>
-            </div>
-          </div>
-        </div>
-        -->
 
   <!-- Full Page Intro -->
   <div class="view full-page-intro" style="background-image: url('static/images/banner.jpg'); background-repeat: no-repeat; background-size: cover;">
@@ -292,11 +292,13 @@ map.on('load', function() {
   </main>
   <!--Main layout-->
 
+        <div id="map" class="col-md-12">
+    </div>
   <!--Footer-->
   <footer class="page-footer text-center font-small mt-4 wow fadeIn">
 
 
-  <div id="map"></div>
+
 
     <!--Call to action-->
     <div class="pt-4">

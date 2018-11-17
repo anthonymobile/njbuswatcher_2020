@@ -11,6 +11,10 @@ updated 13 nov 2018
 
 ## Future Sprints
 
+#### Offload Map Data Acquisition to Client
+1. at least for the current positions, and updates [howto](https://stackoverflow.com/questions/43620153/javascript-parse-xml-data)
+2. moving the route parser to JS probably too much work, just cache it with easy_cache instead.
+
 #### Chart.js Charts
 1. route page
     - route diagrams showing line, stops, current bus locations
