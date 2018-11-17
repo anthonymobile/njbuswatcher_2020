@@ -74,24 +74,29 @@ def displayHome():
     routereport = Dummy()
 
     # grab routereports for all the routes so can pass the waypoints_geojson and stops_geojson to javascript
-    citywide_waypoints = []
+    citywide_waypoints = [] # todo dont concatenate into a list -- the resulting json is one list nested too deep
+    # e.g. "geometry": {"coordinates": [[[-74.03411999999956,
+    # vs. "geometry": {"coordinates": [[-74.0966800000009,
+    # todo get the points, concatenate all the points into one long list then geojson that?
     citywide_stops = []
     for i in reportcard_routes:
         routedata, waypoint_coordinates, stops_coordinates,waypoints_geojson, stops_geojson = BusAPI.parse_xml_getRoutePoints(
             BusAPI.get_xml_data('nj', 'routes', route=i['route']))
 
+        # todo dont concatenate into a list -- the resulting json is one list nested too deep
         citywide_waypoints.append(waypoint_coordinates)
         citywide_stops.append(stops_coordinates)
+        print ('.')
 
-    waypoints_plot = geojson.LineString(waypoint_coordinates)
-    waypoints_geojson = geojson.dumps(waypoints_plot, sort_keys=True)
+    citywide_waypoints_plot = geojson.LineString(citywide_waypoints[0])
+    citywide_waypoints_geojson = geojson.dumps(citywide_waypoints_plot, sort_keys=True)
 
-    stops_plot = geojson.MultiPoint(stops_coordinates)
-    stops_geojson = geojson.dumps(stops_plot, sort_keys=True)
+    citywide_stops_plot = geojson.MultiPoint(citywide_stops[0])
+    citywide_stops_geojson = geojson.dumps(citywide_stops_plot, sort_keys=True)
 
 
 
-    return render_template('index.html', waypoints_geojson=waypoints_geojson, stops_geojson=stops_geojson,routereport=routereport,reportcard_routes=reportcard_routes)
+    return render_template('index.html', citywide_waypoints_geojson=citywide_waypoints_geojson, citywide_stops_geojson=citywide_stops_geojson,routereport=routereport,reportcard_routes=reportcard_routes)
 
 
 #2 route report
