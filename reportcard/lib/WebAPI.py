@@ -8,6 +8,12 @@ import geojson
 import pandas as pd
 import datetime
 
+
+# setup cache
+from easy_cache import ecached
+cache_timeout = 86400  # 1 day
+
+
 try:
     db_state = os.environ['REPORTCARD_PRODUCTION']
     db_server = '192.168.1.181'
@@ -142,3 +148,23 @@ def get_frequency_byargs(args):
     # # arrivals_json = arrivals_log.to_json(orient='records')
 
     return frequency_histogram
+
+@ecached('render_citywide_map_geojson', timeout=86400) # cache 24 hour expire
+def render_citywide_map_geojson(reportcard_routes):
+
+    citywide_waypoints = []
+    citywide_stops = []
+    for i in reportcard_routes:
+        routedata, waypoints_coordinates, stops_coordinates, waypoints_geojson, stops_geojson = BusAPI.parse_xml_getRoutePoints(
+            BusAPI.get_xml_data('nj', 'routes', route=i['route']))
+
+        i_waypoints_geojson = geojson.LineString(waypoints_coordinates)
+        i_stops_geojson = geojson.MultiPoint(stops_coordinates)
+
+        i_waypoints_geojson_dump = geojson.dumps(i_waypoints_geojson, sort_keys=True)
+        i_stops_geojson_dump = geojson.dumps(i_stops_geojson, sort_keys=True)
+
+        citywide_waypoints.append(i_waypoints_geojson_dump)
+        citywide_stops.append(i_stops_geojson_dump)
+
+    return citywide_waypoints, citywide_stops
