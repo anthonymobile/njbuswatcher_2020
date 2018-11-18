@@ -152,19 +152,22 @@ def get_frequency_byargs(args):
 @ecached('render_citywide_map_geojson', timeout=86400) # cache 24 hour expire
 def render_citywide_map_geojson(reportcard_routes):
 
-    citywide_waypoints = []
-    citywide_stops = []
+
+    waypoints = []
+    stops = []
+
     for i in reportcard_routes:
-        routedata, waypoints_coordinates, stops_coordinates, waypoints_geojson, stops_geojson = BusAPI.parse_xml_getRoutePoints(
+        routedata, waypoints_raw, stops_raw, a, b = BusAPI.parse_xml_getRoutePoints(
             BusAPI.get_xml_data('nj', 'routes', route=i['route']))
 
-        i_waypoints_geojson = geojson.LineString(waypoints_coordinates)
-        i_stops_geojson = geojson.MultiPoint(stops_coordinates)
 
-        i_waypoints_geojson_dump = geojson.dumps(i_waypoints_geojson, sort_keys=True)
-        i_stops_geojson_dump = geojson.dumps(i_stops_geojson, sort_keys=True)
+        waypoints_feature = geojson.Feature(geometry=geojson.LineString(waypoints_raw))
+        stops_feature = geojson.Feature(geometry=geojson.MultiPoint(stops_raw))
 
-        citywide_waypoints.append(i_waypoints_geojson_dump)
-        citywide_stops.append(i_stops_geojson_dump)
+        waypoints.append(waypoints_feature)
+        stops.append(stops_feature)
+
+    citywide_waypoints = geojson.FeatureCollection(waypoints)
+    citywide_stops = geojson.FeatureCollection(stops)
 
     return citywide_waypoints, citywide_stops

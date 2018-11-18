@@ -45,14 +45,15 @@ map.on('load', function() {
 
     // ROUTES
 
+
+    {# using python.geojson FeatureCollection return #}
     var waypoints_geojson = {
         type: 'geojson',
-        data: {
-            "type": "Feature",
-            "properties": {},
-            "geometry": {{citywide_waypoints_geojson | safe}}
-        }
+        data:
+            {{citywide_waypoints_geojson | safe}}
+
     };
+
 
     map.addSource('waypoints_geojson', waypoints_geojson);
 
@@ -62,8 +63,8 @@ map.on('load', function() {
         "source": "waypoints_geojson",
         "paint": {
             "line-color": "blue",
-            "line-opacity": 0.75,
-            "line-width": 5
+            "line-opacity": 0.5,
+            "line-width": 3
         }
 
     });
@@ -71,14 +72,14 @@ map.on('load', function() {
 
     // STOPS
 
-        var stops_geojson = {
+    {# using python.geojson FeatureCollection return #}
+    var stops_geojson = {
         type: 'geojson',
-        data: {
-            "type": "Feature",
-            "properties": {},
-            "geometry": {{citywide_stops_geojson | safe}}
-        }
+        data:
+            {{citywide_stops_geojson | safe}}
+
     };
+
 
     map.addSource('stops_geojson', stops_geojson);
 
@@ -87,15 +88,17 @@ map.on('load', function() {
         "type": "circle",
         "source": "stops_geojson",
         "paint": {
-            "circle-radius": 2,
+            "circle-radius": 3,
             "circle-opacity": 1,
-            "circle-stroke-width": 2,
+            "circle-stroke-width": 1,
             "circle-stroke-color": "#fff"
         }
     });
 
 
     // VEHICLES
+
+    // todo fix vehicles display
 
     map.addSource('vehicles_geojson', {
         type: 'geojson',
@@ -127,7 +130,9 @@ map.on('load', function() {
     // ZOOM TO THE EXTENT
     // based on https://www.mapbox.com/mapbox-gl-js/example/zoomto-linestring/
 
-    var coordinates = stops_geojson.data.geometry.coordinates;
+
+    // todo zoom to extent of ALL lines (not just [n] in below)
+    var coordinates = waypoints_geojson.data.features[3].geometry.coordinates;
     var bounds = coordinates.reduce(function(bounds, coord) {
       return bounds.extend(coord);
     }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
@@ -212,6 +217,7 @@ map.on('load', function() {
             <h2>
               <strong>We depend on buses every day to get to work, school, and back home again.</strong>  But its hard to evaluate the quality of bus service. That's why we built this site to provide a one-stop shop for bus performance information.
             </h2>
+              <h2 class="my-5 h3 text-left"><a target="_self" href="#reportcards"><u>Click</u></a> on a route below to view the reports or see the <a target="_self" href="#map">live bus map</a>.</h2>
           </div>
             <div class="col-md-6 mb-4 white-text text-center text-md-left">
 
@@ -246,22 +252,18 @@ map.on('load', function() {
   </div>
   <!-- Full Page Intro -->
 
+
   <!--Main layout-->
   <main>
     <div class="container">
 
-        <!--Section: Citywide map-->
-      <section>
-        <div id="map" class="col-md-12">
-    </div>
-      </section>
+
         <!--Citywide map-->
 
 
       <!--Section: Routes-->
       <section>
 
-        <h2 class="my-5 h3 text-center"><u>Click</u> on a route below to view the reports.</h2>
 
         <!--First row-->
         <div id="reportcards" class="row features-small mt-5 wow fadeIn">
@@ -301,6 +303,11 @@ map.on('load', function() {
   </main>
   <!--Main layout-->
 
+  <!--Section: Citywide map-->
+  <section >
+    <div id="map" class=".container-fluid">
+    </div>
+  </section>
 
   <!--Footer-->
   <footer class="page-footer text-center font-small mt-4 wow fadeIn">
