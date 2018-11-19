@@ -43,6 +43,7 @@ map.on('load', function() {
 
 
 
+
     // ROUTES
 
 
@@ -88,7 +89,7 @@ map.on('load', function() {
         "type": "circle",
         "source": "stops_geojson",
         "paint": {
-            "circle-radius": 3,
+            "circle-radius": 2,
             "circle-opacity": 1,
             "circle-stroke-width": 1,
             "circle-stroke-color": "#fff"
@@ -98,26 +99,47 @@ map.on('load', function() {
 
     // VEHICLES
 
-    // todo fix vehicles display
+    // WORKS
+    // hardcode route numbers
+    // var routelistArray = ["82","83","84","85","86","87","88","119","123","125"];
+    {# for(let i=0; i<routelistArray.length; i++) {
 
-    map.addSource('vehicles_geojson', {
-        type: 'geojson',
-        data: '/api/v1/positions?period=now&rt={{routereport.route}}'
-    });
+        map.addSource('vehicles_geojson'+routelistArray[i], {
+            type: 'geojson',
+            data: '/api/v1/positions?period=now&rt='+routelistArray[i]
+        });#}
+
+    // TESTING
+    // load route numbers
+
+    // todo import this JSON as an array? the &s are borking it
 
 
-    map.addLayer({
-        "id": "vehicles",
+    var routelistArray={{reportcard_routes|safe}};
+    // var routelistArray= fetch({{reportcard_routes|safe}});
+
+    for(let j=0; j<{{reportcard_routes|safe}}.length; j++) {
+
+        map.addSource('vehicles_geojson'+routelistArray[j].route, {
+            type: 'geojson',
+            data: '/api/v1/positions?period=now&rt='+routelistArray[j].route
+        });
+
+        map.addLayer({
+        "id": "vehicles"+routelistArray[j].route,
         "type": "circle",
-        "source": "vehicles_geojson",
+        "source": "vehicles_geojson"+routelistArray[j].route,
         "paint": {
             "circle-radius": 4,
             "circle-opacity": 1,
             "circle-stroke-width": 3,
             "circle-stroke-color": "#f6c"
         }
+        })
 
-    });
+
+
+    };
 
 
 

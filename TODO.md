@@ -1,19 +1,15 @@
-updated 13 nov 2018
+updated 18 nov 2018
 
-#### known issues
-1. data quality -- reports that some times are off / significantly?
-2. responsive design v. bad on phones, people get trapped scrolling around inside the map
+#### urgent bug fix
+1. bug: just after midnight: when there are no arrivals, stops page returns an error (Rangeindex because of empty arrivals)
+2. responsive design -- v. bad on phones, people get trapped scrolling around inside the map
 
-#### development branch to-do
-1. new page off route report for bunching report
-2. fix caching for bunching_report (doesnt work?)
-3. bug: just after midnight: when there are no arrivals, stops page returns an error (Rangeindex because of empty arrivals)
+3. restore bunching report
+    - to (pop-up?) page off route report page
+    - fix caching for bunching_report (doesnt work?)
+
 
 ## Future Sprints
-
-#### Offload Map Data Acquisition to Client
-1. at least for the current positions, and updates [howto](https://stackoverflow.com/questions/43620153/javascript-parse-xml-data)
-2. moving the route parser to JS probably too much work, just cache it with easy_cache instead.
 
 #### Chart.js Charts
 1. route page
@@ -55,6 +51,7 @@ updated 13 nov 2018
 - **missing arrivals** - probably happening when approaching bus comes up as '2 min' and then disappears, never being observed as 'APPROACHING'
         - debugging: Missing buses that never were ‘APPROACHING’ the stop = do a query in jupyter of those that were 2 mins and then dissappeared
 - **duplicate arrivals**--esp at early stops on the 87, e.g. http://0.0.0.0:5000/nj/87/stop/20931/history (see sept 20)
+- **data quality** reports that some times are off / significantly?
 
 
 
