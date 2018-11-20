@@ -10,7 +10,7 @@ reportcard_routes=[ \
     {'route': '83', 'grade': 'A', 'services': [('TK', '73012'), ('TK', '00000')],
      'schedule_url': 'https://www.njtransit.com/pdf/bus/T0083.pdf',
      'moovit_url': 'https://moovitapp.com/index/en/public_transit-line-83-NYCNJ-121-516-432984-0', \
-     'description_short': 'The 83 links Journal Square and downtown Hackensack via The Heights.', \
+     'description_short': 'The 83 links Journal Square and downtown Hackensack via The Heights along an over-extended, infrequent route.', \
      'description_long': 'The 83 links Journal Square and downtown Hackensack along JFK Boulevard in The Heights, making it one of the few inter-county routes served from Jersey City.'},
 
     {'route':'84','grade':'B','services':[('Journal Square (Via Bergenline Av)','3372'),('North Bergen (Via Bergenline Av)','3373'),('Journal Square (Via Park Av)','3374'),('North Bergen (Via Park Av)','3375')],'schedule_url':'https://www.njtransit.com/pdf/bus/T0084.pdf','moovit_url':'https://moovitapp.com/index/en/public_transit-line-84-NYCNJ-121-516-432985-0',\
