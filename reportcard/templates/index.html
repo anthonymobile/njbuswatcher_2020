@@ -42,20 +42,12 @@ map.on('load', function() {
     var mapCoordinates = [40.7400, -74.0501];
     var mapZoom = 13;
 
-
-
-
     // ROUTES
-
-
-    {# using python.geojson FeatureCollection return #}
     var waypoints_geojson = {
         type: 'geojson',
         data:
             {{citywide_waypoints_geojson | safe}}
-
     };
-
 
     map.addSource('waypoints_geojson', waypoints_geojson);
 
@@ -71,17 +63,13 @@ map.on('load', function() {
 
     });
 
-
     // STOPS
-
-    {# using python.geojson FeatureCollection return #}
     var stops_geojson = {
         type: 'geojson',
         data:
             {{citywide_stops_geojson | safe}}
 
     };
-
 
     map.addSource('stops_geojson', stops_geojson);
 
@@ -97,11 +85,8 @@ map.on('load', function() {
         }
     });
 
-
     // VEHICLES
-
     var routelistArray={{reportcard_routes|safe}};
-    // var routelistArray= fetch({{reportcard_routes|safe}});
 
     for(let j=0; j<{{reportcard_routes|safe}}.length; j++) {
 
@@ -150,8 +135,8 @@ map.on('load', function() {
 
 {% block content %}
 
-        <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <!-- Navigation -->
+    <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
       <div class="container">
         <a class="navbar-brand" href="#">JC BusWatcher</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -171,44 +156,44 @@ map.on('load', function() {
         </div>
       </div>
     </nav>
+    -->
 
     <!-- Page Content -->
 
-
     <div class="container">
-      <div class="row">
-        <div class="col-lg-12 text-center">
-          <h1 class="mt-5">Buses are the backbone of <br>Jersey City's neighborhoods.</h1>
-          <p class="lead text-left">We depend on buses every day to get to work, school, and back home again.</strong>  But its hard to evaluate the quality of bus service. That's why we built this site to provide a one-stop shop for bus performance information.</p>
-          <ul class="list-unstyled">
-            <li><a target="_self" href="#reportcards" class="btn btn-indigo btn-lg">Go to the report cards<i class="fa fa-graduation-cap ml-2"></i></li>
-            <li><a target="_self" href="#map" class="btn btn-indigo btn-lg">Go to the map<i class="fa fa-map ml-2"></i></li>
-          </ul>
+
+    <div class="row">
+      <div class="col-sm-4  my-2">
+        image here
+      </div>
+
+
+        <div class="col-sm-8 my-2"><h1>Buses are the backbone of <br>Jersey City's neighborhoods.</h1>
+      <p class="lead text-left">We depend on buses every day to get to work, school, and back home again.</strong>  But its hard to evaluate the quality of bus service. That's why we built this site to provide a one-stop shop for bus performance information.</p>
+            <a target="_self" href="#reportcards" class="btn btn-indigo btn-lg">Go to the report cards<i class="fa fa-graduation-cap ml-2"></i>
+              <a target="_self" href="#map" class="btn btn-indigo btn-lg">Go to the map<i class="fa fa-map ml-2"></i></a>
         </div>
     </div>
 
-    <!-- route grid -->
-   <div id="reportcards" class="row features-small mt-5 wow fadeIn">
 
+    <!-- route grid -->
+
+    <div id="reportcards" class="row mt-5">
         {% for route in reportcard_routes %}
-            <div class="col-md-3">
-               <div class="container">
+            <div class="col-sm-3">
                 <a href = {{ url_for('genRouteReport' ,source='nj',route=route.route) }}>
                     <h1 class="display-3 text-center">{{route.route}}</h1>
                 </a>
-
                <p class="lead text-left">{{route.description_short}}</p>
-
-               </div>
             </div>
-
         {% endfor %}
 
    </div>
 
 
+
     <!-- Page Content 3-->
-     <div class="row">
+     <div class="row my-4">
             <div id="map" class=".container-fluid">
             </div>
       </div>
@@ -231,8 +216,6 @@ map.on('load', function() {
       </div>
 
     </div>
-
-
 
 
     <!-- Bootstrap core JavaScript -->
