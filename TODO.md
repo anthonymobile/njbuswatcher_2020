@@ -8,6 +8,25 @@ updated 18 nov 2018
     - to (pop-up?) page off route report page
     - fix caching for bunching_report (doesnt work?)
 
+## Performance and Optimization
+
+1. easycache backend caching framework
+    - currently have to install all of django just to use its caching framework. install the redis caching framework instead.
+    - First, install redis server per [redis-py package docs](https://pypi.org/project/redis/)
+    - Second, instantiate the cache:
+
+    ```python
+        from redis import StrictRedis
+        from easy_cache.contrib.redis_cache import RedisCacheInstance
+        from easy_cache import caches
+        
+        redis_cache = RedisCacheInstance(StrictRedis(host='...', port='...'))
+        caches.set_default(redis_cache)
+        
+        # will use `default` alias
+        @ecached(...)
+
+    ```
 
 ## Future Sprints
 
