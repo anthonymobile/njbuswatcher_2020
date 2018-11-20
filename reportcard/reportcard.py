@@ -77,7 +77,6 @@ def displayHome():
 
     return render_template('index.html', citywide_waypoints_geojson=citywide_waypoints_geojson, citywide_stops_geojson=citywide_stops_geojson,routereport=routereport,reportcard_routes=reportcard_routes)
 
-
 #2 route report
 @app.route('/<source>/<route>')
 def genRouteReport(source, route):
