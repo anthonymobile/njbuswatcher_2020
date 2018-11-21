@@ -9,9 +9,9 @@
 <p class="lead">{{routereport.description_long}}</p>
 
 
-              <a target="_self" href="#stopreports" class="btn btn-indigo btn-lg">View stop reports<i class="fa fa-map ml-2"></i></a>
-                <a target="_self" href="{{routereport.schedule_url}}" class="btn btn-indigo btn-lg">Get NJT schedule<i class="fa fa-graduation-cap ml-2"></i>
-                <a target="_self" href="https://goo.gl/forms/VF5S1Oclk9QTdZha2" class="btn btn-indigo btn-lg">Sign the petition for better service<i class="fa fa-map ml-2"></i></a>
+              <a target="_self" href="#stopreports" class="btn btn-indigo btn-lg">View stop reports<i class="fa fa-bus ml-2"></i></a>
+                <a target="_self" href="{{routereport.schedule_url}}" class="btn btn-indigo btn-lg">Get NJT schedule<i class="fa fa-map ml-2"></i>
+                <a target="_self" href="https://goo.gl/forms/VF5S1Oclk9QTdZha2" class="btn btn-indigo btn-lg">Sign a petition for better service<i class="fa fa-pencil-alt ml-2"></i></a>
           </a>
 
 
@@ -47,8 +47,7 @@
 
     <div id="stopreports" class="py-5">
 
-        <h3 class="">Stop Reports</h3>
-        <p class="lead">Click on a stop to see statistics on on-time performance, frequency, and reliability for currently running services.
+        <p class="lead">Click on a stop below to view on-time performance, frequency, and reliability for currently running services.
 
         <!-- todo possible to make a div with fluid number of columns here based on count(paths)? -->
 
@@ -59,7 +58,7 @@
             {% for stop in path.stops %}
 
                 <a href = {{url_for('genStopReport',source=routereport.source,route=routereport.route,stop=stop.identity,period='daily') }} id="{{stop.st}}">
-                    <span class="label">{{stop.st}} </span>
+                    <span class="label">{{stop.st|title}} </span>
                 </a> •
 
             {% endfor %}
