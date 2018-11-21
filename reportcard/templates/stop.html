@@ -2,6 +2,7 @@
 
 
 {%  block scripts %}
+{{super()}}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="/static/chart/chart.js/dist/Chart.js"></script>
 <script src="/static/chart/frequency-histogram-steppedline.js"></script>
@@ -29,17 +30,6 @@
     </div>
   </div>
 
-  <div class="py-2 bg-white">
-	<div class="container">
-	  <div class="row">
-		<div class="col-md-12">
-		  <h1 class="display-4">
-			{{routereport.route}} <b>{{stopreport.stop_name|title}}</b></h1>
-		</div>
-	  </div>
-	</div>
-  </div>
-
 {% endblock %}
 
 {% block period_nav %}
@@ -61,63 +51,23 @@
 
 {% endblock %}
 
-{% block top_left %}
+{% block summary %}
+
+	  <div class="row">
+		<div class="col-md-12">
+		  <h1 class="display-4">
+			{{routereport.route}} <b>{{routereport.prettyname}}</b>
+          </h1>
+            <h3 class="display-4">
+			{{stopreport.stop_name|title}}
+          </h3>
+
+		</div>
+	  </div>
 
     <div class="col-md-12" id ="arrivals-histogram">
 
     </div>
-
-<h1 class="">Arrival History</h1>
-
-
-          <table class="table table-sm">
-            <thead>
-              <tr>
-                <th>route</th>
-                  <th>time</th>
-                <th>bus #</th>
-                <th>interval</th>
-              </tr>
-            </thead>
-            <tbody>
-            {% for (index,row) in stopreport.arrivals_list_final_df.iterrows() %}
-                {% if (row.delta > stopreport.bigbang) and (row.delta <= stopreport.bunching_interval) %}
-                    <tr class='table-danger'>
-                        <td>{{row.rd}}</td>
-                        <td>{{row.timestamp|strftime_period(period)}}</td>
-                        <td>{{row.v}}</td>
-                        <td>{{row.delta|strftime_timedelta}}</td>
-                    </tr>
-                {% else %}
-                    <tr class='table-success'>
-                        <td>{{row.rd}}</td>
-                        <td>{{row.timestamp|strftime_period(period)}}</td>
-                        <td>{{row.v}}</td>
-                        <td>{{row.delta|strftime_timedelta}}</td>
-                    </tr>
-                {% endif %}
-            {% endfor %}
-            </tbody>
-          </table>
-
-
-<h3 class="">What the Colors Mean</h3>
-<div class="alert alert-success" role="alert">
-    <h4 class="alert-heading">Good Service</h4>
-              <p class="">Good service is when buses are spaced apart, reducing wait times and keeping more closely to posted schedules.</p>
-          </div>
-          <div class="alert alert-danger" role="alert">
-            <h4 class="alert-heading">Bunching</h4>
-              <p class="">Bunching occurs when a bus arrives at a stop within 3 minutes or less of the previous bus. Bunching indicates poor service, leading to empty buses, and more irregular and unreliable service.</p>
-          </div>
-
-<p class="">*This is an experimental service provided for informational purposes only. We are not responsible for errors or omissions.</p>
-{% endblock %}
-
-
-
-
-{% block top_right %}
 
 
 
@@ -168,10 +118,58 @@
 
     </div>
 
+<div>
+<h4 class="">Arrival Log</h4>
+
+
+          <table class="table table-sm">
+            <thead>
+              <tr>
+                <th>route</th>
+                  <th>time</th>
+                <th>bus #</th>
+                <th>interval</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for (index,row) in stopreport.arrivals_list_final_df.iterrows() %}
+                {% if (row.delta > stopreport.bigbang) and (row.delta <= stopreport.bunching_interval) %}
+                    <tr class='table-danger'>
+                        <td>{{row.rd}}</td>
+                        <td>{{row.timestamp|strftime_period(period)}}</td>
+                        <td>{{row.v}}</td>
+                        <td>{{row.delta|strftime_timedelta}}</td>
+                    </tr>
+                {% else %}
+                    <tr class='table-success'>
+                        <td>{{row.rd}}</td>
+                        <td>{{row.timestamp|strftime_period(period)}}</td>
+                        <td>{{row.v}}</td>
+                        <td>{{row.delta|strftime_timedelta}}</td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+            </tbody>
+          </table>
+
+
+<h3 class="">What the Colors Mean</h3>
+<div class="alert alert-success" role="alert">
+    <h4 class="alert-heading">Good Service</h4>
+              <p class="">Good service is when buses are spaced apart, reducing wait times and keeping more closely to posted schedules.</p>
+          </div>
+          <div class="alert alert-danger" role="alert">
+            <h4 class="alert-heading">Bunching</h4>
+              <p class="">Bunching occurs when a bus arrives at a stop within 3 minutes or less of the previous bus. Bunching indicates poor service, leading to empty buses, and more irregular and unreliable service.</p>
+          </div>
+
+<p class="">*This is an experimental service provided for informational purposes only. We are not responsible for errors or omissions.</p>
+    </div>
 {% endblock %}
 
 
-{% block bottom_left %}
+
+{% block unused %}
 
 <!--
           <table class="table table-sm">
@@ -208,15 +206,5 @@
 -->
 
 {% endblock %}
-
-
-
-{% block bottom_right %}
-
-{% endblock %}
-
-
-
-
 
 

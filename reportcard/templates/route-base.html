@@ -136,7 +136,6 @@ map.on('load', function() {
 {% block content %}
 
 
-  {# NO IDEA WHAT THIS IS DOING? ACCIDENTALLY COPIED FROM stop.html? #}
 {% if request.url_rule.endpoint == "genStopReport" %}
   {% block period_nav %}
   {% endblock %}
@@ -152,8 +151,8 @@ map.on('load', function() {
          <div id="map" class="col-sm-3 align-self-base">
          </div>
 
-         <div id="route_summary" class="col-sm-9">
-            {% block route_summary %}
+         <div id="summary" class="col-sm-9">
+            {% block summary %}
             {% endblock %}
 
              {% block stoplist %}
