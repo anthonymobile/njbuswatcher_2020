@@ -1,18 +1,18 @@
 {% extends 'route-base.html' %}
 
 
-{% block top_left %}
+{% block route_summary %}
+
+      <h1 class="display-4">
+			{{routereport.route}} <b>{{routereport.prettyname}}</b></h1>
 
 <p class="lead">{{routereport.description_long}}</p>
 
-<!--
-<div class="alert alert-primary" role="alert">
-            <h4 class="alert-heading">Coming Soon: Route Grades</h4>
-            <p class="mb-0">Soon we'll be adding grades that help you evaluate how well each bus route is doing in terms of service reliability.</p>
-</div>
--->
 
-          <a href="https://goo.gl/forms/VF5S1Oclk9QTdZha2" class="btn btn-lg btn-primary mx-1">Sign the Petition for Better Bus Service</a>
+              <a target="_self" href="#stopreports" class="btn btn-indigo btn-lg">View stop reports<i class="fa fa-map ml-2"></i></a>
+                <a target="_self" href="{{routereport.schedule_url}}" class="btn btn-indigo btn-lg">Get NJT schedule<i class="fa fa-graduation-cap ml-2"></i>
+                <a target="_self" href="https://goo.gl/forms/VF5S1Oclk9QTdZha2" class="btn btn-indigo btn-lg">Sign the petition for better service<i class="fa fa-map ml-2"></i></a>
+          </a>
 
 
 
@@ -36,84 +36,38 @@
     {% endif %}
 -->
 
-{% endblock %}
-
-{% block top_right %}
-
-<div id="map"></div>
-
-
-<!-- <img class="img-fluid d-block" src="/static/images/map{{routereport.route}}.jpg" > -->
-
-<div class="btn-group">
-            <a href="{{routereport.schedule_url}}" class="btn btn-outline-primary">Official Schedule (PDF)</a>
-            <a href="{{routereport.moovit_url}}" class="btn btn-outline-secondary">Moovit's {{routereport.route}} Page</a>
-</div>
-
-<!--
-<div class="container py-2">
-          <h1 class="">Bottlenecks</h1>
-          <p class="lead">Here's the stops on the {{routereport.route}} with the most bunching incidents today. Click on a stop to view the report card.</p>
-
-        <ul class="list-group" >
-                {% for stop in routereport.bunching_leaderboard %}
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <a href = {{url_for('genStopReport',source=routereport.source,route=routereport.route,stop=stop[2],period='daily')}}>{{stop[0]}}</a>
-                      <span class="badge badge-primary badge-pill">{{stop[1]}}</span>
-                    </li>
-                {% endfor %}
-        </ul>
-</div>
--->
 
 {% endblock %}
 
 
 
-{% block bottom %}
+{% block stoplist %}
 
-<!-- new column based stop list dashboard -->
+    <!-- new stoplist 20 nov 2018 -->
 
-<div class="py-5">
-    <div class="container">
-          <h1 class="">Stop Reports</h1>
-        <p class="lead">Here are the currently running services. Click on a stop to see a detailed report.
+    <div id="stopreports" class="py-5">
 
+        <h3 class="">Stop Reports</h3>
+        <p class="lead">Click on a stop to see statistics on on-time performance, frequency, and reliability for currently running services.
 
+        <!-- todo possible to make a div with fluid number of columns here based on count(paths)? -->
 
-<!-- after https://stackoverflow.com/questions/16071864/how-to-create-tables-from-column-data-instead-of-row-data-in-html -->
-<div class="table-responsive">
-<table class="table table-borderless">
-<tr>
+        {% for path in routereport.route_stop_list %}
+            <p class="lead">To {{path.dd}}</p>
+<div class="container">
 
-{% for path in routereport.route_stop_list %}
+            {% for stop in path.stops %}
 
-<td>
-    <table class="table-sm table-light ">
-        <thead>
-            <tr>
-                <td><p class="lead">To {{path.dd}}</p></td>
-            </tr>
-        </thead>
-        <tbody>
-        {% for stop in path.stops %}
-            <tr>
-                <td><a class="dropdown-item" href = {{url_for('genStopReport',source=routereport.source,route=routereport.route,stop=stop.identity,period='daily') }} id="{{stop.st}}">{{stop.st}}</a></td>
+                <a href = {{url_for('genStopReport',source=routereport.source,route=routereport.route,stop=stop.identity,period='daily') }} id="{{stop.st}}">
+                    <span class="label">{{stop.st}} </span>
+                </a> •
 
-            </tr>
-        {% endfor %}
+            {% endfor %}
+</p>
+</div>
+        {%  endfor %}
 
-        </tbody>
-    </table>
-</td>
-
-{% endfor %}
-
-
-</tr>
-</table>
     </div>
-
 
 
 {% endblock %}
@@ -123,4 +77,5 @@
 <!-- FUTURE reliability report v1 -- coming soon, histogram of travel time based on differential arrival time of same bus id at 1st, last and middlest stop # of std deviations -->
 
 {% endblock %}
+
 
