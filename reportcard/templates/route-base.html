@@ -135,70 +135,44 @@ map.on('load', function() {
    intact. #}
 {% block content %}
 
-  <div class="py-2 bg-dark">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <h1 class="navbar-brand">{{routereport.routename}}</h1>
-        </div>
-      </div>
-    </div>
-  </div>
 
-
+  {# NO IDEA WHAT THIS IS DOING? ACCIDENTALLY COPIED FROM stop.html? #}
 {% if request.url_rule.endpoint == "genStopReport" %}
   {% block period_nav %}
   {% endblock %}
 {% endif %}
 
-  <div class="py-3">
+
+    <!-- Page Content -->
+
     <div class="container">
-      <div class="row">
 
-         <div class="col-md-6">
-          {% block top_left %}
-          {% endblock %}
+     <div class="row">
 
-        </div>
+         <div id="map" class="col-sm-3 align-self-base">
+         </div>
 
+         <div id="route_summary" class="col-sm-9">
+            {% block route_summary %}
+            {% endblock %}
 
+             {% block stoplist %}
+            {% endblock %}
+         </div>
 
-        <div class="col-md-6">
-          {% block top_right %}
-          {% endblock %}
-        </div>
-
-
-
-
-      </div>
     </div>
-  </div>
-
-    <div class="py-5 bg-light">
-    <div class="container">
-      <div class="row">
 
 
-        <div class="col-md-12">
-          {% block bottom %}
-          {% endblock %}
-        </div>
-
-
-      </div>
     </div>
-  </div>
 
+        <!-- Page Content 4-->
+     <div class="row">
+            <div class="footer-copyright py-3 text-left">
+      © 2018 Site concept and design by
+      <a href="http://www.bitsandatoms.net" target="_blank"> Bits and Atoms</a> for Code4JC (<a href="https://github.com/code4jc/buswatcher" target="_blank">GitHub</a>). All data and content is provided for informational purposes only.</div>
 
-
-  <div class="bg-dark text-white">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12 mt-3">
-          <p class="text-center text-white">Data released under <a href="https://cdla.io/sharing-1-0/">Community Data License Agreement – Sharing, Version 1.0</a>, but may be subject to restrictions based on <a href="http://mybusnow.njtransit.com/bustime/home.jsp">origin</a>.</p>
         </div>
       </div>
-    </div>
-  </div>
+
+
 {% endblock %}

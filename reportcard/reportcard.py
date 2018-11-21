@@ -187,6 +187,10 @@ def _jinja2_filter_hour_as_int(hour):
 def _jinja2_filter_datetime(timestamp, format='%Y-%m-%d %I:%M %p'):
     return timestamp.strftime(format)
 
+@app.template_filter('title')
+def _jinja2_filter_titlecase(name):
+    return name.title()
+
 @app.template_filter('strftime_timedelta')
 def pretty_timedelta(td):
     days = td.days

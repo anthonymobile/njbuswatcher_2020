@@ -100,6 +100,7 @@ class RouteReport:
             if route['route'] == self.route:
                 self.grade = route['grade']
                 self.description_long = route['description_long']
+                self.prettyname = route['prettyname']
                 self.schedule_url = route['schedule_url']
                 self.moovit_url = route['moovit_url']
                 for entry in self.grade_descriptions:
