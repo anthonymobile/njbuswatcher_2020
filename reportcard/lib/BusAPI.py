@@ -54,6 +54,16 @@ class KeyValueData:
         out_string = ' '.join([k + '=' + str(v) for k, v in line])
         return self.name + '[%s]' % out_string
 
+    def to_dict(self):
+        line = []
+        for prop, value in vars(self).items():
+            line.append((prop, value)) # list of tuples
+        line.sort(key=lambda x: x[0])
+        out_dict = dict()
+        for l in line:
+            out_dict[l[0]]=l[1]
+        return out_dict
+
 class Bus(KeyValueData):
     def __init__(self, **kwargs):
         KeyValueData.__init__(self, **kwargs)
