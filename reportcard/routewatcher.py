@@ -21,6 +21,11 @@ def fetch_locations(source, route):
     bus_data = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data(source, 'buses_for_route',route=route))
 
     now = datetime.datetime.now()
+    # todo
+    # import lib.Localizer as Localizer
+    # Localizer.infer_stops (bus_data)
+    # write to a new, third set of tables... e.g, routelog_inferred_stops_119
+
     db.insert_positions(bus_data, now)
 
 
