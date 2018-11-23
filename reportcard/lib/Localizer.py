@@ -24,9 +24,21 @@ def ckdnearest(gdA, gdB, bcol):
     df = pd.DataFrame.from_dict({'distance': dist.astype(int),'bcol' : gdB.loc[idx, bcol].values })
     return df
 
-def infer_stops(position_list,route):
+def infer_stops(**kwargs):
 
     # FORMAT DATA + CREATE GEODATAFRAME FOR POSITIONS
+
+    # if called with Localizer.infer_stops(postion_log=list_of_Bus_objects,route='87')
+    if kwargs['position_log'] is True:
+        kwargs['route'] = 1
+        pass
+    elif kwargs['position_log'] is False:
+        # if called with Localizer.infer_stops(route='87') then we are loading the whole postiion_log table from buswatcher db and processing it
+        kwargs['route'] = 1
+        pass
+    else:
+        print ('insufficient kwargs to Localizer')
+        breakpoint()
 
     # turn the bus objects into a dataframe
     df1 = pd.DataFrame.from_records([bus.to_dict() for bus in position_list])

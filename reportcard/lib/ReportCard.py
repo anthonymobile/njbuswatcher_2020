@@ -244,5 +244,8 @@ class StopReport:
         except TypeError:
             pass
 
+        except AttributeError:
+            results = pd.DataFrame()
+
         return results
 
