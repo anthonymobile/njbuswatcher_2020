@@ -148,8 +148,13 @@ map.on('load', function() {
 
      <div class="row my-3">
 
-         <div id="map" class="col-sm-3 align-self-base">
+     <div class="col-sm-3 align-self-base">
+         <div id="map" >
+
          </div>
+         <p >Map displays routes currently in service with live vehicle locations (positions may be 1-2 minutes behind ground truth).</p>
+     </div>
+
 
          <div id="summary" class="col-sm-9">
             {% block summary %}
@@ -165,6 +170,7 @@ map.on('load', function() {
     </div>
 
         <!-- Page Content 4-->
+    <div class="container">
      <div class="row">
             <div class="footer-copyright py-3 text-left">
       © 2018 Site concept and design by
@@ -172,6 +178,7 @@ map.on('load', function() {
 
         </div>
       </div>
+
 
 
 {% endblock %}
