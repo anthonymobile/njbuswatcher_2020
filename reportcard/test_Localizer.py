@@ -2,6 +2,30 @@
 # -- dump to console
 import lib.Localizer as Localizer
 import lib.BusAPI as BusAPI
-print (Localizer.infer_stops(BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data('nj', 'buses_for_route',route='87')),'87'))
+import time
+import argparse
 
+parser = argparse.ArgumentParser()
+parser.add_argument('-r', '--route', dest='route', required=True, help='route number')
+
+args = parser.parse_args()
+
+def localizer_live_singleroute(route):
+
+    # test using position_log list input
+    bus_data = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data('nj', 'buses_for_route', route=route))
+
+    results = Localizer.infer_stops(position_log=bus_data, route='87')
+    # results.to_html('results.html')
+
+    # loop results to console
+
+    for index, row in results.iterrows():
+        print(
+            'dd {dd} bid {bid} lat {lat} lon {lon} stop_id {stop_id} distance {distance}'.format(dd=row.dd, bid=row.bid, lat=row.lat, lon=row.lon, stop_id=row.bcol, distance=row.distance))
+
+
+while True:
+    localizer_live_singleroute(args.route)
+    time.sleep(30) #make function to sleep for 10 seconds
 
