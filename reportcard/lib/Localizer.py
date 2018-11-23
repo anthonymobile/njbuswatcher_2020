@@ -105,7 +105,6 @@ def infer_stops(**kwargs):
     # insert inferred_stops back into gdf1 and
 
     gdf1=gdf1.join(inferred_stops)
-    gdf1=gdf1.join(gdf2['st'])
 
     # once debugged
     # cull those that are not at stops
