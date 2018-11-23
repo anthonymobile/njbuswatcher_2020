@@ -23,7 +23,7 @@ def ckdnearest(gdA, gdB, bcol):
     nB = np.array(list(zip(gdB.geometry.x, gdB.geometry.y)) )
     btree = cKDTree(nB)
     dist, idx = btree.query(nA,k=1)
-    df = pd.DataFrame.from_dict({'distance': dist.astype(int),'bcol' : gdB.loc[idx, bcol].values })
+    df = pd.DataFrame.from_dict({'distance': dist.astype(float),'bcol' : gdB.loc[idx, bcol].values })
     return df
 
 def infer_stops(**kwargs):
@@ -79,7 +79,7 @@ def infer_stops(**kwargs):
                     # print ('match route:' + path.d)
                     for p in path.points:
                         if p.__class__.__name__ == 'Stop':
-                            stop_candidates.append({'stop_id':p.identity,'d':p.d,'lat':p.lat,'lon':p.lon})
+                            stop_candidates.append({'stop_id':p.identity,'st':p.st,'d':p.d,'lat':p.lat,'lon':p.lon})
                 else:
                     pass
     except:
@@ -105,6 +105,7 @@ def infer_stops(**kwargs):
     # insert inferred_stops back into gdf1 and
 
     gdf1=gdf1.join(inferred_stops)
+    gdf1=gdf1.join(gdf2['st'])
 
     # once debugged
     # cull those that are not at stops
