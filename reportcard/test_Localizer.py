@@ -20,9 +20,11 @@ def localizer_live_singleroute(route):
 
     # loop results to console
 
+    # look up stop names again
+
     for index, row in results.iterrows():
         print(
-            'bid {bid} dd {dd} lat {lat:f} lon {lon:f} stop_id {stop_id} stop_name {stop_name} distance {distance:f}'.format(dd=row.dd, bid=row.bid, lat=row.lat, lon=row.lon, stop_id=row.bcol, distance=row.distance, stop_name=row.st))
+            'bid {bid} dd {dd} lat {lat:f} lon {lon:f} stop_id {stop_id} distance {distance:f}'.format(dd=row.dd, bid=row.bid, lat=row.lat, lon=row.lon, stop_id=row.bcol, distance=row.distance))
 
 
 while True:
