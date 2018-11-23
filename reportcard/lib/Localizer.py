@@ -1,5 +1,8 @@
+import sys
+
 import geopandas
 import pandas as pd
+import numpy as np
 from scipy.spatial import cKDTree
 from shapely.geometry import Point
 
@@ -11,7 +14,6 @@ from . import BusAPI
 
 # USAGE
 # todo in production -- called as part of routewatcher.py data acquisition pipeline, and results are written to position log which is now a combined position log and stop log (and deprecates stopwatcher.py)
-
 
 
 # https://gis.stackexchange.com/questions/222315/geopandas-find-nearest-point-in-other-dataframe
@@ -26,25 +28,37 @@ def ckdnearest(gdA, gdB, bcol):
 
 def infer_stops(**kwargs):
 
-    # FORMAT DATA + CREATE GEODATAFRAME FOR POSITIONS
+    # 1. LOAD, FORMAT DATA + CREATE GEODATAFRAME FOR BUS POSITIONS
 
-    # if called with Localizer.infer_stops(postion_log=list_of_Bus_objects,route='87')
-    if kwargs['position_log'] is True:
-        kwargs['route'] = 1
-        pass
-    elif kwargs['position_log'] is False:
-        # if called with Localizer.infer_stops(route='87') then we are loading the whole postiion_log table from buswatcher db and processing it
-        kwargs['route'] = 1
-        pass
+    # if called with Localizer.infer_stops(position_log=list_of_Bus_objects,route='87')
+    #print (kwargs['position_log'])
+
+    if 'position_log' in kwargs:
+        # turn the bus objects into a dataframe
+        df1 = pd.DataFrame.from_records([bus.to_dict() for bus in kwargs['position_log']])
+        df1['lat'] = pd.to_numeric(df1['lat'])
+        df1['lon'] = pd.to_numeric(df1['lon'])
+
+        direction = kwargs['position_log'][0].dd
+        # print ('bus going to '+ direction)
+
+    elif 'position_log' not in kwargs:
+        print('Not supported yet')
+        sys.exit()
+
+        # load the whole postiion_log table from buswatcher db into a dataframe like df1 above
+        # do something
+        # do something
+        # do something
+        # do something
+        # direction = tk
+
     else:
         print ('insufficient kwargs to Localizer')
-        breakpoint()
+        sys.exit()
 
-    # turn the bus objects into a dataframe
-    df1 = pd.DataFrame.from_records([bus.to_dict() for bus in position_list])
-    df1['lat'] = pd.to_numeric(df1['lat'])
-    df1['lon'] = pd.to_numeric(df1['lon'])
 
+    # turn the bus positions df1 into a A GeoDataFrame
     # A GeoDataFrame needs a shapely object, so we create a new column Coordinates as a tuple of Longitude and Latitude :
     df1['coordinates'] = list(zip(df1.lon, df1.lat))
     # Then, we transform tuples to Point :
@@ -52,55 +66,35 @@ def infer_stops(**kwargs):
     # Now, we can create the GeoDataFrame by setting geometry with the coordinates created previously.
     gdf1 = geopandas.GeoDataFrame(df1, geometry='coordinates')
 
-#
-#
-#
-#
-# SPLIT DF1 BY 'd'
-# THEN DO THE BELOW FOR EACH SUBGROUP
-# SO THAT EACH SUBGROUP GETS LOCALIZED BASED ON
-# THE STOPLIST THAT IS SUITABLE FOR ITS DIRECTION
-#
-#
-#
-#
 
+    # 2. ACQUIRE DATA + CREATE GEODATAFRAME FOR STOP LOCATIONS
 
-    # ACQUIRE DATA + CREATE GEODATAFRAME FOR STOPS
-
-    routedata, a, b, waypoints_geojson, stops_geojson = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data('nj', 'routes', route=route))
-    route_stop_list = []
-
-    for rt in routedata:
-        for path in rt.paths:
-            for p in path.points:
-                if p.__class__.__name__ == 'Stop':
-                    route_stop_list.append(p.identity)
-
-    # find the one for the service and direction we're on,
-    # by matching headsigns against the first vehicle in our
-    # current position log
+    routedata, a, b, c, d = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data('nj', 'routes', route=kwargs['route']))
+    stop_candidates = []
 
     try:
-        for route in route_stop_list:
-            # if 'd' from route_stop_list = headsign
-            if route['d'] == position_list[0]['d']:
-                stoplist_match = route
-            else:
-                pass
-    except stoplist_match is False:
+        for rt in routedata:
+            for path in rt.paths:
+                if path.d == direction:
+                    # print ('match route:' + path.d)
+                    for p in path.points:
+                        if p.__class__.__name__ == 'Stop':
+                            stop_candidates.append({'stop_id':p.identity,'d':p.d,'lat':p.lat,'lon':p.lon})
+                else:
+                    pass
+    except:
         print('Oops, didnt find the matching route')
-        breakpoint()
-
 
 
     # turn it into a DF
-    df2 = pd.DataFrame.from_records(stoplist_match)
+    df2 = pd.DataFrame.from_records(stop_candidates)
+    df2['lat'] = pd.to_numeric(df2['lat'])
+    df2['lon'] = pd.to_numeric(df2['lon'])
 
     # A GeoDataFrame needs a shapely object, so we create a new column Coordinates as a tuple of Longitude and Latitude :
-    df2['coordinates'] = list(zip(df.lon, df.lap))
+    df2['coordinates'] = list(zip(df2.lon, df2.lat))
     # Then, we transform tuples to Point :
-    df2['coordinates'] = df['coordinates'].apply(Point)
+    df2['coordinates'] = df2['coordinates'].apply(Point)
     # Now, we can create the GeoDataFrame by setting geometry with the coordinates created previously.
     gdf2 = geopandas.GeoDataFrame(df2, geometry='coordinates')
 
@@ -108,7 +102,11 @@ def infer_stops(**kwargs):
     # It returns a dataframe with distance and Name columns that you can insert back into gpd1
     inferred_stops = ckdnearest(gdf1, gdf2,'stop_id')
 
+    # insert inferred_stops back into gdf1 and
+
+    gdf1=gdf1.join(inferred_stops)
+
     # once debugged
     # cull those that are not at stops
 
-    return inferred_stops
+    return gdf1
