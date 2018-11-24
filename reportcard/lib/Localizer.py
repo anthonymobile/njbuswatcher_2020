@@ -7,6 +7,67 @@ from scipy.spatial import cKDTree
 from shapely.geometry import Point
 
 from . import BusAPI
+from . import TripDB
+
+
+class KeyValueData:
+    def __init__(self, **kwargs):
+        self.name = 'KeyValueData'
+        for k, v in list(kwargs.items()):
+            setattr(self, k, v)
+
+    def add_kv(self, key, value):
+        setattr(self, key, value)
+
+    def __repr__(self):
+        line = []
+        for prop, value in vars(self).items():
+            line.append((prop, value))
+        line.sort(key=lambda x: x[0])
+        out_string = ' '.join([k + '=' + str(v) for k, v in line])
+        return self.name + '[%s]' % out_string
+
+    def to_dict(self):
+        line = []
+        for prop, value in vars(self).items():
+            line.append((prop, value)) # list of tuples
+        line.sort(key=lambda x: x[0])
+        out_dict = dict()
+        for l in line:
+            out_dict[l[0]]=l[1]
+        return out_dict
+
+class Trip(KeyValueData):
+    def __init__(self):
+        KeyValueData.__init__(self)
+        self.name = 'triplog'
+        self.trip_id = ''
+        self.bid = ''
+        self.date = ''
+        self.points = []            # points is a list of unique StopCalls and PositionReports (a PositionReport is converted to a StopCall if the inferrer decides its -the- stop call
+        self.d = ''
+        self.dd = ''
+
+    class PositionReport:
+        def __init__(self):
+            self.trip_id = ''
+            self.bid = ''
+            self.date = ''
+            self.lat = ''
+            self.lon = ''
+            self.timestamp = ''
+
+    class StopCall:
+        def __init__(self):
+            self.trip_id = ''
+            self.bid = ''
+            self.date = ''
+            self.lat = ''
+            self.lon = ''
+            self.timestamp = ''
+            self.stop_id = ''      # aka 'identity'
+            self.stop_name = ''    # aka 'st'
+            self.distance = ''     # aka 'bcol'
 
 
 # using scipy.spatial method in bottom answer here
@@ -24,7 +85,6 @@ def ckdnearest(gdA, gdB, bcol):
     return df
 
 def infer_stops(**kwargs):
-
 
     # - Sort position  records by direction(‘dd’)
     # - Run  them through stop_imputer
@@ -108,8 +168,5 @@ def infer_stops(**kwargs):
     # insert inferred_stops back into gdf1 and
 
     gdf1=gdf1.join(inferred_stops)
-
-    # once debugged
-    # cull those that are not at stops
 
     return gdf1

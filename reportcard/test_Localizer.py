@@ -2,9 +2,9 @@
 # -- dump to console
 import lib.Localizer as Localizer
 import lib.BusAPI as BusAPI
-import time
-import argparse
+import time, datetime, argparse
 from itertools import groupby
+import lib.TripDB as TripDB
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-r', '--route', dest='route', required=True, help='route number')
@@ -34,8 +34,23 @@ def localizer_live_singleroute(route):
             print(
                 'bid {bid} dd {dd} lat {lat:f} lon {lon:f} stop_id {stop_id} distance {distance:f}'.format(dd=row.dd, bid=row.bid, lat=row.lat, lon=row.lon, stop_id=row.bcol, distance=row.distance))
 
+    return results
+
+def db_setup(route):
+
+    # date = datetime.datetime.today().strftime('%Y-%m-%d')
+
+    db = TripDB.MySQL('buses', 'buswatcher', 'njtransit', '127.0.0.1', route)
+    conn = db.conn
+    return conn, db
+
 
 while True:
-    localizer_live_singleroute(args.route)
+    now = datetime.datetime.now()
+    localized_positions = localizer_live_singleroute(args.route)
+    conn, db = db_setup(args.route)
+    db.insert_positions(localized_positions, now)
+
+
     time.sleep(15) #make function to sleep for 15 seconds
 
