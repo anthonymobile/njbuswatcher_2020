@@ -125,7 +125,7 @@ def get_arrivals_byargs(args):
     arrivals_log = arrivals_log.reset_index(drop=True)
 
     arrivals_log['timestamp']=arrivals_log['timestamp'].astype(str)
-    arrivals_log = timestamp_fix(arrivals_log) #todo why isnt this working
+    arrivals_log = timestamp_fix(arrivals_log)
 
     # arrivals_json = arrivals_log.to_json(orient='records')
 
@@ -143,7 +143,7 @@ def get_frequency_byargs(args):
     # arrivals_log = arrivals_log.reset_index(drop=True)
     #
     # arrivals_log['timestamp']=arrivals_log['timestamp'].astype(str)
-    # arrivals_log = timestamp_fix(arrivals_log) #todo why isnt this working
+    # arrivals_log = timestamp_fix(arrivals_log)
     #
     # # arrivals_json = arrivals_log.to_json(orient='records')
 

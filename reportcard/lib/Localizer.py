@@ -12,9 +12,6 @@ from . import BusAPI
 # using scipy.spatial method in bottom answer here
 # https://gis.stackexchange.com/questions/222315/geopandas-find-nearest-point-in-other-dataframe
 
-# USAGE
-# todo in production -- called as part of routewatcher.py data acquisition pipeline, and results are written to position log which is now a combined position log and stop log (and deprecates stopwatcher.py)
-
 
 # https://gis.stackexchange.com/questions/222315/geopandas-find-nearest-point-in-other-dataframe
 # Here is a helper function that will return the distance and 'Name' of the nearest neighbor in gpd2 from each point in gpd1. It assumes both gdfs have a geometry column (of points).
@@ -27,6 +24,12 @@ def ckdnearest(gdA, gdB, bcol):
     return df
 
 def infer_stops(**kwargs):
+
+
+    # - Sort position  records by direction(‘dd’)
+    # - Run  them through stop_imputer
+    # - Create or add  a  Call or PositionReport  to  a
+    # Trip object that has unique ID  for date and run_id
 
     # 1. LOAD, FORMAT DATA + CREATE GEODATAFRAME FOR BUS POSITIONS
 
