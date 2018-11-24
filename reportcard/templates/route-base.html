@@ -86,9 +86,12 @@ map.on('load', function() {
 
     // VEHICLES
 
+    var url = "/api/v1/positions?period=now&rt={{routereport.route}}";
+
+
     map.addSource('vehicles_geojson', {
-        type: 'geojson',
-        data: '/api/v1/positions?period=now&rt={{routereport.route}}'
+        "type": "geojson",
+        "data": url
     });
 
 
@@ -104,6 +107,14 @@ map.on('load', function() {
         }
 
     });
+
+
+    window.setInterval(function() {
+        map.getSource('vehicles_geojson').setData(url);
+    }, 1000);
+
+
+
 
 
 

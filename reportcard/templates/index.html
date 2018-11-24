@@ -85,8 +85,26 @@ map.on('load', function() {
         }
     });
 
+
+    /*
+
+    1. todo animate transition
+
+    v1 - update the points at new locations every 15 seconds
+    v1.1 - add tooltip info to the bus markers
+    v2 - animate movement of all markets from positions t to positions t+1 using a scaled velocity=d/dt
+
+
+    2. todo move this script into external .js file in /static with configurable switch for index or route, and dynamic rwrite of the JSON frame
+
+    3. todo write new JS positions fetcher to keep all the update logic inside the client
+
+     */
+
+
     // VEHICLES
     var routelistArray={{reportcard_routes|safe}};
+
 
     for(let j=0; j<{{reportcard_routes|safe}}.length; j++) {
 
