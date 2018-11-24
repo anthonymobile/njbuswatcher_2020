@@ -1,7 +1,136 @@
 # Bus Rider Report Card 
-### v 1.1
-##### 27 October 2018
-######*n.b. as of v1.1 codebase is migrated to Python 3.*
+### v 1.5
+##### 23 November 2018
+
+
+# Current Roadmap
+
+#### A. New Localizer
+This is the main engine that infers when buses are calling at stops. This more direct method will use actual reported bus locations and infer stop calls against stop locations -- versus the current stopwatcher.py mechanism that uses a separate NJT API call providing predicted bus arrival times by stop. It's similar to Transit Center's *inferno* script but much less complicated.
+
+######1.	Localizer algorithm
+    - Sort position records by direction (‘dd’)
+	- Run them through stop_imputer
+	- Create or add a Call or PositionReport to a Trip object that has unique ID for date and run_id
+	- Optionally in 3. Discard the non-call positions if dB gets too big
+	- Deprecate stops dB and stopwatch entirely
+
+#####2. Test_Localizer
+    - add loop to look up stop name (for easier diagnostics)
+    - simplify output
+        - print each bus in a different column?
+        - or tester output should be recoded to just
+            - "bus 43434 is between stops A and B"
+            - "bus 43434 is approaching Congress St and Webster Av"
+            -  "bus 43434 is at Congress St and Webster Av"
+
+#####3. Rewrite Routewatch
+    -  how do we decide when a stop call has been made?
+        - look back at the sequence of approaches and pick the min?
+        - log that as a call "point of closest observed appraoch" (and the metadata including lat,lon,time,distance for later )
+        - frequency of fetch? 30 seconds? how far will a bus move at 30 mph? 1320 feet (almost 1/4 mile)... 15 seconds?
+    - build a Trip data structure to hold the results? ALL routewatcher observations are loaded into a trip data structure by default -- assigned to a trip and then assigned to a locational position along the trip ("unassigned or 00000" until they are not geolocated)
+        - class Trip
+            - mainly holds key:value pairs for {stop_id: call_time} and some metadata about the vehicle and operator
+            - write a new 'buswatcher' that keeps an eye on all buses active on the route via NJT 'busesforroute' API call, isolates them (or drops them) to a stop through a proximity-based algorithm
+            - proximity-based algorithm: uses shapely for the spatial processing (rather than postgres)
+                - find nearest stop to a bus breadcrumb (and then log a stop when it gets under a threshold and starts to go up again)
+                - filter these approaches for point of closest approach (by distance) + log that
+                - possible technique: Nearest Neighbour Analysis — Geo-Python - AutoGIS documentation [link](https://automating-gis-processes.github.io/2017/lessons/L3/nearest-neighbour.html)     
+            - compute travel times from stop to stop and log, allowing us to go back and compute travel time for any A to B along route
+
+#### B. Reliability Grade
+1. ask Eric what the correct metric is (# of standard deviations for total start to end trip time?) e.g. how often does it get worse than the average 
+2. compute on each page view, write to db?, write to route_config.py?
+3. add to page
+    - as letter grade and description, or
+    - as literal: e.g. 'TODAY IS TYPICAL. TODAY IS WORSE THAN USUAL.'
+    - dtop level metrics: - stop.html: THIS STATION USUALLY HAS DECENT SERVICE or THIS STATION HAS GOOD SERVICE TODAY or something like that.
+
+
+### C. Charts
+Implement with Chart.js
+1. route page
+    - route diagrams showing line, stops, current bus locations
+2. stop page
+    - dot column (like nobel prize chart) on arrival list showing frequency by hour
+        - implement by concatenating the 3 nobel scripts into one external javascript and calling from route-base.html, passing the same {{arrivals_list_final_df|tojson}} to it
+    - bar column for service frequency
+3. restore bunching report
+    - to (pop-up?) page off route report page
+    - fix caching for bunching_report (doesnt work?)
+
+
+    
+# Other TODOs  
+
+#### A. Caching Framework
+
+1. easycache backend caching framework
+    - currently have to install all of django just to use its caching framework. install the redis caching framework instead.
+    - First, install redis server per [redis-py package docs](https://pypi.org/project/redis/)
+    - Second, instantiate the cache:
+
+    ```python
+        from redis import StrictRedis
+        from easy_cache.contrib.redis_cache import RedisCacheInstance
+        from easy_cache import caches
+        
+        redis_cache = RedisCacheInstance(StrictRedis(host='...', port='...'))
+        caches.set_default(redis_cache)
+        
+        # will use `default` alias
+        @ecached(...)
+
+    ```
+
+#### B. Import Old Data
+- in 'buses_summer2018' database
+- in 'buses_fall018' database
+
+
+#### C. Setup DB Backup Slave 
+- [howto](https://www.digitalocean.com/community/tutorials/how-to-move-a-mysql-data-directory-to-a-new-location-on-ubuntu-16-04)
+
+# Misc Ideas
+
+#### Trip Playback
+1. generate a list of runs, linked to 'playback' pages
+2. API call that spits out geojson for all points in routelog for a single run, on a specific date
+3. display on a page using mapbox live update [tutorial](https://www.mapbox.com/mapbox-gl-js/example/live-update-feature/)
+
+#### new services data structure  (cost-benefit of this?)
+1. class Service (based on GTFS)
+2. class Service (built up from API)
+    - Create a class for services, with tables in db
+    - These get populated as the lines are loaded
+    - Grabbers and webpages are smart and don't die if they try to grab a service that's not active
+    - Hardcode the headsigns if they are ambigious 
+    
+#### schedule adherence / GTFS integration (dependency on new data structures?)
+- Can you show the delta between planned arrival time and actual arrival? I understand the bunching concern, but it seems like the avg rider would also be concerned about late arrivals. For instance, when I see a bus that usually has headways of 12-25 minutes, but has one instance of a 35 min headway, that seems like it should be called out similarly to how the bunching incidents are called out 
+- http://simplistic.me/playing-with-gtfs.html
+- module to create lookup table GTFS:Clever_Devices - timestamp_hr_min+run_id --> gtfs: trip_id+start_time so we can match routelog.run to gtfs.trip_id
+- GTFS integration:  write a routine to match gtfs trip_id, start_time :: timestamp,run for first observation of a v in routelog series (e.g. map run to trip_id) -- either a machine learning model or something simpler 
+    
+#### Q.C. -- missed arrivals, duplicate arrivals (should be deprescated by Localizer.py)
+
+- **missing arrivals** - probably happening when approaching bus comes up as '2 min' and then disappears, never being observed as 'APPROACHING'
+        - debugging: Missing buses that never were ‘APPROACHING’ the stop = do a query in jupyter of those that were 2 mins and then dissappeared
+- **duplicate arrivals**--esp at early stops on the 87, e.g. http://0.0.0.0:5000/nj/87/stop/20931/history (see sept 20)
+- **data quality** reports that some times are off / significantly?
+
+
+---
+
+###Docs resume below -- a good bit of this is out of date as of 23 November 2018 -- will do our best to update it soon.
+
+---
+
+
+
+
+
 
 ## Summary
 
