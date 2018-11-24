@@ -106,11 +106,14 @@ map.on('load', function() {
     var routelistArray={{reportcard_routes|safe}};
 
 
+
     for(let j=0; j<{{reportcard_routes|safe}}.length; j++) {
+
+        var url = ('/api/v1/positions?period=now&rt='+routelistArray[j].route);
 
         map.addSource('vehicles_geojson'+routelistArray[j].route, {
             type: 'geojson',
-            data: '/api/v1/positions?period=now&rt='+routelistArray[j].route
+            data: url
         });
 
         map.addLayer({
@@ -127,6 +130,14 @@ map.on('load', function() {
 
     };
 
+
+    window.setInterval(function() {
+
+        for(let j=0; j<{{reportcard_routes|safe}}.length; j++) {
+            var url = ('/api/v1/positions?period=now&rt='+routelistArray[j].route);
+            map.getSource('vehicles_geojson'+routelistArray[j].route).setData(url);
+            }
+    }, 1000);
 
     // setup the viewport
     map.jumpTo({
