@@ -29,7 +29,7 @@ def fetch_approaches(source, route):
         now = datetime.datetime.now()
         approaches_clean = []
         for approach in approaches:
-            if approach.pt=='APPROACHING': # todo add logic here for also 2 min or less to catch those missing approaches?
+            if approach.pt=='APPROACHING':
                 approaches_clean.append(approach)
             else:
                 pass
