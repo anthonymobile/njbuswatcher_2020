@@ -2,8 +2,12 @@
 ### v 1.5
 ##### 23 November 2018
 
+### *to-do punchlist
+- fix the 10pm missing in frequency chart
+- restore bunching scorecard to separate page
+- add additional periods: (e.g. 'weekly-rush hours' or 'history-late nights') or an additional set of menus user-configurable period.
 
-# Current Roadmap
+# Roadmap
 
 #### A. New Localizer
 This is the main engine that infers when buses are calling at stops. This more direct method will use actual reported bus locations and infer stop calls against stop locations -- versus the current stopwatcher.py mechanism that uses a separate NJT API call providing predicted bus arrival times by stop. It's similar to Transit Center's *inferno* script but much less complicated.
@@ -114,62 +118,37 @@ What's needed:
     
 ---
 
-###Docs resume below -- a good bit of this is out of date as of 23 November 2018 -- will do our best to update it soon.
+# Overview
 
----
-
-
+Buswatcher is a set of Python scripts and web apps to collect bus position and stop arrival prediction data from several API endpoints maintained by NJTransit (via vendor Clever Devices), synthesize and summarize this information, and present to riders in a number of useful ways via a simple, interactive web application. Its implemented in Python using flask, pandas, geopandas, shapely, and easy_cache
 
 
+### Demo
 
+Check out a live version focusing on Jersey City Heights [buswatcher.code4jc.org](http://buswatcher.code4jc.org)
 
-## Summary
+The app is more of less skinnable for an NJ community with a minimum of re-configuration:
+- route_config.py - holds all route numbers and descriptions
+- cron jobs (need to setup stopwatcher.py and routewatcher.py for each route tracked)
 
-This is set of scripts that fetch bus location and arrival prediction data from several API endpoints maintained by NJTransit (via vendor Clever Devices), synthesize and summarize this information, and present to riders in a number of useful ways via a simple, interactive web application. Implementation is in Python using pandas (data management and processing) and flask (web development). 
+### Key Metrics
+The data supports a number of rider and service provider metrics that are in various stages of being implemented.
 
-## Description
-
-Users can explore our archive of arrival data for any stop on any route, fo a variety of pre-determined time periods. In the future, we plan to compute summary statistics and performance grades on the fly for each view. (e.g. "Route 119 for the stop at Webster Av and Congress St is currently performing at grade C+ for the week. That's down from a B last week.") 
-
-### Filters/Views
-
-The data gathered can be viewed along any combination of three criteria:
-- Route: 87, 119 
-- Stop: numbered stop from NJT database
-- Period: history (all time - currently starts early August 2018), weekly, daily
-
-### Current Metrics
-
-- Arrival intevals - how long between buses
-- Average frequency - hourly, how long on average between buses
-
-### Known Issues
-
-- Missing arrivals. Because of how we currently localize buses to stops, we are missing some buses. It's not a lot but if you see a gap or a particular long interval between buses that isn't on the schedule, that's probably what's up. We're working on fixing it. In the meantime, we have a second set of data that will let us go back and correct the historical data when we do fix it. The good news is that while this may mean there's some bunching that we miss, none of the bunching we do see are false positives.
-- Missing buses. The Lincoln Tunnel swallows them up. It's as simple as that. Whatever tracking and uplink Clever Devices is using just can't deal with buses being underground and it basically gives up and stops reporting. Not much we can do here.
-
-### Future Metrics
-
-- **Frequency of service.**  How often does a bus stop at my corner? This is simply calculated by looking at how often any in-service bus passes a given stop on a particular route. This will require additional period options (e.g. 'weekly-rush hours' or 'history-late nights') or an additional set of filters to confine the resampling to a relevant time period. (n.b. the first take on this is working as of v1.0 -- hourly frequency by stop)
-- **Bunching.** Related to frequency of service, we want to highlight any events when a bus arrives at a stop within 3 minutes or less than the previous service on the same route. (This is how the NYC MTA is currently defining bunching, according to [Streetsblog](https://nyc.streetsblog.org/2018/08/13/how-the-mta-plans-to-harness-new-technology-to-eliminate-bus-bunching/).
-- **Travel time.** How long is it taking buses to get from one stop to the next? We can compare the arrival time of individual vehicles at successive stops along the line to identify which route segments are contributing the most to delays along the line at any given instant, and over time? This will require creating a data structure for route segments which doesn't currently exist (everything is organized around the stops themselves.) 
-- **Schedule adherence.** Is the bus actually hitting its scheduled stops? This will require importing and looking up scheduled arrival times in GTFS timetables--initial inspection indicates this will be challenging (but not impossible) as run/service id numbers returned by the API don't seem to correspond to those listed in the GTFS data. How much we prioritize this will depend on community priorities--for rush hour service, it will be much less important; for late-night service, it will be crucial. Generally speaking, as more people use apps to monitor actual arrivals, schedule adherence is less of a pressing concern.
-- **Performance Grade** (0-100, A+-F) Ideally, the app should present a letter or numerical grade summarizing performance for the current view to the user. Scaling and calibrating these will be challenging. We have not yet begun to even explore this.
+- **Frequency of service.** (working). How often does a bus stop at my corner? Calculated by looking at how often any in-service bus passes a given stop on a particular route.
+- **Bunching.** (working) Related to frequency of service, we want to highlight any events when a bus arrives at a stop within 3 minutes or less than the previous service on the same route. (This is how the NYC MTA is currently defining bunching, according to [Streetsblog](https://nyc.streetsblog.org/2018/08/13/how-the-mta-plans-to-harness-new-technology-to-eliminate-bus-bunching/).
+- **Travel time.** (future) How long is it taking buses to get from one stop to the next? We can compare the arrival time of individual vehicles at successive stops along the line to identify which route segments are contributing the most to delays along the line at any given instant, and over time? This will require creating a data structure for route segments which doesn't currently exist (everything is organized around the stops themselves.) 
+- **Schedule adherence.** (future) Is the bus actually hitting its scheduled stops? This will require importing and looking up scheduled arrival times in GTFS timetables--initial inspection indicates this will be challenging (but not impossible) as run/service id numbers returned by the API don't seem to correspond to those listed in the GTFS data. How much we prioritize this will depend on community priorities--for rush hour service, it will be much less important; for late-night service, it will be crucial. Generally speaking, as more people use apps to monitor actual arrivals, schedule adherence is less of a pressing concern.
+- **Performance Grade** (future)  Ideally, the app should present a letter or numerical grade summarizing performance for the current view to the user (e.g. 0-100, A+-F).
 
 
 
-### Look and Feel
+## API 
 
-Check out the live version at [buswatcher.code4jc.org](http://buswatcher.code4jc.org)
-
-
-
-
-## API v1
-
-We have a simple API set up with one endpoint for the positions data -- this is the 2nd data set that we'll eventually use to localize the buses. It's not currently used in any of the web apps below but its more detailed and probably more accurate -- but we just haven't written the code to pinpoint these positions to nearby stops and determine when a bus has actually called at a stop. That's to come soon.
+The API is a work in progress, but we will try to keep it robust and exposing all of the internal data used in the web app.
 
 ### endpoint: /api/v1/positions
+
+We have a simple API set up with one endpoint for the bus positions data -- this is currently not used by the web app but will be once the new Localizer is done.
 
 Usage with arguments
 ```
@@ -232,6 +211,8 @@ Reponses are geoJSON. Here's a typical record.
 
 ### endpoint: /api/v1/arrivals
 
+This endpoint exposes the predictions about when buses running on a specific route will arrive at specific stops. This data is drawn off the NJT API and is the heart of how we currently log when buses call at stops. (This will be depreceated when the Localizer is done and we do it basedon actual observed bus locations.)
+
 Usage with arguments
 ```
 http://buswatcher.code4jc.org/api/v1/arrivals?rt=119&stop_id=30189&period=weekly
@@ -250,7 +231,14 @@ Any of the fields in the JSON response below may be used as arguments. You'll ge
 
 Reponses are geoJSON. Here's a typical record.
 ```
-    "{\"pkey\":28831,\"pt\":\"APPROACHING\",\"rd\":\"87\",\"stop_id\":\"21062\",\"stop_name\":\"PALISADE AVE + SOUTH ST\",\"v\":\"5737\",\"timestamp\":1540903024000,\"delta\":599000},
+    "{"pkey":28831,
+    "pt":"APPROACHING",
+    "rd":"87",
+    "stop_id":"21062",
+    "stop_name":"PALISADE AVE + SOUTH ST",
+    "v":"5737",
+    "timestamp":1540903024000,
+    "delta":599000},
 ```
 
 
