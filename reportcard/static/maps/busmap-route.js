@@ -88,10 +88,28 @@ map.on('load', function() {
 
     });
 
+    window.setInterval(function() {
+        map.getSource('vehicles_geojson').setData(url);
+    }, 1000);
 
-    // HOVER TOOLTIPS START ---------------------------------------
 
-    // Create a popup, but don't add it to the map yet.
+    // setup the viewport
+    map.jumpTo({
+        'center': [-74.0501, 40.7400],
+        'zoom': 12
+    });
+
+    // ZOOM TO THE EXTENT
+    // based on https://www.mapbox.com/mapbox-gl-js/example/zoomto-linestring/
+
+    var coordinates = stops_geojson.data.geometry.coordinates;
+    var bounds = coordinates.reduce(function(bounds, coord) {
+      return bounds.extend(coord);
+    }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
+    map.fitBounds(bounds, { padding: 20 });
+
+
+    // HOVER TOOLTIPS
     var popup = new mapboxgl.Popup({
         closeButton: false,
         closeOnClick: false
@@ -102,7 +120,7 @@ map.on('load', function() {
         map.getCanvas().style.cursor = 'pointer';
 
         var coordinates = e.features[0].geometry.coordinates.slice();
-        var description = e.features[0].properties.description;
+        var description = e.features[0].properties.fs;
 
         // Ensure that if the map is zoomed out such that multiple
         // copies of the feature are visible, the popup appears
@@ -123,29 +141,8 @@ map.on('load', function() {
         popup.remove();
     });
 
-    // HOVER TOOLTIPS END ---------------------------------------
 
 
-
-    window.setInterval(function() {
-        map.getSource('vehicles_geojson').setData(url);
-    }, 1000);
-
-
-    // setup the viewport
-    map.jumpTo({
-        'center': [-74.0501, 40.7400],
-        'zoom': 12
-    });
-
-    // ZOOM TO THE EXTENT
-    // based on https://www.mapbox.com/mapbox-gl-js/example/zoomto-linestring/
-
-    var coordinates = stops_geojson.data.geometry.coordinates;
-    var bounds = coordinates.reduce(function(bounds, coord) {
-      return bounds.extend(coord);
-    }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
-    map.fitBounds(bounds, { padding: 20 });
 
 
 });
