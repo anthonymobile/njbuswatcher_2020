@@ -14,8 +14,8 @@ map.on('load', function() {
 
     // ROUTES
     var waypoints_geojson = {
-        type: 'geojson',
-        data: a
+        'type': 'geojson',
+        'data': passed_citywide_waypoints_geojson
     };
 
     map.addSource('waypoints_geojson', waypoints_geojson);
@@ -35,7 +35,7 @@ map.on('load', function() {
     // STOPS
     var stops_geojson = {
         type: 'geojson',
-        data: b
+        data: passed_citywide_stops_geojson
     };
 
     map.addSource('stops_geojson', stops_geojson);
@@ -54,7 +54,7 @@ map.on('load', function() {
 
 
     // VEHICLES
-    var routelistArray=c;
+    var routelistArray=passed_reportcard_routes;
 
     for(let j=0; j<routelistArray.length; j++) {
 
