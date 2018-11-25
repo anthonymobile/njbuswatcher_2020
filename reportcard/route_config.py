@@ -3,6 +3,27 @@
 
 
 reportcard_routes=[ \
+
+{'route':'6','grade':'B','services':[('TK','00000'),('TK','00000')],'schedule_url':'https://www.njtransit.com/pdf/bus/T0006.pdf','moovit_url':'',\
+     'prettyname':'Journal Square to Liberty State Park',\
+    'description_short':'Coming soon.',\
+    'description_long':'Please check back soon. We will add the rest of the bus routes in Jersey City to the JC Buswatcher in the near future.'},
+
+{'route':'10','grade':'B','services':[('TK','00000'),('TK','00000')],'schedule_url':'https://www.njtransit.com/pdf/bus/T0010.pdf','moovit_url':'',\
+     'prettyname':'Journal Square to Bayonne',\
+    'description_short':'Coming soon.',\
+    'description_long':'Please check back soon. We will add the rest of the bus routes in Jersey City to the JC Buswatcher in the near future.'},
+
+{'route':'80','grade':'B','services':[('TK','00000'),('TK','00000')],'schedule_url':'https://www.njtransit.com/pdf/bus/T0080.pdf','moovit_url':'',\
+     'prettyname':'West Side to Exchange Place (via Newark Ave)',\
+    'description_short':'Coming soon.',\
+    'description_long':'Please check back soon. We will add the rest of the bus routes in Jersey City to the JC Buswatcher in the near future.'},
+
+{'route':'81','grade':'B','services':[('TK','00000'),('TK','00000')],'schedule_url':'https://www.njtransit.com/pdf/bus/T0081.pdf','moovit_url':'',\
+     'prettyname':'Bayonne to Exchange Place (via Ocean Ave)',\
+    'description_short':'Coming soon.',\
+    'description_long':'Please check back soon. We will add the rest of the bus routes in Jersey City to the JC Buswatcher in the near future.'},
+
     {'route':'82','grade':'B','services':[('Exchange Place','73012'),('TK','00000')],'schedule_url':'https://www.njtransit.com/pdf/bus/T0082.pdf','moovit_url':'https://moovitapp.com/index/en/public_transit-line-82-NYCNJ-121-516-546379-0',\
      'prettyname':'Exchange Place (via Newark Ave)',\
     'description_short':'Tracing a long-defunct streetcar line, the 82 connects a corner of The Heights to Downtown Jersey City at Exchange Place.',\
