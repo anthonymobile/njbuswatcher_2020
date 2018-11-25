@@ -120,7 +120,7 @@ map.on('load', function() {
         map.getCanvas().style.cursor = 'pointer';
 
         var coordinates = e.features[0].geometry.coordinates.slice();
-        var description = e.features[0].properties.fs;
+        var description = (e.features[0].properties.fs + ", Bus " + e.features[0].properties.id + ", Driver " + e.features[0].properties.op + ", Run " + e.features[0].properties.run);
 
         // Ensure that if the map is zoomed out such that multiple
         // copies of the feature are visible, the popup appears
@@ -140,9 +140,5 @@ map.on('load', function() {
         map.getCanvas().style.cursor = '';
         popup.remove();
     });
-
-
-
-
 
 });
