@@ -146,7 +146,7 @@ map.on('load', function() {
     });
 
 
-
+    /*
     // ZOOM TO THE EXTENT
     // based on https://www.mapbox.com/mapbox-gl-js/example/zoomto-linestring/
 
@@ -158,7 +158,7 @@ map.on('load', function() {
     map.fitBounds(bounds, { padding: 20 });
 
 
-    /*
+
     // ZOOM TO THE EXTENT of THE HEIGHTS --- not working
     // based on https://www.mapbox.com/mapbox-gl-js/example/zoomto-linestring/
 
