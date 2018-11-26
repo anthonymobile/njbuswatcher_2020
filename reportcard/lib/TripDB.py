@@ -2,7 +2,7 @@ from mysql.connector import connection
 from mysql.connector import Error
 import sys
 
-_columns = ['bid','date','lat','lon','timestamp','stop_id','stop_name','distance']
+_columns = ['id','date','lat','lon','timestamp','stop_id','stop_name','distance']
 
 
 
@@ -12,7 +12,7 @@ def _stops_to_sql(format_string, stop, timestamp):
         if not hasattr(stop, var):
             setattr(stop, var, '')
 
-    return format_string % (stop.bid, stop.date, stop.lat, stop.lon, str(timestamp),
+    return format_string % (stop.id, stop.date, stop.lat, stop.lon, str(timestamp),
                             stop.stop_id, stop.stop_name, stop.distance)
 
 
@@ -64,7 +64,7 @@ class MySQL(DB):
 
     def _setup_db(self,table_name):
 
-        create_table_string = '''CREATE TABLE IF NOT EXISTS %s (pkey integer primary key auto_increment, bid varchar(20), date varchar(20), lat varchar(255), lon varchar(20), timestamp varchar(255), stop_id varchar(20), stop_name varchar(255), distance varchar(20),
+        create_table_string = '''CREATE TABLE IF NOT EXISTS %s (pkey integer primary key auto_increment, id varchar(20), date varchar(20), lat varchar(255), lon varchar(20), timestamp varchar(255), stop_id varchar(20), stop_name varchar(255), distance varchar(20),
                 INDEX (bid),
                 INDEX (stop_id),
                 INDEX (date) 

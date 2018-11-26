@@ -42,7 +42,7 @@ class Trip(KeyValueData):
         KeyValueData.__init__(self)
         self.name = 'triplog'
         self.trip_id = ''
-        self.bid = ''
+        self.id = ''
         self.date = ''
         self.points = []            # points is a list of unique StopCalls and PositionReports (a PositionReport is converted to a StopCall if the inferrer decides its -the- stop call
         self.d = ''
@@ -81,7 +81,8 @@ def ckdnearest(gdA, gdB, bcol):
     nB = np.array(list(zip(gdB.geometry.x, gdB.geometry.y)) )
     btree = cKDTree(nB)
     dist, idx = btree.query(nA,k=1)
-    df = pd.DataFrame.from_dict({'distance': dist.astype(float),'bcol' : gdB.loc[idx, bcol].values })
+    # using 1 degree = 69 miles = 364,320 feet
+    df = pd.DataFrame.from_dict({'distance': (dist.astype(float)*364320),'bcol' : gdB.loc[idx, bcol].values })
     return df
 
 def infer_stops(**kwargs):
