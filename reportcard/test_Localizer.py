@@ -32,7 +32,7 @@ def localizer_live_singleroute(route):
         # output results to console
         for index, row in results.iterrows():
             print(
-                'bid {bid} dd {dd} lat {lat:f} lon {lon:f} stop_id {stop_id} distance {distance:f}'.format(dd=row.dd, bid=row.bid, lat=row.lat, lon=row.lon, stop_id=row.bcol, distance=row.distance))
+                'id {id} dd {dd} lat {lat:f} lon {lon:f} stop_id {stop_id} distance {distance} feet'.format(dd=row.dd, id=row.id, lat=row.lat, lon=row.lon, stop_id=row.bcol, distance=int(row.distance)))
 
     return results
 
