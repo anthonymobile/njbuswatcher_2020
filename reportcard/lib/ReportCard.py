@@ -11,7 +11,7 @@ except:
     db_server = '127.0.0.1'
 
 # import app libraries
-from . import StopsDB, BusAPI
+from . import StopsDB, BusAPI, TripsDB
 
 # setup cache
 from easy_cache import ecached
@@ -248,4 +248,116 @@ class StopReport:
             results = pd.DataFrame()
 
         return results
+
+class KeyValueData:
+    def __init__(self, **kwargs):
+        self.name = 'KeyValueData'
+        for k, v in list(kwargs.items()):
+            setattr(self, k, v)
+
+    def add_kv(self, key, value):
+        setattr(self, key, value)
+
+    def __repr__(self):
+        line = []
+        for prop, value in vars(self).items():
+            line.append((prop, value))
+        line.sort(key=lambda x: x[0])
+        out_string = ' '.join([k + '=' + str(v) for k, v in line])
+        return self.name + '[%s]' % out_string
+
+    def to_dict(self):
+        line = []
+        for prop, value in vars(self).items():
+            line.append((prop, value)) # list of tuples
+        line.sort(key=lambda x: x[0])
+        out_dict = dict()
+        for l in line:
+            out_dict[l[0]]=l[1]
+        return out_dict
+
+// TripReport is populated from the database automagically based on passed parameters
+// route, run, bus id, date in 20181101 format?
+
+class TripReport(KeyValueData):
+
+    def __init__(self,route,run,id,date):
+        KeyValueData.__init__(self)
+        self.route = route
+        self.name = 'triplog'
+        self.trip_id = ''
+        self.id = ''
+        self.date = ''
+        self.points = []            # points is a list of unique StopCalls and PositionReports (a PositionReport is converted to a StopCall if the inferrer decides its -the- stop call
+        self.d = ''
+        self.dd = ''
+
+        # database initialization
+        self.db = TripsDB.MySQL('buses', 'buswatcher', 'njtransit', db_server, self.route)
+        self.conn = self.db.conn
+        self.table_name = 'triplog_' + self.route
+
+        # populate report card data (to replace StopReport in current pages)
+        # self.arrivals_list_final_df, self.stop_name = self.get_arrivals(self.route, self.stop, self.period)
+
+    # def get_arrivals:
+
+        # ISSUE RIGHT NOW IS BELOW IS get_trips is BUILDING TRIPLOGS for every trip on the route for each stop report.
+        # QUICKER DIRTY METHOD WOULD JUST
+
+        # load the entries from the position log
+        # df.readsql = query = where route = route, run = run, v = id, date (substring) = date, stop_id = stop
+
+        # 1) for each v, assign the call time to the point of closest approach
+        # 2) ignore missing buses
+
+        # return that
+
+        # self.arrivals_table_time_created = datetime.datetime.now()
+        # return arrivals_list_final_df, stop_name
+
+    # def get_triplogs:
+        # load the entries from the position log
+        # df.readsql = query = where route = route, run = run, v = id, date (substring) = date
+
+        # iterate through all these position log entries:
+            # assigning each to either an ObservedPosition object or a StopCall
+                # algo for doing that is ---
+                # 1) sort by stop_id,
+                # 2) if there is only one entry for that stop_id for this trip, and its within a reasonable distance, log it at the call
+                # 3) if there is more than one, take the one with the shortest distance
+                # ISSUES TO WATCH:
+                    # gaps -(e.g. stops that are missed) -- can add an interpolator loop
+                    # overlaps (e.g. 87 on PAterson Plank AND PALISADE)-- can add a control loop?
+                # PERFORMANCE -- cache it
+            # self.points.append(it)
+
+        # ISSUE RIGHT NOW IS BELOW IS BUILDING TRIPLOGS for every trip on the route for each stop report.
+        # from these trip reports, can generate both arrivals list for this stop
+        # as well as trip-specific data like "average travel time from here to end of route"
+
+
+    #         self.arrivals_table_time_created = datetime.datetime.now()
+    #         return arrivals_list_final_df, stop_name
+
+    class ObservedPosition:
+        def __init__(self):
+            self.trip_id = ''
+            self.bid = ''
+            self.date = ''
+            self.lat = ''
+            self.lon = ''
+            self.timestamp = ''
+
+    class StopCall:
+        def __init__(self):
+            self.trip_id = ''
+            self.bid = ''
+            self.date = ''
+            self.lat = ''
+            self.lon = ''
+            self.timestamp = ''
+            self.stop_id = ''      # aka 'identity'
+            self.stop_name = ''    # aka 'st'
+            self.distance = ''     # aka 'bcol'
 
