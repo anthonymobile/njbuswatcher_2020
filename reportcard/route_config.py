@@ -3,13 +3,6 @@
 
 reportcard_routes=[ \
 
-    {'route':'1','grade':'B','services':[('TK','00000'),('TK','00000')],
-     'schedule_url':'https://www.njtransit.com/pdf/bus/T0001.pdf',
-     'moovit_url':'https://moovitapp.com/',\
-     'prettyname':'Route 1',\
-     'description_short':'Coming soon.',\
-     'description_long':'Coming soon.'},
-
     {'route':'5','grade':'B','services':[('TK','00000'),('TK','00000')],
      'schedule_url':'https://www.njtransit.com/pdf/bus/T0005.pdf',
      'moovit_url':'https://moovitapp.com/',\
