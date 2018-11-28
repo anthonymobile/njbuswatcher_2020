@@ -101,13 +101,6 @@ reportcard_routes=[ \
      'description_short':'Coming soon.',\
      'description_long':'Coming soon.'},
 
-    {'route':'43','grade':'B','services':[('TK','00000'),('TK','00000')],
-     'schedule_url':'https://www.njtransit.com/pdf/bus/T0027.pdf',
-     'moovit_url':'https://moovitapp.com/',\
-     'prettyname':'Route 43',\
-     'description_short':'Coming soon.',\
-     'description_long':'Coming soon.'},
-
     {'route':'59','grade':'B','services':[('TK','00000'),('TK','00000')],
      'schedule_url':'https://www.njtransit.com/pdf/bus/T0027.pdf',
      'moovit_url':'https://moovitapp.com/',\
@@ -168,13 +161,6 @@ reportcard_routes=[ \
      'schedule_url':'https://www.njtransit.com/pdf/bus/T0027.pdf',
      'moovit_url':'https://moovitapp.com/',\
      'prettyname':'Route 99',\
-     'description_short':'Coming soon.',\
-     'description_long':'Coming soon.'},
-
-    {'route':'109','grade':'B','services':[('TK','00000'),('TK','00000')],
-     'schedule_url':'https://www.njtransit.com/pdf/bus/T0027.pdf',
-     'moovit_url':'https://moovitapp.com/',\
-     'prettyname':'Route 109',\
      'description_short':'Coming soon.',\
      'description_long':'Coming soon.'},
 
