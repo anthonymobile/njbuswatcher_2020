@@ -209,12 +209,17 @@ class StopReport:
                 arrivals_list_final_df = arrivals_list_final_df.append(arrival_insert_df)  # insert into df
 
             # calc interval between last bus for each row, fill NaNs
-            arrivals_list_final_df['delta']=(arrivals_list_final_df['timestamp'] - arrivals_list_final_df['timestamp'].shift(-1)).fillna(0)
+            arrivals_list_final_df['delta']=(arrivals_list_final_df['timestamp'] - arrivals_list_final_df['timestamp'].shift(1)).fillna(0)
 
             # housekeeping ---------------------------------------------------
 
             # set stop_name
             stop_name = arrivals_list_final_df['stop_name'].iloc[0]
+
+
+            # resort arrivals list
+            # arrivals_list_final_df.sort_values("timestamp", inplace=True)
+
             return arrivals_list_final_df, stop_name
 
         except:
