@@ -1,4 +1,4 @@
-import sys
+import sys, datetime
 
 import geopandas
 import pandas as pd
@@ -8,6 +8,19 @@ from shapely.geometry import Point
 
 from . import BusAPI
 
+
+class TripPosition(BusAPI.KeyValueData):
+
+    def __init__(self,route,run,id,date):
+        KeyValueData.__init__(self)
+        self.route = route
+        self.name = 'trip_position'
+        self.id = ''
+        self.date = datetime.date.today() # autopopulate YYYY-MM-DD on record creation
+        self.timestamp = ''
+        self.run = ''
+        self.stop_id = ''
+        self.dd = ''
 
 # using scipy.spatial method in bottom answer here
 # https://gis.stackexchange.com/questions/222315/geopandas-find-nearest-point-in-other-dataframe
@@ -109,4 +122,15 @@ def infer_stops(**kwargs):
 
     gdf1=gdf1.join(inferred_stops)
 
-    return gdf1
+    # --------------------------
+    # TODO DO DISTANCE CONVERSION PER ttps://gis.stackexchange.com/questions/279109/calculate-distance-between-a-coordinate-and-a-county-in-geopandas
+
+    # "@anthonymobile If CRS of geodfs are EPSG 4326 (lat/lon) then returned 'dist' will be in degrees. To meters or ft either first convert both gdf to appropriate CRS proj for your location using .to_crs() or convert from degrees as here: https://t.co/FODrAWskNH" / Twitter
+
+
+    #--------------------------
+    # TODO CONVERT GDF1 TO A LIST OF TripPosition OBJECTS
+
+    positions = something
+
+    return positions

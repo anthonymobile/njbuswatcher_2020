@@ -2,7 +2,7 @@ from mysql.connector import connection
 from mysql.connector import Error
 import sys
 
-_columns = ['id','date','lat','lon','timestamp','stop_id','stop_name','distance']
+_columns = ['id','date','lat','lon','timestamp','run','stop_id','stop_name','dd','distance']
 
 
 
@@ -36,7 +36,7 @@ class DB:
         self.conn.commit()
 
     def insert_positions(self, records, timestamp):
-        self._batch_execute([_stops_to_sql(self.insert_string, r, timestamp) for r in records])
+        self._batch_execute([_stops_to_sql(self.insert_string, r, timestamp) for r in records]) # problem is im trying to feed this a dataframe!!!!
 
     # UNTESTED
     def fetch_records(self,query):
@@ -53,7 +53,7 @@ class MySQL(DB):
         table_name = 'triplog_' + route
 
 
-        insert_string = 'INSERT INTO '+ table_name + ' VALUES(NULL, "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s")'
+        insert_string = 'INSERT INTO '+ table_name + ' VALUES(NULL, "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s","%s")'
 
         DB.__init__(self, insert_string)
         self.db_name = db_name
@@ -64,8 +64,8 @@ class MySQL(DB):
 
     def _setup_db(self,table_name):
 
-        create_table_string = '''CREATE TABLE IF NOT EXISTS %s (pkey integer primary key auto_increment, id varchar(20), date varchar(20), lat varchar(255), lon varchar(20), timestamp varchar(255), stop_id varchar(20), stop_name varchar(255), distance varchar(20),
-                INDEX (bid),
+        create_table_string = '''CREATE TABLE IF NOT EXISTS %s (pkey integer primary key auto_increment, id varchar(20), date varchar(20), lat varchar(255), lon varchar(20), timestamp varchar(255), run varchar(20), stop_id varchar(20), stop_name varchar(255), dd varchar(20), distance varchar(20),
+                INDEX (id),
                 INDEX (stop_id),
                 INDEX (date) 
                 )'''  % table_name
