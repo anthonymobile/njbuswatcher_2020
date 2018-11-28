@@ -92,12 +92,12 @@ map.on('load', function() {
 
     // setup the viewport
     map.jumpTo({
-        'center': [-74.0501, 40.7400],
+        'center': [40.7344, -74.1642],
         'zoom': 12
     });
 
 
-    /*
+    
     // ZOOM TO THE EXTENT
     // based on https://www.mapbox.com/mapbox-gl-js/example/zoomto-linestring/
 
@@ -107,18 +107,6 @@ map.on('load', function() {
       return bounds.extend(coord);
     }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
     map.fitBounds(bounds, { padding: 20 });
-
-
-
-    // ZOOM TO THE EXTENT of THE HEIGHTS --- not working
-    // based on https://www.mapbox.com/mapbox-gl-js/example/zoomto-linestring/
-
-    var coordinates = neighborhoodmap.data.features[0].geometry.coordinates;
-    var bounds = coordinates.reduce(function(bounds, coord) {
-      return bounds.extend(coord);
-    }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
-    map.fitBounds(bounds, { padding: 20 });
-    */
 
 
     // HOVER TOOLTIPS
