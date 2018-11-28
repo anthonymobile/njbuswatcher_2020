@@ -3,6 +3,38 @@
 
 
 reportcard_routes=[ \
+ \
+    {'route': '1', 'grade': 'B', 'services': [('Exchange Place', '73012'), ('TK', '00000')],
+     'schedule_url': 'https://www.njtransit.com/pdf/bus/T0082.pdf',
+     'moovit_url': 'https://moovitapp.com/index/en/public_transit-line-82-NYCNJ-121-516-546379-0', \
+     'prettyname': 'Exchange Place (via Newark Ave)', \
+     'description_short': 'Tracing a long-defunct streetcar line, the 82 connects a corner of The Heights to Downtown Jersey City at Exchange Place.', \
+     'description_long': 'Following an old streetcar line defunct since 1931, the 82 provides rush-hour only, one-direction commuter service from Summit Avenue to Exchange Place and back in the evening.'},
+    {'route': '21', 'grade': 'B', 'services': [('Exchange Place', '73012'), ('TK', '00000')],
+     'schedule_url': 'https://www.njtransit.com/pdf/bus/T0082.pdf',
+     'moovit_url': 'https://moovitapp.com/index/en/public_transit-line-82-NYCNJ-121-516-546379-0', \
+     'prettyname': 'Exchange Place (via Newark Ave)', \
+     'description_short': 'Tracing a long-defunct streetcar line, the 82 connects a corner of The Heights to Downtown Jersey City at Exchange Place.', \
+     'description_long': 'Following an old streetcar line defunct since 1931, the 82 provides rush-hour only, one-direction commuter service from Summit Avenue to Exchange Place and back in the evening.'},
+    {'route': '34', 'grade': 'B', 'services': [('Exchange Place', '73012'), ('TK', '00000')],
+     'schedule_url': 'https://www.njtransit.com/pdf/bus/T0082.pdf',
+     'moovit_url': 'https://moovitapp.com/index/en/public_transit-line-82-NYCNJ-121-516-546379-0', \
+     'prettyname': 'Exchange Place (via Newark Ave)', \
+     'description_short': 'Tracing a long-defunct streetcar line, the 82 connects a corner of The Heights to Downtown Jersey City at Exchange Place.', \
+     'description_long': 'Following an old streetcar line defunct since 1931, the 82 provides rush-hour only, one-direction commuter service from Summit Avenue to Exchange Place and back in the evening.'},
+    {'route': '37', 'grade': 'B', 'services': [('Exchange Place', '73012'), ('TK', '00000')],
+     'schedule_url': 'https://www.njtransit.com/pdf/bus/T0082.pdf',
+     'moovit_url': 'https://moovitapp.com/index/en/public_transit-line-82-NYCNJ-121-516-546379-0', \
+     'prettyname': 'Exchange Place (via Newark Ave)', \
+     'description_short': 'Tracing a long-defunct streetcar line, the 82 connects a corner of The Heights to Downtown Jersey City at Exchange Place.', \
+     'description_long': 'Following an old streetcar line defunct since 1931, the 82 provides rush-hour only, one-direction commuter service from Summit Avenue to Exchange Place and back in the evening.'},
+{'route': '39', 'grade': 'B', 'services': [('Exchange Place', '73012'), ('TK', '00000')],
+     'schedule_url': 'https://www.njtransit.com/pdf/bus/T0082.pdf',
+     'moovit_url': 'https://moovitapp.com/index/en/public_transit-line-82-NYCNJ-121-516-546379-0', \
+     'prettyname': 'Exchange Place (via Newark Ave)', \
+     'description_short': 'Tracing a long-defunct streetcar line, the 82 connects a corner of The Heights to Downtown Jersey City at Exchange Place.', \
+     'description_long': 'Following an old streetcar line defunct since 1931, the 82 provides rush-hour only, one-direction commuter service from Summit Avenue to Exchange Place and back in the evening.'},
+
     {'route':'82','grade':'B','services':[('Exchange Place','73012'),('TK','00000')],'schedule_url':'https://www.njtransit.com/pdf/bus/T0082.pdf','moovit_url':'https://moovitapp.com/index/en/public_transit-line-82-NYCNJ-121-516-546379-0',\
      'prettyname':'Exchange Place (via Newark Ave)',\
     'description_short':'Tracing a long-defunct streetcar line, the 82 connects a corner of The Heights to Downtown Jersey City at Exchange Place.',\
