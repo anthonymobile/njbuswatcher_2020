@@ -367,7 +367,7 @@ Particularly the [district-level report cards](http://districts.busturnaround.ny
 
 4. create the database user
     ```bash
-    mysql -u root -p
+    sudo mysql -u root -p
     mysql> CREATE USER 'buswatcher'@'localhost' IDENTIFIED BY 'njtransit';
     Query OK, 0 rows affected (0.00 sec)
     
@@ -395,7 +395,7 @@ Particularly the [district-level report cards](http://districts.busturnaround.ny
 6. create a conda environment with the needed packages
 
     ```bash
-    conda create --name buswatcher python=3 mysql-connector-python pandas flask django
+    conda create --name buswatcher python=3 mysql-connector-python pandas flask flask_cors django
     source activate buswatcher
     conda update -n base conda
     ```
@@ -405,6 +405,7 @@ Particularly the [district-level report cards](http://districts.busturnaround.ny
 
     ```bash
     pip install easy_cache
+    pip install geojson
     pip install Flask-Bootstrap4
     ```    
 6. clone the buswatcher repo
