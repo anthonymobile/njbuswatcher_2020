@@ -8,7 +8,6 @@ import datetime
 import lib.BusAPI as BusAPI
 import lib.BusDB as BusDB
 
-
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('-s', '--source', dest='source', default='nj', help='source name')
