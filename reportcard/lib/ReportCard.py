@@ -164,14 +164,25 @@ class RouteReport:
         # compute grade passed on pct of all stops on route during period that were bunched
         # brackets are in grade_description['band_lower'] and grade_description['band_lower'] for each grade
 
-        grade_numeric = (cum_bunch_total / cum_arrival_total)*100
-        for grade in self.grade_descriptions:
-            if ( int(grade['band_upper']) > grade_numeric > int(grade['band_lower'])):
-                self.grade_letter = grade['grade']
-                self.grade = grade # just in case this is persisting somewhere else
+        try:
+            grade_numeric = (cum_bunch_total / cum_arrival_total)*100
+            for grade in self.grade_descriptions:
+                if int(grade['band_upper']) >= grade_numeric > int(grade['band_lower']):
+                    self.grade = grade['grade']
+                else:
+                    pass
+        except:
+            pass
+            # self.grade_letter = 'N/A'
+            # self.grade = grade['grade']
+
+        # reset grade description
+        for entry in self.grade_descriptions:
+            if self.grade == entry['grade']:
+                self.grade_description = entry['description']
 
 
-        return bunching_leaderboard , self.grade_letter
+        return bunching_leaderboard , self.grade, self.grade_description
 
 
 class StopReport:
