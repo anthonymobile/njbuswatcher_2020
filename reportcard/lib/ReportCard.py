@@ -211,13 +211,13 @@ class StopReport:
     def get_arrivals(self,route,stop,period):
 
         if self.period == "daily":
-            final_approach_query = ('SELECT * FROM %s WHERE (rd=%s AND stop_id= %s AND DATE(`timestamp`)=CURDATE() ) ORDER BY timestamp DESC;' % (self.table_name, self.route, self.stop))
+            final_approach_query = ('SELECT * FROM %s WHERE (rd=%s AND stop_id= %s AND DATE(`timestamp`)=CURDATE() ) ORDER BY timestamp;' % (self.table_name, self.route, self.stop))
         elif self.period == "yesterday":
-            final_approach_query = ('SELECT * FROM %s WHERE (rd=%s AND stop_id= %s AND (timestamp >= CURDATE() - INTERVAL 1 DAY AND timestamp < CURDATE())) ORDER BY timestamp DESC;' % (self.table_name, self.route, self.stop))
+            final_approach_query = ('SELECT * FROM %s WHERE (rd=%s AND stop_id= %s AND (timestamp >= CURDATE() - INTERVAL 1 DAY AND timestamp < CURDATE())) ORDER BY timestamp;' % (self.table_name, self.route, self.stop))
         elif self.period=="weekly":
-            final_approach_query = ('SELECT * FROM %s WHERE (rd=%s AND stop_id= %s AND (YEARWEEK(`timestamp`, 1) = YEARWEEK(CURDATE(), 1))) ORDER BY timestamp DESC;' % (self.table_name, self.route, self.stop))
+            final_approach_query = ('SELECT * FROM %s WHERE (rd=%s AND stop_id= %s AND (YEARWEEK(`timestamp`, 1) = YEARWEEK(CURDATE(), 1))) ORDER BY timestamp;' % (self.table_name, self.route, self.stop))
         elif self.period=="history":
-            final_approach_query = ('SELECT * FROM %s WHERE (rd=%s AND stop_id= %s) ORDER BY timestamp DESC;' % (self.table_name, self.route, self.stop))
+            final_approach_query = ('SELECT * FROM %s WHERE (rd=%s AND stop_id= %s) ORDER BY timestamp;' % (self.table_name, self.route, self.stop))
         else:
             raise RuntimeError('Bad request sucker!')
 
@@ -237,12 +237,17 @@ class StopReport:
                 arrivals_list_final_df = arrivals_list_final_df.append(arrival_insert_df)  # insert into df
 
             # calc interval between last bus for each row, fill NaNs
-            arrivals_list_final_df['delta']=(arrivals_list_final_df['timestamp'] - arrivals_list_final_df['timestamp'].shift(-1)).fillna(0)
+            arrivals_list_final_df['delta']=(arrivals_list_final_df['timestamp'] - arrivals_list_final_df['timestamp'].shift(1)).fillna(0)
 
             # housekeeping ---------------------------------------------------
 
             # set stop_name
             stop_name = arrivals_list_final_df['stop_name'].iloc[0]
+
+
+            # resort arrivals list
+            # arrivals_list_final_df.sort_values("timestamp", inplace=True)
+
             return arrivals_list_final_df, stop_name
 
         except:
