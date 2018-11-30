@@ -3,9 +3,8 @@
 ##### 23 November 2018
 
 ### *to-do punchlist
-- fix the 10pm missing in frequency chart
 - restore bunching scorecard to separate page
-- add additional periods: (e.g. 'weekly-rush hours' or 'history-late nights') or an additional set of menus user-configurable period.
+- add additional periods: (e.g. 'weekly-rush hours' or 'history-late nights') or an additional set of menus user-configurable time period
 
 # Roadmap
 

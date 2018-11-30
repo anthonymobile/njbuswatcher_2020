@@ -3,16 +3,17 @@
 
 {% block summary %}
 
-      <h1 class="display-4">
+    <h1 class="display-4">
 			{{routereport.route}} <b>{{routereport.prettyname}}</b></h1>
 
-<p class="lead">{{routereport.description_long}}</p>
+    <p class="lead">{{routereport.description_long}}</p>
 
 
-              <a target="_self" href="#stopreports" class="btn btn-indigo btn-lg">View stop reports<i class="fa fa-bus ml-2"></i></a>
-                <a target="_self" href="{{routereport.schedule_url}}" class="btn btn-indigo btn-lg">Get NJT schedule<i class="fa fa-map ml-2"></i>
-                <a target="_self" href="https://goo.gl/forms/VF5S1Oclk9QTdZha2" class="btn btn-indigo btn-lg">Sign a petition for better service<i class="fa fa-pencil-alt ml-2"></i></a>
-          </a>
+    <a target="_self" href="{{url_for('genBunchingReport',source=routereport.source,route=routereport.route)}}" class="btn btn-indigo btn-lg">View bunching report<i class="fa fa-clock ml-2"></i></a>
+    <a target="_self" href="{{routereport.schedule_url}}" class="btn btn-indigo btn-lg">Get NJT schedule<i class="fa fa-map ml-2"></i></a>
+    <a target="_self" href="https://goo.gl/forms/VF5S1Oclk9QTdZha2" class="btn btn-indigo btn-lg">Sign the petition<i class="fa fa-pencil-alt ml-2"></i></a>
+
+
 
 
 

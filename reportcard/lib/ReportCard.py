@@ -141,20 +141,37 @@ class RouteReport:
 
         bunching_leaderboard = []
 
+        cum_arrival_total = 0
+        cum_bunch_total = 0
+
         for service in self.route_stop_list:
             for stop in service.stops:
                 bunch_total = 0
+                arrival_total = 0
+
                 report = StopReport(self.route, stop.identity,period)
                 for (index, row) in report.arrivals_list_final_df.iterrows():
+                    arrival_total += 1
                     if (row.delta > report.bigbang) and (row.delta <= report.bunching_interval):
                         bunch_total += 1
-
+                cum_bunch_total = cum_bunch_total+bunch_total
+                cum_arrival_total = cum_arrival_total + arrival_total
                 bunching_leaderboard.append((stop.st, bunch_total,stop.identity))
 
         bunching_leaderboard.sort(key=itemgetter(1), reverse=True)
         bunching_leaderboard = bunching_leaderboard[:10]
 
-        return bunching_leaderboard
+        # compute grade passed on pct of all stops on route during period that were bunched
+        # brackets are in grade_description['band_lower'] and grade_description['band_lower'] for each grade
+
+        grade_numeric = (cum_bunch_total / cum_arrival_total)*100
+        for grade in self.grade_descriptions:
+            if ( int(grade['band_upper']) > grade_numeric > int(grade['band_lower'])):
+                self.grade_letter = grade['grade']
+                self.grade = grade # just in case this is persisting somewhere else
+
+
+        return bunching_leaderboard , self.grade_letter
 
 
 class StopReport:

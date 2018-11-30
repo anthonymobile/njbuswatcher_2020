@@ -131,6 +131,7 @@ def infer_stops(**kwargs):
     #--------------------------
     # TODO CONVERT GDF1 TO A LIST OF TripPosition OBJECTS
 
+    something = 0
     positions = something
 
     return positions

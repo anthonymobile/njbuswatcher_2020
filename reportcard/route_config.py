@@ -3,37 +3,6 @@
 
 
 reportcard_routes=[ \
- \
-    {'route': '1', 'grade': 'B', 'services': [('Exchange Place', '73012'), ('TK', '00000')],
-     'schedule_url': 'https://www.njtransit.com/pdf/bus/T0082.pdf',
-     'moovit_url': 'https://moovitapp.com/index/en/public_transit-line-82-NYCNJ-121-516-546379-0', \
-     'prettyname': 'Exchange Place (via Newark Ave)', \
-     'description_short': 'Tracing a long-defunct streetcar line, the 82 connects a corner of The Heights to Downtown Jersey City at Exchange Place.', \
-     'description_long': 'Following an old streetcar line defunct since 1931, the 82 provides rush-hour only, one-direction commuter service from Summit Avenue to Exchange Place and back in the evening.'},
-    {'route': '21', 'grade': 'B', 'services': [('Exchange Place', '73012'), ('TK', '00000')],
-     'schedule_url': 'https://www.njtransit.com/pdf/bus/T0082.pdf',
-     'moovit_url': 'https://moovitapp.com/index/en/public_transit-line-82-NYCNJ-121-516-546379-0', \
-     'prettyname': 'Exchange Place (via Newark Ave)', \
-     'description_short': 'Tracing a long-defunct streetcar line, the 82 connects a corner of The Heights to Downtown Jersey City at Exchange Place.', \
-     'description_long': 'Following an old streetcar line defunct since 1931, the 82 provides rush-hour only, one-direction commuter service from Summit Avenue to Exchange Place and back in the evening.'},
-    {'route': '34', 'grade': 'B', 'services': [('Exchange Place', '73012'), ('TK', '00000')],
-     'schedule_url': 'https://www.njtransit.com/pdf/bus/T0082.pdf',
-     'moovit_url': 'https://moovitapp.com/index/en/public_transit-line-82-NYCNJ-121-516-546379-0', \
-     'prettyname': 'Exchange Place (via Newark Ave)', \
-     'description_short': 'Tracing a long-defunct streetcar line, the 82 connects a corner of The Heights to Downtown Jersey City at Exchange Place.', \
-     'description_long': 'Following an old streetcar line defunct since 1931, the 82 provides rush-hour only, one-direction commuter service from Summit Avenue to Exchange Place and back in the evening.'},
-    {'route': '37', 'grade': 'B', 'services': [('Exchange Place', '73012'), ('TK', '00000')],
-     'schedule_url': 'https://www.njtransit.com/pdf/bus/T0082.pdf',
-     'moovit_url': 'https://moovitapp.com/index/en/public_transit-line-82-NYCNJ-121-516-546379-0', \
-     'prettyname': 'Exchange Place (via Newark Ave)', \
-     'description_short': 'Tracing a long-defunct streetcar line, the 82 connects a corner of The Heights to Downtown Jersey City at Exchange Place.', \
-     'description_long': 'Following an old streetcar line defunct since 1931, the 82 provides rush-hour only, one-direction commuter service from Summit Avenue to Exchange Place and back in the evening.'},
-{'route': '39', 'grade': 'B', 'services': [('Exchange Place', '73012'), ('TK', '00000')],
-     'schedule_url': 'https://www.njtransit.com/pdf/bus/T0082.pdf',
-     'moovit_url': 'https://moovitapp.com/index/en/public_transit-line-82-NYCNJ-121-516-546379-0', \
-     'prettyname': 'Exchange Place (via Newark Ave)', \
-     'description_short': 'Tracing a long-defunct streetcar line, the 82 connects a corner of The Heights to Downtown Jersey City at Exchange Place.', \
-     'description_long': 'Following an old streetcar line defunct since 1931, the 82 provides rush-hour only, one-direction commuter service from Summit Avenue to Exchange Place and back in the evening.'},
 
     {'route':'82','grade':'B','services':[('Exchange Place','73012'),('TK','00000')],'schedule_url':'https://www.njtransit.com/pdf/bus/T0082.pdf','moovit_url':'https://moovitapp.com/index/en/public_transit-line-82-NYCNJ-121-516-546379-0',\
      'prettyname':'Exchange Place (via Newark Ave)',\
@@ -89,9 +58,9 @@ reportcard_routes=[ \
     ]
 
 grade_descriptions=[ \
-    {'grade':'A', 'description':'Service is provided in line with rider expectations of reliability, capacity, and quality.'},
-    {'grade':'B', 'description':'Service is usually good but occaissionaly falls short of rider expectations.'},
-    {'grade':'C', 'description':'Service meets the needs of riders some of the time, but suffers from serious shortcomings and gaps. Focused action is required to improve service in the near-term.'},
-    {'grade':'D', 'description':'Service frequently fails to meet the needs of riders, and requires substantial effort at improvement.'},
-    {'grade':'F', 'description':'Service frequently fails to meeting rider needs and expectations. Immediate action required to achieve minimum level of service.'}\
+    {'grade':'A', 'description':'Service is provided in line with rider expectations of reliability, capacity, and quality.', 'band_lower':'0', 'band_upper':'5'},
+    {'grade':'B', 'description':'Service is usually good but occaissionaly falls short of rider expectations.', 'band_lower':'5', 'band_upper':'10'},
+    {'grade':'C', 'description':'Service meets the needs of riders some of the time, but suffers from serious shortcomings and gaps. Focused action is required to improve service in the near-term.', 'band_lower':'10', 'band_upper':'15'},
+    {'grade':'D', 'description':'Service frequently fails to meet the needs of riders, and requires substantial effort at improvement.', 'band_lower':'15', 'band_upper':'20'},
+    {'grade':'F', 'description':'Service frequently fails to meeting rider needs and expectations. Immediate action required to achieve minimum level of service.', 'band_lower':'20', 'band_upper':'100'}\
     ]
