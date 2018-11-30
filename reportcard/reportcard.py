@@ -185,10 +185,10 @@ def _jinja2_filter_hour_as_int(hour):
         pretty_time = ("{a} am").format(a=hour)
     elif hour == 12:
         pretty_time = ("12 pm")
-    elif (hour > 12 and hour < 22):
+    elif (hour > 12 and hour < 24):
         hour = hour -12
         pretty_time = (" {a} pm").format(a=hour)
-    elif hour > 22:
+    elif hour > 23:
         hour = hour - 12
         pretty_time = ("{a} pm").format(a=hour)
     return pretty_time
