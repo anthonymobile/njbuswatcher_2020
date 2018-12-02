@@ -47,22 +47,6 @@ def positions2geojson(df):
 
 def get_positions_byargs(args):
 
-    # database initialization
-    db = BusRouteLogsDB.MySQL('buses', 'buswatcher', 'njtransit', db_server, args['rt'])
-    conn = db.conn
-
-    table_name = 'routelog_' + args['rt']
-
-
-    sql_insert=str()
-    for key, value in list(args.items()):
-        if key == 'period':
-            pass
-        else:
-            _sql_snippet = (" AND {}={}").format(key,value)
-            sql_insert+=_sql_snippet
-    sql_insert=("("+sql_insert+")")
-
     # NOW - get current positions from NJT API and setup as a dataframe like others
     if args['period'] == "now":
         positions = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data('nj', 'buses_for_route', route=args['rt']))
@@ -92,6 +76,23 @@ def get_positions_byargs(args):
 
     # HISTORICAL GET FROM DB
     else:
+
+        # database initialization
+        db = BusRouteLogsDB.MySQL('buses', 'buswatcher', 'njtransit', db_server, args['rt'])
+        conn = db.conn
+
+        table_name = 'routelog_' + args['rt']
+
+        sql_insert = str()
+        for key, value in list(args.items()):
+            if key == 'period':
+                pass
+            else:
+                _sql_snippet = (" AND {}={}").format(key, value)
+                sql_insert += _sql_snippet
+        sql_insert = ("(" + sql_insert + ")")
+
+
         if args['period'] == "daily":
             query = ('SELECT * FROM %s WHERE (%s AND DATE(`timestamp`)=CURDATE() ) ORDER BY timestamp DESC;' % (table_name, sql_insert))
         elif args['period']  == "yesterday":
@@ -116,7 +117,6 @@ def get_positions_byargs(args):
         positions_geojson = positions2geojson(positions_log)
 
     return positions_geojson
-
 
 
 def get_arrivals_byargs(args):
