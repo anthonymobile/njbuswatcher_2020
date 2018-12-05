@@ -1,9 +1,9 @@
 # Bus Rider Report Card 
 ### v 1.5
-##### 23 November 2018
+##### 3 December 2018
 
 ### *to-do punchlist
-- restore bunching scorecard to separate page
+- finish JS port of getBusesForRoute to client
 - add additional periods: (e.g. 'weekly-rush hours' or 'history-late nights') or an additional set of menus user-configurable time period
 
 # Roadmap
@@ -11,7 +11,7 @@
 #### A. New Localizer
 This is the main engine that infers when buses are calling at stops. This more direct method will use actual reported bus locations and infer stop calls against stop locations -- versus the current stopwatcher.py mechanism that uses a separate NJT API call providing predicted bus arrival times by stop. It's similar to Transit Center's *inferno* script but much less complicated.
 
-######1.	Localizer algorithm
+- Localizer algorithm
     - X Sort position records by direction (‘dd’)
 	- X Run them through stop_imputer
 	-  how do we decide when a stop call has been made?
@@ -21,7 +21,7 @@ This is the main engine that infers when buses are calling at stops. This more d
         - could used a dummy location "00000" for "undetermined" if we want to be able to go bcak and retry.
         
 	
-######2.	Trip class
+- Trip class
 	- PURPOSE
 	    - provides a rigorous structure for recording stop calls without data integrity and no redundancy
 	    - prevents us from overwriting, or accidentally recording additional stops when vehicle paths re-cross previous routes (e.g. 87 buses going down to Hoboken getting re-logged on Palisade Av)
@@ -34,7 +34,7 @@ This is the main engine that infers when buses are calling at stops. This more d
         - schedule adherence: once we integrate with GTFS
 	
 
-#####2. Test_Localizer
+- Test_Localizer
     - add loop to look up stop name (for easier diagnostics)
     - simplify output
         - print each bus in a different column?
@@ -44,9 +44,16 @@ This is the main engine that infers when buses are calling at stops. This more d
             -  "bus 43434 is at Congress St and Webster Av"
 
 #### B. Reliability Grade
-1. ask Eric what the correct metric is (# of standard deviations for total start to end trip time?) e.g. how often does it get worse than the average 
-2. compute on each page view, write to db?, write to route_config.py?
-3. add to page
+Examples of bus metrics
+- [MBTA Back on Track](http://www.mbtabackontrack.com/performance/index.html#/detail/reliability/2018-12-01/Bus/Key%20Bus/1/)
+- [BusTurnaround:Scorecards - Transit Center](http://busturnaround.nyc/#bus-report-cards)
+- [NYC Bus Profile (BusStat.nyc)](http://www.busstat.nyc/methodology)
+
+Other considerations
+
+- (# of standard deviations for total start to end trip time?) e.g. how often does it get worse than the average 
+- compute on each page view, write to db?, write to route_config.py?
+- add to page
     - as letter grade and description, or
     - as literal: e.g. 'TODAY IS TYPICAL. TODAY IS WORSE THAN USUAL.'
     - dtop level metrics: - stop.html: THIS STATION USUALLY HAS DECENT SERVICE or THIS STATION HAS GOOD SERVICE TODAY or something like that.
