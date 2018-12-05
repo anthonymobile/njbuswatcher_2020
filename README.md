@@ -1,11 +1,63 @@
 # Bus Rider Report Card 
-### v 1.5
-##### 3 December 2018
+### v 1.6
+##### 5 December 2018
 
 ### *to-do punchlist
-- finish JS port of getBusesForRoute to client
-- add additional periods: (e.g. 'weekly-rush hours' or 'history-late nights') or an additional set of menus user-configurable time period
+- look for NJT ridership data at NJT or APTA
+- metrics planning
+    - classify in ROUTE_CONFIG.PY each route as 'high-frequency' or 'low-frequency' (< or > 4 buses per hour)
 
+    - reliability has 2 components:
+        - headway
+            - average for all buses the time the route ahead (20 min)
+            - standard deviation (e.g. 68% of the buses will be either +10 min or -10 min)
+            - embeds the bunching aspect
+            - compare against the scheduled frequency
+            - 5 minutes is the threshold (its reasonable to be 10 minutes late, not to be 30)
+            - novel: "The Management of Headway"
+        - travel time
+            - average only for buses that have completed the whole run
+                - makes more sense and makes implement easier
+                - option to let riders do more granular reports like "average travel time between 2 stops"
+        - travel speed
+            - do the same as travel time, based on route distance
+            - dig into the route if we see a huge standard deviation
+        - bunching badboys
+            - on a chart
+            - or on the dynamic map (make the bunched buses change color)
+                
+        - [bunching classifcation buckets](https://docs.google.com/spreadsheets/d/1ScjLm2Hz147-1vMb8tpP7BkKrkm8dJunZzNdnQu7Kg8/edit#gid=0) for grades from Transit Center 
+        
+
+- rebuild route report page
+    - put on a new template, route-report.html
+    - sections
+        - average speed
+            - ground speed calculator
+                - add to route bunching_report
+                - load t1 from get_arrivals
+                - load t2 from get_arrivals
+                - get street distance d from ?mapbox?
+                - r = d/(t2-t1)
+        - grade
+        - bunching report
+            - write / rewrite ReportCard.py code
+                - hard code period = 'weekly'
+                - make sure cache is on, 24 hour expire
+                - compute numeric grade as ratio bunched_arrivals / all_arrivals -- all trips
+    - add a new route to reportcard.py
+    - create a nav to flip back and forth between route.html (stop list view) and route-bunching.html (route bunching report)
+    
+    - add the grade intervals the the route_config.py ‘grade_description’ dict
+
+- stop report page: add additional period options
+    - rush hours (as a toggle?)
+    - weekdays (as a toggle?)
+    - owl (as a toggle?)
+    - date picker
+    - date range picker
+    - others?
+    
 # Roadmap
 
 #### A. New Localizer
