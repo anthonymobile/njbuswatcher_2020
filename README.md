@@ -3,52 +3,14 @@
 ##### 5 December 2018
 
 ### *to-do punchlist
-- look for NJT ridership data at NJT or APTA
-- metrics planning
-    - classify in ROUTE_CONFIG.PY each route as 'high-frequency' or 'low-frequency' (< or > 4 buses per hour)
 
-    - reliability has 2 components:
-        - headway
-            - average for all buses the time the route ahead (20 min)
-            - standard deviation (e.g. 68% of the buses will be either +10 min or -10 min)
-            - embeds the bunching aspect
-            - compare against the scheduled frequency
-            - 5 minutes is the threshold (its reasonable to be 10 minutes late, not to be 30)
-            - novel: "The Management of Headway"
-        - travel time
-            - average only for buses that have completed the whole run
-                - makes more sense and makes implement easier
-                - option to let riders do more granular reports like "average travel time between 2 stops"
-        - travel speed
-            - do the same as travel time, based on route distance
-            - dig into the route if we see a huge standard deviation
-        - bunching badboys
-            - on a chart
-            - or on the dynamic map (make the bunched buses change color)
-                
-        - [bunching classifcation buckets](https://docs.google.com/spreadsheets/d/1ScjLm2Hz147-1vMb8tpP7BkKrkm8dJunZzNdnQu7Kg8/edit#gid=0) for grades from Transit Center 
-        
-
-- rebuild route report page
-    - put on a new template, route-report.html
-    - sections
-        - average speed
-            - ground speed calculator
-                - add to route bunching_report
-                - load t1 from get_arrivals
-                - load t2 from get_arrivals
-                - get street distance d from ?mapbox?
-                - r = d/(t2-t1)
-        - grade
-        - bunching report
-            - write / rewrite ReportCard.py code
-                - hard code period = 'weekly'
-                - make sure cache is on, 24 hour expire
-                - compute numeric grade as ratio bunched_arrivals / all_arrivals -- all trips
-    - add a new route to reportcard.py
-    - create a nav to flip back and forth between route.html (stop list view) and route-bunching.html (route bunching report)
-    
-    - add the grade intervals the the route_config.py ‘grade_description’ dict
+- Divide routes in 'high-frequency' or 'low-frequency' (< or > 4 buses per hour) + classify in `route_config.py`
+- revise the grade intervals in `grade_descriptions.py` to match 
+< 2.5% A
+2.5-5% B
+5-10% C
+10-15% D
+> 15% F
 
 - stop report page: add additional period options
     - rush hours (as a toggle?)
@@ -57,71 +19,97 @@
     - date picker
     - date range picker
     - others?
-    
+   
+            
 # Roadmap
 
-#### A. New Localizer
+
+#### A1. Route Performance Metrics
+
+##### Reference
+Examples of transit agency and transit advocate bus metrics:
+- [MBTA Back on Track](http://www.mbtabackontrack.com/performance/index.html#/detail/reliability/2018-12-01/Bus/Key%20Bus/1/)
+- [BusTurnaround:Scorecards - Transit Center](http://busturnaround.nyc/#bus-report-cards)
+- [NYC Bus Profile (BusStat.nyc)](http://www.busstat.nyc/methodology)
+
+
+##### Data Basis: Trip Class
+
+**Description.**
+The basis for all route performance metrics are Trips, represented in buswatcher by the `Trip` class. `Trip` instances are created by `tripwatcher.py` as needed to hold `BusPosition` instances (`BusPosition` is an inner class of `Trip`. `TripDB` instances handle writing to the database.
+
+**Data Acquisition.** `tripwatcher.py` fetches bus current locations for a route from the NJT API, creates a `Trip` instance for each, and populates it with a `BusPosition` instance for each observed position. `TripDB` is called to write to the database, creating a table for that route (e.g. `triplog_87`). Since timestamps will always be different, no checks are made for duplicates. Each record is stamped with a unique trip identifier `(v,run,date)` (where date=YYYY-MM-DD) combination, e.g. `4356_305_20181004`.
+
+**Average Headway.** This provides a way of capturing the bunching in a single, easily understood metric. We can also report variability using standard deviation and that can be converted to a letter grade (e.g. A is < 1 s.d., B is 1 to 1.5, etc.) Example:
+
+```Route 87 has an average headway of 20 minutes, with a service dependability grade of B. That means 80 percent of the time the bus will come every 10 to 30 minutes.``` (This needs wordsmithing!)
+
+*Implementation.*
+For all completed trips in `{period}`, sampling every n minutes, what is the average travel time interval between buses along the route? 
+
+- *Using Old Localizer:* Calculate by looking at the last two arrivals for every stop and using that as the average headway at that stop for that sample point, average over all the measurements.
+
+- *Using New Localizer:* Calculate the on-the-road-Directions-API travel time between each two buses in the Trip and average over all the measurements.
+    
+
+**Average Travel Time.** This indicates how long it takes, on average for all observed runs over the `{period}`, to travel from STOP A to STOP B.
+
+- On ROUTE VIEW, user chooses the two stops from 'Travel Time Report' drop downs.
+- Algorithm
+    - SELECT all calls at the two stops in the period in question from `routelog_87`
+    - create `Trip` instances for each unique (v,run,date) and calculate travel time between the two stops (set in property `Trip.travel_time_a_to_b` or some such)
+    - average over the entire group
+   
+**Average Travel Speed.** Calculate over entire route. If there are trouble spots, in the future, we can calculate this at every observed position with New Localizer. 
+
+
+#### A2. Stop Performance Metrics
+
+- as letter grade and description, or
+- as literal: e.g. 'TODAY IS TYPICAL. TODAY IS WORSE THAN USUAL.'
+- stop level metrics: - stop.html: THIS STATION USUALLY HAS DECENT SERVICE or THIS STATION HAS GOOD SERVICE TODAY or something like that.
+
+
+#### B. New Localizer
 This is the main engine that infers when buses are calling at stops. This more direct method will use actual reported bus locations and infer stop calls against stop locations -- versus the current stopwatcher.py mechanism that uses a separate NJT API call providing predicted bus arrival times by stop. It's similar to Transit Center's *inferno* script but much less complicated.
 
-- Localizer algorithm
-    - X Sort position records by direction (‘dd’)
-	- X Run them through stop_imputer
+- Localizer algorithm / Stop Inferrer
+    - Sort position records by direction (‘dd’)
+	- Run them through stop_inferrer
 	-  how do we decide when a stop call has been made?
         - look back at the sequence of approaches and pick the min?
-        - log that as a call "point of closest observed appraoch" (and the metadata including lat,lon,time,distance for later )
+        - log that as a call "point of closest observed approach" (and the metadata including lat,lon,time,distance for later )
         - frequency of fetch? 30 seconds? how far will a bus move at 30 mph? 1320 feet (almost 1/4 mile)... 15 seconds?
-        - could used a dummy location "00000" for "undetermined" if we want to be able to go bcak and retry.
-        
-	
+        - could used a dummy location "00000" for "undetermined" if we want to be able to go back and retry.
+    
 - Trip class
 	- PURPOSE
 	    - provides a rigorous structure for recording stop calls without data integrity and no redundancy
 	    - prevents us from overwriting, or accidentally recording additional stops when vehicle paths re-cross previous routes (e.g. 87 buses going down to Hoboken getting re-logged on Palisade Av)
     - IMPLEMENTATION
-        - rip object that has unique ID concatenation of v_tripid_date
-	    - each time a unique vehicle-trip-date combination is seen for first time, a list of subclasses is created (like the Path.Point in Route class), built dynamically by grabbing the service definition from getRoutePoints
-	    - the subclasses can be StopCalls and optionally PositionCrumbs
-    - ANALYTICS
-        - reliability: can be used to compute stop to stop travel times
-        - schedule adherence: once we integrate with GTFS
-	
-
-- Test_Localizer
-    - add loop to look up stop name (for easier diagnostics)
-    - simplify output
-        - print each bus in a different column?
-        - or tester output should be recoded to just
-            - "bus 43434 is between stops A and B"
-            - "bus 43434 is approaching Congress St and Webster Av"
-            -  "bus 43434 is at Congress St and Webster Av"
-
-#### B. Reliability Grade
-Examples of bus metrics
-- [MBTA Back on Track](http://www.mbtabackontrack.com/performance/index.html#/detail/reliability/2018-12-01/Bus/Key%20Bus/1/)
-- [BusTurnaround:Scorecards - Transit Center](http://busturnaround.nyc/#bus-report-cards)
-- [NYC Bus Profile (BusStat.nyc)](http://www.busstat.nyc/methodology)
-
-Other considerations
-
-- (# of standard deviations for total start to end trip time?) e.g. how often does it get worse than the average 
-- compute on each page view, write to db?, write to route_config.py?
-- add to page
-    - as letter grade and description, or
-    - as literal: e.g. 'TODAY IS TYPICAL. TODAY IS WORSE THAN USUAL.'
-    - dtop level metrics: - stop.html: THIS STATION USUALLY HAS DECENT SERVICE or THIS STATION HAS GOOD SERVICE TODAY or something like that.
-
-
-### C. Charts
+        - Trip object that has unique ID concatenation of `v_tripid_date`
+	    - each time a unique `v_tripid_date` combination is seen for first time, a list of `StopCall` instances is created
+	    - as stop calls are inferred, the property of the BusPosition instance that was inferred as a stop call is copied into the `StopCall` instance for that stop.
+	    - we end up with a `Trip` instance that has one `StopCall` for every stop on the run, but some of which are null/empty. these can be interpolated perhaps	     
+	    - StopCalls are not written to the db, ever. only inferred on the fly to generate reports. this is so that we maintain data integrity. This may change later if we have performance issues, but hopefully we are processing very small tables of a few thousand records.
+	    
+### B. Charts and Maps
 Implement with Chart.js
-1. route page
-    - route diagrams showing line, stops, current bus locations
-2. stop page
-    - dot column (like nobel prize chart) on arrival list showing frequency by hour
-        - implement by concatenating the 3 nobel scripts into one external javascript and calling from route-base.html, passing the same {{arrivals_list_final_df|tojson}} to it
-    - bar column for service frequency
-3. restore bunching report
-    - to (pop-up?) page off route report page
-    - fix caching for bunching_report (doesnt work?)
+1. bus frequency symbol histogram (STOP report)
+    - histogram showing how many buses arrived at stop during each 30 minute bin
+    - modeled after [Nobel prize D3 viz](https://github.com/Kyrand/dataviz-with-python-and-js/tree/master/nobel_viz_D3_V4) from Python+JS book
+        - implementation: concatenate the 3 nobel scripts (core,main,time)
+        - 30 minute bins
+    - optional: show all buses on all routes arriving, each route different color? (would require add/rewrite lib.StopReport) 
+2. ridership dataviz
+    - get from NJT or APTA
+    
+3. Map Improvements
+    - Show Congestion
+        - change color of bunching buses on the map? 
+        - indicate congested route segments   
+
+        
 
 
     
