@@ -70,7 +70,6 @@ class RouteReport:
 
         # populate report card data
         self.routename, self.waypoints_coordinates, self.stops_coordinates, self.waypoints_geojson, self.stops_geojson = self.get_routename(self.route)
-        self.get_servicelist()
         self.compute_grade()
         self.route_stop_list = self.get_stoplist(self.route)
         # self.bunching_leaderboard = self.get_bunching_leaderboard('daily',self.route)
@@ -80,29 +79,16 @@ class RouteReport:
         routedata, waypoints_coordinates, stops_coordinates,waypoints_geojson, stops_geojson = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=route))
         return routedata[0].nm, waypoints_coordinates, stops_coordinates, waypoints_geojson, stops_geojson
 
-    def get_servicelist(self):
-        for route in self.reportcard_routes:
-            if route['route'] == self.route:
-                self.servicelist = []
-                for service in route['services']:
-                    insertion = {'destination':service[0],'service_id':service[1]}
-                    self.servicelist.append(insertion)
-                # populate servicelist with stoplist?
-                # for service in self.servicelist:
-                #   how to do it?
-        return
-
-
     def compute_grade(self):
         # for now, grade is coded manually in route_config.py
         # FUTURE fancier grade calculation based on historical data
         for route in self.reportcard_routes:
             if route['route'] == self.route:
                 self.grade = route['grade']
+                self.frequency = route['frequency']
                 self.description_long = route['description_long']
                 self.prettyname = route['prettyname']
                 self.schedule_url = route['schedule_url']
-                self.moovit_url = route['moovit_url']
                 for entry in self.grade_descriptions:
                     if self.grade == entry['grade']:
                         self.grade_description = entry['description']
