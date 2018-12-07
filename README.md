@@ -82,7 +82,7 @@ This is the main engine that infers when buses are calling at stops. This more d
         - frequency of fetch? 30 seconds? how far will a bus move at 30 mph? 1320 feet (almost 1/4 mile)... 15 seconds?
         - could used a dummy location "00000" for "undetermined" if we want to be able to go back and retry.
     
-- Trip class
+- `Trip` class
 	- PURPOSE
 	    - provides a rigorous structure for recording stop calls without data integrity and no redundancy
 	    - prevents us from overwriting, or accidentally recording additional stops when vehicle paths re-cross previous routes (e.g. 87 buses going down to Hoboken getting re-logged on Palisade Av)
@@ -173,7 +173,7 @@ Buswatcher is a set of Python scripts and web apps to collect bus position and s
 
 Check out a live version focusing on Jersey City Heights [buswatcher.code4jc.org](http://buswatcher.code4jc.org)
 
-The app is more of less skinnable for an NJ community with a minimum of re-configuration:
+The app is more of less skinnable for any NJ community with a minimum of re-configuration:
 - route_config.py - holds all route numbers and descriptions
 - cron jobs (need to setup stopwatcher.py and routewatcher.py for each route tracked)
 
