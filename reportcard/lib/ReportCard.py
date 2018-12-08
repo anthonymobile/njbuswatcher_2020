@@ -13,29 +13,6 @@ except:
 # import app libraries
 from . import StopsDB, BusAPI, TripsDB
 
-# setup cache
-from easy_cache import ecached
-from django.conf import settings
-settings.configure(DEBUG=True, DJANGO_SETTINGS_MODULE="mysite_django.settings")
-
-def get_cache_timeout(self,route,stop,period):
-    if period == "hourly":
-        cache_timeout = 60 # 1 min
-    elif period == "daily":
-        cache_timeout = 3600  # 1 hour
-    elif period == "yesterday":
-        cache_timeout = 86400  # 1 day
-    elif period == "weekly":
-        cache_timeout = 86400  # 1 day
-    elif period == "history":
-        cache_timeout = 604800  # 1 week
-    else:
-        raise RuntimeError('Bad request sucker!')
-    return cache_timeout
-
-# def invalidate_cache(n):
-#     time_consuming_operation.invalidate_cache_by_key(n)
-
 # common functions
 def timestamp_fix(data): # trim the microseconds off the timestamp and convert it to datetime format
     data['timestamp'] = data['timestamp'].str.split('.').str.get(0)
@@ -74,7 +51,7 @@ class RouteReport:
         self.route_stop_list = self.get_stoplist(self.route)
         # self.bunching_leaderboard = self.get_bunching_leaderboard('daily',self.route)
 
-    # @ecached('get_routename:{route}', timeout=86400) # cache per route, 24 hour expire
+
     def get_routename(self,route):
         routedata, waypoints_coordinates, stops_coordinates,waypoints_geojson, stops_geojson = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=route))
         return routedata[0].nm, waypoints_coordinates, stops_coordinates, waypoints_geojson, stops_geojson
@@ -103,7 +80,6 @@ class RouteReport:
         return
 
 
-    # ecached gives a pickling error on Route.Path here
     def get_stoplist(self, route):
         routedata, waypoints_coordinates, stops_coordinates, waypoints_geojson, stops_geojson = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=self.route))
         route_stop_list = []
@@ -121,7 +97,6 @@ class RouteReport:
             route_stop_list.append(path_list)
         return route_stop_list[0] # transpose a single copy since the others are all repeats (can be verified by path ids)
 
-    @ecached('get_bunching_leaderboard:{route}:{period}', timeout=3600) # cache per route, period, 1 hour expire
     def get_bunching_leaderboard(self, period, route):
         # generates top 10 list of stops on the route by # of bunching incidents for period
 
@@ -152,9 +127,11 @@ class RouteReport:
 
         try:
             grade_numeric = (cum_bunch_total / cum_arrival_total)*100
+            self.grade_numeric = grade_numeric
             for grade in self.grade_descriptions:
                 if int(grade['band_upper']) >= grade_numeric > int(grade['band_lower']):
                     self.grade = grade['grade']
+
                 else:
                     pass
         except:
@@ -168,7 +145,7 @@ class RouteReport:
                 self.grade_description = entry['description']
 
 
-        return bunching_leaderboard , self.grade, self.grade_description
+        return bunching_leaderboard, self.grade, self.grade_numeric, self.grade_description
 
 
 class StopReport:
@@ -192,8 +169,6 @@ class StopReport:
         self.bunching_interval = datetime.timedelta(minutes=3)
         self.bigbang = datetime.timedelta(seconds=0)
 
-
-    @ecached('get_arrivals:{route}:{stop}:{period}', timeout=get_cache_timeout) # dynamic timeout
     def get_arrivals(self,route,stop,period):
 
         if self.period == "daily":
@@ -230,7 +205,6 @@ class StopReport:
             # set stop_name
             stop_name = arrivals_list_final_df['stop_name'].iloc[0]
 
-
             # resort arrivals list
             # arrivals_list_final_df.sort_values("timestamp", inplace=True)
 
@@ -245,8 +219,6 @@ class StopReport:
             self.arrivals_table_time_created = datetime.datetime.now()
             return arrivals_list_final_df, stop_name
 
-
-    @ecached('get_hourly_frequency:{route}:{stop}:{period}', timeout=get_cache_timeout)
     def get_hourly_frequency(self,route, stop, period):
 
         results = pd.DataFrame()
@@ -267,9 +239,3 @@ class StopReport:
             results = pd.DataFrame()
 
         return results
-
-
-
-# // TripReport is populated from the database automagically based on passed parameters
-# // route, run, bus id, date in 20181101 format?
-#

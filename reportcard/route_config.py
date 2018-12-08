@@ -105,11 +105,11 @@ reportcard_routes=[ \
     ]
 
 grade_descriptions=[ \
-    {'grade':'A', 'description':'Service is provided in line with rider expectations of reliability, capacity, and quality.', 'band_lower':'0', 'band_upper':'5'},
-    {'grade':'B', 'description':'Service is usually good but occasionally falls short of rider expectations.', 'band_lower':'5', 'band_upper':'10'},
-    {'grade':'C', 'description':'Service meets the needs of riders some of the time, but suffers from serious shortcomings and gaps. Focused action is required to improve service in the near-term.', 'band_lower':'10', 'band_upper':'15'},
-    {'grade':'D', 'description':'Service frequently fails to meet the needs of riders, and requires substantial effort at improvement.', 'band_lower':'15', 'band_upper':'20'},
-    {'grade':'F', 'description':'Service frequently fails to meeting rider needs and expectations. Immediate action required to achieve minimum level of service.', 'band_lower':'20', 'band_upper':'100'},
-    {'grade': 'N/A','description': 'No grade avaialble. Insufficient data to calculate a score for this period',
+    {'grade':'A', 'description':'Service is provided in line with rider expectations of reliability, capacity, and quality.', 'band_lower':'0', 'band_upper':'2.5'},
+    {'grade':'B', 'description':'Service is usually good but occasionally falls short of rider expectations.', 'band_lower':'2.5', 'band_upper':'5'},
+    {'grade':'C', 'description':'Service meets the needs of riders some of the time, but suffers from serious shortcomings and gaps. Focused action is required to improve service in the near-term.', 'band_lower':'5', 'band_upper':'10'},
+    {'grade':'D', 'description':'Service frequently fails to meet the needs of riders, and requires substantial effort at improvement.', 'band_lower':'10', 'band_upper':'15'},
+    {'grade':'F', 'description':'Service frequently fails to meeting rider needs and expectations. Immediate action required to achieve minimum level of service.', 'band_lower':'15', 'band_upper':'100'},
+    {'grade': 'N/A','description': 'No grade available. Insufficient data to calculate a score for this period',
      'band_lower': '-1', 'band_upper': '0'} \
     ]

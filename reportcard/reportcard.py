@@ -9,11 +9,12 @@ from flask import Flask, render_template, request
 from flask_bootstrap import Bootstrap
 from flask import jsonify, make_response, send_from_directory
 from flask_cors import CORS, cross_origin
-import geojson
+
 import logging
 import lib.ReportCard as ReportCard
 import lib.BusAPI as BusAPI
 import lib.WebAPI as WebAPI
+
 
 ################################################
 # APP
@@ -22,6 +23,13 @@ import lib.WebAPI as WebAPI
 app = Flask(__name__, static_url_path='/static')
 CORS(app, support_credentials=True)
 Bootstrap(app)
+
+################################################
+# SETUP CACHE
+################################################
+from flask_caching import Cache
+cache = Cache(app,config={'CACHE_TYPE': 'redis','CACHE_REDIS_HOST' : '127.0.0.1', 'CACHE_REDIS_PORT' : '6379'})
+
 
 ################################################
 # LOGGING
@@ -78,6 +86,7 @@ def displayHome():
     return render_template('index.html', citywide_waypoints_geojson=citywide_waypoints_geojson, citywide_stops_geojson=citywide_stops_geojson,routereport=routereport,reportcard_routes=reportcard_routes)
 
 #2 route report
+@cache.cached(timeout=3600) # cache for 1 hour
 @app.route('/<source>/<route>')
 def genRouteReport(source, route):
     routereport=ReportCard.RouteReport(source,route,reportcard_routes,grade_descriptions)
@@ -85,17 +94,19 @@ def genRouteReport(source, route):
     return render_template('route.html', routereport=routereport)
 
 #3 route bunching report
+@cache.cached(timeout=86400) # cache for 1 day
 @app.route('/<source>/<route>/bunching')
 def genBunchingReport(source, route):
     routereport = ReportCard.RouteReport(source, route, reportcard_routes, grade_descriptions)
     period='weekly'
-    bunchingreport, grade_letter, grade_description = routereport.get_bunching_leaderboard(period,route)
+    bunchingreport, grade_letter, grade_numeric, grade_description = routereport.get_bunching_leaderboard(period,route)
 
-    return render_template('route-bunching.html', routereport=routereport, bunchingreport=bunchingreport, period=period, grade_letter=grade_letter, grade_description=grade_description)
+    return render_template('route-bunching.html', routereport=routereport, bunchingreport=bunchingreport, period=period, grade_letter=grade_letter, grade_numeric=grade_numeric, grade_description=grade_description)
 
 
 
 # 4 stop report
+@cache.cached(timeout=60) # cache for 1 minute
 @app.route('/<source>/<route>/stop/<stop>/<period>')
 def genStopReport(source, route, stop, period):
     stopreport = ReportCard.StopReport(route, stop, period)

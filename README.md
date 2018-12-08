@@ -4,13 +4,11 @@
 
 ### *to-do punchlist
 
+- verify flask-caching is working w/ debugger
+     - test caching functions in ReportCard.py 
+- fix bunching grade letter assignment
 - Divide routes in 'high-frequency' or 'low-frequency' (< or > 4 buses per hour) + classify in `route_config.py`
-- revise the grade intervals in `grade_descriptions.py` to match 
-< 2.5% A
-2.5-5% B
-5-10% C
-10-15% D
-> 15% F
+
 
 - stop report page: add additional period options
     - rush hours (as a toggle?)
