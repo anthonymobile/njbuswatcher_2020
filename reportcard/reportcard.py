@@ -28,8 +28,7 @@ Bootstrap(app)
 # SETUP CACHE
 ################################################
 from flask_caching import Cache
-cache = Cache(app,config={'CACHE_TYPE': 'redis','CACHE_REDIS_HOST' : '127.0.0.1', 'CACHE_REDIS_PORT' : '6379'})
-
+cache = Cache(app,config={'CACHE_TYPE': 'simple'})
 
 ################################################
 # LOGGING
@@ -86,16 +85,16 @@ def displayHome():
     return render_template('index.html', citywide_waypoints_geojson=citywide_waypoints_geojson, citywide_stops_geojson=citywide_stops_geojson,routereport=routereport,reportcard_routes=reportcard_routes)
 
 #2 route report
-@cache.cached(timeout=3600) # cache for 1 hour
 @app.route('/<source>/<route>')
+@cache.cached(timeout=3600) # cache for 1 hour
 def genRouteReport(source, route):
     routereport=ReportCard.RouteReport(source,route,reportcard_routes,grade_descriptions)
 
     return render_template('route.html', routereport=routereport)
 
 #3 route bunching report
-@cache.cached(timeout=86400) # cache for 1 day
 @app.route('/<source>/<route>/bunching')
+@cache.cached(timeout=86400) # cache for 1 day
 def genBunchingReport(source, route):
     routereport = ReportCard.RouteReport(source, route, reportcard_routes, grade_descriptions)
     period='weekly'
@@ -106,8 +105,8 @@ def genBunchingReport(source, route):
 
 
 # 4 stop report
-@cache.cached(timeout=60) # cache for 1 minute
 @app.route('/<source>/<route>/stop/<stop>/<period>')
+@cache.cached(timeout=60) # cache for 1 minute
 def genStopReport(source, route, stop, period):
     stopreport = ReportCard.StopReport(route, stop, period)
     hourly_frequency = stopreport.get_hourly_frequency(route, stop, period)
