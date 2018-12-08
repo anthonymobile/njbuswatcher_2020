@@ -96,11 +96,17 @@ def genRouteReport(source, route):
 @app.route('/<source>/<route>/bunching')
 @cache.cached(timeout=86400) # cache for 1 day
 def genBunchingReport(source, route):
+
     routereport = ReportCard.RouteReport(source, route, reportcard_routes, grade_descriptions)
     period='weekly'
-    bunchingreport, grade_letter, grade_numeric, grade_description = routereport.get_bunching_leaderboard(period,route)
-
+    bunchingreport, grade_letter, grade_numeric, grade_description = routereport.load_bunching_leaderboard( route)
     return render_template('route-bunching.html', routereport=routereport, bunchingreport=bunchingreport, period=period, grade_letter=grade_letter, grade_numeric=grade_numeric, grade_description=grade_description)
+
+    # routereport = ReportCard.RouteReport(source, route, reportcard_routes, grade_descriptions)
+    # period='weekly'
+    # bunchingreport, grade_letter, grade_numeric, grade_description = routereport.generate_bunching_leaderboard(period,route)
+    #
+    # return render_template('route-bunching.html', routereport=routereport, bunchingreport=bunchingreport, period=period, grade_letter=grade_letter, grade_numeric=grade_numeric, grade_description=grade_description)
 
 
 

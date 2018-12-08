@@ -1,4 +1,4 @@
-import datetime, time, sys
+import datetime, pickle
 from operator import itemgetter
 import pandas as pd
 
@@ -11,7 +11,7 @@ except:
     db_server = '127.0.0.1'
 
 # import app libraries
-from . import StopsDB, BusAPI, TripsDB
+from . import StopsDB, BusAPI
 
 # common functions
 def timestamp_fix(data): # trim the microseconds off the timestamp and convert it to datetime format
@@ -50,7 +50,6 @@ class RouteReport:
         self.compute_grade()
         self.route_stop_list = self.get_stoplist(self.route)
         # self.bunching_leaderboard = self.get_bunching_leaderboard('daily',self.route)
-
 
     def get_routename(self,route):
         routedata, waypoints_coordinates, stops_coordinates,waypoints_geojson, stops_geojson = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=route))
@@ -97,7 +96,7 @@ class RouteReport:
             route_stop_list.append(path_list)
         return route_stop_list[0] # transpose a single copy since the others are all repeats (can be verified by path ids)
 
-    def get_bunching_leaderboard(self, period, route):
+    def generate_bunching_leaderboard(self, period, route):
         # generates top 10 list of stops on the route by # of bunching incidents for period
 
         bunching_leaderboard = []
@@ -145,7 +144,25 @@ class RouteReport:
                 self.grade_description = entry['description']
 
 
-        return bunching_leaderboard, self.grade, self.grade_numeric, self.grade_description
+        # serialize to a dict
+
+        bunching_leaderboard_pickle = dict(bunching_leaderboard=bunching_leaderboard, grade=self.grade,
+                                           grade_numeric=self.grade_numeric, grade_description=self.grade_description)
+
+        outfile = ('data/bunching_leaderboard_'+route+'.pickle')
+        with open(outfile, 'wb') as handle:
+            pickle.dump(bunching_leaderboard_pickle, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+        return
+
+    def load_bunching_leaderboard(self,route):
+
+        infile = ('data/bunching_leaderboard_'+route+'.pickle')
+        with open(infile, 'rb') as handle:
+            b = pickle.load(handle)
+
+        return b['bunching_leaderboard'], b['grade'], b['grade_numeric'], b['grade_description']
+
 
 
 class StopReport:
@@ -219,8 +236,8 @@ class StopReport:
             self.arrivals_table_time_created = datetime.datetime.now()
             return arrivals_list_final_df, stop_name
 
-    def get_hourly_frequency(self,route, stop, period):
 
+    def get_hourly_frequency(self,route, stop, period):
         results = pd.DataFrame()
         self.arrivals_list_final_df['delta_int'] = self.arrivals_list_final_df['delta'].dt.seconds
 

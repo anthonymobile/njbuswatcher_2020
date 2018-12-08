@@ -4,8 +4,7 @@
 
 ### *to-do punchlist
 
-- verify flask-caching is working w/ debugger
-     - test caching functions in ReportCard.py 
+- setup nightly cron to make bunhcing reports
 - fix bunching grade letter assignment
 - Divide routes in 'high-frequency' or 'low-frequency' (< or > 4 buses per hour) + classify in `route_config.py`
 
