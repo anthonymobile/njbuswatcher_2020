@@ -9,10 +9,6 @@ import pandas as pd
 import datetime
 
 
-# setup cache
-from easy_cache import ecached
-cache_timeout = 86400  # 1 day
-
 
 try:
     db_state = os.environ['REPORTCARD_PRODUCTION']
@@ -149,7 +145,6 @@ def get_frequency_byargs(args):
 
     return frequency_histogram
 
-@ecached('render_citywide_map_geojson', timeout=86400) # cache 24 hour expire
 def render_citywide_map_geojson(reportcard_routes):
 
 
