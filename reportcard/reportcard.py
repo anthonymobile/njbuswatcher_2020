@@ -88,29 +88,13 @@ def displayHome():
 @app.route('/<source>/<route>')
 @cache.cached(timeout=3600) # cache for 1 hour
 def genRouteReport(source, route):
-    routereport=ReportCard.RouteReport(source,route,reportcard_routes,grade_descriptions)
-
-    return render_template('route.html', routereport=routereport)
-
-#3 route bunching report
-@app.route('/<source>/<route>/bunching')
-@cache.cached(timeout=86400) # cache for 1 day
-def genBunchingReport(source, route):
-
     routereport = ReportCard.RouteReport(source, route, reportcard_routes, grade_descriptions)
     period='weekly'
-    bunchingreport, grade_letter, grade_numeric, grade_description = routereport.load_bunching_leaderboard( route)
-    return render_template('route-bunching.html', routereport=routereport, bunchingreport=bunchingreport, period=period, grade_letter=grade_letter, grade_numeric=grade_numeric, grade_description=grade_description)
-
-    # routereport = ReportCard.RouteReport(source, route, reportcard_routes, grade_descriptions)
-    # period='weekly'
-    # bunchingreport, grade_letter, grade_numeric, grade_description = routereport.generate_bunching_leaderboard(period,route)
-    #
-    # return render_template('route-bunching.html', routereport=routereport, bunchingreport=bunchingreport, period=period, grade_letter=grade_letter, grade_numeric=grade_numeric, grade_description=grade_description)
+    bunchingreport, grade_letter, grade_numeric, grade_description, time_created = routereport.load_bunching_leaderboard( route)
+    return render_template('route.html', routereport=routereport, bunchingreport=bunchingreport, period=period, grade_letter=grade_letter, grade_numeric=grade_numeric, grade_description=grade_description, time_created=time_created)
 
 
-
-# 4 stop report
+#3 stop report
 @app.route('/<source>/<route>/stop/<stop>/<period>')
 @cache.cached(timeout=60) # cache for 1 minute
 def genStopReport(source, route, stop, period):

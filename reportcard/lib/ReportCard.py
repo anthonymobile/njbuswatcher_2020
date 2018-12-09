@@ -128,7 +128,7 @@ class RouteReport:
             grade_numeric = (cum_bunch_total / cum_arrival_total)*100
             self.grade_numeric = grade_numeric
             for grade in self.grade_descriptions:
-                if int(grade['band_upper']) >= grade_numeric > int(grade['band_lower']):
+                if (grade_numeric <= int(grade['band_upper'])) and ( grade_numeric > int(grade['band_lower'])):
                     self.grade = grade['grade']
 
                 else:
@@ -143,11 +143,14 @@ class RouteReport:
             if self.grade == entry['grade']:
                 self.grade_description = entry['description']
 
+        # write a report create time
 
-        # serialize to a dict
+        time_created = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+        # serialize to a dict and pickle to file
 
         bunching_leaderboard_pickle = dict(bunching_leaderboard=bunching_leaderboard, grade=self.grade,
-                                           grade_numeric=self.grade_numeric, grade_description=self.grade_description)
+                                           grade_numeric=self.grade_numeric, grade_description=self.grade_description, time_created=time_created)
 
         outfile = ('data/bunching_leaderboard_'+route+'.pickle')
         with open(outfile, 'wb') as handle:
@@ -161,7 +164,7 @@ class RouteReport:
         with open(infile, 'rb') as handle:
             b = pickle.load(handle)
 
-        return b['bunching_leaderboard'], b['grade'], b['grade_numeric'], b['grade_description']
+        return b['bunching_leaderboard'], b['grade'], b['grade_numeric'], b['grade_description'], b['time_created']
 
 
 
