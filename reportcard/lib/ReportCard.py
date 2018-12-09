@@ -47,33 +47,23 @@ class RouteReport:
 
         # populate report card data
         self.routename, self.waypoints_coordinates, self.stops_coordinates, self.waypoints_geojson, self.stops_geojson = self.get_routename(self.route)
-        self.compute_grade()
+        self.load_route_description()
         self.route_stop_list = self.get_stoplist(self.route)
-        # self.bunching_leaderboard = self.get_bunching_leaderboard('daily',self.route)
 
     def get_routename(self,route):
         routedata, waypoints_coordinates, stops_coordinates,waypoints_geojson, stops_geojson = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=route))
         return routedata[0].nm, waypoints_coordinates, stops_coordinates, waypoints_geojson, stops_geojson
 
-    def compute_grade(self):
+    def load_route_description(self):
         # for now, grade is coded manually in route_config.py
         # FUTURE fancier grade calculation based on historical data
         for route in self.reportcard_routes:
             if route['route'] == self.route:
-                self.grade = route['grade']
                 self.frequency = route['frequency']
                 self.description_long = route['description_long']
                 self.prettyname = route['prettyname']
                 self.schedule_url = route['schedule_url']
-                for entry in self.grade_descriptions:
-                    if self.grade == entry['grade']:
-                        self.grade_description = entry['description']
-                    else:
-                        pass
-                if not self.grade_description:
-                    grade_description = 'Cannot find a description for that grade.'
-                else:
-                    pass
+
             else:
                 pass
         return
@@ -122,35 +112,22 @@ class RouteReport:
         bunching_leaderboard = bunching_leaderboard[:10]
 
         # compute grade passed on pct of all stops on route during period that were bunched
-        # brackets are in grade_description['band_lower'] and grade_description['band_lower'] for each grade
 
         try:
-            grade_numeric = (cum_bunch_total / cum_arrival_total)*100
-            self.grade_numeric = grade_numeric
-            for grade in self.grade_descriptions:
-                if (grade_numeric <= int(grade['band_upper'])) and ( grade_numeric > int(grade['band_lower'])):
-                    self.grade = grade['grade']
-
-                else:
-                    pass
+            grade_numeric = (cum_bunch_total / cum_arrival_total) * 100
+            for g in self.grade_descriptions:
+                if g['bounds'][0] < grade_numeric <= g['bounds'][1]:
+                    self.grade = g['grade']
+                    self.grade_description = g['description']
         except:
+            self.grade = 'N/A'
+            self.grade_description = 'Unable to determine grade.'
             pass
-            # self.grade_letter = 'N/A'
-            # self.grade = grade['grade']
-
-        # reset grade description
-        for entry in self.grade_descriptions:
-            if self.grade == entry['grade']:
-                self.grade_description = entry['description']
-
-        # write a report create time
 
         time_created = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-        # serialize to a dict and pickle to file
-
         bunching_leaderboard_pickle = dict(bunching_leaderboard=bunching_leaderboard, grade=self.grade,
-                                           grade_numeric=self.grade_numeric, grade_description=self.grade_description, time_created=time_created)
+                                           grade_numeric=grade_numeric, grade_description=self.grade_description, time_created=time_created)
 
         outfile = ('data/bunching_leaderboard_'+route+'.pickle')
         with open(outfile, 'wb') as handle:

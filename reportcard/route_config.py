@@ -7,7 +7,6 @@ reportcard_routes=[ \
     {
         'route':'82',
         'frequency':'low',
-        'grade':'A',
         'schedule_url':'https://www.njtransit.com/pdf/bus/T0082.pdf',
         'prettyname':'Exchange Place (via Newark Ave)',
         'description_short':'Tracing a long-defunct streetcar line, the 82 connects a corner of The Heights to Downtown Jersey City at Exchange Place.',
@@ -16,7 +15,6 @@ reportcard_routes=[ \
     {
         'route':'83',
         'frequency':'low',
-        'grade':'A',
         'schedule_url': 'https://www.njtransit.com/pdf/bus/T0083.pdf',
         'prettyname':'Journal Square-Hackensack',
         'description_short': 'The 83 links Journal Square and downtown Hackensack via The Heights along an over-extended, infrequent route.',
@@ -26,7 +24,6 @@ reportcard_routes=[ \
     {
         'route':'84',
         'frequency':'high',
-        'grade':'A',
         'schedule_url':'https://www.njtransit.com/pdf/bus/T0084.pdf',
         'prettyname':'North Bergen-Journal Square',
         'description_short':'Palisade Avenue local connecting Journal Square, The Heights and Union City and North Bergen every 15-20 minutes throughout the day.',
@@ -36,7 +33,6 @@ reportcard_routes=[ \
     {
         'route': '85',
         'frequency':'low',
-        'grade':'A',
         'schedule_url': 'https://www.njtransit.com/pdf/bus/T0085.pdf',
         'prettyname':'Hoboken Terminal & Secaucus',
         'description_short': 'The 85 provides an infrequent but vital link to shopping and jobs in the Secaucus Meadowlands.',
@@ -46,7 +42,6 @@ reportcard_routes=[ \
     {
         'route':'86',
         'frequency':'low',
-        'grade':'A',
         'schedule_url':'https://www.njtransit.com/pdf/bus/T0086.pdf',
         'prettyname':'Grove Street & Newport Mall',
         'description_short':'This service links The Heights with downtown Jersey City\'s vibrant Grove Street area and the Newport Center Mall.',
@@ -56,7 +51,6 @@ reportcard_routes=[ \
     {
         'route':'87',
         'frequency':'high',
-        'grade':'A',
         'schedule_url':'https://www.njtransit.com/pdf/bus/T0087.pdf',
         'prettyname':'Hoboken-Journal Square',
         'description_short':'The Heights\' main bus backbone, providing its most frequent links to rail transit at Journal Square and Hoboken Terminal.',
@@ -66,7 +60,6 @@ reportcard_routes=[ \
     {
         'route': '88',
         'frequency':'high',
-        'grade':'A',
         'schedule_url': 'https://www.njtransit.com/pdf/bus/T0088.pdf',
         'prettyname':'',
         'description_short': 'Links the Western Heights with North Bergen, Union City and Journal Square along JFK Boulevard.',
@@ -76,7 +69,6 @@ reportcard_routes=[ \
     {
         'route':'119',
         'frequency':'high',
-        'grade':'A',
         'schedule_url':'https://www.njtransit.com/pdf/bus/T0119.pdf',
         'prettyname':'NYC Express (via Central Ave)',
         'description_short':'The primary Manhattan commuter service in The Heights, despite recent service increases the 119 is often overcrowded.',
@@ -86,7 +78,6 @@ reportcard_routes=[ \
     {
         'route':'123',
         'frequency':'high',
-        'grade':'A',
         'schedule_url':'https://www.njtransit.com/pdf/bus/T0123.pdf',
         'prettyname':'NYC (via Palisade Ave)',
         'description_short':'Alternate Palisade Ave local service to Union City and Manhattan.',
@@ -96,7 +87,6 @@ reportcard_routes=[ \
     {
         'route': '125',
         'frequency':'low',
-        'grade':'A',
         'schedule_url': 'https://www.njtransit.com/pdf/bus/T0125.pdf',
         'prettyname':'NYC (via JFK Blvd)',
         'description_short': 'Manhattan commuter line serving the West Side of The Heights along JFK Boulevard.',
@@ -104,12 +94,11 @@ reportcard_routes=[ \
     }
     ]
 
-grade_descriptions=[ \
-    {'grade':'A', 'description':'Service is provided in line with rider expectations of reliability, capacity, and quality.', 'band_lower':'0', 'band_upper':'2.5'},
-    {'grade':'B', 'description':'Service is usually good but occasionally falls short of rider expectations.', 'band_lower':'2.5', 'band_upper':'5'},
-    {'grade':'C', 'description':'Service meets the needs of riders some of the time, but suffers from serious shortcomings and gaps. Focused action is required to improve service in the near-term.', 'band_lower':'5', 'band_upper':'10'},
-    {'grade':'D', 'description':'Service frequently fails to meet the needs of riders, and requires substantial effort at improvement.', 'band_lower':'10', 'band_upper':'15'},
-    {'grade':'F', 'description':'Service frequently fails to meeting rider needs and expectations. Immediate action required to achieve minimum level of service.', 'band_lower':'15', 'band_upper':'100'},
-    {'grade': 'N/A','description': 'No grade available. Insufficient data to calculate a score for this period',
-     'band_lower': '-1', 'band_upper': '0'} \
+grade_descriptions=[
+    {'grade':'A', 'bounds': (0, 2.5), 'description':'Service is provided in line with rider expectations of reliability, capacity, and quality.'},
+    {'grade':'B', 'bounds': (2.5, 5), 'description':'Service is usually good but occasionally falls short of rider expectations.'},
+    {'grade':'C', 'bounds': (5, 10), 'description':'Service meets the needs of riders some of the time, but suffers from serious shortcomings and gaps. Focused action is required to improve service in the near-term.'},
+    {'grade':'D', 'bounds': (10, 15), 'description':'Service frequently fails to meet the needs of riders, and requires substantial effort at improvement.'},
+    {'grade':'F', 'bounds': (10, 100), 'description':'Service frequently fails to meeting rider needs and expectations. Immediate action required to achieve minimum level of service.'},
+    {'grade': 'N/A', 'bounds': (-1, 0),'description': 'No grade available. Insufficient data to calculate a score for this period'}
     ]
