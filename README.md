@@ -1,13 +1,10 @@
 # Bus Rider Report Card 
 ### v 1.6
-##### 5 December 2018
+##### 9 December 2018
 
 ### *to-do punchlist
 
-- setup nightly cron to make bunhcing reports
 - fix bunching grade letter assignment
-- Divide routes in 'high-frequency' or 'low-frequency' (< or > 4 buses per hour) + classify in `route_config.py`
-
 
 - stop report page: add additional period options
     - rush hours (as a toggle?)
