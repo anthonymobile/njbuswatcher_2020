@@ -2,7 +2,7 @@
 # 5 and only 5, 6th is TBD
 
 
-reportcard_routes=[ \
+reportcard_routes=[
 
     {
         'route':'82',
@@ -93,7 +93,7 @@ reportcard_routes=[ \
         'description_long': 'The 125 is a primarily rush-hour oriented service providing local scheduled service to and from New York City\'s Port Authority.'
     }
     ]
-
+    
 grade_descriptions=[
     {'grade':'A', 'bounds': (0, 2.5), 'description':'Service is provided in line with rider expectations of reliability, capacity, and quality.'},
     {'grade':'B', 'bounds': (2.5, 5), 'description':'Service is usually good but occasionally falls short of rider expectations.'},
