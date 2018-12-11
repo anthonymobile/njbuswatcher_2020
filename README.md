@@ -4,8 +4,6 @@
 
 ### *to-do punchlist
 
-- fix bunching grade letter assignment
-
 - stop report page: add additional period options
     - rush hours (as a toggle?)
     - weekdays (as a toggle?)
@@ -13,6 +11,44 @@
     - date picker
     - date range picker
     - others?
+   
+   
+#### THIS BRANCH. New Localizer 
+
+##### overall
+For first pass, design as much as possible as a 'drop-in' replacements to the ReportCard.Route.* and ReportCard.Stop.* functions (mostly Stop?)
+
+##### impementation steps
+
+1. write `Trip` class and `Arrival` subclass
+
+`Trip` class is a container for ephemeral trip record that provides a rigorous structure for recording stop calls without data integrity and no redundancy.
+ID = concatenation of `v_tripid_date
+
+Subclass `Arrival` - each time a unique `v_tripid_date` combination is seen for first time, a list of `StopCall` instances is created from the getRoutePoints list of stops for the run/service that the bus is on (this might be tricky). As arrivals are inferred, the property of the BusPosition instance that was inferred as a stop call is copied into the `StopCall` instance for that stop.
+
+We end up with a `Trip` instance that has one `StopCall` for every stop on the run, but some of which are null/empty. these can be interpolated perhaps	     
+
+Decision: do we write `Trip`s and `Arrival`s to a new db or are they ephemeral and only created on the fly to generate reports. this is so that we maintain data integrity. This may change later if we have performance issues, but hopefully we are processing very small tables of a few thousand records to make each page, and they are cached for a day or so.
+
+
+2. write new grabber - tripgrabber
+	- fetches getBusesforRoute
+	- `BusPosition` class (inherited from BusAPI?)
+	- frequency: every 
+	        - 30 seconds? how far will a bus move at 30 mph? 1320 feet (almost 1/4 mile)... 15 seconds?
+        - 	could used a dummy location "00000" for "undetermined" if we want to be able to go back and retry.
+	- Localizes them (finds distance to nearest stop) -- copy Localizer code over from the Newark branch or last JC branch
+	- logs to positions_87 (this is the canonical table of observed positions and bearings to nearest stop)
+	
+3. rewrite Stop.get_arrivals
+	- contains a new stop inferrer, replacing the old getStopPredictions processor, that:
+		- loads all the bus sightings near a stop for the period
+		- sort them by direction ('dd')
+		- figures out which ones are the arrivals (e.g. the min distance in approach sequence)
+		- writes that arrival into a Trip.Arrival object
+			- with metadata including lat,lon,time,distance for later 
+	
    
             
 # Roadmap
@@ -64,30 +100,7 @@ For all completed trips in `{period}`, sampling every n minutes, what is the ave
 - stop level metrics: - stop.html: THIS STATION USUALLY HAS DECENT SERVICE or THIS STATION HAS GOOD SERVICE TODAY or something like that.
 
 
-#### B. New Localizer
-This is the main engine that infers when buses are calling at stops. This more direct method will use actual reported bus locations and infer stop calls against stop locations -- versus the current stopwatcher.py mechanism that uses a separate NJT API call providing predicted bus arrival times by stop. It's similar to Transit Center's *inferno* script but much less complicated.
-
-- Localizer algorithm / Stop Inferrer
-    - Sort position records by direction (‘dd’)
-	- Run them through stop_inferrer
-	-  how do we decide when a stop call has been made?
-        - look back at the sequence of approaches and pick the min?
-        - log that as a call "point of closest observed approach" (and the metadata including lat,lon,time,distance for later )
-        - frequency of fetch? 30 seconds? how far will a bus move at 30 mph? 1320 feet (almost 1/4 mile)... 15 seconds?
-        - could used a dummy location "00000" for "undetermined" if we want to be able to go back and retry.
-    
-- `Trip` class
-	- PURPOSE
-	    - provides a rigorous structure for recording stop calls without data integrity and no redundancy
-	    - prevents us from overwriting, or accidentally recording additional stops when vehicle paths re-cross previous routes (e.g. 87 buses going down to Hoboken getting re-logged on Palisade Av)
-    - IMPLEMENTATION
-        - Trip object that has unique ID concatenation of `v_tripid_date`
-	    - each time a unique `v_tripid_date` combination is seen for first time, a list of `StopCall` instances is created
-	    - as stop calls are inferred, the property of the BusPosition instance that was inferred as a stop call is copied into the `StopCall` instance for that stop.
-	    - we end up with a `Trip` instance that has one `StopCall` for every stop on the run, but some of which are null/empty. these can be interpolated perhaps	     
-	    - StopCalls are not written to the db, ever. only inferred on the fly to generate reports. this is so that we maintain data integrity. This may change later if we have performance issues, but hopefully we are processing very small tables of a few thousand records.
-	    
-### B. Charts and Maps
+### C. Charts and Maps
 Implement with Chart.js
 1. bus frequency symbol histogram (STOP report)
     - histogram showing how many buses arrived at stop during each 30 minute bin
