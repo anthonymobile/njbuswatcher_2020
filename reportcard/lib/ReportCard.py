@@ -11,7 +11,7 @@ except:
     db_server = '127.0.0.1'
 
 # import app libraries
-from . import StopsDB, BusAPI
+from . import StopsDB, BusAPI, Localizer
 
 # common functions
 def timestamp_fix(data): # trim the microseconds off the timestamp and convert it to datetime format
@@ -67,7 +67,6 @@ class RouteReport:
             else:
                 pass
         return
-
 
     def get_stoplist(self, route):
         routedata, waypoints_coordinates, stops_coordinates, waypoints_geojson, stops_geojson = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=self.route))
@@ -143,8 +142,6 @@ class RouteReport:
 
         return b['bunching_leaderboard'], b['grade'], b['grade_numeric'], b['grade_description'], b['time_created']
 
-
-
 class StopReport:
 
     def __init__(self,route,stop,period):
@@ -166,55 +163,77 @@ class StopReport:
         self.bunching_interval = datetime.timedelta(minutes=3)
         self.bigbang = datetime.timedelta(seconds=0)
 
-    def get_arrivals(self,route,stop,period):
 
-        if self.period == "daily":
-            final_approach_query = ('SELECT * FROM %s WHERE (rd=%s AND stop_id= %s AND DATE(`timestamp`)=CURDATE() ) ORDER BY timestamp;' % (self.table_name, self.route, self.stop))
-        elif self.period == "yesterday":
-            final_approach_query = ('SELECT * FROM %s WHERE (rd=%s AND stop_id= %s AND (timestamp >= CURDATE() - INTERVAL 1 DAY AND timestamp < CURDATE())) ORDER BY timestamp;' % (self.table_name, self.route, self.stop))
-        elif self.period=="weekly":
-            final_approach_query = ('SELECT * FROM %s WHERE (rd=%s AND stop_id= %s AND (YEARWEEK(`timestamp`, 1) = YEARWEEK(CURDATE(), 1))) ORDER BY timestamp;' % (self.table_name, self.route, self.stop))
-        elif self.period=="history":
-            final_approach_query = ('SELECT * FROM %s WHERE (rd=%s AND stop_id= %s) ORDER BY timestamp;' % (self.table_name, self.route, self.stop))
-        else:
-            raise RuntimeError('Bad request sucker!')
+    # New_Localizer
+    def get_arrivals(self, route, stop, period):
 
-        # get data and basic cleanup
-        df_temp = pd.read_sql_query(final_approach_query, self.conn) # arrivals table and deltas are all re-generated on the fly for every view now -- easier, but might lead to inconsistent/innaccurate results over time?
-        df_temp = df_temp.drop(columns=['cars', 'consist', 'fd', 'm', 'name', 'rn', 'scheduled'])
-        df_temp = timestamp_fix(df_temp)
-
-        # split final approach history (sorted by timestamp) at each change in vehicle_id outputs a list of dfs -- per https://stackoverflow.com/questions/41144231/python-how-to-split-pandas-dataframe-into-subsets-based-on-the-value-in-the-fir
-        final_approach_dfs = [g for i, g in df_temp.groupby(df_temp['v'].ne(df_temp['v'].shift()).cumsum())]
-
+        source = 'nj'
         try:
-            # take the last V(ehicle) approach in each df and add it to final list of arrivals
-            arrivals_list_final_df = pd.DataFrame()
-            for final_approach in final_approach_dfs:  # iterate over every final approach
-                arrival_insert_df = final_approach.tail(1)  # take the last observation
-                arrivals_list_final_df = arrivals_list_final_df.append(arrival_insert_df)  # insert into df
-
-            # calc interval between last bus for each row, fill NaNs
-            arrivals_list_final_df['delta']=(arrivals_list_final_df['timestamp'] - arrivals_list_final_df['timestamp'].shift(1)).fillna(0)
-
-            # housekeeping ---------------------------------------------------
-
-            # set stop_name
+            bus_data = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data(source, 'buses_for_route', route=route))
+            arrivals_list_final_df = Localizer.infer_stops(position_log=bus_data, route='87') #todo fix what I'm fetching here
             stop_name = arrivals_list_final_df['stop_name'].iloc[0]
 
-            # resort arrivals list
-            # arrivals_list_final_df.sort_values("timestamp", inplace=True)
-
-            return arrivals_list_final_df, stop_name
-
         except:
-            arrivals_list_final_df=\
-                pd.DataFrame(\
-                    columns=['pkey','pt','rd','stop_id','stop_name','v','timestamp','delta'],\
-                    data=[['0000000', '3', self.route, self.stop,'N/A', 'N/A', datetime.time(0,1), datetime.timedelta(seconds=0)]])
+            arrivals_list_final_df = \
+                pd.DataFrame( \
+                    columns=['pkey', 'pt', 'rd', 'stop_id', 'stop_name', 'v', 'timestamp', 'delta'], \
+                    data=[['0000000', '3', self.route, self.stop, 'N/A', 'N/A', datetime.time(0, 1),
+                           datetime.timedelta(seconds=0)]])
             stop_name = 'N/A'
             self.arrivals_table_time_created = datetime.datetime.now()
-            return arrivals_list_final_df, stop_name
+
+
+        return arrivals_list_final_df, stop_name
+
+    # def get_arrivals(self,route,stop,period):
+    #
+    #     if self.period == "daily":
+    #         final_approach_query = ('SELECT * FROM %s WHERE (rd=%s AND stop_id= %s AND DATE(`timestamp`)=CURDATE() ) ORDER BY timestamp;' % (self.table_name, self.route, self.stop))
+    #     elif self.period == "yesterday":
+    #         final_approach_query = ('SELECT * FROM %s WHERE (rd=%s AND stop_id= %s AND (timestamp >= CURDATE() - INTERVAL 1 DAY AND timestamp < CURDATE())) ORDER BY timestamp;' % (self.table_name, self.route, self.stop))
+    #     elif self.period=="weekly":
+    #         final_approach_query = ('SELECT * FROM %s WHERE (rd=%s AND stop_id= %s AND (YEARWEEK(`timestamp`, 1) = YEARWEEK(CURDATE(), 1))) ORDER BY timestamp;' % (self.table_name, self.route, self.stop))
+    #     elif self.period=="history":
+    #         final_approach_query = ('SELECT * FROM %s WHERE (rd=%s AND stop_id= %s) ORDER BY timestamp;' % (self.table_name, self.route, self.stop))
+    #     else:
+    #         raise RuntimeError('Bad request sucker!')
+    #
+    #     # get data and basic cleanup
+    #     df_temp = pd.read_sql_query(final_approach_query, self.conn) # arrivals table and deltas are all re-generated on the fly for every view now -- easier, but might lead to inconsistent/innaccurate results over time?
+    #     df_temp = df_temp.drop(columns=['cars', 'consist', 'fd', 'm', 'name', 'rn', 'scheduled'])
+    #     df_temp = timestamp_fix(df_temp)
+    #
+    #     # split final approach history (sorted by timestamp) at each change in vehicle_id outputs a list of dfs -- per https://stackoverflow.com/questions/41144231/python-how-to-split-pandas-dataframe-into-subsets-based-on-the-value-in-the-fir
+    #     final_approach_dfs = [g for i, g in df_temp.groupby(df_temp['v'].ne(df_temp['v'].shift()).cumsum())]
+    #
+    #     try:
+    #         # take the last V(ehicle) approach in each df and add it to final list of arrivals
+    #         arrivals_list_final_df = pd.DataFrame()
+    #         for final_approach in final_approach_dfs:  # iterate over every final approach
+    #             arrival_insert_df = final_approach.tail(1)  # take the last observation
+    #             arrivals_list_final_df = arrivals_list_final_df.append(arrival_insert_df)  # insert into df
+    #
+    #         # calc interval between last bus for each row, fill NaNs
+    #         arrivals_list_final_df['delta']=(arrivals_list_final_df['timestamp'] - arrivals_list_final_df['timestamp'].shift(1)).fillna(0)
+    #
+    #         # housekeeping ---------------------------------------------------
+    #
+    #         # set stop_name
+    #         stop_name = arrivals_list_final_df['stop_name'].iloc[0]
+    #
+    #         # resort arrivals list
+    #         # arrivals_list_final_df.sort_values("timestamp", inplace=True)
+    #
+    #         return arrivals_list_final_df, stop_name
+    #
+    #     except:
+    #         arrivals_list_final_df=\
+    #             pd.DataFrame(\
+    #                 columns=['pkey','pt','rd','stop_id','stop_name','v','timestamp','delta'],\
+    #                 data=[['0000000', '3', self.route, self.stop,'N/A', 'N/A', datetime.time(0,1), datetime.timedelta(seconds=0)]])
+    #         stop_name = 'N/A'
+    #         self.arrivals_table_time_created = datetime.datetime.now()
+    #         return arrivals_list_final_df, stop_name
 
 
     def get_hourly_frequency(self,route, stop, period):

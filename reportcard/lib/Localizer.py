@@ -122,16 +122,16 @@ def infer_stops(**kwargs):
 
     gdf1=gdf1.join(inferred_stops)
 
-    # --------------------------
-    # TODO DO DISTANCE CONVERSION PER ttps://gis.stackexchange.com/questions/279109/calculate-distance-between-a-coordinate-and-a-county-in-geopandas
+    # # --------------------------
+    # # TODO DO DISTANCE CONVERSION PER https://gis.stackexchange.com/questions/279109/calculate-distance-between-a-coordinate-and-a-county-in-geopandas
+    #
+    # # "@anthonymobile If CRS of geodfs are EPSG 4326 (lat/lon) then returned 'dist' will be in degrees. To meters or ft either first convert both gdf to appropriate CRS proj for your location using .to_crs() or convert from degrees as here: https://t.co/FODrAWskNH" / Twitter
+    #
+    #
+    # #--------------------------
+    # # TODO CONVERT GDF1 TO A LIST OF TripPosition OBJECTS
+    #
+    # something = 0
+    # positions = something
 
-    # "@anthonymobile If CRS of geodfs are EPSG 4326 (lat/lon) then returned 'dist' will be in degrees. To meters or ft either first convert both gdf to appropriate CRS proj for your location using .to_crs() or convert from degrees as here: https://t.co/FODrAWskNH" / Twitter
-
-
-    #--------------------------
-    # TODO CONVERT GDF1 TO A LIST OF TripPosition OBJECTS
-
-    something = 0
-    positions = something
-
-    return positions
+    return gdf1 #todo fix what I'm returning here
