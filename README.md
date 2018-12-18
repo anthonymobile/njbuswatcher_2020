@@ -16,7 +16,7 @@
 #### THIS BRANCH. New Localizer 
 
 ##### overall
-For first pass, design as much as possible as a 'drop-in' replacements to the ReportCard.Route.* and ReportCard.Stop.* functions (mostly Stop?)
+For first pass, design as much as possible as a 'drop-in' replacements to the ReportCard.StopReport.get_arrivals()
 
 ##### impementation steps
 
