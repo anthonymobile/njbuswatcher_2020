@@ -1,5 +1,5 @@
-# bus reportcard v1.0
-# september 2018 - anthony townsend anthony@bitsandatoms.net
+# bus reportcard v2.0
+# january 2018 - anthony townsend anthony@bitsandatoms.net
 
 ################################################
 # IMPORTS
@@ -19,7 +19,6 @@ import lib.WebAPI as WebAPI
 ################################################
 # APP
 ################################################
-
 app = Flask(__name__, static_url_path='/static')
 CORS(app, support_credentials=True)
 Bootstrap(app)
@@ -34,7 +33,6 @@ cache = Cache(app,config={'CACHE_TYPE': 'simple'})
 # LOGGING
 # per https://medium.com/@trstringer/logging-flask-and-gunicorn-the-manageable-way-2e6f0b8beb2f
 ################################################
-
 if __name__ != "__main__":
     gunicorn_logger = logging.getLogger("gunicorn.error")
     app.logger.handlers = gunicorn_logger.handlers
@@ -44,28 +42,20 @@ if __name__ != "__main__":
 ################################################
 # APPLICATION DATA IMPORT
 ################################################
-
 from route_config import reportcard_routes,grade_descriptions
-
 
 ################################################
 # STATIC ASSETS
 ################################################
-
 from flask_assets import Bundle, Environment
-
 bundles = {
-
     'route_css': Bundle(
         'css/theme.css',
         'css/theme.scss',
         output='gen/route.css'),
-
 }
-
 assets = Environment(app)
 assets.register(bundles)
-
 
 ################################################
 # URLS
@@ -139,8 +129,6 @@ def api_frequency_stop():
     frequency_histogram_df = WebAPI.get_frequency_byargs(args)
     frequency_histogram_json = make_response(frequency_histogram_df.to_json(orient="columns"))
     return frequency_histogram_json
-
-
 
 
 ################################################
