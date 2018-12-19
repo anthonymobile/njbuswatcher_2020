@@ -1,5 +1,4 @@
 # handles the API for the bustracker app itself
-
 from . import BusRouteLogsDB
 from . import BusAPI
 from .ReportCard import StopReport
@@ -8,15 +7,13 @@ import geojson
 import pandas as pd
 import datetime
 
-
-
 try:
     db_state = os.environ['REPORTCARD_PRODUCTION']
     db_server = '192.168.1.181'
 except:
     db_server = '127.0.0.1'
 
-
+# helper = on-the-GEOJSON-fly-encoder
 def positions2geojson(df):
     features = []
     df.apply(lambda X: features.append(
@@ -40,7 +37,9 @@ def positions2geojson(df):
 
 
 
-
+# POSITIONS ARGS-BASED
+# /api/v1/positions?rt=87&period=now -- real-time from NJT API
+# /api/v1/positions?rt=87&period={daily,yesterday,weekly,history} -- historical from routelog database
 def get_positions_byargs(args):
 
     # NOW - get current positions from NJT API and setup as a dataframe like others
@@ -114,7 +113,8 @@ def get_positions_byargs(args):
 
     return positions_geojson
 
-
+# ARRIVALS ARGS-BASED
+# /api/v1/arrivals?rt=87&period={daily,yesterday,weekly,history} -- historical from stop_approaches_log database
 def get_arrivals_byargs(args):
 
     arrivals_log = StopReport(args['rt'],args['stop_id'],args['period']).arrivals_list_final_df
@@ -129,19 +129,11 @@ def get_arrivals_byargs(args):
 
 
 
-
+# HOURLY FREQUENCY HISTOGRAM - BY ROUTE, STOP, PERIOD
+# /api/v1/frequency?rt=87&stop_id=87&period={daily,yesterday,weekly,history}
 def get_frequency_byargs(args):
 
     frequency_histogram = StopReport(args['rt'],args['stop_id'],args['period']).get_hourly_frequency(args['rt'],args['stop_id'],args['period'])
-
-
-    # arrivals_log = StopReport(args['rt'],args['stop_id'],args['period']).arrivals_list_final_df
-    # arrivals_log = arrivals_log.reset_index(drop=True)
-    #
-    # arrivals_log['timestamp']=arrivals_log['timestamp'].astype(str)
-    # arrivals_log = timestamp_fix(arrivals_log)
-    #
-    # # arrivals_json = arrivals_log.to_json(orient='records')
 
     return frequency_histogram
 

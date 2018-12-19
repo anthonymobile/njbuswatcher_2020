@@ -1,24 +1,55 @@
 # Bus Rider Report Card 
 ### v 1.6
-##### 9 December 2018
+##### 17 December 2018
 
-### *to-do punchlist
 
-- stop report page: add additional period options
-    - rush hours (as a toggle?)
-    - weekdays (as a toggle?)
-    - owl (as a toggle?)
-    - date picker
-    - date range picker
-    - others?
-   
-   
-#### THIS BRANCH. New Localizer 
+#### TOTAL REFACTOR
 
-##### overall
-For first pass, design as much as possible as a 'drop-in' replacements to the ReportCard.StopReport.get_arrivals()
+1. rewrite database engines in Databases.py in SQLalchemy
+2. merge Localizer into BusAPI getBusesforRoute? or as a helper function called by there, and returned optionally from that?
 
-##### impementation steps
+#### NEW LOCALIZER 
+
+(organize notes below when ready to start)
+NEW routewatcher ---> calling Localizer to grab buses and drop them to the database every 60 seconds (totally independent of ReportCard)
+
+NEW ReportCard.StopReport.get_arrivals ---> 
+1. query database for all {arrivals} on {route} in {period}
+2. split them by v, date, trip/run --> create Trip instances
+    a. get relevant stoplist for each trip
+    b. fill up the trip card
+
+
+v1. drop-in replacement for ReportCard.StopReport.get_arrivals()
+- Localizer.infer_stops should return a df identical to arrivals_list_final_df in current version (e.g. need to transcode gdf1 before returning)
+
+v2. 
+
+# data structure (database)
+
+*87_observed_arrivals (single arrivals table for each route)
+v	stop_id		run		date	time
+~max 3000 records/day
+
+
+# data structure (class built on request)
+
+class Trip():
+	def __init__(route,v,run,date): # populated from existing tables and current grab
+
+	subclass Stop(tk): # populated from RouteReport.get_stoplist
+
+
+# workflow for get_arrivals (route, period)
+
+1. Localizer.infer_stops -- grab and localize buses on route right now
+2. drop them to database
+3. query db - select all v, route, period
+
+for each v:
+	1. build trip instance where v, run, date is unique
+	2. fill in stop calls as have data
+		a. log conflicts for debugging -- throw exception / print 'ERROR - DOUBLE STOP'
 
 1. write `Trip` class and `Arrival` subclass
 
@@ -49,9 +80,6 @@ Decision: do we write `Trip`s and `Arrival`s to a new db or are they ephemeral a
 		- writes that arrival into a Trip.Arrival object
 			- with metadata including lat,lon,time,distance for later 
 	
-   
-            
-# Roadmap
 
 
 #### A1. Route Performance Metrics
@@ -98,7 +126,14 @@ For all completed trips in `{period}`, sampling every n minutes, what is the ave
 - as letter grade and description, or
 - as literal: e.g. 'TODAY IS TYPICAL. TODAY IS WORSE THAN USUAL.'
 - stop level metrics: - stop.html: THIS STATION USUALLY HAS DECENT SERVICE or THIS STATION HAS GOOD SERVICE TODAY or something like that.
-
+- stop report page: add additional period options
+    - rush hours (as a toggle?)
+    - weekdays (as a toggle?)
+    - owl (as a toggle?)
+    - date picker
+    - date range picker
+    - others?
+   
 
 ### C. Charts and Maps
 Implement with Chart.js

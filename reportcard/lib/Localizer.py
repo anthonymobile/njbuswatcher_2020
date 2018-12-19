@@ -37,18 +37,11 @@ def ckdnearest(gdA, gdB, bcol):
     df = pd.DataFrame.from_dict({'distance': (dist.astype(float)*364320),'bcol' : gdB.loc[idx, bcol].values })
     return df
 
-def infer_stops(**kwargs):
-
-    # - Sort position  records by direction(‘dd’)
-    # - Run  them through stop_imputer
-    # - Create or add  a  Call or PositionReport  to  a
-    # Trip object that has unique ID  for date and run_id
+def find_nearest_stops(**kwargs):
 
     # 1. LOAD, FORMAT DATA + CREATE GEODATAFRAME FOR BUS POSITIONS
 
-    # if called with Localizer.infer_stops(position_log=list_of_Bus_objects,route='87')
-    #print (kwargs['position_log'])
-
+    # for processing a list of Bus objects from BusAPI
     if 'position_log' in kwargs:
         # turn the bus objects into a dataframe
         df1 = pd.DataFrame.from_records([bus.to_dict() for bus in kwargs['position_log']])
@@ -58,13 +51,12 @@ def infer_stops(**kwargs):
         direction = kwargs['position_log'][0].dd
         # print ('bus going to '+ direction)
 
+    # for converting old position logs
     elif 'position_log' not in kwargs:
         print('Not supported yet')
         sys.exit()
 
         # load the whole postiion_log table from buswatcher db into a dataframe like df1 above
-        # do something
-        # do something
         # do something
         # do something
         # direction = tk
@@ -83,7 +75,7 @@ def infer_stops(**kwargs):
     gdf1 = geopandas.GeoDataFrame(df1, geometry='coordinates')
 
 
-    # 2. ACQUIRE DATA + CREATE GEODATAFRAME FOR STOP LOCATIONS
+    # 2. ACQUIRE STOP LOCATIONS + CREATE GEODATAFRAME
 
     routedata, a, b, c, d = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data('nj', 'routes', route=kwargs['route']))
     stop_candidates = []
@@ -118,20 +110,24 @@ def infer_stops(**kwargs):
     # It returns a dataframe with distance and Name columns that you can insert back into gpd1
     inferred_stops = ckdnearest(gdf1, gdf2,'stop_id')
 
-    # insert inferred_stops back into gdf1 and
-
-    gdf1=gdf1.join(inferred_stops)
 
     # # --------------------------
     # # TODO DO DISTANCE CONVERSION PER https://gis.stackexchange.com/questions/279109/calculate-distance-between-a-coordinate-and-a-county-in-geopandas
-    #
     # # "@anthonymobile If CRS of geodfs are EPSG 4326 (lat/lon) then returned 'dist' will be in degrees. To meters or ft either first convert both gdf to appropriate CRS proj for your location using .to_crs() or convert from degrees as here: https://t.co/FODrAWskNH" / Twitter
-    #
-    #
-    # #--------------------------
-    # # TODO CONVERT GDF1 TO A LIST OF TripPosition OBJECTS
-    #
-    # something = 0
-    # positions = something
+    # # --------------------------
 
-    return gdf1 #todo fix what I'm returning here
+    # insert inferred_stops back into gdf1
+    gdf1=gdf1.join(inferred_stops)
+
+    #
+    #
+    # AS OF HERE WE HAVE A LIST OF BUSES AND DISTANCES TO NEAREST STOP
+    #
+    #
+    #
+
+
+
+
+
+    return
