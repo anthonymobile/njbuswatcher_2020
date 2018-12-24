@@ -437,7 +437,7 @@ Particularly the [district-level report cards](http://districts.busturnaround.ny
     ```bash
     conda update -n base conda
     conda config --add channels conda-forge
-    conda create --name buswatcher python=3 mysql-connector-python pandas flask flask-cors flask-assets
+    conda create --name buswatcher python=3 mysql-connector-python pandas flask flask-cors
     source activate buswatcher
     ```
     conda installs a ton of python goodies for you. dont you just [love python](https://xkcd.com/353/)?
@@ -588,7 +588,7 @@ this follows the instructions [here](https://blog.miguelgrinberg.com/post/the-fl
 2. and the right python stuff
     ```bash
     source activate buswatcher
-    conda install -c conda-forge flask-assets gunicorn 
+    conda install gunicorn 
     ```
 
 3. configure supervisor to run the reportcard.py flask app
@@ -656,4 +656,10 @@ git pull
 sudo supervisorctl stop reportcard
 sudo supervisorctl start reportcard 
 ```
+
+5. install netdata
+
+this is the ultimate in server monitoring tools
+
+Use the [instructions here](https://www.howtoforge.com/tutorial/how-to-install-netdata-monitoring-tool-on-ubuntu/)
 
