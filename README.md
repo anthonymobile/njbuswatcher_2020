@@ -442,7 +442,7 @@ Particularly the [district-level report cards](http://districts.busturnaround.ny
     ```
     conda installs a ton of python goodies for you. dont you just [love python](https://xkcd.com/353/)?
 
-11. install the caching and templates framework  
+11. install a couple of libraries that arent in conda yet  
 
     ```bash
     pip install geojson
