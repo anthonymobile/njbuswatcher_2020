@@ -435,16 +435,16 @@ Particularly the [district-level report cards](http://districts.busturnaround.ny
 6. create a conda environment with the needed packages
 
     ```bash
-    conda create --name buswatcher python=3 mysql-connector-python pandas flask flask_cors django
-    source activate buswatcher
     conda update -n base conda
+    conda config --add channels conda-forge
+    conda create --name buswatcher python=3 mysql-connector-python pandas flask flask-cors flask-assets
+    source activate buswatcher
     ```
-    conda installs a ton of python goodies for you. dont you just [love python](https://xkcd.com/353/)? (Why flask AND django? because we're going to use django for the caching framework. more in a second) 
+    conda installs a ton of python goodies for you. dont you just [love python](https://xkcd.com/353/)?
 
 11. install the caching and templates framework  
 
     ```bash
-    pip install easy_cache
     pip install geojson
     pip install Flask-Bootstrap4
     ```    
