@@ -544,85 +544,35 @@ Particularly the [district-level report cards](http://districts.busturnaround.ny
     here's a look at my crontab file for The Heights in Jersey City (n.b. always using full paths in cron to avoid ambiguity and PATH errors)
     
     ```bash
-    # grabs statewide locations
-    * * * * * /home/anthony/anaconda2/envs/buswatcher/bin/python /home/anthony/buswatcher/src/systemwatcher.py -s nj
-    
-    # grabs all bus locations on specific routes
-    * * * * * /home/anthony/anaconda2/envs/buswatcher/bin/python /home/anthony/buswatcher/src/routewatcher.py -s nj -r 82
-    * * * * * /home/anthony/anaconda2/envs/buswatcher/bin/python /home/anthony/buswatcher/src/routewatcher.py -s nj -r 84
-    * * * * * /home/anthony/anaconda2/envs/buswatcher/bin/python /home/anthony/buswatcher/src/routewatcher.py -s nj -r 85
-    * * * * * /home/anthony/anaconda2/envs/buswatcher/bin/python /home/anthony/buswatcher/src/routewatcher.py -s nj -r 86
-    * * * * * /home/anthony/anaconda2/envs/buswatcher/bin/python /home/anthony/buswatcher/src/routewatcher.py -s nj -r 87
-    * * * * * /home/anthony/anaconda2/envs/buswatcher/bin/python /home/anthony/buswatcher/src/routewatcher.py -s nj -r 88
-    * * * * * /home/anthony/anaconda2/envs/buswatcher/bin/python /home/anthony/buswatcher/src/routewatcher.py -s nj -r 119
-    * * * * * /home/anthony/anaconda2/envs/buswatcher/bin/python /home/anthony/buswatcher/src/routewatcher.py -s nj -r 123
-    * * * * * /home/anthony/anaconda2/envs/buswatcher/bin/python /home/anthony/buswatcher/src/routewatcher.py -s nj -r 125
-    
-    # grabs all stop arrival predictions on specific routes
-    * * * * * /home/anthony/anaconda2/envs/buswatcher/bin/python /home/anthony/buswatcher/src/stopwatcher.py -s nj -r 82
-    * * * * * /home/anthony/anaconda2/envs/buswatcher/bin/python /home/anthony/buswatcher/src/stopwatcher.py -s nj -r 84
-    * * * * * /home/anthony/anaconda2/envs/buswatcher/bin/python /home/anthony/buswatcher/src/stopwatcher.py -s nj -r 85
-    * * * * * /home/anthony/anaconda2/envs/buswatcher/bin/python /home/anthony/buswatcher/src/stopwatcher.py -s nj -r 86
-    * * * * * /home/anthony/anaconda2/envs/buswatcher/bin/python /home/anthony/buswatcher/src/stopwatcher.py -s nj -r 87
-    * * * * * /home/anthony/anaconda2/envs/buswatcher/bin/python /home/anthony/buswatcher/src/stopwatcher.py -s nj -r 88
-    * * * * * /home/anthony/anaconda2/envs/buswatcher/bin/python /home/anthony/buswatcher/src/stopwatcher.py -s nj -r 119
-    * * * * * /home/anthony/anaconda2/envs/buswatcher/bin/python /home/anthony/buswatcher/src/stopwatcher.py -s nj -r 123
-    * * * * * /home/anthony/anaconda2/envs/buswatcher/bin/python /home/anthony/buswatcher/src/stopwatcher.py -s nj -r 125
+# grabs all bus locations on specific routes
+* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/routewatcher.py -s nj -r 82
+* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/routewatcher.py -s nj -r 83
+* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/routewatcher.py -s nj -r 84
+* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/routewatcher.py -s nj -r 85
+* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/routewatcher.py -s nj -r 86
+* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/routewatcher.py -s nj -r 87
+* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/routewatcher.py -s nj -r 88
+* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/routewatcher.py -s nj -r 119
+* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/routewatcher.py -s nj -r 123
+* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/routewatcher.py -s nj -r 125
 
+# grabs all stop arrival predictions on specific routes
+* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/stopwatcher.py -s nj -r 82
+* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/stopwatcher.py -s nj -r 83
+* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/stopwatcher.py -s nj -r 84
+* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/stopwatcher.py -s nj -r 85
+* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/stopwatcher.py -s nj -r 86
+* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/stopwatcher.py -s nj -r 87
+* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/stopwatcher.py -s nj -r 88
+* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/stopwatcher.py -s nj -r 119
+* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/stopwatcher.py -s nj -r 123
+* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/stopwatcher.py -s nj -r 125
     ``` 
 
     depending on system resources, you may want to stagger the jobs using some `sleep` statements.
     ```bash
         * * * * * sleep 15s;/home/anthony/anaconda2/envs/buswatcher/bin/python /home/anthony/buswatcher/src/stopwatcher.py -s nj -r 119
     ```
-
-11. before long you'll run out of space, so setup an EBS instance, attach it, and then format and mount it
-    ```bash
-    ubuntu@ip-172-31-31-114:~$ lsblk
-    NAME    MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
-    xvda    202:0    0    8G  0 disk
-    └─xvda1 202:1    0    8G  0 part /
-    xvdf    202:80   0  100G  0 disk
-    loop0     7:0    0   87M  1 loop /snap/core/5145
-    loop1     7:1    0 12.6M  1 loop /snap/amazon-ssm-agent/295
-    
-    sudo mkfs -t ext4 /dev/xvdf
-    sudo mkdir /ebs1
-    sudo mount /dev/xvdf /ebs1/
-    
-    ubuntu@ip-172-31-31-114:~$ cd /ebs1
-    ubuntu@ip-172-31-31-114:/ebs1$ ls
-    lost+found
-    ubuntu@ip-172-31-31-114:/ebs1$ df -h
-    Filesystem      Size  Used Avail Use% Mounted on
-    udev            488M     0  488M   0% /dev
-    tmpfs           100M  3.3M   96M   4% /run
-    /dev/xvda1      7.7G  5.9G  1.9G  77% /
-    tmpfs           496M     0  496M   0% /dev/shm
-    tmpfs           5.0M     0  5.0M   0% /run/lock
-    tmpfs           496M     0  496M   0% /sys/fs/cgroup
-    /dev/loop0       87M   87M     0 100% /snap/core/5145
-    /dev/loop1       13M   13M     0 100% /snap/amazon-ssm-agent/295
-    tmpfs           100M     0  100M   0% /run/user/1000
-    /dev/xvdf        99G   60M   94G   1% /ebs1
-    ```
-    party time!
-    
-    one last step though. need to makesure this bitch auto-mounts at boot.
-    
-    ```bash
-    sudo cp /etc/fstab /etc/fstab.bak
-    sudo nano /etc/fstab
-    ```
-    
-    and add a line like
-    ```bash
-    /dev/xvdf       /ebs1   ext4    defaults,nofail     
-    ```
-    
-    check for errors with `sudo mount -a` if it doesnt cause any, you're good to go.
-    
-13. move the database to the big disk. this is a bit involved but takes about 10 minutes. use [this excellent guide](https://www.digitalocean.com/community/tutorials/how-to-move-a-mysql-data-directory-to-a-new-location-on-ubuntu-16-04).
 
 
 #### II. the reportcard-er (she who showeth the data)
