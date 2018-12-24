@@ -544,29 +544,29 @@ Particularly the [district-level report cards](http://districts.busturnaround.ny
     here's a look at my crontab file for The Heights in Jersey City (n.b. always using full paths in cron to avoid ambiguity and PATH errors)
     
     ```bash
-# grabs all bus locations on specific routes
-* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/routewatcher.py -s nj -r 82
-* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/routewatcher.py -s nj -r 83
-* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/routewatcher.py -s nj -r 84
-* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/routewatcher.py -s nj -r 85
-* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/routewatcher.py -s nj -r 86
-* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/routewatcher.py -s nj -r 87
-* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/routewatcher.py -s nj -r 88
-* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/routewatcher.py -s nj -r 119
-* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/routewatcher.py -s nj -r 123
-* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/routewatcher.py -s nj -r 125
+	# grabs all bus locations on specific routes
+	* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/routewatcher.py -s nj -r 82
+	* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/routewatcher.py -s nj -r 83
+	* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/routewatcher.py -s nj -r 84
+	* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/routewatcher.py -s nj -r 85
+	* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/routewatcher.py -s nj -r 86
+	* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/routewatcher.py -s nj -r 87
+	* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/routewatcher.py -s nj -r 88
+	* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/routewatcher.py -s nj -r 119
+	* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/routewatcher.py -s nj -r 123
+	* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/routewatcher.py -s nj -r 125
 
-# grabs all stop arrival predictions on specific routes
-* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/stopwatcher.py -s nj -r 82
-* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/stopwatcher.py -s nj -r 83
-* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/stopwatcher.py -s nj -r 84
-* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/stopwatcher.py -s nj -r 85
-* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/stopwatcher.py -s nj -r 86
-* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/stopwatcher.py -s nj -r 87
-* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/stopwatcher.py -s nj -r 88
-* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/stopwatcher.py -s nj -r 119
-* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/stopwatcher.py -s nj -r 123
-* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/stopwatcher.py -s nj -r 125
+	# grabs all stop arrival predictions on specific routes
+	* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/stopwatcher.py -s nj -r 82
+	* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/stopwatcher.py -s nj -r 83
+	* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/stopwatcher.py -s nj -r 84
+	* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/stopwatcher.py -s nj -r 85
+	* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/stopwatcher.py -s nj -r 86
+	* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/stopwatcher.py -s nj -r 87
+	* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/stopwatcher.py -s nj -r 88
+	* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/stopwatcher.py -s nj -r 119
+	* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/stopwatcher.py -s nj -r 123
+	* * * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/stopwatcher.py -s nj -r 125
     ``` 
 
     depending on system resources, you may want to stagger the jobs using some `sleep` statements.
