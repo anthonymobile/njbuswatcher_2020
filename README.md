@@ -661,5 +661,4 @@ sudo supervisorctl start reportcard
 
 this is the ultimate in server monitoring tools
 
-Use the [instructions here](https://www.howtoforge.com/tutorial/how-to-install-netdata-monitoring-tool-on-ubuntu/)
-
+Use the [DigitalOcean tutorial for now](https://www.digitalocean.com/community/tutorials/how-to-set-up-real-time-performance-monitoring-with-netdata-on-ubuntu-16-04), until I add step-by-step tested instructions here.
