@@ -3,11 +3,6 @@
 ##### 17 December 2018
 
 
-#### TOTAL REFACTOR
-
-1. rewrite database engines in Databases.py in SQLalchemy
-2. merge Localizer into BusAPI getBusesforRoute? or as a helper function called by there, and returned optionally from that?
-
 #### NEW LOCALIZER 
 
 (organize notes below when ready to start)
@@ -58,7 +53,7 @@ ID = concatenation of `v_tripid_date
 
 Subclass `Arrival` - each time a unique `v_tripid_date` combination is seen for first time, a list of `StopCall` instances is created from the getRoutePoints list of stops for the run/service that the bus is on (this might be tricky). As arrivals are inferred, the property of the BusPosition instance that was inferred as a stop call is copied into the `StopCall` instance for that stop.
 
-We end up with a `Trip` instance that has one `StopCall` for every stop on the run, but some of which are null/empty. these can be interpolated perhaps	     
+We end up with a `Trip` instance that has one `Arrival` for every stop on the run, but some of which are null/empty. these can be interpolated perhaps	     
 
 Decision: do we write `Trip`s and `Arrival`s to a new db or are they ephemeral and only created on the fly to generate reports. this is so that we maintain data integrity. This may change later if we have performance issues, but hopefully we are processing very small tables of a few thousand records to make each page, and they are cached for a day or so.
 
