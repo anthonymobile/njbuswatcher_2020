@@ -1,30 +1,79 @@
 # ####################################################
 # BUSWATCHER
-#
-#     -- the idea is, define the class and the table at the same time, rather than separately like in Alex's code
-#     -- can probably place a lot of the methods (like get_session) in a parent class
-#
 # ####################################################
 
 # -*- coding: utf-8 -*-
 
-from sqlalchemy import Table, Column, Integer, DateTime, Numeric, String
+from sqlalchemy import Table, Column, Integer, DateTime, Numeric, String, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import relationship
 
 # base class
 Base = declarative_base()
 
+# interim class allows for all DB classes inheriting handling methods
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-# interim class allows for all DB classes inheriting handling methods
 class DB(Base):
-
     def get_session():
         engine = create_engine('sqlite:///../data/jc_permits.db') # todo update engine for real mysql backend
         Session = sessionmaker(bind=engine)
         session = Session
         return session
+
+#####################################################
+# CLASS Trip
+#####################################################
+# stores trip structure for a unique v, run, date
+# = list of stops and call times
+#####################################################
+
+class Trip(DB):
+
+    def __init__(self):
+
+    __tablename__ = 'triplog'
+    __table_args__ = {'extend_existing': True}
+
+    trip_id = Column(String(255))  # concatenation of v_run_date = trip_id
+    v = Column(Integer())
+    run = Column(Integer())
+    date = Column(DateTime())
+
+    stops = relationship("ScheduledStop")
+
+    def __repr__(self):
+        return "Trip()".format(self=self)
+
+
+################################################################
+# CLASS ScheduledStop
+################################################################
+# stores arrival time only for a single, v, run, date, stop_id
+################################################################
+#
+class ScheduledStop(DB):
+
+    def __init__(self):
+
+    __tablename__ = 'stoplog'
+    __table_args__ = {'extend_existing': True}
+
+    trip_id = Column(String(255), ForeignKey('triplog.trip_id'))
+    run = Column(Integer())
+    v = Column(Integer())
+    date = Column(DateTime())
+    stop_id = Column(Integer())
+    position_id = # foreign key in BusPosition (position)
+    timestamp = Column(DateTime())
+
+
+    arrivals = relationship("BusPosition")
+
+    def __repr__(self):
+        return "StopCall()".format(self=self)
+
 
 
 #####################################################
@@ -38,7 +87,7 @@ class BusPosition(DB):
     def __init__(self,route):
         self.route=route
 
-    __tablename_ _ ='routelog'+self.route
+    __tablename_ _ ='routelog'
     __table_args__ = {'extend_existing': True}
 
     pkey = Column(Integer(), primary_key=True)
@@ -65,56 +114,8 @@ class BusPosition(DB):
     wid2 = Column(String(20))
     timestamp = Column(String(20))
 
+    stop_id = Column(String(255), ForeignKey('stoplog.stop_id'))
+
     def __repr__(self):
         return "Position()".format(self=self)
-
-
-
-#####################################################
-# CLASS Trip
-#####################################################
-# stores trip structure for a unique v, run, date
-# = list of stops and call times
-#####################################################
-
-class Trip(DB):
-
-    def __init__(self):
-
-    __tablename_
-    _ = 'trips'
-    __table_args__ = {'extend_existing': True}
-
-    trip_id = Column(String(255)) #concatenation of v_run_date = trip_id
-    v = Column(Integer())
-    run = Column(Integer())
-    date = Column(DateTime())
-
-    def __repr__(self):
-        return "Trip()".format(self=self)
-
-################################################################
-# CLASS StopCall
-################################################################
-# stores arrival time only for a single, v, run, date, stop_id
-################################################################
-
-class Arrival(DB): # todo does this need to be a subclass of Trip? can it be?
-
-    def __init__(self):
-
-    __tablename_
-    _ = 'arrivals'
-    __table_args__ = {'extend_existing': True}
-
-    trip_id = Column(String(255))  # concatenation of v_run_date = trip_id
-    run = Column(Integer())
-    v = Column(Integer())
-    date = Column(DateTime())
-    stop_id = Column(Integer())
-    position = BusPosition() # nearest approach -- todo can i put an object in the database?
-    timestamp = Column(DateTime())
-
-    def __repr__(self):
-        return "StopCall()".format(self=self)
 
