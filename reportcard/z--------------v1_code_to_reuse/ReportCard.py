@@ -170,7 +170,7 @@ class StopReport:
         source = 'nj'
         try:
             bus_data = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data(source, 'buses_for_route', route=route))
-            arrivals_list_final_df = Localizer.find_nearest_stops(position_log=bus_data, route='87') #todo fix what I'm fetching here
+            arrivals_list_final_df = Localizer.find_nearest_stops(position_log=bus_data, route='87')
             stop_name = arrivals_list_final_df['stop_name'].iloc[0]
 
         except:

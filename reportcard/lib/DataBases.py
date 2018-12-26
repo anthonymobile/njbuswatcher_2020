@@ -16,13 +16,6 @@ Base = declarative_base()
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-class DB(Base):
-    def get_session():
-        engine = create_engine('sqlite:///../data/jc_permits.db') # todo update engine for real mysql backend
-        Session = sessionmaker(bind=engine)
-        session = Session
-        return session
-
 #####################################################
 # CLASS Trip
 #####################################################
@@ -30,7 +23,7 @@ class DB(Base):
 # = list of stops and call times
 #####################################################
 
-class Trip(DB):
+class Trip(Base):
 
     def __init__(self,v,run):
         self.v = v
@@ -53,6 +46,12 @@ class Trip(DB):
     def __repr__(self):
         return "Trip()".format(self=self)
 
+    def get_session():
+        engine = create_engine('sqlite:///../data/jc_buswatcher.db')  # todo update engine for real mysql backend
+        Session = sessionmaker(bind=engine)
+        session = Session
+        return session
+
 
 ################################################################
 # CLASS ScheduledStop
@@ -61,9 +60,9 @@ class Trip(DB):
 # used to store final inferred arrival time for a single, v, run, date, stop_id
 ################################################################
 #
-class ScheduledStop(DB):
+class ScheduledStop(Base):
 
-    def __init__(self):
+    # def __init__(self):
         # todo set init values for ScheduledStop
         #
         #
@@ -84,6 +83,11 @@ class ScheduledStop(DB):
     def __repr__(self):
         return "StopCall()".format(self=self)
 
+    def get_session():
+        engine = create_engine('sqlite:///../data/jc_buswatcher.db')  # todo update engine for real mysql backend
+        Session = sessionmaker(bind=engine)
+        session = Session
+        return session
 
 
 #####################################################
@@ -92,15 +96,14 @@ class ScheduledStop(DB):
 # stores raw positions for later reference
 #####################################################
 
-class BusPosition(DB):
+class BusPosition(Base):
 
-    def __init__(self,route):
-        self.route=route
+    #def __init__(self):
         # todo set init values for BusPosition
         #
         #
 
-    __tablename_ _ ='routelog'
+    __tablename__ ='routelog'
     __table_args__ = {'extend_existing': True}
 
     pkey = Column(Integer(), primary_key=True)
@@ -134,4 +137,10 @@ class BusPosition(DB):
 
     def __repr__(self):
         return "Position()".format(self=self)
+
+    def get_session():
+        engine = create_engine('sqlite:///../data/jc_buswatcher.db')  # todo update engine for real mysql backend
+        Session = sessionmaker(bind=engine)
+        session = Session
+        return session
 
