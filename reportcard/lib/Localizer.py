@@ -39,38 +39,6 @@ def ckdnearest(gdA, gdB, bcol):
 #
 
 
-def get_buses_and_stops_sorted_by_direction(buses,route):
-
-
-    # 2. ACQUIRE STOP LOCATIONS + CREATE GEODATAFRAMES for each service/direction
-    routedata, coordinates_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data('nj', 'routes', route=route))
-
-    # a. create stoplists by direction (ignoring services)
-
-    stoplist = []
-    for rt in routedata:
-        for path in rt.paths:
-            for p in path.points:
-                if p.__class__.__name__ == 'Stop':
-                    stoplist.append(
-                        {'stop_id': p.identity, 'st': p.st, 'd': p.d, 'lat': p.lat, 'lon': p.lon})
-
-    result = collections.defaultdict(list)
-    for d in stoplist:
-        result[d['d']].append(d)
-    service_stoplist = list(result.values())
-
-    #  b. sort the buses to matching stoplists
-    buses_sorted_by_service = []
-    for bus in buses:
-        bus_list = []
-        for service in service_stoplist:
-            if bus.dd == service[0]['d']:
-                bus_list.append(bus)
-        buses_sorted_by_service.append(bus_list)
-
-    return buses_sorted_by_service
-
 
 
 def get_nearest_stop(buses,route):
@@ -95,14 +63,54 @@ def get_nearest_stop(buses,route):
     # Now, we can create the GeoDataFrame by setting geometry with the coordinates created previously.
     gdf1 = geopandas.GeoDataFrame(df1, geometry='coordinates')
 
-    buses_and_stops = get_buses_and_stops_sorted_by_direction(buses,route)
+    # 2. ACQUIRE STOP LOCATIONS + CREATE GEODATAFRAMES for each service/direction
+    routedata, coordinates_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data('nj', 'routes', route=route))
+
+    # a. create stoplists by direction (ignoring services)
+
+    stoplist = []
+    for rt in routedata:
+        for path in rt.paths:
+            for p in path.points:
+                if p.__class__.__name__ == 'Stop':
+                    stoplist.append(
+                        {'stop_id': p.identity, 'st': p.st, 'd': p.d, 'lat': p.lat, 'lon': p.lon})
+
+    result = collections.defaultdict(list)
+    for d in stoplist:
+        result[d['d']].append(d)
+    service_stoplist = list(result.values())
+
+    #  b. sort the buses to matching stoplists
+
+    buses_sorted_by_service = []
+
+    # todo debug this
+
+    # method 1 - loop over directions in service_stoplist
+    # for bus in buses:
+    #     bus_list = []
+    #     for service in service_stoplist:
+    #         if bus.dd == service[0]['d']:
+    #             bus_list.append(bus)
+    #     buses_sorted_by_service.append(bus_list)
+
+    # method 2 - same collections approach as used to split stoplist
+    result2 = collections.defaultdict(list)
+    for b in buses:
+        result2[b.d].append(b)
+    buses_sorted_by_service = list(result2.values())
+
+
 
     # c. create the geodataframes and run localization algorithm
-
     bus_positions = []
-    for direction in buses_and_stops: # todo loop over each DIRECTION 'direction' below
+    for direction in buses_sorted_by_service: # todo loop over each DIRECTION 'direction' below
 
         # turn it into a DF
+
+        # pandas.DataFrame.from_records([s.to_dict() for s in signals])
+
         df2 = pd.DataFrame.from_records(direction)
         df2['lat'] = pd.to_numeric(df2['lat'])
         df2['lon'] = pd.to_numeric(df2['lon'])
