@@ -3,8 +3,9 @@
 # ####################################################
 
 # -*- coding: utf-8 -*-
+import datetime
 
-from sqlalchemy import Table, Column, Integer, DateTime, Numeric, String, ForeignKey
+from sqlalchemy import Table, Column, Integer, DateTime, Numeric, String, Boolean, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 
@@ -31,16 +32,22 @@ class DB(Base):
 
 class Trip(DB):
 
-    def __init__(self):
+    def __init__(self,v,run):
+        self.v = v
+        self.run = run
+        self.date = datetime.datetime.today().strftime('%Y-%m-%d')
+        self.trip_id=('{v}_{run}_{date}').format(v=v,run=run,date=self.date)
 
     __tablename__ = 'triplog'
     __table_args__ = {'extend_existing': True}
 
-    trip_id = Column(String(255))  # concatenation of v_run_date = trip_id
+    pkey = Column(Integer(), primary_key=True)
+    trip_id = Column(String(255))
     v = Column(Integer())
     run = Column(Integer())
     date = Column(DateTime())
 
+    positions = relationship("BusPosition")
     stops = relationship("ScheduledStop")
 
     def __repr__(self):
@@ -50,24 +57,27 @@ class Trip(DB):
 ################################################################
 # CLASS ScheduledStop
 ################################################################
-# stores arrival time only for a single, v, run, date, stop_id
+# represents a stop on a scheduled trip
+# used to store final inferred arrival time for a single, v, run, date, stop_id
 ################################################################
 #
 class ScheduledStop(DB):
 
     def __init__(self):
+        # todo set init values for ScheduledStop
+        #
+        #
 
     __tablename__ = 'stoplog'
     __table_args__ = {'extend_existing': True}
 
+    pkey = Column(Integer(), primary_key=True)
     trip_id = Column(String(255), ForeignKey('triplog.trip_id'))
     run = Column(Integer())
     v = Column(Integer())
     date = Column(DateTime())
     stop_id = Column(Integer())
-    position_id = # foreign key in BusPosition (position)
-    timestamp = Column(DateTime())
-
+    arrival_timestamp = Column(DateTime())
 
     arrivals = relationship("BusPosition")
 
@@ -86,6 +96,9 @@ class BusPosition(DB):
 
     def __init__(self,route):
         self.route=route
+        # todo set init values for BusPosition
+        #
+        #
 
     __tablename_ _ ='routelog'
     __table_args__ = {'extend_existing': True}
@@ -114,7 +127,10 @@ class BusPosition(DB):
     wid2 = Column(String(20))
     timestamp = Column(String(20))
 
+    trip_id = Column(String(255), ForeignKey('triplog.trip_id'))
     stop_id = Column(String(255), ForeignKey('stoplog.stop_id'))
+    distance_to_stop = Column(Numeric())
+    arrival_flag = Column(Boolean())
 
     def __repr__(self):
         return "Position()".format(self=self)
