@@ -39,7 +39,7 @@ def ckdnearest(gdA, gdB, bcol):
 #
 
 
-def get_buses_and_stops_sorted_by_direction(route):
+def get_buses_and_stops_sorted_by_direction(buses,route):
 
 
     # 2. ACQUIRE STOP LOCATIONS + CREATE GEODATAFRAMES for each service/direction
@@ -64,7 +64,7 @@ def get_buses_and_stops_sorted_by_direction(route):
     buses_sorted_by_service = []
     for bus in buses:
         bus_list = []
-        for service in service_stoplists:
+        for service in service_stoplist:
             if bus.dd == service[0]['d']:
                 bus_list.append(bus)
         buses_sorted_by_service.append(bus_list)
@@ -95,7 +95,7 @@ def get_nearest_stop(buses,route):
     # Now, we can create the GeoDataFrame by setting geometry with the coordinates created previously.
     gdf1 = geopandas.GeoDataFrame(df1, geometry='coordinates')
 
-    buses_and_stops = get_buses_and_stops_sorted_by_direction(route)
+    buses_and_stops = get_buses_and_stops_sorted_by_direction(buses,route)
 
     # c. create the geodataframes and run localization algorithm
 
