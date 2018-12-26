@@ -29,6 +29,7 @@ print ('Localizing buses...')
 bus_positions = Localizer.get_nearest_stop(buses,args.route)
 print (bus_positions)
 print ('Localized buses...')
+
 sys.exit()
 
 # 3 log positions to trips
