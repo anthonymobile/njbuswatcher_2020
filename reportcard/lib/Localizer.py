@@ -43,6 +43,10 @@ def get_nearest_stop(buses,route):
 
     # 1. LOAD, FORMAT DATA + CREATE GEODATAFRAME FOR BUS POSITIONS
 
+    if len(buses) == 0:
+        bus_positions = []
+        return bus_positions
+
     #convert Buses into dataframe
     df1 = pd.DataFrame.from_records([b.to_dict() for b in buses])
 
@@ -58,76 +62,95 @@ def get_nearest_stop(buses,route):
     gdf1 = geopandas.GeoDataFrame(df1, geometry='coordinates')
 
 
-    # 2. ACQUIRE STOP LOCATIONS + CREATE GEODATAFRAME
+    # 2. ACQUIRE STOP LOCATIONS + CREATE GEODATAFRAMES for each service/direction
     routedata, coordinates_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data('nj', 'routes', route=route))
-    stop_candidates = []
-
-    try:
-        for rt in routedata:
-            for path in rt.paths:
-                if path.d == direction: #todo figure out how to set this up
-                    # print ('match route:' + path.d)
-                    for p in path.points:
-                        if p.__class__.__name__ == 'Stop':
-                            stop_candidates.append({'stop_id':p.identity,'st':p.st,'d':p.d,'lat':p.lat,'lon':p.lon})
-                else:
-                    pass
-    except:
-        print('Oops, didnt find the matching route')
 
 
-    # turn it into a DF
-    df2 = pd.DataFrame.from_records(stop_candidates)
-    df2['lat'] = pd.to_numeric(df2['lat'])
-    df2['lon'] = pd.to_numeric(df2['lon'])
+    stop_array=[]
 
-    # A GeoDataFrame needs a shapely object, so we create a new column Coordinates as a tuple of Longitude and Latitude :
-    df2['coordinates'] = list(zip(df2.lon, df2.lat))
-    # Then, we transform tuples to Point :
-    df2['coordinates'] = df2['coordinates'].apply(Point)
-    # Now, we can create the GeoDataFrame by setting geometry with the coordinates created previously.
-    gdf2 = geopandas.GeoDataFrame(df2, geometry='coordinates')
+    # todo debug this so it makes dicts? for each direction? then easier to turn the dicts into dataframes
+    # create stoplists for each path/direction
+
+    for rt in routedata:
+        for path in rt.paths:
+            stop_list=[]
+            for p in path.points:
+                if p.__class__.__name__ == 'Stop':
+                    stop_list.append(
+                        {'stop_id': p.identity, 'st': p.st, 'd': p.d, 'lat': p.lat, 'lon': p.lon})
+            stop_array.append(stop_list)
+
+    # now sort the buses to matching stoplists
+    bus_array = []
+    for bus in buses:
+        bus_list=[]
+        for stoplist in stop_array:
+            if bus.dd == stop_array[0][0]['d']:
+                bus_list.append(bus)
+        bus_array.append(bus_list)
 
 
-    # It returns a dataframe with distance and Name columns that you can insert back into gpd1
-    inferred_stops = ckdnearest(gdf1, gdf2,'stop_id')
+    # todo run this loop for each direction
 
-    # insert inferred_stops back into gdf1
-    gdf1=gdf1.join(inferred_stops)
+    bus_positions = []
+    for service in bus_array: # todo replace ? with 'service' below
 
-    # convert geodataframe to a list of BusPosition objects
+        # turn it into a DF
+        df2 = pd.DataFrame.from_records(stop_candidates)
+        df2['lat'] = pd.to_numeric(df2['lat'])
+        df2['lon'] = pd.to_numeric(df2['lon'])
 
-    bus_positions=[]
-    for index, row in gdf1.iterrows():
+        # A GeoDataFrame needs a shapely object, so we create a new column Coordinates as a tuple of Longitude and Latitude :
+        df2['coordinates'] = list(zip(df2.lon, df2.lat))
+        # Then, we transform tuples to Point :
+        df2['coordinates'] = df2['coordinates'].apply(Point)
+        # Now, we can create the GeoDataFrame by setting geometry with the coordinates created previously.
+        gdf2 = geopandas.GeoDataFrame(df2, geometry='coordinates')
 
-        insertion=DataBases.BusPosition()
 
-        insertion.lat = row.lat
-        insertion.lon = row.lon
-        insertion.cars = row.cars
-        insertion.consist = row.consist
-        insertion.d = row.d
-        insertion.dip = row.dip
-        insertion.dn = row.dn
-        insertion.fs = row.fs
-        insertion.id = row.id
-        insertion.m = row.m
-        insertion.op = row.op
-        insertion.pd = row.pd
-        insertion.pdRtpiFeedName = row.pdRtpiFeedName
-        insertion.pid = row.pid
-        insertion.rt = row.rt
-        insertion.rtRtpiFeedName = row.rtRtpiFeedName
-        insertion.rtdd = row.rtdd
-        insertion.rtpiFeedName = row.rtpiFeedName
-        insertion.run = row.run
-        insertion.wid1 = row.wid1
-        insertion.wid2 = row.wid2
-        insertion.timestamp = row.timestamp
+        # It returns a dataframe with distance and Name columns that you can insert back into gpd1
+        inferred_stops = ckdnearest(gdf1, gdf2,'stop_id')
 
-        insertion.trip_id = ('{id}_{run}_{dt}').format(id=row.id,run=row.run, dt=datetime.datetime.today().strftime('%Y-%m-%d'))
-        insertion.stop_id =  row.stop_id,
-        insertion.arrival_flag = False
-        insertion.distance_to_stop = row.distance
+        # insert inferred_stops back into gdf1
+        gdf1=gdf1.join(inferred_stops)
+
+
+
+
+
+        # 5 convert geodataframe to a list of BusPosition objects
+
+        for index, row in gdf1.iterrows():
+
+            insertion=DataBases.BusPosition()
+
+            insertion.lat = row.lat
+            insertion.lon = row.lon
+            insertion.cars = row.cars
+            insertion.consist = row.consist
+            insertion.d = row.d
+            insertion.dip = row.dip
+            insertion.dn = row.dn
+            insertion.fs = row.fs
+            insertion.id = row.id
+            insertion.m = row.m
+            insertion.op = row.op
+            insertion.pd = row.pd
+            insertion.pdRtpiFeedName = row.pdRtpiFeedName
+            insertion.pid = row.pid
+            insertion.rt = row.rt
+            insertion.rtRtpiFeedName = row.rtRtpiFeedName
+            insertion.rtdd = row.rtdd
+            insertion.rtpiFeedName = row.rtpiFeedName
+            insertion.run = row.run
+            insertion.wid1 = row.wid1
+            insertion.wid2 = row.wid2
+            insertion.timestamp = row.timestamp
+            insertion.trip_id = ('{id}_{run}_{dt}').format(id=row.id,run=row.run, dt=datetime.datetime.today().strftime('%Y-%m-%d'))
+            insertion.stop_id =  row.stop_id,
+            insertion.arrival_flag = False
+            insertion.distance_to_stop = row.distance
+
+        bus_positions.append(insertion)
 
     return bus_positions
