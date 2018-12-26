@@ -1,4 +1,4 @@
-import datetime
+import datetime, collections
 
 import pandas as pd
 import numpy as np
@@ -8,7 +8,6 @@ from scipy.spatial import cKDTree
 from shapely.geometry import Point
 
 from . import DataBases, BusAPI
-
 
 # CKDNEAREST
 # https://gis.stackexchange.com/questions/222315/geopandas-find-nearest-point-in-other-dataframe
@@ -39,6 +38,41 @@ def ckdnearest(gdA, gdB, bcol):
 # Returns as a list of BusPosition objects.
 #
 
+
+def get_buses_and_stops_sorted_by_direction(route):
+
+
+    # 2. ACQUIRE STOP LOCATIONS + CREATE GEODATAFRAMES for each service/direction
+    routedata, coordinates_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data('nj', 'routes', route=route))
+
+    # a. create stoplists by direction (ignoring services)
+
+    stoplist = []
+    for rt in routedata:
+        for path in rt.paths:
+            for p in path.points:
+                if p.__class__.__name__ == 'Stop':
+                    stoplist.append(
+                        {'stop_id': p.identity, 'st': p.st, 'd': p.d, 'lat': p.lat, 'lon': p.lon})
+
+    result = collections.defaultdict(list)
+    for d in stoplist:
+        result[d['d']].append(d)
+    service_stoplist = list(result.values())
+
+    #  b. sort the buses to matching stoplists
+    buses_sorted_by_service = []
+    for bus in buses:
+        bus_list = []
+        for service in service_stoplists:
+            if bus.dd == service[0]['d']:
+                bus_list.append(bus)
+        buses_sorted_by_service.append(bus_list)
+
+    return buses_sorted_by_service
+
+
+
 def get_nearest_stop(buses,route):
 
     # 1. LOAD, FORMAT DATA + CREATE GEODATAFRAME FOR BUS POSITIONS
@@ -61,42 +95,15 @@ def get_nearest_stop(buses,route):
     # Now, we can create the GeoDataFrame by setting geometry with the coordinates created previously.
     gdf1 = geopandas.GeoDataFrame(df1, geometry='coordinates')
 
+    buses_and_stops = get_buses_and_stops_sorted_by_direction(route)
 
-    # 2. ACQUIRE STOP LOCATIONS + CREATE GEODATAFRAMES for each service/direction
-    routedata, coordinates_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data('nj', 'routes', route=route))
-
-
-    stop_array=[]
-
-    # todo debug this so it makes dicts? for each direction? then easier to turn the dicts into dataframes
-    # create stoplists for each path/direction
-
-    for rt in routedata:
-        for path in rt.paths:
-            stop_list=[]
-            for p in path.points:
-                if p.__class__.__name__ == 'Stop':
-                    stop_list.append(
-                        {'stop_id': p.identity, 'st': p.st, 'd': p.d, 'lat': p.lat, 'lon': p.lon})
-            stop_array.append(stop_list)
-
-    # now sort the buses to matching stoplists
-    bus_array = []
-    for bus in buses:
-        bus_list=[]
-        for stoplist in stop_array:
-            if bus.dd == stop_array[0][0]['d']:
-                bus_list.append(bus)
-        bus_array.append(bus_list)
-
-
-    # todo run this loop for each direction
+    # c. create the geodataframes and run localization algorithm
 
     bus_positions = []
-    for service in bus_array: # todo replace ? with 'service' below
+    for direction in buses_and_stops: # todo loop over each DIRECTION 'direction' below
 
         # turn it into a DF
-        df2 = pd.DataFrame.from_records(stop_candidates)
+        df2 = pd.DataFrame.from_records(direction)
         df2['lat'] = pd.to_numeric(df2['lat'])
         df2['lon'] = pd.to_numeric(df2['lon'])
 
@@ -115,10 +122,7 @@ def get_nearest_stop(buses,route):
         gdf1=gdf1.join(inferred_stops)
 
 
-
-
-
-        # 5 convert geodataframe to a list of BusPosition objects
+        # d. convert geodataframe to a list of BusPosition objects
 
         for index, row in gdf1.iterrows():
 
