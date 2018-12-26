@@ -7,7 +7,7 @@ import geopandas
 from scipy.spatial import cKDTree
 from shapely.geometry import Point
 
-from . import DataBases
+from . import DataBases, BusAPI
 
 
 # CKDNEAREST
@@ -44,7 +44,8 @@ def get_nearest_stop(buses):
     # 1. LOAD, FORMAT DATA + CREATE GEODATAFRAME FOR BUS POSITIONS
 
     #convert Buses into dataframe
-    df1 = pd.DataFrame.from_records(buses)
+    df1 = pd.DataFrame.from_records([b.to_dict() for b in buses])
+
     df1['lat'] = pd.to_numeric(df1['lat'])
     df1['lon'] = pd.to_numeric(df1['lon'])
 

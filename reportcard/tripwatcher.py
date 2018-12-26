@@ -7,9 +7,7 @@ parser.add_argument('-r', '--route', dest='route', required=True, help='route nu
 
 args = parser.parse_args()
 
-from lib import BusAPI
-from lib import DataBases
-from lib import Localizer
+from lib import BusAPI, DataBases, Localizer
 
 # database initialization
 trip_session = DataBases.Trip.get_session()
@@ -21,7 +19,7 @@ print ('Starting...')
 # 1 fetch all buses on route currently
 # buses = a list of Bus objects
 print ('Fetching buses...')
-buses = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(args.source,'buses_for_route',route=args.route))
+buses = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data(args.source,'buses_for_route',route=args.route))
 print ('Got buses...')
 
 # 2 localize them to nearest stop and log to db
