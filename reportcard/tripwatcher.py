@@ -18,9 +18,9 @@ print ('Starting...')
 
 # 1 fetch all buses on route currently
 # buses = a list of Bus objects
-print ('Fetching buses...')
+
 buses = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data(args.source,'buses_for_route',route=args.route))
-print (('I found {a} buses').format(a=len(buses)))
+print (('I found {a} buses on route {b}.').format(a=len(buses), b=args.route))
 
 # 2 localize them to nearest stop and log to db
 # bus_positions = list of BusPosition objects
