@@ -1,4 +1,4 @@
-import datetime, sys
+import datetime, sys, argparse
 
 # args = source, route
 parser = argparse.ArgumentParser()
@@ -7,24 +7,28 @@ parser.add_argument('-r', '--route', dest='route', required=True, help='route nu
 
 args = parser.parse_args()
 
-from .lib import BusAPI
-from .lib import DataBases
-from .lib import Localizer
+from lib import BusAPI
+from lib import DataBases
+from lib import Localizer
 
 # database initialization
 trip_session = DataBases.Trip.get_session()
 stop_session = DataBases.ScheduledStop.get_session()
 position_session = DataBases.BusPosition.get_session()
 
+print ('Starting...')
 
 # 1 fetch all buses on route currently
 # buses = a list of Bus objects
+print ('Fetching buses...')
 buses = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(args.source,'buses_for_route',route=args.route))
+print ('Got buses...')
 
 # 2 localize them to nearest stop and log to db
 # bus_positions = list of BusPosition objects
-bus_positions = Localizer.get_nearest_stop(buses) # todo REWRITE -> list of Bus objects -> LOCALIZER -> list of BusPosition objects
-
+print ('Localizing buses...')
+bus_positions = Localizer.get_nearest_stop(buses)
+print ('Localized buses...')
 sys.exit()
 
 # 3 log positions to trips
@@ -46,7 +50,6 @@ for bus in bus_positions:
                 # append it to a list of stops
         stop_session.bulk_save_objects(stoplist)
 
-        # todo
         # bus.trip_id = trip_id
         #
 
@@ -58,17 +61,17 @@ for bus in bus_positions:
 
 position_session.bulk_save_objects(bus_positions)
 
-# 4 now process all the stops we've touched and update arrival log
-# todo this can probably live inside one of the loops aboe near the end
-# but want to make sure all the buses have been processed first?
-
-for bus in bus_positions: # loop over buses on route now
-    for runs in bus_positions : # filter by runs current observed on route now
-        for v in bus_positions: # filter by vehicles current observed on route now
-            get all of the positions for this run, v, ,yyyymmdd, bus.stop_id AND sort by time ascending
-            if distance_to_stop has a minumum and has started to increase again
-            update: SCheduledStop record with an arrival time
-            update: BusPosition record as an arrival
+# # 4 now process all the stops we've touched and update arrival log
+# # todo this can probably live inside one of the loops aboe near the end
+# # but want to make sure all the buses have been processed first?
+#
+# for bus in bus_positions: # loop over buses on route now
+#     for runs in bus_positions : # filter by runs current observed on route now
+#         for v in bus_positions: # filter by vehicles current observed on route now
+#             get all of the positions for this run, v, ,yyyymmdd, bus.stop_id AND sort by time ascending
+#             if distance_to_stop has a minumum and has started to increase again
+#             update: SCheduledStop record with an arrival time
+#             update: BusPosition record as an arrival
 
 
 
