@@ -20,12 +20,14 @@ print ('Starting...')
 # buses = a list of Bus objects
 print ('Fetching buses...')
 buses = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data(args.source,'buses_for_route',route=args.route))
+print (buses)
 print ('Got buses...')
 
 # 2 localize them to nearest stop and log to db
 # bus_positions = list of BusPosition objects
 print ('Localizing buses...')
-bus_positions = Localizer.get_nearest_stop(buses)
+bus_positions = Localizer.get_nearest_stop(buses,args.route)
+print (bus_positions)
 print ('Localized buses...')
 sys.exit()
 

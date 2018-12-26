@@ -39,7 +39,7 @@ def ckdnearest(gdA, gdB, bcol):
 # Returns as a list of BusPosition objects.
 #
 
-def get_nearest_stop(buses):
+def get_nearest_stop(buses,route):
 
     # 1. LOAD, FORMAT DATA + CREATE GEODATAFRAME FOR BUS POSITIONS
 
@@ -59,13 +59,13 @@ def get_nearest_stop(buses):
 
 
     # 2. ACQUIRE STOP LOCATIONS + CREATE GEODATAFRAME
-    routedata, a, b, c, d = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data('nj', 'routes', route=kwargs['route']))
+    routedata, coordinates_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data('nj', 'routes', route=route))
     stop_candidates = []
 
     try:
         for rt in routedata:
             for path in rt.paths:
-                if path.d == direction:
+                if path.d == direction: #todo figure out how to set this up
                     # print ('match route:' + path.d)
                     for p in path.points:
                         if p.__class__.__name__ == 'Stop':
