@@ -1,33 +1,32 @@
-import sys, datetime
-
-import geopandas
 import pandas as pd
 import numpy as np
+
+import geopandas
 from scipy.spatial import cKDTree
 from shapely.geometry import Point
 
-from . import BusAPI
+from . import DataBases
+
+# class TripPosition(BusAPI.KeyValueData):
+#
+#     def __init__(self,route,run,id,date):
+#         KeyValueData.__init__(self)
+#         self.route = route
+#         self.name = 'trip_position'
+#         self.id = ''
+#         self.date = datetime.date.today() # autopopulate YYYY-MM-DD on record creation
+#         self.timestamp = ''
+#         self.run = ''
+#         self.stop_id = ''
+#         self.dd = ''
 
 
-class TripPosition(BusAPI.KeyValueData):
-
-    def __init__(self,route,run,id,date):
-        KeyValueData.__init__(self)
-        self.route = route
-        self.name = 'trip_position'
-        self.id = ''
-        self.date = datetime.date.today() # autopopulate YYYY-MM-DD on record creation
-        self.timestamp = ''
-        self.run = ''
-        self.stop_id = ''
-        self.dd = ''
-
-# using scipy.spatial method in bottom answer here
+# CKDNEAREST
 # https://gis.stackexchange.com/questions/222315/geopandas-find-nearest-point-in-other-dataframe
+# Here is a helper function that will return the distance and 'Name'
+# of the nearest neighbor in gpd2 from each point in gpd1.
+# It assumes both gdfs have a geometry column (of points).
 
-
-# https://gis.stackexchange.com/questions/222315/geopandas-find-nearest-point-in-other-dataframe
-# Here is a helper function that will return the distance and 'Name' of the nearest neighbor in gpd2 from each point in gpd1. It assumes both gdfs have a geometry column (of points).
 def ckdnearest(gdA, gdB, bcol):
     nA = np.array(list(zip(gdA.geometry.x, gdA.geometry.y)) )
     nB = np.array(list(zip(gdB.geometry.x, gdB.geometry.y)) )
@@ -37,34 +36,20 @@ def ckdnearest(gdA, gdB, bcol):
     df = pd.DataFrame.from_dict({'distance': (dist.astype(float)*364320),'bcol' : gdB.loc[idx, bcol].values })
     return df
 
-def find_nearest_stops(**kwargs):
+# GET_NEAREST_STOP
+#
+# Finds the nearest stop, distance to it, from each item in a list of Bus objects.
+# Returns as a list of BusPosition objects.
+#
+
+def get_nearest_stop(buses):
 
     # 1. LOAD, FORMAT DATA + CREATE GEODATAFRAME FOR BUS POSITIONS
 
-    # for processing a list of Bus objects from BusAPI
-    if 'position_log' in kwargs:
-        # turn the bus objects into a dataframe
-        df1 = pd.DataFrame.from_records([bus.to_dict() for bus in kwargs['position_log']])
-        df1['lat'] = pd.to_numeric(df1['lat'])
-        df1['lon'] = pd.to_numeric(df1['lon'])
-
-        direction = kwargs['position_log'][0].dd
-        # print ('bus going to '+ direction)
-
-    # for converting old position logs
-    elif 'position_log' not in kwargs:
-        print('Not supported yet')
-        sys.exit()
-
-        # load the whole postiion_log table from buswatcher db into a dataframe like df1 above
-        # do something
-        # do something
-        # direction = tk
-
-    else:
-        print ('insufficient kwargs to Localizer')
-        sys.exit()
-
+    #convert Buses into dataframe
+    df1 = pd.DataFrame.from_records(buses)
+    df1['lat'] = pd.to_numeric(df1['lat'])
+    df1['lon'] = pd.to_numeric(df1['lon'])
 
     # turn the bus positions df1 into a A GeoDataFrame
     # A GeoDataFrame needs a shapely object, so we create a new column Coordinates as a tuple of Longitude and Latitude :
@@ -76,7 +61,6 @@ def find_nearest_stops(**kwargs):
 
 
     # 2. ACQUIRE STOP LOCATIONS + CREATE GEODATAFRAME
-
     routedata, a, b, c, d = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data('nj', 'routes', route=kwargs['route']))
     stop_candidates = []
 
@@ -111,23 +95,51 @@ def find_nearest_stops(**kwargs):
     inferred_stops = ckdnearest(gdf1, gdf2,'stop_id')
 
 
-    # # --------------------------
-    # # TODO DO DISTANCE CONVERSION PER https://gis.stackexchange.com/questions/279109/calculate-distance-between-a-coordinate-and-a-county-in-geopandas
-    # # "@anthonymobile If CRS of geodfs are EPSG 4326 (lat/lon) then returned 'dist' will be in degrees. To meters or ft either first convert both gdf to appropriate CRS proj for your location using .to_crs() or convert from degrees as here: https://t.co/FODrAWskNH" / Twitter
-    # # --------------------------
+    # --------------------------
+    # TODO DO DISTANCE CONVERSION PER https://gis.stackexchange.com/questions/279109/calculate-distance-between-a-coordinate-and-a-county-in-geopandas
+    # "@anthonymobile If CRS of geodfs are EPSG 4326 (lat/lon) then returned 'dist' will be in degrees. To meters or ft either first convert both gdf to appropriate CRS proj for your location using .to_crs() or convert from degrees as here: https://t.co/FODrAWskNH" / Twitter
+    # --------------------------
 
     # insert inferred_stops back into gdf1
     gdf1=gdf1.join(inferred_stops)
 
-    #
-    #
+
     # AS OF HERE WE HAVE A LIST OF BUSES AND DISTANCES TO NEAREST STOP
-    #
-    #
-    #
+    # todo CONVERT TO A BUSPOSITION INSTANCE AND RETURN
 
+    bus_positions=[]
+    for index, row in gdf1.iterrows():
+        print(row['c1'], row['c2'])
+        bus_positions.append(
+            DataBases.BusPosition(
+                lat =  ,
+                lon =  ,
+                cars =  ,
+                consist = ,
+                d =  ,
+                dip = ,
+                dn =  ,
+                fs =  ,
+                id =  ,
+                m =  ,
+                op =  ,
+                pd =  ,
+                pdRtpiFeedName = ,
+                pid =  ,
+                rt =  ,
+                rtRtpiFeedName =  ,
+                rtdd = ,
+                rtpiFeedName =  ,
+                run =  ,
+                wid1 =  ,
+                wid2 =  ,
+                timestamp = # gdf[0]['timestamp'],
 
+                trip_id =  # TK?,
+                stop_id =  # gdf[0]['stop_id'] ???,
+                distance_to_stop =  # gdf[0]['distance_to_stop'],
+                arrival_flag =
 
+        )
 
-
-    return
+    return bus_positions
