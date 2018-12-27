@@ -1,4 +1,5 @@
-import datetime, sys, argparse
+import time, argparse
+
 
 # args = source, route
 parser = argparse.ArgumentParser()
@@ -9,32 +10,41 @@ args = parser.parse_args()
 
 from lib import BusAPI, DataBases, Localizer
 
-# database initialization
-trip_session = DataBases.Trip.get_session()
-stop_session = DataBases.ScheduledStop.get_session()
-position_session = DataBases.BusPosition.get_session()
-
-print ('Starting...')
-
-# 1 fetch all buses on route currently
-# buses = a list of Bus objects
-
-buses = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data(args.source,'buses_for_route',route=args.route))
-print (('I found {a} buses on route {b}.').format(a=len(buses), b=args.route))
-
-# 2 localize them to nearest stop and log to db
-# bus_positions = list of BusPosition objects
-print ('Localizing buses...')
-bus_positions = Localizer.get_nearest_stop(buses,args.route)
-
-
-# 3 generate some diagnostic output of what we just tracked
 
 print ('trip_id\t\t\t\t\tv\t\trun\tstop_id\tdistance_to_stop (feet)')
-for bus in bus_positions:
-    for b in bus:
-        print (('t{a}\t\t{b}\t{c}\t{d}\t{e:.0f}').format(a=b.trip_id,b=b.id,c=b.run,d=b.stop_id,e=b.distance_to_stop))
-sys.exit()
+
+while True:
+
+    time.sleep(15)
+
+    # 1 fetch all buses on route currently
+    # buses = a list of Bus objects
+
+    buses = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data(args.source,'buses_for_route',route=args.route))
+
+    # 2 localize them to nearest stop and log to db
+    # bus_positions = list of BusPosition objects
+    bus_positions = Localizer.get_nearest_stop(buses,args.route)
+
+    # log the localized positions to the database
+    session = DataBases.BusPosition.get_session()
+    for group in bus_positions:
+        for bus in group:
+            session.add(bus)
+    session.commit()
+
+    # 3 generate some diagnostic output of what we just tracked
+
+
+    for bus in bus_positions:
+        for b in bus:
+            print (('t{a}\t\t{b}\t{c}\t{d}\t{e:.0f}').format(a=b.trip_id,b=b.id,c=b.run,d=b.stop_id,e=b.distance_to_stop))
+
+##############################################
+#
+#   TRIPS CONSTRUCTION
+#
+##############################################
 
 # 3 log positions to trips
 for bus in bus_positions:
