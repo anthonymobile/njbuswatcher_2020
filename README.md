@@ -1,80 +1,23 @@
 # Bus Rider Report Card 
-### v 1.6
-##### 17 December 2018
+### v 2
+##### January 2019
+
+### Version 2
+
+Improvements
+- rewritten in Python 3
+- new localization and stop assignment algorithm is based on geographicposition and stop proximity not API arrival predictions
+- full SQLalchemy database implementation for easier mix and match backend
 
 
-#### NEW LOCALIZER 
+### /reportcard
 
-(organize notes below when ready to start)
-NEW routewatcher ---> calling Localizer to grab buses and drop them to the database every 60 seconds (totally independent of ReportCard)
+#### tripwatcher.py
+The main background process, cron on a 30-second 
 
-NEW ReportCard.StopReport.get_arrivals ---> 
-1. query database for all {arrivals} on {route} in {period}
-2. split them by v, date, trip/run --> create Trip instances
-    a. get relevant stoplist for each trip
-    b. fill up the trip card
+### /reportcard/lib
 
-
-v1. drop-in replacement for ReportCard.StopReport.get_arrivals()
-- Localizer.infer_stops should return a df identical to arrivals_list_final_df in current version (e.g. need to transcode gdf1 before returning)
-
-v2. 
-
-# data structure (database)
-
-*87_observed_arrivals (single arrivals table for each route)
-v	stop_id		run		date	time
-~max 3000 records/day
-
-
-# data structure (class built on request)
-
-class Trip():
-	def __init__(route,v,run,date): # populated from existing tables and current grab
-
-	subclass Stop(tk): # populated from RouteReport.get_stoplist
-
-
-# workflow for get_arrivals (route, period)
-
-1. Localizer.infer_stops -- grab and localize buses on route right now
-2. drop them to database
-3. query db - select all v, route, period
-
-for each v:
-	1. build trip instance where v, run, date is unique
-	2. fill in stop calls as have data
-		a. log conflicts for debugging -- throw exception / print 'ERROR - DOUBLE STOP'
-
-1. write `Trip` class and `Arrival` subclass
-
-`Trip` class is a container for ephemeral trip record that provides a rigorous structure for recording stop calls without data integrity and no redundancy.
-ID = concatenation of `v_tripid_date
-
-Subclass `Arrival` - each time a unique `v_tripid_date` combination is seen for first time, a list of `StopCall` instances is created from the getRoutePoints list of stops for the run/service that the bus is on (this might be tricky). As arrivals are inferred, the property of the BusPosition instance that was inferred as a stop call is copied into the `StopCall` instance for that stop.
-
-We end up with a `Trip` instance that has one `Arrival` for every stop on the run, but some of which are null/empty. these can be interpolated perhaps	     
-
-Decision: do we write `Trip`s and `Arrival`s to a new db or are they ephemeral and only created on the fly to generate reports. this is so that we maintain data integrity. This may change later if we have performance issues, but hopefully we are processing very small tables of a few thousand records to make each page, and they are cached for a day or so.
-
-
-2. write new grabber - tripgrabber
-	- fetches getBusesforRoute
-	- `BusPosition` class (inherited from BusAPI?)
-	- frequency: every 
-	        - 30 seconds? how far will a bus move at 30 mph? 1320 feet (almost 1/4 mile)... 15 seconds?
-        - 	could used a dummy location "00000" for "undetermined" if we want to be able to go back and retry.
-	- Localizes them (finds distance to nearest stop) -- copy Localizer code over from the Newark branch or last JC branch
-	- logs to positions_87 (this is the canonical table of observed positions and bearings to nearest stop)
-	
-3. rewrite Stop.get_arrivals
-	- contains a new stop inferrer, replacing the old getStopPredictions processor, that:
-		- loads all the bus sightings near a stop for the period
-		- sort them by direction ('dd')
-		- figures out which ones are the arrivals (e.g. the min distance in approach sequence)
-		- writes that arrival into a Trip.Arrival object
-			- with metadata including lat,lon,time,distance for later 
-	
+#### Localizer	
 
 
 #### A1. Route Performance Metrics

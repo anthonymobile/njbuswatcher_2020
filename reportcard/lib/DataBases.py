@@ -9,6 +9,8 @@ from sqlalchemy import create_engine, Table, Column, Integer, DateTime, Float, S
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
 
+from lib import BusAPI
+
 # base class
 Base = declarative_base()
 
@@ -26,6 +28,32 @@ class Trip(Base):
         self.run = run
         self.date = datetime.datetime.today().strftime('%Y-%m-%d')
         self.trip_id=('{v}_{run}_{date}').format(v=v,run=run,date=self.date)
+
+        self.stoplist = generate_stoplist()
+
+    def generate_stoplist(self): #todo finish Trip __init__
+
+        #
+        #  THIS SHOULD BE PART OF Trip Class __init__ ?
+        #
+        # fill it up with stops from the right service/trip/run with
+        routes = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(source,'buses_for_route',route=args.route))
+
+        stoplist = []
+        for stop in routes.path.TK:
+            if isinstance(Stop):
+                stop = ScheduledStop(tk,tk) # todo create the Trip object
+                # append it to a list of stops
+        stop_session.bulk_save_objects(stoplist)
+
+        # bus.trip_id = trip_id
+        #
+
+
+
+
+
+
 
     __tablename__ = 'triplog'
     __table_args__ = {'extend_existing': True}
