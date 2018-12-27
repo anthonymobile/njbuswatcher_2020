@@ -5,16 +5,12 @@
 # -*- coding: utf-8 -*-
 import datetime
 
-from sqlalchemy import Table, Column, Integer, DateTime, Numeric, Float, String, Boolean, ForeignKey
+from sqlalchemy import create_engine, Table, Column, Integer, DateTime, Float, String, Boolean, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, sessionmaker
 
 # base class
 Base = declarative_base()
-
-# interim class allows for all DB classes inheriting handling methods
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
 
 #####################################################
 # CLASS Trip
@@ -46,10 +42,29 @@ class Trip(Base):
     def __repr__(self):
         return "Trip()".format(self=self)
 
-    def get_session():
-        engine = create_engine('sqlite:///../data/jc_buswatcher.db')  # todo update engine for real mysql backend
+    def get_session(): # todo abstract this out for all 3
+
+        # db_url = {'drivername': 'postgres',
+        #           'username': 'postgres',
+        #           'password': 'postgres',
+        #           'host': '192.168.99.100',
+        #           'port': 5432}
+        #
+        # engine = create_engine(URL(**db_url))
+
+        engine = create_engine('sqlite:///jc_buswatcher.db')
+
+        engine = create_engine('sqlite:///jc_buswatcher.db')  # todo update engine for real mysql backend
         Session = sessionmaker(bind=engine)
-        session = Session
+
+        # try to create tables, just in case they aren't there
+        try: # todo smarter check here --> try if table exists == False:
+            Base.metadata.create_all(bind=engine)
+        except:
+            pass
+
+        session = Session()
+
         return session
 
 
@@ -84,9 +99,27 @@ class ScheduledStop(Base):
         return "StopCall()".format(self=self)
 
     def get_session():
-        engine = create_engine('sqlite:///../data/jc_buswatcher.db')  # todo update engine for real mysql backend
+        # db_url = {'drivername': 'postgres',
+        #           'username': 'postgres',
+        #           'password': 'postgres',
+        #           'host': '192.168.99.100',
+        #           'port': 5432}
+        #
+        # engine = create_engine(URL(**db_url))
+
+        engine = create_engine('sqlite:///jc_buswatcher.db')
+
+        engine = create_engine('sqlite:///jc_buswatcher.db')  # todo update engine for real mysql backend
         Session = sessionmaker(bind=engine)
-        session = Session
+
+        # try to create tables, just in case they aren't there
+        try:
+            Base.metadata.create_all(bind=engine)
+        except:
+            pass
+
+        session = Session()
+
         return session
 
 
@@ -107,8 +140,8 @@ class BusPosition(Base):
     __table_args__ = {'extend_existing': True}
 
     pkey = Column(Integer(), primary_key=True)
-    lat = Column(Numeric)
-    lon = Column(Numeric)
+    lat = Column(Float)
+    lon = Column(Float)
     cars = Column(String(20))
     consist = Column(String(20))
     d = Column(String(20))
@@ -147,8 +180,33 @@ class BusPosition(Base):
         return "BusPosition" + '[%s]' % out_string
 
     def get_session():
-        engine = create_engine('sqlite:///../data/jc_buswatcher.db')  # todo update engine for real mysql backend
+
+        # db_url = {'drivername': 'postgres',
+        #           'username': 'postgres',
+        #           'password': 'postgres',
+        #           'host': '192.168.99.100',
+        #           'port': 5432}
+        #
+        # engine = create_engine(URL(**db_url))
+
+        engine = create_engine('sqlite:///jc_buswatcher.db')
+
+        engine = create_engine('sqlite:///jc_buswatcher.db')  # todo update engine for real mysql backend
         Session = sessionmaker(bind=engine)
-        session = Session
+
+        # try to create tables, just in case they aren't there
+        try:
+            Base.metadata.create_all(bind=engine)
+        except:
+            pass
+
+        session = Session()
+
         return session
+
+
+
+
+
+
 

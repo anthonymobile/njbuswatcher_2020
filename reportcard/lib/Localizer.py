@@ -102,7 +102,7 @@ def get_nearest_stop(buses,route):
         # pandas.DataFrame.from_records([s.to_dict() for s in signals])
 
         for stop_direction in stops_by_direction: # todo its running one of these loops 2x
-            if bus_direction[0]['dd'] == stops_by_direction[0][0]['d']:
+            if bus_direction[0]['dd'] == stop_direction[0]['d']:
 
                 df2=pd.DataFrame.from_records(stop_direction)
                 df2['lat'] = pd.to_numeric(df2['lat'])
