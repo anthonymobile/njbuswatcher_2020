@@ -135,8 +135,16 @@ class BusPosition(Base):
     distance_to_stop = Column(Float())
     arrival_flag = Column(Boolean())
 
+    # def __repr__(self):
+    #     return "Position()".format(self=self)
+
     def __repr__(self):
-        return "Position()".format(self=self)
+        line = []
+        for prop, value in vars(self).items():
+            line.append((prop, value))
+        line.sort(key=lambda x: x[0])
+        out_string = ' '.join([k + '=' + str(v) for k, v in line])
+        return "BusPosition" + '[%s]' % out_string
 
     def get_session():
         engine = create_engine('sqlite:///../data/jc_buswatcher.db')  # todo update engine for real mysql backend

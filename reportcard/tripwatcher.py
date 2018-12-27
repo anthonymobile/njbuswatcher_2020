@@ -26,8 +26,14 @@ print (('I found {a} buses on route {b}.').format(a=len(buses), b=args.route))
 # bus_positions = list of BusPosition objects
 print ('Localizing buses...')
 bus_positions = Localizer.get_nearest_stop(buses,args.route)
-print (bus_positions)
 
+
+# 3 generate some diagnostic output of what we just tracked
+
+print ('trip_id\t\t\t\t\tv\t\trun\tstop_id\tdistance_to_stop (feet)')
+for bus in bus_positions:
+    for b in bus:
+        print (('t{a}\t\t{b}\t{c}\t{d}\t{e:.0f}').format(a=b.trip_id,b=b.id,c=b.run,d=b.stop_id,e=b.distance_to_stop))
 sys.exit()
 
 # 3 log positions to trips

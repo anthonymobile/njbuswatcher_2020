@@ -31,7 +31,7 @@ def ckdnearest(gdA, gdB, bcol):
     # CONVERSION OF DEGREES TO FEET
     #
     # current crude method, 1 degree = 69 miles = 364,320 feet
-    df = pd.DataFrame.from_dict({'distance': (dist.astype(float)*364320),'bcol' : gdB.loc[idx, bcol].values })
+    df = pd.DataFrame.from_dict({'distance': (dist.astype(float)*364320),bcol : gdB.loc[idx, bcol].values })
     #
     # todo more accurate distance converstion
     # "@anthonymobile If CRS of geodfs are EPSG 4326 (lat/lon) then returned 'dist' will be in degrees. To meters or ft either first convert both gdf to appropriate CRS proj for your location using .to_crs() or convert from degrees (https://t.co/FODrAWskNH)
@@ -85,7 +85,7 @@ def get_nearest_stop(buses,route):
 
     bus_positions = []
 
-    for bus_direction in buses_by_direction:
+    for bus_direction in buses_by_direction: # todo its running one of these loops 2x
 
         # create bus geodataframe
         #df1 = pd.DataFrame.from_records([b.to_dict() for b in buses])
@@ -101,7 +101,7 @@ def get_nearest_stop(buses,route):
         # turn stops_by_direction into a dict with:
         # pandas.DataFrame.from_records([s.to_dict() for s in signals])
 
-        for stop_direction in stops_by_direction:
+        for stop_direction in stops_by_direction: # todo its running one of these loops 2x
             if bus_direction[0]['dd'] == stops_by_direction[0][0]['d']:
 
                 df2=pd.DataFrame.from_records(stop_direction)
@@ -114,10 +114,12 @@ def get_nearest_stop(buses,route):
 
                 # call localizer
                 inferred_stops = ckdnearest(gdf1, gdf2, 'stop_id')
-                gdf1 = gdf1.join(inferred_stops, lsuffix='bcol', rsuffix='stop_id')
+
+                gdf1['stop_id'] = inferred_stops['stop_id']
+                gdf1['distance'] = inferred_stops['distance']
+
 
                 # serialize as a list of BusPosition objects
-
 
                 bus_list = []
 
@@ -146,16 +148,19 @@ def get_nearest_stop(buses,route):
                     position.wid1 = row.wid1
                     position.wid2 = row.wid2
 
-                    position.trip_id = ('{id}_{run}_{dt}').format(id=row.id, run=row.run,
-                                                                  dt=datetime.datetime.today().strftime('%Y%m%d'))
+                    position.trip_id = ('{id}_{run}_{dt}').format(id=row.id, run=row.run, dt=datetime.datetime.today().strftime('%Y%m%d'))
                     position.arrival_flag = False
-                    # position.distance_to_stop = row.distance # todo debug -- why does this cause an error? datatype?
-
-                    position.stop_id = row.bcol  # todo where to get this from?
+                    position.distance_to_stop = row.distance
+                    position.stop_id = row.stop_id  # todo where to get this from?
                     position.timestamp = datetime.datetime.now()  # todo add timestamp now or later?
 
                     bus_list.append(position)
 
-        bus_positions.append(bus_list)
+                bus_positions.append(bus_list)
+
+            else:
+                pass
+
+
 
     return bus_positions
