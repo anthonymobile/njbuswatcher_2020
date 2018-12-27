@@ -648,6 +648,25 @@ this follows the instructions [here](https://blog.miguelgrinberg.com/post/the-fl
 
     then `sudo service nginx reload` and open the firewall `sudo ufw allow 'Nginx HTTP'` and you should be good to go. 
 
+
+4. install netdata
+
+this is the ultimate in server monitoring tools
+
+Use the [DigitalOcean tutorial for now](https://www.digitalocean.com/community/tutorials/how-to-set-up-real-time-performance-monitoring-with-netdata-on-ubuntu-16-04), until I add step-by-step tested instructions here.
+
+5. configure the bunching reporter
+
+```
+cd buswatcher/reportcard
+mkdir data
+python3 cron_nightly.py
+```
+
+add this cron line to your crontab for 3am run
+`0 3 * * * /home/ubuntu/anaconda3/envs/buswatcher/bin/python /home/ubuntu/buswatcher/reportcard/cron_nightly.py`
+
+
 4. updating your app is as easy as 1-2-3...4
 
 ```bash
@@ -656,9 +675,3 @@ git pull
 sudo supervisorctl stop reportcard
 sudo supervisorctl start reportcard 
 ```
-
-5. install netdata
-
-this is the ultimate in server monitoring tools
-
-Use the [DigitalOcean tutorial for now](https://www.digitalocean.com/community/tutorials/how-to-set-up-real-time-performance-monitoring-with-netdata-on-ubuntu-16-04), until I add step-by-step tested instructions here.
