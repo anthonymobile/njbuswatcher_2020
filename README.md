@@ -588,7 +588,7 @@ this follows the instructions [here](https://blog.miguelgrinberg.com/post/the-fl
 2. and the right python stuff
     ```bash
     source activate buswatcher
-    conda install gunicorn 
+    conda install gunicorn flask-caching
     ```
 
 3. configure supervisor to run the reportcard.py flask app
