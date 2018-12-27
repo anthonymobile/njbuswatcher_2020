@@ -40,48 +40,6 @@ def ckdnearest(gdA, gdB, bcol):
     return df
 
 
-###########################################################################
-# CREATE_BUS_POSITIONS
-# takes a geodataframe and turns it into a list of BusPosition objects
-###########################################################################
-
-def create_bus_positions(gdf):
-    bus_list = []
-
-    for index, row in gdf.iterrows():
-        position = DataBases.BusPosition()
-
-        position.lat = row.lat
-        position.lon = row.lon
-        position.cars = row.cars
-        position.consist = row.consist
-        position.d = row.d
-        position.dip = row.dip
-        position.dn = row.dn
-        position.fs = row.fs
-        position.id = row.id
-        position.m = row.m
-        position.op = row.op
-        position.pd = row.pd
-        position.pdRtpiFeedName = row.pdRtpiFeedName
-        position.pid = row.pid
-        position.rt = row.rt
-        position.rtRtpiFeedName = row.rtRtpiFeedName
-        position.rtdd = row.rtdd
-        position.rtpiFeedName = row.rtpiFeedName
-        position.run = row.run
-        position.wid1 = row.wid1
-        position.wid2 = row.wid2
-        # position.timestamp = row.timestamp # todo add timestamp now or later?
-        position.trip_id = ('{id}_{run}_{dt}').format(id=row.id, run=row.run,
-                                                      dt=datetime.datetime.today().strftime('%Y-%m-%d'))
-        # position.stop_id = row.stop_id # todo where to get this from?
-        position.arrival_flag = False
-        position.distance_to_stop = row.distance
-
-        bus_list.append(position)
-
-    return bus_list
 
 
 ###########################################################################
@@ -157,9 +115,47 @@ def get_nearest_stop(buses,route):
                 # call localizer
                 inferred_stops = ckdnearest(gdf1, gdf2, 'stop_id')
                 gdf1 = gdf1.join(inferred_stops, lsuffix='bcol', rsuffix='stop_id')
-                print (gdf1)
 
                 # serialize as a list of BusPosition objects
-                bus_positions.append(create_bus_positions(gdf1))
+
+
+                bus_list = []
+
+                for index, row in gdf1.iterrows():
+                    position = DataBases.BusPosition()
+
+                    position.lat = row.lat
+                    position.lon = row.lon
+                    position.cars = row.cars
+                    position.consist = row.consist
+                    position.d = row.d
+                    position.dip = row.dip
+                    position.dn = row.dn
+                    position.fs = row.fs
+                    position.id = row.id
+                    position.m = row.m
+                    position.op = row.op
+                    position.pd = row.pd
+                    position.pdRtpiFeedName = row.pdRtpiFeedName
+                    position.pid = row.pid
+                    position.rt = row.rt
+                    position.rtRtpiFeedName = row.rtRtpiFeedName
+                    position.rtdd = row.rtdd
+                    position.rtpiFeedName = row.rtpiFeedName
+                    position.run = row.run
+                    position.wid1 = row.wid1
+                    position.wid2 = row.wid2
+
+                    position.trip_id = ('{id}_{run}_{dt}').format(id=row.id, run=row.run,
+                                                                  dt=datetime.datetime.today().strftime('%Y%m%d'))
+                    position.arrival_flag = False
+                    # position.distance_to_stop = row.distance # todo debug -- why does this cause an error? datatype?
+
+                    position.stop_id = row.bcol  # todo where to get this from?
+                    position.timestamp = datetime.datetime.now()  # todo add timestamp now or later?
+
+                    bus_list.append(position)
+
+        bus_positions.append(bus_list)
 
     return bus_positions
