@@ -5,7 +5,7 @@
 # -*- coding: utf-8 -*-
 import datetime
 
-from sqlalchemy import Table, Column, Integer, DateTime, Numeric, String, Boolean, ForeignKey
+from sqlalchemy import Table, Column, Integer, DateTime, Numeric, Float, String, Boolean, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 
@@ -132,7 +132,7 @@ class BusPosition(Base):
 
     trip_id = Column(String(255), ForeignKey('triplog.trip_id'))
     stop_id = Column(String(255), ForeignKey('stoplog.stop_id'))
-    distance_to_stop = Column(Numeric())
+    distance_to_stop = Column(Float())
     arrival_flag = Column(Boolean())
 
     def __repr__(self):

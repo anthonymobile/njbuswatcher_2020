@@ -34,7 +34,7 @@ sys.exit()
 for bus in bus_positions:
 
     # check if there's a Trip where trip id = v_run_yyyymmdd
-    trip_id = ('{v}_{run}_{dt}').format(bus=bus.v,run=bus.run,dt=datetime.datetime.today().strftime('%Y-%m-%d'))
+    trip_id = ('{v}_{run}_{dt}').format(bus=bus.v,run=bus.run,dt=datetime.datetime.today().strftime('%Y%m%d'))
 
     # if there isn't a trip already
     if not trip_session.query(DataBases.Trip).filter(DataBases.Trip.trip_id == trip_id).all():
