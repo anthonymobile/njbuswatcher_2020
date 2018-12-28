@@ -23,54 +23,39 @@ Base = declarative_base()
 
 class Trip(Base):
 
-    def __init__(self,v,run):
-        self.v = v
+    def __init__(self, source, route, v,run):
         self.run = run
         self.date = datetime.datetime.today().strftime('%Y-%m-%d')
         self.trip_id=('{v}_{run}_{date}').format(v=v,run=run,date=self.date)
 
-        self.stoplist = generate_stoplist()
-
-    def generate_stoplist(self): #todo finish Trip __init__
-
-        #
-        #  THIS SHOULD BE PART OF Trip Class __init__ ?
-        #
-        # fill it up with stops from the right service/trip/run with
-        routes = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(source,'buses_for_route',route=args.route))
-
+        # populate the stoplist
         stoplist = []
+        routes = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(source, 'buses_for_route', route=route))
         for stop in routes.path.TK:
             if isinstance(Stop):
-                stop = ScheduledStop(tk,tk) # todo create the Trip object
+                stop = ScheduledStop()  # todo create the Trip object
                 # append it to a list of stops
-        stop_session.bulk_save_objects(stoplist)
-
-        # bus.trip_id = trip_id
-        #
-
-
-
-
-
-
+                self.stoplist.append(stop)
+        # prepare database queue and commit
+        session = ScheduledStop.get_session()
+        for stop in stoplist:
+            session.add(stop)
+        session.commit()
 
     __tablename__ = 'triplog'
     __table_args__ = {'extend_existing': True}
-
     pkey = Column(Integer(), primary_key=True)
     trip_id = Column(String(255))
     v = Column(Integer())
     run = Column(Integer())
     date = Column(DateTime())
-
     positions = relationship("BusPosition")
     stops = relationship("ScheduledStop")
 
     def __repr__(self):
         return "Trip()".format(self=self)
 
-    def get_session(): # todo abstract this out for all 3
+    def get_session(self): # todo abstract this out for all 3
 
         # db_url = {'drivername': 'postgres',
         #           'username': 'postgres',
@@ -80,7 +65,6 @@ class Trip(Base):
         #
         # engine = create_engine(URL(**db_url))
 
-        engine = create_engine('sqlite:///jc_buswatcher.db')
 
         engine = create_engine('sqlite:///jc_buswatcher.db')  # todo update engine for real mysql backend
         Session = sessionmaker(bind=engine)
@@ -126,7 +110,7 @@ class ScheduledStop(Base):
     def __repr__(self):
         return "StopCall()".format(self=self)
 
-    def get_session():
+    def get_session(self):
         # db_url = {'drivername': 'postgres',
         #           'username': 'postgres',
         #           'password': 'postgres',
@@ -134,8 +118,6 @@ class ScheduledStop(Base):
         #           'port': 5432}
         #
         # engine = create_engine(URL(**db_url))
-
-        engine = create_engine('sqlite:///jc_buswatcher.db')
 
         engine = create_engine('sqlite:///jc_buswatcher.db')  # todo update engine for real mysql backend
         Session = sessionmaker(bind=engine)
@@ -196,9 +178,6 @@ class BusPosition(Base):
     distance_to_stop = Column(Float())
     arrival_flag = Column(Boolean())
 
-    # def __repr__(self):
-    #     return "Position()".format(self=self)
-
     def __repr__(self):
         line = []
         for prop, value in vars(self).items():
@@ -207,7 +186,7 @@ class BusPosition(Base):
         out_string = ' '.join([k + '=' + str(v) for k, v in line])
         return "BusPosition" + '[%s]' % out_string
 
-    def get_session():
+    def get_session(self):
 
         # db_url = {'drivername': 'postgres',
         #           'username': 'postgres',
@@ -216,8 +195,6 @@ class BusPosition(Base):
         #           'port': 5432}
         #
         # engine = create_engine(URL(**db_url))
-
-        engine = create_engine('sqlite:///jc_buswatcher.db')
 
         engine = create_engine('sqlite:///jc_buswatcher.db')  # todo update engine for real mysql backend
         Session = sessionmaker(bind=engine)

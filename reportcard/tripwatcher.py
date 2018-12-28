@@ -44,38 +44,37 @@ print (('t{a}\t\t{b}\t{c}\t{d}\t{e:.0f}').format(a=b.trip_id,b=b.id,c=b.run,d=b.
 
 ##############################################
 #
-#   ASSIGN AND LOG CURRENT POSITIONS TO TRIPS
+#   CREATE TRIP RECORDS FOR ANY NEW TRIPS SEEN
 #
 ##############################################
 
 session = DataBases.Trips.get_session()
 
 triplist=[]
+
 # loop over the buses
 for bus in bus_positions:
+    triplist.append(bus.trip_id)
 
-    # check if there's already a corresponding trip record
-    trip_id = ('{v}_{run}_{dt}').format(bus=bus.v,run=bus.run,dt=datetime.datetime.today().strftime('%Y%m%d'))
+    # if there is no Trip record yet, create one
+    if session.query(Trip).filter(Trip.trip_id == bus.trip_id).first() is False:
+        trip = DataBases.Trip(args.source, args.route, bus.v, bus.run)
+        session.add(trip)
 
-    # # if there isn't a trip already
-    if not session.query(Trip).filter(Trip.trip_id == trip_id).all():
-        trip = DataBases.Trip(bus.v, bus.run)
+    # otherwise nothing
     else:
-        bus.trip_id = trip_id # todo not sure if the above is actually changing anything (bus.trip_id -- the list isn't mutable, but the objects inside it are?
+        pass
 
-    # either way, note the current trip
-    triplist.append(trip_id)
-
-# todo write updated bus_positions (with trip_id) to db
-# position_session.bulk_save_objects(bus_positions)
+# write to the db
+session.commit()
 
 ##############################################
 #
-#   UPDATE SCHEDULED STOPS FOR CURRENT TRIPS
+#   todo UPDATE SCHEDULED STOPS FOR CURRENT TRIPS
 #
 ##############################################
 
-for trip in triplist:
+# for trip in triplist:
     # result = session.query(Trip).filter(Trip.trip_id == trip_id).all()
 
     # not sure wright # of loops below
