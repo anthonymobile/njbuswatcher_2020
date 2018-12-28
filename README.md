@@ -2,6 +2,16 @@
 ### v 2
 ##### January 2019
 
+## TO DO ASAP
+
+1. finish tripwatcher
+2. rewrite ReportCard.py
+3. dockerize entire application and its database, using docker-compose [tutorial](https://github.com/stavshamir/docker-tutorial/tree/master/app)
+    - maybe 3 dockers? one for the flask app
+    - one for the db
+    - one for the http server and proxy: nginx and gunicorn
+
+
 ### Version 2
 
 Improvements
