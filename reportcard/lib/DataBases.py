@@ -9,7 +9,7 @@ from sqlalchemy import create_engine, Table, Column, Integer, DateTime, Float, S
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
 
-from lib import BusAPI
+from . import BusAPI
 
 # base class
 Base = declarative_base()
@@ -24,23 +24,25 @@ Base = declarative_base()
 class Trip(Base):
 
     def __init__(self, source, route, v,run):
+        self.v = v
         self.run = run
         self.date = datetime.datetime.today().strftime('%Y-%m-%d')
         self.trip_id=('{v}_{run}_{date}').format(v=v,run=run,date=self.date)
 
-        # populate the stoplist
-        stoplist = []
-        routes = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(source, 'buses_for_route', route=route))
-        for stop in routes.path.TK:
-            if isinstance(Stop):
-                stop = ScheduledStop()  # todo create the Trip object
-                # append it to a list of stops
-                self.stoplist.append(stop)
-        # prepare database queue and commit
-        session = ScheduledStop.get_session()
-        for stop in stoplist:
-            session.add(stop)
-        session.commit()
+        # create a corresponding set of ScheduledStop records for each new Trip
+        # and populate the self.stoplist
+        self.session = ScheduledStop.get_session()
+        self.stoplist = []
+        routes, coordinates_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(source, 'routes', route=route))
+        for route in routes:
+            for path in route.paths:
+                for point in path.points:
+                    if isinstance(point, BusAPI.Route.Stop):
+                        this_stop = ScheduledStop(self.trip_id,self.v,self.run,self.date,point.identity)
+                        self.stoplist.append(point.identity)
+                        for stop in self.stoplist:
+                            self.session.add(this_stop)
+        self.session.commit()
 
     __tablename__ = 'triplog'
     __table_args__ = {'extend_existing': True}
@@ -55,7 +57,7 @@ class Trip(Base):
     def __repr__(self):
         return "Trip()".format(self=self)
 
-    def get_session(self): # todo abstract this out for all 3
+    def get_session(): # todo abstract this out for all 3
 
         # db_url = {'drivername': 'postgres',
         #           'username': 'postgres',
@@ -89,10 +91,12 @@ class Trip(Base):
 #
 class ScheduledStop(Base):
 
-    # def __init__(self):
-        # todo set init values for ScheduledStop
-        #
-        #
+    def __init__(self, trip_id,v,run,date,stop_id):
+        self.trip_id = trip_id
+        self.v = v
+        self.run = run
+        self.date = date
+        self.stop_id = stop_id
 
     __tablename__ = 'stoplog'
     __table_args__ = {'extend_existing': True}
@@ -110,7 +114,7 @@ class ScheduledStop(Base):
     def __repr__(self):
         return "StopCall()".format(self=self)
 
-    def get_session(self):
+    def get_session():
         # db_url = {'drivername': 'postgres',
         #           'username': 'postgres',
         #           'password': 'postgres',
@@ -186,7 +190,7 @@ class BusPosition(Base):
         out_string = ' '.join([k + '=' + str(v) for k, v in line])
         return "BusPosition" + '[%s]' % out_string
 
-    def get_session(self):
+    def get_session():
 
         # db_url = {'drivername': 'postgres',
         #           'username': 'postgres',

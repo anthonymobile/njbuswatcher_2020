@@ -21,10 +21,7 @@ print ('trip_id\t\t\t\t\tv\t\trun\tstop_id\tdistance_to_stop (feet)')
 # 1 fetch all buses on route currently
 # buses = a list of Bus objects
 
-try:
-    buses = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data(args.source,'buses_for_route',route=args.route))
-except OSError as e:
-    continue #todo need to catch rest of errors when network is down
+buses = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data(args.source,'buses_for_route',route=args.route))
 
 # 2 localize them to nearest stop and log to db
 # bus_positions = list of BusPosition objects
@@ -48,22 +45,26 @@ print (('t{a}\t\t{b}\t{c}\t{d}\t{e:.0f}').format(a=b.trip_id,b=b.id,c=b.run,d=b.
 #
 ##############################################
 
-session = DataBases.Trips.get_session()
+session = DataBases.Trip.get_session()
 
 triplist=[]
 
 # loop over the buses
-for bus in bus_positions:
-    triplist.append(bus.trip_id)
+for busgroup in bus_positions:
+    for bus in busgroup:
 
-    # if there is no Trip record yet, create one
-    if session.query(Trip).filter(Trip.trip_id == bus.trip_id).first() is False:
-        trip = DataBases.Trip(args.source, args.route, bus.v, bus.run)
-        session.add(trip)
+        triplist.append(bus.trip_id)
+        result = session.query(DataBases.Trip).filter(DataBases.Trip.trip_id == bus.trip_id).first()
 
-    # otherwise nothing
-    else:
-        pass
+        # if there is no Trip record yet, create one
+        if result is None:
+            trip = DataBases.Trip(args.source, args.route, bus.id, bus.run)
+            print ('.')
+            session.add(trip)
+
+        # otherwise nothing
+        else:
+            pass
 
 # write to the db
 session.commit()
