@@ -1,4 +1,4 @@
-import time, argparse
+import argparse, sys
 
 # args = source, route
 parser = argparse.ArgumentParser()
@@ -15,13 +15,15 @@ from lib import BusAPI, DataBases, Localizer
 #
 ##############################################
 
-print ('trip_id\t\t\t\t\tv\t\trun\tstop_id\tdistance_to_stop (feet)')
-
 
 # 1 fetch all buses on route currently
 # buses = a list of Bus objects
 
-buses = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data(args.source,'buses_for_route',route=args.route))
+try:
+    buses = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data(args.source,'buses_for_route',route=args.route))
+except:
+    print ('Is your internet connection down?')
+    sys.exit()
 
 # 2 localize them to nearest stop and log to db
 # bus_positions = list of BusPosition objects
@@ -35,9 +37,13 @@ for group in bus_positions:
 session.commit()
 
 # 3 generate some diagnostic output of what we just tracked
+print ('trip_id\t\t\t\t\tv\t\trun\tstop_id\tdistance_to_stop (feet)')
 
-b = bus_positions[0][0]
-print (('t{a}\t\t{b}\t{c}\t{d}\t{e:.0f}').format(a=b.trip_id,b=b.id,c=b.run,d=b.stop_id,e=b.distance_to_stop))
+
+# b = bus_positions[0][0]
+for direction in bus_positions:
+    for b in direction:
+        print (('t{a}\t\t{b}\t{c}\t{d}\t{e:.0f}').format(a=b.trip_id,b=b.id,c=b.run,d=b.stop_id,e=b.distance_to_stop))
 
 ##############################################
 #
@@ -45,7 +51,6 @@ print (('t{a}\t\t{b}\t{c}\t{d}\t{e:.0f}').format(a=b.trip_id,b=b.id,c=b.run,d=b.
 #
 ##############################################
 
-session = DataBases.Trip.get_session()
 
 triplist=[]
 
@@ -60,14 +65,18 @@ for busgroup in bus_positions:
         if result is None:
             trip = DataBases.Trip(args.source, args.route, bus.id, bus.run)
             print ('.')
+
+            # todo this is inefficient but necessary due to the nesting?
+            session = DataBases.Trip.get_session()
             session.add(trip)
+            session.commit()
 
         # otherwise nothing
         else:
             pass
 
 # write to the db
-session.commit()
+
 
 ##############################################
 #

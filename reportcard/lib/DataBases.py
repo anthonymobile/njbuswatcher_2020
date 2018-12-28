@@ -42,7 +42,7 @@ class Trip(Base):
                         self.stoplist.append(point.identity)
                         for stop in self.stoplist:
                             self.session.add(this_stop)
-        self.session.commit()
+        self.session.commit() # todo possible to have nested sessions? why not do all this first, then do the trip one later
 
     __tablename__ = 'triplog'
     __table_args__ = {'extend_existing': True}
@@ -50,7 +50,7 @@ class Trip(Base):
     trip_id = Column(String(255))
     v = Column(Integer())
     run = Column(Integer())
-    date = Column(DateTime())
+    date = Column(String)
     positions = relationship("BusPosition")
     stops = relationship("ScheduledStop")
 
@@ -105,7 +105,7 @@ class ScheduledStop(Base):
     trip_id = Column(String(255), ForeignKey('triplog.trip_id'))
     run = Column(Integer())
     v = Column(Integer())
-    date = Column(DateTime())
+    date = Column(String())
     stop_id = Column(Integer())
     arrival_timestamp = Column(DateTime())
 
