@@ -26,7 +26,7 @@ class Trip(Base):
     def __init__(self, source, route, v,run):
         self.v = v
         self.run = run
-        self.date = datetime.datetime.today().strftime('%Y-%m-%d')
+        self.date = datetime.datetime.today().strftime('%Y%m%d')
         self.trip_id=('{v}_{run}_{date}').format(v=v,run=run,date=self.date)
 
         # create a corresponding set of ScheduledStop records for each new Trip
@@ -42,7 +42,7 @@ class Trip(Base):
                         self.stoplist.append(point.identity)
                         for stop in self.stoplist:
                             self.session.add(this_stop)
-        self.session.commit() # todo possible to have nested sessions? why not do all this first, then do the trip one later
+        self.session.commit()
 
     __tablename__ = 'triplog'
     __table_args__ = {'extend_existing': True}
@@ -175,7 +175,7 @@ class BusPosition(Base):
     run = Column(String(20))
     wid1 = Column(String(20))
     wid2 = Column(String(20))
-    timestamp = Column(String(20))
+    timestamp = Column(DateTime())
 
     trip_id = Column(String(255), ForeignKey('triplog.trip_id'))
     stop_id = Column(String(255), ForeignKey('stoplog.stop_id'))

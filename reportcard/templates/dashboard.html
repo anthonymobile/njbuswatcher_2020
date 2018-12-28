@@ -1,0 +1,95 @@
+{%- extends "bootstrap/base.html" %}
+
+
+{%  block head %}
+
+{{ super() }}
+<META HTTP-EQUIV="refresh" CONTENT="30">
+
+{% endblock %}
+
+{%  block body %}
+<div>
+
+<h1>Heights BusWatcher Dash -- TripWatcher/Localizer v2.0
+<h2>on the road now</h2>
+</h1>
+<h3>BusPosition</h3>
+<table class="table table-sm table-hover">
+            <thead class="thread-dark">
+              <tr>
+                <th>route</th>
+                <th>v/bus#(id)</th>
+                <th>run</th>
+                <th>stop_id</th>
+                <th>distance_to_stop(ft)</th>
+                <th>trip_id</th>
+
+
+              </tr>
+            </thead>
+            <tbody>
+            {% for bus in buses %}
+                <tr class='table'>
+                    <td>{{bus.rt}}</td>
+                    <td>{{bus.id}}</td>
+                    <td>{{bus.run}}</td>
+                    <td>{{bus.stop_id}}</td>
+                    <td>{{bus.distance_to_stop|int}}</td>
+                    <td>{{bus.trip_id}}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+
+
+
+<h3>Trip</h3>
+    <table class="table table-sm table-hover">
+            <thead class="thread-dark">
+              <tr>
+                <th>trip_id</th>
+                <th>date(yyyymmdd)</th>
+                <th>v/bus#</th>
+                <th>run/trip#</th>
+              </tr>
+            </thead>
+            <tbody>
+
+            {% for trip in trips %}
+                <tr class='table'>
+                    <td>{{trip.trip_id}}</td>
+                    <td>{{trip.date}}</td>
+                    <td>{{trip.v}}</td>
+                    <td>{{trip.run}}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+
+
+<h3>Stop</h3>
+<table class="table table-sm table-hover">
+            <thead class="thread-dark">
+              <tr>
+                <th>stop_id</th>
+                <th>trip_id</th>
+                <th>v(bus#)</th>
+                <th>run/trip#</th>
+                <th>arrival_timestamp</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for stop in stops %}
+                <tr class='table'>
+                    <td>{{stop.stop_id}}</td>
+                    <td>{{stop.trip_id}}</td>
+                    <td>{{stop.v}}</td>
+                    <td>{{stop.run}}</td>
+                    <td>{{stop.arrival_timestamp}}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+
+{% endblock %}

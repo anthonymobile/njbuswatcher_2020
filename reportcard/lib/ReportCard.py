@@ -11,7 +11,7 @@ except:
     db_server = '127.0.0.1'
 
 # import app libraries
-from . import StopsDB, BusAPI, Localizer
+from . import BusAPI, Localizer
 
 # common functions
 def timestamp_fix(data): # trim the microseconds off the timestamp and convert it to datetime format
