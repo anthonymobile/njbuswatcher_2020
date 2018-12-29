@@ -7,12 +7,13 @@ parser.add_argument('-r', '--route', dest='route', required=True, help='route nu
 
 args = parser.parse_args()
 
-from lib import BusAPI, DataBases, Localizer
+from lib import BusAPI, Localizer
 
+from lib import Databases as db
 
 import time
 while True:
-    time.sleep(30)
+    time.sleep(60)
 
     ##############################################
     #
@@ -32,20 +33,17 @@ while True:
     bus_positions = Localizer.get_nearest_stop(buses,args.route)
 
     # log the localized positions to the database
-    session = DataBases.BusPosition.get_session()
+    session = db.BusPosition.get_session()
     for group in bus_positions:
         for bus in group:
             session.add(bus)
     session.commit()
 
     # 3 generate some diagnostic output of what we just tracked
-    print ('trip_id\t\t\t\t\tv\t\trun\tstop_id\tdistance_to_stop (feet)')
-
-
-    # b = bus_positions[0][0]
-    for direction in bus_positions:
-        for b in direction:
-            print (('t{a}\t\t{b}\t{c}\t{d}\t{e:.0f}').format(a=b.trip_id,b=b.id,c=b.run,d=b.stop_id,e=b.distance_to_stop))
+    # print ('trip_id\t\t\t\t\tv\t\trun\tstop_id\tdistance_to_stop (feet)')
+    # for direction in bus_positions:
+    #    for b in direction:
+    #        print (('t{a}\t\t{b}\t{c}\t{d}\t{e:.0f}').format(a=b.trip_id,b=b.id,c=b.run,d=b.stop_id,e=b.distance_to_stop))
 
     ##############################################
     #
@@ -61,14 +59,14 @@ while True:
         for bus in busgroup:
 
             triplist.append(bus.trip_id)
-            result = session.query(DataBases.Trip).filter(DataBases.Trip.trip_id == bus.trip_id).first()
+            result = session.query(db.Trip).filter(db.Trip.trip_id == bus.trip_id).first()
 
             # if there is no Trip record yet, create one
             if result is None:
-                trip = DataBases.Trip(args.source, args.route, bus.id, bus.run)
-                print ('.')
+                trip = db.Trip(args.source, args.route, bus.id, bus.run)
+                 # print ('.')
 
-                session = DataBases.Trip.get_session()
+                session = db.Trip.get_session()
                 session.add(trip)
                 session.commit()
 
@@ -82,23 +80,48 @@ while True:
     #
     ##############################################
 
-    # loop over list of trips in this position grab
-    #for trip in triplist:
+    # loop over all the trips we see right now
+    for trip in triplist:
 
-        # identify all stops that have new positions
-        # result = session.query(ScheduledStops).filter(DataBases.ScheduledStops.trip_id.in_(trip_list))
+        # todo how deal with trip/run # not being unique each day? (look across data see how pervasive this problem is) -- e.g. run #s being reused on the same route in same day at different times
 
-        # see if any buses have arrived
-        # loop over each stop
-        # for stop in result:
-            # for run in runlist where stopid = stopid?
-            # get all the positions for the current run, sort by ascending timestamp
-                # 3 or 4 assignment methods
-                # 1 - if distance_to_stop has a minumum and has started to increase again
-                # 2 - saw it arrive but not depart
-                # 3 - saw it depart but not arrive
-                # 4 - something else
-                # update: SCheduledStop record with an arrival time
-                # update: BusPosition record as an arrival
-                # add to db session
-    # session.common()
+        # extract all the stops for this trip that do not have an arrival logged
+        stoplist = session.query(db.ScheduledStop)\
+            .filter(db.ScheduledStop.trip_id == trip) \
+            .filter(db.ScheduledStop.arrival_timestamp != None)\
+            .all()
+
+        # loop over all the stops
+        # todo could probably avoid the double for loop by doing jsut this query with a join between ScheduledStops and BusPosition
+        for stop in stoplist:
+
+            # for this stop extract all positions
+            position_list = session.query(db.BusPosition) \
+                .filter(db.BusPosition.trip_id == trip) \
+                .filter(db.BusPosition.stop_id == stop.stop_id) \
+                .filter(db.ScheduledStop.arrival_timestamp is not None) \
+                .order_by(db.BusPosition.timestamp.asc()) \
+                .all()
+
+            # now process position_list to figure out
+
+            # 1 scan
+
+            # 2 classify/assign
+
+            # possible cases (easiest to hardest)
+            # a stop only -- d is low, 1 or more sightings at stop
+            # b approach or depart only -- hill - d rises or falls only
+            # c approach and depart -- saddle -- d starts high, falls then rises again
+            # d boomerang -- already arrived at this stop on this trip and now passing by again, this is closest stop on another leg (e.g. 87 going down the hill after palisade)
+            # e TK
+            # f TK
+            # g TK baddata
+
+            # 3 update objects
+            # 3a flag BusPosition.arrival_flag for record where trip_id=trip and TK=TK?
+            # 3b log the arrival_timestamp for ScheduledStop where trip_id=trip
+
+
+            # add to db session
+    # session.commit()

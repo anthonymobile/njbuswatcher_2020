@@ -32,6 +32,7 @@
                         <table class="table table-sm table-hover">
                         <thead class="thread-dark">
                         <tr>
+                            <th>run</th>
                             <th>timestamp</th>
                             <th>rt</th>
                             <th>stop_id</th>
@@ -43,13 +44,21 @@
                         <tbody>
                         {% for position in buses %}
                         <tr class='table'>
+                            <td>{{position.run}}</td>
                             <td>{{position.timestamp|strftime_forever}}</td>
                             <td>{{position.rt}}</td>
                             <td>{{position.stop_id}}</td>
                             <td>{{position.distance_to_stop|int}}</td>
                             <td>{{position.arrival_flag}}</td>
                         </tr>
+
+
                         {% endfor %}
+                                                    <tr>
+                            <div id="map">
+                                put a map here later
+                            </div>
+                            </tr>
                         </tbody>
                         </table>
 
