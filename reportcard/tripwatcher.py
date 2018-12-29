@@ -24,11 +24,8 @@ while True:
     # 1 fetch all buses on route currently
     # buses = a list of Bus objects
 
-    try:
-        buses = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data(args.source,'buses_for_route',route=args.route))
-    except:
-        print ('Is your internet connection down?')
-        sys.exit()
+
+    buses = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data(args.source,'buses_for_route',route=args.route))
 
     # 2 localize them to nearest stop and log to db
     # bus_positions = list of BusPosition objects
