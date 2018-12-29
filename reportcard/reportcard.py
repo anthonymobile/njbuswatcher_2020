@@ -79,6 +79,7 @@ def displayDashboard():
         for v in v_route:
             v_list.append(v.id)
             run_list.append(v.run)
+    print (v_list)
 
     session = DataBases.Trip.get_session()
 
@@ -90,13 +91,14 @@ def displayDashboard():
 
         buses_dash[b]=session.query(DataBases.BusPosition) \
         .filter(DataBases.BusPosition.id.in_(v_as_list)) \
+        .filter(DataBases.BusPosition.run.in_(run_list)) \
         .order_by(DataBases.BusPosition.stop_id.desc()) \
         .order_by(DataBases.BusPosition.timestamp.desc()) \
         .all()
 
+        # todo restore filter for only buses on the route now (not sure why not working)
         #  .filter(DataBases.Trip.date == todays_date) \
-        # .filter(DataBases.BusPosition.id == v) \
-        # .filter(DataBases.BusPosition.run.in_(run_list)) \
+
 
     return render_template('dashboard.html', busdash=buses_dash)
 
