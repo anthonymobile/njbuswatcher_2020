@@ -69,7 +69,6 @@ def displayDashboard():
     # query expressions
     todays_date = datetime.datetime.today().strftime('%Y%m%d')
 
-
     # grab list of vehicle and run numbers on the road now
     v_list=[]
     run_list=[]
@@ -83,41 +82,16 @@ def displayDashboard():
 
     session = DataBases.Trip.get_session()
 
-    buses_now = session.query(DataBases.BusPosition) \
+    buses_dash=dict()
+    for v in v_list:
+        buses_dash[v]=session.query(DataBases.BusPosition) \
         .filter(DataBases.BusPosition.run.in_(run_list)) \
         .filter(DataBases.Trip.date == todays_date) \
-        .order_by(DataBases.BusPosition.id.desc()) \
+        .order_by(DataBases.BusPosition.stop_id.desc()) \
+        .order_by(DataBases.BusPosition.timestamp.desc()) \
         .all()
 
-    trip_list = []
-    stop_list = []
-    for bus in buses_now:
-        trip_list.append(bus.trip_id)
-        stop_list.append(bus.stop_id)
-
-    trips_now = session.query(DataBases.Trip) \
-        .filter(DataBases.Trip.trip_id.in_(trip_list)) \
-        .all()
-
-    # trips_now = session.query(DataBases.Trip) \
-    #     .filter(DataBases.Trip.run.in_(run_list)) \
-    #     .filter(DataBases.Trip.date == todays_date)\
-    #     .all()
-
-    stops_today = session.query(DataBases.ScheduledStop) \
-        .filter(DataBases.ScheduledStop.trip_id.in_(trip_list)) \
-        .filter(DataBases.ScheduledStop.stop_id.in_(stop_list)) \
-        .all()
-
-
-
-
-    # today_trips = session.query(DataBases.Trip).filter(DataBases.Trip.date=datetime.datetime.today().strftime('%Y%m%d')).order_by(DataBases.Trip.pkey.desc()).all()
-
-    #
-    #filter(DataBases.BusPosition.date=todays_date).order_by(DataBases.BusPosition.timestamp.desc())
-
-    return render_template('dashboard.html', trips=trips_now, stops=stops_today, buses=buses_now)
+    return render_template('dashboard.html', busdash=buses_dash)
 
 
 # #1 home page
