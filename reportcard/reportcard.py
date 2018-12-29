@@ -63,8 +63,8 @@ assets.register(bundles)
 ################################################
 
 #0 testing dashboard
-@app.route('/dashboard')
-def displayDashboard():
+@app.route('/<source>/<route>/dashboard')
+def displayDashboard(source,route):
 
     # query expressions
     todays_date = datetime.datetime.today().strftime('%Y%m%d')
@@ -72,13 +72,10 @@ def displayDashboard():
     # grab list of vehicle and run numbers on the road now
     v_list=[]
     run_list=[]
-    for route in reportcard_routes:
-
-        v_route = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data('nj', 'buses_for_route', route=route['route']))
-
-        for v in v_route:
-            v_list.append(v.id)
-            run_list.append(v.run)
+    v_route = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data(source, 'buses_for_route', route=route))
+    for v in v_route:
+        v_list.append(v.id)
+        run_list.append(v.run)
     print (v_list)
 
     session = DataBases.Trip.get_session()
@@ -92,15 +89,11 @@ def displayDashboard():
         buses_dash[b]=session.query(DataBases.BusPosition) \
         .filter(DataBases.BusPosition.id.in_(v_as_list)) \
         .filter(DataBases.BusPosition.run.in_(run_list)) \
-        .order_by(DataBases.BusPosition.stop_id.desc()) \
         .order_by(DataBases.BusPosition.timestamp.desc()) \
-        .all()
+        .order_by(DataBases.BusPosition.stop_id.desc()) \
+        .limit(10)
 
-        # todo restore filter for only buses on the route now (not sure why not working)
-        #  .filter(DataBases.Trip.date == todays_date) \
-
-
-    return render_template('dashboard.html', busdash=buses_dash)
+    return render_template('dashboard.html', busdash=buses_dash,route=route)
 
 
 # #1 home page

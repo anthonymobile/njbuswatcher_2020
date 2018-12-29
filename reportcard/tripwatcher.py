@@ -76,27 +76,29 @@ while True:
             else:
                 pass
 
-    # write to the db
-
-
     ##############################################
     #
     #   todo UPDATE SCHEDULED STOPS FOR CURRENT TRIPS
     #
     ##############################################
 
-    # for trip in triplist:
-        # result = session.query(Trip).filter(Trip.trip_id == trip_id).all()
+    # loop over list of trips in this position grab
+    #for trip in triplist:
 
-        # not sure right # of loops below
-        # for bus in bus_positions: # loop over buses on route now
-        #     for runs in bus_positions : # filter by runs current observed on route now
-        #         for v in bus_positions: # filter by vehicles current observed on route now
-        #             get all of the positions for this run, v, ,yyyymmdd, bus.stop_id AND sort by time ascending
-        #             if distance_to_stop has a minumum and has started to increase again
-        #             update: SCheduledStop record with an arrival time
-        #             update: BusPosition record as an arrival
+        # identify all stops that have new positions
+        # result = session.query(ScheduledStops).filter(DataBases.ScheduledStops.trip_id.in_(trip_list))
 
-
-
-
+        # see if any buses have arrived
+        # loop over each stop
+        # for stop in result:
+            # for run in runlist where stopid = stopid?
+            # get all the positions for the current run, sort by ascending timestamp
+                # 3 or 4 assignment methods
+                # 1 - if distance_to_stop has a minumum and has started to increase again
+                # 2 - saw it arrive but not depart
+                # 3 - saw it depart but not arrive
+                # 4 - something else
+                # update: SCheduledStop record with an arrival time
+                # update: BusPosition record as an arrival
+                # add to db session
+    # session.common()
