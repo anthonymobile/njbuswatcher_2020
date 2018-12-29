@@ -9,11 +9,53 @@
 {% endblock %}
 
 {%  block body %}
-<div>
 
-<h1>Heights BusWatcher Dash -- TripWatcher/Localizer v2.0
-<h2>on the road now</h2>
-</h1>
+    <div class="container">
+        <div class="row">
+
+            <h1>Heights BusWatcher Dash -- TripWatcher/Localizer v2.0</h1>
+            <h2>on the road now</h2>
+
+            <div id="buses" class="row mt-5">
+
+                {% for key,buses in busdash.items() %}
+                    <div class="col-sm-4">
+
+                        <p class="lead">{{key}}</p>
+                        <p>{{buses[0].fs}}</p>
+
+                        <table class="table table-sm table-hover">
+                        <thead class="thread-dark">
+                        <tr>
+                            <th>timestamp</th>
+                            <th>stop_id</th>
+                            <th>d(ft)</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        {% for position in buses %}
+                        <tr class='table'>
+                            <td>{{position.timestamp|strftime_forever}}</td>
+                            <td>{{position.stop_id}}</td>
+                            <td>{{position.distance_to_stop|int}}</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                        </table>
+
+                    </div>
+                {% endfor %}
+
+           </div>
+        </div>
+
+
+   <!--
+   <div class="row">
+
+
+ <h1>RAW DATA BELOW</h1>
 <h3>BusPosition</h3>
 <table class="table table-sm table-hover">
             <thead class="thread-dark">
@@ -91,5 +133,9 @@
             {% endfor %}
             </tbody>
           </table>
+-->
+     </div>
+    </div>
+
 
 {% endblock %}
