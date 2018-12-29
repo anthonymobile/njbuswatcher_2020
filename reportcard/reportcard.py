@@ -83,13 +83,20 @@ def displayDashboard():
     session = DataBases.Trip.get_session()
 
     buses_dash=dict()
-    for v in v_list:
-        buses_dash[v]=session.query(DataBases.BusPosition) \
-        .filter(DataBases.BusPosition.run.in_(run_list)) \
-        .filter(DataBases.Trip.date == todays_date) \
+    for b in v_list:
+
+        v_as_list = []
+        v_as_list.append(b)
+
+        buses_dash[b]=session.query(DataBases.BusPosition) \
+        .filter(DataBases.BusPosition.id.in_(v_as_list)) \
         .order_by(DataBases.BusPosition.stop_id.desc()) \
         .order_by(DataBases.BusPosition.timestamp.desc()) \
         .all()
+
+        #  .filter(DataBases.Trip.date == todays_date) \
+        # .filter(DataBases.BusPosition.id == v) \
+        # .filter(DataBases.BusPosition.run.in_(run_list)) \
 
     return render_template('dashboard.html', busdash=buses_dash)
 

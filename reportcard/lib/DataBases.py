@@ -44,7 +44,7 @@ class Trip(Base):
                             self.session.add(this_stop)
         self.session.commit()
 
-    __tablename__ = 'triplog'
+    __tablename__ = 'trip_log'
     __table_args__ = {'extend_existing': True}
     pkey = Column(Integer(), primary_key=True)
     trip_id = Column(String(255))
@@ -98,11 +98,11 @@ class ScheduledStop(Base):
         self.date = date
         self.stop_id = stop_id
 
-    __tablename__ = 'stoplog'
+    __tablename__ = 'scheduledstop_log'
     __table_args__ = {'extend_existing': True}
 
     pkey = Column(Integer(), primary_key=True)
-    trip_id = Column(String(255), ForeignKey('triplog.trip_id'))
+    trip_id = Column(String(255), ForeignKey('trip_log.trip_id'))
     run = Column(Integer())
     v = Column(Integer())
     date = Column(String())
@@ -147,10 +147,8 @@ class BusPosition(Base):
 
     #def __init__(self):
         # todo set init values for BusPosition
-        #
-        #
 
-    __tablename__ ='routelog'
+    __tablename__ ='position_log'
     __table_args__ = {'extend_existing': True}
 
     pkey = Column(Integer(), primary_key=True)
@@ -177,8 +175,8 @@ class BusPosition(Base):
     wid2 = Column(String(20))
     timestamp = Column(DateTime())
 
-    trip_id = Column(String(255), ForeignKey('triplog.trip_id'))
-    stop_id = Column(String(255), ForeignKey('stoplog.stop_id'))
+    trip_id = Column(String(255), ForeignKey('trip_log.trip_id'))
+    stop_id = Column(String(255), ForeignKey('scheduledstop_log.stop_id'))
     distance_to_stop = Column(Float())
     arrival_flag = Column(Boolean())
 
@@ -200,7 +198,7 @@ class BusPosition(Base):
         #
         # engine = create_engine(URL(**db_url))
 
-        engine = create_engine('sqlite:///jc_buswatcher.db')  # todo update engine for real mysql backend
+        engine = create_engine('sqlite:///jc_buswatcher.db')
         Session = sessionmaker(bind=engine)
 
         # try to create tables, just in case they aren't there
