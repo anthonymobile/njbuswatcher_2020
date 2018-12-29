@@ -17,8 +17,8 @@ Base = declarative_base()
 #####################################################
 # CLASS Trip
 #####################################################
-# stores trip structure for a unique v, run, date
-# = list of stops and call times
+# not sure what this does other than trigger the creation of the scheduled stops
+# todo might be able to get rid of Trip class?
 #####################################################
 
 class Trip(Base):
