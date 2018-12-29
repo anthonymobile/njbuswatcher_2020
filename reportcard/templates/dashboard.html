@@ -13,14 +13,19 @@
     <div class="container">
         <div class="row">
 
-            <h1>BusWatcher Dash -- TripWatcher/Localizer v2.0</h1>
-            <h2>The Heights</h2>
-        <p>Shows all buses on the road now in The Heights. Does not show routes where tripwatcher is not logging data.</p>
+            <h2>TripWatcher/Localizer v2.0</h2>
+                    <p>Shows last 10 observed positions for all buses on the road now in The Heights. Does not show routes where tripwatcher is not logging data.</p>
+        </div>
+    <div class="row">
+            <h1>Route {{ route }}</h1>
+    </div>
+    <div class="row">
 
-            <div id="buses" class="row mt-5">
+
+            <div id="buses" class="row mt-2">
 
                 {% for key,buses in busdash.items() %}
-                    <div class="col-sm-4">
+                    <div class="col-sm-6">
 
                         <p class="lead">{{key}}</p>
 
@@ -31,6 +36,7 @@
                             <th>rt</th>
                             <th>stop_id</th>
                             <th>d(ft)</th>
+                            <th>arrival_flag</th>
                         </tr>
                         </thead>
 
@@ -41,6 +47,7 @@
                             <td>{{position.rt}}</td>
                             <td>{{position.stop_id}}</td>
                             <td>{{position.distance_to_stop|int}}</td>
+                            <td>{{position.arrival_flag}}</td>
                         </tr>
                         {% endfor %}
                         </tbody>
