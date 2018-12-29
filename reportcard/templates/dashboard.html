@@ -13,8 +13,9 @@
     <div class="container">
         <div class="row">
 
-            <h1>Heights BusWatcher Dash -- TripWatcher/Localizer v2.0</h1>
-            <h2>on the road now</h2>
+            <h1>BusWatcher Dash -- TripWatcher/Localizer v2.0</h1>
+            <h2>The Heights</h2>
+        <p>Shows all buses on the road now in The Heights. Does not show routes where tripwatcher is not logging data.</p>
 
             <div id="buses" class="row mt-5">
 
@@ -27,6 +28,7 @@
                         <thead class="thread-dark">
                         <tr>
                             <th>timestamp</th>
+                            <th>rt</th>
                             <th>stop_id</th>
                             <th>d(ft)</th>
                         </tr>
@@ -36,6 +38,7 @@
                         {% for position in buses %}
                         <tr class='table'>
                             <td>{{position.timestamp|strftime_forever}}</td>
+                            <td>{{position.rt}}</td>
                             <td>{{position.stop_id}}</td>
                             <td>{{position.distance_to_stop|int}}</td>
                         </tr>
