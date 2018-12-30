@@ -9,11 +9,14 @@ args = parser.parse_args()
 
 from lib import BusAPI, Localizer
 
-from lib import Databases as db
+from lib import DataBases as db
 
 import time
 while True:
-    time.sleep(60)
+    delay = 5
+    print (('Please wait {a} seconds for first run...').format(a=delay))
+    time.sleep(delay)
+
 
     ##############################################
     #
@@ -40,10 +43,10 @@ while True:
     session.commit()
 
     # 3 generate some diagnostic output of what we just tracked
-    # print ('trip_id\t\t\t\t\tv\t\trun\tstop_id\tdistance_to_stop (feet)')
-    # for direction in bus_positions:
-    #    for b in direction:
-    #        print (('t{a}\t\t{b}\t{c}\t{d}\t{e:.0f}').format(a=b.trip_id,b=b.id,c=b.run,d=b.stop_id,e=b.distance_to_stop))
+    print ('trip_id\t\t\t\t\tv\t\trun\tstop_id\tdistance_to_stop (feet)')
+    for direction in bus_positions:
+       for b in direction:
+           print (('t{a}\t\t{b}\t{c}\t{d}\t{e:.0f}').format(a=b.trip_id,b=b.id,c=b.run,d=b.stop_id,e=b.distance_to_stop))
 
     ##############################################
     #
@@ -64,7 +67,7 @@ while True:
             # if there is no Trip record yet, create one
             if result is None:
                 trip = db.Trip(args.source, args.route, bus.id, bus.run)
-                 # print ('.')
+                print ('.')
 
                 session = db.Trip.get_session()
                 session.add(trip)
@@ -83,23 +86,25 @@ while True:
     # loop over all the trips we see right now
     for trip in triplist:
 
-        # todo how deal with trip/run # not being unique each day? (look across data see how pervasive this problem is) -- e.g. run #s being reused on the same route in same day at different times
+        # todo how deal with trip/run # not being unique each day? (look across data see how pervasive this problem is) -- e.g. run #s being reused on the same route in same day at different times -- though odds are low same v and run will appear together?
 
         # extract all the stops for this trip that do not have an arrival logged
+        print (('trip {a}').format(a=trip))
         stoplist = session.query(db.ScheduledStop)\
             .filter(db.ScheduledStop.trip_id == trip) \
-            .filter(db.ScheduledStop.arrival_timestamp != None)\
+            .filter(db.ScheduledStop.arrival_timestamp == None) \
             .all()
 
         # loop over all the stops
-        # todo could probably avoid the double for loop by doing jsut this query with a join between ScheduledStops and BusPosition
+        # todo could probably avoid the double for loop by doing just this query with a join between ScheduledStops and BusPosition
         for stop in stoplist:
 
-            # for this stop extract all positions
-            position_list = session.query(db.BusPosition) \
+            # extract all positions seen near this stop
+            position_list = session.query(db.BusPosition, db.ScheduledStop) \
+                .join(db.ScheduledStop) \
                 .filter(db.BusPosition.trip_id == trip) \
                 .filter(db.BusPosition.stop_id == stop.stop_id) \
-                .filter(db.ScheduledStop.arrival_timestamp is not None) \
+                .filter(db.ScheduledStop.arrival_timestamp == None) \
                 .order_by(db.BusPosition.timestamp.asc()) \
                 .all()
 
