@@ -76,7 +76,6 @@ def displayDashboard(source,route):
     for v in v_route:
         v_list.append(v.id)
         run_list.append(v.run)
-    print (v_list)
 
     session = DataBases.Trip.get_session()
 

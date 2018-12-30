@@ -112,7 +112,7 @@ class ScheduledStop(Base):
     arrivals = relationship("BusPosition")
 
     def __repr__(self):
-        return "StopCall()".format(self=self)
+        return "ScheduledStop()".format(self=self)
 
     def get_session():
         # db_url = {'drivername': 'postgres',
