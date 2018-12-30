@@ -13,7 +13,7 @@ from lib import DataBases as db
 
 import time
 while True:
-    delay = 5
+    delay = 60
     print (('Please wait {a} seconds for first run...').format(a=delay))
     time.sleep(delay)
 
@@ -79,54 +79,123 @@ while True:
 
     ##############################################
     #
-    #   todo UPDATE SCHEDULED STOPS FOR CURRENT TRIPS
+    #    UPDATE SCHEDULED STOPS FOR CURRENT TRIPS
+    # todo this is looping over each trip 2x
+    # todo and creating 5x as many duplicate position tuples as expected
+    # todo are they in the query results or are we looping too many times?
     #
     ##############################################
 
-    # loop over all the trips we see right now
+    # NEW ALGORITHM
+    # for each trip
+
     for trip in triplist:
 
-        # todo how deal with trip/run # not being unique each day? (look across data see how pervasive this problem is) -- e.g. run #s being reused on the same route in same day at different times -- though odds are low same v and run will appear together?
-
-        # extract all the stops for this trip that do not have an arrival logged
-        print (('trip {a}').format(a=trip))
-        stoplist = session.query(db.ScheduledStop)\
-            .filter(db.ScheduledStop.trip_id == trip) \
+        # select all the BusPositions where there is no arrival flag yet
+        position_list = session.query(db.BusPosition) \
+            .filter(db.BusPosition.trip_id == trip) \
             .filter(db.ScheduledStop.arrival_timestamp == None) \
+            .order_by(db.BusPosition.timestamp.asc()) \
             .all()
 
-        # loop over all the stops
-        # todo could probably avoid the double for loop by doing just this query with a join between ScheduledStops and BusPosition
-        for stop in stoplist:
+        # load the trip card for reference
+        stoplist = session.query(db.Trip,db.ScheduledStop)\
+            .join(db.ScheduledStop) \
+            .filter(db.Trip.trip_id == trip) \
+            .all()
 
-            # extract all positions seen near this stop
-            position_list = session.query(db.BusPosition, db.ScheduledStop) \
-                .join(db.ScheduledStop) \
-                .filter(db.BusPosition.trip_id == trip) \
-                .filter(db.BusPosition.stop_id == stop.stop_id) \
-                .filter(db.ScheduledStop.arrival_timestamp == None) \
-                .order_by(db.BusPosition.timestamp.asc()) \
-                .all()
+        # throw out the ones from the most recent stop (keep stop n-1 if n is current/last in list)
+        # todo go through position_list and compare against the stop_id in stoplist?
 
-            # now process position_list to figure out
+        # create an approach_array for these points
 
-            # 1 scan
+        # classify and assign the arrival time
 
-            # 2 classify/assign
+        ##############################################
+        #
+        #   ARRIVAL IMPUTER
+        #
+        ##############################################
 
-            # possible cases (easiest to hardest)
-            # a stop only -- d is low, 1 or more sightings at stop
-            # b approach or depart only -- hill - d rises or falls only
-            # c approach and depart -- saddle -- d starts high, falls then rises again
-            # d boomerang -- already arrived at this stop on this trip and now passing by again, this is closest stop on another leg (e.g. 87 going down the hill after palisade)
-            # e TK
-            # f TK
-            # g TK baddata
+        # 1 create array (n, distance, slope)
+        approach_array=[]
 
-            # 3 update objects
-            # 3a flag BusPosition.arrival_flag for record where trip_id=trip and TK=TK?
-            # 3b log the arrival_timestamp for ScheduledStop where trip_id=trip
+        for i in range(len(position_list)-1):
+
+            # calculate slope
+            x1=i
+            x2=i+1
+            y1=int(position_list[i][0].distance_to_stop) #pick first of tupled join query response
+            y2=int(position_list[i+1][0].distance_to_stop) # the next in the list
+            slope = ((y2 - y1) / (x2 - x1))
+            approach_array.append((i,position_list[i][0].distance_to_stop,slope))
+
+        print (approach_array)
+
+        # if n == len(position_list):  # last loop
+        #     approach_array.append((n, position_list[i][0].distance_to_stop, None))
+        #     break
+        # else:
+
+        # (0, 400, slope)
+        # (1, 200, slope)
+        # (2, 100, slope)
+        # (3, 300, slope)
 
 
-            # add to db session
+        # 2 classify/assign
+
+        # possible cases (easiest to hardest)
+
+        # CASE A sitting at the stop, then vanishes
+        # determined by [d is low, doesn't change much]
+        # (0, 50) ***
+        # (1, 50)
+        # (2, 50)
+        # (3, 50)
+        # ASSIGNMENT
+        # discard OR
+        # arrival_time = (0)
+
+        # CASE B1 approaches, then vanishes
+        # determined by [d is decreasing, slope is negative]
+        # (0, 400)
+        # (1, 300)
+        # (2, 200)
+        # (3, 50) ***
+        # ASSIGNMENT
+        # arrival_time = (3)
+
+
+        # CASE B2 appears, then departs
+        # determined by [d is increasing, slope is negative]
+        # (0, 50) ***
+        # (1, 100)
+        # (2, 200)
+        # (3, 300)
+        # ASSIGNMENT
+        # arrival_time = (3)
+
+        # CASE C approach, stop, depart
+        # determined by [d is decreasing, slope is negative, then inverts and d is decreasing, slope is increasing, assign to point of lowest d]
+        # (0, 200)
+        # (1, 100) ***
+        # (2, 200)
+        # (3, 300)
+        # ASSIGNMENT
+        # arrival_time = (1)
+
+        # CASE D boomerang
+        # already arrived at this stop on this trip and now passing by again, this is closest stop on another leg (e.g. 87 going down the hill after palisade)
+
+        # CASE E tk
+
+
+        # 3 update objects
+        # 3a flag BusPosition.arrival_flag for record where trip_id=trip and TK=TK?
+
+        # 3b log the arrival_timestamp for paid ScheduledStop
+        # position_list[1].arrival_timestamp = arrival_time # todo this updates automagically via SQLalchemy ORM?
+
+
     # session.commit()
