@@ -79,13 +79,13 @@ def get_nearest_stop(buses,route):
     result = collections.defaultdict(list)
     for d in stoplist:
         result[d['d']].append(d)
-    stops_by_direction = list(result.values())     # todo remove duplicate stop_id (not simple, maybe not faster, only do if causing errors)
+    stops_by_direction = list(result.values())
 
     # loop over the directions in buses_by_direction
 
     bus_positions = []
 
-    for bus_direction in buses_by_direction: # todo its running one of these loops 2x
+    for bus_direction in buses_by_direction: #
 
         # create bus geodataframe
         #df1 = pd.DataFrame.from_records([b.to_dict() for b in buses])
@@ -101,7 +101,7 @@ def get_nearest_stop(buses,route):
         # turn stops_by_direction into a dict with:
         # pandas.DataFrame.from_records([s.to_dict() for s in signals])
 
-        for stop_direction in stops_by_direction: # todo its running one of these loops 2x
+        for stop_direction in stops_by_direction:
             if bus_direction[0]['dd'] == stop_direction[0]['d']:
 
                 df2=pd.DataFrame.from_records(stop_direction)
@@ -151,8 +151,8 @@ def get_nearest_stop(buses,route):
                     position.trip_id = ('{id}_{run}_{dt}').format(id=row.id, run=row.run, dt=datetime.datetime.today().strftime('%Y%m%d'))
                     position.arrival_flag = False
                     position.distance_to_stop = row.distance
-                    position.stop_id = row.stop_id  # todo where to get this from?
-                    position.timestamp = datetime.datetime.now()  # todo add timestamp now or later?
+                    position.stop_id = row.stop_id
+                    position.timestamp = datetime.datetime.now()
 
                     bus_list.append(position)
 
