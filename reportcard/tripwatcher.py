@@ -109,110 +109,123 @@ while True:
         position_groups = [list(g) for key, g in itertools.groupby(arrival_candidates, lambda x: x.stop_id)]
 
 
-        # now loop over the position_groups and see if we can assign an arrival time
+        # now loop over the position_groups (except for last one which is current but location) and see if we can assign an arrival time
 
         for x in range (len(position_groups)-1):
             position_list = position_groups[x]
 
-            # 1 create array (n, distance, slope) for these BusPositions
-            approach_array=[]
+            # 1 create array (n, distance) for these BusPositions
 
-            # loop up to the penultimate position
-            # todo this is looping too many times -- for stops that have more than one position, once for each position, not once for each group...
-            for i in range(len(position_list)-1):
+            approach_array=np.array([])
+            for x in range(len(position_list)):
+                np.append(approach_array, (x,position_list[x].distance_to_stop))
 
-                # calculate slope - OLD MANUAL
-                # x1=i
-                # x2=i+1
-                # y1=int(position_list[i].distance_to_stop) #first item
-                # y2=int(position_list[i+1].distance_to_stop) # the next in the list
-                # slope = ((y2 - y1) / (x2 - x1))
-                # approach_array.append((i,position_list[i].distance_to_stop,slope))
-                #
+            print ('\n')
+            print (position_list)
+            print (approach_array)
 
 
+            # OVERALL ASSIGNMENT WORKFLOW ALGORITHM
 
-                # calculate slope with numpy
-                approach_array_np = np.array(approach_array)
-                slope = np.diff(approach_array_np, axis=0)[:,2]
-                acceleration = np.diff(slope, axis=0)
+            # create an array to hold the histogram of case frequencies observed (so we can go back later and see which Cases need the most work
+            case_frequencies={'caseA':0,'caseB':0,'caseC':0,'caseD':0,}
 
-                # useful?
-                min_slope_position = approach_array[np.argmin(approach_array_np, axis=0)[2]]
-                max_slope_position = approach_array[np.argmax(approach_array_np, axis=0)[2]]
-                #
-                #
-                # **************** WORKING UP TO HERE ************************
-                #
-                #
+            # 0 for each trip
+            # 0 select all the BusPositions (observed positions, a/k/a breadcrumbs) that are near ScheduledStops that don't have an arrival assigned yet
+            # 0 break them into position_lists --- grouped by stop = the breadcrumbs for a single vehicle on a single trip making its approach to a single stop
 
 
-                # 2 classify/assign
+            # 1 calculate classification metrics
 
-                # convert to a numpy array
-                # find the position of max slope
-                # min slope
+            # calculate slope with numpyapproach_array_np = np.array(approach_array)
+            slope = np.diff(approach_array, axis=0)[:, 1]
+            acceleration = np.diff(slope, axis=0)
+            print (slope)
+            print (acceleration)
 
+            avg_slope = np.mean(slope)
+            avg_acceleration = np.mean(acceleration)
 
-
-
-
-                # possible cases (easiest to hardest)
-
-                # CASE A sitting at the stop, then vanishes
-                # determined by [d is low, doesn't change much]
-                # (0, 50) ***
-                # (1, 50)
-                # (2, 50)
-                # (3, 50)
-                # ASSIGNMENT
-                # discard OR
-                # arrival_time = (0)
+            # distance_to_stop = done already
+            # distance_to_stop/dt = velocity (1st derviative) --> can tell us if the bus is getting closer or further away from stop
+            # acceleration = (2nd derviative) --> can tell us if ... TK
 
 
+            # 2 classify the approach as one of N types
+
+            # CASE A sitting at the stop, then gone without a trace
+            # determined by [d is <100, doesn't change e.g. slope = 0 ]
+            # (0, 50) ***
+            # (1, 50)
+            # (2, 50)
+            # (3, 50)
+            if slope == 0:
+                arrival_time = position_list[0].distance_from_stop
+                case_frequencies['caseA'] += 1
+
+            # CASE B approaches, then vanishes
+            # determined by [d is decreasing, slope is always negative]
+            # (0, 400)
+            # (1, 300)
+            # (2, 200)
+            # (3, 50) ***
+            elif (slope < 0):
+                arrival_time = position_list[:-1].distance_from_stop
+                case_frequencies['caseB'] += 1
+
+            # CASE C appears, then departs
+            # determined by [d is increasing, slope is always positive]
+            # (0, 50) ***
+            # (1, 100)
+            # (2, 200)
+            # (3, 300)
+            elif (slope > 0):
+                arrival_time = position_list[0].distance_from_stop
+                case_frequencies['caseC'] += 1
 
 
-                # if approach_array[2] # <- plucks out just the slope
 
-                # CASE B1 approaches, then vanishes
-                # determined by [d is decreasing, slope is negative]
-                # (0, 400)
-                # (1, 300)
-                # (2, 200)
-                # (3, 50) ***
-                # ASSIGNMENT
-                # arrival_time = (3)
-
-
-                # CASE B2 appears, then departs
-                # determined by [d is increasing, slope is negative]
-                # (0, 50) ***
-                # (1, 100)
-                # (2, 200)
-                # (3, 300)
-                # ASSIGNMENT
-                # arrival_time = (3)
-
-                # CASE C approach, stop, depart
-                # determined by [d is decreasing, slope is negative, then inverts and d is decreasing, slope is increasing, assign to point of lowest d]
-                # (0, 200)
-                # (1, 100) ***
-                # (2, 200)
-                # (3, 300)
-                # ASSIGNMENT
-                # arrival_time = (1)
-
-                # CASE D boomerang
-                # already arrived at this stop on this trip and now passing by again, this is closest stop on another leg (e.g. 87 going down the hill after palisade)
-
-                # CASE E tk
+            # CASE D approach, stop, depart
+            # determined by [d is decreasing, slope is negative, then inverts and d is decreasing, slope is increasing, assign to point of lowest d]
+            # (0, 200)
+            # (1, 100) ***
+            # (2, 200)
+            # (3, 300)
+            # ASSIGNMENT
+            # arrival_time = (1)
 
 
-                # 3 update objects
-                # 3a flag BusPosition.arrival_flag for record where trip_id=trip and TK=TK?
+            elif (slope > 0):
 
-                # 3b log the arrival_timestamp for paid ScheduledStop
+                # polyfit the line
+                z = np.polyfit(approach_array[:,0],approach_array[:,1])
+
+                # is it convex up?
+                # where is the min? that's our arrival time
+                # arrival_time = position_list[0].distance_from_stop
+
+                case_frequencies['caseD'] += 1
+
+
+            # CASE E boomerang
+                # already arrived at this stop on this trip and now passing by again, this is closest stop on another leg
+                # (e.g. 87 going down the hill after palisade)
+                # these OUGHT to be filtered out by the 'arrival_flags'
+
+
+            # 3
+                # check all ScheduledStops with positions for arrival_flag and interpolate any missing ones
+                # can we do it with scipy?
+
+
+
+            # 4
+                # update related tables
+
+                # 4 update objects
+                # 4a flag BusPosition.arrival_flag for record where trip_id=trip and TK=TK?
+
+                # 4b log the arrival_timestamp for paid ScheduledStop
                 # position_list[1].arrival_timestamp = arrival_time # todo this updates automagically via SQLalchemy ORM?
 
-        #
-        # # session.commit()
+        # session.commit()
