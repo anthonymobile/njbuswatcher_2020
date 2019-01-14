@@ -40,6 +40,7 @@ while True:
     session.commit()
 
     # 3 generate some diagnostic output of what we just tracked
+    print('<----observed positions and new trips---->')
     print ('trip_id\t\t\t\t\tv\t\trun\tstop_id\tdistance_to_stop (feet)')
     for direction in bus_positions:
        for b in direction:
@@ -83,7 +84,6 @@ while True:
 
     position_update=[]
 
-    print ('\n')
     # for each trip
     for trip in triplist:
 
@@ -146,6 +146,29 @@ while True:
 
                 for point in approach_array:
                     print (('\t\t {a:.0f} distance_to_stop {b}').format(a=point[0], b=point[1]))
+
+
+                # todo NEW APPROACH CLASSIFER
+
+                # 1) fit the points to a line (current Case D method), or if n>2 a polyline
+                # 2) get the min of that function
+                # 3) find the point in the array closest to the min
+
+
+                # old version not working - for instance, since this has avg_slope that's negative, it becomes a Case B and never gets to Case D
+
+                #             approaching
+                #             20692
+                #             0
+                #             distance_to_stop
+                #             239.257462834839
+                #             1
+                #             distance_to_stop
+                #             1.0971433864275721
+                #             2
+                #             distance_to_stop
+                #             209.27792840019302
+                # caseB
 
 
                 # 2 calculate classification metrics
@@ -238,18 +261,18 @@ while True:
                 # these OUGHT to be filtered out by the 'arrival_flags'
 
 
-
-
-
-
-
         print (case_frequencies)
         print ('\n\n')
+
+        session.commit() # sends any updates made above (like setting the arrival flag
 
         # 4
 
         # update the database
         # get a session
+
+
+        #
         # add position_update to the session as table update
         # log the arrival_timestamp for corresponding ScheduledStop
         # session.commit()
