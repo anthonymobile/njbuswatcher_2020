@@ -155,92 +155,15 @@ while True:
                 #
                 #
                 ######## DEBUGGING
-
-                UNASSIGNED
-                TRIPS
-
-                analyzing
-                arrival
-                candidates
-                on
-                trip
-                5739_15_20190114...
-
-                # these 3 suggests --- test for # of positions is not good for filtering
-                # polyfit these also....?
-                # or just do a simple slope?
-                # is there one approach for anything over 2 positions that can filter B,C from D?
-                #             approaching
-                #             20610
-                #             0
-                #             distance_to_stop
-                #             210.16058526919383
-                #             1
-                #             distance_to_stop
-                #             210.16058526919383
-                #             2
-                #             distance_to_stop
-                #             274.4702380028972
-                #
-                #         approaching
-                #         20496
-                #         0
-                #         distance_to_stop
-                #         1.5360106211100863
-                #         1
-                #         distance_to_stop
-                #         1.5360106211100863
-                #         2
-                #         distance_to_stop
-                #         1.5360106211100863
-                #         3
-                #         distance_to_stop
-                #         1.5360106211100863
-                #         4
-                #         distance_to_stop
-                #         1.5360106211100863
-                #         5
-                #         distance_to_stop
-                #         196.9567041019691
-                #
-                #     approaching
-                #     31731
-                #     0
-                #     distance_to_stop
-                #     260.09398414587315
-                #     1
-                #     distance_to_stop
-                #     318.33337343873944
-                #     2
-                #     distance_to_stop
-                #     318.33337343873944
-                #     3
-                #     distance_to_stop
-                #     616.3932991517729
-                #
-                # # this one suggests +/- 10 percent error on the distance to stop?
-                # approaching
-                # 21066
-                # 0
-                # distance_to_stop
-                # 588.4626107067455
-                # 1
-                # distance_to_stop
-                # 595.9485389675923
-                # 2
-                # distance_to_stop
-                # 62.383752097023596
+                # todo need to rewrite a single polyfit classifier
+                # for all approaches with more than 2 positions,
+                # and another for any with
+                # just 2 (any with 1 are still held or automatically assigned already)
+                ######## DEBUGGING
 
 
-                # if its a case D
-                # CASE D approach, stop, depart
-                # determined by [d is decreasing, slope is negative, then inverts and d is decreasing, slope is increasing, assign to point of lowest d]
-                # (0, 200)
-                # (1, 100) ***
-                # (2, 200)
-                # (3, 300)
-                # ASSIGNMENT
-                # arrival_time = (1)
+
+                # for any with more than 2 points, check if its a CASE D
 
                 if len(position_list) > 2:
                     # polyfit the line
@@ -265,21 +188,43 @@ while True:
                             arrival_position = int(round(x_min))-1 # round to nearest position in the approach_array
                             # todo for position in approach_array: check that this is indeed the minimum
 
+                            # CASE D approach, stop, depart
+                            # determined by [d is decreasing, slope is negative, then inverts and d is decreasing, slope is increasing, assign to point of lowest d]
+                            # (0, 200)
+                            # (1, 100) ***
+                            # (2, 200)
+                            # (3, 300)
+                            # ASSIGNMENT
+                            # arrival_time = (1)
+
                             arrival_time = position_list[arrival_position].timestamp
                             print ('caseD {a}'.format(a=arrival_time))
                             case_frequencies['caseD'] += 1
 
+                        else:
+
+                            # negative slope = case B
+                            if z_quad[1] < 0:
+                                arrival_time = position_list[-1].timestamp
+                                case_frequencies['caseB'] += 1
+                                print('caseB {a}'.format(a=arrival_time))
+
+                            # positive slope = case C
+                            elif z_quad[1] > 0:
+                                arrival_time = position_list[0].timestamp
+                                case_frequencies['caseC'] += 1
+                                print('caseC {a}'.format(a=arrival_time))
+
                     except:
                         pass
 
-                # just do the working case A,B,C filter
+                # if only 2 points, use a simpler filter
                 else:
 
                     # old fit to line
                     # z_line = np.polyfit(approach_array[:, 0], approach_array[:, 1], 1)
 
                     # calculate classification metrics
-
                     slope = np.diff(approach_array, axis=0)[:, 1]
                     acceleration = np.diff(slope, axis=0)
                     slope_avg=np.mean(slope, axis=0)
@@ -321,37 +266,6 @@ while True:
                     # already arrived at this stop on this trip and now passing by again, this is closest stop on another leg
                     # (e.g. 87 going down the hill after palisade)
                     # these OUGHT to be filtered out by the 'arrival_flags'
-
-                    # OLD CASE D
-                    #
-                    # elif len(position_list) > 1:
-                    #
-                    #     # polyfit the line
-                    #
-                    #     try: # quadratic
-                    #         z_quad = np.polyfit(approach_array[:, 0], approach_array[:, 1], 2)
-                    #         print(('quad {a}x2 + {b}x + {c}').format(a=z_quad[0], b=z_quad[1], c=z_quad[2]))
-                    #     except: # line
-                    #         z_line = np.polyfit(approach_array[:, 0], approach_array[:, 1], 1)
-                    #         print(('line {a}x + {b}').format(a=z_line[0], b=z_line[1]))
-                    #
-                    #
-                    #
-                    #     # if the coefficient on x2 is positive, we are concave up and this is definitely a CASE D:
-                    #     if z.quad[0] > 0:
-                    #         case_frequencies['caseD'] += 1
-                    #
-                    #         # now lets find the minimum of the fitted curve
-                    #         # using https://nagordon.github.io/mechpy/Curve_fitting_and_Optimization_with_python.html
-                    #
-                    #         y  = np.poly1d(z_quad)
-                    #         xguess = 1 # per above chart todo need to figure how to iterate here?
-                    #         y_min = scipy.optimize.minimize(y, xguess)
-                    #
-                    #         # and then figure out which value element in the approach_array it is closest to
-                    #         # closest to approach_array[:, 0]
-                    #
-                    #         print('caseD')
 
 
         print (case_frequencies)
