@@ -18,7 +18,6 @@ Base = declarative_base()
 # CLASS Trip
 #####################################################
 # not sure what this does other than trigger the creation of the scheduled stops
-# todo might be able to get rid of Trip class?
 #####################################################
 
 class Trip(Base):
@@ -32,15 +31,15 @@ class Trip(Base):
         # create a corresponding set of ScheduledStop records for each new Trip
         # and populate the self.stoplist
         self.session = ScheduledStop.get_session()
-        self.stoplist = []
+        self.stop_list = []
         routes, coordinates_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(source, 'routes', route=route))
         for route in routes:
             for path in route.paths:
                 for point in path.points:
                     if isinstance(point, BusAPI.Route.Stop):
                         this_stop = ScheduledStop(self.trip_id,self.v,self.run,self.date,point.identity)
-                        self.stoplist.append(point.identity)
-                        for stop in self.stoplist:
+                        self.stop_list.append(point.identity)
+                        for stop in self.stop_list:
                             self.session.add(this_stop)
         self.session.commit()
 
@@ -107,7 +106,7 @@ class ScheduledStop(Base):
     v = Column(Integer())
     date = Column(String())
     stop_id = Column(Integer())
-    arrival_timestamp = Column(DateTime())
+    arrival_position = Column(DateTime())
 
     arrivals = relationship("BusPosition")
 
@@ -144,9 +143,6 @@ class ScheduledStop(Base):
 #####################################################
 
 class BusPosition(Base):
-
-    #def __init__(self):
-        # todo set init values for BusPosition
 
     __tablename__ ='position_log'
     __table_args__ = {'extend_existing': True}

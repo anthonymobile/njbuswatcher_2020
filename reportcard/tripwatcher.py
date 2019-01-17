@@ -13,7 +13,7 @@ parser.add_argument('-r', '--route', dest='route', required=True, help='route nu
 args = parser.parse_args()
 
 while True:
-    delay = 60
+    delay = 30
     print (('\nPlease wait {a} seconds for next run...').format(a=delay))
     time.sleep(delay)
 
@@ -67,7 +67,7 @@ while True:
         arrival_candidates = session.query(db.BusPosition) \
             .join(db.ScheduledStop) \
             .filter(db.BusPosition.trip_id == trip) \
-            .filter(db.ScheduledStop.arrival_timestamp == None) \
+            .filter(db.ScheduledStop.arrival_position == None) \
             .order_by(db.BusPosition.timestamp.asc()) \
             .all()
 
@@ -80,7 +80,6 @@ while True:
 
         # now loop over the position_groups (except for last one which is current but location) and see if we can assign an arrival time
 
-        case_frequencies = {'caseA': 0, 'caseB': 0, 'caseC': 0, 'caseD': 0, }
         for x in range (len(position_groups)-1):
 
             position_list = position_groups[x]
@@ -97,6 +96,15 @@ while True:
                 print(('\n\tapproaching {b}').format(a=trip, b=position_list[0].stop_id))
                 arrival_time = position_list[0].timestamp
                 position_list[0].arrival_flag = True
+
+                # todo set ScheduleStop.arrival_position = position_list[0].pkey
+                stop_to_update = session.query(db.ScheduledStop) \
+                    .join(db.BusPosition) \
+                    .filter(db.ScheduledStop.stop_id == position_list[0].stop_id) \
+                    .filter(db.ScheduledStop.trip_id == position_list[0].trip_id) \
+                    .all()
+                stop_to_update.arrival_position = position_list[0].pkey
+
                 # todo check all ScheduledStops with positions for arrival_flag and interpolate any missing ones -- with scipy?
 
             ##############################################
@@ -130,7 +138,7 @@ while True:
                 if slope_avg == 0:
                     arrival_time = position_list[0].timestamp
                     position_list[0].arrival_flag = True
-                    case_frequencies['caseA'] += 1
+                    # todo set ScheduleStop.arrival_position = position_list[0].pkey
                     print('caseA {a}'.format(a=arrival_time))
 
                 # CASE B approaches, then vanishes
@@ -140,7 +148,7 @@ while True:
                 elif slope_avg < 0:
                     arrival_time = position_list[-1].timestamp
                     position_list[-1].arrival_flag = True
-                    case_frequencies['caseB'] += 1
+                    # todo set ScheduleStop.arrival_position = position_list[0].pkey
                     print('caseB {a}'.format(a=arrival_time))
 
                 # CASE C appears, then departs
@@ -150,106 +158,71 @@ while True:
                 elif (slope_avg > 0):
                     arrival_time = position_list[0].timestamp
                     position_list[0].arrival_flag = True
-                    case_frequencies['caseC'] += 1
+                    # todo set ScheduleStop.arrival_position = position_list[0].pkey
                     print('caseC {a}'.format(a=arrival_time))
 
 
             ##############################################
             #   THREE OR MORE POSITIONS
-            #
-            #   simple method = take the earliest minimum value
-            #
-            #   complex method =
-            #   polyfit a curve
-            #   find the min within the bounds of
-            #   range of observed distance_to_stop
-            #   round it to nearest integer
-            #   take that position in the position_list[rounded]
             ##############################################
-
-
 
             elif len(position_list) > 2:
 
-                ##############################################
-                #   SIMPLE
-                ##############################################
-
                 # create and display approach array
-                print (('\n\tapproaching {b}').format(a=trip, b=position_list[0].stop_id))
-                points=[]
+                print(('\n\tapproaching {b}').format(a=trip, b=position_list[0].stop_id))
+                points = []
                 for y in range(len(position_list)):
-                    points.append((y,position_list[y].distance_to_stop))
+                    points.append((y, position_list[y].distance_to_stop))
                 approach_array = np.array(points)
                 for point in approach_array:
-                    print (('\t\t {a:.0f} distance_to_stop {b}').format(a=point[0], b=point[1]))
+                    print(('\t\t {a:.0f} distance_to_stop {b}').format(a=point[0], b=point[1]))
 
-                # find the lowest value(s) and take the first one
-                mins_indices = np.argmin(approach_array, axis=0)
-                arrival_time = position_list[mins_indices[0]].timestamp
+                # calculate classification metrics
+                slope = np.diff(approach_array, axis=0)[:, 1]
+                acceleration = np.diff(slope, axis=0)
+                slope_avg = np.mean(slope, axis=0)
 
-                position_list[0].arrival_flag = True
-                case_frequencies['caseD'] += 1
-                print('caseD {a}'.format(a=arrival_time))
+                try:
 
-                ##############################################
-                #   COMPLEX
-                ##############################################
-                #
-                # # create and display approach array
-                # print (('\n\tapproaching {b}').format(a=trip, b=position_list[0].stop_id))
-                # points=[]
-                # for y in range(len(position_list)):
-                #     points.append((y,position_list[y].distance_to_stop))
-                # approach_array = np.array(points)
-                # for point in approach_array:
-                #     print (('\t\t {a:.0f} distance_to_stop {b}').format(a=point[0], b=point[1]))
-                #
-                # # polyfit a curve
-                # try:
-                #     z_quad = np.polyfit(approach_array[:, 0], approach_array[:, 1], 2)
-                #
-                #     if z_quad[0] > 0:
-                #         # https://stackoverflow.com/questions/29634217/get-minimum-points-of-numpy-poly1d-curve
-                #         c = np.poly1d(z_quad)
-                #         crit = c.deriv().r
-                #         r_crit = crit[crit.imag == 0].real
-                #         test = c.deriv(2)(r_crit)
-                #         x_min = r_crit[test > 0]
-                #         # y_min = c(x_min)
-                #         arrival_position = int(round(x_min))-1 # round to nearest position in the approach_array
+                    # # CASE D if the min position is more than 0 and less than last position, its a D
+                    # if np.argmin(approach_array, axis=1) >0 and np.argmin(approach_array, axis=1) < len(position_list):
+                    #
+                    #     z_quad = np.polyfit(approach_array[:, 0], approach_array[:, 1], 2)
+                    #     # find the min
+                    #     # https://stackoverflow.com/questions/29634217/get-minimum-points-of-numpy-poly1d-curve
+                    #     c = np.poly1d(z_quad)
+                    #     crit = c.deriv().r
+                    #     r_crit = crit[crit.imag == 0].real
+                    #     test = c.deriv(2)(r_crit)
+                    #     x_min = r_crit[test > 0]
+                    #     arrival_position = int(round(x_min))-1 # round to nearest position in the approach_array
+                    #     arrival_time = position_list[arrival_position].timestamp
+                    #     position_list[arrival_position].arrival_flag = True
+                    #     print ('caseD {a}'.format(a=arrival_time))
+                    #     case_frequencies['caseD'] += 1
 
-                #         arrival_time = position_list[arrival_position].timestamp
-                #         position_list[arrival_position].arrival_flag = True
-                #         print ('caseD {a}'.format(a=arrival_time))
-                #         case_frequencies['caseD'] += 1
-                #
-                #     else:
-                #         # negative slope = case B
-                #         if z_quad[1] < 0:
-                #             arrival_time = position_list[-1].timestamp
-                #             position_list[-1].arrival_flag = True
-                #             case_frequencies['caseB'] += 1
-                #             print('caseB {a}'.format(a=arrival_time))
-                #
-                #         # positive slope = case C
-                #         elif z_quad[1] > 0:
-                #             arrival_time = position_list[0].timestamp
-                #             position_list[0].arrival_flag = True
-                #             case_frequencies['caseC'] += 1
-                #             print('caseC {a}'.format(a=arrival_time))
-                #
-                # except:
-                #     pass
+                    # CASE A
+                    if slope_avg == 0:
+                        arrival_time = position_list[0].timestamp
+                        position_list[0].arrival_flag = True
+                        # todo set ScheduleStop.arrival_position = position_list[0].pkey
+                        print('caseA {a}'.format(a=arrival_time))
 
-        print (case_frequencies)
+                    # CASE B
+                    elif slope_avg < 0:
+                        arrival_time = position_list[-1].timestamp
+                        position_list[-1].arrival_flag = True
+                        # todo set ScheduleStop.arrival_position = position_list[0].pkey
+                        print('caseB {a}'.format(a=arrival_time))
 
-        session.commit() # sends any updates made above (like setting the arrival flag
+                    # CASE C
+                    elif slope_avg > 0:
+                        arrival_time = position_list[0].timestamp
+                        position_list[0].arrival_flag = True
+                        # todo set ScheduleStop.arrival_position = position_list[0].pkey
+                        print('caseC {a}'.format(a=arrival_time))
 
-        # 4
-        # update the database
-        # get a session
-        #
-        # add position_update to the session as table update
-        # log the arrival_timestamp for corresponding ScheduledStop
-        # session.commit()
+                except:
+                    pass
+
+        session.commit() # update the arrival_flags and points from ScheduledStop-->BusPosition
