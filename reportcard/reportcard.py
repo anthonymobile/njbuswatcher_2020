@@ -114,9 +114,8 @@ def displayTripDash(source,route):
     trips_dash = dict()
     for trip in trip_id_list:
 
-        # load the trip card
+        # load the trip card todo fix the double rows coming back from this query
         scheduled_stops = session.query(db.Trip, db.ScheduledStop) \
-            .join(db.ScheduledStop) \
             .filter(db.Trip.trip_id == trip) \
             .all()
         trips_dash[trip]=scheduled_stops
