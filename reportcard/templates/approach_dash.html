@@ -14,7 +14,8 @@
         <div class="row">
 
             <h2>TripWatcher/Localizer v2.0</h2>
-                    <p>Shows last 10 observed positions for all buses on the road now in New Jersey on Route {{ route }}. Does not show routes where tripwatcher is not logging data.</p>
+                        <h2>APPROACH_DASH</h2>
+                    <p>Shows last 20 observed positions for all buses on the road now in New Jersey on Route {{ route }}. n.b. tripwatcher.py must be running separately.</p>
         </div>
     <div class="row">
             <h1>Route {{ route }}</h1>
@@ -27,14 +28,12 @@
                 {% for key,buses in busdash.items() %}
                     <div class="col-sm-6">
 
-                        <p class="lead">{{key}}</p>
+                        <p class="lead">bus {{key}} (run {{ buses[0].run }}) </p>
 
                         <table class="table table-sm table-hover">
                         <thead class="thread-dark">
                         <tr>
-                            <th>run</th>
                             <th>timestamp</th>
-                            <th>rt</th>
                             <th>stop_id</th>
                             <th>d(ft)</th>
                             <th>arrival_flag</th>
@@ -43,10 +42,12 @@
 
                         <tbody>
                         {% for position in buses %}
+                            {% if position.arrival_flag == True %}
+                            <tr class='table-success'>
+                        {% else %}
                         <tr class='table'>
-                            <td>{{position.run}}</td>
-                            <td>{{position.timestamp|strftime_forever}}</td>
-                            <td>{{position.rt}}</td>
+                        {% endif %}
+                            <td>{{position.timestamp|strftime_today}}</td>
                             <td>{{position.stop_id}}</td>
                             <td>{{position.distance_to_stop|int}}</td>
                             <td>{{position.arrival_flag}}</td>
@@ -56,7 +57,6 @@
                         {% endfor %}
                                                     <tr>
                             <div id="map">
-                                put a map here later
                             </div>
                             </tr>
                         </tbody>

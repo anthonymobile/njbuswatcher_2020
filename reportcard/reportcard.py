@@ -14,7 +14,7 @@ import datetime, logging, sys
 
 import lib.ReportCard as ReportCard
 import lib.BusAPI as BusAPI
-import lib.DataBases as DataBases
+import lib.DataBases as db
 
 # import lib.WebAPI as WebAPI
 
@@ -66,7 +66,7 @@ assets.register(bundles)
 @app.route('/<source>/<route>/approach_dash')
 def displayApproachDash(source,route):
 
-    session = DataBases.Trip.get_session()
+    session = db.Trip.get_session()
     # query expressions
     todays_date = datetime.datetime.today().strftime('%Y%m%d')
 
@@ -81,18 +81,17 @@ def displayApproachDash(source,route):
         v_list.append(v.id)
         run_list.append(v.run)
 
-    trips_dash=dict()
     buses_dash=dict()
     for b in v_list:
 
         v_as_list = []
         v_as_list.append(b)
 
-        buses_dash[b]=session.query(DataBases.BusPosition) \
-        .filter(DataBases.BusPosition.id.in_(v_as_list)) \
-        .filter(DataBases.BusPosition.run.in_(run_list)) \
-        .order_by(DataBases.BusPosition.timestamp.desc()) \
-        .order_by(DataBases.BusPosition.stop_id.desc()) \
+        buses_dash[b]=session.query(db.BusPosition) \
+        .filter(db.BusPosition.id.in_(v_as_list)) \
+        .filter(db.BusPosition.run.in_(run_list)) \
+        .order_by(db.BusPosition.timestamp.desc()) \
+        .order_by(db.BusPosition.stop_id.desc()) \
         .limit(20)
 
     return render_template('approach_dash.html', busdash=buses_dash, route=route)
@@ -102,7 +101,7 @@ def displayApproachDash(source,route):
 @app.route('/<source>/<route>/trip_dash')
 def displayTripDash(source,route):
 
-    session = DataBases.Trip.get_session()
+    session = db.Trip.get_session()
 
     # compute trip_ids
     todays_date = datetime.datetime.today().strftime('%Y%m%d')
@@ -112,13 +111,15 @@ def displayTripDash(source,route):
         trip_tuple=('{a}_{b}_{c}').format(a=v.id, b=v.run, c=todays_date)
         trip_id_list.append(trip_tuple)
 
-    trips_dash=dict()
+    trips_dash = dict()
+    for trip in trip_id_list:
 
-    for t in trip_id_list:
-
-        trips_dash[t]=session.query(DataBases.Trip) \
-        .filter(DataBases.Trip.trip_id.in_(trip_id_list)) \
-        .order_by(DataBases.Trip.v.desc())
+        # load the trip card
+        scheduled_stops = session.query(db.Trip, db.ScheduledStop) \
+            .join(db.ScheduledStop) \
+            .filter(db.Trip.trip_id == trip) \
+            .all()
+        trips_dash[trip]=scheduled_stops
 
     return render_template('trip_dash.html', tripdash=trips_dash, route=route)
 
