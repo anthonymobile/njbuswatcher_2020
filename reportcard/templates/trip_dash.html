@@ -12,10 +12,11 @@
 
     <div class="container">
         <div class="row">
-
             <h2>TripWatcher/Localizer v2.0</h2>
-            <h2>TRIP_DASH</h2>
-                    <p>Shows trips with all stops for all buses on the road now in New Jersey on Route {{ route }}. n.b. tripwatcher.py must be running separately.</p>
+        </div>
+        <div class="row">
+            <p>TRIP_DASH</p>
+            <p>Shows trips with all stops for all buses on the road now in New Jersey on Route {{ route }}. n.b. tripwatcher.py must be running separately.</p>
         </div>
     <div class="row">
             <h1>Route {{ route }}</h1>
@@ -44,7 +45,12 @@
                         {% for tuple in tripdash[key] %}
                         <tr class='table'>
                             <td>{{tuple[1].stop_id}}</td>
-                            <td>{{tuple[1].arrival_timestamp}} </td>
+
+                            {% if tuple[1].arrival_timestamp is not none %}
+                            <td>{{tuple[1].arrival_timestamp|strftime_today}} </td>
+                            {% else %}
+                            <td>---</td>
+                        {% endif %}
                         </tr>
                         {% endfor %}
 
