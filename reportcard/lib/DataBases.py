@@ -36,6 +36,7 @@ class Trip(Base):
         for route in routes:
             for path in route.paths:
                 for point in path.points:
+                    # todo fix this, its putting the stops in not right order?
                     if isinstance(point, BusAPI.Route.Stop):
                         this_stop = ScheduledStop(self.trip_id,self.v,self.run,self.date,point.identity)
                         self.stop_list.append(point.identity)
@@ -106,7 +107,7 @@ class ScheduledStop(Base):
     v = Column(Integer())
     date = Column(String())
     stop_id = Column(Integer())
-    arrival_position = Column(DateTime())
+    arrival_timestamp = Column(DateTime())
 
     arrivals = relationship("BusPosition")
 

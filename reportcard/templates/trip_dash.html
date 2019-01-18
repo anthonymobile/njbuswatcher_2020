@@ -1,0 +1,65 @@
+{%- extends "bootstrap/base.html" %}
+
+
+{%  block head %}
+
+{{ super() }}
+<META HTTP-EQUIV="refresh" CONTENT="30">
+
+{% endblock %}
+
+{%  block body %}
+
+    <div class="container">
+        <div class="row">
+
+            <h2>TripWatcher/Localizer v2.0</h2>
+            <h2>TRIP_DASH</h2>
+                    <p>Shows trips with all stops for all buses on the road now in New Jersey on Route {{ route }}. n.b. tripwatcher.py must be running separately.</p>
+        </div>
+    <div class="row">
+            <h1>Route {{ route }}</h1>
+    </div>
+    <div class="row">
+
+
+            <div id="buses" class="row mt-2">
+
+
+                {% for key in tripdash %}
+                    <div class="col-sm-6">
+
+                        <p class="lead">trip {{ key }} </p>
+
+                        <table class="table table-sm table-hover">
+                        <thead class="thread-dark">
+                        <tr>
+                            <th>stop_id</th>
+                            <th>arrival_timestamp</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+
+                        {% for tuple in tripdash[key] %}
+                        <tr class='table'>
+                            <td>{{tuple[1].stop_id}}</td>
+                            <td>{{tuple[1].arrival_timestamp}} </td>
+                        </tr>
+                        {% endfor %}
+
+                        </tbody>
+                        </table>
+
+                    </div>
+                {% endfor %}
+
+
+           </div>
+        </div>
+
+     </div>
+    </div>
+
+
+{% endblock %}
