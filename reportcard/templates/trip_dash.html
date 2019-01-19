@@ -26,13 +26,15 @@
     <div class="row">
 
 
+
             <div id="buses" class="row mt-2">
 
 
-                {% for key in tripdash %}
+                {% for trip,stoplist in tripdash.items() %}
                     <div class="col-sm-6">
 
-                        <p class="lead">trip {{ key }} </p>
+
+                        <p class="lead">trip {{ trip }} </p>
 
                         <table class="table table-sm table-hover">
                         <thead class="thread-dark">
@@ -44,12 +46,12 @@
 
                         <tbody>
 
-                        {% for tuple in tripdash[key] %}
+                        {% for stop in stoplist %}
                         <tr class='table'>
-                            <td>{{tuple[1].stop_id}}</td>
+                            <td>{{stop.stop_id}}</td>
 
-                            {% if tuple[1].arrival_timestamp is not none %}
-                            <td>{{tuple[1].arrival_timestamp|strftime_today}} </td>
+                            {% if stop.arrival_timestamp is not none %}
+                            <td>{{stop.arrival_timestamp|strftime_today}} </td>
                             {% else %}
                             <td>---</td>
                         {% endif %}
@@ -64,6 +66,7 @@
 
 
            </div>
+
         </div>
 
 

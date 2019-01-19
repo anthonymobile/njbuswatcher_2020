@@ -51,8 +51,8 @@ class Trip(Base):
     v = Column(Integer())
     run = Column(Integer())
     date = Column(String)
-    positions = relationship("BusPosition")
-    stops = relationship("ScheduledStop")
+    #positions = relationship("BusPosition")
+    #stops = relationship("ScheduledStop")
 
     def __repr__(self):
         return "Trip()".format(self=self)
@@ -109,7 +109,7 @@ class ScheduledStop(Base):
     stop_id = Column(Integer())
     arrival_timestamp = Column(DateTime())
 
-    arrivals = relationship("BusPosition")
+    trip = relationship("Trip")
 
     def __repr__(self):
         return "ScheduledStop()".format(self=self)
