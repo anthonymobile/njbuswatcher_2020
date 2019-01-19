@@ -129,10 +129,11 @@ def displayTripDash(source,route):
         # trips_dash[trip] = scheduled_stops
 
 
-        # NEW load the trip card
+        # NEW load the trip card todo this doesnt seem to be producing accurate results
         scheduled_stops = session.query(ScheduledStop) \
             .join(Trip) \
             .filter(Trip.trip_id == trip) \
+            .order_by(ScheduledStop.pkey.asc()) \
             .all()
         trips_dash[trip]=scheduled_stops
 

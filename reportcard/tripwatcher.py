@@ -4,7 +4,8 @@ import numpy as np
 import scipy
 import time
 from lib import BusAPI, Localizer
-from lib import DataBases as db
+#from lib import DataBases as db
+from lib.DataBases import Trip,BusPosition,ScheduledStop
 
 # args = source, route
 parser = argparse.ArgumentParser()
@@ -22,7 +23,7 @@ while True:
     ##############################################
     buses = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data(args.source,'buses_for_route',route=args.route))
     bus_positions = Localizer.get_nearest_stop(buses,args.route)
-    session = db.BusPosition.get_session()
+    session = BusPosition.get_session()
     for group in bus_positions:
         for bus in group:
             session.add(bus)
@@ -40,11 +41,11 @@ while True:
     for busgroup in bus_positions:
         for bus in busgroup:
             triplist.append(bus.trip_id)
-            result = session.query(db.Trip).filter(db.Trip.trip_id == bus.trip_id).first()
+            result = session.query(Trip).filter(Trip.trip_id == bus.trip_id).first()
             if result is None:
-                trip = db.Trip(args.source, args.route, bus.id, bus.run)
+                trip = Trip(args.source, args.route, bus.id, bus.run)
                 print (('Created a new trip record for {a}').format(a=bus.trip_id))
-                session = db.Trip.get_session()
+                session = Trip.get_session()
                 session.add(trip)
                 session.commit()
             else:
@@ -58,17 +59,17 @@ while True:
         print(('analyzing arrival candidates on trip {a}...').format(a=trip))
 
         # load the trip card for reference
-        scheduled_stops = session.query(db.Trip,db.ScheduledStop)\
-            .join(db.ScheduledStop) \
-            .filter(db.Trip.trip_id == trip) \
+        scheduled_stops = session.query(Trip,ScheduledStop)\
+            .join(ScheduledStop) \
+            .filter(Trip.trip_id == trip) \
             .all()
 
         # select  all the BusPositions on ScheduledStops where there is no arrival flag yet
-        arrival_candidates = session.query(db.BusPosition) \
-            .join(db.ScheduledStop) \
-            .filter(db.BusPosition.trip_id == trip) \
-            .filter(db.ScheduledStop.arrival_timestamp == None) \
-            .order_by(db.BusPosition.timestamp.asc()) \
+        arrival_candidates = session.query(BusPosition) \
+            .join(ScheduledStop) \
+            .filter(BusPosition.trip_id == trip) \
+            .filter(ScheduledStop.arrival_timestamp == None) \
+            .order_by(BusPosition.timestamp.asc()) \
             .all()
 
         # for bus in arrival_candidates:
@@ -96,13 +97,14 @@ while True:
                 print(('\n\tapproaching {b}').format(a=trip, b=position_list[0].stop_id))
                 arrival_time = position_list[0].timestamp
                 position_list[0].arrival_flag = True
-                print('case1A {a}'.format(a=arrival_time))
+                #print('case1A {a}'.format(a=arrival_time))
+                print('case1A position0')
 
                 # select the ScheduleStop where trip_id and stop_id are the same as for this BusPosition
                 # & update the ScheduledStop arrival_timestamp to the arrival_time
-                stop_to_update = session.query(db.ScheduledStop, db.BusPosition) \
-                    .join(db.BusPosition) \
-                    .filter(db.ScheduledStop.stop_id == position_list[0].stop_id) \
+                stop_to_update = session.query(ScheduledStop, BusPosition) \
+                    .join(BusPosition) \
+                    .filter(ScheduledStop.stop_id == position_list[0].stop_id) \
                     .all()
                 stop_to_update[0][0].arrival_timestamp = arrival_time
 
@@ -140,7 +142,8 @@ while True:
                     arrival_time = position_list[0].timestamp
                     position_list[0].arrival_flag = True
                     # todo set ScheduleStop.arrival_position = position_list[0].pkey
-                    print('case2A {a}'.format(a=arrival_time))
+                    #print('case2A {a}'.format(a=arrival_time))
+                    print('case2A position0')
 
                 # CASE B approaches, then vanishes
                 # determined by [d is decreasing, slope is always negative]
@@ -150,7 +153,8 @@ while True:
                     arrival_time = position_list[-1].timestamp
                     position_list[-1].arrival_flag = True
                     # todo set ScheduleStop.arrival_position = position_list[0].pkey
-                    print('case2B {a}'.format(a=arrival_time))
+                    #print('case2B {a}'.format(a=arrival_time))
+                    print('case2B position(last)')
 
                 # CASE C appears, then departs
                 # determined by [d is increasing, slope is always positive]
@@ -160,7 +164,8 @@ while True:
                     arrival_time = position_list[0].timestamp
                     position_list[0].arrival_flag = True
                     # todo set ScheduleStop.arrival_position = position_list[0].pkey
-                    print('case2C {a}'.format(a=arrival_time))
+                    #print('case2C {a}'.format(a=arrival_time))
+                    print('case2C position0')
 
 
             ##############################################
@@ -207,21 +212,25 @@ while True:
                         arrival_time = position_list[0].timestamp
                         position_list[0].arrival_flag = True
                         # todo set ScheduleStop.arrival_position = position_list[0].pkey
-                        print('case3A {a}'.format(a=arrival_time))
+                        #print('case3A {a}'.format(a=arrival_time))
+                        print('case3A position0')
 
                     # CASE B
                     elif slope_avg < 0:
                         arrival_time = position_list[-1].timestamp
                         position_list[-1].arrival_flag = True
                         # todo set ScheduleStop.arrival_position = position_list[0].pkey
-                        print('case3B {a}'.format(a=arrival_time))
+                        #print('case3B {a}'.format(a=arrival_time))
+                        print('case3B position(last)')
+
 
                     # CASE C
                     elif slope_avg > 0:
                         arrival_time = position_list[0].timestamp
                         position_list[0].arrival_flag = True
                         # todo set ScheduleStop.arrival_position = position_list[0].pkey
-                        print('case3C {a}'.format(a=arrival_time))
+                        #print('case3C {a}'.format(a=arrival_time))
+                        print('case3C position0')
 
                 except:
                     pass
