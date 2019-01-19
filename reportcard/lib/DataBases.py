@@ -109,7 +109,7 @@ class ScheduledStop(Base):
     stop_id = Column(Integer())
     arrival_timestamp = Column(DateTime())
 
-    trip = relationship("Trip")
+    trip = relationship("Trip", backref="scheduledstop_log")
 
     def __repr__(self):
         return "ScheduledStop()".format(self=self)

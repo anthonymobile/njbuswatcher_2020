@@ -62,7 +62,7 @@ while True:
     for trip in triplist:
         print(('analyzing arrival candidates on trip {a}...').format(a=trip))
 
-        # load the trip card for reference
+        # load the trip card
         scheduled_stops = session.query(Trip,ScheduledStop)\
             .join(ScheduledStop) \
             .filter(Trip.trip_id == trip) \
@@ -103,13 +103,23 @@ while True:
                 position_list[0].arrival_flag = True
                 print('case1A position0')
 
-                # select the ScheduleStop where trip_id and stop_id are the same as for this BusPosition
-                # & update the ScheduledStop arrival_timestamp to the arrival_time
-                stop_to_update = session.query(ScheduledStop, BusPosition) \
-                    .join(BusPosition) \
-                    .filter(ScheduledStop.stop_id == position_list[0].stop_id) \
-                    .all()
-                stop_to_update[0][0].arrival_timestamp = arrival_time
+
+                # OLD - WORKS
+                # # select the ScheduleStop where trip_id and stop_id are the same as for this BusPosition
+                # # & update the ScheduledStop arrival_timestamp to the arrival_time
+                # stop_to_update = session.query(ScheduledStop, BusPosition) \
+                #     .join(BusPosition) \
+                #     .filter(ScheduledStop.stop_id == position_list[0].stop_id) \
+                #     .all()
+                # stop_to_update[0][0].arrival_timestamp = arrival_time
+                #
+
+                # NEW - LOOK THROUGH SCHEDULED STOPS AND FIND THE RIGHT STOP TO UPDATE
+                for trip,stop_to_update in scheduled_stops:
+                    if stop_to_update.stop_id == position_list[0].stop_id:
+                        stop_to_update.arrival_timestamp = arrival_time
+
+
 
                 # todo check all ScheduledStops with positions for arrival_flag and interpolate any missing ones -- with scipy?
 
@@ -145,11 +155,7 @@ while True:
                     arrival_time = position_list[0].timestamp
                     position_list[0].arrival_flag = True
                     print('case2A position0')
-                    stop_to_update = session.query(ScheduledStop, BusPosition) \
-                        .join(BusPosition) \
-                        .filter(ScheduledStop.stop_id == position_list[0].stop_id) \
-                        .all()
-                    stop_to_update[0][0].arrival_timestamp = arrival_time
+                    # todo insert ScheduledStop update code
 
                 # CASE B approaches, then vanishes
                 # determined by [d is decreasing, slope is always negative]
@@ -159,11 +165,7 @@ while True:
                     arrival_time = position_list[-1].timestamp
                     position_list[-1].arrival_flag = True
                     print('case2B position(last)')
-                    stop_to_update = session.query(ScheduledStop, BusPosition) \
-                        .join(BusPosition) \
-                        .filter(ScheduledStop.stop_id == position_list[-1].stop_id) \
-                        .all()
-                    stop_to_update[0][0].arrival_timestamp = arrival_time
+                    # todo insert ScheduledStop update code
 
                 # CASE C appears, then departs
                 # determined by [d is increasing, slope is always positive]
@@ -175,12 +177,7 @@ while True:
                     # todo set ScheduleStop.arrival_position = position_list[0].pkey
                     #print('case2C {a}'.format(a=arrival_time))
                     print('case2C position0')
-                    stop_to_update = session.query(ScheduledStop, BusPosition) \
-                        .join(BusPosition) \
-                        .filter(ScheduledStop.stop_id == position_list[0].stop_id) \
-                        .all()
-                    stop_to_update[0][0].arrival_timestamp = arrival_time
-
+                    # todo insert ScheduledStop update code
 
 
             ##############################################
@@ -205,6 +202,26 @@ while True:
 
                 try:
 
+                    # CASE A
+                    if slope_avg == 0:
+                        arrival_time = position_list[0].timestamp
+                        position_list[0].arrival_flag = True
+                        # todo insert ScheduledStop update code
+
+                    # CASE B
+                    elif slope_avg < 0:
+                        arrival_time = position_list[-1].timestamp
+                        position_list[-1].arrival_flag = True
+                        # todo insert ScheduledStop update code
+
+
+                    # CASE C
+                    elif slope_avg > 0:
+                        arrival_time = position_list[0].timestamp
+                        position_list[0].arrival_flag = True
+                        # todo insert ScheduledStop update code
+
+                    # todo delete or rewrite?
                     # # CASE D if the min position is more than 0 and less than last position, its a D
                     # if np.argmin(approach_array, axis=1) >0 and np.argmin(approach_array, axis=1) < len(position_list):
                     #
@@ -221,37 +238,6 @@ while True:
                     #     position_list[arrival_position].arrival_flag = True
                     #     print ('caseD {a}'.format(a=arrival_time))
                     #     case_frequencies['caseD'] += 1
-
-                    # CASE A
-                    if slope_avg == 0:
-                        arrival_time = position_list[0].timestamp
-                        position_list[0].arrival_flag = True
-                        stop_to_update = session.query(ScheduledStop, BusPosition) \
-                            .join(BusPosition) \
-                            .filter(ScheduledStop.stop_id == position_list[0].stop_id) \
-                            .all()
-                        stop_to_update[0][0].arrival_timestamp = arrival_time
-
-                    # CASE B
-                    elif slope_avg < 0:
-                        arrival_time = position_list[-1].timestamp
-                        position_list[-1].arrival_flag = True
-                        stop_to_update = session.query(ScheduledStop, BusPosition) \
-                            .join(BusPosition) \
-                            .filter(ScheduledStop.stop_id == position_list[-1].stop_id) \
-                            .all()
-                        stop_to_update[0][0].arrival_timestamp = arrival_time
-
-
-                    # CASE C
-                    elif slope_avg > 0:
-                        arrival_time = position_list[0].timestamp
-                        position_list[0].arrival_flag = True
-                        stop_to_update = session.query(ScheduledStop, BusPosition) \
-                            .join(BusPosition) \
-                            .filter(ScheduledStop.stop_id == position_list[0].stop_id) \
-                            .all()
-                        stop_to_update[0][0].arrival_timestamp = arrival_time
 
                 except:
                     pass
