@@ -99,8 +99,8 @@ def displayApproachDash(source,route):
 
 
 #1 trip dashboard
-@app.route('/<source>/<route>/trip_dash')
-def displayTripDash(source,route):
+@app.route('/<source>/<route>/trip_dash/<run>')
+def displayTripDash(source,route,run):
 
     session = Trip.get_session()
 
@@ -108,34 +108,23 @@ def displayTripDash(source,route):
     todays_date = datetime.datetime.today().strftime('%Y%m%d')
     trip_id_list=[]
     v_on_route = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data(source, 'buses_for_route', route=route))
+
+
     for v in v_on_route:
-        trip_tuple=('{a}_{b}_{c}').format(a=v.id, b=v.run, c=todays_date)
-        trip_id_list.append(trip_tuple)
+        if v.run == run:
+            trip_id = (('{a}_{b}_{c}').format(a=v.id, b=v.run, c=todays_date))
+        else:
+            pass
 
     trips_dash = dict()
-    for trip in trip_id_list:
 
-        # # load the trip card
-        # scheduled_stops = session.query(db.Trip, db.ScheduledStop) \
-        #     .filter(db.Trip.trip_id == trip) \
-        #     .all()
-        # trips_dash[trip]=scheduled_stops
-
-        # # load the trip card for reference
-        # scheduled_stops = session.query(Trip,ScheduledStop)\
-        #     .join(ScheduledStop) \
-        #     .filter(Trip.trip_id == trip) \
-        #     .all()
-        # trips_dash[trip] = scheduled_stops
-
-
-        # NEW load the trip card todo this doesnt seem to be producing accurate results
-        scheduled_stops = session.query(ScheduledStop) \
-            .join(Trip) \
-            .filter(Trip.trip_id == trip) \
-            .order_by(ScheduledStop.pkey.asc()) \
-            .all()
-        trips_dash[trip]=scheduled_stops
+    # NEW load the trip card todo this doesnt seem to be producing accurate results
+    scheduled_stops = session.query(ScheduledStop) \
+        .join(Trip) \
+        .filter(Trip.trip_id == trip_id) \
+        .order_by(ScheduledStop.pkey.asc()) \
+        .all()
+    trips_dash[trip_id]=scheduled_stops
 
     return render_template('trip_dash.html', tripdash=trips_dash, route=route)
 
