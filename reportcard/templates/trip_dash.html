@@ -27,8 +27,34 @@
 
 
 
-            <div id="buses" class="row mt-2">
 
+
+         <div id="buses2" class="row mt-2">
+
+                {% for trip,stoplist in tripdash.items() %}
+                    <div class="col-sm-12">
+
+                        <p class="lead">trip {{ trip }} </p>
+
+                            {% for stop in stoplist %}
+                                <button type="button" class="btn btn-light">
+                                    {{stop.stop_id}}
+                                    {% if stop.arrival_timestamp is not none %}
+                                        <span class="badge badge-primary">{{stop.arrival_timestamp|strftime_today}}</span>
+                                    {% else %}
+                                        ---
+                                    {% endif %}
+                                </button>
+                            {% endfor %}
+
+                    </div>
+                {% endfor %}
+
+
+           </div>
+
+    <!--
+            <div id="buses" class="row mt-2">
 
                 {% for trip,stoplist in tripdash.items() %}
                     <div class="col-sm-6">
@@ -66,6 +92,9 @@
 
 
            </div>
+    -->
+
+        </div>
 
         </div>
 
