@@ -48,6 +48,7 @@ while True:
                 session = Trip.get_session()
                 session.add(trip)
                 session.commit()
+
             else:
                 pass
 
