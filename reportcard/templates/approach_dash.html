@@ -29,7 +29,11 @@
                 {% for key,buses in busdash.items() %}
                     <div class="col-sm-6">
 
-                        <p class="lead">bus {{key}} (run {{ buses[0].run }}) </p>
+
+
+
+                        <p class="lead">bus {{key}} (run <a href = {{url_for('displayTripDash',source='nj',route=route,
+                            run=buses[0].run)}}>{{ buses[0].run }}</a>) </p>
 
                         <table class="table table-sm table-hover">
                         <thead class="thread-dark">
