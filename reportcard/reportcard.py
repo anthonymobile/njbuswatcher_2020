@@ -14,7 +14,8 @@ import datetime, logging, sys
 
 import lib.ReportCard as ReportCard
 import lib.BusAPI as BusAPI
-import lib.DataBases as db
+from lib.DataBases import Trip,BusPosition,ScheduledStop
+# import lib.DataBases as db
 
 # import lib.WebAPI as WebAPI
 
@@ -66,7 +67,7 @@ assets.register(bundles)
 @app.route('/<source>/<route>/approach_dash')
 def displayApproachDash(source,route):
 
-    session = db.Trip.get_session()
+    session = Trip.get_session()
     # query expressions
     todays_date = datetime.datetime.today().strftime('%Y%m%d')
 
@@ -87,11 +88,11 @@ def displayApproachDash(source,route):
         v_as_list = []
         v_as_list.append(b)
 
-        buses_dash[b]=session.query(db.BusPosition) \
-        .filter(db.BusPosition.id.in_(v_as_list)) \
-        .filter(db.BusPosition.run.in_(run_list)) \
-        .order_by(db.BusPosition.timestamp.desc()) \
-        .order_by(db.BusPosition.stop_id.desc()) \
+        buses_dash[b]=session.query(BusPosition) \
+        .filter(BusPosition.id.in_(v_as_list)) \
+        .filter(BusPosition.run.in_(run_list)) \
+        .order_by(BusPosition.timestamp.desc()) \
+        .order_by(BusPosition.stop_id.desc()) \
         .limit(20)
 
     return render_template('approach_dash.html', busdash=buses_dash, route=route)
@@ -101,7 +102,7 @@ def displayApproachDash(source,route):
 @app.route('/<source>/<route>/trip_dash')
 def displayTripDash(source,route):
 
-    session = db.Trip.get_session()
+    session = Trip.get_session()
 
     # compute trip_ids
     todays_date = datetime.datetime.today().strftime('%Y%m%d')
@@ -114,9 +115,24 @@ def displayTripDash(source,route):
     trips_dash = dict()
     for trip in trip_id_list:
 
-        # load the trip card todo fix the double rows coming back from this query
-        scheduled_stops = session.query(db.Trip, db.ScheduledStop) \
-            .filter(db.Trip.trip_id == trip) \
+        # # load the trip card
+        # scheduled_stops = session.query(db.Trip, db.ScheduledStop) \
+        #     .filter(db.Trip.trip_id == trip) \
+        #     .all()
+        # trips_dash[trip]=scheduled_stops
+
+        # # load the trip card for reference
+        # scheduled_stops = session.query(Trip,ScheduledStop)\
+        #     .join(ScheduledStop) \
+        #     .filter(Trip.trip_id == trip) \
+        #     .all()
+        # trips_dash[trip] = scheduled_stops
+
+
+        # NEW load the trip card
+        scheduled_stops = session.query(ScheduledStop) \
+            .join(Trip) \
+            .filter(Trip.trip_id == trip) \
             .all()
         trips_dash[trip]=scheduled_stops
 
