@@ -103,6 +103,13 @@ while True:
 
             position_list = position_groups[x]
 
+            # GRAB THE STOP RECORD FROM DB FOR UPDATING ARRIVAL INFO
+            stop_to_update = session.query(ScheduledStop, BusPosition) \
+                .join(BusPosition) \
+                .filter(ScheduledStop.stop_id == position_list[0].stop_id) \
+                .all()
+            # stop_to_update[0][0].arrival_timestamp = arrival_time
+
             ##############################################
             #   ONE POSITION
             #   if we only have one observation and since
@@ -121,10 +128,10 @@ while True:
                 # COPY THIS DOWN AND TEST
                 # select the ScheduleStop where trip_id and stop_id are the same as for this BusPosition
                 # & update the ScheduledStop arrival_timestamp to the arrival_time
-                stop_to_update = session.query(ScheduledStop, BusPosition) \
-                    .join(BusPosition) \
-                    .filter(ScheduledStop.stop_id == position_list[0].stop_id) \
-                    .all()
+                # stop_to_update = session.query(ScheduledStop, BusPosition) \
+                #     .join(BusPosition) \
+                #     .filter(ScheduledStop.stop_id == position_list[0].stop_id) \
+                #     .all()
                 stop_to_update[0][0].arrival_timestamp = arrival_time
 
                 # todo interpolate passed stops and fill in arrival flags/times?
