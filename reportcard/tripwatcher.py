@@ -34,11 +34,11 @@ while True:
     ##############################################
     # FETCH AND LOCALIZE CURRENT POSITIONS
     ##############################################
+    session = BusPosition.get_session()
 
     try:
         buses = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data(args.source,'buses_for_route',route=args.route))
         bus_positions = Localizer.get_nearest_stop(buses,args.route)
-        session = BusPosition.get_session()
         for group in bus_positions:
             for bus in group:
                 session.add(bus)
@@ -74,7 +74,7 @@ while True:
     ##############################################
 
     for trip_id in triplist:
-        print(('analyzing arrival candidates on trip {a}...').format(a=trip_id))
+        print(('trip {a}...').format(a=trip_id))
 
         # load the trip card for reference
         scheduled_stops = session.query(Trip,ScheduledStop)\
@@ -90,17 +90,13 @@ while True:
             .order_by(BusPosition.timestamp.asc()) \
             .all()
 
-        # for bus in arrival_candidates:
-        #     print (('\t(BusPosition) stop_id {a}  distance_to_stop {b:.0f} timestamp {c} ').format(c=bus.timestamp, a=bus.stop_id, b=bus.distance_to_stop))
-
-        # groupby stop_id
+        # split them into groups by stop
         position_groups = [list(g) for key, g in itertools.groupby(arrival_candidates, lambda x: x.stop_id)]
 
-
-        # now loop over the position_groups (except for last one which is current but location) and see if we can assign an arrival time
-
+        # iterate over all but last one (which is stop bus is currently observed at)
         for x in range (len(position_groups)-1):
 
+            # slice the positions for the xth stop
             position_list = position_groups[x]
 
             # GRAB THE STOP RECORD FROM DB FOR UPDATING ARRIVAL INFO
@@ -108,7 +104,6 @@ while True:
                 .join(BusPosition) \
                 .filter(ScheduledStop.stop_id == position_list[0].stop_id) \
                 .all()
-            # stop_to_update[0][0].arrival_timestamp = arrival_time
 
             ##############################################
             #   ONE POSITION
@@ -119,20 +114,13 @@ while True:
             ##############################################
 
             if len(position_list) == 1:
-                print(('\n\tapproaching {b}').format(a=trip_id, b=position_list[0].stop_id))
+                print(('\tapproaching {a}').format(a=position_list[0].stop_id))
                 arrival_time = position_list[0].timestamp
                 position_list[0].arrival_flag = True
+                print(('\t\t 0.0,{a:.0f} distance_to_stop {a:.0f}').format(a=position_list[0].distance_to_stop))
+
                 case_identifier='1a'
                 # plot_approach(trip_id, np.array([0,position_list[0].distance_to_stop]),case_identifier)
-
-                # COPY THIS DOWN AND TEST
-                # select the ScheduleStop where trip_id and stop_id are the same as for this BusPosition
-                # & update the ScheduledStop arrival_timestamp to the arrival_time
-                # stop_to_update = session.query(ScheduledStop, BusPosition) \
-                #     .join(BusPosition) \
-                #     .filter(ScheduledStop.stop_id == position_list[0].stop_id) \
-                #     .all()
-                stop_to_update[0][0].arrival_timestamp = arrival_time
 
                 # todo interpolate passed stops and fill in arrival flags/times?
 
@@ -147,7 +135,7 @@ while True:
             elif len(position_list) == 2:
 
                 # create and display approach array
-                print (('\n\tapproaching {b}').format(a=trip_id, b=position_list[0].stop_id))
+                print (('\tapproaching {b}').format(a=trip_id, b=position_list[0].stop_id))
                 points=[]
                 for y in range(len(position_list)):
                     points.append((y,position_list[y].distance_to_stop))
@@ -168,7 +156,7 @@ while True:
                     arrival_time = position_list[0].timestamp
                     position_list[0].arrival_flag = True
                     case_identifier = '2a'
-                    # plot_approach(trip_id, np.array([0, position_list[0].distance_to_stop]), case_identifier)
+                    plot_approach(trip_id, np.array([0, position_list[0].distance_to_stop]), case_identifier)
 
                 # CASE B approaches, then vanishes
                 # determined by [d is decreasing, slope is always negative]
@@ -178,27 +166,17 @@ while True:
                     arrival_time = position_list[-1].timestamp
                     position_list[-1].arrival_flag = True
                     case_identifier = '2b'
-                    # plot_approach(trip_id, np.array([0, position_list[-1].distance_to_stop]), case_identifier)
+                    plot_approach(trip_id, np.array([0, position_list[-1].distance_to_stop]), case_identifier)
 
                 # CASE C appears, then departs
                 # determined by [d is increasing, slope is always positive]
                 # (0, 50)  <-----
                 # (1, 100)
-                elif (slope_avg > 0):
+                elif slope_avg > 0:
                     arrival_time = position_list[0].timestamp
                     position_list[0].arrival_flag = True
                     case_identifier = '2c'
-                    # plot_approach(trip_id, np.array([0, position_list[0].distance_to_stop]), case_identifier)
-
-                # TODO DEBUG -- ISNT TAKING, THAT's WHY THE 2-position keep getting reprocessed even though the positions were flagged as arrivals
-                # BE CAREFUL THAT THE filter WILL WORK FOR CASE 2b ?!!??!
-                stop_to_update = session.query(ScheduledStop, BusPosition) \
-                    .join(BusPosition) \
-                    .filter(ScheduledStop.stop_id == position_list[0].stop_id) \
-                    .all()
-                stop_to_update[0][0].arrival_timestamp = arrival_time
-
-
+                    plot_approach(trip_id, np.array([0, position_list[0].distance_to_stop]), case_identifier)
 
             ##############################################
             #   THREE OR MORE POSITIONS
@@ -207,7 +185,7 @@ while True:
             elif len(position_list) > 2:
 
                 # create and display approach array
-                print(('\n\tapproaching {b}').format(a=trip_id, b=position_list[0].stop_id))
+                print(('\tapproaching {b}').format(a=trip_id, b=position_list[0].stop_id))
                 points = []
                 for y in range(len(position_list)):
                     points.append((y, position_list[y].distance_to_stop))
@@ -221,50 +199,30 @@ while True:
                 slope_avg = np.mean(slope, axis=0)
 
                 try:
-
-                    # # CASE D if the min position is more than 0 and less than last position, its a D
-                    # if np.argmin(approach_array, axis=1) >0 and np.argmin(approach_array, axis=1) < len(position_list):
-                    #
-                    #     z_quad = np.polyfit(approach_array[:, 0], approach_array[:, 1], 2)
-                    #     # find the min
-                    #     # https://stackoverflow.com/questions/29634217/get-minimum-points-of-numpy-poly1d-curve
-                    #     c = np.poly1d(z_quad)
-                    #     crit = c.deriv().r
-                    #     r_crit = crit[crit.imag == 0].real
-                    #     test = c.deriv(2)(r_crit)
-                    #     x_min = r_crit[test > 0]
-                    #     arrival_position = int(round(x_min))-1 # round to nearest position in the approach_array
-                    #     arrival_time = position_list[arrival_position].timestamp
-                    #     position_list[arrival_position].arrival_flag = True
-                    #     print ('caseD {a}'.format(a=arrival_time))
-                    #     case_frequencies['caseD'] += 1
-
                     # CASE A
                     if slope_avg == 0:
                         arrival_time = position_list[0].timestamp
                         position_list[0].arrival_flag = True
-                        # todo set ScheduleStop.arrival_position = position_list[0].pkey
-                        #print('case3A {a}'.format(a=arrival_time))
-                        print('case3A position0')
+                        case_identifier = '3a'
+                        plot_approach(trip_id, np.array([0, position_list[0].distance_to_stop]), case_identifier)
 
                     # CASE B
                     elif slope_avg < 0:
                         arrival_time = position_list[-1].timestamp
                         position_list[-1].arrival_flag = True
-                        # todo set ScheduleStop.arrival_position = position_list[0].pkey
-                        #print('case3B {a}'.format(a=arrival_time))
-                        print('case3B position(last)')
-
+                        case_identifier = '3b'
+                        plot_approach(trip_id, np.array([0, position_list[-1].distance_to_stop]), case_identifier)
 
                     # CASE C
                     elif slope_avg > 0:
                         arrival_time = position_list[0].timestamp
                         position_list[0].arrival_flag = True
-                        # todo set ScheduleStop.arrival_position = position_list[0].pkey
-                        #print('case3C {a}'.format(a=arrival_time))
-                        print('case3C position0')
+                        case_identifier = '3c'
+                        plot_approach(trip_id, np.array([0, position_list[0].distance_to_stop]), case_identifier)
 
                 except:
                     pass
 
-        session.commit() # update the arrival_flags and points from ScheduledStop-->BusPosition
+            stop_to_update[0][0].arrival_timestamp = arrival_time
+        session.commit()
+    session.close()
