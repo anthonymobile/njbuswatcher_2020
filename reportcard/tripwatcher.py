@@ -16,8 +16,10 @@ args = parser.parse_args()
 
 
 def plot_approach(trip_id, approach_array,case_identifier):
-    x = approach_array[:,0]
-    y = approach_array[:,1]
+    x = [row[0] for row in approach_array]
+    y = [row[1] for row in approach_array]
+    # x = approach_array[:,0]
+    # y = approach_array[:,1]
     x_max = np.max(x)
     y_max = np.max(y)
     plt.scatter(x, y)
@@ -25,6 +27,7 @@ def plot_approach(trip_id, approach_array,case_identifier):
     plt.xlabel(label)
     plt.axis([0, 1.1 * x_max, 0, 1.1 * y_max])
     plt.show()
+    print ('plot failed')
     return
 
 while True:
@@ -121,7 +124,10 @@ while True:
                 position_list[0].arrival_flag = True
                 print(('\t\t 0.0,{a:.0f} distance_to_stop {a:.0f}').format(a=position_list[0].distance_to_stop))
                 case_identifier='1a'
-                plot_approach(trip_id, np.array([0,position_list[0].distance_to_stop]),case_identifier)
+                approach_array=np.array([0,position_list[0].distance_to_stop])
+                print (approach_array)
+                print ('checkin sandwich')
+                plot_approach(trip_id,approach_array,case_identifier)
 
                 # todo interpolate passed stops and fill in arrival flags/times?
 
