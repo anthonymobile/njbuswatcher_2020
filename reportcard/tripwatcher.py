@@ -15,8 +15,9 @@ parser.add_argument('-r', '--route', dest='route', required=True, help='route nu
 args = parser.parse_args()
 
 
-def plot_approach(trip_id, approach_array,case_identifier): # todo only seems to be plotting first point
-    x, y = approach_array.T
+def plot_approach(trip_id, approach_array,case_identifier):
+    x = approach_array[:,0]
+    y = approach_array[:,1]
     x_max = np.max(x)
     y_max = np.max(y)
     plt.scatter(x, y)
@@ -43,7 +44,7 @@ while True:
             for bus in group:
                 session.add(bus)
         session.commit()
-        print('<----observed positions and new trips---->')
+        print('\n<----observed positions---->')
         print ('trip_id\t\t\t\t\tv\t\trun\tstop_id\tdistance_to_stop (feet)')
         for direction in bus_positions:
            for b in direction:
@@ -73,6 +74,7 @@ while True:
     #   ASSIGN ARRIVALS
     ##############################################
 
+    print('\n<----approach analysis---->')
     for trip_id in triplist:
         print(('trip {a}...').format(a=trip_id))
 
@@ -118,9 +120,8 @@ while True:
                 arrival_time = position_list[0].timestamp
                 position_list[0].arrival_flag = True
                 print(('\t\t 0.0,{a:.0f} distance_to_stop {a:.0f}').format(a=position_list[0].distance_to_stop))
-
                 case_identifier='1a'
-                # plot_approach(trip_id, np.array([0,position_list[0].distance_to_stop]),case_identifier)
+                plot_approach(trip_id, np.array([0,position_list[0].distance_to_stop]),case_identifier)
 
                 # todo interpolate passed stops and fill in arrival flags/times?
 
