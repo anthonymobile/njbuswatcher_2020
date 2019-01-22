@@ -123,7 +123,6 @@ map.on('load', function() {
     // ZOOM TO THE EXTENT
     // based on https://www.mapbox.com/mapbox-gl-js/example/zoomto-linestring/
 
-    // todo zoom to extent of ALL lines (not just [n] in below)
     var coordinates = waypoints_geojson.data.features[3].geometry.coordinates;
     var bounds = coordinates.reduce(function(bounds, coord) {
       return bounds.extend(coord);

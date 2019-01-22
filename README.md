@@ -1,15 +1,53 @@
-# Bus Rider Report Card 
-### v 2
-##### January 2019
+# NJ BusWatcher
+v2.0
+**21 Jan 2019**
 
-## TO DO ASAP
+---
+# ROADMAP TO COMPLETION
 
-1. finish tripwatcher
-2. rewrite ReportCard.py
-3. dockerize entire application and its database, using docker-compose [tutorial](https://github.com/stavshamir/docker-tutorial/tree/master/app)
+
+**Databases.py** The database classes.
+
+- `Duplicate stops`: seems to be duplicating the list of ScheduledStops created for each Trip during Trip.__init__
+- `Relationships`: check to make sure that all the relationships are defined and coded properly. Draw an entity-relationship diagram to verify.
+- `Refactor`: abstract out the get_session from all 3 to a single function (look at Alex's BusDB.py to see how
+- `Exception handler`: smarter check in get_session on table creation --> try if table exists == False:
+
+**tripwatcher.py** The cron task that grabs current bus locations, creates BusPosition instances to hold them, creates Trip instances for each new journey observed, creates ScheduledStop instances for each Trip. Scans BusPositions each run and assigns BusPosition instances as arrivals at ScheduledStop instances for Trip instances.
+- `ScheduledStop persistence`: Debug why only 'One Position' stops are getting saved to the database. Database`session` locking? Something else?
+- `TK`: Run and make a list
+- `TK`: Run and make a list
+
+**templates/trip_dash.html** 
+- `Approach plotter`: Plot every?/current approach to the dash.
+
+
+- `Interpolate+log missed stops`: after scanning each trip and logging any new arrivals, run a function that interpolates arrival times for any stops in between arrivals in the trip card -- theoretically there shouldn't be a lot though if the trip card is correct since we are grabbing positions every 30 seconds.
+- `Boomerang buses (Case E)`: Bus that gets assigned to a stop it already visited after doubling back on a parallel street -- e.g. the 87 going down the hill getting localized to Palisade Ave stops again.
+
+**Localizer.py**
+- `More accurate distance conversion`: current method is using a crude assumption (1 degree = 69 miles = 364,320 feet). more accurate method - "If CRS of geodfs are EPSG 4326 (lat/lon) then returned 'dist' will be in degrees. To meters or ft either first convert both gdf to appropriate CRS proj for your location using .to_crs() or convert from degrees [link](https://t.co/FODrAWskNH)".
+
+**ReportCard.py** The flask app. Changes here should be minimal until we start building new routes to exploit the v2 Localizer.
+- `Restore and test API routes`: first since the map will depend on them.
+- `Restore and test main routes`: first since the map will depend on them. Refactor as possible to simplify and speed up.
+
+
+
+**static/maps/busmap-index.js**
+- `Starting extent`: zoom to extent of ALL lines (not just the arbitrary nth [n] line in the route array as currently)
+
+**sysadmin** 
+
+- `Dockerization`: dockerize entire application and its database, using docker-compose [tutorial](https://github.com/stavshamir/docker-tutorial/tree/master/app)
     - maybe 3 dockers? one for the flask app
     - one for the db
     - one for the http server and proxy: nginx and gunicorn
+
+
+---
+# MAIN DOCUMENTATION
+
 
 
 ### Version 2

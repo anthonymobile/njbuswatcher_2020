@@ -36,7 +36,6 @@ class Trip(Base):
         for route in routes:
             for path in route.paths:
                 for point in path.points:
-                    # todo fix this, its putting the stops in not right order?
                     if isinstance(point, BusAPI.Route.Stop):
                         this_stop = ScheduledStop(self.trip_id,self.v,self.run,self.date,point.identity)
                         self.stop_list.append(point.identity)
@@ -57,8 +56,7 @@ class Trip(Base):
     def __repr__(self):
         return "Trip()".format(self=self)
 
-    def get_session(): # todo abstract this out for all 3
-
+    def get_session():
         # db_url = {'drivername': 'postgres',
         #           'username': 'postgres',
         #           'password': 'postgres',
@@ -68,11 +66,11 @@ class Trip(Base):
         # engine = create_engine(URL(**db_url))
 
 
-        engine = create_engine('sqlite:///jc_buswatcher.db')  # todo update engine for real mysql backend
+        engine = create_engine('sqlite:///jc_buswatcher.db')
         Session = sessionmaker(bind=engine)
 
         # try to create tables, just in case they aren't there
-        try: # todo smarter check here --> try if table exists == False:
+        try:
             Base.metadata.create_all(bind=engine)
         except:
             pass
@@ -123,7 +121,7 @@ class ScheduledStop(Base):
         #
         # engine = create_engine(URL(**db_url))
 
-        engine = create_engine('sqlite:///jc_buswatcher.db')  # todo update engine for real mysql backend
+        engine = create_engine('sqlite:///jc_buswatcher.db')
         Session = sessionmaker(bind=engine)
 
         # try to create tables, just in case they aren't there

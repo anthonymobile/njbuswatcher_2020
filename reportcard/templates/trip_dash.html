@@ -15,7 +15,6 @@
             <h2>TripWatcher/Localizer v2.0</h2>
         </div>
         <div class="row">
-            <p>TRIP_DASH</p>
             <p>Shows trips with all stops for all buses on the road now in New Jersey on Route {{ route }}. n.b. tripwatcher.py must be running separately.</p>
         </div>
     <div class="row">
@@ -26,46 +25,32 @@
     <div class="row">
 
 
-
-            <div id="buses" class="row mt-2">
-
+             <div id="buses2" class="row mt-2">
 
                 {% for trip,stoplist in tripdash.items() %}
-                    <div class="col-sm-6">
-
+                    <div class="col-sm-12">
 
                         <p class="lead">trip {{ trip }} </p>
 
-                        <table class="table table-sm table-hover">
-                        <thead class="thread-dark">
-                        <tr>
-                            <th>stop_id</th>
-                            <th>arrival_timestamp</th>
-                        </tr>
-                        </thead>
-
-                        <tbody>
-
-                        {% for stop in stoplist %}
-                        <tr class='table'>
-                            <td>{{stop.stop_id}}</td>
-
-                            {% if stop.arrival_timestamp is not none %}
-                            <td>{{stop.arrival_timestamp|strftime_today}} </td>
-                            {% else %}
-                            <td>---</td>
-                        {% endif %}
-                        </tr>
-                        {% endfor %}
-
-                        </tbody>
-                        </table>
+                            {% for stop in stoplist %}
+                                <button type="button" class="btn btn-light">
+                                    {{stop.stop_id}}
+                                    {% if stop.arrival_timestamp is not none %}
+                                        <span class="badge badge-primary">{{stop.arrival_timestamp|strftime_today}}</span>
+                                    {% else %}
+                                        ---
+                                    {% endif %}
+                                </button>
+                            {% endfor %}
 
                     </div>
                 {% endfor %}
 
 
            </div>
+
+
+
 
         </div>
 
