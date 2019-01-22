@@ -129,8 +129,6 @@ while True:
                 print ('checkin sandwich')
                 plot_approach(trip_id,approach_array,case_identifier)
 
-                # todo interpolate passed stops and fill in arrival flags/times?
-
             ##############################################
             #   TWO POSITIONS
             #   calculate the slope between the two points

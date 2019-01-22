@@ -118,7 +118,7 @@ def displayTripDash(source,route,run):
 
     trips_dash = dict()
 
-    # NEW load the trip card todo this doesnt seem to be producing accurate results
+    # load the trip card
     scheduled_stops = session.query(ScheduledStop) \
         .join(Trip) \
         .filter(Trip.trip_id == trip_id) \

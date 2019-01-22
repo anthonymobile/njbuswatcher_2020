@@ -33,8 +33,9 @@ def ckdnearest(gdA, gdB, bcol):
     # current crude method, 1 degree = 69 miles = 364,320 feet
     df = pd.DataFrame.from_dict({'distance': (dist.astype(float)*364320),bcol : gdB.loc[idx, bcol].values })
     #
-    # todo more accurate distance converstion
-    # "@anthonymobile If CRS of geodfs are EPSG 4326 (lat/lon) then returned 'dist' will be in degrees. To meters or ft either first convert both gdf to appropriate CRS proj for your location using .to_crs() or convert from degrees (https://t.co/FODrAWskNH)
+    # "@anthonymobile If CRS of geodfs are EPSG 4326 (lat/lon) then returned 'dist' will be in degrees.
+    # o meters or ft either first convert both gdf to appropriate CRS proj for your location using .to_crs()
+    #  or convert from degrees (https://t.co/FODrAWskNH)
     #  additional reference https://gis.stackexchange.com/questions/279109/calculate-distance-between-a-coordinate-and-a-county-in-geopandas
 
     return df
