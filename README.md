@@ -5,25 +5,25 @@ v2.0
 ---
 # ROADMAP TO COMPLETION
 
-
 **Databases.py** The database classes.
-
 - `Duplicate stops`: seems to be duplicating the list of ScheduledStops created for each Trip during Trip.__init__
 - `Relationships`: check to make sure that all the relationships are defined and coded properly. Draw an entity-relationship diagram to verify.
 - `Refactor`: abstract out the get_session from all 3 to a single function (look at Alex's BusDB.py to see how
 - `Exception handler`: smarter check in get_session on table creation --> try if table exists == False:
 
-**tripwatcher.py** The cron task that grabs current bus locations, creates BusPosition instances to hold them, creates Trip instances for each new journey observed, creates ScheduledStop instances for each Trip. Scans BusPositions each run and assigns BusPosition instances as arrivals at ScheduledStop instances for Trip instances.
+**tripwatcher.py** (best to test from terminal so the plots are inline with console and no Pycharm errors). The cron task that grabs current bus locations, creates BusPosition instances to hold them, creates Trip instances for each new journey observed, creates ScheduledStop instances for each Trip. Scans BusPositions each run and assigns BusPosition instances as arrivals at ScheduledStop instances for Trip instances.
+- `PRIORITIZE`: prioritize below issues based on dependency and criticality
+- `restore One position stop logging`: revert code for One Position section back to where it is successfully logging to ScheduledStop table then biuld out from there
 - `ScheduledStop persistence`: Debug why only 'One Position' stops are getting saved to the database. Database`session` locking? Something else?
-- `TK`: Run and make a list
-- `TK`: Run and make a list
-
-**templates/trip_dash.html** 
-- `Approach plotter`: Plot every?/current approach to the dash.
-
-
+    - `verify` that 'One Position' instances are being written
+    - `test` if 'Two Position' ones can be written by duplicating the same database update code 
+- `fix plotapproach`: only need it for '2/3 position'
+- `approach assignment`: debug and q.c. approach classifier, only printing approach array for ones that dont get classified, until its running more or less flawlessly
+    - `Boomerang buses (Case E)`: Bus that gets assigned to a stop it already visited after doubling back on a parallel street -- e.g. the 87 going down the hill getting localized to Palisade Ave stops again.
 - `Interpolate+log missed stops`: after scanning each trip and logging any new arrivals, run a function that interpolates arrival times for any stops in between arrivals in the trip card -- theoretically there shouldn't be a lot though if the trip card is correct since we are grabbing positions every 30 seconds.
-- `Boomerang buses (Case E)`: Bus that gets assigned to a stop it already visited after doubling back on a parallel street -- e.g. the 87 going down the hill getting localized to Palisade Ave stops again.
+
+**templates/trip_dash.html** Used for debugging and q.c. on tripwatcher. Most issues here will resolve themselves as we fix underlying libraries.
+- `Approach plotter`: Plot every?/current approach to the dash.
 
 **Localizer.py**
 - `More accurate distance conversion`: current method is using a crude assumption (1 degree = 69 miles = 364,320 feet). more accurate method - "If CRS of geodfs are EPSG 4326 (lat/lon) then returned 'dist' will be in degrees. To meters or ft either first convert both gdf to appropriate CRS proj for your location using .to_crs() or convert from degrees [link](https://t.co/FODrAWskNH)".
@@ -32,13 +32,10 @@ v2.0
 - `Restore and test API routes`: first since the map will depend on them.
 - `Restore and test main routes`: first since the map will depend on them. Refactor as possible to simplify and speed up.
 
-
-
 **static/maps/busmap-index.js**
 - `Starting extent`: zoom to extent of ALL lines (not just the arbitrary nth [n] line in the route array as currently)
 
 **sysadmin** 
-
 - `Dockerization`: dockerize entire application and its database, using docker-compose [tutorial](https://github.com/stavshamir/docker-tutorial/tree/master/app)
     - maybe 3 dockers? one for the flask app
     - one for the db
