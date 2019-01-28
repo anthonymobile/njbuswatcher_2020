@@ -12,6 +12,20 @@
 
 
 {% block scripts %}
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="mdb/js/jquery-3.3.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="mdb/js/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="mdb/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="mdb/js/mdb.min.js"></script>
+    <!-- Initializations -->
+    <script type="text/javascript">
+        // Animations initialization
+        new WOW().init();
+    </script>
 {% endblock %}
 
 {# We also set a default title, usually because we might forget to set one.
@@ -52,39 +66,32 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>Material Design Bootstrap</title>
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+<!-- Bootstrap core CSS -->
+<link href="mdb/css/bootstrap.min.css" rel="stylesheet">
+<!-- Material Design Bootstrap -->
+<link href="mdb/css/mdb.min.css" rel="stylesheet">
+<!-- Your custom styles (optional) -->
+<link href="mdb/css/style.min.css" rel="stylesheet">
 
 {{super()}}
 
-{#- Docs: http://pythonhosted.org/Flask-Bootstrap/macros.html#fixes
-   The sample application already contains the required static files. #}
+
 
 {%- endblock %}
 
 
-{% block navbar %}
-  <div class="py-2 bg-white">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <ul class="breadcrumb bg-white" style="margin-bottom:0px;margin-top:0px">
-            <li class="breadcrumb-item">
-              <a href="/">Home</a>
-            </li>
-            <li class="breadcrumb-item active">{{routereport.route}}</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-{% endblock %}
 
 
-
+{% block styles -%}
 {# Adding our own CSS files is also done here. Check the documentation at
    http://pythonhosted.org/Flask-Bootstrap/basic-usage.html#available-blocks
    for an overview. #}
-{% block styles -%}
-
 
 <style>
     .mapboxgl-popup {

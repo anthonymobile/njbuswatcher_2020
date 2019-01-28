@@ -1,3 +1,5 @@
+#!/usr/bin/env
+
 import argparse
 import itertools
 import numpy as np
@@ -38,9 +40,10 @@ while True:
     ##############################################
     # FETCH AND LOCALIZE CURRENT POSITIONS
     ##############################################
-    session = BusPosition.get_session()
+
 
     try:
+        session = BusPosition.get_session()
         buses = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data(args.source,'buses_for_route',route=args.route))
         bus_positions = Localizer.get_nearest_stop(buses,args.route)
         for group in bus_positions:
@@ -48,7 +51,7 @@ while True:
                 session.add(bus)
         session.commit()
         print('\n<----observed positions---->')
-        print ('trip_id\t\t\t\t\tv\t\trun\tstop_id\tdistance_to_stop (feet)')
+        print ('trip_id\t\t\t\tv\trun\tstop_id\tdistance_to_stop (feet)')
         for direction in bus_positions:
            for b in direction:
                print (('t{a}\t\t{b}\t{c}\t{d}\t{e:.0f}').format(a=b.trip_id,b=b.id,c=b.run,d=b.stop_id,e=b.distance_to_stop))
@@ -58,6 +61,8 @@ while True:
     ##############################################
     #   CREATE TRIP RECORDS FOR ANY NEW TRIPS SEEN
     ##############################################
+
+
     triplist=[]
     for busgroup in bus_positions:
         for bus in busgroup:
@@ -66,7 +71,6 @@ while True:
             if result is None:
                 trip_id = Trip(args.source, args.route, bus.id, bus.run)
                 print (('Created a new trip record for {a}').format(a=bus.trip_id))
-                session = Trip.get_session()
                 session.add(trip_id)
                 session.commit()
 
@@ -125,9 +129,7 @@ while True:
                 print(('\t\t 0.0,{a:.0f} distance_to_stop {a:.0f}').format(a=position_list[0].distance_to_stop))
                 case_identifier='1a'
                 approach_array=np.array([0,position_list[0].distance_to_stop])
-                print (approach_array)
-                print ('checkin sandwich')
-                plot_approach(trip_id,approach_array,case_identifier)
+                # plot_approach(trip_id,approach_array,case_identifier)
 
             ##############################################
             #   TWO POSITIONS
@@ -146,7 +148,7 @@ while True:
                     points.append((y,position_list[y].distance_to_stop))
                 approach_array = np.array(points)
                 for point in approach_array:
-                    print (('\t\t {a:.0f} distance_to_stop {b}').format(a=point[0], b=point[1]))
+                    print (('\t\t\t{a:.0f} distance_to_stop {b}').format(a=point[0], b=point[1]))
 
                 # calculate classification metrics
                 slope = np.diff(approach_array, axis=0)[:, 1]
@@ -161,7 +163,7 @@ while True:
                     arrival_time = position_list[0].timestamp
                     position_list[0].arrival_flag = True
                     case_identifier = '2a'
-                    plot_approach(trip_id, np.array([0, position_list[0].distance_to_stop]), case_identifier)
+                    # plot_approach(trip_id, np.array([0, position_list[0].distance_to_stop]), case_identifier)
 
                 # CASE B approaches, then vanishes
                 # determined by [d is decreasing, slope is always negative]
@@ -171,7 +173,7 @@ while True:
                     arrival_time = position_list[-1].timestamp
                     position_list[-1].arrival_flag = True
                     case_identifier = '2b'
-                    plot_approach(trip_id, np.array([0, position_list[-1].distance_to_stop]), case_identifier)
+                    # plot_approach(trip_id, np.array([0, position_list[-1].distance_to_stop]), case_identifier)
 
                 # CASE C appears, then departs
                 # determined by [d is increasing, slope is always positive]
@@ -181,7 +183,7 @@ while True:
                     arrival_time = position_list[0].timestamp
                     position_list[0].arrival_flag = True
                     case_identifier = '2c'
-                    plot_approach(trip_id, np.array([0, position_list[0].distance_to_stop]), case_identifier)
+                    # plot_approach(trip_id, np.array([0, position_list[0].distance_to_stop]), case_identifier)
 
             ##############################################
             #   THREE OR MORE POSITIONS
@@ -209,21 +211,21 @@ while True:
                         arrival_time = position_list[0].timestamp
                         position_list[0].arrival_flag = True
                         case_identifier = '3a'
-                        plot_approach(trip_id, np.array([0, position_list[0].distance_to_stop]), case_identifier)
+                        # plot_approach(trip_id, np.array([0, position_list[0].distance_to_stop]), case_identifier)
 
                     # CASE B
                     elif slope_avg < 0:
                         arrival_time = position_list[-1].timestamp
                         position_list[-1].arrival_flag = True
                         case_identifier = '3b'
-                        plot_approach(trip_id, np.array([0, position_list[-1].distance_to_stop]), case_identifier)
+                        # plot_approach(trip_id, np.array([0, position_list[-1].distance_to_stop]), case_identifier)
 
                     # CASE C
                     elif slope_avg > 0:
                         arrival_time = position_list[0].timestamp
                         position_list[0].arrival_flag = True
                         case_identifier = '3c'
-                        plot_approach(trip_id, np.array([0, position_list[0].distance_to_stop]), case_identifier)
+                        # plot_approach(trip_id, np.array([0, position_list[0].distance_to_stop]), case_identifier)
 
                 except:
                     pass
