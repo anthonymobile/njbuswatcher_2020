@@ -1,3 +1,5 @@
+#!/usr/bin/env
+
 # bus reportcard v2.0
 # january 2019 - by anthony@bitsandatoms.net
 
@@ -129,6 +131,12 @@ def displayTripDash(source,route,run):
     return render_template('trip_dash.html', tripdash=trips_dash, route=route)
 
 
+#1 home page
+@app.route('/')
+def displayHome():
+
+    return render_template('index.html')
+
 # #1 home page
 # @app.route('/')
 # def displayHome():
@@ -141,7 +149,8 @@ def displayTripDash(source,route,run):
 #     citywide_waypoints_geojson, citywide_stops_geojson = WebAPI.render_citywide_map_geojson(reportcard_routes)
 #
 #     return render_template('index.html', citywide_waypoints_geojson=citywide_waypoints_geojson, citywide_stops_geojson=citywide_stops_geojson,routereport=routereport,reportcard_routes=reportcard_routes)
-#
+
+
 # #2 route report
 # @app.route('/<source>/<route>')
 # @cache.cached(timeout=3600) # cache for 1 hour
