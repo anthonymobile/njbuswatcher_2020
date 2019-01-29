@@ -42,7 +42,7 @@ if __name__ == "__main__":
         time.sleep(delay)
 
         ##############################################
-        # FETCH AND LOCALIZE CURRENT POSITIONS
+        # 1 -- FETCH AND LOCALIZE CURRENT POSITIONS
         ##############################################
 
         with SQLAlchemyDBConnection(conn_str) as db:
@@ -53,7 +53,7 @@ if __name__ == "__main__":
                 bus_positions = Localizer.get_nearest_stop(buses,args.route)
                 for group in bus_positions:
                     for bus in group:
-                        session.add(bus)
+                        db.session.add(bus)
                 print('\n<----observed positions---->')
                 print ('trip_id\t\t\t\tv\trun\tstop_id\tdistance_to_stop (feet)')
                 for direction in bus_positions:
@@ -62,26 +62,25 @@ if __name__ == "__main__":
             except:
                 pass
 
-            ##############################################
-            #   CREATE TRIP RECORDS FOR ANY NEW TRIPS SEEN
-            ##############################################
-
+            #   create trip records for any new trips seen
             triplist=[]
             for busgroup in bus_positions:
                 for bus in busgroup:
                     triplist.append(bus.trip_id)
-                    result = session.query(Trip).filter(Trip.trip_id == bus.trip_id).first()
+                    result = db.session.query(Trip).filter(Trip.trip_id == bus.trip_id).first()
                     if result is None:
-                        trip_id = Trip(args.source, args.route, bus.id, bus.run)
+                        trip_id = Trip(conn_str, args.source, args.route, bus.id, bus.run)
                         print (('Created a new trip record for {a}').format(a=bus.trip_id))
                         db.session.add(trip_id)
 
                     else:
                         pass
 
-            ##############################################
-            #   ASSIGN ARRIVALS
-            ##############################################
+        ##############################################
+        #   2 -- ASSIGN ARRIVALS
+        ##############################################
+
+        with SQLAlchemyDBConnection(conn_str) as db:
 
             print('\n<----approach analysis---->')
             for trip_id in triplist:
