@@ -5,13 +5,18 @@ v2.0
 ---
 # ROADMAP TO COMPLETION
 
+## MONDAY JAN 28
 **Databases.py** The database classes.
+- `get_session`: try to abstract it out, and / or combine with the one in tripwatcher
 - `Duplicate stops`: seems to be duplicating the list of ScheduledStops created for each Trip during Trip.__init__
+
+## FUTURE
+**Databases.py** The database classes.
 - `Relationships`: check to make sure that all the relationships are defined and coded properly. Draw an entity-relationship diagram to verify.
-- `Refactor`: abstract out the get_session from all 3 to a single function (look at Alex's BusDB.py to see how
 - `Exception handler`: smarter check in get_session on table creation --> try if table exists == False:
 
 **tripwatcher.py** (best to test from terminal so the plots are inline with console and no Pycharm errors). The cron task that grabs current bus locations, creates BusPosition instances to hold them, creates Trip instances for each new journey observed, creates ScheduledStop instances for each Trip. Scans BusPositions each run and assigns BusPosition instances as arrivals at ScheduledStop instances for Trip instances.
+
 - `PRIORITIZE`: prioritize below issues based on dependency and criticality
 - `restore One position stop logging`: revert code for One Position section back to where it is successfully logging to ScheduledStop table then biuld out from there
 - `ScheduledStop persistence`: Debug why only 'One Position' stops are getting saved to the database. Database`session` locking? Something else?
@@ -34,6 +39,12 @@ v2.0
 
 **static/maps/busmap-index.js**
 - `Starting extent`: zoom to extent of ALL lines (not just the arbitrary nth [n] line in the route array as currently)
+
+**templates**
+- index: 
+    - new look should have a full-width map of moving buses on top
+    - tiles should have line #, capsule description, grade, other metrics, and links to reports/schedules
+    - make this a one-page site now with just links to stop pages? or pop-up reports?
 
 **sysadmin** 
 - `Dockerization`: dockerize entire application and its database, using docker-compose [tutorial](https://github.com/stavshamir/docker-tutorial/tree/master/app)

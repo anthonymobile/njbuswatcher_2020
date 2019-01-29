@@ -1,23 +1,43 @@
-# ####################################################
-# BUSWATCHER
-# ####################################################
-
+#!/usr/bin/env
 # -*- coding: utf-8 -*-
 import datetime
-
 from sqlalchemy import create_engine, Table, Column, Integer, DateTime, Float, String, Boolean, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
-
 from . import BusAPI
 
-# base class
+#####################################################
+# base
+#####################################################
 Base = declarative_base()
+
+
+# from https://medium.com/@ramojol/python-context-managers-and-the-with-statement-8f53d4d9f87
+class SQLAlchemyDBConnection(object):
+    """SQLAlchemy database connection"""
+    def __init__(self, connection_string):
+        self.connection_string = connection_string
+        self.session = None
+    def __enter__(self):
+        engine = create_engine(self.connection_string)
+        Session = sessionmaker()
+        self.session = Session(bind=engine)
+
+        try:  # try to create tables, just in case they aren't there
+            Base.metadata.create_all(bind=engine)
+        except:
+            pass
+
+        return self
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.session.close()
+
+
+
+
 
 #####################################################
 # CLASS Trip
-#####################################################
-# not sure what this does other than trigger the creation of the scheduled stops
 #####################################################
 
 class Trip(Base):
@@ -30,7 +50,7 @@ class Trip(Base):
 
         # create a corresponding set of ScheduledStop records for each new Trip
         # and populate the self.stoplist
-        self.session = ScheduledStop.get_session()
+        self.session = session_scope(get_session())
         self.stop_list = []
         routes, coordinates_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(source, 'routes', route=route))
         for route in routes:
@@ -41,43 +61,24 @@ class Trip(Base):
                         self.stop_list.append(point.identity)
                         for stop in self.stop_list:
                             self.session.add(this_stop)
-        self.session.commit()
 
     __tablename__ = 'trip_log'
     __table_args__ = {'extend_existing': True}
+
     pkey = Column(Integer(), primary_key=True)
     trip_id = Column(String(255))
     v = Column(Integer())
     run = Column(Integer())
     date = Column(String)
-    #positions = relationship("BusPosition")
-    #stops = relationship("ScheduledStop")
 
     def __repr__(self):
-        return "Trip()".format(self=self)
+        line = []
+        for prop, value in vars(self).items():
+            line.append((prop, value))
+        line.sort(key=lambda x: x[0])
+        out_string = ' '.join([k + '=' + str(v) for k, v in line])
+        return "Trip" + '[%s]' % out_string
 
-    def get_session():
-        # db_url = {'drivername': 'postgres',
-        #           'username': 'postgres',
-        #           'password': 'postgres',
-        #           'host': '192.168.99.100',
-        #           'port': 5432}
-        #
-        # engine = create_engine(URL(**db_url))
-
-
-        engine = create_engine('sqlite:///jc_buswatcher.db')
-        Session = sessionmaker(bind=engine)
-
-        # try to create tables, just in case they aren't there
-        try:
-            Base.metadata.create_all(bind=engine)
-        except:
-            pass
-
-        session = Session()
-
-        return session
 
 
 ################################################################
@@ -107,32 +108,15 @@ class ScheduledStop(Base):
     stop_id = Column(Integer())
     arrival_timestamp = Column(DateTime())
 
-    trip = relationship("Trip", backref="scheduledstop_log")
+    trip = relationship("Trip")
 
     def __repr__(self):
-        return "ScheduledStop()".format(self=self)
-
-    def get_session():
-        # db_url = {'drivername': 'postgres',
-        #           'username': 'postgres',
-        #           'password': 'postgres',
-        #           'host': '192.168.99.100',
-        #           'port': 5432}
-        #
-        # engine = create_engine(URL(**db_url))
-
-        engine = create_engine('sqlite:///jc_buswatcher.db')
-        Session = sessionmaker(bind=engine)
-
-        # try to create tables, just in case they aren't there
-        try:
-            Base.metadata.create_all(bind=engine)
-        except:
-            pass
-
-        session = Session()
-
-        return session
+        line = []
+        for prop, value in vars(self).items():
+            line.append((prop, value))
+        line.sort(key=lambda x: x[0])
+        out_string = ' '.join([k + '=' + str(v) for k, v in line])
+        return "ScheduledStop" + '[%s]' % out_string
 
 
 #####################################################
@@ -175,6 +159,9 @@ class BusPosition(Base):
     distance_to_stop = Column(Float())
     arrival_flag = Column(Boolean())
 
+    trip = relationship("Trip")
+    stop = relationship("ScheduledStop")
+
     def __repr__(self):
         line = []
         for prop, value in vars(self).items():
@@ -183,28 +170,6 @@ class BusPosition(Base):
         out_string = ' '.join([k + '=' + str(v) for k, v in line])
         return "BusPosition" + '[%s]' % out_string
 
-    def get_session():
-
-        # db_url = {'drivername': 'postgres',
-        #           'username': 'postgres',
-        #           'password': 'postgres',
-        #           'host': '192.168.99.100',
-        #           'port': 5432}
-        #
-        # engine = create_engine(URL(**db_url))
-
-        engine = create_engine('sqlite:///jc_buswatcher.db')
-        Session = sessionmaker(bind=engine)
-
-        # try to create tables, just in case they aren't there
-        try:
-            Base.metadata.create_all(bind=engine)
-        except:
-            pass
-
-        session = Session()
-
-        return session
 
 
 

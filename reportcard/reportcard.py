@@ -14,7 +14,7 @@ from flask_cors import CORS, cross_origin
 
 import datetime, logging, sys
 
-import lib.ReportCard as ReportCard
+# import lib.ReportCard as ReportCard
 import lib.BusAPI as BusAPI
 from lib.DataBases import Trip,BusPosition,ScheduledStop
 # import lib.DataBases as db
