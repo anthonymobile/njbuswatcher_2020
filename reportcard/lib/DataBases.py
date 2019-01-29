@@ -22,16 +22,13 @@ class SQLAlchemyDBConnection(object):
         Session = sessionmaker()
         self.session = Session(bind=engine)
 
-        # # AT added this -- remove?
-        # # try to create tables, just in case they aren't there
-        # try:
-        #     Base.metadata.create_all(bind=engine)
-        # except:
-        #     pass
+        try: # try to create tables, just in case they aren't there
+            Base.metadata.create_all(bind=engine)
+        except:
+            pass
 
         return self
     def __exit__(self, exc_type, exc_val, exc_tb):
-        self.session.commit()
         self.session.close()
 
 
@@ -65,6 +62,7 @@ class Trip(Base):
                             self.stop_list.append(point.identity)
                             for stop in self.stop_list:
                                 self.db.session.add(this_stop)
+            self.db.session.commit()
 
     __tablename__ = 'trip_log'
     __table_args__ = {'extend_existing': True}
