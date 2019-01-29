@@ -1,6 +1,6 @@
 #!/usr/bin/env
 # -*- coding: utf-8 -*-
-import datetime
+import datetime, sys
 from sqlalchemy import create_engine, Table, Column, Integer, DateTime, Float, String, Boolean, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
@@ -41,9 +41,10 @@ class SQLAlchemyDBConnection(object):
 
 class Trip(Base):
 
-    def __init__(self, conn_str, source, route, v,run):
+    def __init__(self, conn_str, source, route, v, run, pid):
         self.v = v
         self.run = run
+        self.pid = pid
         self.date = datetime.datetime.today().strftime('%Y%m%d')
         self.trip_id=('{v}_{run}_{date}').format(v=v,run=run,date=self.date)
 
@@ -54,14 +55,16 @@ class Trip(Base):
             self.db = db
             self.stop_list = []
             routes, coordinates_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(source, 'routes', route=route))
-            for route in routes:
-                for path in route.paths:
+            for path in routes[0].paths:
+                if path.id == self.pid:
                     for point in path.points:
                         if isinstance(point, BusAPI.Route.Stop):
                             this_stop = ScheduledStop(self.trip_id,self.v,self.run,self.date,point.identity)
                             self.stop_list.append(point.identity)
                             for stop in self.stop_list:
                                 self.db.session.add(this_stop)
+                else:
+                    pass
             self.db.session.commit()
 
     __tablename__ = 'trip_log'

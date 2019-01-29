@@ -5,20 +5,12 @@ v2.0
 ---
 # ROADMAP TO COMPLETION
 
-## MONDAY JAN 28
-**Databases.py**
-- `context handler`: test the new SQLAlchemyDBConnection class
-- `Duplicate stops`: seems to be duplicating the list of ScheduledStops created for each Trip during Trip.__init__
-**tripwatcher.py** 
-- `refactor for db concurrence`: break up the main loop into two different `with SQLAlchemyDBConnection(conn_str) as db:` loops -- one to grab the bus positions and log them, another to do the arrival assignments 
-
-
-## FUTURE
+## WEDNESDAY JAN 30
 **Databases.py** 
 - `Relationships`: check to make sure that all the relationships are defined and coded properly. Draw an entity-relationship diagram to verify.
 - `Exception handler`: smarter check in get_session on table creation --> try if table exists == False:
 
-
+## FUTURE
 **tripwatcher.py**
 - `restore One position stop logging`: revert code for One Position section back to where it is successfully logging to ScheduledStop table then biuld out from there
 - `ScheduledStop persistence`

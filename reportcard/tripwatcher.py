@@ -36,8 +36,15 @@ if __name__ == "__main__":
     parser.add_argument('-r', '--route', dest='route', required=True, help='route number')
     args = parser.parse_args()
 
+    ran = False
+
     while True:
-        delay = 30
+
+        if ran == True:
+            delay = 30
+        else:
+            delay = 0
+
         print (('\nPlease wait {a} seconds for next run...').format(a=delay))
         time.sleep(delay)
 
@@ -53,6 +60,7 @@ if __name__ == "__main__":
                 for group in bus_positions:
                     for bus in group:
                         db.session.add(bus)
+                db.session.commit()
                 print('\n<----observed positions---->')
                 print ('trip_id\t\t\t\tv\trun\tstop_id\tdistance_to_stop (feet)')
                 for direction in bus_positions:
@@ -68,12 +76,13 @@ if __name__ == "__main__":
                     triplist.append(bus.trip_id)
                     result = db.session.query(Trip).filter(Trip.trip_id == bus.trip_id).first()
                     if result is None:
-                        trip_id = Trip(conn_str, args.source, args.route, bus.id, bus.run)
-                        print (('Created a new trip record for {a}').format(a=bus.trip_id))
+                        print(('Created a new trip record for {a}').format(a=bus.trip_id))
+                        trip_id = Trip(conn_str, args.source, args.route, bus.id, bus.run, bus.pid)
                         db.session.add(trip_id)
 
                     else:
                         pass
+                    db.session.commit()
 
         ##############################################
         #   2 -- ASSIGN ARRIVALS
@@ -231,3 +240,7 @@ if __name__ == "__main__":
                             pass
 
                     stop_to_update[0][0].arrival_timestamp = arrival_time
+
+            db.session.commit()
+
+        ran = True
