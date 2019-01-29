@@ -42,7 +42,7 @@ class SQLAlchemyDBConnection(object):
 
 class Trip(Base):
 
-    def __init__(self, source, route, v,run):
+    def __init__(self, conn_str, source, route, v,run):
         self.v = v
         self.run = run
         self.date = datetime.datetime.today().strftime('%Y%m%d')
@@ -50,17 +50,19 @@ class Trip(Base):
 
         # create a corresponding set of ScheduledStop records for each new Trip
         # and populate the self.stoplist
-        self.session = session_scope(get_session())
-        self.stop_list = []
-        routes, coordinates_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(source, 'routes', route=route))
-        for route in routes:
-            for path in route.paths:
-                for point in path.points:
-                    if isinstance(point, BusAPI.Route.Stop):
-                        this_stop = ScheduledStop(self.trip_id,self.v,self.run,self.date,point.identity)
-                        self.stop_list.append(point.identity)
-                        for stop in self.stop_list:
-                            self.session.add(this_stop)
+
+        with SQLAlchemyDBConnection(conn_str) as db:
+            self.db = db
+            self.stop_list = []
+            routes, coordinates_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(source, 'routes', route=route))
+            for route in routes:
+                for path in route.paths:
+                    for point in path.points:
+                        if isinstance(point, BusAPI.Route.Stop):
+                            this_stop = ScheduledStop(self.trip_id,self.v,self.run,self.date,point.identity)
+                            self.stop_list.append(point.identity)
+                            for stop in self.stop_list:
+                                self.db.session.add(this_stop)
 
     __tablename__ = 'trip_log'
     __table_args__ = {'extend_existing': True}
