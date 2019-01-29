@@ -14,7 +14,6 @@ Base = declarative_base()
 
 # from https://medium.com/@ramojol/python-context-managers-and-the-with-statement-8f53d4d9f87
 class SQLAlchemyDBConnection(object):
-    """SQLAlchemy database connection"""
     def __init__(self, connection_string):
         self.connection_string = connection_string
         self.session = None
@@ -23,13 +22,16 @@ class SQLAlchemyDBConnection(object):
         Session = sessionmaker()
         self.session = Session(bind=engine)
 
-        try:  # try to create tables, just in case they aren't there
-            Base.metadata.create_all(bind=engine)
-        except:
-            pass
+        # # AT added this -- remove?
+        # # try to create tables, just in case they aren't there
+        # try:
+        #     Base.metadata.create_all(bind=engine)
+        # except:
+        #     pass
 
         return self
     def __exit__(self, exc_type, exc_val, exc_tb):
+        self.session.commit()
         self.session.close()
 
 
