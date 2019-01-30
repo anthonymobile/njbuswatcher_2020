@@ -6,30 +6,34 @@ v2.0
 # ROADMAP TO COMPLETION
 
 ## WEDNESDAY JAN 30
-**Databases.py** 
-- `Relationships`: check to make sure that all the relationships are defined and coded properly. Draw an entity-relationship diagram to verify.
-- `Exception handler`: smarter check in get_session on table creation --> try if table exists == False:
+**tripwatcher.py**
+-`clean up console logging`: kind of a mess now, make it more clear what is being logged, delete logging of stuff we dont care about (only log new observations, created records, findings, unknowns)
+-`diagnose remaining db write issues`: look at dash.html, and inspect the tables and see what issues remain. what is and is not being logged?
 
 ## FUTURE
-**tripwatcher.py**
-- `restore One position stop logging`: revert code for One Position section back to where it is successfully logging to ScheduledStop table then biuld out from there
-- `ScheduledStop persistence`
-    - `verify` that 'One Position' instances are being written
-    - `test` if 'Two Position' ones can be written by duplicating the same database update code 
-- `fix plotapproach`: only need it for '2/3 position'
-- `approach assignment`: debug and q.c. approach classifier, only printing approach array for ones that dont get classified, until its running more or less flawlessly
-    - `Boomerang buses (Case E)`: Bus that gets assigned to a stop it already visited after doubling back on a parallel street -- e.g. the 87 going down the hill getting localized to Palisade Ave stops again.
-- `Interpolate+log missed stops`: after scanning each trip and logging any new arrivals, run a function that interpolates arrival times for any stops in between arrivals in the trip card -- theoretically there shouldn't be a lot though if the trip card is correct since we are grabbing positions every 30 seconds.
-
-**templates/trip_dash.html** Used for debugging and q.c. on tripwatcher. Most issues here will resolve themselves as we fix underlying libraries.
-- `Approach plotter`: Plot every?/current approach to the dash.
 
 **Localizer.py**
 - `More accurate distance conversion`: current method is using a crude assumption (1 degree = 69 miles = 364,320 feet). more accurate method - "If CRS of geodfs are EPSG 4326 (lat/lon) then returned 'dist' will be in degrees. To meters or ft either first convert both gdf to appropriate CRS proj for your location using .to_crs() or convert from degrees [link](https://t.co/FODrAWskNH)".
 
+**tripwatcher.py**
+- `fix plotapproach`: ideallyshould plot all current approaches on a single plot? (only need it for 2- and 3+ position approaches tho)
+**templates/trip_dash.html** Used for debugging and q.c. on tripwatcher. Most issues here will resolve themselves as we fix underlying libraries.
+- `Approach plotter`: Plot every?/current approach to the dash.
+
+**tripwatcher.py**
+- `approach assignment`: debug and q.c. approach classifier, only printing approach array for ones that dont get classified, until its running more or less flawlessly
+    - `Boomerang buses (Case E)`: Bus that gets assigned to a stop it already visited after doubling back on a parallel street -- e.g. the 87 going down the hill getting localized to Palisade Ave stops again.
+    
+**tripwatcher.py**
+- `Interpolate+log missed stops`: after scanning each trip and logging any new arrivals, run a function that interpolates arrival times for any stops in between arrivals in the trip card -- theoretically there shouldn't be a lot though if the trip card is correct since we are grabbing positions every 30 seconds.
+
 **ReportCard.py** The flask app. Changes here should be minimal until we start building new routes to exploit the v2 Localizer.
 - `Restore and test API routes`: first since the map will depend on them.
 - `Restore and test main routes`: first since the map will depend on them. Refactor as possible to simplify and speed up.
+
+**Databases.py** 
+- `relationships! use them!` `children_ScheduledStops` and `parent_Trip` are incredibly use attributes any record i pull from the db will have now. use them to extend the query sets we get back!!!!
+- `Exception handler`: smarter check in get_session on table creation --> try if table exists == False:
 
 **static/maps/busmap-index.js**
 - `Starting extent`: zoom to extent of ALL lines (not just the arbitrary nth [n] line in the route array as currently)
