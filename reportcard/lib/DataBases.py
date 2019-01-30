@@ -10,6 +10,8 @@ from . import BusAPI
 #####################################################
 Base = declarative_base()
 
+class DBConfig(object):
+    conn_str='sqlite:///jc_buswatcher.db'
 
 # from https://medium.com/@ramojol/python-context-managers-and-the-with-statement-8f53d4d9f87
 class SQLAlchemyDBConnection(object):

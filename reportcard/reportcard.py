@@ -1,4 +1,5 @@
-#!/usr/bin/env
+# database setting
+conn_str = 'sqlite:///jc_buswatcher.db'
 
 # bus reportcard v2.0
 # january 2019 - by anthony@bitsandatoms.net
@@ -16,7 +17,7 @@ import datetime, logging, sys
 
 # import lib.ReportCard as ReportCard
 import lib.BusAPI as BusAPI
-from lib.DataBases import Trip,BusPosition,ScheduledStop
+from lib.DataBases import DBConfig, SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
 # import lib.DataBases as db
 
 # import lib.WebAPI as WebAPI
@@ -65,73 +66,62 @@ assets.register(bundles)
 # URLS
 ################################################
 
-#0 approach dashboard
+#1 approach dashboard
 @app.route('/<source>/<route>/approach_dash')
 def displayApproachDash(source,route):
 
-    session = Trip.get_session()
-    # query expressions
-    todays_date = datetime.datetime.today().strftime('%Y%m%d')
+    with SQLAlchemyDBConnection(DBConfig.conn_str) as db:
 
-
-    # grab list of vehicle and run numbers on the road now
-    v_list=[]
-    run_list=[]
-    v_route = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data(source, 'buses_for_route', route=route))
-
-
-    for v in v_route:
-        v_list.append(v.id)
-        run_list.append(v.run)
-
-    buses_dash=dict()
-    for b in v_list:
-
-        v_as_list = []
-        v_as_list.append(b)
-
-        buses_dash[b]=session.query(BusPosition) \
-        .filter(BusPosition.id.in_(v_as_list)) \
-        .filter(BusPosition.run.in_(run_list)) \
-        .order_by(BusPosition.timestamp.desc()) \
-        .order_by(BusPosition.stop_id.desc()) \
-        .limit(20)
+        todays_date = datetime.datetime.today().strftime('%Y%m%d')
+        # grab list of vehicle and run numbers on the road now
+        v_list=[]
+        run_list=[]
+        v_route = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data(source, 'buses_for_route', route=route))
+        for v in v_route:
+            v_list.append(v.id)
+            run_list.append(v.run)
+        buses_dash=dict()
+        for b in v_list:
+            v_as_list = []
+            v_as_list.append(b)
+            buses_dash[b]=db.session.query(BusPosition) \
+            .filter(BusPosition.id.in_(v_as_list)) \
+            .filter(BusPosition.run.in_(run_list)) \
+            .order_by(BusPosition.timestamp.desc()) \
+            .order_by(BusPosition.stop_id.desc()) \
+            .limit(20)
 
     return render_template('approach_dash.html', busdash=buses_dash, route=route)
 
 
-#1 trip dashboard
+#2 trip dashboard
 @app.route('/<source>/<route>/trip_dash/<run>')
 def displayTripDash(source,route,run):
 
-    session = Trip.get_session()
+    with SQLAlchemyDBConnection(DBConfig.conn_str) as db:
 
-    # compute trip_ids
-    todays_date = datetime.datetime.today().strftime('%Y%m%d')
-    trip_id_list=[]
-    v_on_route = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data(source, 'buses_for_route', route=route))
-
-
-    for v in v_on_route:
-        if v.run == run:
-            trip_id = (('{a}_{b}_{c}').format(a=v.id, b=v.run, c=todays_date))
-        else:
-            pass
-
-    trips_dash = dict()
-
-    # load the trip card
-    scheduled_stops = session.query(ScheduledStop) \
-        .join(Trip) \
-        .filter(Trip.trip_id == trip_id) \
-        .order_by(ScheduledStop.pkey.asc()) \
-        .all()
-    trips_dash[trip_id]=scheduled_stops
+        # compute trip_ids
+        todays_date = datetime.datetime.today().strftime('%Y%m%d')
+        trip_id_list=[]
+        v_on_route = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data(source, 'buses_for_route', route=route))
+        for v in v_on_route:
+            if v.run == run:
+                trip_id = (('{a}_{b}_{c}').format(a=v.id, b=v.run, c=todays_date))
+            else:
+                pass
+        trips_dash = dict()
+        # load the trip card
+        scheduled_stops = db.session.query(ScheduledStop) \
+            .join(Trip) \
+            .filter(Trip.trip_id == trip_id) \
+            .order_by(ScheduledStop.pkey.asc()) \
+            .all()
+        trips_dash[trip_id]=scheduled_stops
 
     return render_template('trip_dash.html', tripdash=trips_dash, route=route)
 
 
-#1 home page
+#3 home page
 @app.route('/')
 def displayHome():
 
@@ -151,7 +141,7 @@ def displayHome():
 #     return render_template('index.html', citywide_waypoints_geojson=citywide_waypoints_geojson, citywide_stops_geojson=citywide_stops_geojson,routereport=routereport,reportcard_routes=reportcard_routes)
 
 
-# #2 route report
+# #4 route report
 # @app.route('/<source>/<route>')
 # @cache.cached(timeout=3600) # cache for 1 hour
 # def genRouteReport(source, route):
@@ -161,7 +151,7 @@ def displayHome():
 #     return render_template('route.html', routereport=routereport, bunchingreport=bunchingreport, period=period, grade_letter=grade_letter, grade_numeric=grade_numeric, grade_description=grade_description, time_created=time_created)
 #
 #
-# #3 stop report
+# #5 stop report
 # @app.route('/<source>/<route>/stop/<stop>/<period>')
 # @cache.cached(timeout=60) # cache for 1 minute
 # def genStopReport(source, route, stop, period):

@@ -1,17 +1,16 @@
-#!/usr/bin/env
 
-
-# database setting
-conn_str = 'sqlite:///jc_buswatcher.db'
+# # database setting
+#conn_str = 'sqlite:///jc_buswatcher.db'
 
 import argparse
+import os, sys
 import itertools
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy
 import time
 from lib import BusAPI, Localizer
-from lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
+from lib.DataBases import DBConfig, SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
 
 def plot_approach(trip_id, approach_array,case_identifier):
     x = [row[0] for row in approach_array]
@@ -52,43 +51,41 @@ if __name__ == "__main__":
         # 1 -- FETCH AND LOCALIZE CURRENT POSITIONS
         ##############################################
 
-        with SQLAlchemyDBConnection(conn_str) as db:
+        with SQLAlchemyDBConnection(DBConfig.conn_str) as db:
 
-            try:
-                buses = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data(args.source,'buses_for_route',route=args.route))
-                bus_positions = Localizer.get_nearest_stop(buses,args.route)
-                for group in bus_positions:
-                    for bus in group:
-                        db.session.add(bus)
-                db.session.commit()
-                print('\n<----observed positions---->')
-                print ('trip_id\t\t\t\tv\trun\tstop_id\tdistance_to_stop (feet)')
-                for direction in bus_positions:
-                   for b in direction:
-                       print (('t{a}\t\t{b}\t{c}\t{d}\t{e:.0f}').format(a=b.trip_id,b=b.id,c=b.run,d=b.stop_id,e=b.distance_to_stop))
-            except:
-                pass
+            buses = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data(args.source,'buses_for_route',route=args.route))
+            bus_positions = Localizer.get_nearest_stop(buses,args.route)
+            for group in bus_positions:
+                for bus in group:
+                    db.session.add(bus)
+            db.session.commit()
+            print('\n<----observed positions---->')
+            print ('trip_id\t\t\t\tv\trun\tstop_id\tdistance_to_stop (feet)')
+            for direction in bus_positions:
+               for b in direction:
+                   print (('t{a}\t\t{b}\t{c}\t{d}\t{e:.0f}').format(a=b.trip_id,b=b.id,c=b.run,d=b.stop_id,e=b.distance_to_stop))
 
             #   create trip records for any new trips seen
-            triplist=[]
+            triplist = []
             for busgroup in bus_positions:
                 for bus in busgroup:
                     triplist.append(bus.trip_id)
                     result = db.session.query(Trip).filter(Trip.trip_id == bus.trip_id).first()
                     if result is None:
                         print(('Created a new trip record for {a}').format(a=bus.trip_id))
-                        trip_id = Trip(conn_str, args.source, args.route, bus.id, bus.run, bus.pid)
+                        trip_id = Trip(DBConfig.conn_str, args.source, args.route, bus.id, bus.run, bus.pid)
                         db.session.add(trip_id)
 
                     else:
                         pass
                     db.session.commit()
 
+
         ##############################################
         #   2 -- ASSIGN ARRIVALS
         ##############################################
 
-        with SQLAlchemyDBConnection(conn_str) as db:
+        with SQLAlchemyDBConnection(DBConfig.conn_str) as db:
 
             print('\n<----approach analysis---->')
             for trip_id in triplist:
