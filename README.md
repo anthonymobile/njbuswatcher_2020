@@ -6,16 +6,19 @@ v2.0
 # ROADMAP TO COMPLETION
 
 ## WEDNESDAY JAN 30
-**tripwatcher.py**
--`clean up console logging`: kind of a mess now, make it more clear what is being logged, delete logging of stuff we dont care about (only log new observations, created records, findings, unknowns)
--`diagnose remaining db write issues`: look at dash.html, and inspect the tables and see what issues remain. what is and is not being logged?
-
-## FUTURE
 
 **Localizer.py**
 - `More accurate distance conversion`: current method is using a crude assumption (1 degree = 69 miles = 364,320 feet). more accurate method - "If CRS of geodfs are EPSG 4326 (lat/lon) then returned 'dist' will be in degrees. To meters or ft either first convert both gdf to appropriate CRS proj for your location using .to_crs() or convert from degrees [link](https://t.co/FODrAWskNH)".
 
 **tripwatcher.py**
+- `404 exception handling`: put a try-except back on the fetch of bus positions
+-`diagnose remaining db write issues`: look at dash.html, and inspect the tables and see what issues remain. what is and is not being logged?
+    - `trip log`: arrivals seem to be getting lost, e.g. show up in the busdash but not the trip dash. logged or jsut a query? (worked for the 85 but not the 87 so maybe something to do with the pid, needs to go into some of the dash queries too?)
+
+## FUTURE
+
+**tripwatcher.py**
+-`clean up console logging`: kind of a mess now, make it more clear what is being logged, delete logging of stuff we dont care about (only log new observations, created records, findings, unknowns)
 - `fix plotapproach`: ideallyshould plot all current approaches on a single plot? (only need it for 2- and 3+ position approaches tho)
 **templates/trip_dash.html** Used for debugging and q.c. on tripwatcher. Most issues here will resolve themselves as we fix underlying libraries.
 - `Approach plotter`: Plot every?/current approach to the dash.
