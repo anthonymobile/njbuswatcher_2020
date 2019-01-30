@@ -1,4 +1,3 @@
-#!/usr/bin/env
 # -*- coding: utf-8 -*-
 import datetime, sys
 from sqlalchemy import create_engine, Table, Column, Integer, DateTime, Float, String, Boolean, ForeignKey
@@ -30,10 +29,6 @@ class SQLAlchemyDBConnection(object):
         return self
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.session.close()
-
-
-
-
 
 #####################################################
 # CLASS Trip
@@ -76,6 +71,9 @@ class Trip(Base):
     run = Column(Integer())
     date = Column(String)
 
+    children_ScheduledStops = relationship("ScheduledStop", backref='trip_log')
+    children_BusPositions = relationship("BusPosition", backref='trip_log')
+
     def __repr__(self):
         line = []
         for prop, value in vars(self).items():
@@ -106,14 +104,15 @@ class ScheduledStop(Base):
     __table_args__ = {'extend_existing': True}
 
     pkey = Column(Integer(), primary_key=True)
-    trip_id = Column(String(255), ForeignKey('trip_log.trip_id'))
     run = Column(Integer())
     v = Column(Integer())
     date = Column(String())
     stop_id = Column(Integer())
     arrival_timestamp = Column(DateTime())
 
-    trip = relationship("Trip")
+    # relationships
+    trip_id = Column(String(255), ForeignKey('trip_log.trip_id'))
+    parent_Trip = relationship("Trip",backref='scheduledstop_log')
 
     def __repr__(self):
         line = []
@@ -159,13 +158,15 @@ class BusPosition(Base):
     wid2 = Column(String(20))
     timestamp = Column(DateTime())
 
-    trip_id = Column(String(255), ForeignKey('trip_log.trip_id'))
-    stop_id = Column(String(255), ForeignKey('scheduledstop_log.stop_id'))
     distance_to_stop = Column(Float())
     arrival_flag = Column(Boolean())
 
-    trip = relationship("Trip")
-    stop = relationship("ScheduledStop")
+    # relationships
+    trip_id = Column(String(255), ForeignKey('trip_log.trip_id'))
+    stop_id = Column(String(255), ForeignKey('scheduledstop_log.stop_id'))
+
+    parent_Trip = relationship("Trip",backref='position_log')
+    parent_ScheduledStop = relationship("ScheduledStop",backref='position_log')
 
     def __repr__(self):
         line = []
