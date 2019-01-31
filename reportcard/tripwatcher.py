@@ -4,6 +4,7 @@
 
 import argparse
 import os, sys
+import werkzeug
 import itertools
 import numpy as np
 import matplotlib.pyplot as plt
@@ -53,7 +54,18 @@ if __name__ == "__main__":
 
         with SQLAlchemyDBConnection(DBConfig.conn_str) as db:
 
-            buses = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data(args.source,'buses_for_route',route=args.route))
+            # get buses from NJT API
+            while True:
+                try:
+                    buses = BusAPI.parse_xml_getBusesForRoute(
+                        BusAPI.get_xml_data(args.source, 'buses_for_route', route=args.route))
+                except werkzeug.exceptions.NotFound as e:
+                    sys.stdout.write('.')
+                    # time.sleep(2)
+                    continue
+                break
+
+
             bus_positions = Localizer.get_nearest_stop(buses,args.route)
             for group in bus_positions:
                 for bus in group:
@@ -117,6 +129,7 @@ if __name__ == "__main__":
                     # GRAB THE STOP RECORD FROM DB FOR UPDATING ARRIVAL INFO
                     stop_to_update = db.session.query(ScheduledStop, BusPosition) \
                         .join(BusPosition) \
+                        .filter(ScheduledStop.trip_id == position_list[0].trip_id) \
                         .filter(ScheduledStop.stop_id == position_list[0].stop_id) \
                         .all()
 

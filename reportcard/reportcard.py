@@ -67,7 +67,7 @@ assets.register(bundles)
 ################################################
 
 #1 approach dashboard
-@app.route('/<source>/<route>/approach_dash')
+@app.route('/<source>/<route>/dash')
 def displayApproachDash(source,route):
 
     with SQLAlchemyDBConnection(DBConfig.conn_str) as db:
@@ -88,14 +88,22 @@ def displayApproachDash(source,route):
             .filter(BusPosition.id.in_(v_as_list)) \
             .filter(BusPosition.run.in_(run_list)) \
             .order_by(BusPosition.timestamp.desc()) \
-            .order_by(BusPosition.stop_id.desc()) \
-            .limit(20)
+            .order_by(BusPosition.stop_id.desc())
+        # for b in v_list:
+        #     v_as_list = []
+        #     v_as_list.append(b)
+        #     buses_dash[b]=db.session.query(BusPosition) \
+        #     .filter(BusPosition.id.in_(v_as_list)) \
+        #     .filter(BusPosition.run.in_(run_list)) \
+        #     .order_by(BusPosition.timestamp.desc()) \
+        #     .order_by(BusPosition.stop_id.desc()) \
+        #     .limit(20)
 
     return render_template('approach_dash.html', busdash=buses_dash, route=route)
 
 
 #2 trip dashboard
-@app.route('/<source>/<route>/trip_dash/<run>')
+@app.route('/<source>/<route>/dash/<run>')
 def displayTripDash(source,route,run):
 
     with SQLAlchemyDBConnection(DBConfig.conn_str) as db:

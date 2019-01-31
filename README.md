@@ -5,47 +5,48 @@ v2.0
 ---
 # ROADMAP TO COMPLETION
 
-## THURSDAY JAN 30
+## MUST DO
+**templates/approach_dash.html** 
+- `look up stop name`: create a db table that has all the stop names (from GTFS?) so can grab them easily into the list
 
-**tripwatcher/dash**
--`not updating arrival flag on scheduledstop`: 
-    - if it is still printing appraoches for all stops (e.g. they are green in approach_dash but white in trip_dash)... then its because it is not updating the arrival flag
-        - why is this happening? still a database issue or a logic issue? did i remove the code that sets the flag?
-        - probably because there is a 3-position one still borking the whole batch?
-        
+**templates/trip_dash.html** 
+- `look up stop name`: create a db table that has all the stop names (from GTFS?) so can grab them easily into the list
+- `Approach plotter`: Plot every?/current approach to the dash.
+
 **tripwatcher.py**
--`clean up console logging`:   
+- `Interpolate+log missed stops`: after scanning each trip and logging any new arrivals, run a function that interpolates arrival times for any stops in between arrivals in the trip card -- theoretically there shouldn't be a lot though if the trip card is correct since we are grabbing positions every 30 seconds.
+-`comment out console logging`:   
     - make clearer that only displaying stops that dont have approach logged yet
     - fix the approach array for 1-position	approaches to be consistent
 		 0.0,195 distance_to_stop 195
      - remove other extraneous output
-
--`diagnose remaining db write issues`: look at dash.html, and inspect the tables and see what issues remain. what is and is not being logged?
-    - `trip log`: arrivals seem to be getting lost, e.g. show up in the busdash but not the trip dash. logged or jsut a query? (worked for the 85 but not the 87 so maybe something to do with the pid, needs to go into some of the dash queries too?)
--`get 1 route (119) locked down and logging fully`: so can move on to the ReportCard rewrites 
-
-**Localizer.py**
-- `More accurate distance conversion`: current method is using a crude assumption (1 degree = 69 miles = 364,320 feet). more accurate method - "If CRS of geodfs are EPSG 4326 (lat/lon) then returned 'dist' will be in degrees. To meters or ft either first convert both gdf to appropriate CRS proj for your location using .to_crs() or convert from degrees [link](https://t.co/FODrAWskNH)".
-
-**ReportCard.py** The flask app. Changes here should be minimal until we start building new routes to exploit the v2 Localizer.
+     
+**ReportCard.py** 
 - `Restore and test API routes`: first since the map will depend on them.
 - `Restore and test main routes`: first since the map will depend on them. Refactor as possible to simplify and speed up.
+
+**templates/index.html** 
+**templates/route.html / route-base** 
+**templates/stop.html** 
+- redesign whole site to use new MDB template
+- incorporate approach_dash and trip_dash templates into the new views, maybe have a route / stop and a route / vehicle(run) path -- with maps and live+archival data on each
+
+**Localizer.py**
+- `More accurate distance conversion`:  at least verify how far off we are. current method is using a crude assumption (1 degree = 69 miles = 364,320 feet). more accurate method - "If CRS of geodfs are EPSG 4326 (lat/lon) then returned 'dist' will be in degrees. To meters or ft either first convert both gdf to appropriate CRS proj for your location using .to_crs() or convert from degrees [link](https://t.co/FODrAWskNH)".
+
+
+
 
 
 ## FUTURE
 
-**tripwatcher.py**
 
-- `fix plotapproach`: ideallyshould plot all current approaches on a single plot? (only need it for 2- and 3+ position approaches tho)
-**templates/trip_dash.html** Used for debugging and q.c. on tripwatcher. Most issues here will resolve themselves as we fix underlying libraries.
-- `Approach plotter`: Plot every?/current approach to the dash.
-
-**tripwatcher.py**
 - `approach assignment`: debug and q.c. approach classifier, only printing approach array for ones that dont get classified, until its running more or less flawlessly
     - `Boomerang buses (Case E)`: Bus that gets assigned to a stop it already visited after doubling back on a parallel street -- e.g. the 87 going down the hill getting localized to Palisade Ave stops again.
-    
-**tripwatcher.py**
-- `Interpolate+log missed stops`: after scanning each trip and logging any new arrivals, run a function that interpolates arrival times for any stops in between arrivals in the trip card -- theoretically there shouldn't be a lot though if the trip card is correct since we are grabbing positions every 30 seconds.
+- `fix plotapproach`: ideallyshould plot all current approaches on a single plot? (only need it for 2- and 3+ position approaches tho)
+
+**templates/trip_dash.html** 
+- `Approach plotter`: Plot every?/current approach to the dash.
 
 **Databases.py** 
 - `relationships! use them!` `children_ScheduledStops` and `parent_Trip` are incredibly use attributes any record i pull from the db will have now. use them to extend the query sets we get back!!!!

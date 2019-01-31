@@ -29,14 +29,29 @@ def ckdnearest(gdA, gdB, bcol):
     dist, idx = btree.query(nA,k=1)
 
     # CONVERSION OF DEGREES TO FEET
-    #
+
     # current crude method, 1 degree = 69 miles = 364,320 feet
     df = pd.DataFrame.from_dict({'distance': (dist.astype(float)*364320),bcol : gdB.loc[idx, bcol].values })
+
+    # # new method based on https://gis.stackexchange.com/questions/279109/calculate-distance-between-a-coordinate-and-a-county-in-geopandas
+    # from math import radians, cos, sin, asin, sqrt
     #
-    # "@anthonymobile If CRS of geodfs are EPSG 4326 (lat/lon) then returned 'dist' will be in degrees.
-    # o meters or ft either first convert both gdf to appropriate CRS proj for your location using .to_crs()
-    #  or convert from degrees (https://t.co/FODrAWskNH)
-    #  additional reference https://gis.stackexchange.com/questions/279109/calculate-distance-between-a-coordinate-and-a-county-in-geopandas
+    # def haversine(lon1, lat1, lon2, lat2):
+    #     # Calculate the great circle distance between two points on the earth (specified in decimal degrees)
+    #     lon1, lat1, lon2, lat2 = map(radians, [lon1, lat1, lon2, lat2])
+    #     dlon = lon2 - lon1
+    #     dlat = lat2 - lat1
+    #     a = sin(dlat / 2) ** 2 + cos(lat1) * cos(lat2) * sin(dlon / 2) ** 2
+    #     c = 2 * asin(sqrt(a))
+    #     r = 3956  # Radius of earth in miles. Use 6371 for kilometers
+    #     return c * r
+    #
+    # df = pd.DataFrame.from_dict({'distance': (haversine(gdA.geometry.x, gdA.geometry.y, gdB.geometry.x, gdB.geometry.y)),bcol : gdB.loc[idx, bcol].values })
+    #
+    # # EXAMPLE OF ITERATING OVER A GDF
+    # # for index, row in gdf.iterrows():
+    # #     for pt in list(row['geometry'].exterior.coords):
+    #
 
     return df
 
