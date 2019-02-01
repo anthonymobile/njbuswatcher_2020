@@ -5,7 +5,21 @@ v2.0
 ---
 # ROADMAP TO COMPLETION
 
+## NOW
+
+**reportcard.py** 
+- `API`: 
+    - test 
+        - /api/v1/positions?rt=87&period=now
+        - /api/v1/positions?rt=87&period=daily
+
 ## MUST DO
+
+**reportcard.py** 
+- `Restore and index.html`: Refactor as possible to simplify and speed up.
+- `Restore next view`: trip? route? reuse the dash views? incorporate approach_dash and trip_dash templates into the new views, maybe have a route / stop and a route / vehicle(run) path -- with maps and live+archival data on each
+
+
 **templates/approach_dash.html** 
 - `look up stop name`: create a db table that has all the stop names (from GTFS?) so can grab them easily into the list
 
@@ -20,22 +34,9 @@ v2.0
     - fix the approach array for 1-position	approaches to be consistent
 		 0.0,195 distance_to_stop 195
      - remove other extraneous output
-     
-**ReportCard.py** 
-- `Restore and test API routes`: first since the map will depend on them.
-- `Restore and test main routes`: first since the map will depend on them. Refactor as possible to simplify and speed up.
-
-**templates/index.html** 
-**templates/route.html / route-base** 
-**templates/stop.html** 
-- redesign whole site to use new MDB template
-- incorporate approach_dash and trip_dash templates into the new views, maybe have a route / stop and a route / vehicle(run) path -- with maps and live+archival data on each
 
 **Localizer.py**
 - `More accurate distance conversion`:  at least verify how far off we are. current method is using a crude assumption (1 degree = 69 miles = 364,320 feet). more accurate method - "If CRS of geodfs are EPSG 4326 (lat/lon) then returned 'dist' will be in degrees. To meters or ft either first convert both gdf to appropriate CRS proj for your location using .to_crs() or convert from degrees [link](https://t.co/FODrAWskNH)".
-
-
-
 
 
 ## FUTURE
