@@ -18,6 +18,10 @@ import datetime, logging, sys
 # import lib.ReportCard as ReportCard
 import lib.BusAPI as BusAPI
 from lib.DataBases import DBConfig, SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
+
+from lib.TemplateContent import *
+from lib.WebAPI import *
+
 # import lib.DataBases as db
 
 # import lib.WebAPI as WebAPI
@@ -175,15 +179,15 @@ def displayHome():
 # API
 ################################################
 
-# # POSITIONS ARGS-BASED
-# # /api/v1/positions?rt=87&period=now -- real-time from NJT API
-# # /api/v1/positions?rt=87&period={daily,yesterday,weekly,history} -- historical from routelog database
-# @app.route('/api/v1/positions')
-# @cross_origin()
-# def api_positions_route():
-#     args=request.args
-#     return jsonify(WebAPI.get_positions_byargs(args))
-#
+# POSITIONS ARGS-BASED
+# /api/v1/positions?rt=87&period=now -- real-time from NJT API
+# /api/v1/positions?rt=87&period={daily,yesterday,weekly,history} -- historical from routelog database
+@app.route('/api/v1/positions')
+@cross_origin()
+def api_positions_route():
+    args=request.args
+    return jsonify(WebAPI.get_positions_byargs(args))
+
 # # ARRIVALS ARGS-BASED
 # # /api/v1/arrivals?rt=87&period={daily,yesterday,weekly,history} -- historical from stop_approaches_log database
 # @app.route('/api/v1/arrivals')
