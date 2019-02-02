@@ -1,7 +1,8 @@
-import reportcard.lib.BusAPI as BusAPI
-from reportcard.lib.DataBases import DBConfig, SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
-from reportcard.lib.TemplateContent import timestamp_fix
+import lib.BusAPI as BusAPI
+from lib.DataBases import DBConfig, SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
+import lib.ReportsAPI as ReportsAPI
 from sqlalchemy import func
+from sqlalchemy.sql.expression import or_
 
 import geojson
 import pandas as pd
@@ -28,25 +29,6 @@ def positions2geojson(df):
                                 , axis=1)
 
     return geojson.FeatureCollection(features)
-
-def build_filter():
-        # build the query - based on https://goonan.io/building-queries-with-flask-sqlalchemy/
-        # get the conditions from args into a list of tuples
-        conditions = []
-        for key, value in list(args.items()):
-            conditions.append((key, value))
-        if conditions != None:
-            # turn it into a dict
-            query = zip(conditions[0::2], conditions[1::2])
-            # build query
-            filters = []
-            for conditions in query:
-                if conditions[0] == 'id':
-                    filters.append(BusPosition.id.in_(conditions[1].split(',')))
-                else:
-                    for term in conditions[1].split(','):
-                        filters.append(BusPosition.__dict__[conditions[0]].ilike('%' + term + '%'))
-        return filters
 
 
 # POSITIONS ARGS-BASED
@@ -81,14 +63,23 @@ def get_positions_byargs(args):
 
     # for HISTORICAL, get positions from database
     else:
-        with SQLAlchemyDBConnection(DBConfig.conn_str) as db
+        with SQLAlchemyDBConnection(DBConfig.conn_str) as db:
 
-            query_filters=build_filter()
+            # build the query - based on https://goonan.io/building-queries-with-flask-sqlalchemy/
+            # get the conditions from args into a list of tuples
+            query = []
+            for key, value in list(args.items()):
+                query.append((key, value))
+            query_filters = []
+            for condition in query:
+                if condition[0] != 'period':
+                    query_filters.append(BusPosition.__dict__[condition[0]].ilike('%' + condition[1] + '%'))
 
             if args['period'] == "daily":
-                positions_log = BusPosition.query.filter(or_(*query_filters)) \
+
+                positions_log = db.session.query(BusPosition).filter(or_(*query_filters)) \
                     .filter(BusPosition.timestamp == func.current_date()) \
-                    .order_by(BusPosition.timestamp.desc()) \
+                    .order_by(BusPosition.timestamp.desc())
 
             elif args['period']  == "yesterday":
                 # query = ('SELECT * FROM %s WHERE (%s AND (timestamp >= CURDATE() - INTERVAL 1 DAY AND timestamp < CURDATE())) ORDER BY timestamp DESC;' % (table_name, sql_insert))
