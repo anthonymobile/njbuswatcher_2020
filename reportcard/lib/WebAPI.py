@@ -1,6 +1,6 @@
-from .BusAPI import *
-from .DataBases import DBConfig, SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
-from .TemplateContent import timestamp_fix
+import reportcard.lib.BusAPI as BusAPI
+from reportcard.lib.DataBases import DBConfig, SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
+from reportcard.lib.TemplateContent import timestamp_fix
 from sqlalchemy import func
 
 import geojson
@@ -86,36 +86,35 @@ def get_positions_byargs(args):
             query_filters=build_filter()
 
             if args['period'] == "daily":
-                positions = BusPosition.query.filter(or_(*query_filters)) \
+                positions_log = BusPosition.query.filter(or_(*query_filters)) \
                     .filter(BusPosition.timestamp == func.current_date()) \
                     .order_by(BusPosition.timestamp.desc()) \
 
             elif args['period']  == "yesterday":
                 # query = ('SELECT * FROM %s WHERE (%s AND (timestamp >= CURDATE() - INTERVAL 1 DAY AND timestamp < CURDATE())) ORDER BY timestamp DESC;' % (table_name, sql_insert))
+                # todo adapt ORM-based query from daily above
                 pass
 
             elif args['period']  == "weekly":
                 # query = ('SELECT * FROM %s WHERE (%s AND (YEARWEEK(`timestamp`, 1) = YEARWEEK(CURDATE(), 1))) ORDER BY timestamp DESC;' % (table_name, sql_insert))
+                # todo adapt ORM-based query from daily above
                 pass
 
             elif args['period']  == "history":
                 # query = ('SELECT * FROM %s WHERE %s ORDER BY timestamp DESC;' % (table_name, sql_insert))
+                # todo adapt ORM-based query from daily above
                 pass
 
-
-
             # elif kwargs['period']  like "2018-08-10":
+                # todo adapt ORM-based query from daily above
                 # query = ('SELECT * FROM %s WHERE (%s AND DATE(`timestamp`)=("2018-08-10") ORDER BY timestamp DESC;' % (table_name, sql_insert))
 
-            # remove the leading AND in query
-            query = query.replace(' AND ', '', 1)
+            # todo CONVERT THE SQLALCHEMY OBJECT TO A DF WITH THE RIGHT FORMAT
+            # positions_log = pd.read_sql_query(query, conn)
 
-            # get data and basic cleanup
-            positions_log = pd.read_sql_query(query, conn)
+            # cleanup
             positions_log = positions_log.drop(columns=['cars', 'consist', 'm','pdRtpiFeedName','rt','rtRtpiFeedName','rtdd','wid1','wid2'])
-
             positions_log = timestamp_fix(positions_log)
-
             positions_geojson = positions2geojson(positions_log)
 
     return positions_geojson

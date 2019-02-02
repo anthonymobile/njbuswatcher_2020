@@ -16,11 +16,11 @@ from flask_cors import CORS, cross_origin
 import datetime, logging, sys
 
 # import lib.ReportCard as ReportCard
-import lib.BusAPI as BusAPI
-from lib.DataBases import DBConfig, SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
+import reportcard.lib.BusAPI as BusAPI
+from reportcard.lib.DataBases import DBConfig, SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
 
-from lib.TemplateContent import *
-from lib.WebAPI import *
+from reportcard.lib.TemplateContent import *
+from reportcard.lib.WebAPI import *
 
 # import lib.DataBases as db
 

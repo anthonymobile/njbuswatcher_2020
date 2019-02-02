@@ -1,5 +1,5 @@
-import BusAPI as BusAPI
-from DataBases import DBConfig, SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
+import reportcard.lib.BusAPI as BusAPI
+from reportcard.lib.DataBases import DBConfig, SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
 
 
 # common functions
