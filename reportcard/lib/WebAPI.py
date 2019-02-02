@@ -1,13 +1,13 @@
 import lib.BusAPI as BusAPI
 from lib.DataBases import DBConfig, SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
-import lib.ReportsAPI as ReportsAPI
+from lib.ReportsAPI import timestamp_fix
 from sqlalchemy import func
 from sqlalchemy.sql.expression import or_
 
 import geojson
 import pandas as pd
-import datetime
 
+import datetime
 
 # on-the-fly-GEOJSON-encoder
 def positions2geojson(df):
@@ -33,7 +33,7 @@ def positions2geojson(df):
 
 # POSITIONS ARGS-BASED
 # /api/v1/positions?rt=87&period=now -- real-time from NJT API
-# /api/v1/positions?rt=87&period={daily,yesterday,weekly,history} -- historical from routelog database
+# /api/v1/positions?rt=87&period={daily,yesterday,history} -- historical from positions_log table
 def get_positions_byargs(args):
 
     # for NOW, get current positions from NJT API
@@ -66,42 +66,50 @@ def get_positions_byargs(args):
         with SQLAlchemyDBConnection(DBConfig.conn_str) as db:
 
             # build the query - based on https://goonan.io/building-queries-with-flask-sqlalchemy/
-            # get the conditions from args into a list of tuples
             query = []
-            for key, value in list(args.items()):
+            for key, value in list(args.items()): # get the conditions from args into a list of tuples
                 query.append((key, value))
             query_filters = []
             for condition in query:
                 if condition[0] != 'period':
                     query_filters.append(BusPosition.__dict__[condition[0]].ilike('%' + condition[1] + '%'))
+            today = datetime.date.today()
+            yesterday = datetime.date.today() - datetime.timedelta(1)
+
+
+            # query into a pandas df
+            # per https://stackoverflow.com/questions/29525808/sqlalchemy-orm-conversion-to-pandas-dataframe
 
             if args['period'] == "daily":
 
-                positions_log = db.session.query(BusPosition).filter(or_(*query_filters)) \
-                    .filter(BusPosition.timestamp == func.current_date()) \
+                positions_log = pd.read_sql(db.session.query(BusPosition).filter(or_(*query_filters))
+                    .filter(BusPosition.timestamp == today)
                     .order_by(BusPosition.timestamp.desc())
+                    ,db.session.bind)
 
             elif args['period']  == "yesterday":
-                # query = ('SELECT * FROM %s WHERE (%s AND (timestamp >= CURDATE() - INTERVAL 1 DAY AND timestamp < CURDATE())) ORDER BY timestamp DESC;' % (table_name, sql_insert))
-                # todo adapt ORM-based query from daily above
-                pass
-
-            elif args['period']  == "weekly":
-                # query = ('SELECT * FROM %s WHERE (%s AND (YEARWEEK(`timestamp`, 1) = YEARWEEK(CURDATE(), 1))) ORDER BY timestamp DESC;' % (table_name, sql_insert))
-                # todo adapt ORM-based query from daily above
-                pass
+                positions_log = pd.read_sql(db.session.query(BusPosition).filter(or_(*query_filters))
+                    .filter(BusPosition.timestamp >= yesterday)
+                    .filter(BusPosition.timestamp != today)
+                    .order_by(BusPosition.timestamp.desc())
+                    , db.session.bind)
 
             elif args['period']  == "history":
-                # query = ('SELECT * FROM %s WHERE %s ORDER BY timestamp DESC;' % (table_name, sql_insert))
-                # todo adapt ORM-based query from daily above
-                pass
+                positions_log = pd.read_sql(db.session.query(BusPosition).filter(or_(*query_filters))
+                    .order_by(BusPosition.timestamp.desc())
+                    , db.session.bind)
 
-            # elif kwargs['period']  like "2018-08-10":
-                # todo adapt ORM-based query from daily above
-                # query = ('SELECT * FROM %s WHERE (%s AND DATE(`timestamp`)=("2018-08-10") ORDER BY timestamp DESC;' % (table_name, sql_insert))
+            elif args['period'] is True:
+                try:
+                    int(args['period']) # check if it digits (e.g. period=20180810)
+                    query_date = datetime.datetime.strptime(args['period'], '%Y%m%d') # make a datetime object
+                    positions_log = pd.read_sql(db.session.query(BusPosition).filter(or_(*query_filters))
+                        .filter(BusPosition.timestamp == query_date)
+                        .order_by(BusPosition.timestamp.desc())
+                        , db.session.bind)
+                except ValueError:
+                    pass
 
-            # todo CONVERT THE SQLALCHEMY OBJECT TO A DF WITH THE RIGHT FORMAT
-            # positions_log = pd.read_sql_query(query, conn)
 
             # cleanup
             positions_log = positions_log.drop(columns=['cars', 'consist', 'm','pdRtpiFeedName','rt','rtRtpiFeedName','rtdd','wid1','wid2'])
@@ -109,10 +117,6 @@ def get_positions_byargs(args):
             positions_geojson = positions2geojson(positions_log)
 
     return positions_geojson
-
-
-
-
 
 
 
