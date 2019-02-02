@@ -7,20 +7,18 @@ conn_str = 'sqlite:///jc_buswatcher.db'
 ################################################
 # IMPORTS
 ################################################
+import datetime, logging, sys
 
 from flask import Flask, render_template, request
 from flask_bootstrap import Bootstrap
 from flask import jsonify, make_response, send_from_directory
 from flask_cors import CORS, cross_origin
 
-import datetime, logging, sys
+import lib.BusAPI as BusAPI
+import lib.ReportsAPI as ReportsAPI
+import lib.WebAPI as WebAPI
+from lib.DataBases import DBConfig, SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
 
-# import lib.ReportCard as ReportCard
-import reportcard.lib.BusAPI as BusAPI
-from reportcard.lib.DataBases import DBConfig, SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
-
-from reportcard.lib.TemplateContent import *
-from reportcard.lib.WebAPI import *
 
 # import lib.DataBases as db
 
