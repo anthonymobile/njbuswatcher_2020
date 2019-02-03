@@ -70,9 +70,9 @@
     <div id="reportcards" class="row mt-5">
         {% for route in reportcard_routes %}
             <div class="col-sm-3">
-
+                <a href = {{ url_for('genRouteReport' ,source='nj',route=route.route) }}>
                     <h1 class="display-3 text-center">{{route.route}}</h1>
-
+                </a>
                <p class="lead text-left">{{route.description_short}}</p>
             </div>
         {% endfor %}
