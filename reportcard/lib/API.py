@@ -2,12 +2,13 @@ import lib.BusAPI as BusAPI
 from lib.DataBases import DBConfig, SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
 from lib.wwwAPI import timestamp_fix
 from sqlalchemy import func
-from sqlalchemy.sql.expression import or_
+from sqlalchemy.sql.expression import and_
 
 import geojson
 import pandas as pd
 
 import datetime
+
 
 # on-the-fly-GEOJSON-encoder
 def positions2geojson(df):
@@ -63,37 +64,36 @@ def get_positions_byargs(args):
     # for HISTORICAL, get positions from database
     else:
         with SQLAlchemyDBConnection(DBConfig.conn_str) as db:
-
-            # build the query - based on https://goonan.io/building-queries-with-flask-sqlalchemy/
-            query = []
-            for key, value in list(args.items()): # get the conditions from args into a list of tuples
-                query.append((key, value))
-            query_filters = []
-            for condition in query:
-                if condition[0] != 'period':
-                    query_filters.append(BusPosition.__dict__[condition[0]].ilike('%' + condition[1] + '%'))
             today = datetime.date.today()
             yesterday = datetime.date.today() - datetime.timedelta(1)
+            request_filters = {i: args[i] for i in args if i != 'period'}
 
-            # query into a pandas df
-            # per https://stackoverflow.com/questions/29525808/sqlalchemy-orm-conversion-to-pandas-dataframe
+            if args['period'] == "today":
 
-            if args['period'] == "daily":
+                q = db.session.query(BusPosition).filter(BusPosition.timestamp == today).order_by(BusPosition.timestamp.desc())
+                for k, v in request_filters.items():
+                    f = getattr(BusPosition, k)
+                    q = q.filter(f.in_(v))
+                positions_log = q.all()
+                print (positions_log)
 
-                positions_log = pd.read_sql(db.session.query(BusPosition).filter(or_(*query_filters))
-                    .filter(BusPosition.timestamp == today)
-                    .order_by(BusPosition.timestamp.desc())
-                    ,db.session.bind)
+            # # query into a pandas df
+            # # from https://stackoverflow.com/questions/29525808/sqlalchemy-orm-conversion-to-pandas-dataframe
+            # if args['period'] == "today":
+            #     positions_log = pd.read_sql(db.session.query(BusPosition).filter_by(**request_filters)
+            #         .filter(BusPosition.timestamp == today)
+            #         .order_by(BusPosition.timestamp.desc())
+            #         , db.session.bind)
 
             elif args['period']  == "yesterday":
-                positions_log = pd.read_sql(db.session.query(BusPosition).filter(or_(*query_filters))
+                positions_log = pd.read_sql(db.session.query(BusPosition).filter(and_(*query_filters))
                     .filter(BusPosition.timestamp >= yesterday)
                     .filter(BusPosition.timestamp != today)
                     .order_by(BusPosition.timestamp.desc())
                     , db.session.bind)
 
             elif args['period']  == "history":
-                positions_log = pd.read_sql(db.session.query(BusPosition).filter(or_(*query_filters))
+                positions_log = pd.read_sql(db.session.query(BusPosition).filter(and_(*query_filters))
                     .order_by(BusPosition.timestamp.desc())
                     , db.session.bind)
 
@@ -101,7 +101,7 @@ def get_positions_byargs(args):
                 try:
                     int(args['period']) # check if it digits (e.g. period=20180810)
                     query_date = datetime.datetime.strptime(args['period'], '%Y%m%d') # make a datetime object
-                    positions_log = pd.read_sql(db.session.query(BusPosition).filter(or_(*query_filters))
+                    positions_log = pd.read_sql(db.session.query(BusPosition).filter(and_(*query_filters))
                         .filter(BusPosition.timestamp == query_date)
                         .order_by(BusPosition.timestamp.desc())
                         , db.session.bind)

@@ -154,12 +154,12 @@ def get_nearest_stop(buses,route):
                     position.m = row.m
                     position.op = row.op
                     position.pd = row.pd
-                    position.pdRtpiFeedName = row.pdRtpiFeedName
+                    position.pdrtpifeedname = row.pdRtpiFeedName
                     position.pid = row.pid
                     position.rt = row.rt
-                    position.rtRtpiFeedName = row.rtRtpiFeedName
+                    position.rtrtpifeedname = row.rtRtpiFeedName
                     position.rtdd = row.rtdd
-                    position.rtpiFeedName = row.rtpiFeedName
+                    position.rtpifeedname = row.rtpiFeedName
                     position.run = row.run
                     position.wid1 = row.wid1
                     position.wid2 = row.wid2
