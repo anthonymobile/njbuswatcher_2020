@@ -1,7 +1,7 @@
 import lib.BusAPI as BusAPI
 import geojson
 from lib.DataBases import DBConfig, SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
-
+import pandas as pd
 
 # common functions
 def timestamp_fix(data): # trim the microseconds off the timestamp and convert it to datetime format
