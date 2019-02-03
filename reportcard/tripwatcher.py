@@ -249,7 +249,11 @@ if __name__ == "__main__":
                         except:
                             pass
 
-                    stop_to_update[0][0].arrival_timestamp = arrival_time
+                    # catch errors for unassigned 3+-position approaches
+                    try:
+                        stop_to_update[0][0].arrival_timestamp = arrival_time
+                    except:
+                        pass
 
             db.session.commit()
 
