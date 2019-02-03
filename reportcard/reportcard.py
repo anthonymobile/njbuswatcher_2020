@@ -15,8 +15,8 @@ from flask import jsonify, make_response, send_from_directory
 from flask_cors import CORS, cross_origin
 
 import lib.BusAPI as BusAPI
-import lib.ReportsAPI as ReportsAPI
-import lib.WebAPI as WebAPI
+import lib.API as API
+import lib.wwwAPI as wwwAPI
 from lib.DataBases import DBConfig, SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
 
 
@@ -68,7 +68,70 @@ assets.register(bundles)
 # URLS
 ################################################
 
-#1 approach dashboard
+
+#3 home page
+@app.route('/')
+def displayHome():
+    # routereport = routereport # setup a dummy for the navbar
+    class Dummy():
+        def __init__(self):
+            self.routename = 'NJTransit'
+    routereport = Dummy()
+
+    citywide_waypoints_geojson, citywide_stops_geojson = wwwAPI.render_map_geojson(reportcard_routes)
+
+    return render_template('index.html', citywide_waypoints_geojson=citywide_waypoints_geojson, citywide_stops_geojson=citywide_stops_geojson,routereport=routereport,reportcard_routes=reportcard_routes)
+
+
+# #4 route report
+# @app.route('/<source>/<route>')
+# @cache.cached(timeout=3600) # cache for 1 hour
+# def genRouteReport(source, route):
+#     routereport = ReportCard.RouteReport(source, route, reportcard_routes, grade_descriptions)
+#     period='weekly'
+#     bunchingreport, grade_letter, grade_numeric, grade_description, time_created = routereport.load_bunching_leaderboard( route)
+#     return render_template('route.html', routereport=routereport, bunchingreport=bunchingreport, period=period, grade_letter=grade_letter, grade_numeric=grade_numeric, grade_description=grade_description, time_created=time_created)
+#
+#
+# #5 stop report
+# @app.route('/<source>/<route>/stop/<stop>/<period>')
+# @cache.cached(timeout=60) # cache for 1 minute
+# def genStopReport(source, route, stop, period):
+#     stopreport = ReportCard.StopReport(route, stop, period)
+#     hourly_frequency = stopreport.get_hourly_frequency(route, stop, period)
+#     routereport = ReportCard.RouteReport(source, route, reportcard_routes, grade_descriptions)
+#     predictions = BusAPI.parse_xml_getStopPredictions(BusAPI.get_xml_data('nj', 'stop_predictions', stop=stop, route='all'))
+#
+#     return render_template('stop.html', stopreport=stopreport, hourly_frequency=hourly_frequency, routereport=routereport, predictions=predictions,period=period)
+
+
+################################################
+# API
+################################################
+
+# /api/v1/positions?rt=87&period={ow, daily,yesterday,history}
+@app.route('/api/v1/positions')
+@cross_origin()
+def api_positions_route():
+    args=request.args
+    return jsonify(API.get_positions_byargs(args))
+
+# # ARRIVALS ARGS-BASED
+# # /api/v1/arrivals?rt=87&period={daily,yesterday,weekly,history} -- historical from stop_approaches_log database
+# @app.route('/api/v1/arrivals')
+# @cross_origin()
+# def api_arrivals_route():
+#     args=request.args
+#     arrivals_log_df = WebAPI.get_arrivals_byargs(args)
+#     arrivals_log_json = make_response(arrivals_log_df.to_json(orient="records"))
+#     return arrivals_log_json
+
+
+################################################
+# TRIPWATCHER DIAGNOSTIC DASHBOARD
+################################################
+
+# run dash
 @app.route('/<source>/<route>/dash')
 def displayApproachDash(source,route):
 
@@ -103,8 +166,7 @@ def displayApproachDash(source,route):
 
     return render_template('approach_dash.html', busdash=buses_dash, route=route)
 
-
-#2 trip dashboard
+# trip dash
 @app.route('/<source>/<route>/dash/<run>')
 def displayTripDash(source,route,run):
 
@@ -131,81 +193,7 @@ def displayTripDash(source,route,run):
     return render_template('trip_dash.html', tripdash=trips_dash, route=route)
 
 
-#3 home page
-@app.route('/')
-def displayHome():
 
-    return render_template('index.html')
-
-# #1 home page
-# @app.route('/')
-# def displayHome():
-#     # routereport = routereport # setup a dummy for the navbar
-#     class Dummy():
-#         def __init__(self):
-#             self.routename = 'NJTransit'
-#     routereport = Dummy()
-#
-#     citywide_waypoints_geojson, citywide_stops_geojson = WebAPI.render_citywide_map_geojson(reportcard_routes)
-#
-#     return render_template('index.html', citywide_waypoints_geojson=citywide_waypoints_geojson, citywide_stops_geojson=citywide_stops_geojson,routereport=routereport,reportcard_routes=reportcard_routes)
-
-
-# #4 route report
-# @app.route('/<source>/<route>')
-# @cache.cached(timeout=3600) # cache for 1 hour
-# def genRouteReport(source, route):
-#     routereport = ReportCard.RouteReport(source, route, reportcard_routes, grade_descriptions)
-#     period='weekly'
-#     bunchingreport, grade_letter, grade_numeric, grade_description, time_created = routereport.load_bunching_leaderboard( route)
-#     return render_template('route.html', routereport=routereport, bunchingreport=bunchingreport, period=period, grade_letter=grade_letter, grade_numeric=grade_numeric, grade_description=grade_description, time_created=time_created)
-#
-#
-# #5 stop report
-# @app.route('/<source>/<route>/stop/<stop>/<period>')
-# @cache.cached(timeout=60) # cache for 1 minute
-# def genStopReport(source, route, stop, period):
-#     stopreport = ReportCard.StopReport(route, stop, period)
-#     hourly_frequency = stopreport.get_hourly_frequency(route, stop, period)
-#     routereport = ReportCard.RouteReport(source, route, reportcard_routes, grade_descriptions)
-#     predictions = BusAPI.parse_xml_getStopPredictions(BusAPI.get_xml_data('nj', 'stop_predictions', stop=stop, route='all'))
-#
-#     return render_template('stop.html', stopreport=stopreport, hourly_frequency=hourly_frequency, routereport=routereport, predictions=predictions,period=period)
-
-
-################################################
-# API
-################################################
-
-# POSITIONS ARGS-BASED
-# /api/v1/positions?rt=87&period=now -- real-time from NJT API
-# /api/v1/positions?rt=87&period={daily,yesterday,weekly,history} -- historical from routelog database
-@app.route('/api/v1/positions')
-@cross_origin()
-def api_positions_route():
-    args=request.args
-    return jsonify(WebAPI.get_positions_byargs(args))
-
-# # ARRIVALS ARGS-BASED
-# # /api/v1/arrivals?rt=87&period={daily,yesterday,weekly,history} -- historical from stop_approaches_log database
-# @app.route('/api/v1/arrivals')
-# @cross_origin()
-# def api_arrivals_route():
-#     args=request.args
-#     arrivals_log_df = WebAPI.get_arrivals_byargs(args)
-#     arrivals_log_json = make_response(arrivals_log_df.to_json(orient="records"))
-#     return arrivals_log_json
-#
-#
-# # HOURLY FREQUENCY HISTOGRAM - BY ROUTE, STOP, PERIOD
-# # /api/v1/frequency?rt=87&stop_id=87&period={daily,yesterday,weekly,history}
-# @app.route('/api/v1/frequency')
-# @cross_origin()
-# def api_frequency_stop():
-#     args=request.args
-#     frequency_histogram_df = WebAPI.get_frequency_byargs(args)
-#     frequency_histogram_json = make_response(frequency_histogram_df.to_json(orient="columns"))
-#     return frequency_histogram_json
 
 
 ################################################
