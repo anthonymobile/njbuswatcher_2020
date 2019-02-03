@@ -1,4 +1,5 @@
 import lib.BusAPI as BusAPI
+import geojson
 from lib.DataBases import DBConfig, SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
 
 
@@ -10,6 +11,25 @@ def timestamp_fix(data): # trim the microseconds off the timestamp and convert i
     data = data.set_index(pd.DatetimeIndex(data['timestamp']), drop=False)
     return data
 
+# geoJSON for all routes map
+def render_map_geojson(reportcard_routes):
+    points = []
+    stops = []
+    for i in reportcard_routes:
+
+        # routedata, points_raw, stops_raw, a, b = BusAPI.parse_xml_getRoutePoints(
+        #     BusAPI.get_xml_data('nj', 'routes', route=i['route']))
+        # points_feature = geojson.Feature(geometry=geojson.LineString(points_raw))
+        # stops_feature = geojson.Feature(geometry=geojson.MultiPoint(stops_raw))
+        routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data('nj', 'routes', route=i['route']))
+        points_feature = coordinate_bundle['waypoints_geojson']
+        stops_feature = coordinate_bundle['stops_geojson']
+
+        points.append(points_feature)
+        stops.append(stops_feature)
+    map_points = geojson.FeatureCollection(points)
+    map_stops = geojson.FeatureCollection(stops)
+    return map_points, map_stops
 
 
 ###################################################

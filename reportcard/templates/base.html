@@ -11,6 +11,7 @@
 {%- extends "bootstrap/base.html" %}
 
 
+
 {% block scripts %}
     <!-- SCRIPTS -->
     <!-- JQuery -->
@@ -26,7 +27,11 @@
         // Animations initialization
         new WOW().init();
     </script>
+
 {% endblock %}
+
+
+
 
 {# We also set a default title, usually because we might forget to set one.
    In our sample app, we will most likely just opt not to change it #}
@@ -73,11 +78,11 @@
 <!-- Font Awesome -->
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
 <!-- Bootstrap core CSS -->
-<link href="mdb/css/bootstrap.min.css" rel="stylesheet">
+<link href="static/mdb/css/bootstrap.min.css" rel="stylesheet">
 <!-- Material Design Bootstrap -->
-<link href="mdb/css/mdb.min.css" rel="stylesheet">
+<link href="static/mdb/css/mdb.min.css" rel="stylesheet">
 <!-- Your custom styles (optional) -->
-<link href="mdb/css/style.min.css" rel="stylesheet">
+<link href="static/mdb/css/style.min.css" rel="stylesheet">
 
 {{super()}}
 

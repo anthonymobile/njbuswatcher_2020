@@ -1,6 +1,6 @@
 import lib.BusAPI as BusAPI
 from lib.DataBases import DBConfig, SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
-from lib.ReportsAPI import timestamp_fix
+from lib.wwwAPI import timestamp_fix
 from sqlalchemy import func
 from sqlalchemy.sql.expression import or_
 
@@ -29,7 +29,6 @@ def positions2geojson(df):
                                 , axis=1)
 
     return geojson.FeatureCollection(features)
-
 
 # POSITIONS ARGS-BASED
 # /api/v1/positions?rt=87&period=now -- real-time from NJT API
@@ -76,7 +75,6 @@ def get_positions_byargs(args):
             today = datetime.date.today()
             yesterday = datetime.date.today() - datetime.timedelta(1)
 
-
             # query into a pandas df
             # per https://stackoverflow.com/questions/29525808/sqlalchemy-orm-conversion-to-pandas-dataframe
 
@@ -119,55 +117,3 @@ def get_positions_byargs(args):
     return positions_geojson
 
 
-
-###################################################
-#  old WebAPI.py
-###################################################
-
-
-#
-# # ARRIVALS ARGS-BASED
-# # /api/v1/arrivals?rt=87&period={daily,yesterday,weekly,history} -- historical from stop_approaches_log database
-# def get_arrivals_byargs(args):
-#
-#     arrivals_log = StopReport(args['rt'],args['stop_id'],args['period']).arrivals_list_final_df
-#     arrivals_log = arrivals_log.reset_index(drop=True)
-#
-#     arrivals_log['timestamp']=arrivals_log['timestamp'].astype(str)
-#     arrivals_log = timestamp_fix(arrivals_log)
-#
-#     # arrivals_json = arrivals_log.to_json(orient='records')
-#
-#     return arrivals_log
-#
-#
-#
-# # HOURLY FREQUENCY HISTOGRAM - BY ROUTE, STOP, PERIOD
-# # /api/v1/frequency?rt=87&stop_id=87&period={daily,yesterday,weekly,history}
-# def get_frequency_byargs(args):
-#
-#     frequency_histogram = StopReport(args['rt'],args['stop_id'],args['period']).get_hourly_frequency(args['rt'],args['stop_id'],args['period'])
-#
-#     return frequency_histogram
-#
-# def render_citywide_map_geojson(reportcard_routes):
-#
-#
-#     waypoints = []
-#     stops = []
-#
-#     for i in reportcard_routes:
-#         routedata, waypoints_raw, stops_raw, a, b = BusAPI.parse_xml_getRoutePoints(
-#             BusAPI.get_xml_data('nj', 'routes', route=i['route']))
-#
-#
-#         waypoints_feature = geojson.Feature(geometry=geojson.LineString(waypoints_raw))
-#         stops_feature = geojson.Feature(geometry=geojson.MultiPoint(stops_raw))
-#
-#         waypoints.append(waypoints_feature)
-#         stops.append(stops_feature)
-#
-#     citywide_waypoints = geojson.FeatureCollection(waypoints)
-#     citywide_stops = geojson.FeatureCollection(stops)
-#
-#     return citywide_waypoints, citywide_stops

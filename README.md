@@ -6,19 +6,14 @@ v2.0
 # ROADMAP TO COMPLETION
 
 ## NOW
+- debug http://0.0.0.0:5000/api/v1/positions?rt=87&period=daily : sqlalchemy.exc.ObjectNotExecutableError: Not an executable object: <sqlalchemy.orm.query.Query object at 0x7fe146859940>
+- index.html - for some reason the {block script} isnt being displayed (either the one from base.html or the one from index.html)
 
-**reportcard.py** 
-- `API`: 
-    - test 
-        - /api/v1/positions?rt=87&period=now
-        - /api/v1/positions?rt=87&period=daily
 
 ## MUST DO
 
 **reportcard.py** 
-- `Restore and index.html`: Refactor as possible to simplify and speed up.
 - `Restore next view`: trip? route? reuse the dash views? incorporate approach_dash and trip_dash templates into the new views, maybe have a route / stop and a route / vehicle(run) path -- with maps and live+archival data on each
-
 
 **templates/approach_dash.html** 
 - `look up stop name`: create a db table that has all the stop names (from GTFS?) so can grab them easily into the list
@@ -28,6 +23,8 @@ v2.0
 - `Approach plotter`: Plot every?/current approach to the dash.
 
 **tripwatcher.py**
+- `approach assignment`: debug and q.c. approach classifier, only printing approach array for ones that dont get classified, until its running more or less flawlessly
+    - `Boomerang buses (Case E)`: Bus that gets assigned to a stop it already visited after doubling back on a parallel street -- e.g. the 87 going down the hill getting localized to Palisade Ave stops again.
 - `Interpolate+log missed stops`: after scanning each trip and logging any new arrivals, run a function that interpolates arrival times for any stops in between arrivals in the trip card -- theoretically there shouldn't be a lot though if the trip card is correct since we are grabbing positions every 30 seconds.
 -`comment out console logging`:   
     - make clearer that only displaying stops that dont have approach logged yet
@@ -35,16 +32,10 @@ v2.0
 		 0.0,195 distance_to_stop 195
      - remove other extraneous output
 
-**Localizer.py**
-- `More accurate distance conversion`:  at least verify how far off we are. current method is using a crude assumption (1 degree = 69 miles = 364,320 feet). more accurate method - "If CRS of geodfs are EPSG 4326 (lat/lon) then returned 'dist' will be in degrees. To meters or ft either first convert both gdf to appropriate CRS proj for your location using .to_crs() or convert from degrees [link](https://t.co/FODrAWskNH)".
-
-
 ## FUTURE
 
-
-- `approach assignment`: debug and q.c. approach classifier, only printing approach array for ones that dont get classified, until its running more or less flawlessly
-    - `Boomerang buses (Case E)`: Bus that gets assigned to a stop it already visited after doubling back on a parallel street -- e.g. the 87 going down the hill getting localized to Palisade Ave stops again.
-- `fix plotapproach`: ideallyshould plot all current approaches on a single plot? (only need it for 2- and 3+ position approaches tho)
+**Localizer.py**
+- `More accurate distance conversion`:  at least verify how far off we are. current method is using a crude assumption (1 degree = 69 miles = 364,320 feet). more accurate method - "If CRS of geodfs are EPSG 4326 (lat/lon) then returned 'dist' will be in degrees. To meters or ft either first convert both gdf to appropriate CRS proj for your location using .to_crs() or convert from degrees [link](https://t.co/FODrAWskNH)".
 
 **templates/trip_dash.html** 
 - `Approach plotter`: Plot every?/current approach to the dash.
@@ -58,9 +49,7 @@ v2.0
 
 **templates**
 - index: 
-    - new look should have a full-width map of moving buses on top
     - tiles should have line #, capsule description, grade, other metrics, and links to reports/schedules
-    - make this a one-page site now with just links to stop pages? or pop-up reports?
 
 **sysadmin** 
 - `Dockerization`: dockerize entire application and its database, using docker-compose [tutorial](https://github.com/stavshamir/docker-tutorial/tree/master/app)
