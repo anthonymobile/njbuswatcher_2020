@@ -1,18 +1,26 @@
 # NJ BusWatcher
 v2.0
-**21 Jan 2019**
-
-
+**3 feb 2019**
 
 ---
 # ROADMAP TO COMPLETION
 
 ## NOW
-- debug http://0.0.0.0:5000/api/v1/positions?rt=87&period=daily : sqlalchemy.exc.ObjectNotExecutableError: Not an executable object: <sqlalchemy.orm.query.Query object at 0x7fe146859940>
-- index.html - for some reason the {block script} isnt being displayed (either the one from base.html or the one from index.html)
-
+- tripwatcher.py -- loop over request filters and if the values are numbers cast them as ints or floats
+         
+- index.html -- for some reason the {block script} isnt being displayed (either the one from base.html or the one from index.html)
 
 ## MUST DO
+
+**tripwatcher.py**
+- `approach assignment`: 3+ position seems to still be having problems...
+-`simplify/comment out console logging`:   
+    - make clearer that only displaying stops that dont have approach logged yet
+    - fix the approach array for 1-position	approaches to be consistent
+		 0.0,195 distance_to_stop 195
+     - remove other extraneous output
+- `Interpolate+log missed stops`: after scanning each trip and logging any new arrivals, run a function that interpolates arrival times for any stops in between arrivals in the trip card -- theoretically there shouldn't be a lot though if the trip card is correct since we are grabbing positions every 30 seconds.
+- `Boomerang buses (Case E)`: Bus that gets assigned to a stop it already visited after doubling back on a parallel street -- e.g. the 87 going down the hill getting localized to Palisade Ave stops again.
 
 **reportcard.py** 
 - `Restore next view`: trip? route? reuse the dash views? incorporate approach_dash and trip_dash templates into the new views, maybe have a route / stop and a route / vehicle(run) path -- with maps and live+archival data on each
@@ -24,15 +32,6 @@ v2.0
 - `look up stop name`: create a db table that has all the stop names (from GTFS?) so can grab them easily into the list
 - `Approach plotter`: Plot every?/current approach to the dash.
 
-**tripwatcher.py**
-- `approach assignment`: debug and q.c. approach classifier, only printing approach array for ones that dont get classified, until its running more or less flawlessly
-    - `Boomerang buses (Case E)`: Bus that gets assigned to a stop it already visited after doubling back on a parallel street -- e.g. the 87 going down the hill getting localized to Palisade Ave stops again.
-- `Interpolate+log missed stops`: after scanning each trip and logging any new arrivals, run a function that interpolates arrival times for any stops in between arrivals in the trip card -- theoretically there shouldn't be a lot though if the trip card is correct since we are grabbing positions every 30 seconds.
--`comment out console logging`:   
-    - make clearer that only displaying stops that dont have approach logged yet
-    - fix the approach array for 1-position	approaches to be consistent
-		 0.0,195 distance_to_stop 195
-     - remove other extraneous output
 
 ## FUTURE
 
