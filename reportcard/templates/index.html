@@ -15,19 +15,6 @@
 {% endblock %}
 
 
-{% block scripts %}
-
- <script type="text/javascript">
-
-    var passed_citywide_waypoints_geojson = {{ citywide_waypoints_geojson|safe }}
-    var passed_citywide_stops_geojson = {{ citywide_stops_geojson|safe }}
-    var passed_reportcard_routes = {{ reportcard_routes|safe }}
-</script>
-
- <script type="text/javascript" src="{{ url_for('static', filename='maps/busmap-index.js')}}"></script>
-
-{% endblock %}
-
 
 {% block body %}
 
@@ -104,11 +91,18 @@
         <div class="container">
 
         <!--Section: Map-->
-            <section class="card">
-                    <div id="map" class=".container-fluid">
-                    </div>
+            <section id="map" class="card">
+            <p >Map 1.</p>
+                <div id="map" class="container">
+                </div>
             </section>
 
+            <!--<div class="row my-4">
+                <div id="map" class=".container-fluid">
+                </div>
+                <p >Map 2.</p>
+            </div>
+            -->
 
             <!--Section: Jumbotron-->
             <section class="card wow fadeIn" style="background-image: url(https://mdbootstrap.com/img/Photos/Others/gradient1.jpg);">
@@ -314,5 +308,14 @@
 
     </footer>
     <!--/.Footer-->
+
+     <script type="text/javascript">
+    var passed_citywide_waypoints_geojson = {{ citywide_waypoints_geojson|safe }}
+    var passed_citywide_stops_geojson = {{ citywide_stops_geojson|safe }}
+    var passed_reportcard_routes = {{ reportcard_routes|safe }}
+</script>
+
+ <script type="text/javascript" src="{{ url_for('static', filename='maps/busmap-index.js')}}"></script>
+
 
 {% endblock  %}

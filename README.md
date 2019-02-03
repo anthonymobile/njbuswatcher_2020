@@ -6,9 +6,9 @@ v2.0
 # ROADMAP TO COMPLETION
 
 ## NOW
+- index.html -- debug why map container 
 - tripwatcher.py -- loop over request filters and if the values are numbers cast them as ints or floats
          
-- index.html -- for some reason the {block script} isnt being displayed (either the one from base.html or the one from index.html)
 
 ## MUST DO
 
