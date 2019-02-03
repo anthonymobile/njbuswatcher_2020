@@ -6,7 +6,7 @@ v2.0
 # ROADMAP TO COMPLETION
 
 ## NOW
-- index.html -- debug why map container 
+- index.html -- redo from beginning w/ MDB index.html and old index and base
 - tripwatcher.py -- loop over request filters and if the values are numbers cast them as ints or floats
          
 
