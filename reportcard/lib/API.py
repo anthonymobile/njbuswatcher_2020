@@ -63,41 +63,51 @@ def get_positions_byargs(args):
     # for HISTORICAL, get positions from database
     else:
         with SQLAlchemyDBConnection(DBConfig.conn_str) as db:
-            today = datetime.date.today()
+            today_date = datetime.date.today()
             yesterday = datetime.date.today() - datetime.timedelta(1)
+
+
             request_filters = {i: args[i] for i in args if i != 'period'}
-
-            # todo loop over request filters and if the values are numbers cast them as ints or floats
-
+            # request_filters = {'rt':'87'}
             print (request_filters)
 
             # query into a pandas df from https://stackoverflow.com/questions/29525808/sqlalchemy-orm-conversion-to-pandas-dataframe
 
-            if args['period'] == "today":
-                positions_log = pd.read_sql(db.session.query(BusPosition).filter_by(**request_filters)
-                    .filter(BusPosition.timestamp == today)
-                    .order_by(BusPosition.timestamp.desc()).statement
-                    ,db.session.bind)
-            elif args['period']  == "yesterday":
-                positions_log = pd.read_sql(db.session.query(BusPosition).filter_by(**request_filters)
-                    .filter(BusPosition.timestamp == yesterday)
-                    .order_by(BusPosition.timestamp.desc()).statement
-                    ,db.session.bind)
-            elif args['period']  == "history":
-                positions_log = pd.read_sql(db.session.query(BusPosition).filter_by(**request_filters)
-                     .order_by(BusPosition.timestamp.desc()).statement
-                     , db.session.bind)
 
-            elif args['period'] is True:
-                try:
-                    int(args['period']) # check if it digits (e.g. period=20180810)
-                    query_date = datetime.datetime.strptime(args['period'], '%Y%m%d') # make a datetime object
-                    positions_log = pd.read_sql(db.session.query(BusPosition).filter(and_(*query_filters))
-                        .filter(BusPosition.timestamp == query_date)
-                        .order_by(BusPosition.timestamp.desc())
+            # ORIGINAL METHOD FILTER_BY
+            if args['period'] == "today":
+
+                positions_log = pd.read_sql(db.session.query(
+                        BusPosition).filter_by(**request_filters)
+                        .filter(BusPosition.timestamp == yesterday)
+                        .order_by(BusPosition.timestamp.desc()).statement
                         , db.session.bind)
-                except ValueError:
-                    pass
+
+            # FILTER METHOD
+            elif args['period']  == "yesterday":
+
+                c = db.session.query(BusPosition).filter_by(**request_filters) \
+                    .filter(BusPosition.timestamp == yesterday) \
+                    .order_by(BusPosition.timestamp.desc()).statement \
+                    .compile(db.session.bind)
+                print (c)
+                positions_log = pd.read_sql(c.string, db.session.bind, params=c.params)
+
+            # elif args['period']  == "history":
+            #     positions_log = pd.read_sql(db.session.query(BusPosition).filter_by(**request_filters)
+            #          .order_by(BusPosition.timestamp.desc()).statement
+            #          , db.session.bind)
+            #
+            # elif args['period'] is True:
+            #     try:
+            #         int(args['period']) # check if it digits (e.g. period=20180810)
+            #         query_date = datetime.datetime.strptime(args['period'], '%Y%m%d') # make a datetime object
+            #         positions_log = pd.read_sql(db.session.query(BusPosition).filter(and_(*query_filters))
+            #             .filter(BusPosition.timestamp == query_date)
+            #             .order_by(BusPosition.timestamp.desc())
+            #             , db.session.bind)
+            #     except ValueError:
+            #         pass
 
 
             # cleanup
