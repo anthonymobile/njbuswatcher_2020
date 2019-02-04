@@ -1,79 +1,12 @@
-{# This simple template derives from ``base.html``. See ``base.html`` for
-   more information about template inheritance. #}
-{%- extends "base.html" %}
 
-{# Loads some of the macros included with Flask-Bootstrap. We are using the
-   utils module here to automatically render Flask's flashed messages in a
-   bootstrap friendly manner #}
-{% import "bootstrap/utils.html" as utils %}
-
-
-{# Inside the ``content`` is where you should place most of your own stuff.
-   This will keep scripts at the page end and a navbar you add on later
-   intact. #}
-{% block head %}
-{{ super() }}
-
-    <link href="static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <style>
-        #map { width:100%; }
-    </style>
-
-{% endblock %}
-
-
-{% block scripts %}
-
-
- <script type="text/javascript">
-
-    var passed_citywide_waypoints_geojson = {{ citywide_waypoints_geojson|safe }}
-    var passed_citywide_stops_geojson = {{ citywide_stops_geojson|safe }}
-    var passed_reportcard_routes = {{ reportcard_routes|safe }}
-</script>
-
- <script type="text/javascript" src="{{ url_for('static', filename='maps/busmap-index.js')}}"></script>
-
-
-
-{% endblock %}
-
-{% block content %}
-
-
-    <!-- Page Content -->
-
-    <div class="container">
-
-
-     <div class="row">
-    <div class="col-sm-3 align-self-center">
-        <img class="align-self-start mr-5" src="/static/images/banner-xsm.png" alt="87 Bus in Snow">
-    </div>
-    <div class="col-sm-9">
-        <h1 class="mt-0">Buses are the backbone of Jersey City's neighborhoods.</h1>
-    <h4 class="mt-0">Residents and businesses in The Heights depend on them every day.</h4>
-    <p class="lead text-left">But its hard to evaluate the quality of bus service. That's why we built this site to provide a one-stop shop for bus performance information. Here you can see data on past performance, view maps of current service, and sign a petition to support our campaign for better bus service from NJTransit.</p>
-            <a target="_self" href="#reportcards" class="btn btn-indigo btn-lg">Browse the report cards<i class="fa fa-graduation-cap ml-2"></i>
-              <a target="_self" href="#map" class="btn btn-indigo btn-lg">View the map<i class="fa fa-map ml-2"></i></a>
-                <a target="_self" href="https://goo.gl/forms/VF5S1Oclk9QTdZha2" class="btn btn-indigo btn-lg">Sign the petition<i class="fa fa-pencil-alt ml-2"></i></a>
-          </a>
-    </div>
-    </div>
-
-
-    <!-- route grid -->
-
-    <div id="reportcards" class="row mt-5">
         {% for route in reportcard_routes %}
             <div class="col-sm-3">
-                <a href = {{ url_for('genRouteReport' ,source='nj',route=route.route) }}>
-                    <h1 class="display-3 text-center">{{route.route}}</h1>
+
+                    <h1 class="display-3 text-center"></h1>
                 </a>
-               <p class="lead text-left">{{route.description_short}}</p>
+               <p class="lead text-left"></p>
             </div>
-        {% endfor %}
+
 
    </div>
 
