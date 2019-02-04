@@ -1,22 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
+{%- extends "base.html" %}
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Material Design Bootstrap</title>
+
+{# Loads some of the macros included with Flask-Bootstrap. We are using the
+   utils module here to automatically render Flask's flashed messages in a
+   bootstrap friendly manner #}
+{% import "bootstrap/utils.html" as utils %}
+
+
+{# Inside the ``content`` is where you should place most of your own stuff.
+   This will keep scripts at the page end and a navbar you add on later
+   intact. #}
+{% block head %}
+
+    <style>
+        #map { width:100%; }
+    </style>
+
+
+
+{{ super() }}
+{% endblock %}
+
+{% block scripts %}
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='mdb/css/bootstrap.min.css')}}" rel="stylesheet">
     <!-- Material Design Bootstrap -->
-    <link href="css/mdb.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='mdb/css/mdb.min.css')}}" rel="stylesheet">
     <!-- Your custom styles (optional) -->
-    <link href="css/style.min.css" rel="stylesheet">
-</head>
+    <link href="{{ url_for('static', filename='mdb/css/style.min.css')}}" rel="stylesheet">
 
-<body>
+
+    <script type="text/javascript">
+        var passed_citywide_waypoints_geojson = {{ citywide_waypoints_geojson|safe }}
+        var passed_citywide_stops_geojson = {{ citywide_stops_geojson|safe }}
+        var passed_reportcard_routes = {{ reportcard_routes|safe }}
+    </script>
+    <script type="text/javascript" src="{{ url_for('static', filename='maps/busmap-index.js')}}"></script>
+{% endblock %}
+
+
+{% block content %}
 
     <!--Main Navigation-->
     <header>
@@ -428,20 +454,5 @@
     </footer>
     <!--/.Footer-->
 
-    <!-- SCRIPTS -->
-    <!-- JQuery -->
-    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
-    <!-- Bootstrap tooltips -->
-    <script type="text/javascript" src="js/popper.min.js"></script>
-    <!-- Bootstrap core JavaScript -->
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <!-- MDB core JavaScript -->
-    <script type="text/javascript" src="js/mdb.min.js"></script>
-    <!-- Initializations -->
-    <script type="text/javascript">
-        // Animations initialization
-        new WOW().init();
-    </script>
-</body>
 
-</html>
+{% endblock %}
