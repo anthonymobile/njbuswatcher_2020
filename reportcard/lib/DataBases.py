@@ -46,12 +46,13 @@ class Trip(Base):
         self.trip_id=('{v}_{run}_{date}').format(v=v,run=run,date=self.date)
 
         # create a corresponding set of ScheduledStop records for each new Trip
-        # and populate the self.stoplist
+        # and populate the self.stoplist and self.coordinates_bundle
 
         with SQLAlchemyDBConnection(conn_str) as db:
             self.db = db
             self.stop_list = []
-            routes, coordinates_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(source, 'routes', route=route))
+            routes, self.coordinates_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(source, 'routes', route=route))
+            self.routename=routes[0].nm
             for path in routes[0].paths:
                 if path.id == self.pid:
                     for point in path.points:
@@ -71,7 +72,8 @@ class Trip(Base):
     trip_id = Column(String(255))
     v = Column(Integer())
     run = Column(Integer())
-    date = Column(String)
+    date = Column(DateTime())
+    coordinate_bundle = Column(String)
 
     children_ScheduledStops = relationship("ScheduledStop", backref='trip_log')
     children_BusPositions = relationship("BusPosition", backref='trip_log')
@@ -108,7 +110,7 @@ class ScheduledStop(Base):
     pkey = Column(Integer(), primary_key=True)
     run = Column(Integer())
     v = Column(Integer())
-    date = Column(String())
+    date = Column(DateTime())
     stop_id = Column(Integer())
     arrival_timestamp = Column(DateTime())
 
