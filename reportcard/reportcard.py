@@ -19,10 +19,10 @@ import lib.API as API
 import lib.wwwAPI as wwwAPI
 from lib.DataBases import DBConfig, SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
 
-
-# import lib.DataBases as db
-
-# import lib.WebAPI as WebAPI
+################################################
+# ROUTE + APP CONFIG
+################################################
+from route_config import reportcard_routes, grade_descriptions
 
 ################################################
 # APP
@@ -47,11 +47,6 @@ if __name__ != "__main__":
     app.logger.setLevel(gunicorn_logger.level)
 
 ################################################
-# APPLICATION DATA IMPORT
-################################################
-from route_config import reportcard_routes,grade_descriptions
-
-################################################
 # STATIC ASSETS
 ################################################
 from flask_assets import Bundle, Environment
@@ -68,50 +63,41 @@ assets.register(bundles)
 # URLS
 ################################################
 
-
-#3 home page
+#------------------------------------------------------------
+# /
 @app.route('/')
 def displayHome():
-    # routereport = routereport # setup a dummy for the navbar
-    class Dummy():
-        def __init__(self):
-            self.routename = 'NJTransit'
-    routereport = Dummy()
-
     citywide_waypoints_geojson, citywide_stops_geojson = wwwAPI.citymap_geojson(reportcard_routes)
+    return render_template('index.html', citywide_waypoints_geojson=citywide_waypoints_geojson, citywide_stops_geojson=citywide_stops_geojson, reportcard_routes=reportcard_routes)
 
-    return render_template('index.html', citywide_waypoints_geojson=citywide_waypoints_geojson, citywide_stops_geojson=citywide_stops_geojson,routereport=routereport,reportcard_routes=reportcard_routes)
-
-
-#4 route report
+#------------------------------------------------------------RouteReport
+# /<source>/<route>
 @app.route('/<source>/<route>')
 @cache.cached(timeout=3600) # cache for 1 hour
 def genRouteReport(source, route):
+    route_report = wwwAPI.RouteReport(source, route)
+    return render_template('route.html', source=source, route=route, routereport=route_report)
 
-    # routereport = ReportCard.RouteReport(source, route, reportcard_routes, grade_descriptions)
+#------------------------------------------------------------TripReport
+# /<source>/<route>/trip/<trip>
+@app.route('/<source>/<route>/trip/<trip>')
+@cache.cached(timeout=60) # cache for 1 minute
+def genTripReport(source, route, trip):
+    trip_report = wwwAPI.TripReport(source, trip)
+    return render_template('trip.html', source=source, route=route, trip=trip, tripreport=trip_report)
 
-    # routereport = routereport # setup a dummy for the navbar
-    class Dummy():
-        def __init__(self):
-            self.routename = 'NJTransit'
-    routereport = Dummy()
+#------------------------------------------------------------StopReport
+# /<source>/<route>/stop/<stop>/<period>
+@app.route('/<source>/<route>/stop/<stop>/<period>')
+@cache.cached(timeout=60) # cache for 1 minute
+def genStopReport(source, route, stop, period):
+    stop_report = wwAPI.StopReport(route, stop, period)
+    route_report = wwwAPI.RouteReport(source, route)
+    predictions = BusAPI.parse_xml_getStopPredictions(BusAPI.get_xml_data('nj', 'stop_predictions', stop=stop, route='all'))
 
-    # period='weekly'
-    # bunchingreport, grade_letter, grade_numeric, grade_description, time_created = routereport.load_bunching_leaderboard( route)
-    # return render_template('route.html', routereport=routereport, bunchingreport=bunchingreport, period=period, grade_letter=grade_letter, grade_numeric=grade_numeric, grade_description=grade_description, time_created=time_created)
 
-    return render_template('route.html',routereport=routereport, source=source, route=route)
+    return render_template('stop.html', source=source, stop=stop, trip=trip, period=period, stopreport=stop_report, predictions=predictions, routereport=route_report)
 
-           # #5 stop report
-# @app.route('/<source>/<route>/stop/<stop>/<period>')
-# @cache.cached(timeout=60) # cache for 1 minute
-# def genStopReport(source, route, stop, period):
-#     stopreport = ReportCard.StopReport(route, stop, period)
-#     hourly_frequency = stopreport.get_hourly_frequency(route, stop, period)
-#     routereport = ReportCard.RouteReport(source, route, reportcard_routes, grade_descriptions)
-#     predictions = BusAPI.parse_xml_getStopPredictions(BusAPI.get_xml_data('nj', 'stop_predictions', stop=stop, route='all'))
-#
-#     return render_template('stop.html', stopreport=stopreport, hourly_frequency=hourly_frequency, routereport=routereport, predictions=predictions,period=period)
 
 
 ################################################
