@@ -6,9 +6,32 @@ v2.0
 # ROADMAP TO COMPLETION
 
 ## NOW
-- index.html -- redo from beginning w/ MDB index.html and old index and base
-- tripwatcher.py -- loop over request filters and if the values are numbers cast them as ints or floats
-         
+
+**wwwAPI.py**
+- rewrite all the ReportCard classes, starting with same inputs and outputs
+    -- RouteReport
+    -- StopReport
+
+
+**www pages**
+- index.html
+    - fix route display on map
+    
+- route.html
+    - top section
+        - display active trips with last few arrivals (e.g. approach_dash) and approaching -- click to --> trip.html
+    - bottom section
+        - stops listed in small cards with grade/performance summary  -- click to --> stop.html
+
+- trip.html
+    - detail trip card (trip_dash.html)
+    
+- stop.html
+    - detail for each stop (same as current stop.html)
+        
+**reportcard.py** 
+- `Restore next view`: trip? route? reuse the dash views? incorporate approach_dash and trip_dash templates into the new views, maybe have a route / stop and a route / vehicle(run) path -- with maps and live+archival data on each
+
 
 ## MUST DO
 
@@ -22,8 +45,6 @@ v2.0
 - `Interpolate+log missed stops`: after scanning each trip and logging any new arrivals, run a function that interpolates arrival times for any stops in between arrivals in the trip card -- theoretically there shouldn't be a lot though if the trip card is correct since we are grabbing positions every 30 seconds.
 - `Boomerang buses (Case E)`: Bus that gets assigned to a stop it already visited after doubling back on a parallel street -- e.g. the 87 going down the hill getting localized to Palisade Ave stops again.
 
-**reportcard.py** 
-- `Restore next view`: trip? route? reuse the dash views? incorporate approach_dash and trip_dash templates into the new views, maybe have a route / stop and a route / vehicle(run) path -- with maps and live+archival data on each
 
 **templates/approach_dash.html** 
 - `look up stop name`: create a db table that has all the stop names (from GTFS?) so can grab them easily into the list
@@ -34,6 +55,9 @@ v2.0
 
 
 ## FUTURE
+
+** views **
+- consider building the tables and views in JS off of the API instead of backend python (for scalability)
 
 **Localizer.py**
 - `More accurate distance conversion`:  at least verify how far off we are. current method is using a crude assumption (1 degree = 69 miles = 364,320 feet). more accurate method - "If CRS of geodfs are EPSG 4326 (lat/lon) then returned 'dist' will be in degrees. To meters or ft either first convert both gdf to appropriate CRS proj for your location using .to_crs() or convert from degrees [link](https://t.co/FODrAWskNH)".

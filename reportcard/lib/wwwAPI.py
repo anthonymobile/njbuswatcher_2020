@@ -2,6 +2,7 @@ import lib.BusAPI as BusAPI
 import geojson
 from lib.DataBases import DBConfig, SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
 import pandas as pd
+import pickle
 
 # common functions
 def timestamp_fix(data): # trim the microseconds off the timestamp and convert it to datetime format
@@ -11,7 +12,7 @@ def timestamp_fix(data): # trim the microseconds off the timestamp and convert i
     data = data.set_index(pd.DatetimeIndex(data['timestamp']), drop=False)
     return data
 
-# geoJSON for citywidemay
+# geoJSON for citywidemap
 def citymap_geojson(reportcard_routes):
     points = []
     stops = []
@@ -32,148 +33,118 @@ def citymap_geojson(reportcard_routes):
     return map_points, map_stops
 
 
-###################################################
-#  old ReportCard.py
-###################################################
-#
-#
-# import datetime, pickle
-# from operator import itemgetter
-# import pandas as pd
-#
-# # database config
-# import os
-# try:
-#     db_state = os.environ['REPORTCARD_PRODUCTION']
-#     db_server = '192.168.1.181'
-# except:
-#     db_server = '127.0.0.1'
-#
-# # import app libraries
-# from . import BusAPI, Localizer
-#
+# primary classes
+class RouteReport:
 
-# # primary classes
-# class RouteReport:
-#
-#     class Path():
-#         def __init__(self):
-#             self.name = 'Path'
-#             self.stops = []
-#             self.id = ''
-#             self.d = ''
-#             self.dd = ''
-#
-#     def __init__(self, source, route, reportcard_routes, grade_descriptions): # replace last 2 with **kwargs to make them optional?
-#
-#         # apply passed parameters to instance
-#         self.source = source
-#         self.route = route
-#         self.reportcard_routes = reportcard_routes
-#         self.grade_descriptions = grade_descriptions
-#
-#         # database initialization
-#         self.db = StopsDB.MySQL('buses', 'buswatcher', 'njtransit', db_server, self.route)
-#         self.conn = self.db.conn
-#         self.table_name = 'stop_approaches_log_' + self.route
-#
-#         # populate report card data
-#         self.routename, self.waypoints_coordinates, self.stops_coordinates, self.waypoints_geojson, self.stops_geojson = self.get_routename(self.route)
-#         self.load_route_description()
-#         self.route_stop_list = self.get_stoplist(self.route)
-#
-#     def get_routename(self,route):
-#         routedata, waypoints_coordinates, stops_coordinates,waypoints_geojson, stops_geojson = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=route))
-#         return routedata[0].nm, waypoints_coordinates, stops_coordinates, waypoints_geojson, stops_geojson
-#
-#     def load_route_description(self):
-#         # for now, grade is coded manually in route_config.py
-#         # FUTURE fancier grade calculation based on historical data
-#         for route in self.reportcard_routes:
-#             if route['route'] == self.route:
-#                 self.frequency = route['frequency']
-#                 self.description_long = route['description_long']
-#                 self.prettyname = route['prettyname']
-#                 self.schedule_url = route['schedule_url']
-#
-#             else:
-#                 pass
-#         return
-#
-#     def get_stoplist(self, route):
-#         routedata, waypoints_coordinates, stops_coordinates, waypoints_geojson, stops_geojson = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=self.route))
-#         route_stop_list = []
-#         for r in routedata:
-#             path_list = []
-#             for path in r.paths:
-#                 stops_points = RouteReport.Path()
-#                 for point in path.points:
-#                     if isinstance(point, BusAPI.Route.Stop):
-#                         stops_points.stops.append(point)
-#                 stops_points.id=path.id
-#                 stops_points.d=path.d
-#                 stops_points.dd=path.dd
-#                 path_list.append(stops_points) # path_list is now a couple of Path instances, plus the metadata id,d,dd fields
-#             route_stop_list.append(path_list)
-#         return route_stop_list[0] # transpose a single copy since the others are all repeats (can be verified by path ids)
-#
-#     def generate_bunching_leaderboard(self, period, route):
-#         # generates top 10 list of stops on the route by # of bunching incidents for period
-#
-#         bunching_leaderboard = []
-#
-#         cum_arrival_total = 0
-#         cum_bunch_total = 0
-#
-#         for service in self.route_stop_list:
-#             for stop in service.stops:
-#                 bunch_total = 0
-#                 arrival_total = 0
-#
-#                 report = StopReport(self.route, stop.identity,period)
-#                 for (index, row) in report.arrivals_list_final_df.iterrows():
-#                     arrival_total += 1
-#                     if (row.delta > report.bigbang) and (row.delta <= report.bunching_interval):
-#                         bunch_total += 1
-#                 cum_bunch_total = cum_bunch_total+bunch_total
-#                 cum_arrival_total = cum_arrival_total + arrival_total
-#                 bunching_leaderboard.append((stop.st, bunch_total,stop.identity))
-#
-#         bunching_leaderboard.sort(key=itemgetter(1), reverse=True)
-#         bunching_leaderboard = bunching_leaderboard[:10]
-#
-#         # compute grade passed on pct of all stops on route during period that were bunched
-#
-#         try:
-#             grade_numeric = (cum_bunch_total / cum_arrival_total) * 100
-#             for g in self.grade_descriptions:
-#                 if g['bounds'][0] < grade_numeric <= g['bounds'][1]:
-#                     self.grade = g['grade']
-#                     self.grade_description = g['description']
-#         except:
-#             self.grade = 'N/A'
-#             self.grade_description = 'Unable to determine grade.'
-#             pass
-#
-#         time_created = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-#
-#         bunching_leaderboard_pickle = dict(bunching_leaderboard=bunching_leaderboard, grade=self.grade,
-#                                            grade_numeric=grade_numeric, grade_description=self.grade_description, time_created=time_created)
-#
-#         outfile = ('data/bunching_leaderboard_'+route+'.pickle')
-#         with open(outfile, 'wb') as handle:
-#             pickle.dump(bunching_leaderboard_pickle, handle, protocol=pickle.HIGHEST_PROTOCOL)
-#
-#         return
-#
-#     def load_bunching_leaderboard(self,route):
-#
-#         infile = ('data/bunching_leaderboard_'+route+'.pickle')
-#         with open(infile, 'rb') as handle:
-#             b = pickle.load(handle)
-#
-#         return b['bunching_leaderboard'], b['grade'], b['grade_numeric'], b['grade_description'], b['time_created']
-#
+    class Path():
+        def __init__(self):
+            self.name = 'Path'
+            self.stops = []
+            self.id = ''
+            self.d = ''
+            self.dd = ''
+
+    def __init__(self, source, route, reportcard_routes, grade_descriptions): # replace last 2 with **kwargs to make them optional?
+
+        # apply passed parameters to instance
+        self.source = source
+        self.route = route
+        self.reportcard_routes = reportcard_routes
+        self.grade_descriptions = grade_descriptions
+
+        # database initialization
+        self.db = StopsDB.MySQL('buses', 'buswatcher', 'njtransit', db_server, self.route)
+        self.conn = self.db.conn
+        self.table_name = 'stop_approaches_log_' + self.route
+
+        # populate report card data
+        self.routename, self.waypoints_coordinates, self.stops_coordinates, self.waypoints_geojson, self.stops_geojson = self.get_routename(self.route)
+        self.load_route_description()
+        self.route_stop_list = self.get_stoplist(self.route)
+
+
+    def get_routename(self,route):
+        routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=route))
+        return routes[0].nm, coordinate_bundle['waypoints_coordinates'], coordinate_bundle['stops_coordinates'], coordinate_bundle['waypoints_geojson'], coordinate_bundle[' stops_geojson']
+
+
+    def load_route_description(self):
+        for route in self.reportcard_routes:
+            if route['route'] == self.route:
+                self.frequency = route['frequency']
+                self.description_long = route['description_long']
+                self.prettyname = route['prettyname']
+                self.schedule_url = route['schedule_url']
+            else:
+                pass
+        return
+
+    # pull this based on the Tripid?
+    def get_stoplist(self, route):
+        routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=self.route))
+        route_stop_list = []
+        for r in routes:
+            path_list = []
+            for path in r.paths:
+                stops_points = RouteReport.Path()
+                for point in path.points:
+                    if isinstance(point, BusAPI.Route.Stop):
+                        stops_points.stops.append(point)
+                stops_points.id=path.id
+                stops_points.d=path.d
+                stops_points.dd=path.dd
+                path_list.append(stops_points) # path_list is now a couple of Path instances, plus the metadata id,d,dd fields
+            route_stop_list.append(path_list)
+        return route_stop_list[0] # transpose a single copy since the others are all repeats (can be verified by path ids)
+
+
+    # def generate_bunching_leaderboard(self, period, route):
+    #     # generates top 10 list of stops on the route by # of bunching incidents for period
+    #     bunching_leaderboard = []
+    #     cum_arrival_total = 0
+    #     cum_bunch_total = 0
+    #     for service in self.route_stop_list:
+    #         for stop in service.stops:
+    #             bunch_total = 0
+    #             arrival_total = 0
+    #             report = StopReport(self.route, stop.identity,period)
+    #             for (index, row) in report.arrivals_list_final_df.iterrows():
+    #                 arrival_total += 1
+    #                 if (row.delta > report.bigbang) and (row.delta <= report.bunching_interval):
+    #                     bunch_total += 1
+    #             cum_bunch_total = cum_bunch_total+bunch_total
+    #             cum_arrival_total = cum_arrival_total + arrival_total
+    #             bunching_leaderboard.append((stop.st, bunch_total,stop.identity))
+    #     bunching_leaderboard.sort(key=itemgetter(1), reverse=True)
+    #     bunching_leaderboard = bunching_leaderboard[:10]
+    #
+    #     # compute grade passed on pct of all stops on route during period that were bunched
+    #     try:
+    #         grade_numeric = (cum_bunch_total / cum_arrival_total) * 100
+    #         for g in self.grade_descriptions:
+    #             if g['bounds'][0] < grade_numeric <= g['bounds'][1]:
+    #                 self.grade = g['grade']
+    #                 self.grade_description = g['description']
+    #     except:
+    #         self.grade = 'N/A'
+    #         self.grade_description = 'Unable to determine grade.'
+    #         pass
+    #
+    #     time_created = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    #     bunching_leaderboard_pickle = dict(bunching_leaderboard=bunching_leaderboard, grade=self.grade,
+    #                                        grade_numeric=grade_numeric, grade_description=self.grade_description, time_created=time_created)
+    #     outfile = ('data/bunching_leaderboard_'+route+'.pickle')
+    #     with open(outfile, 'wb') as handle:
+    #         pickle.dump(bunching_leaderboard_pickle, handle, protocol=pickle.HIGHEST_PROTOCOL)
+    #     return
+
+
+    # def load_bunching_leaderboard(self,route):
+    #     infile = ('data/bunching_leaderboard_'+route+'.pickle')
+    #     with open(infile, 'rb') as handle:
+    #         b = pickle.load(handle)
+    #     return b['bunching_leaderboard'], b['grade'], b['grade_numeric'], b['grade_description'], b['time_created']
+
 # class StopReport:
 #
 #     def __init__(self,route,stop,period):
@@ -287,3 +258,21 @@ def citymap_geojson(reportcard_routes):
 #             results = pd.DataFrame()
 #
 #         return results
+
+#
+#
+# import datetime, pickle
+# from operator import itemgetter
+# import pandas as pd
+#
+# # database config
+# import os
+# try:
+#     db_state = os.environ['REPORTCARD_PRODUCTION']
+#     db_server = '192.168.1.181'
+# except:
+#     db_server = '127.0.0.1'
+#
+# # import app libraries
+# from . import BusAPI, Localizer
+#

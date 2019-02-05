@@ -118,7 +118,8 @@ def genRouteReport(source, route):
 # API
 ################################################
 
-# /api/v1/positions?rt=87&period={ow, daily,yesterday,history}
+# /api/v1/positions?rt=87&period={now,daily,yesterday,history}
+# can use any args in table e.g. run=8548, stop_id=20687
 @app.route('/api/v1/positions')
 @cross_origin()
 def api_positions_route():
