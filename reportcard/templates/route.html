@@ -1,96 +1,273 @@
-{% extends 'route-base.html' %}
+{%- extends "base.html" %}
 
 
-{% block summary %}
-
-    <h1 class="display-4">
-			{{routereport.route}} <b>{{routereport.prettyname}}</b></h1>
-
-    <p class="lead">{{routereport.description_long}}</p>
+{# Loads some of the macros included with Flask-Bootstrap. We are using the
+   utils module here to automatically render Flask's flashed messages in a
+   bootstrap friendly manner #}
+{% import "bootstrap/utils.html" as utils %}
 
 
-    <a target="_self" href="{{routereport.schedule_url}}" class="btn btn-indigo btn-lg">Get NJT schedule<i class="fa fa-map ml-2"></i></a>
-    <a target="_self" href="https://goo.gl/forms/VF5S1Oclk9QTdZha2" class="btn btn-indigo btn-lg">Sign the petition<i class="fa fa-pencil-alt ml-2"></i></a>
+{# Inside the ``content`` is where you should place most of your own stuff.
+   This will keep scripts at the page end and a navbar you add on later
+   intact. #}
+{% block head %}
+
+    <style>
+        #map { width:100%; }
+    </style>
 
 
- {% if routereport.frequency=='high' %}
-    <div class="container mt-3">
-     {% if (grade_letter=='A' or grade_letter=='B') %}
-            <div class="alert alert-primary" role="alert">
-                <h4 class="alert-heading">Service Grade ({{ period }} to date): {{grade_letter}}</h4>
-                <p class="mb-0"> {{grade_description}}</p>
-            </div>
-        {% endif %}
-        {% if grade_letter=='C' %}
-            <div class="alert alert-warning" role="alert">
-                <h4 class="alert-heading">Service Grade ({{ period }} to date): {{grade_letter}}</h4>
-                <p class="mb-0"> {{grade_description}}</p>
-            </div>
-        {% endif %}
-        {% if (grade_letter=='D' or grade_letter=='F') %}
-            <div class="alert alert-danger" role="alert">
-                <h4 class="alert-heading">Service Grade ({{ period }} to date): {{grade_letter}}</h4>
-                <p class="mb-0"> {{grade_description}}</p>
-            </div>
-        {% endif %}
-        {% if (grade_letter=='N/A') %}
-            <div class="alert alert-secondary" role="alert">
-                <h4 class="alert-heading">Service Grade ({{ period }} to date): {{grade_letter}}</h4>
-                <p class="mb-0"> {{grade_description}}</p>
-            </div>
-        {% endif %}
-    </div>
-{% endif %}
+
+{{ super() }}
+{% endblock %}
+
+{% block scripts %}
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="{{ url_for('static', filename='mdb/css/bootstrap.min.css')}}" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="{{ url_for('static', filename='mdb/css/mdb.min.css')}}" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="{{ url_for('static', filename='mdb/css/style.min.css')}}" rel="stylesheet">
+
+
+    <script type="text/javascript">
+        var passed_citywide_waypoints_geojson = {{ citywide_waypoints_geojson|safe }}
+        var passed_citywide_stops_geojson = {{ citywide_stops_geojson|safe }}
+        var passed_reportcard_routes = {{ reportcard_routes|safe }}
+    </script>
+    <script type="text/javascript" src="{{ url_for('static', filename='maps/busmap-index.js')}}"></script>
 {% endblock %}
 
 
+{% block content %}
 
-{% block stoplist %}
-    <div id="bunching_report" class="py-5">
+    <!--Main Navigation-->
+    <header>
 
-           <h1 class="">Trouble Spots</h1>
-          <p class="lead">These stops on the {{routereport.route}} had the most bunching incidents during the period: {{ period }}. Click on a stop to view that stop's report card.</p>
+        <!-- Navbar -->
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
+            <div class="container">
 
-         <p>
-                 {% for stop in bunchingreport %}
+                <!-- Brand -->
+                <a class="navbar-brand waves-effect" href="https://buswatcher.bitsandatoms.net/" target="_blank">
+                    <strong class="blue-text">JC buswatcher</strong>
+                </a>
 
-                     <button type="button" class="btn btn-light">
-                      <a href = {{url_for('genStopReport',source=routereport.source,route=routereport.route,stop=stop[2],period='daily')}}>{{stop[0]}}</a> <span class="badge badge-light">{{stop[1]}}</span>
-                    </button>
+                <!-- Collapse -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-                {% endfor %}
-        </p>
-    <p>Report generated daily, last run at {{time_created}}.</p>
-    </div>
+                <!-- Links -->
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                    <!-- Left -->
+                    <ul class="navbar-nav mr-auto">
+
+                        <li class="nav-item">
+                            <a class="nav-link waves-effect" href="https://www.njtransit.com/" target="_blank">Routes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link waves-effect" href="https://mdbootstrap.com/docs/jquery/getting-started/download/" target="_blank">Stops</a>
+                        </li>
+
+                    </ul>
+
+                    <!-- Right -->
+                    <ul class="navbar-nav nav-flex-icons"><!--
+                        <li class="nav-item">
+                            <a href="https://www.facebook.com/mdbootstrap" class="nav-link waves-effect" target="_blank">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="https://twitter.com/MDBootstrap" class="nav-link waves-effect" target="_blank">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </li>
+                        -->
+                        <li class="nav-item">
+                            <a href="https://github.com/code4jc/buswatcher" class="nav-link border border-light rounded waves-effect"
+                                target="_blank">
+                                <i class="fab fa-github mr-2"></i>code
+                            </a>
+                        </li>
+                    </ul>
+
+                </div>
+
+            </div>
+        </nav>
+        <!-- Navbar -->
+
+    </header>
+    <!--Main Navigation-->
+
+    <!--Main layout-->
+    <main class="mt-2 pt-5">
+        <div class="container">
 
 
-    <div id="stopreports" class="py-5">
-    <h1 class="">Stop Reports</h1>
-        <p class="lead">Click on a stop below to view on-time performance, frequency, and reliability for currently running services.
-        {% for path in routereport.route_stop_list %}
-            <p class="lead">To {{path.dd}}</p>
-<div class="container">
+            <!--Section: Jumbotron-->
+            <section class="card wow fadeIn" style="background-image: url(https://mdbootstrap.com/img/Photos/Others/gradient1.jpg);">
 
-            {% for stop in path.stops %}
+                <!-- Content -->
+                <div class="card-body text-white text-center py-5 px-5 my-5">
 
-                <a href = {{url_for('genStopReport',source=routereport.source,route=routereport.route,stop=stop.identity,period='daily') }} id="{{stop.st}}">
-                    <span class="label">{{stop.st|title}} </span>
-                </a> •
+                    <h1 class="mb-4">
+                        <strong>Route report.</strong>
+                    </h1>
+                    <p>
+                        <strong>Residents and businesses in The Heights depend on them every day.</strong>
+                    </p>
+                    <p class="mb-4">
+                        <strong>But its hard to evaluate the quality of bus service. That's why we built this site to provide a one-stop shop for bus performance information. Here you can see data on past performance, view maps of current service, and sign a petition to support our campaign for better bus service from NJTransit.</strong>
+                    </p>
+                    <a target="_self" href="#reportcards" class="btn btn-outline-white btn-lg">Get route reportcards
+                        <i class="fas fa-graduation-cap ml-2"></i>
+                    </a>
+                    <a target="_self" href="#map" class="btn btn-outline-white btn-lg">View live map
+                        <i class="fas fa-map ml-2"></i>
+                    </a>
+                    <a target="_self" href="https://goo.gl/forms/VF5S1Oclk9QTdZha2" class="btn btn-outline-white btn-lg">Sign the petition
+                        <i class="fas fa-pencil-alt ml-2"></i>
+                    </a>
 
-            {% endfor %}
-</p>
-</div>
-        {%  endfor %}
+                </div>
+                <!-- Content -->
+            </section>
+            <!--Section: Jumbotron-->
 
-    </div>
+
+            <hr class="my-5">
+
+            <!--Section: Cards-->
+            <section id="reportcards" class="text-center">
+
+                <!--Grid row-->
+                <div class="row mb-4 wow fadeIn">
+
+                    {% for route in reportcard_routes %}
+                    <!--Grid column-->
+                    <div class="col-lg-4 col-md-12 mb-4">
+
+                        <!--Card-->
+                        <div class="card">
+
+                            <!--Card image-->
+                            <div class="view overlay">
+                                <div class="embed-responsive embed-responsive-16by9 rounded-top">
+                                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/cXTThxoywNQ" allowfullscreen></iframe>
+                                </div>
+                            </div>
+
+                            <!--Card content-->
+                            <div class="card-body">
+                                <!--Title-->
+                                <a href = {{ url_for('api_positions_route' ,source='nj',route=route.route) }}><h4 class="card-title">{{route.route}}</h4></a>
+                                <!--Text-->
+                                <p class="card-text">{{route.description_long}}.</p>
+                                    <a target="_self" href="#reportcards" class="btn btn-outline-white btn-lg">Grade A
+                                        <i class="fas fa-graduation-cap ml-2"></i>
+                                    </a>
+                                    <a target="_self" href="#map" class="btn btn-outline-white btn-lg">percent on-time
+                                        <i class="fas fa-map ml-2"></i>
+                                    </a>
+                                    <a target="_self" href="https://goo.gl/forms/VF5S1Oclk9QTdZha2" class="btn btn-outline-white btn-lg">average something
+                                        <i class="fas fa-pencil-alt ml-2"></i>
+                                    </a>
+
+                            </div>
+
+                        </div>
+                        <!--/.Card-->
+
+
+                    </div>
+                    <!--Grid column-->
+                    {% endfor %}
+
+
+                </div>
+                <!--Grid row-->
+
+
+            </section>
+            <!--Section: Cards-->
+
+        </div>
+
+
+
+
+    </main>
+    <!--Main layout-->
+
+    <!--Footer-->
+    <footer class="page-footer text-center font-small mdb-color darken-2 mt-4 wow fadeIn">
+
+        <!--Call to action-->
+        <div class="pt-4">
+            <a class="btn btn-outline-white" href="https://mdbootstrap.com/docs/jquery/getting-started/download/" target="_blank" role="button">do something
+                <i class="fas fa-download ml-2"></i>
+            </a>
+            <a class="btn btn-outline-white" href="https://mdbootstrap.com/education/bootstrap/" target="_blank" role="button">do something else
+                <i class="fas fa-graduation-cap ml-2"></i>
+            </a>
+        </div>
+        <!--/.Call to action-->
+
+        <hr class="my-4">
+
+        <!-- Social icons -->
+        <div class="pb-4">
+            <a href="https://www.facebook.com/mdbootstrap" target="_blank">
+                <i class="fab fa-facebook-f mr-3"></i>
+            </a>
+
+            <a href="https://twitter.com/MDBootstrap" target="_blank">
+                <i class="fab fa-twitter mr-3"></i>
+            </a>
+
+            <a href="https://www.youtube.com/watch?v=7MUISDJ5ZZ4" target="_blank">
+                <i class="fab fa-youtube mr-3"></i>
+            </a>
+
+            <a href="https://plus.google.com/u/0/b/107863090883699620484" target="_blank">
+                <i class="fab fa-google-plus-g mr-3"></i>
+            </a>
+
+            <a href="https://dribbble.com/mdbootstrap" target="_blank">
+                <i class="fab fa-dribbble mr-3"></i>
+            </a>
+
+            <a href="https://pinterest.com/mdbootstrap" target="_blank">
+                <i class="fab fa-pinterest mr-3"></i>
+            </a>
+
+            <a href="https://github.com/mdbootstrap/bootstrap-material-design" target="_blank">
+                <i class="fab fa-github mr-3"></i>
+            </a>
+
+            <a href="http://codepen.io/mdbootstrap/" target="_blank">
+                <i class="fab fa-codepen mr-3"></i>
+            </a>
+        </div>
+        <!-- Social icons -->
+
+        <!--Copyright-->
+        <div class="footer-copyright py-3">
+            © 2018 Copyright:
+            <a href="https://mdbootstrap.com/education/bootstrap/" target="_blank"> MDBootstrap.com </a>
+        </div>
+        <!--/.Copyright-->
+
+    </footer>
+    <!--/.Footer-->
 
 
 {% endblock %}
-
-
-{% block reliability_report %}
-<!-- FUTURE reliability report v1 -- coming soon, histogram of travel time based on differential arrival time of same bus id at 1st, last and middlest stop # of std deviations -->
-
-{% endblock %}
-
-

@@ -110,7 +110,7 @@ map.on('load', function() {
             var url = ('/api/v1/positions?period=now&rt='+routelistArray[j].route);
             map.getSource('vehicles_geojson'+routelistArray[j].route).setData(url);
             }
-    }, 1000);
+    }, 5000);
 
     // setup the viewport
     map.jumpTo({
