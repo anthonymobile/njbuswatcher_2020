@@ -78,22 +78,31 @@ def displayHome():
             self.routename = 'NJTransit'
     routereport = Dummy()
 
-    citywide_waypoints_geojson, citywide_stops_geojson = wwwAPI.render_map_geojson(reportcard_routes)
+    citywide_waypoints_geojson, citywide_stops_geojson = wwwAPI.citymap_geojson(reportcard_routes)
 
     return render_template('index.html', citywide_waypoints_geojson=citywide_waypoints_geojson, citywide_stops_geojson=citywide_stops_geojson,routereport=routereport,reportcard_routes=reportcard_routes)
 
 
-# #4 route report
-# @app.route('/<source>/<route>')
-# @cache.cached(timeout=3600) # cache for 1 hour
-# def genRouteReport(source, route):
-#     routereport = ReportCard.RouteReport(source, route, reportcard_routes, grade_descriptions)
-#     period='weekly'
-#     bunchingreport, grade_letter, grade_numeric, grade_description, time_created = routereport.load_bunching_leaderboard( route)
-#     return render_template('route.html', routereport=routereport, bunchingreport=bunchingreport, period=period, grade_letter=grade_letter, grade_numeric=grade_numeric, grade_description=grade_description, time_created=time_created)
-#
-#
-# #5 stop report
+#4 route report
+@app.route('/<source>/<route>')
+@cache.cached(timeout=3600) # cache for 1 hour
+def genRouteReport(source, route):
+
+    # routereport = ReportCard.RouteReport(source, route, reportcard_routes, grade_descriptions)
+
+    # routereport = routereport # setup a dummy for the navbar
+    class Dummy():
+        def __init__(self):
+            self.routename = 'NJTransit'
+    routereport = Dummy()
+
+    # period='weekly'
+    # bunchingreport, grade_letter, grade_numeric, grade_description, time_created = routereport.load_bunching_leaderboard( route)
+    # return render_template('route.html', routereport=routereport, bunchingreport=bunchingreport, period=period, grade_letter=grade_letter, grade_numeric=grade_numeric, grade_description=grade_description, time_created=time_created)
+
+    return render_template('route.html',routereport=routereport, source=source, route=route)
+
+           # #5 stop report
 # @app.route('/<source>/<route>/stop/<stop>/<period>')
 # @cache.cached(timeout=60) # cache for 1 minute
 # def genStopReport(source, route, stop, period):

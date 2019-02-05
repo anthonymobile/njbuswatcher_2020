@@ -11,8 +11,8 @@ def timestamp_fix(data): # trim the microseconds off the timestamp and convert i
     data = data.set_index(pd.DatetimeIndex(data['timestamp']), drop=False)
     return data
 
-# geoJSON for all routes map
-def render_map_geojson(reportcard_routes):
+# geoJSON for citywidemay
+def citymap_geojson(reportcard_routes):
     points = []
     stops = []
     for i in reportcard_routes:

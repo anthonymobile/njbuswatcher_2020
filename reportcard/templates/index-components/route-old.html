@@ -1,0 +1,96 @@
+{% extends 'index-components/route-base.html' %}
+
+
+{% block summary %}
+
+    <h1 class="display-4">
+			{{routereport.route}} <b>{{routereport.prettyname}}</b></h1>
+
+    <p class="lead">{{routereport.description_long}}</p>
+
+
+    <a target="_self" href="{{routereport.schedule_url}}" class="btn btn-indigo btn-lg">Get NJT schedule<i class="fa fa-map ml-2"></i></a>
+    <a target="_self" href="https://goo.gl/forms/VF5S1Oclk9QTdZha2" class="btn btn-indigo btn-lg">Sign the petition<i class="fa fa-pencil-alt ml-2"></i></a>
+
+
+ {% if routereport.frequency=='high' %}
+    <div class="container mt-3">
+     {% if (grade_letter=='A' or grade_letter=='B') %}
+            <div class="alert alert-primary" role="alert">
+                <h4 class="alert-heading">Service Grade ({{ period }} to date): {{grade_letter}}</h4>
+                <p class="mb-0"> {{grade_description}}</p>
+            </div>
+        {% endif %}
+        {% if grade_letter=='C' %}
+            <div class="alert alert-warning" role="alert">
+                <h4 class="alert-heading">Service Grade ({{ period }} to date): {{grade_letter}}</h4>
+                <p class="mb-0"> {{grade_description}}</p>
+            </div>
+        {% endif %}
+        {% if (grade_letter=='D' or grade_letter=='F') %}
+            <div class="alert alert-danger" role="alert">
+                <h4 class="alert-heading">Service Grade ({{ period }} to date): {{grade_letter}}</h4>
+                <p class="mb-0"> {{grade_description}}</p>
+            </div>
+        {% endif %}
+        {% if (grade_letter=='N/A') %}
+            <div class="alert alert-secondary" role="alert">
+                <h4 class="alert-heading">Service Grade ({{ period }} to date): {{grade_letter}}</h4>
+                <p class="mb-0"> {{grade_description}}</p>
+            </div>
+        {% endif %}
+    </div>
+{% endif %}
+{% endblock %}
+
+
+
+{% block stoplist %}
+    <div id="bunching_report" class="py-5">
+
+           <h1 class="">Trouble Spots</h1>
+          <p class="lead">These stops on the {{routereport.route}} had the most bunching incidents during the period: {{ period }}. Click on a stop to view that stop's report card.</p>
+
+         <p>
+                 {% for stop in bunchingreport %}
+
+                     <button type="button" class="btn btn-light">
+                      <a href = {{url_for('genStopReport',source=routereport.source,route=routereport.route,stop=stop[2],period='daily')}}>{{stop[0]}}</a> <span class="badge badge-light">{{stop[1]}}</span>
+                    </button>
+
+                {% endfor %}
+        </p>
+    <p>Report generated daily, last run at {{time_created}}.</p>
+    </div>
+
+
+    <div id="stopreports" class="py-5">
+    <h1 class="">Stop Reports</h1>
+        <p class="lead">Click on a stop below to view on-time performance, frequency, and reliability for currently running services.
+        {% for path in routereport.route_stop_list %}
+            <p class="lead">To {{path.dd}}</p>
+<div class="container">
+
+            {% for stop in path.stops %}
+
+                <a href = {{url_for('genStopReport',source=routereport.source,route=routereport.route,stop=stop.identity,period='daily') }} id="{{stop.st}}">
+                    <span class="label">{{stop.st|title}} </span>
+                </a> •
+
+            {% endfor %}
+</p>
+</div>
+        {%  endfor %}
+
+    </div>
+
+
+{% endblock %}
+
+
+{% block reliability_report %}
+<!-- FUTURE reliability report v1 -- coming soon, histogram of travel time based on differential arrival time of same bus id at 1st, last and middlest stop # of std deviations -->
+
+{% endblock %}
+
+

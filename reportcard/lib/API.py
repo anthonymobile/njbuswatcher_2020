@@ -74,14 +74,22 @@ def get_positions_byargs(args):
             # query into a pandas df from https://stackoverflow.com/questions/29525808/sqlalchemy-orm-conversion-to-pandas-dataframe
 
 
-            # ORIGINAL METHOD FILTER_BY
             if args['period'] == "today":
 
-                positions_log = pd.read_sql(db.session.query(
-                        BusPosition).filter_by(**request_filters)
-                        .filter(BusPosition.timestamp == yesterday)
+                # this query works
+                positions_log = pd.read_sql(db.session.query(BusPosition)
+                        .filter_by(rt='87')
+                        .filter(func.date(BusPosition.timestamp) == yesterday)
                         .order_by(BusPosition.timestamp.desc()).statement
                         , db.session.bind)
+                print (positions_log)
+
+                    #
+                # positions_log = pd.read_sql(db.session.query(
+                #         BusPosition).filter_by(**request_filters)
+                #         .filter(BusPosition.timestamp == yesterday)
+                #         .order_by(BusPosition.timestamp.desc()).statement
+                #         , db.session.bind)
 
             # FILTER METHOD
             elif args['period']  == "yesterday":
