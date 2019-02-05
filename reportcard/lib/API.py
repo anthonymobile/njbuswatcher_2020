@@ -15,7 +15,7 @@ def positions2geojson(df):
     df.apply(lambda X: features.append(
             geojson.Feature(geometry=geojson.Point((X["lon"],
                                                     X["lat"]    )),
-                properties=dict(bid=X["bid"],
+                properties=dict(
                                 run=X["run"],
                                 op=X["op"],
                                 dn=X["dn"],
