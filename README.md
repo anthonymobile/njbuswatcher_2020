@@ -8,34 +8,29 @@ v2.0
 ## NOW
 
 **wwwAPI.py**
-- rewrite all the ReportCard classes, starting with same inputs and outputs
-    -- RouteReport: move the getroutepoints/geojson maker --> DataBases. make it when the trip is created.
-    -- StopReport
-    
-**DataBases.py**
-    - Trip class
-        - add init for the route points
-        - move the getroutepoints/geojson maker --> DataBases. make it when the trip is created.
+    - rewrite all the ReportCard classes, starting with same inputs and outputs
+        -- RouteReport: move the getroutepoints/geojson maker --> DataBases. make it when the trip is created.
+        -- StopReport
 
-
-**www pages**
-- index.html
+**index.html**
     - fix route display on map
-    
-- route.html
+  
+**route.html**  
     - top section
         - display active trips with last few arrivals (e.g. approach_dash) and approaching -- click to --> trip.html
+        - incorporate approach_dash
     - bottom section
         - stops listed in small cards with grade/performance summary  -- click to --> stop.html
 
-- trip.html
-    - detail trip card (trip_dash.html)
+**trip.html**
+    - detail trip card
+    - after trip_dash.html
     
-- stop.html
+**stop.html**
     - detail for each stop (same as current stop.html)
         
 **reportcard.py** 
-- `Restore next view`: trip? route? reuse the dash views? incorporate approach_dash and trip_dash templates into the new views, maybe have a route / stop and a route / vehicle(run) path -- with maps and live+archival data on each
+- finalize view code and test
 
 
 ## MUST DO

@@ -39,13 +39,13 @@ def citymap_geojson(reportcard_routes):
 # primary classes
 class RouteReport:
 
-    # class Path():
-    #     def __init__(self):
-    #         self.name = 'Path'
-    #         self.stops = []
-    #         self.id = ''
-    #         self.d = ''
-    #         self.dd = ''
+    class Path():
+        def __init__(self):
+            self.name = 'Path'
+            self.stops = []
+            self.id = ''
+            self.d = ''
+            self.dd = ''
 
     def __init__(self, source, route):
 
@@ -57,10 +57,14 @@ class RouteReport:
         self.reportcard_routes = reportcard_routes
         self.grade_descriptions = grade_descriptions
 
-        # populate report card data
-        self.routename, self.waypoints_coordinates, self.stops_coordinates, self.waypoints_geojson, self.stops_geojson = self.get_routename(self.route)
+        # populate static report card data
+        self.routename, self.waypoints_coordinates, self.stops_coordinates, self.waypoints_geojson, self.stops_geojson = self.get_routename(self.route) #todo -- can we eliminate this? redundant -- read it from Trip?
         self.load_route_description()
         self.route_stop_list = self.get_stoplist(self.route)
+
+        # populate live report card data
+        self.active_trips = self.get_activetrips()
+
 
 
     def get_routename(self,route):
@@ -78,15 +82,10 @@ class RouteReport:
                 pass
         return
 
-    # pull this from the database based on the Tripid?
-    # using with SQLAlchemyDBConnection as db:
+    # gets all stops on all active routes
     def get_stoplist(self, route):
-
-
         routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=self.route))
         route_stop_list = []
-
-
         for r in routes:
             path_list = []
             for path in r.paths:
@@ -100,6 +99,17 @@ class RouteReport:
                 path_list.append(stops_points) # path_list is now a couple of Path instances, plus the metadata id,d,dd fields
             route_stop_list.append(path_list)
         return route_stop_list[0] # transpose a single copy since the others are all repeats (can be verified by path ids)
+
+
+    def get_activetrips(self):
+
+        # query db and load up everything we want to display (basically what's on the approach_dash)
+        return
+
+
+
+    # pull this from the database based on the Tripid?
+    # using with SQLAlchemyDBConnection as db:
 
 
     # def generate_bunching_leaderboard(self, period, route):
