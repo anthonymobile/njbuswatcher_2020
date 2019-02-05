@@ -65,41 +65,31 @@ def get_positions_byargs(args):
         with SQLAlchemyDBConnection(DBConfig.conn_str) as db:
             today_date = datetime.date.today()
             yesterday = datetime.date.today() - datetime.timedelta(1)
-
-
             request_filters = {i: args[i] for i in args if i != 'period'}
-            # request_filters = {'rt':'87'}
-            print (request_filters)
 
             # query into a pandas df from https://stackoverflow.com/questions/29525808/sqlalchemy-orm-conversion-to-pandas-dataframe
 
 
             if args['period'] == "today":
 
-                # this query works
+                # # this query works
                 positions_log = pd.read_sql(db.session.query(BusPosition)
-                        .filter_by(rt='87')
-                        .filter(func.date(BusPosition.timestamp) == yesterday)
+                        .filter_by(**request_filters)
+                        .filter(func.date(BusPosition.timestamp) == today)
                         .order_by(BusPosition.timestamp.desc()).statement
                         , db.session.bind)
                 print (positions_log)
 
-                    #
-                # positions_log = pd.read_sql(db.session.query(
-                #         BusPosition).filter_by(**request_filters)
-                #         .filter(BusPosition.timestamp == yesterday)
-                #         .order_by(BusPosition.timestamp.desc()).statement
-                #         , db.session.bind)
-
             # FILTER METHOD
             elif args['period']  == "yesterday":
 
-                c = db.session.query(BusPosition).filter_by(**request_filters) \
-                    .filter(BusPosition.timestamp == yesterday) \
-                    .order_by(BusPosition.timestamp.desc()).statement \
-                    .compile(db.session.bind)
-                print (c)
-                positions_log = pd.read_sql(c.string, db.session.bind, params=c.params)
+                # # this query works
+                positions_log = pd.read_sql(db.session.query(BusPosition)
+                        .filter_by(**request_filters)
+                        .filter(func.date(BusPosition.timestamp) == yesterday)
+                        .order_by(BusPosition.timestamp.desc()).statement
+                        , db.session.bind)
+                print (positions_log)
 
             # elif args['period']  == "history":
             #     positions_log = pd.read_sql(db.session.query(BusPosition).filter_by(**request_filters)
