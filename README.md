@@ -9,8 +9,13 @@ v2.0
 
 **wwwAPI.py**
 - rewrite all the ReportCard classes, starting with same inputs and outputs
-    -- RouteReport
+    -- RouteReport: move the getroutepoints/geojson maker --> DataBases. make it when the trip is created.
     -- StopReport
+    
+**DataBases.py**
+    - Trip class
+        - add init for the route points
+        - move the getroutepoints/geojson maker --> DataBases. make it when the trip is created.
 
 
 **www pages**
@@ -53,6 +58,9 @@ v2.0
 - `look up stop name`: create a db table that has all the stop names (from GTFS?) so can grab them easily into the list
 - `Approach plotter`: Plot every?/current approach to the dash.
 
+
+**DataBases.py**
+- change to postgres/mysql
 
 ## FUTURE
 

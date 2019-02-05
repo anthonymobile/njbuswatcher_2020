@@ -1,8 +1,11 @@
-import lib.BusAPI as BusAPI
-import geojson
-from lib.DataBases import DBConfig, SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
-import pandas as pd
 import pickle
+import pandas as pd
+import geojson
+
+import lib.BusAPI as BusAPI
+from lib.DataBases import DBConfig, SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
+
+from route_config import reportcard_routes, grade_descriptions
 
 # common functions
 def timestamp_fix(data): # trim the microseconds off the timestamp and convert it to datetime format
@@ -36,26 +39,23 @@ def citymap_geojson(reportcard_routes):
 # primary classes
 class RouteReport:
 
-    class Path():
-        def __init__(self):
-            self.name = 'Path'
-            self.stops = []
-            self.id = ''
-            self.d = ''
-            self.dd = ''
+    # class Path():
+    #     def __init__(self):
+    #         self.name = 'Path'
+    #         self.stops = []
+    #         self.id = ''
+    #         self.d = ''
+    #         self.dd = ''
 
-    def __init__(self, source, route, reportcard_routes, grade_descriptions): # replace last 2 with **kwargs to make them optional?
+    def __init__(self, source, route):
 
         # apply passed parameters to instance
         self.source = source
         self.route = route
+
+        # populate route basics from config
         self.reportcard_routes = reportcard_routes
         self.grade_descriptions = grade_descriptions
-
-        # database initialization
-        self.db = StopsDB.MySQL('buses', 'buswatcher', 'njtransit', db_server, self.route)
-        self.conn = self.db.conn
-        self.table_name = 'stop_approaches_log_' + self.route
 
         # populate report card data
         self.routename, self.waypoints_coordinates, self.stops_coordinates, self.waypoints_geojson, self.stops_geojson = self.get_routename(self.route)
@@ -66,7 +66,6 @@ class RouteReport:
     def get_routename(self,route):
         routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=route))
         return routes[0].nm, coordinate_bundle['waypoints_coordinates'], coordinate_bundle['stops_coordinates'], coordinate_bundle['waypoints_geojson'], coordinate_bundle[' stops_geojson']
-
 
     def load_route_description(self):
         for route in self.reportcard_routes:
@@ -79,10 +78,15 @@ class RouteReport:
                 pass
         return
 
-    # pull this based on the Tripid?
+    # pull this from the database based on the Tripid?
+    # using with SQLAlchemyDBConnection as db:
     def get_stoplist(self, route):
+
+
         routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=self.route))
         route_stop_list = []
+
+
         for r in routes:
             path_list = []
             for path in r.paths:
@@ -161,6 +165,7 @@ class RouteReport:
 #
 #         # populate stop report data
 #         self.arrivals_list_final_df, self.stop_name = self.get_arrivals(self.route,self.stop,self.period)
+#       self.hourly_frequency =  get_hourly_frequency(route, stop, period)
 #
 #         # constants
 #         self.bunching_interval = datetime.timedelta(minutes=3)

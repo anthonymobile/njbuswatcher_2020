@@ -151,7 +151,6 @@
                 <!--Grid row-->
                 <div class="row mb-4 wow fadeIn">
 
-                    {% for route in reportcard_routes %}
                     <!--Grid column-->
                     <div class="col-lg-4 col-md-12 mb-4">
 
@@ -168,9 +167,9 @@
                             <!--Card content-->
                             <div class="card-body">
                                 <!--Title-->
-                                <a href = {{ url_for('api_positions_route' ,source='nj',route=route.route) }}><h4 class="card-title">{{route.route}}</h4></a>
+                                <a href = <h4 class="card-title">card</h4>
                                 <!--Text-->
-                                <p class="card-text">{{route.description_long}}.</p>
+                                <p class="card-text">{{route}}.</p>
                                     <a target="_self" href="#reportcards" class="btn btn-outline-white btn-lg">Grade A
                                         <i class="fas fa-graduation-cap ml-2"></i>
                                     </a>
@@ -189,7 +188,7 @@
 
                     </div>
                     <!--Grid column-->
-                    {% endfor %}
+
 
 
                 </div>
