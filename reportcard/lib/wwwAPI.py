@@ -1,6 +1,9 @@
 import pickle
+import datetime
 import pandas as pd
 import geojson
+
+from sqlalchemy import inspect
 
 import lib.BusAPI as BusAPI
 from lib.DataBases import DBConfig, SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
@@ -14,6 +17,12 @@ def timestamp_fix(data): # trim the microseconds off the timestamp and convert i
     # data = data.set_index(pd.DatetimeIndex(data['timestamp']))
     data = data.set_index(pd.DatetimeIndex(data['timestamp']), drop=False)
     return data
+
+# convery sqlalchemy query to a dict
+# https://stackoverflow.com/questions/1958219/convert-sqlalchemy-row-object-to-python-dict
+def object_as_dict(obj):
+    return {c.key: getattr(obj, c.key)
+            for c in inspect(obj).mapper.column_attrs}
 
 # geoJSON for citywidemap
 def citymap_geojson(reportcard_routes):
@@ -68,7 +77,7 @@ class RouteReport:
 
     def get_routename(self,route):
         routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=route))
-        return routes[0].nm, coordinate_bundle['waypoints_coordinates'], coordinate_bundle['stops_coordinates'], coordinate_bundle['waypoints_geojson'], coordinate_bundle[' stops_geojson']
+        return routes[0].nm, coordinate_bundle['waypoints_coordinates'], coordinate_bundle['stops_coordinates'], coordinate_bundle['waypoints_geojson'], coordinate_bundle['stops_geojson']
 
     def load_route_description(self):
         for route in self.reportcard_routes:
@@ -102,7 +111,32 @@ class RouteReport:
 
     def get_activetrips(self):
 
-        # query db and load up everything we want to display (basically what's on the approach_dash)
+        # query db and load up everything we want to display
+        # (basically what's on the approach_dash)
+
+        self.active_trips = dict()
+
+        todays_date = datetime.datetime.today().strftime('%Y%m%d')
+
+        # grab buses on road now and populate trip cards
+        buses_on_route = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data(self.source, 'buses_for_route', route=self.route))
+        for b in buses_on_route:
+            trip_id = ('{id}_{run}_{dt}').format(id=b.id, run=b.run, dt=datetime.datetime.today().strftime('%Y%m%d'))
+
+            with SQLAlchemyDBConnection(DBConfig.conn_str) as db:
+                # load the trip card
+                scheduled_stops = db.session.query(Trip, ScheduledStop) \
+                    .join(ScheduledStop) \
+                    .filter(Trip.trip_id == trip_id) \
+                    .all() #todo sort on something?
+
+                # iterate over query results rows
+                # convery each to dict and add to active_trips dict
+                converted_rows = dict()
+                for i in scheduled_stops:
+                    converted_rows[i]=object_as_dict(i)
+                self.active_trips[trip_id] = converted_rows
+
         return
 
 

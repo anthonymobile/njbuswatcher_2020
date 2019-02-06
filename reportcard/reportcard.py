@@ -69,30 +69,26 @@ assets.register(bundles)
 def displayHome():
 
     # waypoints, stops = wwwAPI.citymap_geojson(reportcard_routes)
-    waypoints, stops = 1,2
+    waypoints, stops = 1,2 # this works because the JS is fetching the updated points itself.
 
     return render_template('index.html', citywide_waypoints_geojson=waypoints, citywide_stops_geojson=stops, reportcard_routes=reportcard_routes)
 
 
 #route_report------------------------------------------------------------
 @app.route('/<source>/<route>')
-@cache.cached(timeout=3600) # cache for 1 hour
+#@cache.cached(timeout=3600) # cache for 1 hour
 def genRouteReport(source, route):
 
-    # routereport = ReportCard.RouteReport(source, route, reportcard_routes, grade_descriptions)
+    route_report = wwwAPI.RouteReport(source, route)
 
     # period='weekly'
     # bunchingreport, grade_letter, grade_numeric, grade_description, time_created = routereport.load_bunching_leaderboard( route)
-    # return render_template('route.html', routereport=routereport, bunchingreport=bunchingreport, period=period, grade_letter=grade_letter, grade_numeric=grade_numeric, grade_description=grade_description, time_created=time_created)
-
-    return render_template('route.html', source=source, route=route)
-
-
+    return render_template('route.html', source=source, route=route, routereport=route_report)
 
 #------------------------------------------------------------TripReport
 # /<source>/<route>/trip/<trip>
 @app.route('/<source>/<route>/trip/<trip>')
-@cache.cached(timeout=60) # cache for 1 minute
+#@cache.cached(timeout=60) # cache for 1 minute
 def genTripReport(source, route, trip):
     trip_report = wwwAPI.TripReport(source, trip)
     return render_template('trip.html', source=source, route=route, trip=trip, tripreport=trip_report)
@@ -100,7 +96,7 @@ def genTripReport(source, route, trip):
 #------------------------------------------------------------StopReport
 # /<source>/<route>/stop/<stop>/<period>
 @app.route('/<source>/<route>/stop/<stop>/<period>')
-@cache.cached(timeout=60) # cache for 1 minute
+#@cache.cached(timeout=60) # cache for 1 minute
 def genStopReport(source, route, stop, period):
     stop_report = wwAPI.StopReport(route, stop, period)
     route_report = wwwAPI.RouteReport(source, route)

@@ -72,7 +72,7 @@ class Trip(Base):
     trip_id = Column(String(255))
     v = Column(Integer())
     run = Column(Integer())
-    date = Column(DateTime())
+    date = Column(String)
     coordinate_bundle = Column(String)
 
     children_ScheduledStops = relationship("ScheduledStop", backref='trip_log')
@@ -110,7 +110,7 @@ class ScheduledStop(Base):
     pkey = Column(Integer(), primary_key=True)
     run = Column(Integer())
     v = Column(Integer())
-    date = Column(DateTime())
+    date = Column(String)
     stop_id = Column(Integer())
     arrival_timestamp = Column(DateTime())
 

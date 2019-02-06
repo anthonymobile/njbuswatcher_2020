@@ -246,7 +246,7 @@ def parse_xml_getRoutePoints(data):
     stops_plot = geojson.MultiPoint(stops_coordinates)
     stops_geojson = geojson.dumps(stops_plot, sort_keys=True)
 
-    coordinates_bundle['waypoint_coordinates']=waypoint_coordinates
+    coordinates_bundle['waypoints_coordinates']=waypoint_coordinates
     coordinates_bundle['stops_coordinates'] = stops_coordinates
     coordinates_bundle['waypoints_geojson'] = waypoints_geojson
     coordinates_bundle['stops_geojson'] = stops_geojson
