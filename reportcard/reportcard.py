@@ -63,20 +63,41 @@ assets.register(bundles)
 # URLS
 ################################################
 
-#------------------------------------------------------------
-# /
+
+#3 home page
 @app.route('/')
 def displayHome():
-    citywide_waypoints_geojson, citywide_stops_geojson = wwwAPI.citymap_geojson(reportcard_routes)
-    return render_template('index.html', citywide_waypoints_geojson=citywide_waypoints_geojson, citywide_stops_geojson=citywide_stops_geojson, reportcard_routes=reportcard_routes)
+    # routereport = routereport # setup a dummy for the navbar
+    class Dummy():
+        def __init__(self):
+            self.routename = 'NJTransit'
+    routereport = Dummy()
 
-#------------------------------------------------------------RouteReport
-# /<source>/<route>
+    citywide_waypoints_geojson, citywide_stops_geojson = wwwAPI.citymap_geojson(reportcard_routes)
+
+    return render_template('index.html', citywide_waypoints_geojson=citywide_waypoints_geojson, citywide_stops_geojson=citywide_stops_geojson,routereport=routereport,reportcard_routes=reportcard_routes)
+
+
+#4 route report
 @app.route('/<source>/<route>')
 @cache.cached(timeout=3600) # cache for 1 hour
 def genRouteReport(source, route):
-    route_report = wwwAPI.RouteReport(source, route)
-    return render_template('route.html', source=source, route=route, routereport=route_report)
+
+    # routereport = ReportCard.RouteReport(source, route, reportcard_routes, grade_descriptions)
+
+    # routereport = routereport # setup a dummy for the navbar
+    class Dummy():
+        def __init__(self):
+            self.routename = 'NJTransit'
+    routereport = Dummy()
+
+    # period='weekly'
+    # bunchingreport, grade_letter, grade_numeric, grade_description, time_created = routereport.load_bunching_leaderboard( route)
+    # return render_template('route.html', routereport=routereport, bunchingreport=bunchingreport, period=period, grade_letter=grade_letter, grade_numeric=grade_numeric, grade_description=grade_description, time_created=time_created)
+
+    return render_template('route.html',routereport=routereport, source=source, route=route)
+
+
 
 #------------------------------------------------------------TripReport
 # /<source>/<route>/trip/<trip>

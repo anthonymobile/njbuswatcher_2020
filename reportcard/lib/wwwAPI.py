@@ -66,7 +66,6 @@ class RouteReport:
         self.active_trips = self.get_activetrips()
 
 
-
     def get_routename(self,route):
         routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=route))
         return routes[0].nm, coordinate_bundle['waypoints_coordinates'], coordinate_bundle['stops_coordinates'], coordinate_bundle['waypoints_geojson'], coordinate_bundle[' stops_geojson']
