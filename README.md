@@ -1,12 +1,13 @@
 # NJ BusWatcher
 v2.0
-**3 feb 2019**
+**5 feb 2019**
 
 ---
 # ROADMAP TO COMPLETION
 
 ## NOW
 
+**reportcard.py**
 **wwwAPI.py**
     - rewrite all the ReportCard classes, starting with same inputs and outputs
         -- RouteReport: move the getroutepoints/geojson maker --> DataBases. make it when the trip is created.

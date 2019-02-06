@@ -1,87 +1,218 @@
-{%- extends "bootstrap/base.html" %}
+{%- extends "base.html" %}
 
+
+{# Loads some of the macros included with Flask-Bootstrap. We are using the
+   utils module here to automatically render Flask's flashed messages in a
+   bootstrap friendly manner #}
+{% import "bootstrap/utils.html" as utils %}
+
+
+{# Inside the ``content`` is where you should place most of your own stuff.
+   This will keep scripts at the page end and a navbar you add on later
+   intact. #}
 {% block head %}
 
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        #map { width:100%; }
+    </style>
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-109853808-2"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'UA-109853808-2');
-</script>
 
-{{super()}}
-
-{#- Docs: http://pythonhosted.org/Flask-Bootstrap/macros.html#fixes
-   The sample application already contains the required static files. #}
-
-{%- endblock %}
-
-{% block navbar %}
-  <div class="py-2 bg-white">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <ul class="breadcrumb bg-white" style="margin-bottom:0px;margin-top:0px">
-            <li class="breadcrumb-item">
-              <a href="/">Home</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
+{{ super() }}
 {% endblock %}
 
+{% block scripts %}
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="{{ url_for('static', filename='mdb/css/bootstrap.min.css')}}" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="{{ url_for('static', filename='mdb/css/mdb.min.css')}}" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="{{ url_for('static', filename='mdb/css/style.min.css')}}" rel="stylesheet">
 
 
-{# Adding our own CSS files is also done here. Check the documentation at
-   http://pythonhosted.org/Flask-Bootstrap/basic-usage.html#available-blocks
-   for an overview. #}
-{% block styles -%}
-
-<link rel="stylesheet" type="text/css"
-          href="{{url_for('static', filename='css/theme.css')}}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
-    {{super()}}  {# do not forget to call super or Bootstrap's own stylesheets
-                    will disappear! #}
-
-
+    <script type="text/javascript">
+        var passed_citywide_waypoints_geojson = {{ citywide_waypoints_geojson|safe }}
+        var passed_citywide_stops_geojson = {{ citywide_stops_geojson|safe }}
+        var passed_reportcard_routes = {{ reportcard_routes|safe }}
+    </script>
+    <script type="text/javascript" src="{{ url_for('static', filename='maps/busmap-index.js')}}"></script>
 {% endblock %}
+
 
 {% block content %}
 
+    <!--Main Navigation-->
+    <header>
+
+        <!-- Navbar -->
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
+            <div class="container">
+
+                <!-- Brand -->
+                <a class="navbar-brand waves-effect" href="https://buswatcher.bitsandatoms.net/" target="_self">
+                    <strong class="blue-text">JC buswatcher</strong>
+                </a>
+
+                <!-- Collapse -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Links -->
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                    <!-- Left -->
+                    <ul class="navbar-nav mr-auto">
+
+                        <li class="nav-item">
+                            <a class="nav-link waves-effect" href="https://www.njtransit.com/" target="_self">Routes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link waves-effect" href="https://mdbootstrap.com/docs/jquery/getting-started/download/" target="_self">Stops</a>
+                        </li>
+
+                    </ul>
+
+                    <!-- Right -->
+                    <ul class="navbar-nav nav-flex-icons"><!--
+                        <li class="nav-item">
+                            <a href="https://www.facebook.com/mdbootstrap" class="nav-link waves-effect" target="_blank">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="https://twitter.com/MDBootstrap" class="nav-link waves-effect" target="_self">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </li>
+                        -->
+                        <li class="nav-item">
+                            <a href="https://github.com/code4jc/buswatcher" class="nav-link border border-light rounded waves-effect"
+                                target="_self">
+                                <i class="fab fa-github mr-2"></i>code
+                            </a>
+                        </li>
+                    </ul>
+
+                </div>
+
+            </div>
+        </nav>
+        <!-- Navbar -->
+
+    </header>
+    <!--Main Navigation-->
+
+    <!--Main layout-->
+    <main class="mt-2 pt-5">
+        <div class="container">
 
 
-  <div class="py-2 bg-dark">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <h1 class="">API Error</h1>
+            <!--Section: Jumbotron-->
+            <section class="card wow fadeIn" style="background-image: url({{ url_for('static', filename='images/404chair.jpg')}});">
+
+
+
+
+                <!-- Content -->
+                <div class="card-body text-white text-center py-5 px-5 my-5">
+
+                    <h1 class="mb-4">
+                        <strong>Oops!</strong>
+                    </h1>
+                    <p>
+                        <strong>We're having trouble talking to NJTransit's servers right now.</strong>
+                    </p>
+
+                    <p>
+                        <strong>Please try again later.</strong>
+                    </p>
+
+
+
+                </div>
+                <!-- Content -->
+            </section>
+            <!--Section: Jumbotron-->
+
+
+            <hr class="my-5">
+
+
+
         </div>
-      </div>
-    </div>
-  </div>
 
 
-  <div class="py-3">
-    <div class="container">
-      <div class="row">
-
-         <div class="col-md-12">
-             <p class="lead">Something went really wrong -- looks like our server can't connect to the NJTransit API.</p>
 
 
+    </main>
+    <!--Main layout-->
+
+    <!--Footer-->
+    <footer class="page-footer text-center font-small mdb-color darken-2 mt-4 wow fadeIn">
+
+        <!--Call to action-->
+        <div class="pt-4">
+            <a class="btn btn-outline-white" href="https://mdbootstrap.com/docs/jquery/getting-started/download/" target="_self" role="button">Download MDB
+                <i class="fas fa-download ml-2"></i>
+            </a>
+            <a class="btn btn-outline-white" href="https://mdbootstrap.com/education/bootstrap/" target="_self" role="button">Start free tutorial
+                <i class="fas fa-graduation-cap ml-2"></i>
+            </a>
         </div>
+        <!--/.Call to action-->
 
-      </div>
-    </div>
-  </div>
+        <hr class="my-4">
+
+        <!-- Social icons -->
+        <div class="pb-4">
+            <a href="https://www.facebook.com/mdbootstrap" target="_self">
+                <i class="fab fa-facebook-f mr-3"></i>
+            </a>
+
+            <a href="https://twitter.com/MDBootstrap" target="_blank">
+                <i class="fab fa-twitter mr-3"></i>
+            </a>
+
+            <a href="https://www.youtube.com/watch?v=7MUISDJ5ZZ4" target="_blank">
+                <i class="fab fa-youtube mr-3"></i>
+            </a>
+
+            <a href="https://plus.google.com/u/0/b/107863090883699620484" target="_blank">
+                <i class="fab fa-google-plus-g mr-3"></i>
+            </a>
+
+            <a href="https://dribbble.com/mdbootstrap" target="_blank">
+                <i class="fab fa-dribbble mr-3"></i>
+            </a>
+
+            <a href="https://pinterest.com/mdbootstrap" target="_blank">
+                <i class="fab fa-pinterest mr-3"></i>
+            </a>
+
+            <a href="https://github.com/mdbootstrap/bootstrap-material-design" target="_blank">
+                <i class="fab fa-github mr-3"></i>
+            </a>
+
+            <a href="http://codepen.io/mdbootstrap/" target="_blank">
+                <i class="fab fa-codepen mr-3"></i>
+            </a>
+        </div>
+        <!-- Social icons -->
+
+        <!--Copyright-->
+        <div class="footer-copyright py-3">
+            © 2018 Copyright:
+            <a href="https://mdbootstrap.com/education/bootstrap/" target="_self"> MDBootstrap.com </a>
+        </div>
+        <!--/.Copyright-->
+
+    </footer>
+    <!--/.Footer-->
 
 
 {% endblock %}

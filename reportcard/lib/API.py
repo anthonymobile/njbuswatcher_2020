@@ -30,9 +30,8 @@ def positions2geojson(df):
 
     return geojson.FeatureCollection(features)
 
-# POSITIONS ARGS-BASED
-# /api/v1/positions?rt=87&period=now -- real-time from NJT API
-# /api/v1/positions?rt=87&period={daily,yesterday,history} -- historical from positions_log table
+# positions (real-time and historical)
+# /api/v1/positions?rt=87&period={now, daily,yesterday,history}
 def get_positions_byargs(args):
 
     # for NOW, get current positions from NJT API
