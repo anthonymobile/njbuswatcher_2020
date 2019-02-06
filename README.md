@@ -10,7 +10,7 @@ v2.0
 **reportcard.py**
 **wwwAPI.py**
     - rewrite all the ReportCard classes, starting with same inputs and outputs
-        -- RouteReport: move the getroutepoints/geojson maker --> DataBases. make it when the trip is created.
+        -- RouteReport
         -- StopReport
 
 **index.html**
