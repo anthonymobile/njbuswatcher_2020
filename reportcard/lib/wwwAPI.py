@@ -114,7 +114,7 @@ class RouteReport:
         # query db and load up everything we want to display
         # (basically what's on the approach_dash)
 
-        self.active_trips = dict()
+        active_trips = dict()
 
         todays_date = datetime.datetime.today().strftime('%Y%m%d')
 
@@ -125,19 +125,16 @@ class RouteReport:
 
             with SQLAlchemyDBConnection(DBConfig.conn_str) as db:
                 # load the trip card
-                scheduled_stops = db.session.query(Trip, ScheduledStop) \
+                scheduled_stops = db.session.query(Trip.pid, Trip.trip_id, ScheduledStop.trip_id, ScheduledStop.stop_id, ScheduledStop.arrival_timestamp) \
                     .join(ScheduledStop) \
                     .filter(Trip.trip_id == trip_id) \
-                    .all() #todo sort on something?
+                    .all()
+                    #todo sort on something?
 
-                # iterate over query results rows
-                # convery each to dict and add to active_trips dict
-                converted_rows = dict()
-                for i in scheduled_stops:
-                    converted_rows[i]=object_as_dict(i)
-                self.active_trips[trip_id] = converted_rows
+                #convert the query to a list of dicts and tuck it in a dict
+                active_trips[trip_id] = list(map(lambda obj: dict(zip(obj.keys(), obj)), scheduled_stops))
 
-        return
+        return active_trips
 
 
 

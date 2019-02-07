@@ -7,22 +7,21 @@ v2.0
 
 ## NOW
 
-**reportcard.py**
-**wwwAPI.py**
-    - rewrite all the ReportCard classes, starting with same inputs and outputs
-        -- RouteReport
-        -- StopReport
+**DataBases.py**
+    -Trip.pid doesn't seem to be getting populated from BusAPI
 
-**index.html**
-    - fix route display on map
-  
+**wwwAPI.py**
+    - finish WIP wwwAPI.RouteReport.get_active_trips
+**reportcard.py**
+    - update flask routes for /route
 **route.html**  
     - top section
         - display active trips with last few arrivals (e.g. approach_dash) and approaching -- click to --> trip.html
         - incorporate approach_dash
     - bottom section
-        - stops listed in small cards with grade/performance summary  -- click to --> stop.html
+        - stops listed in small cards with grade/performance summary  -- click to --> stop.html    
 
+--THEN SAME FOR STOP REPORT AND TRIP REPORT
 **trip.html**
     - detail trip card
     - after trip_dash.html
@@ -30,9 +29,10 @@ v2.0
 **stop.html**
     - detail for each stop (same as current stop.html)
         
-**reportcard.py** 
-- finalize view code and test
-
+        
+        
+**index.html**
+    - fix route display on map
 
 ## MUST DO
 

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import datetime, sys
-from sqlalchemy import create_engine, Table, Column, Integer, DateTime, Float, String, Boolean, ForeignKey
+from sqlalchemy import inspect, create_engine, Table, Column, Integer, DateTime, Float, String, Boolean, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
 from . import BusAPI
@@ -9,6 +9,24 @@ from . import BusAPI
 # base
 #####################################################
 Base = declarative_base()
+
+from sqlalchemy.ext.declarative import as_declarative
+
+@as_declarative()
+class Base:
+    def _asdict(self):
+        return {c.key: getattr(self, c.key)
+                for c in inspect(self).mapper.column_attrs}
+
+    def __repr__(self):
+        line = []
+        for prop, value in vars(self).items():
+            line.append((prop, value))
+        line.sort(key=lambda x: x[0])
+        out_string = ' '.join([k + '=' + str(v) for k, v in line])
+        return self.__class__.__name__ + '[%s]' % out_string
+
+
 
 class DBConfig(object):
     conn_str='sqlite:///jc_buswatcher.db'
@@ -72,19 +90,14 @@ class Trip(Base):
     trip_id = Column(String(255))
     v = Column(Integer())
     run = Column(Integer())
+    pid = Column(Integer())
     date = Column(String)
     coordinate_bundle = Column(String)
 
     children_ScheduledStops = relationship("ScheduledStop", backref='trip_log')
     children_BusPositions = relationship("BusPosition", backref='trip_log')
 
-    def __repr__(self):
-        line = []
-        for prop, value in vars(self).items():
-            line.append((prop, value))
-        line.sort(key=lambda x: x[0])
-        out_string = ' '.join([k + '=' + str(v) for k, v in line])
-        return "Trip" + '[%s]' % out_string
+
 
 
 
@@ -118,13 +131,13 @@ class ScheduledStop(Base):
     trip_id = Column(String(255), ForeignKey('trip_log.trip_id'))
     parent_Trip = relationship("Trip",backref='scheduledstop_log')
 
-    def __repr__(self):
-        line = []
-        for prop, value in vars(self).items():
-            line.append((prop, value))
-        line.sort(key=lambda x: x[0])
-        out_string = ' '.join([k + '=' + str(v) for k, v in line])
-        return "ScheduledStop" + '[%s]' % out_string
+    # def __repr__(self):
+    #     line = []
+    #     for prop, value in vars(self).items():
+    #         line.append((prop, value))
+    #     line.sort(key=lambda x: x[0])
+    #     out_string = ' '.join([k + '=' + str(v) for k, v in line])
+    #     return "ScheduledStop" + '[%s]' % out_string
 
 
 #####################################################
@@ -172,14 +185,13 @@ class BusPosition(Base):
     parent_Trip = relationship("Trip",backref='position_log')
     parent_ScheduledStop = relationship("ScheduledStop",backref='position_log')
 
-    def __repr__(self):
-        line = []
-        for prop, value in vars(self).items():
-            line.append((prop, value))
-        line.sort(key=lambda x: x[0])
-        out_string = ' '.join([k + '=' + str(v) for k, v in line])
-        return "BusPosition" + '[%s]' % out_string
-
+    # def __repr__(self):
+    #     line = []
+    #     for prop, value in vars(self).items():
+    #         line.append((prop, value))
+    #     line.sort(key=lambda x: x[0])
+    #     out_string = ' '.join([k + '=' + str(v) for k, v in line])
+    #     return "BusPosition" + '[%s]' % out_string
 
 
 
