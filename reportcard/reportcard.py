@@ -133,41 +133,6 @@ def api_positions_route():
 # TRIPWATCHER DIAGNOSTIC DASHBOARD
 ################################################
 
-# run dash
-@app.route('/<source>/<route>/dash')
-def displayApproachDash(source,route):
-
-    with SQLAlchemyDBConnection(DBConfig.conn_str) as db:
-
-        todays_date = datetime.datetime.today().strftime('%Y%m%d')
-        # grab list of vehicle and run numbers on the road now
-        v_list=[]
-        run_list=[]
-        v_route = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data(source, 'buses_for_route', route=route))
-        for v in v_route:
-            v_list.append(v.id)
-            run_list.append(v.run)
-        buses_dash=dict()
-        for b in v_list:
-            v_as_list = []
-            v_as_list.append(b)
-            buses_dash[b]=db.session.query(BusPosition) \
-            .filter(BusPosition.id.in_(v_as_list)) \
-            .filter(BusPosition.run.in_(run_list)) \
-            .order_by(BusPosition.timestamp.desc()) \
-            .order_by(BusPosition.stop_id.desc())
-        # for b in v_list:
-        #     v_as_list = []
-        #     v_as_list.append(b)
-        #     buses_dash[b]=db.session.query(BusPosition) \
-        #     .filter(BusPosition.id.in_(v_as_list)) \
-        #     .filter(BusPosition.run.in_(run_list)) \
-        #     .order_by(BusPosition.timestamp.desc()) \
-        #     .order_by(BusPosition.stop_id.desc()) \
-        #     .limit(20)
-
-    return render_template('approach_dash.html', busdash=buses_dash, route=route)
-
 # trip dash
 @app.route('/<source>/<route>/dash/<run>')
 def displayTripDash(source,route,run):
@@ -270,6 +235,10 @@ def pretty_timedelta(td):
     else:
         pretty_time = ("{a} mins").format(a=minutes)
     return pretty_time
+
+@app.template_filter('split_')
+def splitpart (value, index, char = '_'):
+    return value.split(char)[index]
 
 ################################################
 # MAIN

@@ -75,8 +75,8 @@ class Trip(Base):
                 if path.id == self.pid:
                     for point in path.points:
                         if isinstance(point, BusAPI.Route.Stop):
-                            this_stop = ScheduledStop(self.trip_id,self.v,self.run,self.date,point.identity)
-                            self.stop_list.append(point.identity)
+                            this_stop = ScheduledStop(self.trip_id,self.v,self.run,self.date,point.identity,point.st)
+                            self.stop_list.append((point.identity,point.st))
                             for stop in self.stop_list:
                                 self.db.session.add(this_stop)
                 else:
@@ -110,12 +110,13 @@ class Trip(Base):
 #
 class ScheduledStop(Base):
 
-    def __init__(self, trip_id,v,run,date,stop_id):
+    def __init__(self, trip_id,v,run,date,stop_id,stop_name):
         self.trip_id = trip_id
         self.v = v
         self.run = run
         self.date = date
         self.stop_id = stop_id
+        self.stop_name = stop_name
 
     __tablename__ = 'scheduledstop_log'
     __table_args__ = {'extend_existing': True}
@@ -125,19 +126,14 @@ class ScheduledStop(Base):
     v = Column(Integer())
     date = Column(String)
     stop_id = Column(Integer())
+    stop_name = Column(String)
     arrival_timestamp = Column(DateTime())
 
     # relationships
     trip_id = Column(String(255), ForeignKey('trip_log.trip_id'))
     parent_Trip = relationship("Trip",backref='scheduledstop_log')
 
-    # def __repr__(self):
-    #     line = []
-    #     for prop, value in vars(self).items():
-    #         line.append((prop, value))
-    #     line.sort(key=lambda x: x[0])
-    #     out_string = ' '.join([k + '=' + str(v) for k, v in line])
-    #     return "ScheduledStop" + '[%s]' % out_string
+
 
 
 #####################################################

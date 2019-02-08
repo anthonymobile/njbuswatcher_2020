@@ -11,11 +11,11 @@
    This will keep scripts at the page end and a navbar you add on later
    intact. #}
 {% block head %}
+<META HTTP-EQUIV="refresh" CONTENT="30">
 
     <style>
         #map { width:100%; }
     </style>
-
 
 
 {{ super() }}
@@ -115,7 +115,10 @@
                             <!--Card content-->
                             <div class="card-body">
                                 <!--Title-->
-                                <a href = <h4 class="card-title">{{trip.trip_id}}</h4>
+                                <h4 class="card-title">Bus {{ trip.trip_id | split_(0) }}</h4>
+                                <!--
+                                <h4 class="card-title">{{trip.trip_id}}</h4>
+                                -->
                                 <!--Text-->
                                 <div id="buses" class="row mt-2">
 
@@ -124,7 +127,7 @@
                                                 <thead class="thread-dark">
                                                 <tr>
                                                     <th>timestamp</th>
-                                                    <th>stop_id</th>
+                                                    <th>stop_name</th>
                                                 </tr>
                                                 </thead>
 
@@ -138,7 +141,7 @@
                                                 <tr class='table'>
 
                                                     <td>{{stop.arrival_timestamp|strftime_today}}</td>
-                                                    <td>{{stop.stop_id}}</td>
+                                                    <td>{{stop.stop_name}}</td>
                                                 </tr>
                                                 {% endif %}
 
@@ -146,14 +149,6 @@
 
                                                 </tbody>
                                     </table>
-
-
-
-
-
-
-
-
 
                                 </div>
 

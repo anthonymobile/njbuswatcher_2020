@@ -7,29 +7,28 @@ v2.0
 
 ## NOW
 
+**DataBases.py**
+- why isn't stop_name getting into the database?    
+    
 **route.html**  
-    - for each trip, loop through and display the stops with arrival_flag = true
+- nav at top
+    - at buttons to jump to the page sections
+- top section
+    - verify only showing last 5 most recent stops
+    - tag approaching stop?
+    - sort most recent at top?
+    - url_for link for from Bus header to --> trip.html
+- bottom section
+    - stops listed in small cards with grade/performance summary  -- click to --> stop.html
+- bottom / side
+    - restore route map
     
-    
-    
-    
-    
-    
-    top section
-        -- why is it looping twice over {% for key,buses in busdash.items() %} ?
-        - display active trips with last few arrivals (e.g. approach_dash) and approaching -- click to --> trip.html
-        - incorporate approach_dash
-    - bottom section
-        - stops listed in small cards with grade/performance summary  -- click to --> stop.html    
-
---THEN SAME FOR STOP REPORT AND TRIP REPORT
 **trip.html**
     - detail trip card
     - after trip_dash.html
     
 **stop.html**
     - detail for each stop (same as current stop.html)
-        
         
         
 **index.html**
