@@ -57,8 +57,10 @@
                 <div class="card-body text-white text-center py-5 px-5 my-5">
 
                     <h1 class="mb-4">
-                        <strong>{{route}}</strong>
+                        <strong>{{routereport.routename}}</strong>
                     </h1>
+
+                    <!--
                     <p>
                         <strong>Residents and businesses in The Heights depend on them every day.</strong>
                     </p>
@@ -74,6 +76,7 @@
                     <a target="_self" href="https://goo.gl/forms/VF5S1Oclk9QTdZha2" class="btn btn-outline-white btn-lg">Sign the petition
                         <i class="fas fa-pencil-alt ml-2"></i>
                     </a>
+                    -->
 
                 </div>
                 <!-- Content -->
@@ -85,11 +88,14 @@
 
             <!--Section: Cards-->
             <section id="reportcards" class="text-center">
-
+                     <h1 class="mb-4">
+                        <strong>On the Road Now</strong>
+                    </h1>
                 <!--Grid row-->
                 <div class="row mb-4 wow fadeIn">
 
-                    {% for trip in routereport.active_trips.items() %}
+
+                    {% for trip in routereport.active_trips %}
 
                     <!--Grid column-->
                     <div class="col-lg-4 col-md-12 mb-4">
@@ -98,18 +104,62 @@
                         <div class="card">
 
                             <!--Card image-->
+                            <!--
                             <div class="view overlay">
                                 <div class="embed-responsive embed-responsive-16by9 rounded-top">
                                     <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/cXTThxoywNQ" allowfullscreen></iframe>
                                 </div>
                             </div>
+                            -->
 
                             <!--Card content-->
                             <div class="card-body">
                                 <!--Title-->
-                                <a href = <h4 class="card-title">card</h4>
+                                <a href = <h4 class="card-title">{{trip.trip_id}}</h4>
                                 <!--Text-->
-                                <p class="card-text">{{trip_id}}.</p>
+                                <div id="buses" class="row mt-2">
+
+
+                                    <table class="table table-sm table-hover">
+                                                <thead class="thread-dark">
+                                                <tr>
+                                                    <th>timestamp</th>
+                                                    <th>stop_id</th>
+                                                </tr>
+                                                </thead>
+
+                                                <tbody>
+                                                {% for stop in trip.trip_card %}
+                                                {%if stop.arrival_timestamp != none %}
+
+
+                                                    <tr class='table-success'>
+
+                                                <tr class='table'>
+
+                                                    <td>{{stop.arrival_timestamp|strftime_today}}</td>
+                                                    <td>{{stop.stop_id}}</td>
+                                                </tr>
+                                                {% endif %}
+
+                                                {% endfor %}
+
+                                                </tbody>
+                                    </table>
+
+
+
+
+
+
+
+
+
+                                </div>
+
+
+
+
                             </div>
 
                         </div>

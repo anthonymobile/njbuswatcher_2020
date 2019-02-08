@@ -64,7 +64,7 @@ assets.register(bundles)
 ################################################
 
 
-#index------------------------------------------------------------
+#-------------------------------------------------------------Index
 @app.route('/')
 def displayHome():
 
@@ -74,7 +74,7 @@ def displayHome():
     return render_template('index.html', citywide_waypoints_geojson=waypoints, citywide_stops_geojson=stops, reportcard_routes=reportcard_routes)
 
 
-#route_report------------------------------------------------------------
+#-------------------------------------------------------------RouteReport
 @app.route('/<source>/<route>')
 #@cache.cached(timeout=3600) # cache for 1 hour
 def genRouteReport(source, route):
@@ -111,8 +111,7 @@ def genStopReport(source, route, stop, period):
 # API
 ################################################
 
-# /api/v1/positions?rt=87&period={now,daily,yesterday,history}
-# can use any args in table e.g. run=8548, stop_id=20687
+# /api/v1/positions?rt=87&period={ow, daily,yesterday,history}
 @app.route('/api/v1/positions')
 @cross_origin()
 def api_positions_route():

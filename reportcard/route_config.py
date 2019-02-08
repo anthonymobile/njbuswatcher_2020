@@ -5,6 +5,46 @@
 reportcard_routes=[
 
     {
+        'route': '2',
+        'frequency': 'low',
+        'schedule_url': 'https://www.njtransit.com/pdf/bus/T0002.pdf',
+        'prettyname': 'tbd',
+        'description_short': 'tbd.',
+        'description_long': 'tbd.'},
+
+    {
+        'route': '6',
+        'frequency': 'low',
+        'schedule_url': 'https://www.njtransit.com/pdf/bus/T0006.pdf',
+        'prettyname': 'tbd',
+        'description_short': 'tbd.',
+        'description_long': 'tbd.'},
+
+    {
+        'route': '10',
+        'frequency': 'low',
+        'schedule_url': 'https://www.njtransit.com/pdf/bus/T0010.pdf',
+        'prettyname': 'tbd',
+        'description_short': 'tbd.',
+        'description_long': 'tbd.'},
+
+    {
+        'route': '80',
+        'frequency': 'low',
+        'schedule_url': 'https://www.njtransit.com/pdf/bus/T0080.pdf',
+        'prettyname': 'tbd',
+        'description_short': 'tbd.',
+        'description_long': 'tbd.'},
+
+    {
+        'route': '81',
+        'frequency': 'low',
+        'schedule_url': 'https://www.njtransit.com/pdf/bus/T0081.pdf',
+        'prettyname': 'tbd',
+        'description_short': 'tbd.',
+        'description_long': 'tbd.'},
+
+    {
         'route':'82',
         'frequency':'low',
         'schedule_url':'https://www.njtransit.com/pdf/bus/T0082.pdf',
@@ -65,6 +105,14 @@ reportcard_routes=[
         'description_short': 'Links the Western Heights with North Bergen, Union City and Journal Square along JFK Boulevard.',
         'description_long': 'The 88 provides service throughout the day along JFK Boulevard providing a north-south connection along the western portion of Hudson County.'
     },
+
+    {
+        'route': '89',
+        'frequency': 'low',
+        'schedule_url': 'https://www.njtransit.com/pdf/bus/T0089.pdf',
+        'prettyname': 'tbd',
+        'description_short': 'tbd.',
+        'description_long': 'tbd.'},
 
     {
         'route':'119',
