@@ -121,14 +121,15 @@ class RouteReport:
 
             with SQLAlchemyDBConnection(DBConfig.conn_str) as db:
                 # load the trip card
-                scheduled_stops = db.session.query(Trip.pid, Trip.trip_id, ScheduledStop.trip_id, ScheduledStop.stop_id, ScheduledStop.arrival_timestamp) \
+                scheduled_stops = db.session.query(Trip.pid, Trip.trip_id, ScheduledStop.trip_id, ScheduledStop.stop_id, ScheduledStop.stop_name, ScheduledStop.arrival_timestamp) \
                     .join(ScheduledStop) \
                     .filter(Trip.trip_id == trip_id) \
                     .all()
                     #todo sort on something?
 
                 #convert the query
-                # active trips is a dict, each item contains a list of tuples, each item in the tuple is also a dict
+                # active trips is a list, each item contains a dict
+                # {'pid': 1634, 'trip_id': '5722_16_20190208', 'stop_id': 20496, 'arrival_timestamp': None}
                 current_trip['trip_id'] = trip_id
                 current_trip['trip_card'] = list(map(lambda obj: dict(zip(obj.keys(), obj)), scheduled_stops))
                 active_trips.append(current_trip)
