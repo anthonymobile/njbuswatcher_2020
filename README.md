@@ -7,15 +7,16 @@ v2.0
 
 ## NOW
 
-**DataBases.py**
-    -Trip.pid doesn't seem to be getting populated from BusAPI
-
-**wwwAPI.py**
-    - finish WIP wwwAPI.RouteReport.get_active_trips
-**reportcard.py**
-    - update flask routes for /route
 **route.html**  
-    - top section
+    - for each trip, loop through and display the stops with arrival_flag = true
+    
+    
+    
+    
+    
+    
+    top section
+        -- why is it looping twice over {% for key,buses in busdash.items() %} ?
         - display active trips with last few arrivals (e.g. approach_dash) and approaching -- click to --> trip.html
         - incorporate approach_dash
     - bottom section
@@ -46,6 +47,8 @@ v2.0
 - `Interpolate+log missed stops`: after scanning each trip and logging any new arrivals, run a function that interpolates arrival times for any stops in between arrivals in the trip card -- theoretically there shouldn't be a lot though if the trip card is correct since we are grabbing positions every 30 seconds.
 - `Boomerang buses (Case E)`: Bus that gets assigned to a stop it already visited after doubling back on a parallel street -- e.g. the 87 going down the hill getting localized to Palisade Ave stops again.
 
+**reportcard.py** 
+- `Restore next view`: trip? route? reuse the dash views? incorporate approach_dash and trip_dash templates into the new views, maybe have a route / stop and a route / vehicle(run) path -- with maps and live+archival data on each
 
 **templates/approach_dash.html** 
 - `look up stop name`: create a db table that has all the stop names (from GTFS?) so can grab them easily into the list
@@ -59,9 +62,6 @@ v2.0
 - change to postgres/mysql
 
 ## FUTURE
-
-** views **
-- consider building the tables and views in JS off of the API instead of backend python (for scalability)
 
 **Localizer.py**
 - `More accurate distance conversion`:  at least verify how far off we are. current method is using a crude assumption (1 degree = 69 miles = 364,320 feet). more accurate method - "If CRS of geodfs are EPSG 4326 (lat/lon) then returned 'dist' will be in degrees. To meters or ft either first convert both gdf to appropriate CRS proj for your location using .to_crs() or convert from degrees [link](https://t.co/FODrAWskNH)".
