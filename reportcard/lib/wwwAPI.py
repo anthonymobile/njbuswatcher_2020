@@ -67,7 +67,7 @@ class RouteReport:
         self.route_stop_list = self.get_stoplist(self.route)
 
         # populate live report card data
-        self.active_trips = self.get_activetrips()
+        self.active_trips, self.active_trips_5 = self.get_activetrips()
 
 
     def get_routename(self,route):
@@ -134,7 +134,25 @@ class RouteReport:
                 current_trip['trip_card'] = list(map(lambda obj: dict(zip(obj.keys(), obj)), scheduled_stops))
                 active_trips.append(current_trip)
 
-        return active_trips
+        # reverse sort on timestamp then take the first 5
+        # like https://www.geeksforgeeks.org/ways-sort-list-dictionaries-values-python-using-lambda-function/
+        # trying to sort a nested dict?
+        print (active_trips[0])
+
+        # https://www.w3resource.com/python-exercises/list/python-data-type-list-exercise-50.php
+        my_list = [{'key': {'subkey': 1}}, {'key': {'subkey': 10}}, {'key': {'subkey': 5}}]
+        print("Original List: ")
+        print(my_list)
+        my_list.sort(key=lambda e: e['key']['subkey'], reverse=True)
+        print("Sorted List: ")
+        print(my_list)
+
+
+        active_trips.sort(key=lambda x: x['trip_card']['arrival_timestamp'], reverse=True)
+
+        active_trips_5=active_trips[:5]
+
+        return active_trips, active_trips_5
 
 
 
