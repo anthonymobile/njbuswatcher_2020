@@ -7,30 +7,21 @@ v2.0
 
 ## NOW
 
+**wwwAPI.py**
+- add an `__init__` and `def get_tripdash` function call by copying code / does what's in the trip_dash handler in **reportcard.py** now - for the top panel of route.html (easy)
+
 **route.html**  
-
-nav at top
-    - 
-    - add buttons to jump to the page sections
-
-top section
-    - add headsign, e.g. To Hoboken (bus 5630)
+- map
+    - fix full-width display
+- reengineer so there is no other pages below this - route.html shows everything
+- top section
+    - add headsign, e.g. To Hoboken (easy)
+    - integrate view from trip_dash into here. e.g. get rid of 5-stop limit, show the whole line (medium)
     - add stop that we are approaching? (hard)
-    - url_for link for from Bus header to --> trip.html
-
-
-bottom section
-    - stops listed in small cards with grade/performance summary  -- click to --> stop.html
-
+- bottom section
+    - change it to cards with metrics about each stop
     
-**trip.html**
-    - detail trip card
-    - after trip_dash.html
-    
-**stop.html**
-    - detail for each stop (same as current stop.html)
-        
-        
+
 **index.html**
     - fix route display on map
 
@@ -45,17 +36,6 @@ bottom section
      - remove other extraneous output
 - `Interpolate+log missed stops`: after scanning each trip and logging any new arrivals, run a function that interpolates arrival times for any stops in between arrivals in the trip card -- theoretically there shouldn't be a lot though if the trip card is correct since we are grabbing positions every 30 seconds.
 - `Boomerang buses (Case E)`: Bus that gets assigned to a stop it already visited after doubling back on a parallel street -- e.g. the 87 going down the hill getting localized to Palisade Ave stops again.
-
-**reportcard.py** 
-- `Restore next view`: trip? route? reuse the dash views? incorporate approach_dash and trip_dash templates into the new views, maybe have a route / stop and a route / vehicle(run) path -- with maps and live+archival data on each
-
-**templates/approach_dash.html** 
-- `look up stop name`: create a db table that has all the stop names (from GTFS?) so can grab them easily into the list
-
-**templates/trip_dash.html** 
-- `look up stop name`: create a db table that has all the stop names (from GTFS?) so can grab them easily into the list
-- `Approach plotter`: Plot every?/current approach to the dash.
-
 
 **DataBases.py**
 - change to postgres/mysql
