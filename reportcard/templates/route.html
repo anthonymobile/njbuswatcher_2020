@@ -95,7 +95,7 @@
                 <div class="row mb-4 wow fadeIn">
 
 
-                    {% for trip in routereport.active_trips %}
+                    {% for trip in routereport.active_trips_5 %}
 
                     <!--Grid column-->
                     <div class="col-lg-4 col-md-12 mb-4">
@@ -126,8 +126,8 @@
                                     <table class="table table-sm table-hover">
                                                 <thead class="thread-dark">
                                                 <tr>
-                                                    <th>timestamp</th>
-                                                    <th>stop_name</th>
+                                                    <th>Arrival</th>
+                                                    <th>Stop</th>
                                                 </tr>
                                                 </thead>
 
@@ -138,10 +138,10 @@
 
                                                     <tr class='table-success'>
 
-                                                <tr class='table'>
+                                                <tr class='table text-left'>
 
                                                     <td>{{stop.arrival_timestamp|strftime_today}}</td>
-                                                    <td>{{stop.stop_name}}</td>
+                                                    <td>{{stop.stop_name|title}}</td>
                                                 </tr>
                                                 {% endif %}
 

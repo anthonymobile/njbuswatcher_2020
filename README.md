@@ -7,9 +7,6 @@ v2.0
 
 ## NOW
 
-**DataBases.py**
-- why isn't stop_name getting into the database?    
-    
 **route.html**  
 - nav at top
     - at buttons to jump to the page sections
@@ -18,10 +15,11 @@ v2.0
     - tag approaching stop?
     - sort most recent at top?
     - url_for link for from Bus header to --> trip.html
+    - bottom / 3rd column?
+    - restore route map
 - bottom section
     - stops listed in small cards with grade/performance summary  -- click to --> stop.html
-- bottom / side
-    - restore route map
+
     
 **trip.html**
     - detail trip card
