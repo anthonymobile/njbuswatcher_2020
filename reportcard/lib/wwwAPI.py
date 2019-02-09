@@ -67,7 +67,7 @@ class RouteReport:
         self.route_stop_list = self.get_stoplist(self.route)
 
         # populate live report card data
-        self.active_trips, self.active_trips_5 = self.get_activetrips()
+        self.active_trips = self.get_activetrips()
 
 
     def get_routename(self,route):
@@ -139,14 +139,11 @@ class RouteReport:
         # https://www.w3resource.com/python-exercises/list/python-data-type-list-exercise-50.php
         for trip in active_trips:
             trip['trip_card'].sort(key=lambda x: x['arrival_timestamp'], reverse=True)
+            trip['trip_card']=trip['trip_card'][:5]
 
+        # active_trips_5=active_trips[:5] # todo this is clipping the wrong thing -- limiting to 5 trips, not 5 arrivals per trip
 
-
-
-
-        active_trips_5=active_trips[:5]
-
-        return active_trips, active_trips_5
+        return active_trips
 
 
 

@@ -11,12 +11,9 @@
    This will keep scripts at the page end and a navbar you add on later
    intact. #}
 {% block head %}
-<META HTTP-EQUIV="refresh" CONTENT="30">
+<META HTTP-EQUIV="refresh" CONTENT="60">
 
-    <style>
-        #map { width:100%; }
-    </style>
-
+    <!-- seems to have no effect --> <style> #map { width:100%; } </style>
 
 {{ super() }}
 {% endblock %}
@@ -34,11 +31,13 @@
 
 
     <script type="text/javascript">
-        var passed_citywide_waypoints_geojson = {{ citywide_waypoints_geojson|safe }}
-        var passed_citywide_stops_geojson = {{ citywide_stops_geojson|safe }}
-        var passed_reportcard_routes = {{ reportcard_routes|safe }}
+        var passed_route = {{ routereport.route }}
+        var passed_waypoints_geojson = {{ routereport.waypoints_geojson|safe }}
+        var passed_stops_geojson = {{ routereport.stops_geojson|safe }}
     </script>
-    <script type="text/javascript" src="{{ url_for('static', filename='maps/busmap-index.js')}}"></script>
+
+    </script>
+    <script type="text/javascript" src="{{ url_for('static', filename='maps/busmap-route.js')}}"></script>
 {% endblock %}
 
 
@@ -50,52 +49,60 @@
         <div class="container">
 
 
-            <!--Section: Jumbotron-->
-            <section class="card wow fadeIn" style="background-image: url(https://mdbootstrap.com/img/Photos/Others/gradient1.jpg);">
+            <!--Section: Menu-->
+
+                <section id="menu" class="text-center">
 
                 <!-- Content -->
-                <div class="card-body text-white text-center py-5 px-5 my-5">
+                <div class="card-body text-black text-center mt-4 ">
 
                     <h1 class="mb-4">
                         <strong>{{routereport.routename}}</strong>
                     </h1>
 
-                    <!--
-                    <p>
-                        <strong>Residents and businesses in The Heights depend on them every day.</strong>
-                    </p>
                     <p class="mb-4">
-                        <strong>But its hard to evaluate the quality of bus service. That's why we built this site to provide a one-stop shop for bus performance information. Here you can see data on past performance, view maps of current service, and sign a petition to support our campaign for better bus service from NJTransit.</strong>
+                        <strong>{{routereport.description_long}}</strong>
                     </p>
-                    <a target="_self" href="#reportcards" class="btn btn-outline-white btn-lg">Get route reportcards
+                    <a target="_self" href="#current_service" class="btn btn-outline-black btn-lg">Current Service
                         <i class="fas fa-graduation-cap ml-2"></i>
                     </a>
-                    <a target="_self" href="#map" class="btn btn-outline-white btn-lg">View live map
+                    <a target="_self" href="#route_performance" class="btn btn-outline-black btn-lg">Route Performance
                         <i class="fas fa-map ml-2"></i>
                     </a>
-                    <a target="_self" href="https://goo.gl/forms/VF5S1Oclk9QTdZha2" class="btn btn-outline-white btn-lg">Sign the petition
+                    <a target="_self" href="#stops" class="btn btn-outline-black btn-lg">Stops
                         <i class="fas fa-pencil-alt ml-2"></i>
                     </a>
-                    -->
 
                 </div>
                 <!-- Content -->
             </section>
-            <!--Section: Jumbotron-->
+            <!--Section: Menu-->
 
 
-            <hr class="my-5">
 
-            <!--Section: Cards-->
-            <section id="reportcards" class="text-center">
-                     <h1 class="mb-4">
+            <!--Section: Arrivals-->
+            <section id="current_service" class="text-center">
+                     <h1 class="mb-4 mt-4">
                         <strong>On the Road Now</strong>
                     </h1>
                 <!--Grid row-->
                 <div class="row mb-4 wow fadeIn">
 
+                    <!--Map column-->
+                    <div id="map" class="col-lg-4 col-md-12  map-container">
 
-                    {% for trip in routereport.active_trips_5 %}
+                    </div>
+                    <!--Map column-->
+
+                    <!--
+                    <div class="col-lg-4 col-md-12 mb-4">
+                        <div id="map" class="container">
+
+                        </div>
+                    </div>
+                    -->
+
+                    {% for trip in routereport.active_trips %}
 
                     <!--Grid column-->
                     <div class="col-lg-4 col-md-12 mb-4">
@@ -174,7 +181,137 @@
 
 
             </section>
-            <!--Section: Cards-->
+            <!--Section: Arrivals-->
+
+
+            <!--Section: Route Performance-->
+            <section id="route_performance" class="text-center">
+                     <h1 class="mb-4">
+                        <strong>Route Performance</strong>
+                    </h1>
+                <!--Grid row-->
+                <div class="row mb-4 wow fadeIn">
+
+                    <!--Grid column-->
+                    <div class="col-lg-4 col-md-12 mb-4">
+
+                        <!--Card-->
+                        <div class="card">
+
+                            <!--Card image-->
+                            <!--
+                            <div class="view overlay">
+                                <div class="embed-responsive embed-responsive-16by9 rounded-top">
+                                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/cXTThxoywNQ" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                            -->
+
+                            <!--Card content-->
+                            <div class="card-body">
+                                <!--Title-->
+                                <h4 class="card-title">Card</h4>
+
+                                <div id="buses" class="row mt-2">
+
+
+                                </div>
+
+
+
+
+                            </div>
+
+                        </div>
+                        <!--/.Card-->
+
+
+                    </div>
+                    <!--Grid column-->
+
+
+
+
+
+                </div>
+                <!--Grid row-->
+
+
+            </section>
+            <!--Section: Route Performance-->
+
+
+            <!--Section: Stops-->
+            <section id="stops" class="text-center">
+                     <h1 class="mb-4">
+                        <strong>Stops</strong>
+                    </h1>
+                    <p class="mb-4">
+                        <strong>The following is complete list of stops on the {{routereport.route}}, grouped by direction and service. Click on a stop for a detailed report of current and past service at that location.</strong>
+                    </p>
+
+                <!--Grid row-->
+                <div class="row mb-4 wow fadeIn">
+
+
+
+
+
+
+
+                    {% for path in routereport.route_stop_list %}
+                    <!--Grid column-->
+                    <div class="col-lg-4 col-md-12 mb-4">
+
+                        <!--Card-->
+                        <div class="card">
+
+                            <!--Card image-->
+                            <!--
+                            <div class="view overlay">
+                                <div class="embed-responsive embed-responsive-16by9 rounded-top">
+                                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/cXTThxoywNQ" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                            -->
+
+                            <!--Card content-->
+                            <div class="card-body">
+                                <!--Title-->
+                                <h4 class="card-title">To {{path.dd}}</h4>
+
+                                <div id="buses" class="row mt-2">
+
+                                    {% for stop in path.stops %}
+                                    <a href = {{url_for('genStopReport',source=routereport.source,route=routereport.route,stop=stop.identity,period='daily') }} id="{{stop.st}}">
+                                            <span class="label">{{stop.st|title}} </span>
+                                    </a>
+                                    {% endfor %}
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                        <!--/.Card-->
+
+
+                    </div>
+                    <!--Grid column-->
+                    {% endfor %}
+
+
+                </div>
+                <!--Grid row-->
+
+
+            </section>
+            <!--Section: Stops-->
+
+
+
+
 
         </div>
 
