@@ -98,20 +98,21 @@
                     <!--Grid column-->
                     <div class="col-lg-4 col-md-12 mb-4">
 
+
                         <!--Card-->
-                        <div class="card">
+                        <div class="card card-cascade narrower">
 
                             <!--Card image-->
-                            <div class="view overlay">
+                            <div class="view view-cascade gradient-card-header purple-gradient rounded-top">
                                 <div class="embed-responsive">
                                     <img class="img-fluid rounded-top" src="{{ url_for('static', filename='images/banner-sm.png')}}"></img>
                                 </div>
                             </div>
 
                             <!--Card content-->
-                            <div class="card-body">
+                            <div class="card-body card-body-cascade">
                                 <!--Title-->
-                                <a href = {{ url_for('genRouteReport' ,source='nj',route=route.route) }}><h4 class="card-title">{{route.route}}</h4></a>
+                                <a href = {{ url_for('genRouteReport' ,source='nj',route=route.route) }}><h4 class="card-header-title">{{route.route}}</h4></a>
                                 <!--Text-->
                                 <p class="card-text text-left">{{route.description_short}}</p>
 

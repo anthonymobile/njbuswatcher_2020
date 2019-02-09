@@ -120,10 +120,11 @@ class RouteReport:
             trip_id = ('{id}_{run}_{dt}').format(id=b.id, run=b.run, dt=datetime.datetime.today().strftime('%Y%m%d'))
 
             with SQLAlchemyDBConnection(DBConfig.conn_str) as db:
-                # load the trip card
+                # load the trip card, dropping anything without an arrival
                 scheduled_stops = db.session.query(Trip.pid, Trip.trip_id, ScheduledStop.trip_id, ScheduledStop.stop_id, ScheduledStop.stop_name, ScheduledStop.arrival_timestamp) \
                     .join(ScheduledStop) \
                     .filter(Trip.trip_id == trip_id) \
+                    .filter(ScheduledStop.arrival_timestamp != None) \
                     .all()
                     #todo sort on something?
 
@@ -134,21 +135,14 @@ class RouteReport:
                 current_trip['trip_card'] = list(map(lambda obj: dict(zip(obj.keys(), obj)), scheduled_stops))
                 active_trips.append(current_trip)
 
-        # reverse sort on timestamp then take the first 5
-        # like https://www.geeksforgeeks.org/ways-sort-list-dictionaries-values-python-using-lambda-function/
-        # trying to sort a nested dict?
-        print (active_trips[0])
-
+        # reverse sort on timestamp then take the first 5 and return both
         # https://www.w3resource.com/python-exercises/list/python-data-type-list-exercise-50.php
-        my_list = [{'key': {'subkey': 1}}, {'key': {'subkey': 10}}, {'key': {'subkey': 5}}]
-        print("Original List: ")
-        print(my_list)
-        my_list.sort(key=lambda e: e['key']['subkey'], reverse=True)
-        print("Sorted List: ")
-        print(my_list)
+        for trip in active_trips:
+            trip['trip_card'].sort(key=lambda x: x['arrival_timestamp'], reverse=True)
 
 
-        active_trips.sort(key=lambda x: x['trip_card']['arrival_timestamp'], reverse=True)
+
+
 
         active_trips_5=active_trips[:5]
 
