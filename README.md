@@ -8,16 +8,18 @@ v2.0
 ## NOW
 
 **route.html**  
-- nav at top
-    - at buttons to jump to the page sections
-- top section
-    - verify only showing last 5 most recent stops
-    - tag approaching stop?
-    - sort most recent at top?
+
+nav at top
+    - 
+    - add buttons to jump to the page sections
+
+top section
+    - add headsign, e.g. To Hoboken (bus 5630)
+    - add stop that we are approaching? (hard)
     - url_for link for from Bus header to --> trip.html
-    - bottom / 3rd column?
-    - restore route map
-- bottom section
+
+
+bottom section
     - stops listed in small cards with grade/performance summary  -- click to --> stop.html
 
     

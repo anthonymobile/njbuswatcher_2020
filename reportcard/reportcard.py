@@ -68,10 +68,16 @@ assets.register(bundles)
 @app.route('/')
 def displayHome():
 
+    # setup a dummy routereport for the navbar
+    class Dummy():
+        def __init__(self):
+            self.routename = 'Jersey City'
+    routereport = Dummy()
+
     # waypoints, stops = wwwAPI.citymap_geojson(reportcard_routes)
     waypoints, stops = 1,2 # this works because the JS is fetching the updated points itself.
 
-    return render_template('index.html', citywide_waypoints_geojson=waypoints, citywide_stops_geojson=stops, reportcard_routes=reportcard_routes)
+    return render_template('index.html', citywide_waypoints_geojson=waypoints, citywide_stops_geojson=stops, reportcard_routes=reportcard_routes, routereport=routereport)
 
 
 #-------------------------------------------------------------RouteReport
@@ -98,7 +104,7 @@ def genTripReport(source, route, trip):
 @app.route('/<source>/<route>/stop/<stop>/<period>')
 #@cache.cached(timeout=60) # cache for 1 minute
 def genStopReport(source, route, stop, period):
-    stop_report = wwAPI.StopReport(route, stop, period)
+    stop_report = wwwAPI.StopReport(route, stop, period)
     route_report = wwwAPI.RouteReport(source, route)
     predictions = BusAPI.parse_xml_getStopPredictions(BusAPI.get_xml_data('nj', 'stop_predictions', stop=stop, route='all'))
 
