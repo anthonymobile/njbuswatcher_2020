@@ -21,6 +21,8 @@ v2.0
 - bottom section
     - change it to cards with metrics about each stop
     
+**stop.html**
+- rebuild views from previous
 
 **index.html**
     - fix route display on map

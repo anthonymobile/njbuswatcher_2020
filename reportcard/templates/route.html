@@ -81,26 +81,24 @@
 
 
             <!--Section: Arrivals-->
-            <section id="current_service" class="text-center">
+            <section id="current_service">
                      <h1 class="mb-4 mt-4">
                         <strong>On the Road Now</strong>
                     </h1>
+
+
+
                 <!--Grid row-->
                 <div class="row mb-4 wow fadeIn">
 
                     <!--Map column-->
-                    <div id="map" class="col-lg-4 col-md-12  map-container">
 
-                    </div>
-                    <!--Map column-->
 
-                    <!--
-                    <div class="col-lg-4 col-md-12 mb-4">
+                     <div  class="col-lg-4 col-md-12">
                         <div id="map" class="container">
-
                         </div>
                     </div>
-                    -->
+
 
                     {% for trip in routereport.active_trips %}
 
@@ -184,8 +182,11 @@
             <!--Section: Arrivals-->
 
 
+            <hr id="route_performance" class="my-5">
+
+
             <!--Section: Route Performance-->
-            <section id="route_performance" class="text-center">
+            <section  class="text-center">
                      <h1 class="mb-4">
                         <strong>Route Performance</strong>
                     </h1>
@@ -240,6 +241,7 @@
             </section>
             <!--Section: Route Performance-->
 
+            <hr id="stops" class="my-5">
 
             <!--Section: Stops-->
             <section id="stops" class="text-center">
