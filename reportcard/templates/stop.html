@@ -1,222 +1,423 @@
-{% extends 'index-components/route-base.html' %}
+{%- extends "base.html" %}
 
 
-{%  block scripts %}
-{{super()}}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script src="/static/chart/chart.js/dist/Chart.js"></script>
-<script src="/static/chart/frequency-histogram-steppedline.js"></script>
+{# Loads some of the macros included with Flask-Bootstrap. We are using the
+   utils module here to automatically render Flask's flashed messages in a
+   bootstrap friendly manner #}
+{% import "bootstrap/utils.html" as utils %}
 
+
+{# Inside the ``content`` is where you should place most of your own stuff.
+   This will keep scripts at the page end and a navbar you add on later
+   intact. #}
+{% block head %}
+<META HTTP-EQUIV="refresh" CONTENT="60">
+
+{{ super() }}
 {% endblock %}
 
-{% block navbar %}
+{% block scripts %}
 
-    <div class="py-2 bg-white">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <ul class="breadcrumb bg-white" style="margin-bottom:0px;margin-top:0px">
-            <li class="breadcrumb-item">
-              <a href="/">Home</a>
-            </li>
-			  <li class="breadcrumb-item">
-				  <a href="/nj/{{routereport.route}}">{{routereport.route}}</a>
-				  <!-- BUG? this breadcrumb should go back to /nj/87/service/3391 not /nj/87 -->
-			  </li>
-            <li class="breadcrumb-item active">{{stopreport.stop_name|title}}</li>
-          </ul>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="{{ url_for('static', filename='mdb/css/bootstrap.min.css')}}" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="{{ url_for('static', filename='mdb/css/mdb.min.css')}}" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="{{ url_for('static', filename='mdb/css/style.min.css')}}" rel="stylesheet">
+
+
+    <script type="text/javascript">
+        var passed_route = {{ routereport.route }}
+        var passed_waypoints_geojson = {{ routereport.waypoints_geojson|safe }}
+        var passed_stops_geojson = {{ routereport.stops_geojson|safe }}
+    </script>
+
+    </script>
+    <script type="text/javascript" src="{{ url_for('static', filename='maps/busmap-route.js')}}"></script>
+{% endblock %}
+
+
+{% block content_main %}
+
+
+    <!--Main layout-->
+    <main class="mt-2 pt-5">
+        <div class="container">
+
+
+            <!--Section: Menu-->
+
+                <section id="menu" class="text-center">
+
+                <!-- Content -->
+                <div class="card-body text-black text-center mt-4 ">
+
+                    <h1 class="mb-4">
+                        <strong>{{stopreport.stop_name|title}}</strong>
+                    </h1>
+                    <h3 class="mb-4">
+                        <strong>{{routereport.route}} {{routereport.prettyname}}</strong>
+                    </h3>
+
+                    <p class="mb-4">
+                        <strong>Some text here. Somewhere to pull some text from automatically?</strong>
+                    </p>
+                    <a target="_self" href="#current_service" class="btn btn-outline-black btn-lg">Current Service
+                        <i class="fas fa-graduation-cap ml-2"></i>
+                    </a>
+                    <a target="_self" href="#route_performance" class="btn btn-outline-black btn-lg">Route Performance
+                        <i class="fas fa-map ml-2"></i>
+                    </a>
+                    <a target="_self" href="#stops" class="btn btn-outline-black btn-lg">Stops
+                        <i class="fas fa-pencil-alt ml-2"></i>
+                    </a>
+
+                </div>
+                <!-- Content -->
+            </section>
+            <!--Section: Menu-->
+
+
+
+            <!--Section: Arrivals-->
+            <section id="current_service">
+
+
+
+                <!--Grid row-->
+                <div class="row mb-4 wow fadeIn">
+
+
+
+                    <!--
+
+                    <!--Grid column-->
+                    <div class="col-lg-6 col-md-12 mb-4">
+
+                         <h1 class="mb-4 mt-4">
+                            <strong>How Often Do Buses Come?</strong>
+                        </h1>
+
+                        <p class="head">
+                        <mark>Service Frequency</mark> is one important measure of how good bus service is at your corner.
+                        </p>
+                        <p>
+                            Below, see how often {{routereport.route}} buses serve {{stopreport.stop_name|title}}. This average is calculated over the following period: <strong>{{period}}</strong>.
+
+                        </p>
+
+                        <!--Card-->
+                        <div class="card">
+
+                            <!--Card image-->
+                            <!--
+                            <div class="view overlay">
+                                <div class="embed-responsive embed-responsive-16by9 rounded-top">
+                                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/cXTThxoywNQ" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                            -->
+
+                            <!--Card content-->
+                            <div class="card-body">
+                                <!--Title-->
+                                <h4 class="card-title">Bus {{ trip.trip_id | split_(0) }}</h4>
+                                <!--
+                                <h4 class="card-title">{{trip.trip_id}}</h4>
+                                -->
+                                <!--Text-->
+                                <div id="buses" class="row mt-2">
+
+
+
+                                             <table class="table table-sm table-hover">
+                                                <thead class="thread-dark">
+                                                  <tr>
+                                                    <th>hour</th>
+                                                    <th>bus every</th>
+                                                  </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                {% for (index,row) in hourly_frequency.iterrows() %}
+                                                    <tr class='table'>
+                                                        <td>{{row.hour|hour_as_int}}</td>
+                                                        {% if row.frequency != row.frequency %}
+                                                            <td>- - -</td>
+                                                        {% else %}
+                                                            <td>{{row.frequency|int}} mins</td>
+                                                        {% endif %}
+                                                    </tr>
+                                                {% endfor %}
+
+                                                </tbody>
+                                              </table>
+
+
+                                </div>
+
+
+
+
+                            </div>
+
+                        </div>
+                        <!--/.Card-->
+
+
+                    </div>
+                    <!--Grid column-->
+
+                    -->
+
+
+
+
+                    <!--Grid column-->
+                    <div class="col-lg-6 col-md-12 mb-4">
+
+                        <h1 class="mb-4 mt-4">
+                            <strong>How Much Bunching Is Going On?</strong>
+                        </h1>
+
+                        <p class="head">
+                         <mark>Bunching</mark> occurs when a bus arrives at a stop within 3 minutes or less of the previous bus, and leads to more irregular service, with some buses overcrowded and others virtually empty. Bunching has many causes-some of which can't be controlled-but more can be done. Red arrival times indicate a bus that bunched too close to the one ahead.
+                        </p>
+
+                        <!--Card-->
+                        <div class="card">
+
+                            <!--Card image-->
+                            <!--
+                            <div class="view overlay">
+                                <div class="embed-responsive embed-responsive-16by9 rounded-top">
+                                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/cXTThxoywNQ" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                            -->
+
+                            <!--Card content-->
+                            <div class="card-body">
+                                <!--Title-->
+                                <h4 class="card-title">Bus {{ trip.trip_id | split_(0) }}</h4>
+                                <!--
+                                <h4 class="card-title">{{trip.trip_id}}</h4>
+                                -->
+                                <!--Text-->
+                                <div id="buses" class="row mt-2">
+
+
+
+                                             <table class="table table-sm table-hover">
+                                                <thead>
+                                                  <tr>
+                                                    <th>time</th>
+                                                    <th>interval</th>
+                                                      <th>bus</th>
+                                                  </tr>
+                                                </thead>
+                                                <tbody>
+                                                {% for (index,row) in stopreport.arrivals_list_final_df.iterrows() %}
+                                                    {% if (row.delta > stopreport.bigbang) and (row.delta <= stopreport.bunching_interval) %}
+                                                        <tr class='table-danger'>
+                                                            <td>{{row.timestamp|strftime_period(period)}}</td>
+                                                            <td>{{row.delta|strftime_timedelta}}</td>
+                                                                                    <td>{{row.v}}</td>
+                                                        </tr>
+                                                    {% else %}
+                                                        <tr>
+                                                            <td>{{row.timestamp|strftime_period(period)}}</td>
+
+                                                            <td>{{row.delta|strftime_timedelta}}</td>
+                                                            <td>{{row.v}}</td>
+                                                        </tr>
+                                                    {% endif %}
+                                                {% endfor %}
+                                                </tbody>
+                                              </table>
+
+
+
+                                </div>
+
+
+
+
+                            </div>
+
+                        </div>
+                        <!--/.Card-->
+
+
+                    </div>
+                    <!--Grid column-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </div>
+                <!--Grid row-->
+
+
+            </section>
+            <!--Section: Arrivals-->
+
+
+            <hr id="route_performance" class="my-5">
+
+
+            <!--Section: Route Performance-->
+            <section  class="text-center">
+                     <h1 class="mb-4">
+                        <strong>Route Performance</strong>
+                    </h1>
+                <!--Grid row-->
+                <div class="row mb-4 wow fadeIn">
+
+                    <!--Grid column-->
+                    <div class="col-lg-4 col-md-12 mb-4">
+
+                        <!--Card-->
+                        <div class="card">
+
+                            <!--Card image-->
+                            <!--
+                            <div class="view overlay">
+                                <div class="embed-responsive embed-responsive-16by9 rounded-top">
+                                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/cXTThxoywNQ" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                            -->
+
+                            <!--Card content-->
+                            <div class="card-body">
+                                <!--Title-->
+                                <h4 class="card-title">Card</h4>
+
+                                <div id="buses" class="row mt-2">
+
+
+                                </div>
+
+
+
+
+                            </div>
+
+                        </div>
+                        <!--/.Card-->
+
+
+                    </div>
+                    <!--Grid column-->
+
+
+
+
+
+                </div>
+                <!--Grid row-->
+
+
+            </section>
+            <!--Section: Route Performance-->
+
+            <hr id="stops" class="my-5">
+
+            <!--Section: Stops-->
+            <section id="stops" class="text-center">
+                     <h1 class="mb-4">
+                        <strong>Stops</strong>
+                    </h1>
+                    <p class="mb-4">
+                        <strong>The following is complete list of stops on the {{routereport.route}}, grouped by direction and service. Click on a stop for a detailed report of current and past service at that location.</strong>
+                    </p>
+
+                <!--Grid row-->
+                <div class="row mb-4 wow fadeIn">
+
+
+
+
+
+
+
+                    {% for path in routereport.route_stop_list %}
+                    <!--Grid column-->
+                    <div class="col-lg-4 col-md-12 mb-4">
+
+                        <!--Card-->
+                        <div class="card">
+
+                            <!--Card image-->
+                            <!--
+                            <div class="view overlay">
+                                <div class="embed-responsive embed-responsive-16by9 rounded-top">
+                                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/cXTThxoywNQ" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                            -->
+
+                            <!--Card content-->
+                            <div class="card-body">
+                                <!--Title-->
+                                <h4 class="card-title">To {{path.dd}}</h4>
+
+                                <div id="buses" class="row mt-2">
+
+                                    {% for stop in path.stops %}
+                                    <a href = {{url_for('genStopReport',source=routereport.source,route=routereport.route,stop=stop.identity,period='daily') }} id="{{stop.st}}">
+                                            <span class="label">{{stop.st|title}} </span>
+                                    </a>
+                                    {% endfor %}
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                        <!--/.Card-->
+
+
+                    </div>
+                    <!--Grid column-->
+                    {% endfor %}
+
+
+                </div>
+                <!--Grid row-->
+
+
+            </section>
+            <!--Section: Stops-->
+
+
+
+
+
         </div>
-      </div>
-    </div>
-  </div>
-
-{% endblock %}
-
-{% block period_nav %}
-
-    <div class="py-2 bg-light">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <ul class="breadcrumb bg-light" style="margin-bottom:0px;margin-top:0px">
-            <li class="breadcrumb-item active"><a href = {{url_for('genStopReport',source=routereport.source,route=routereport.route,stop=stopreport.stop,period='daily')}}>daily</a></li>
-			<li class="breadcrumb-item "><a href = {{url_for('genStopReport',source=routereport.source,route=routereport.route,stop=stopreport.stop,period='yesterday')}}>yesterday</a></li>
-		    <li class="breadcrumb-item "><a href = {{url_for('genStopReport',source=routereport.source,route=routereport.route,stop=stopreport.stop,period='weekly')}}>weekly</a></li>
-		    <li class="breadcrumb-item "><a href = {{url_for('genStopReport',source=routereport.source,route=routereport.route,stop=stopreport.stop,period='history')}}>history</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-
-{% endblock %}
-
-{% block summary %}
-
-	  <div class="row">
-		<div class="col-md-12">
-		  <h1 class="display-4">
-			{{routereport.route}} <b>{{routereport.prettyname}}</b>
-          </h1>
-            <h3 class="display-4">
-			{{stopreport.stop_name|title}}
-          </h3>
-
-		</div>
-	  </div>
-
-    <div class="col-md-12" id ="arrivals-histogram">
-
-    </div>
 
 
-
-
-<!--
-<div class="alert alert-success" role="alert">
-         <h4 class="alert-heading">Meets Expectations</h4>
-              <p class="">Service is meeting expectations when actual arrivals correspond with scheduled timetables.</p>
-          </div>
-          <div class="alert alert-danger" role="alert">
-            <h4 class="alert-heading">Falling Behind</h4>
-              <p class="">When buses show up less frequently than scheduled, riders are left waiting longer and buses can be more crowded.</p>
-          </div>
--->
-
-<div class="container my-3">
-<div class="row">
-    <div class="col-md-6">
-
-
-        <h4 class="">How Often Do Buses Come?</h4>
-            <p class="head">
-                <mark>Service Frequency</mark> is one important measure of how good bus service is at your corner.
-                </p>
-    <p>
-        Below, see how often {{routereport.route}} buses serve {{stopreport.stop_name|title}}. This average is calculated over the following period: <strong>{{period}}</strong>.
-
-    </p>
-
-
-
-
-
-
-
-        <!-- CHART.JS stepped-line chart -->
-        <div id ="frequency-histogram">
-
-        </div>
-
-
-         <table class="table table-sm table-hover">
-            <thead class="thread-dark">
-              <tr>
-                <th>hour</th>
-                <th>bus every</th>
-              </tr>
-            </thead>
-            <tbody>
-
-            {% for (index,row) in hourly_frequency.iterrows() %}
-                <tr class='table'>
-                    <td>{{row.hour|hour_as_int}}</td>
-                    {% if row.frequency != row.frequency %}
-                        <td>- - -</td>
-                    {% else %}
-                        <td>{{row.frequency|int}} mins</td>
-                    {% endif %}
-                </tr>
-            {% endfor %}
-
-            </tbody>
-          </table>
-
-    </div>
-
-    <div class="col-md-6">
-
-
-            <h4 class="">How Much Bunching Is Going On?</h4>
-            <p class="head">
-                <mark>Bunching</mark> occurs when a bus arrives at a stop within 3 minutes or less of the previous bus, and leads to more irregular service, with some buses overcrowded and others virtually empty. Bunching has many causes-some of which can't be controlled-but more can be done. Red arrival times indicate a bus that bunched too close to the one ahead.
-
-
-              <table class="table table-sm table-hover">
-                <thead>
-                  <tr>
-                    <th>time</th>
-                    <th>interval</th>
-                      <th>bus</th>
-                  </tr>
-                </thead>
-                <tbody>
-                {% for (index,row) in stopreport.arrivals_list_final_df.iterrows() %}
-                    {% if (row.delta > stopreport.bigbang) and (row.delta <= stopreport.bunching_interval) %}
-                        <tr class='table-danger'>
-                            <td>{{row.timestamp|strftime_period(period)}}</td>
-                            <td>{{row.delta|strftime_timedelta}}</td>
-                                                    <td>{{row.v}}</td>
-                        </tr>
-                    {% else %}
-                        <tr>
-                            <td>{{row.timestamp|strftime_period(period)}}</td>
-
-                            <td>{{row.delta|strftime_timedelta}}</td>
-                            <td>{{row.v}}</td>
-                        </tr>
-                    {% endif %}
-                {% endfor %}
-                </tbody>
-              </table>
-
-    </div>
-</div>
-</div>
-
-
+    </main>
+    <!--Main layout-->
 
 
 {% endblock %}
-
-
-
-{% block unused %}
-
-<!--
-          <table class="table table-sm">
-            <thead>
-              <tr>
-                <th>route</th>
-                <th>destination</th>
-                <th>bus #</th>
-                <th>eta</th>
-              </tr>
-            </thead>
-            <tbody>
-
-            {% for row in predictions %}
-                {% if row.pt == 'APPROACHING' %}
-                    <tr class='table-danger'>
-                        <td>{{row.rd}}</td>
-                        <td>{{row.fd}}</td>
-                        <td>{{row.v}}</td>
-                        <td>{{row.pt}}</td>
-                    </tr>
-                {% else %}
-                    <tr class='table-secondary'>
-                        <td>{{row.rd}}</td>
-                        <td>{{row.fd}}</td>
-                        <td>{{row.v}}</td>
-                        <td>{{row.pt}} mins</td>
-                    </tr>
-                {% endif %}
-            {% endfor %}
-
-            </tbody>
-          </table>
--->
-
-{% endblock %}
-
-
