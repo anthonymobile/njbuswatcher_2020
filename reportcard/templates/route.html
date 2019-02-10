@@ -285,8 +285,7 @@
                                 <div id="buses" class="row mt-2">
 
                                     {% for stop in path.stops %}
-                                    <a href = {{url_for('genStopReport',source=routereport.source,route=routereport.route,stop=stop.identity,period='daily') }} id="{{stop.st}}">
-                                            <span class="label">{{stop.st|title}} </span>
+                                    <a href = {{url_for('genStopReport',source=routereport.source,route=routereport.route,stop=stop.identity,period='daily') }} id="{{stop.st}}"><span class="label">{{stop.st|title}}-</span>
                                     </a>
                                     {% endfor %}
 
