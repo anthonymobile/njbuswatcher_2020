@@ -72,20 +72,23 @@ def get_positions_byargs(args):
                 positions_log = pd.read_sql(db.session.query(BusPosition)
                     .filter_by(**request_filters)
                     .filter(func.date(BusPosition.timestamp) == today_date)
-                    .order_by(BusPosition.timestamp.desc()).statement
+                    .order_by(BusPosition.timestamp.desc())
+                    .statement
                     , db.session.bind)
 
             elif args['period']  == "yesterday":
                 positions_log = pd.read_sql(db.session.query(BusPosition)
                     .filter_by(**request_filters)
                     .filter(func.date(BusPosition.timestamp) == yesterday)
-                    .order_by(BusPosition.timestamp.desc()).statement
+                    .order_by(BusPosition.timestamp.desc())
+                     .statement
                     , db.session.bind)
 
             elif args['period']  == "history":
                 positions_log = pd.read_sql(db.session.query(BusPosition)
                     .filter_by(**request_filters)
-                    .order_by(BusPosition.timestamp.desc()).statement
+                    .order_by(BusPosition.timestamp.desc())
+                    .statement
                     , db.session.bind)
 
             elif args['period'] is True:
@@ -95,7 +98,8 @@ def get_positions_byargs(args):
                     positions_log = pd.read_sql(db.session.query(BusPosition)
                         .filter_by(**request_filters)
                         .filter(func.date(BusPosition.timestamp) == request_date)
-                        .order_by(BusPosition.timestamp.desc()).statement
+                        .order_by(BusPosition.timestamp.desc())
+                        .statement
                         , db.session.bind)
                 except ValueError:
                     pass

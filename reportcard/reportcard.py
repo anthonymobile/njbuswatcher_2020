@@ -91,13 +91,13 @@ def genRouteReport(source, route):
     # bunchingreport, grade_letter, grade_numeric, grade_description, time_created = routereport.load_bunching_leaderboard( route)
     return render_template('route.html', source=source, route=route, routereport=route_report)
 
-#------------------------------------------------------------TripReport
-# /<source>/<route>/trip/<trip>
-@app.route('/<source>/<route>/trip/<trip>')
-#@cache.cached(timeout=60) # cache for 1 minute
-def genTripReport(source, route, trip):
-    trip_report = wwwAPI.TripReport(source, trip)
-    return render_template('trip.html', source=source, route=route, trip=trip, tripreport=trip_report)
+# #------------------------------------------------------------TripReport
+# # /<source>/<route>/trip/<trip>
+# @app.route('/<source>/<route>/trip/<trip>')
+# #@cache.cached(timeout=60) # cache for 1 minute
+# def genTripReport(source, route, trip):
+#     trip_report = wwwAPI.TripReport(source, trip)
+#     return render_template('trip.html', source=source, route=route, trip=trip, tripreport=trip_report)
 
 #------------------------------------------------------------StopReport
 # /<source>/<route>/stop/<stop>/<period>
@@ -107,7 +107,6 @@ def genStopReport(source, route, stop, period):
     stop_report = wwwAPI.StopReport(route, stop, period)
     route_report = wwwAPI.RouteReport(source, route)
     predictions = BusAPI.parse_xml_getStopPredictions(BusAPI.get_xml_data('nj', 'stop_predictions', stop=stop, route='all'))
-
 
     return render_template('stop.html', source=source, stop=stop, trip=trip, period=period, stopreport=stop_report, predictions=predictions, routereport=route_report)
 
