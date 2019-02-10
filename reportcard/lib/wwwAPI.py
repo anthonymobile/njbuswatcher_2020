@@ -258,19 +258,6 @@ class StopReport:
         with SQLAlchemyDBConnection(DBConfig.conn_str) as db:
             today_date = datetime.date.today()
             yesterday = datetime.date.today() - datetime.timedelta(1)
-            request_filters = {i: args[i] for i in args if i != 'period'}
-
-            # BASE QUERY
-            # grab all the arrivals here for this period
-            scheduled_stops = pd.read_sql(db.session.query(Trip.v, Trip.trip_id, Trip.pid, Trip.trip_id,
-                                                           ScheduledStop.trip_id, ScheduledStop.stop_id,
-                                                           ScheduledStop.stop_name, ScheduledStop.arrival_timestamp)
-                                                .join(ScheduledStop)
-                                                .filter(ScheduledStop.stop_id == stop)
-                                                .filter(ScheduledStop.arrival_timestamp != None)
-                                                .filter(func.date(ScheduledStop.arrival_timestamp) == today_date)
-                                                .statement
-                                                , db.session.bind)
 
             if period == "daily":
                 arrivals_here = pd.read_sql(db.session.query(Trip.v, Trip.trip_id, Trip.pid, Trip.trip_id,
