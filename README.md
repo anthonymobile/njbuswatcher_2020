@@ -7,25 +7,24 @@ v2.0
 
 ## NOW
 
-**wwwAPI.py**
-- add an `__init__` and `def get_tripdash` function call by copying code / does what's in the trip_dash handler in **reportcard.py** now - for the top panel of route.html (easy)
-
-**route.html**  
-- map
-    - fix full-width display
-- reengineer so there is no other pages below this - route.html shows everything
-- top section
-    - add headsign, e.g. To Hoboken (easy)
-    - integrate view from trip_dash into here. e.g. get rid of 5-stop limit, show the whole line (medium)
-    - add stop that we are approaching? (hard)
-- bottom section
-    - change it to cards with metrics about each stop
-    
 **stop.html**
-- rebuild views from previous
+- debug lower
+- activate upper (hourly frequency)
 
 **index.html**
     - fix route display on map
+
+**route.html**  
+- top section
+    - add headsign, e.g. To Hoboken (easy)
+    - integrate view from trip_dash into here. e.g. get rid of 5-stop limit, show the whole line (medium)
+    - add stop that we are approaching (hard?)
+    **wwwAPI.py**
+        - add an `__init__` and `def get_tripdash` function call by copying code / does what's in the trip_dash handler in **reportcard.py** now - for the top panel of route.html (easy)
+- bottom section
+    - change it to cards with grade + new metrics about each stop
+    
+
 
 ## MUST DO
 
@@ -43,6 +42,8 @@ v2.0
 - change to postgres/mysql
 
 ## FUTURE
+
+**NEW METRICS !!! WHY I STARTED THE WHOLE DAMN REFACTOR !!**
 
 **Localizer.py**
 - `More accurate distance conversion`:  at least verify how far off we are. current method is using a crude assumption (1 degree = 69 miles = 364,320 feet). more accurate method - "If CRS of geodfs are EPSG 4326 (lat/lon) then returned 'dist' will be in degrees. To meters or ft either first convert both gdf to appropriate CRS proj for your location using .to_crs() or convert from degrees [link](https://t.co/FODrAWskNH)".
