@@ -19,24 +19,23 @@ v2.0
     -  two column reports
         - left: arrivals for period
         - right: hourly frequency for period
-    
-**index.html**
-    - fix route display on map
 
 **route.html**  
 - top section: Current Service
     - replace Current Service with the tripdash view in columns below map 
         - add headsign, e.g. To Hoboken (easy)
         - integrate view from trip_dash into here. e.g. get rid of 5-stop limit, show the whole line (medium)
-
 -middle section: Route Performance 
     -bunching grade
     -(see below -- mockup for now)
-
 - bottom section: Stops
     - change it to card for each stop with one or two metrics about each stop (average frequency? bunchiness, etc?)
     
-
+**route_config.py**
+    - short and long descriptions for the new lines
+    
+**index.html**
+    - fix route display on map
 
 ## MUST DO BEFORE LAUNCH
 
