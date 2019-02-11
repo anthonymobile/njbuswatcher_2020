@@ -68,6 +68,7 @@ class RouteReport:
 
         # populate live report card data
         self.active_trips = self.get_activetrips()
+        self.tripdash = self.get_tripdash()
 
 
     def get_routename(self,route):
@@ -149,29 +150,30 @@ class RouteReport:
     # functions to work on
     ###########################################################
 
-    # def get_tripdash(self, ++? source, route, run):
-    #
-    #     with SQLAlchemyDBConnection(DBConfig.conn_str) as db:
-    #
-    #         # compute trip_ids
-    #         todays_date = datetime.datetime.today().strftime('%Y%m%d')
-    #         trip_id_list = []
-    #         v_on_route = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data(source, 'buses_for_route', route=route))
-    #         for v in v_on_route:
-    #             if v.run == run:
-    #                 trip_id = (('{a}_{b}_{c}').format(a=v.id, b=v.run, c=todays_date))
-    #             else:
-    #                 pass
-    #         trips_dash = dict()
-    #         # load the trip card
-    #         scheduled_stops = db.session.query(ScheduledStop) \
-    #             .join(Trip) \
-    #             .filter(Trip.trip_id == trip_id) \
-    #             .order_by(ScheduledStop.pkey.asc()) \
-    #             .all()
-    #         trips_dash[trip_id] = scheduled_stops
-    #
-    #     return trips_dash
+    def get_tripdash(self):
+
+        with SQLAlchemyDBConnection(DBConfig.conn_str) as db:
+
+            # build a list of tuples with (run, trip_id)
+            v_on_route = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data(self.source, 'buses_for_route', route=self.route))
+            todays_date = datetime.datetime.today().strftime('%Y%m%d')
+            trip_list=list()
+
+            for v in v_on_route:
+                trip_id=('{a}_{b}_{c}').format(a=v.id,b=v.run, c=todays_date)
+                trip_list.append((v.run,trip_id))
+
+            for trip in trip_list:
+                # load the trip card
+                tripdash = dict()
+                scheduled_stops = db.session.query(ScheduledStop) \
+                    .join(Trip) \
+                    .filter(Trip.trip_id == trip[1]) \
+                    .order_by(ScheduledStop.pkey.asc()) \
+                    .all()
+                tripdash[trip_id] = scheduled_stops
+
+        return tripdash
 
     # pull this from the database based on the Tripid?
     # using with SQLAlchemyDBConnection as db:
