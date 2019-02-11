@@ -8,17 +8,9 @@ v2.0
 ## NOW
 
 **wwwAPI.py**
-    - write StopReport.get_hourly_frequency
-    - add an RouteReport.`__init__` and `def get_tripdash` function call by copying code / does what's in the trip_dash handler
-        - might be able to deprecate get_arrivals after this
+    - debug StopReport.get_hourly_frequency -- doesnt seem to be returning all the trips in RouteReport.tripdash, or they aren't getting cycled (and need to keep in mind this will go out of date -- is there a trigger for it to update anytime the instance is touched?)
     - rewrite bunching_report
-    
-**stop.html**
-- make HTML a replica of current website view
-    - top: period picker bar
-    -  two column reports
-        - left: arrivals for period
-        - right: hourly frequency for period
+    - deprecate get_arrivals?
 
 **route.html**  
 - top section: Current Service
@@ -30,7 +22,14 @@ v2.0
     -(see below -- mockup for now)
 - bottom section: Stops
     - change it to card for each stop with one or two metrics about each stop (average frequency? bunchiness, etc?)
-    
+
+**stop.html**
+- make HTML a replica of current website view
+    - top: period picker bar
+    -  two column reports
+        - left: arrivals for period
+        - right: hourly frequency for period
+
 **route_config.py**
     - short and long descriptions for the new lines
     
