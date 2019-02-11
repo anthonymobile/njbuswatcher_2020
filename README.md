@@ -1,32 +1,44 @@
 # NJ BusWatcher
 v2.0
-**5 feb 2019**
+**10 feb 2019**
 
 ---
 # ROADMAP TO COMPLETION
 
 ## NOW
 
+**wwwAPI.py**
+    - write StopReport.get_hourly_frequency
+    - add an RouteReport.`__init__` and `def get_tripdash` function call by copying code / does what's in the trip_dash handler
+        - might be able to deprecate get_arrivals after this
+    - rewrite bunching_report
+    
 **stop.html**
-- debug lower
-- activate upper (hourly frequency)
-
+- make HTML a replica of current website view
+    - top: period picker bar
+    -  two column reports
+        - left: arrivals for period
+        - right: hourly frequency for period
+    
 **index.html**
     - fix route display on map
 
 **route.html**  
-- top section
-    - add headsign, e.g. To Hoboken (easy)
-    - integrate view from trip_dash into here. e.g. get rid of 5-stop limit, show the whole line (medium)
-    - add stop that we are approaching (hard?)
-    **wwwAPI.py**
-        - add an `__init__` and `def get_tripdash` function call by copying code / does what's in the trip_dash handler in **reportcard.py** now - for the top panel of route.html (easy)
-- bottom section
-    - change it to cards with grade + new metrics about each stop
+- top section: Current Service
+    - replace Current Service with the tripdash view in columns below map 
+        - add headsign, e.g. To Hoboken (easy)
+        - integrate view from trip_dash into here. e.g. get rid of 5-stop limit, show the whole line (medium)
+
+-middle section: Route Performance 
+    -bunching grade
+    -(see below -- mockup for now)
+
+- bottom section: Stops
+    - change it to card for each stop with one or two metrics about each stop (average frequency? bunchiness, etc?)
     
 
 
-## MUST DO
+## MUST DO BEFORE LAUNCH
 
 **tripwatcher.py**
 - `approach assignment`: 3+ position seems to still be having problems...

@@ -234,6 +234,7 @@ class StopReport:
 
         # populate stop report data
         self.arrivals_list_final_df, self.stop_name = self.get_arrivals(self.route, self.stop, self.period)
+        # todo self.hourly_frequency = self.get_hourly_frequency()
 
         # constants
         self.bunching_interval = datetime.timedelta(minutes=3)
@@ -311,7 +312,7 @@ class StopReport:
         # split final approach history (sorted by timestamp)
         # at each change in vehicle_id outputs a list of dfs
         # per https://stackoverflow.com/questions/41144231/python-how-to-split-pandas-dataframe-into-subsets-based-on-the-value-in-the-fir
-        arrivals_here = timestamp_fix(arrivals_here,'arrival_timestamp')
+
         final_approach_dfs = [g for i, g in arrivals_here.groupby(arrivals_here['v'].ne(arrivals_here['v'].shift()).cumsum())]
 
         try:
