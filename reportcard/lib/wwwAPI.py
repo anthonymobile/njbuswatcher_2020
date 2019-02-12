@@ -161,14 +161,14 @@ class RouteReport:
 
             for v in v_on_route:
                 trip_id=('{a}_{b}_{c}').format(a=v.id,b=v.run, c=todays_date)
-                trip_list.append((v.run,trip_id))
+                trip_list.append(trip_id)
 
-            for trip in trip_list:
+            tripdash = dict()
+            for trip_id in trip_list:
                 # load the trip card
-                tripdash = dict()
                 scheduled_stops = db.session.query(ScheduledStop) \
                     .join(Trip) \
-                    .filter(Trip.trip_id == trip[1]) \
+                    .filter(Trip.trip_id == trip_id) \
                     .order_by(ScheduledStop.pkey.asc()) \
                     .all()
                 tripdash[trip_id] = scheduled_stops
@@ -219,10 +219,11 @@ class RouteReport:
 
 
     # def load_bunching_leaderboard(self,route):
-    #     infile = ('data/bunching_leaderboard_'+route+'.pickle')
-    #     with open(infile, 'rb') as handle:
-    #         b = pickle.load(handle)
-    #     return b['bunching_leaderboard'], b['grade'], b['grade_numeric'], b['grade_description'], b['time_created']
+        # copy from old repo
+        #     infile = ('data/bunching_leaderboard_'+route+'.pickle')
+        #     with open(infile, 'rb') as handle:
+        #         b = pickle.load(handle)
+        #     return b['bunching_leaderboard'], b['grade'], b['grade_numeric'], b['grade_description'], b['time_created']
 
 
 

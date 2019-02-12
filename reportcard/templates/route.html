@@ -115,15 +115,6 @@
                         <!--Card-->
                         <div class="card">
 
-                            <!--Card image-->
-                            <!--
-                            <div class="view overlay">
-                                <div class="embed-responsive embed-responsive-16by9 rounded-top">
-                                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/cXTThxoywNQ" allowfullscreen></iframe>
-                                </div>
-                            </div>
-                            -->
-
                             <!--Card content-->
                             <div class="card-body">
                                 <!--Title-->
@@ -207,28 +198,61 @@
                     <!--Grid column-->
                     <div class="col-lg-4 col-md-12 mb-4">
 
+
                         <!--Card-->
                         <div class="card">
 
-                        <p class="lead">trip {{ trip }} </p>
+                            <!--Card content-->
+                            <div class="card-body">
+                                <!--Title-->
+                                <h4 class="card-title">Bus {{ trip | split_(0) }}</h4>
+                                <!--
+                                <h4 class="card-title">{{trip.trip_id}}</h4>
+                                -->
+                                <!--Text-->
+                                <div id="buses" class="row mt-2">
 
-                            {% for stop in stoplist %}
-                                <button type="button" class="btn btn-light text-left">
-                                    {{stop.stop_name}}
-                                    {% if stop.arrival_timestamp is not none %}
-                                        <span class="badge badge-primary">{{stop.arrival_timestamp|strftime_today}}</span>
-                                    {% else %}
-                                        ---
-                                    {% endif %}
-                                </button>
-                            {% endfor %}
+
+                                    <table class="table table-sm table-hover">
+                                                <thead class="thread-dark">
+                                                <tr>
+                                                    <th>Arrival</th>
+                                                    <th>Stop</th>
+                                                </tr>
+                                                </thead>
+
+                                                <tbody>
+                                                {% for stop in stoplist %}
+                                                 <tr class='table text-left'>
+
+                                                 {% if stop.arrival_timestamp is not none %}
+                                                    <td class="table-primary">{{stop.arrival_timestamp|strftime_today}}</td>
+                                                     <td class="table-secondary">{{stop.stop_name|title}}</td>
+                                                 {% else %}
+                                                     <td> -- </td>
+                                                     <td>{{stop.stop_name|title}}</td>
+                                                 {% endif %}
+
+                                                </tr>
+
+
+                                                {% endfor %}
+
+                                                </tbody>
+                                    </table>
+
+                                </div>
+
+                            </div>
+                            <!--/.Card-->
+
 
                         </div>
+                        <!--Grid column-->
 
                     </div>
-
+                    <!--Grid row-->
                     {% endfor %}
-
                 </div>
 
              </section>
