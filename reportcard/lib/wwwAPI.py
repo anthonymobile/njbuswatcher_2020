@@ -12,19 +12,33 @@ from route_config import reportcard_routes, grade_descriptions
 
 
 # geoJSON for citywide map
-def citymap_geojson(reportcard_routes):
-    points = []
+def get_systemwide_geojson(reportcard_routes):
+
+    waypoints = []
     stops = []
-    for i in reportcard_routes:
-        routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data('nj', 'routes', route=i['route']))
-        points_feature = json.loads(coordinate_bundle['waypoints_geojson'])
+    for r in reportcard_routes:
+        routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(
+            BusAPI.get_xml_data('nj', 'routes', route=r['route']))
+
+        # todo collapse these into...
+        waypoints_feature = json.loads(coordinate_bundle['waypoints_geojson'])
         stops_feature = json.loads(coordinate_bundle['stops_geojson'])
 
-        points.append(points_feature)
+        # these?..
+        waypoints_feature = geojson.Feature(geometry=waypoints_feature)
+        stops_feature = geojson.Feature(geometry=stops_feature)
+
+        # like this?
+        # waypoints_feature = geojson.Feature(geometry=json.loads(coordinate_bundle['waypoints_geojson']))
+        # stops_feature = geojson.Feature(geometry=json.loads(coordinate_bundle['stops_geojson']))
+
+        waypoints.append(waypoints_feature)
         stops.append(stops_feature)
-    map_points = geojson.FeatureCollection(points)
-    map_stops = geojson.FeatureCollection(stops)
-    return map_points, map_stops
+
+    waypoints_featurecollection = geojson.FeatureCollection(waypoints)
+    stops_featurecollection = geojson.FeatureCollection(stops)
+
+    return waypoints_featurecollection, stops_featurecollection
 
 
 # primary classes

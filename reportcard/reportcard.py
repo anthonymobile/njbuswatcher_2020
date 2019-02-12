@@ -8,6 +8,7 @@ conn_str = 'sqlite:///jc_buswatcher.db'
 # IMPORTS
 ################################################
 import datetime, logging, sys
+import geojson, json
 
 from flask import Flask, render_template, request
 from flask_bootstrap import Bootstrap
@@ -82,9 +83,13 @@ def displayHome():
             self.routename = 'Jersey City'
     routereport = Dummy()
 
-    waypoints, stops = wwwAPI.citymap_geojson(reportcard_routes)
 
-    return render_template('index.html', citywide_waypoints_geojson=waypoints, citywide_stops_geojson=stops, reportcard_routes=reportcard_routes, routereport=routereport)
+    waypoints_featurecollection, stops_featurecollection = wwwAPI.get_systemwide_geojson(reportcard_routes)
+
+
+
+
+    return render_template('index.html', citywide_waypoints_geojson=waypoints_featurecollection, citywide_stops_geojson=stops_featurecollection, reportcard_routes=reportcard_routes, routereport=routereport)
 
 
 #-------------------------------------------------------------RouteReport
