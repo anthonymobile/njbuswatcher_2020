@@ -8,9 +8,8 @@ v2.0
 ## NOW
 
 **wwwAPI.py**
-    - debug RouteReport.get_tripdash -- is only return one trip, not all of them.
-    - rewrite bunching_report
-    - deprecate get_arrivals?
+- rewrite bunching_report
+- deal with self.tripdash staleness
 
 **route.html**  
 - top section: Current Service
@@ -32,25 +31,34 @@ v2.0
             - make a histogram using the rough.js bar chart (embed script in page if its easier)
 
 **route_config.py**
-    - short and long descriptions for the new lines
+- short and long descriptions for the new lines
     
 **index.html**
-    - fix route display on map
+- map
+    - restore routes dispaly
+    - `Starting extent`: zoom to extent of ALL lines (not just the arbitrary nth [n] line in the route array as currently)
+- route cards
+    - add grade, other metrics, link to schedule?
+
 
 ## MUST DO BEFORE LAUNCH
 
 **tripwatcher.py**
+- single instance reads route_config.py, spaces out scans of them all over 30 seconds and quits (so dont have to cron individual routes) 
 - `approach assignment`: 3+ position seems to still be having problems...
 -`simplify/comment out console logging`:   
     - make clearer that only displaying stops that dont have approach logged yet
     - fix the approach array for 1-position	approaches to be consistent
 		 0.0,195 distance_to_stop 195
      - remove other extraneous output
-- `Interpolate+log missed stops`: after scanning each trip and logging any new arrivals, run a function that interpolates arrival times for any stops in between arrivals in the trip card -- theoretically there shouldn't be a lot though if the trip card is correct since we are grabbing positions every 30 seconds.
+- `Interpolate+log missed stops` after scanning each trip and logging any new arrivals, run a function that interpolates arrival times for any stops in between arrivals in the trip card -- theoretically there shouldn't be a lot though if the trip card is correct since we are grabbing positions every 30 seconds.
 - `Boomerang buses (Case E)`: Bus that gets assigned to a stop it already visited after doubling back on a parallel street -- e.g. the 87 going down the hill getting localized to Palisade Ave stops again.
 
 **DataBases.py**
-- change to postgres/mysql
+- change data store to postgres or mysql
+
+**reportcard.py**
+- enable and tune caching
 
 ## FUTURE
 
@@ -65,13 +73,6 @@ v2.0
 **Databases.py** 
 - `relationships! use them!` `children_ScheduledStops` and `parent_Trip` are incredibly use attributes any record i pull from the db will have now. use them to extend the query sets we get back!!!!
 - `Exception handler`: smarter check in get_session on table creation --> try if table exists == False:
-
-**static/maps/busmap-index.js**
-- `Starting extent`: zoom to extent of ALL lines (not just the arbitrary nth [n] line in the route array as currently)
-
-**templates**
-- index: 
-    - tiles should have line #, capsule description, grade, other metrics, and links to reports/schedules
 
 **sysadmin** 
 - `Dockerization`: dockerize entire application and its database, using docker-compose [tutorial](https://github.com/stavshamir/docker-tutorial/tree/master/app)
