@@ -76,33 +76,19 @@ assets.register(bundles)
 #-------------------------------------------------------------Index
 @app.route('/')
 def displayHome():
-
     # setup a dummy routereport for the navbar
     class Dummy():
         def __init__(self):
             self.routename = 'Jersey City'
     routereport = Dummy()
-
-
     waypoints_featurecollection, stops_featurecollection = wwwAPI.get_systemwide_geojson(reportcard_routes)
-
-
-
-
     return render_template('index.html', citywide_waypoints_geojson=waypoints_featurecollection, citywide_stops_geojson=stops_featurecollection, reportcard_routes=reportcard_routes, routereport=routereport)
-
 
 #-------------------------------------------------------------RouteReport
 @app.route('/<source>/<route>')
-#@cache.cached(timeout=3600) # cache for 1 hour
 def genRouteReport(source, route):
-
     route_report = wwwAPI.RouteReport(source, route)
-
-    # period='weekly'
-    # bunchingreport, grade_letter, grade_numeric, grade_description, time_created = routereport.load_bunching_leaderboard( route)
     return render_template('route.html', source=source, route=route, routereport=route_report)
-
 
 #------------------------------------------------------------StopReport
 # /<source>/<route>/stop/<stop>/<period>

@@ -5,31 +5,27 @@ v2.0
 ---
 # ROADMAP TO COMPLETION
 
-## TODAY
-
-**wwwAPI.py**
-- test bunching_report / cron_nightly.py
-
-**route.html**  
-- top section: Current Service
-    - replace Current Service with the tripdash view in columns below map 
-        - add headsign, e.g. To Hoboken (easy)
-        - integrate view from trip_dash into here. e.g. get rid of 5-stop limit, show the whole line (medium)
--middle section: Route Performance 
-    -bunching grade
-    -(see below -- mockup for now)
-- bottom section: Stops
-    - change it to card for each stop with one or two metrics about each stop (average frequency? bunchiness, etc?)
-    
 ## NEXT
+**wwwAPI**
+    - arrivals_list_final_df is coming back empty all the time... debug with a full data set on a busy stop
 
 **stop.html**
-- make HTML a replica of current website view
     - top: period picker bar
+    - hourly frequency
+        - add a rough.js histogram / D3
     -  two column reports
         - left: arrivals for period
         - right: hourly frequency for period
             - make a histogram using the rough.js bar chart (embed script in page if its easier)
+
+**route.html**  
+-middle section: Route Performance 
+    -bunching grade
+    -(see below -- mockup for now)
+     
+**wwwAPI.py**
+- rebuild bunching_report / cron_nightly.py
+
 
 **route_config.py**
 - short and long descriptions for the new lines

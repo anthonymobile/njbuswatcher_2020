@@ -1,6 +1,6 @@
 import lib.wwwAPI as wwwAPI
 
-from route_config import reportcard_routes,grade_descriptions
+from route_config import reportcard_routes, grade_descriptions
 
 # hardcode transit system
 source = 'nj'
@@ -12,7 +12,7 @@ period = 'weekly'
 for rt_no in reportcard_routes:
 
     # create base RouteReport instance
-    routereport=wwwAPI.RouteReport(source,rt_no['route'],reportcard_routes,grade_descriptions)
+    routereport=wwwAPI.RouteReport(source,rt_no['route'])
 
     # generate individual reports to a pickle file
 
@@ -21,3 +21,4 @@ for rt_no in reportcard_routes:
 
     # generate other reports
     # e.g. routereport.get_bunching_leaderboard()
+

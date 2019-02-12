@@ -63,15 +63,16 @@
                     <p class="mb-4">
                         <strong>{{routereport.description_long}}</strong>
                     </p>
-                    <a target="_self" href="#current_service" class="btn btn-outline-black btn-lg">Current Service
+                    <!--<a target="_self" href="#stops" class="btn btn-outline-black btn-lg">Stop Info-->
+                        <!--<i class="fas fa-pencil-alt ml-2"></i>-->
+                    <!--</a>-->
+                    <a target="_self" href="#current_service" class="btn btn-outline-black btn-lg">Current Service (Live)
                         <i class="fas fa-graduation-cap ml-2"></i>
                     </a>
                     <a target="_self" href="#route_performance" class="btn btn-outline-black btn-lg">Route Performance
                         <i class="fas fa-map ml-2"></i>
                     </a>
-                    <a target="_self" href="#stops" class="btn btn-outline-black btn-lg">Stops
-                        <i class="fas fa-pencil-alt ml-2"></i>
-                    </a>
+
 
                 </div>
                 <!-- Content -->
@@ -95,12 +96,12 @@
             </section>
 
 
-            <hr id="route_performance" class="my-5">
 
+            <hr id="current_service" class="my-5">
 
 
             <!--Section: Trip Dashboard-->
-            <section id="current_service">
+            <section>
                      <h1 class="mb-4 mt-4">
                         <strong>On the Road Now</strong>
                     </h1>
@@ -131,8 +132,17 @@
                                                  <tr class='table text-left'>
 
                                                  {% if stop.arrival_timestamp is not none %}
-                                                     <td class="table-primary"><small>{{stop.arrival_timestamp|strftime_today}}</small></td>
-                                                     <td class="table-secondary"><a href = {{url_for('genStopReport',source=routereport.source,route=routereport.route,stop=stop.identity,period='daily') }} id="{{stop.st}}"><small>{{stop.stop_name|title}}</small></a></td>
+                                                     <td class="table-primary"><span class="small">{{stop.arrival_timestamp|strftime_today}}</span></td>
+                                                     <td class="table-secondary">
+                                                         <a href = {{url_for('genStopReport',source=routereport.source,route=routereport.route,stop=stop.stop_id,period='daily') }} id="{{stop.st}}">
+                                                         <span class="small">{{stop.stop_name|title}}
+                                                     </span>
+                                                     </a></td>
+
+
+
+
+
                                                  {% else %}
                                                      <td><small>--</small></td>
                                                      <td><small>{{stop.stop_name|title}}</small></td>
@@ -164,7 +174,73 @@
             <!--Section: Trip Dashboard-->
 
 
-            <hr class="my-5">
+
+            <!--&lt;!&ndash;Section: Stops&ndash;&gt;-->
+            <!--<hr id="stops" class="my-5">-->
+
+            <!--<section class="text-left">-->
+                     <!--<h1 class="mb-4">-->
+                        <!--<strong>Stops</strong>-->
+                    <!--</h1>-->
+                    <!--<p class="mb-4">-->
+                        <!--<strong>The following is complete list of stops on the {{routereport.route}}, grouped by direction and service. Click on a stop for a detailed report of current and past service at that location.</strong>-->
+                    <!--</p>-->
+
+                <!--&lt;!&ndash;Grid row&ndash;&gt;-->
+                <!--<div class="row mb-4 wow fadeIn">-->
+
+
+                    <!--{% for path in routereport.route_stop_list %}-->
+                    <!--&lt;!&ndash;Grid column&ndash;&gt;-->
+                    <!--<div class="col-lg-4 col-md-12 mb-4">-->
+
+                        <!--&lt;!&ndash;Card&ndash;&gt;-->
+                        <!--<div class="card">-->
+
+                            <!--&lt;!&ndash;Card image&ndash;&gt;-->
+                            <!--&lt;!&ndash;-->
+                            <!--<div class="view overlay">-->
+                                <!--<div class="embed-responsive embed-responsive-16by9 rounded-top">-->
+                                    <!--<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/cXTThxoywNQ" allowfullscreen></iframe>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--&ndash;&gt;-->
+
+                            <!--&lt;!&ndash;Card content&ndash;&gt;-->
+                            <!--<div class="card-body">-->
+                                <!--&lt;!&ndash;Title&ndash;&gt;-->
+                                <!--<h4 class="card-title">To {{path.dd}}</h4>-->
+
+                                <!--<div id="buses" class="row mt-2">-->
+
+                                    <!--{% for stop in path.stops %}-->
+                                    <!--<a href = {{url_for('genStopReport',source=routereport.source,route=routereport.route,stop=stop.identity,period='daily') }} id="{{stop.st}}"><span class="label">{{stop.st|title}}-</span>-->
+                                    <!--</a>-->
+                                    <!--{% endfor %}-->
+
+                                <!--</div>-->
+
+
+                            <!--</div>-->
+
+                        <!--</div>-->
+                        <!--&lt;!&ndash;/.Card&ndash;&gt;-->
+
+
+                    <!--</div>-->
+                    <!--&lt;!&ndash;Grid column&ndash;&gt;-->
+                    <!--{% endfor %}-->
+
+
+                <!--</div>-->
+                <!--&lt;!&ndash;Grid row&ndash;&gt;-->
+
+
+            <!--</section>-->
+            <!--&lt;!&ndash;Section: Stops&ndash;&gt;-->
+
+
+            <hr id="route_performance" class="my-5">
 
 
                 <!--Section: Route Performance-->
@@ -193,7 +269,7 @@
                             <!--Card content-->
                             <div class="card-body">
                                 <!--Title-->
-                                <h4 class="card-title">Card</h4>
+                                <h4 class="card-title">Coming soon.</h4>
 
                                 <div id="buses" class="row mt-2">
 
@@ -307,76 +383,6 @@
 
             <!--</section>-->
             <!--&lt;!&ndash;Section: Current Service&ndash;&gt;-->
-
-
-
-            <!--&lt;!&ndash;Section: Stops&ndash;&gt;-->
-            <!--<section id="stops" class="text-left">-->
-                     <!--<h1 class="mb-4">-->
-                        <!--<strong>Stops</strong>-->
-                    <!--</h1>-->
-                    <!--<p class="mb-4">-->
-                        <!--<strong>The following is complete list of stops on the {{routereport.route}}, grouped by direction and service. Click on a stop for a detailed report of current and past service at that location.</strong>-->
-                    <!--</p>-->
-
-                <!--&lt;!&ndash;Grid row&ndash;&gt;-->
-                <!--<div class="row mb-4 wow fadeIn">-->
-
-
-
-
-
-
-
-                    <!--{% for path in routereport.route_stop_list %}-->
-                    <!--&lt;!&ndash;Grid column&ndash;&gt;-->
-                    <!--<div class="col-lg-4 col-md-12 mb-4">-->
-
-                        <!--&lt;!&ndash;Card&ndash;&gt;-->
-                        <!--<div class="card">-->
-
-                            <!--&lt;!&ndash;Card image&ndash;&gt;-->
-                            <!--&lt;!&ndash;-->
-                            <!--<div class="view overlay">-->
-                                <!--<div class="embed-responsive embed-responsive-16by9 rounded-top">-->
-                                    <!--<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/cXTThxoywNQ" allowfullscreen></iframe>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                            <!--&ndash;&gt;-->
-
-                            <!--&lt;!&ndash;Card content&ndash;&gt;-->
-                            <!--<div class="card-body">-->
-                                <!--&lt;!&ndash;Title&ndash;&gt;-->
-                                <!--<h4 class="card-title">To {{path.dd}}</h4>-->
-
-                                <!--<div id="buses" class="row mt-2">-->
-
-                                    <!--{% for stop in path.stops %}-->
-                                    <!--<a href = {{url_for('genStopReport',source=routereport.source,route=routereport.route,stop=stop.identity,period='daily') }} id="{{stop.st}}"><span class="label">{{stop.st|title}}-</span>-->
-                                    <!--</a>-->
-                                    <!--{% endfor %}-->
-
-                                <!--</div>-->
-
-
-                            <!--</div>-->
-
-                        <!--</div>-->
-                        <!--&lt;!&ndash;/.Card&ndash;&gt;-->
-
-
-                    <!--</div>-->
-                    <!--&lt;!&ndash;Grid column&ndash;&gt;-->
-                    <!--{% endfor %}-->
-
-
-                <!--</div>-->
-                <!--&lt;!&ndash;Grid row&ndash;&gt;-->
-
-
-            <!--</section>-->
-            <!--&lt;!&ndash;Section: Stops&ndash;&gt;-->
-
 
 
 
