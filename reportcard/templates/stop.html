@@ -64,14 +64,14 @@
                     <p class="mb-4">
                         <strong>Some text here. Somewhere to pull some text from automatically?</strong>
                     </p>
-                    <a target="_self" href="#current_service" class="btn btn-outline-black btn-lg">Current Service
+                    <a target="_self" href="#arrivals" class="btn btn-outline-black btn-lg">Recent Arrivals
                         <i class="fas fa-graduation-cap ml-2"></i>
                     </a>
-                    <a target="_self" href="#route_performance" class="btn btn-outline-black btn-lg">Route Performance
-                        <i class="fas fa-map ml-2"></i>
+                    <a target="_self" href="#frequency" class="btn btn-outline-black btn-lg">Hourly Frequency
+                        <i class="fas fa-graduation-cap ml-2"></i>
                     </a>
-                    <a target="_self" href="#stops" class="btn btn-outline-black btn-lg">Stops
-                        <i class="fas fa-pencil-alt ml-2"></i>
+                    <a target="_self" href="#bunching" class="btn btn-outline-black btn-lg">Bunching Report
+                        <i class="fas fa-map ml-2"></i>
                     </a>
 
                 </div>
@@ -82,7 +82,7 @@
 
 
             <!--Section: Arrivals-->
-            <section id="current_service">
+            <section id="arrivals">
 
                 <!--Grid row-->
                 <div class="row mb-4 wow fadeIn">
@@ -92,14 +92,14 @@
                     <div class="col-lg-6 col-md-12 mb-4">
 
                          <h1 class="mb-4 mt-4">
-                            <strong>How Often Do Buses Come?</strong>
+                            <strong>What Stops Here?</strong>
                         </h1>
 
                         <p class="head">
-                        <mark>Service Frequency</mark> is one important measure of how good bus service is at your corner.
+                        <mark>Something</mark> shows something.
                         </p>
                         <p>
-                            Below, see how often {{routereport.route}} buses serve {{stopreport.stop_name|title}}. This average is calculated over the following period: <strong>{{period}}</strong>.
+                            The {{routereport.route}} stops at {{stopreport.stop_name|title}} but so do other routes. Here are all the arrivals we saw during the following period: <strong>{{period}}</strong>.
 
                         </p>
 
@@ -118,10 +118,8 @@
                             <!--Card content-->
                             <div class="card-body">
                                 <!--Title-->
-                                <h4 class="card-title">Bus {{ trip.trip_id | split_(0) }}</h4>
-                                <!--
-                                <h4 class="card-title">{{trip.trip_id}}</h4>
-                                -->
+                                <h4 class="card-title">arrivals</h4>
+
                                 <!--Text-->
                                 <div id="buses" class="row mt-2">
 
@@ -136,7 +134,7 @@
                                                 </thead>
                                                 <tbody>
 
-                                                {% for (index,row) in hourly_frequency.iterrows() %}
+                                                {% for (index,row) in stopreport.hourly_frequency.iterrows() %}
                                                     <tr class='table'>
                                                         <td>{{row.hour|hour_as_int}}</td>
                                                         {% if row.frequency != row.frequency %}
@@ -166,12 +164,90 @@
                     <!--Grid column-->
 
 
+                    <!--Grid column-->
+                    <div id="frequency" class="col-lg-6 col-md-12 mb-4">
+
+                         <h1 class="mb-4 mt-4">
+                            <strong>How Often Do Buses Come?</strong>
+                        </h1>
+
+                        <p class="head">
+                        <mark>Service Frequency</mark> is one important measure of how good bus service is at your corner.
+                        </p>
+                        <p>
+                            Below, see how often {{routereport.route}} buses serve {{stopreport.stop_name|title}}. This average is calculated over the following period: <strong>{{period}}</strong>.
+
+                        </p>
+
+                        <!--Card-->
+                        <div class="card">
+
+                            <!--Card image-->
+                            <!--
+                            <div class="view overlay">
+                                <div class="embed-responsive embed-responsive-16by9 rounded-top">
+                                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/cXTThxoywNQ" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                            -->
+
+                            <!--Card content-->
+                            <div class="card-body">
+                                <!--Title-->
+                                <h4 class="card-title">some title here - stop?</h4>
+
+                                <!--Text-->
+                                <div id="buses" class="row mt-2">
 
 
 
+                                             <table class="table table-sm table-hover">
+                                                <thead class="thread-dark">
+                                                  <tr>
+                                                    <th>hour</th>
+                                                    <th>bus every</th>
+                                                  </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                {% for (index,row) in stopreport.hourly_frequency.iterrows() %}
+                                                    <tr class='table'>
+                                                        <td>{{row.hour|hour_as_int}}</td>
+                                                        {% if row.frequency != row.frequency %}
+                                                            <td>- - -</td>
+                                                        {% else %}
+                                                            <td>{{row.frequency|int}} mins</td>
+                                                        {% endif %}
+                                                    </tr>
+                                                {% endfor %}
+
+                                                </tbody>
+                                              </table>
+
+
+                                </div>
+
+
+
+
+                            </div>
+
+                        </div>
+                        <!--/.Card-->
+
+
+                    </div>
+                    <!--Grid column-->
+
+
+                </div>
+                <!--Grid row-->
+
+                <!--Grid row-->
+                <div class="row mb-4 wow fadeIn">
 
                     <!--Grid column-->
-                    <div class="col-lg-6 col-md-12 mb-4">
+                    <div id="bunching" class="col-lg-6 col-md-12 mb-4">
 
                         <h1 class="mb-4 mt-4">
                             <strong>How Much Bunching Is Going On?</strong>
@@ -196,10 +272,8 @@
                             <!--Card content-->
                             <div class="card-body">
                                 <!--Title-->
-                                <h4 class="card-title">Bus {{ trip.trip_id | split_(0) }}</h4>
-                                <!--
-                                <h4 class="card-title">{{trip.trip_id}}</h4>
-                                -->
+                                <h4 class="card-title">title something</h4>
+
                                 <!--Text-->
                                 <div id="buses" class="row mt-2">
 
@@ -217,13 +291,13 @@
                                                 {% for (index,row) in stopreport.arrivals_list_final_df.iterrows() %}
                                                     {% if (row.delta > stopreport.bigbang) and (row.delta <= stopreport.bunching_interval) %}
                                                         <tr class='table-danger'>
-                                                            <td>{{row.timestamp|strftime_period(period)}}</td>
+                                                            <td>{{row.arrival_timestamp|strftime_period(period)}}</td>
                                                             <td>{{row.delta|strftime_timedelta}}</td>
                                                                                     <td>{{row.v}}</td>
                                                         </tr>
                                                     {% else %}
                                                         <tr>
-                                                            <td>{{row.timestamp|strftime_period(period)}}</td>
+                                                            <td>{{row.arrival_timestamp|strftime_period(period)}}</td>
 
                                                             <td>{{row.delta|strftime_timedelta}}</td>
                                                             <td>{{row.v}}</td>

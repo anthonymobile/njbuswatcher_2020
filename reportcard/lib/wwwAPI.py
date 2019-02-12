@@ -105,15 +105,9 @@ class RouteReport:
             route_stop_list.append(path_list)
         return route_stop_list[0] # transpose a single copy since the others are all repeats (can be verified by path ids)
 
-
-    ###########################################################
-    # functions to work on
-    ###########################################################
-
+    # gets all arrivals (see limit) for all runs on current route
     def get_tripdash(self):
-
         with SQLAlchemyDBConnection(DBConfig.conn_str) as db:
-
             # build a list of tuples with (run, trip_id)
             v_on_route = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data(self.source, 'buses_for_route', route=self.route))
             todays_date = datetime.datetime.today().strftime('%Y%m%d')
@@ -125,12 +119,23 @@ class RouteReport:
 
             tripdash = dict()
             for trip_id,pd,bid,run in trip_list:
-                # load the trip card
+
+                # load the trip card - full with all the missed stops
+                # scheduled_stops = db.session.query(ScheduledStop) \
+                #     .join(Trip) \
+                #     .filter(Trip.trip_id == trip_id) \
+                #     .order_by(ScheduledStop.pkey.asc()) \
+                #     .all()
+
+                # load the trip card - pretty
                 scheduled_stops = db.session.query(ScheduledStop) \
                     .join(Trip) \
                     .filter(Trip.trip_id == trip_id) \
-                    .order_by(ScheduledStop.pkey.asc()) \
+                    .filter(ScheduledStop.arrival_timestamp != None) \
+                    .order_by(ScheduledStop.pkey.desc()) \
+                    .limit(5) \
                     .all()
+
                 trip_dict=dict()
                 trip_dict['stoplist']=scheduled_stops
                 trip_dict['pd'] = pd
@@ -141,54 +146,54 @@ class RouteReport:
         return tripdash
 
 
-    def generate_bunching_leaderboard(self, period, route):
-
-        with SQLAlchemyDBConnection as db:
-            # generates top 10 list of stops on the route by # of bunching incidents for period
-            bunching_leaderboard = []
-            cum_arrival_total = 0
-            cum_bunch_total = 0
-            for service in self.route_stop_list:
-                for stop in service.stops:
-                    bunch_total = 0
-                    arrival_total = 0
-                    report = StopReport(self.route, stop.identity,period)
-                    for (index, row) in report.arrivals_list_final_df.iterrows():
-                        arrival_total += 1
-                        if (row.delta > report.bigbang) and (row.delta <= report.bunching_interval):
-                            bunch_total += 1
-                    cum_bunch_total = cum_bunch_total+bunch_total
-                    cum_arrival_total = cum_arrival_total + arrival_total
-                    bunching_leaderboard.append((stop.st, bunch_total,stop.identity))
-            bunching_leaderboard.sort(key=itemgetter(1), reverse=True)
-            bunching_leaderboard = bunching_leaderboard[:10]
-
-            # compute grade passed on pct of all stops on route during period that were bunched
-            try:
-                grade_numeric = (cum_bunch_total / cum_arrival_total) * 100
-                for g in self.grade_descriptions:
-                    if g['bounds'][0] < grade_numeric <= g['bounds'][1]:
-                        self.grade = g['grade']
-                        self.grade_description = g['description']
-            except:
-                self.grade = 'N/A'
-                self.grade_description = 'Unable to determine grade.'
-                pass
-
-            time_created = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-            bunching_leaderboard_pickle = dict(bunching_leaderboard=bunching_leaderboard, grade=self.grade,
-                                               grade_numeric=grade_numeric, grade_description=self.grade_description, time_created=time_created)
-            outfile = ('data/bunching_leaderboard_'+route+'.pickle')
-            with open(outfile, 'wb') as handle:
-                pickle.dump(bunching_leaderboard_pickle, handle, protocol=pickle.HIGHEST_PROTOCOL)
-        return
-
-
-    def load_bunching_leaderboard(self,route):
-            infile = ('data/bunching_leaderboard_'+route+'.pickle')
-            with open(infile, 'rb') as handle:
-                b = pickle.load(handle)
-            return b['bunching_leaderboard'], b['grade'], b['grade_numeric'], b['grade_description'], b['time_created']
+    # def generate_bunching_leaderboard(self, period, route):
+    #
+    #     with SQLAlchemyDBConnection(DBConfig.conn_str) as db:
+    #         # generates top 10 list of stops on the route by # of bunching incidents for period
+    #         bunching_leaderboard = []
+    #         cum_arrival_total = 0
+    #         cum_bunch_total = 0
+    #         for service in self.route_stop_list:
+    #             for stop in service.stops:
+    #                 bunch_total = 0
+    #                 arrival_total = 0
+    #                 report = StopReport(self.route, stop.identity,period)
+    #                 for (index, row) in report.arrivals_list_final_df.iterrows():
+    #                     arrival_total += 1
+    #                     if (row.delta > report.bigbang) and (row.delta <= report.bunching_interval):
+    #                         bunch_total += 1
+    #                 cum_bunch_total = cum_bunch_total+bunch_total
+    #                 cum_arrival_total = cum_arrival_total + arrival_total
+    #                 bunching_leaderboard.append((stop.st, bunch_total,stop.identity))
+    #         bunching_leaderboard.sort(key=itemgetter(1), reverse=True)
+    #         bunching_leaderboard = bunching_leaderboard[:10]
+    #
+    #         # compute grade passed on pct of all stops on route during period that were bunched
+    #         try:
+    #             grade_numeric = (cum_bunch_total / cum_arrival_total) * 100
+    #             for g in self.grade_descriptions:
+    #                 if g['bounds'][0] < grade_numeric <= g['bounds'][1]:
+    #                     self.grade = g['grade']
+    #                     self.grade_description = g['description']
+    #         except:
+    #             self.grade = 'N/A'
+    #             self.grade_description = 'Unable to determine grade.'
+    #             pass
+    #
+    #         time_created = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    #         bunching_leaderboard_pickle = dict(bunching_leaderboard=bunching_leaderboard, grade=self.grade,
+    #                                            grade_numeric=grade_numeric, grade_description=self.grade_description, time_created=time_created)
+    #         outfile = ('data/bunching_leaderboard_'+route+'.pickle')
+    #         with open(outfile, 'wb') as handle:
+    #             pickle.dump(bunching_leaderboard_pickle, handle, protocol=pickle.HIGHEST_PROTOCOL)
+    #     return
+    #
+    #
+    # def load_bunching_leaderboard(self,route):
+    #         infile = ('data/bunching_leaderboard_'+route+'.pickle')
+    #         with open(infile, 'rb') as handle:
+    #             b = pickle.load(handle)
+    #         return b['bunching_leaderboard'], b['grade'], b['grade_numeric'], b['grade_description'], b['time_created']
 
 
 class StopReport:
@@ -201,7 +206,7 @@ class StopReport:
 
         # populate stop report data
         self.arrivals_list_final_df, self.stop_name = self.get_arrivals(self.route, self.stop, self.period)
-        # todo self.hourly_frequency = self.get_hourly_frequency()
+        self.hourly_frequency = self.get_hourly_frequency()
 
         # constants
         self.bunching_interval = datetime.timedelta(minutes=3)
@@ -264,16 +269,20 @@ class StopReport:
 
                     except ValueError:
                         pass
+
         except:
-
-            # todo use this code to create an empty dummy dataframe?
-            # arrivals_list_final_df = \
-            #     pd.DataFrame(
-            #         columns=['pkey', 'pt', 'rd', 'stop_id', 'stop_name', 'v', 'timestamp', 'delta'],
-            #         data=[['0000000', '3', self.route, self.stop, 'N/A', 'N/A', datetime.time(0, 1),
-            #                datetime.timedelta(seconds=0)]])
-
             pass
+
+        # finally:
+        #
+        #     if arrivals_here is None:
+        #         # create empty dummy df
+        #         # if need delta = datetime.timedelta(seconds=0)
+        #         arrivals_here = pd.DataFrame(
+        #                 columns=['v', 'trip_id', 'pid', 'trip_trip_id', 'stop_trip_id', 'stop_name', 'arrival_timestamp'],
+        #                 data=[['0000', '0000_000_00000000', '0', '0000_000_00000000', '0000_000_00000000', 'N/A', datetime.time(0, 1)]]
+        #                 )
+
 
 
         # split final approach history (sorted by timestamp)
@@ -311,25 +320,25 @@ class StopReport:
             self.arrivals_table_time_created = datetime.datetime.now()
             return arrivals_list_final_df, stop_name
 
-    #
-    #
-    # def get_hourly_frequency(self,route, stop, period):
-    #     results = pd.DataFrame()
-    #     self.arrivals_list_final_df['delta_int'] = self.arrivals_list_final_df['delta'].dt.seconds
-    #
-    #     try:
-    #
-    #         # results['frequency']= (self.arrivals_list_final_df.delta_int.resample('H').mean())//60
-    #         results = (self.arrivals_list_final_df.groupby(self.arrivals_list_final_df.index.hour).mean())//60
-    #         results = results.rename(columns={'delta_int': 'frequency'})
-    #         results = results.drop(['pkey'], axis=1)
-    #         results['hour'] = results.index
-    #
-    #     except TypeError:
-    #         pass
-    #
-    #     except AttributeError:
-    #         results = pd.DataFrame()
-    #
-    #     return results
-    #
+
+
+    def get_hourly_frequency(self):
+        results = pd.DataFrame()
+        self.arrivals_list_final_df['delta_int'] = self.arrivals_list_final_df['delta'].dt.seconds
+
+        try:
+
+            # results['frequency']= (self.arrivals_list_final_df.delta_int.resample('H').mean())//60
+            results = (self.arrivals_list_final_df.groupby(self.arrivals_list_final_df.index.hour).mean())//60
+            results = results.rename(columns={'delta_int': 'frequency'})
+            results = results.drop(['pkey'], axis=1)
+            results['hour'] = results.index
+
+        except TypeError:
+            pass
+
+        except AttributeError:
+            results = pd.DataFrame()
+
+        return results
+
