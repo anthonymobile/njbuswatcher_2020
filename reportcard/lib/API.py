@@ -1,6 +1,5 @@
 import lib.BusAPI as BusAPI
 from lib.DataBases import DBConfig, SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
-from lib.wwwAPI import timestamp_fix
 from sqlalchemy import func
 from sqlalchemy.sql.expression import and_
 
@@ -56,7 +55,6 @@ def get_positions_byargs(args):
         except:
             pass
 
-        # positions_log = timestamp_fix(positions_log)
         positions_geojson = positions2geojson(positions_log)
 
     # for HISTORICAL, get positions from database
@@ -106,7 +104,6 @@ def get_positions_byargs(args):
 
             # cleanup
             positions_log = positions_log.drop(columns=['cars', 'consist', 'm','pdrtpifeedname','rt','rtrtpifeedname','rtdd','wid1','wid2'])
-            # positions_log = timestamp_fix(positions_log) #todo fix timestamp
             positions_geojson = positions2geojson(positions_log)
 
     return positions_geojson

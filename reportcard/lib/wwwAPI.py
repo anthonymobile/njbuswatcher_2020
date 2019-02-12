@@ -1,7 +1,7 @@
 import pickle
 import datetime
 import pandas as pd
-import geojson
+import geojson, json
 
 from sqlalchemy import inspect, func
 
@@ -10,19 +10,6 @@ from lib.DataBases import DBConfig, SQLAlchemyDBConnection, Trip, BusPosition, S
 
 from route_config import reportcard_routes, grade_descriptions
 
-# common functions
-def timestamp_fix(data,key): # trim the microseconds off the timestamp and convert it to datetime format
-    data[key] = data[key].str.split('.').str.get(0)
-    data[key] = pd.to_datetime(data[key],errors='coerce')
-    # data = data.set_index(pd.DatetimeIndex(data['timestamp']))
-    data = data.set_index(pd.DatetimeIndex(data[key]), drop=False)
-    return data
-
-# convery sqlalchemy query to a dict
-# https://stackoverflow.com/questions/1958219/convert-sqlalchemy-row-object-to-python-dict
-def object_as_dict(obj):
-    return {c.key: getattr(obj, c.key)
-            for c in inspect(obj).mapper.column_attrs}
 
 # geoJSON for citywide map
 def citymap_geojson(reportcard_routes):
@@ -30,8 +17,8 @@ def citymap_geojson(reportcard_routes):
     stops = []
     for i in reportcard_routes:
         routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data('nj', 'routes', route=i['route']))
-        points_feature = coordinate_bundle['waypoints_geojson']
-        stops_feature = coordinate_bundle['stops_geojson']
+        points_feature = json.loads(coordinate_bundle['waypoints_geojson'])
+        stops_feature = json.loads(coordinate_bundle['stops_geojson'])
 
         points.append(points_feature)
         stops.append(stops_feature)
@@ -62,7 +49,7 @@ class RouteReport:
         self.grade_descriptions = grade_descriptions
 
         # populate static report card data
-        self.routename, self.waypoints_coordinates, self.stops_coordinates, self.waypoints_geojson, self.stops_geojson = self.get_routename(self.route) #todo -- can we eliminate this? redundant -- read it from Trip?
+        self.routename, self.waypoints_coordinates, self.stops_coordinates, self.waypoints_geojson, self.stops_geojson = self.get_route_geojson_and_name(self.route) #todo -- would be nice to read this from Trip, but since RouteReport has more than 1 trip, which path will we use? this is why buses sometimes show up on maps not on a route
         self.load_route_description()
         self.route_stop_list = self.get_stoplist(self.route)
 
@@ -71,7 +58,7 @@ class RouteReport:
         self.tripdash = self.get_tripdash()
 
 
-    def get_routename(self,route):
+    def get_route_geojson_and_name(self, route):
         routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=route))
         return routes[0].nm, coordinate_bundle['waypoints_coordinates'], coordinate_bundle['stops_coordinates'], coordinate_bundle['waypoints_geojson'], coordinate_bundle['stops_geojson']
 
@@ -104,47 +91,6 @@ class RouteReport:
             route_stop_list.append(path_list)
         return route_stop_list[0] # transpose a single copy since the others are all repeats (can be verified by path ids)
 
-    #
-    # def get_activetrips(self):
-    #
-    #     # query db and load up everything we want to display
-    #     # (basically what's on the approach_dash)
-    #
-    #     active_trips = list()
-    #
-    #     todays_date = datetime.datetime.today().strftime('%Y%m%d')
-    #
-    #     # grab buses on road now and populate trip cards
-    #     buses_on_route = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data(self.source, 'buses_for_route', route=self.route))
-    #     for b in buses_on_route:
-    #         current_trip = dict()
-    #         trip_id = ('{id}_{run}_{dt}').format(id=b.id, run=b.run, dt=datetime.datetime.today().strftime('%Y%m%d'))
-    #
-    #         with SQLAlchemyDBConnection(DBConfig.conn_str) as db:
-    #             # load the trip card, dropping anything without an arrival
-    #             scheduled_stops = db.session.query(Trip.pid, Trip.trip_id, ScheduledStop.trip_id, ScheduledStop.stop_id, ScheduledStop.stop_name, ScheduledStop.arrival_timestamp) \
-    #                 .join(ScheduledStop) \
-    #                 .filter(Trip.trip_id == trip_id) \
-    #                 .filter(ScheduledStop.arrival_timestamp != None) \
-    #                 .all()
-    #                 #todo sort on something?
-    #
-    #             #convert the query
-    #             # active trips is a list, each item contains a dict
-    #             # {'pid': 1634, 'trip_id': '5722_16_20190208', 'stop_id': 20496, 'arrival_timestamp': None}
-    #             current_trip['trip_id'] = trip_id
-    #             current_trip['trip_card'] = list(map(lambda obj: dict(zip(obj.keys(), obj)), scheduled_stops))
-    #             active_trips.append(current_trip)
-    #
-    #     # reverse sort on timestamp then take the first 5 and return both
-    #     # https://www.w3resource.com/python-exercises/list/python-data-type-list-exercise-50.php
-    #     for trip in active_trips:
-    #         trip['trip_card'].sort(key=lambda x: x['arrival_timestamp'], reverse=True)
-    #         trip['trip_card']=trip['trip_card'][:5]
-    #
-    #     # active_trips_5=active_trips[:5] # todo this is clipping the wrong thing -- limiting to 5 trips, not 5 arrivals per trip
-    #
-    #     return active_trips
 
     ###########################################################
     # functions to work on
@@ -182,9 +128,10 @@ class RouteReport:
 
 
 
+
+    # def generate_bunching_leaderboard(self, period, route):
     # pull this from the database based on the Tripid?
     # using with SQLAlchemyDBConnection as db:
-    # def generate_bunching_leaderboard(self, period, route):
     #     # generates top 10 list of stops on the route by # of bunching incidents for period
     #     bunching_leaderboard = []
     #     cum_arrival_total = 0
