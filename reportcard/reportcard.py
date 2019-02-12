@@ -29,7 +29,15 @@ from route_config import reportcard_routes, grade_descriptions
 ################################################
 app = Flask(__name__, static_url_path='/static')
 CORS(app, support_credentials=True)
+
+################################################
+# BOOTSTRAP
+################################################
+app.config.update(
+    BOOTSTRAP_CDN_FORCE_SSL=True
+)
 Bootstrap(app)
+
 
 ################################################
 # SETUP CACHE
@@ -74,8 +82,7 @@ def displayHome():
             self.routename = 'Jersey City'
     routereport = Dummy()
 
-    # waypoints, stops = wwwAPI.citymap_geojson(reportcard_routes)
-    waypoints, stops = 1,2 # this works because the JS is fetching the updated points itself.
+    waypoints, stops = wwwAPI.citymap_geojson(reportcard_routes)
 
     return render_template('index.html', citywide_waypoints_geojson=waypoints, citywide_stops_geojson=stops, reportcard_routes=reportcard_routes, routereport=routereport)
 

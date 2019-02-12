@@ -5,11 +5,15 @@ v2.0
 ---
 # ROADMAP TO COMPLETION
 
-## NOW
+## TODAY
 
+**index.html**
+- map
+    - restore routes dispaly
+    
 **wwwAPI.py**
 - rewrite bunching_report
-- deal with self.tripdash staleness
+- fix def citymap_geojson to stop escaping quotes when it creates the FeatureCollection
 
 **route.html**  
 - top section: Current Service
@@ -21,6 +25,8 @@ v2.0
     -(see below -- mockup for now)
 - bottom section: Stops
     - change it to card for each stop with one or two metrics about each stop (average frequency? bunchiness, etc?)
+    
+## NEXT
 
 **stop.html**
 - make HTML a replica of current website view
@@ -32,16 +38,18 @@ v2.0
 
 **route_config.py**
 - short and long descriptions for the new lines
-    
+
+
 **index.html**
 - map
-    - restore routes dispaly
     - `Starting extent`: zoom to extent of ALL lines (not just the arbitrary nth [n] line in the route array as currently)
 - route cards
     - add grade, other metrics, link to schedule?
 
 
 ## MUST DO BEFORE LAUNCH
+**wwwAPI.py**
+- deal with self.tripdash staleness
 
 **tripwatcher.py**
 - single instance reads route_config.py, spaces out scans of them all over 30 seconds and quits (so dont have to cron individual routes) 

@@ -131,11 +131,11 @@
                                                  <tr class='table text-left'>
 
                                                  {% if stop.arrival_timestamp is not none %}
-                                                    <td class="table-primary">{{stop.arrival_timestamp|strftime_today}}</td>
-                                                        <td class="table-secondary"><a href = {{url_for('genStopReport',source=routereport.source,route=routereport.route,stop=stop.identity,period='daily') }} id="{{stop.st}}">{{stop.stop_name|title}}</a></td>
+                                                     <td class="table-primary"><small>{{stop.arrival_timestamp|strftime_today}}</small></td>
+                                                     <td class="table-secondary"><a href = {{url_for('genStopReport',source=routereport.source,route=routereport.route,stop=stop.identity,period='daily') }} id="{{stop.st}}"><small>{{stop.stop_name|title}}</small></a></td>
                                                  {% else %}
-                                                     <td> -- </td>
-                                                     <td>{{stop.stop_name|title}}</td>
+                                                     <td><small>--</small></td>
+                                                     <td><small>{{stop.stop_name|title}}</small></td>
                                                  {% endif %}
 
                                                 </tr>
