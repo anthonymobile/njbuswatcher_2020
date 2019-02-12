@@ -141,58 +141,54 @@ class RouteReport:
         return tripdash
 
 
+    def generate_bunching_leaderboard(self, period, route):
+
+        with SQLAlchemyDBConnection as db:
+            # generates top 10 list of stops on the route by # of bunching incidents for period
+            bunching_leaderboard = []
+            cum_arrival_total = 0
+            cum_bunch_total = 0
+            for service in self.route_stop_list:
+                for stop in service.stops:
+                    bunch_total = 0
+                    arrival_total = 0
+                    report = StopReport(self.route, stop.identity,period)
+                    for (index, row) in report.arrivals_list_final_df.iterrows():
+                        arrival_total += 1
+                        if (row.delta > report.bigbang) and (row.delta <= report.bunching_interval):
+                            bunch_total += 1
+                    cum_bunch_total = cum_bunch_total+bunch_total
+                    cum_arrival_total = cum_arrival_total + arrival_total
+                    bunching_leaderboard.append((stop.st, bunch_total,stop.identity))
+            bunching_leaderboard.sort(key=itemgetter(1), reverse=True)
+            bunching_leaderboard = bunching_leaderboard[:10]
+
+            # compute grade passed on pct of all stops on route during period that were bunched
+            try:
+                grade_numeric = (cum_bunch_total / cum_arrival_total) * 100
+                for g in self.grade_descriptions:
+                    if g['bounds'][0] < grade_numeric <= g['bounds'][1]:
+                        self.grade = g['grade']
+                        self.grade_description = g['description']
+            except:
+                self.grade = 'N/A'
+                self.grade_description = 'Unable to determine grade.'
+                pass
+
+            time_created = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            bunching_leaderboard_pickle = dict(bunching_leaderboard=bunching_leaderboard, grade=self.grade,
+                                               grade_numeric=grade_numeric, grade_description=self.grade_description, time_created=time_created)
+            outfile = ('data/bunching_leaderboard_'+route+'.pickle')
+            with open(outfile, 'wb') as handle:
+                pickle.dump(bunching_leaderboard_pickle, handle, protocol=pickle.HIGHEST_PROTOCOL)
+        return
 
 
-    # def generate_bunching_leaderboard(self, period, route):
-    # pull this from the database based on the Tripid?
-    # using with SQLAlchemyDBConnection as db:
-    #     # generates top 10 list of stops on the route by # of bunching incidents for period
-    #     bunching_leaderboard = []
-    #     cum_arrival_total = 0
-    #     cum_bunch_total = 0
-    #     for service in self.route_stop_list:
-    #         for stop in service.stops:
-    #             bunch_total = 0
-    #             arrival_total = 0
-    #             report = StopReport(self.route, stop.identity,period)
-    #             for (index, row) in report.arrivals_list_final_df.iterrows():
-    #                 arrival_total += 1
-    #                 if (row.delta > report.bigbang) and (row.delta <= report.bunching_interval):
-    #                     bunch_total += 1
-    #             cum_bunch_total = cum_bunch_total+bunch_total
-    #             cum_arrival_total = cum_arrival_total + arrival_total
-    #             bunching_leaderboard.append((stop.st, bunch_total,stop.identity))
-    #     bunching_leaderboard.sort(key=itemgetter(1), reverse=True)
-    #     bunching_leaderboard = bunching_leaderboard[:10]
-    #
-    #     # compute grade passed on pct of all stops on route during period that were bunched
-    #     try:
-    #         grade_numeric = (cum_bunch_total / cum_arrival_total) * 100
-    #         for g in self.grade_descriptions:
-    #             if g['bounds'][0] < grade_numeric <= g['bounds'][1]:
-    #                 self.grade = g['grade']
-    #                 self.grade_description = g['description']
-    #     except:
-    #         self.grade = 'N/A'
-    #         self.grade_description = 'Unable to determine grade.'
-    #         pass
-    #
-    #     time_created = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    #     bunching_leaderboard_pickle = dict(bunching_leaderboard=bunching_leaderboard, grade=self.grade,
-    #                                        grade_numeric=grade_numeric, grade_description=self.grade_description, time_created=time_created)
-    #     outfile = ('data/bunching_leaderboard_'+route+'.pickle')
-    #     with open(outfile, 'wb') as handle:
-    #         pickle.dump(bunching_leaderboard_pickle, handle, protocol=pickle.HIGHEST_PROTOCOL)
-    #     return
-
-
-    # def load_bunching_leaderboard(self,route):
-        # copy from old repo
-        #     infile = ('data/bunching_leaderboard_'+route+'.pickle')
-        #     with open(infile, 'rb') as handle:
-        #         b = pickle.load(handle)
-        #     return b['bunching_leaderboard'], b['grade'], b['grade_numeric'], b['grade_description'], b['time_created']
-
+    def load_bunching_leaderboard(self,route):
+            infile = ('data/bunching_leaderboard_'+route+'.pickle')
+            with open(infile, 'rb') as handle:
+                b = pickle.load(handle)
+            return b['bunching_leaderboard'], b['grade'], b['grade_numeric'], b['grade_description'], b['time_created']
 
 
 class StopReport:

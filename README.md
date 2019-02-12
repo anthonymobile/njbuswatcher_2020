@@ -7,13 +7,8 @@ v2.0
 
 ## TODAY
 
-**index.html**
-- map
-    - restore routes dispaly
-    
 **wwwAPI.py**
-- rewrite bunching_report
-- fix def citymap_geojson to stop escaping quotes when it creates the FeatureCollection
+- test bunching_report / cron_nightly.py
 
 **route.html**  
 - top section: Current Service
