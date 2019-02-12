@@ -1,6 +1,6 @@
 # NJ BusWatcher
 v2.0
-**10 feb 2019**
+**11 feb 2019**
 
 ---
 # ROADMAP TO COMPLETION
@@ -8,7 +8,7 @@ v2.0
 ## NOW
 
 **wwwAPI.py**
-    - debug StopReport.get_hourly_frequency -- doesnt seem to be returning all the trips in RouteReport.tripdash, or they aren't getting cycled (and need to keep in mind this will go out of date -- is there a trigger for it to update anytime the instance is touched?)
+    - debug RouteReport.get_tripdash -- is only return one trip, not all of them.
     - rewrite bunching_report
     - deprecate get_arrivals?
 
@@ -29,6 +29,7 @@ v2.0
     -  two column reports
         - left: arrivals for period
         - right: hourly frequency for period
+            - make a histogram using the rough.js bar chart (embed script in page if its easier)
 
 **route_config.py**
     - short and long descriptions for the new lines
