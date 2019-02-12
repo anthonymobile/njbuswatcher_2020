@@ -67,7 +67,7 @@ class RouteReport:
         self.route_stop_list = self.get_stoplist(self.route)
 
         # populate live report card data
-        self.active_trips = self.get_activetrips()
+        # self.active_trips = self.get_activetrips()
         self.tripdash = self.get_tripdash()
 
 
@@ -104,47 +104,47 @@ class RouteReport:
             route_stop_list.append(path_list)
         return route_stop_list[0] # transpose a single copy since the others are all repeats (can be verified by path ids)
 
-
-    def get_activetrips(self):
-
-        # query db and load up everything we want to display
-        # (basically what's on the approach_dash)
-
-        active_trips = list()
-
-        todays_date = datetime.datetime.today().strftime('%Y%m%d')
-
-        # grab buses on road now and populate trip cards
-        buses_on_route = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data(self.source, 'buses_for_route', route=self.route))
-        for b in buses_on_route:
-            current_trip = dict()
-            trip_id = ('{id}_{run}_{dt}').format(id=b.id, run=b.run, dt=datetime.datetime.today().strftime('%Y%m%d'))
-
-            with SQLAlchemyDBConnection(DBConfig.conn_str) as db:
-                # load the trip card, dropping anything without an arrival
-                scheduled_stops = db.session.query(Trip.pid, Trip.trip_id, ScheduledStop.trip_id, ScheduledStop.stop_id, ScheduledStop.stop_name, ScheduledStop.arrival_timestamp) \
-                    .join(ScheduledStop) \
-                    .filter(Trip.trip_id == trip_id) \
-                    .filter(ScheduledStop.arrival_timestamp != None) \
-                    .all()
-                    #todo sort on something?
-
-                #convert the query
-                # active trips is a list, each item contains a dict
-                # {'pid': 1634, 'trip_id': '5722_16_20190208', 'stop_id': 20496, 'arrival_timestamp': None}
-                current_trip['trip_id'] = trip_id
-                current_trip['trip_card'] = list(map(lambda obj: dict(zip(obj.keys(), obj)), scheduled_stops))
-                active_trips.append(current_trip)
-
-        # reverse sort on timestamp then take the first 5 and return both
-        # https://www.w3resource.com/python-exercises/list/python-data-type-list-exercise-50.php
-        for trip in active_trips:
-            trip['trip_card'].sort(key=lambda x: x['arrival_timestamp'], reverse=True)
-            trip['trip_card']=trip['trip_card'][:5]
-
-        # active_trips_5=active_trips[:5] # todo this is clipping the wrong thing -- limiting to 5 trips, not 5 arrivals per trip
-
-        return active_trips
+    #
+    # def get_activetrips(self):
+    #
+    #     # query db and load up everything we want to display
+    #     # (basically what's on the approach_dash)
+    #
+    #     active_trips = list()
+    #
+    #     todays_date = datetime.datetime.today().strftime('%Y%m%d')
+    #
+    #     # grab buses on road now and populate trip cards
+    #     buses_on_route = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data(self.source, 'buses_for_route', route=self.route))
+    #     for b in buses_on_route:
+    #         current_trip = dict()
+    #         trip_id = ('{id}_{run}_{dt}').format(id=b.id, run=b.run, dt=datetime.datetime.today().strftime('%Y%m%d'))
+    #
+    #         with SQLAlchemyDBConnection(DBConfig.conn_str) as db:
+    #             # load the trip card, dropping anything without an arrival
+    #             scheduled_stops = db.session.query(Trip.pid, Trip.trip_id, ScheduledStop.trip_id, ScheduledStop.stop_id, ScheduledStop.stop_name, ScheduledStop.arrival_timestamp) \
+    #                 .join(ScheduledStop) \
+    #                 .filter(Trip.trip_id == trip_id) \
+    #                 .filter(ScheduledStop.arrival_timestamp != None) \
+    #                 .all()
+    #                 #todo sort on something?
+    #
+    #             #convert the query
+    #             # active trips is a list, each item contains a dict
+    #             # {'pid': 1634, 'trip_id': '5722_16_20190208', 'stop_id': 20496, 'arrival_timestamp': None}
+    #             current_trip['trip_id'] = trip_id
+    #             current_trip['trip_card'] = list(map(lambda obj: dict(zip(obj.keys(), obj)), scheduled_stops))
+    #             active_trips.append(current_trip)
+    #
+    #     # reverse sort on timestamp then take the first 5 and return both
+    #     # https://www.w3resource.com/python-exercises/list/python-data-type-list-exercise-50.php
+    #     for trip in active_trips:
+    #         trip['trip_card'].sort(key=lambda x: x['arrival_timestamp'], reverse=True)
+    #         trip['trip_card']=trip['trip_card'][:5]
+    #
+    #     # active_trips_5=active_trips[:5] # todo this is clipping the wrong thing -- limiting to 5 trips, not 5 arrivals per trip
+    #
+    #     return active_trips
 
     ###########################################################
     # functions to work on
@@ -161,19 +161,26 @@ class RouteReport:
 
             for v in v_on_route:
                 trip_id=('{a}_{b}_{c}').format(a=v.id,b=v.run, c=todays_date)
-                trip_list.append(trip_id)
+                trip_list.append((trip_id, v.pd, v.bid, v.run))
 
             tripdash = dict()
-            for trip_id in trip_list:
+            for trip_id,pd,bid,run in trip_list:
                 # load the trip card
                 scheduled_stops = db.session.query(ScheduledStop) \
                     .join(Trip) \
                     .filter(Trip.trip_id == trip_id) \
                     .order_by(ScheduledStop.pkey.asc()) \
                     .all()
-                tripdash[trip_id] = scheduled_stops
+                trip_dict=dict()
+                trip_dict['stoplist']=scheduled_stops
+                trip_dict['pd'] = pd
+                trip_dict['v'] = bid
+                trip_dict['run'] = run
+                tripdash[trip_id] = trip_dict
 
         return tripdash
+
+
 
     # pull this from the database based on the Tripid?
     # using with SQLAlchemyDBConnection as db:
