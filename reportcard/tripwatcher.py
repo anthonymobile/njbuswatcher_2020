@@ -3,12 +3,10 @@
 #conn_str = 'sqlite:///jc_buswatcher.db'
 
 import argparse
-import os, sys
+import sys
 import werkzeug
-import itertools
 import numpy as np
 import matplotlib.pyplot as plt
-# import scipy
 import time
 from lib import BusAPI, Localizer
 from lib.DataBases import DBConfig, SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
@@ -39,10 +37,18 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
 
+    ran = False
+
     ##############################################
     # 0 -- LOAD ROUTE LIST AND LOOP
     ##############################################
     while True:
+
+        if ran == True:
+            delay = 30
+        else:
+            delay = 0
+        time.sleep(delay)
 
         for r in reportcard_routes:
 
