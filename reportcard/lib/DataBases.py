@@ -57,6 +57,7 @@ class SQLAlchemyDBConnection(object):
 class Trip(Base):
 
     def __init__(self, conn_str, source, route, v, run, pid):
+        self.rt = route
         self.v = v
         self.run = run
         self.pid = pid
@@ -87,7 +88,8 @@ class Trip(Base):
     __table_args__ = {'extend_existing': True}
 
     pkey = Column(Integer(), primary_key=True)
-    trip_id = Column(String(255))
+    trip_id = Column(String(255), index=True)
+    rt = Column(Integer())
     v = Column(Integer())
     run = Column(Integer())
     pid = Column(Integer())
@@ -96,9 +98,6 @@ class Trip(Base):
 
     children_ScheduledStops = relationship("ScheduledStop", backref='trip_log')
     children_BusPositions = relationship("BusPosition", backref='trip_log')
-
-
-
 
 
 ################################################################
@@ -125,9 +124,9 @@ class ScheduledStop(Base):
     run = Column(Integer())
     v = Column(Integer())
     date = Column(String)
-    stop_id = Column(Integer())
+    stop_id = Column(Integer(), index=True)
     stop_name = Column(String)
-    arrival_timestamp = Column(DateTime())
+    arrival_timestamp = Column(DateTime(), index=True)
 
     # relationships
     trip_id = Column(String(255), ForeignKey('trip_log.trip_id'))
@@ -156,7 +155,7 @@ class BusPosition(Base):
     dip = Column(String(20))
     dn = Column(String(20))
     fs = Column(String(20))
-    id = Column(String(20))
+    id = Column(String(20), index=True)
     m = Column(String(20))
     op = Column(String(20))
     pd = Column(String(20))
@@ -175,23 +174,8 @@ class BusPosition(Base):
     arrival_flag = Column(Boolean())
 
     # relationships
-    trip_id = Column(String(255), ForeignKey('trip_log.trip_id'))
-    stop_id = Column(String(255), ForeignKey('scheduledstop_log.stop_id'))
+    trip_id = Column(String(255), ForeignKey('trip_log.trip_id'), index=True)
+    stop_id = Column(String(255), ForeignKey('scheduledstop_log.stop_id'), index=True)
 
     parent_Trip = relationship("Trip",backref='position_log')
     parent_ScheduledStop = relationship("ScheduledStop",backref='position_log')
-
-    # def __repr__(self):
-    #     line = []
-    #     for prop, value in vars(self).items():
-    #         line.append((prop, value))
-    #     line.sort(key=lambda x: x[0])
-    #     out_string = ' '.join([k + '=' + str(v) for k, v in line])
-    #     return "BusPosition" + '[%s]' % out_string
-
-
-
-
-
-
-
