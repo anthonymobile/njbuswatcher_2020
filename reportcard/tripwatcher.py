@@ -5,6 +5,7 @@
 import argparse
 import sys
 import werkzeug
+import itertools
 import numpy as np
 import matplotlib.pyplot as plt
 import time
@@ -260,6 +261,6 @@ if __name__ == "__main__":
                             pass
 
                 db.session.commit()
-
+            print('x')
             ran = True
-            sys.stdout.write('.')
+
