@@ -204,122 +204,139 @@ class StopReport:
         self.stop = stop
         self.period = period
 
-        # populate stop report data
-        self.arrivals_list_final_df, self.stop_name = self.get_arrivals(self.route, self.stop, self.period)
-        self.hourly_frequency = self.get_hourly_frequency()
-
         # constants
         self.bunching_interval = datetime.timedelta(minutes=3)
         self.bigbang = datetime.timedelta(seconds=0)
 
+        # populate data for webpage
+        self.arrivals_list_final_df, self.stop_name = self.get_arrivals(self.route, self.stop, self.period)
+        self.hourly_frequency = self.get_hourly_frequency()
+
     # fetch arrivals into a df
     def get_arrivals(self,route,stop,period):
 
-        try:
-            with SQLAlchemyDBConnection(DBConfig.conn_str) as db:
-                today_date = datetime.date.today()
-                yesterday = datetime.date.today() - datetime.timedelta(1)
+        with SQLAlchemyDBConnection(DBConfig.conn_str) as db:
+            today_date = datetime.date.today()
+            yesterday = datetime.date.today() - datetime.timedelta(1)
 
-                if period == "daily":
-                    arrivals_here = pd.read_sql(db.session.query(Trip.v, Trip.trip_id, Trip.pid, Trip.trip_id,
-                                                                 ScheduledStop.trip_id, ScheduledStop.stop_id,
-                                                                 ScheduledStop.stop_name, ScheduledStop.arrival_timestamp)
-                                                    .join(ScheduledStop)
-                                                    .filter(ScheduledStop.stop_id == stop)
-                                                    .filter(ScheduledStop.arrival_timestamp != None)
-                                                    .filter(func.date(ScheduledStop.arrival_timestamp) == today_date)
-                                                     .statement
-                                                    ,db.session.bind)
+            if period == "daily":
+                arrivals_here = pd.read_sql(
+                                db.session.query(
+                                     Trip.rt,
+                                     Trip.v,
+                                     Trip.pid,
+                                     ScheduledStop.trip_id,
+                                     ScheduledStop.stop_id,
+                                     ScheduledStop.stop_name,
+                                     ScheduledStop.arrival_timestamp)
+                                .join(ScheduledStop)
+                                .filter(Trip.rt == route)
+                                .filter(ScheduledStop.stop_id == stop)
+                                .filter(ScheduledStop.arrival_timestamp != None)
+                                .filter(func.date(ScheduledStop.arrival_timestamp) == today_date)
+                                .statement
+                                ,db.session.bind)
+                print (db.session.query(
+                                     Trip.rt,
+                                     Trip.v,
+                                     Trip.pid,
+                                     Trip.trip_id,
+                                     ScheduledStop.trip_id,
+                                     ScheduledStop.stop_id,
+                                     ScheduledStop.stop_name,
+                                     ScheduledStop.arrival_timestamp)
+                                .join(ScheduledStop)
+                                .filter(Trip.rt == route)
+                                .filter(ScheduledStop.stop_id == stop)
+                                .filter(ScheduledStop.arrival_timestamp != None)
+                                .filter(func.date(ScheduledStop.arrival_timestamp) == today_date)
+                                .statement)
 
-                elif period == "yesterday":
-                    arrivals_here = pd.read_sql(db.session.query(Trip.v, Trip.trip_id, Trip.pid, Trip.trip_id,
-                                                                 ScheduledStop.trip_id, ScheduledStop.stop_id,
-                                                                 ScheduledStop.stop_name, ScheduledStop.arrival_timestamp)
-                                                    .join(ScheduledStop)
-                                                    .filter(ScheduledStop.stop_id == stop)
-                                                    .filter(ScheduledStop.arrival_timestamp != None)
-                                                    .filter(func.date(ScheduledStop.arrival_timestamp) == yesterday)
-                                                    .statement
-                                                    ,db.session.bind)
 
-                elif period == "history":
-                    arrivals_here = pd.read_sql(db.session.query(Trip.v, Trip.trip_id, Trip.pid, Trip.trip_id,
-                                                                 ScheduledStop.trip_id, ScheduledStop.stop_id,
-                                                                 ScheduledStop.stop_name, ScheduledStop.arrival_timestamp)
-                                                    .join(ScheduledStop)
-                                                    .filter(ScheduledStop.stop_id == stop)
-                                                    .filter(ScheduledStop.arrival_timestamp != None)
-                                                    .statement
-                                                    ,db.session.bind)
+            elif period == "yesterday":
+                arrivals_here = pd.read_sql(
+                                db.session.query(
+                                    Trip.rt,
+                                    Trip.v,
+                                    Trip.pid,
+                                    Trip.trip_id,
+                                    ScheduledStop.trip_id,
+                                    ScheduledStop.stop_id,
+                                    ScheduledStop.stop_name,
+                                    ScheduledStop.arrival_timestamp)
+                                .join(ScheduledStop)
+                                .filter(Trip.rt == route)
+                                .filter(ScheduledStop.stop_id == stop)
+                                .filter(ScheduledStop.arrival_timestamp != None)
+                                .filter(func.date(ScheduledStop.arrival_timestamp) == yesterday)
+                                .statement
+                                 ,db.session.bind)
 
-                elif period is True:
-                    try:
-                        int(period)  # check if it digits (e.g. period=20180810)
-                        request_date = datetime.datetime.strptime(args['period'], '%Y%m%d')  # make a datetime object
-                        arrivals_here = pd.read_sql(db.session.query(Trip.v, Trip.trip_id, Trip.pid, Trip.trip_id,
-                                                                     ScheduledStop.trip_id, ScheduledStop.stop_id,
-                                                                     ScheduledStop.stop_name,
-                                                                     ScheduledStop.arrival_timestamp)
-                                                    .join(ScheduledStop)
-                                                    .filter(ScheduledStop.stop_id == stop)
-                                                    .filter(ScheduledStop.arrival_timestamp != None)
-                                                    .filter(func.date(ScheduledStop.arrival_timestamp) == request_date)
-                                                    .statement
-                                                    , db.session.bind)
+            elif period == "history":
+                arrivals_here = pd.read_sql(
+                                db.session.query(
+                                    Trip.rt,
+                                    Trip.v,
+                                    Trip.pid,
+                                    Trip.trip_id,
+                                    ScheduledStop.trip_id,
+                                    ScheduledStop.stop_id,
+                                    ScheduledStop.stop_name,
+                                    ScheduledStop.arrival_timestamp)
+                                .join(ScheduledStop)
+                                .filter(Trip.rt == route)
+                                .filter(ScheduledStop.stop_id == stop)
+                                .filter(ScheduledStop.arrival_timestamp != None)
+                                .statement
+                                ,db.session.bind)
 
-                    except ValueError:
+            elif period is True:
+                try:
+                    int(period)  # check if it digits (e.g. period=20180810)
+                    request_date = datetime.datetime.strptime(period, '%Y%m%d')  # make a datetime object
+                    arrivals_here = pd.read_sql(
+                                db.session.query(
+                                    Trip.rt,
+                                    Trip.v,
+                                    Trip.pid,
+                                    Trip.trip_id,
+                                    ScheduledStop.trip_id,
+                                    ScheduledStop.stop_id,
+                                    ScheduledStop.stop_name,
+                                    ScheduledStop.arrival_timestamp)
+                                .join(ScheduledStop)
+                                .filter(Trip.rt == route)
+                                .filter(ScheduledStop.stop_id == stop)
+                                .filter(ScheduledStop.arrival_timestamp != None)
+                                .filter(func.date(ScheduledStop.arrival_timestamp) == request_date)
+                                .statement
+                                , db.session.bind)
+
+                except ValueError:
                         pass
 
-        except:
-            pass
 
-        # finally:
-        #
-        #     if arrivals_here is None:
-        #         # create empty dummy df
-        #         # if need delta = datetime.timedelta(seconds=0)
-        #         arrivals_here = pd.DataFrame(
-        #                 columns=['v', 'trip_id', 'pid', 'trip_trip_id', 'stop_trip_id', 'stop_name', 'arrival_timestamp'],
-        #                 data=[['0000', '0000_000_00000000', '0', '0000_000_00000000', '0000_000_00000000', 'N/A', datetime.time(0, 1)]]
-        #                 )
-
-
-
-        # split final approach history (sorted by timestamp)
-        # at each change in vehicle_id outputs a list of dfs
-        # per https://stackoverflow.com/questions/41144231/python-how-to-split-pandas-dataframe-into-subsets-based-on-the-value-in-the-fir
-
-        final_approach_dfs = [g for i, g in arrivals_here.groupby(arrivals_here['v'].ne(arrivals_here['v'].shift()).cumsum())]
-
-        try:
-            # take the last V(ehicle) approach in each df and add it to final list of arrivals
-            arrivals_list_final_df = pd.DataFrame()
+            # split by vehicle and calculate arrival intervals
+            final_approach_dfs = [g for i, g in arrivals_here.groupby(arrivals_here['v'].ne(arrivals_here['v'].shift()).cumsum())] # split final approach history (sorted by timestamp) at each change in vehicle_id outputs a list of dfs per https://stackoverflow.com/questions/41144231/python-how-to-split-pandas-dataframe-into-subsets-based-on-the-value-in-the-fir
+            arrivals_list_final_df = pd.DataFrame() # take the last V(ehicle) approach in each df and add it to final list of arrivals
             for final_approach in final_approach_dfs:  # iterate over every final approach
                 arrival_insert_df = final_approach.tail(1)  # take the last observation
                 arrivals_list_final_df = arrivals_list_final_df.append(arrival_insert_df)  # insert into df
+            arrivals_list_final_df['delta']=(arrivals_list_final_df['arrival_timestamp'] - arrivals_list_final_df['timestamp'].shift(1)).fillna(0) # calc interval between last bus for each row, fill NaNs
 
-            # calc interval between last bus for each row, fill NaNs
-            arrivals_list_final_df['delta']=(arrivals_list_final_df['timestamp'] - arrivals_list_final_df['timestamp'].shift(1)).fillna(0)
-
-            # housekeeping ---------------------------------------------------
-
-            # set stop_name
             stop_name = arrivals_list_final_df['stop_name'].iloc[0]
 
-            # resort arrivals list
-            # arrivals_list_final_df.sort_values("timestamp", inplace=True)
-
             return arrivals_list_final_df, stop_name
 
-        except:
-            arrivals_list_final_df=\
-                pd.DataFrame(
-                    columns=['pkey','pt','rd','stop_id','stop_name','v','timestamp','delta'],
-                    data=[['0000000', '3', self.route, self.stop,'N/A', 'N/A', datetime.time(0,1), datetime.timedelta(seconds=0)]])
-            stop_name = 'N/A'
-            self.arrivals_table_time_created = datetime.datetime.now()
-            return arrivals_list_final_df, stop_name
 
+            # except:
+            #     arrivals_list_final_df = pd.DataFrame(
+            #         columns=['rt', 'v', 'pid', 'trip_trip_id', 'stop_trip_id', 'stop_name', 'arrival_timestamp'],
+            #         data=['0', '0000', '0', '0000_000_00000000', '0000_000_00000000', 'N/A', datetime.time(0, 1)]
+            #     )
+            #     stop_name = 'N/A'
+            #     self.arrivals_table_time_created = datetime.datetime.now()
+            #     return arrivals_list_final_df, stop_name
 
 
     def get_hourly_frequency(self):

@@ -6,15 +6,22 @@ v2.0
 # ROADMAP TO COMPLETION
 
 ## NEXT
+
+**tripwatcher.py**
+- single instance reads route_config.py, spaces out scans of them all over 30 seconds and quits (so dont have to cron individual routes) 
+
 **wwwAPI**
-    - arrivals_list_final_df is coming back empty all the time... debug with a full data set on a busy stop
+    - StopReport.get_arrivals
+        - continue debugging 87 with a good bit of data
 
 **stop.html**
-    - top: period picker bar
+    - top
+        - period picker bar
+            - daily, monthly, history, specific date
     - hourly frequency
         - add a rough.js histogram / D3
     -  two column reports
-        - left: arrivals for period
+        - left: arrivals for period w/ bunched arrivals highlighted
         - right: hourly frequency for period
             - make a histogram using the rough.js bar chart (embed script in page if its easier)
 
@@ -43,7 +50,6 @@ v2.0
 - deal with self.tripdash staleness
 
 **tripwatcher.py**
-- single instance reads route_config.py, spaces out scans of them all over 30 seconds and quits (so dont have to cron individual routes) 
 - `approach assignment`: 3+ position seems to still be having problems...
 -`simplify/comment out console logging`:   
     - make clearer that only displaying stops that dont have approach logged yet
