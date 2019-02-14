@@ -1,17 +1,33 @@
 # NJ BusWatcher
 v2.0
-**11 feb 2019**
+**14 feb 2019**
 
 ---
 # ROADMAP TO COMPLETION
 
-## NEXT
+## NOW
 
-**wwwAPI**
-    - StopReport.get_arrivals
-        - continue debugging 87 with a good bit of data
-
-**stop.html**
+**SMALL STUFF**
+- **about.html** 
+    - write an about page and link to it, add a route in reportcard.py
+- **base.html** 
+    - fix breadcrumb / navbar links at top
+    - finalize footer links at bottom
+- **index.html**
+    - map
+        - `Starting extent`: zoom to extent of ALL lines (not just the arbitrary nth [n] line in the route array as currently)
+    
+**ROUTE PAGE**
+- route.html  
+    - wwwAPI.py - rebuild bunching_report / cron_nightly.py
+    - middle section: Route Performance 
+        -bunching grade
+        -(see below -- mockup for now)  
+    
+**STOP PAGE**
+- wwwAPI. StopReport.get_arrivals
+    - continue debugging with a good bit of data
+-stop.html
     - top
         - period picker bar
             - daily, monthly, history, specific date
@@ -22,24 +38,8 @@ v2.0
         - right: hourly frequency for period
             - make a histogram using the rough.js bar chart (embed script in page if its easier)
 
-**route.html**  
--middle section: Route Performance 
-    -bunching grade
-    -(see below -- mockup for now)
-     
-**wwwAPI.py**
-- rebuild bunching_report / cron_nightly.py
-
-
 **route_config.py**
 - short and long descriptions for the new lines
-
-
-**index.html**
-- map
-    - `Starting extent`: zoom to extent of ALL lines (not just the arbitrary nth [n] line in the route array as currently)
-- route cards
-    - add grade, other metrics, link to schedule?
 
 
 ## MUST DO BEFORE LAUNCH
@@ -65,6 +65,9 @@ v2.0
 **tripwatcher.py**
     - create a supervisord config to 'daemonize' it
 
+**index.html**
+- route cards
+    - add grade, other metrics, link to schedule?
 
 ## FUTURE
 

@@ -322,7 +322,7 @@ class StopReport:
             for final_approach in final_approach_dfs:  # iterate over every final approach
                 arrival_insert_df = final_approach.tail(1)  # take the last observation
                 arrivals_list_final_df = arrivals_list_final_df.append(arrival_insert_df)  # insert into df
-            arrivals_list_final_df['delta']=(arrivals_list_final_df['arrival_timestamp'] - arrivals_list_final_df['timestamp'].shift(1)).fillna(0) # calc interval between last bus for each row, fill NaNs
+            arrivals_list_final_df['delta']=(arrivals_list_final_df['arrival_timestamp'] - arrivals_list_final_df['arrival_timestamp'].shift(1)).fillna(0) # calc interval between last bus for each row, fill NaNs
 
             stop_name = arrivals_list_final_df['stop_name'].iloc[0]
 
