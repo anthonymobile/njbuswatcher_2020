@@ -6,16 +6,6 @@ v2.0
 # ROADMAP TO COMPLETION
 
 ## NOW
-
-**SMALL STUFF**
-- **about.html** 
-    - write an about page and link to it, add a route in reportcard.py
-- **base.html** 
-    - fix breadcrumb / navbar links at top
-    - finalize footer links at bottom
-- **index.html**
-    - map
-        - `Starting extent`: zoom to extent of ALL lines (not just the arbitrary nth [n] line in the route array as currently)
     
 **ROUTE PAGE**
 - route.html  
@@ -37,10 +27,19 @@ v2.0
         - left: arrivals for period w/ bunched arrivals highlighted
         - right: hourly frequency for period
             - make a histogram using the rough.js bar chart (embed script in page if its easier)
+            
+**SMALL STUFF**
+- **about.html** 
+    - write content
+- **index.html**
+    - map = fix starting extent (zoom to extent of ALL lines, not just the arbitrary nth [n] line in the route array as currently)
+    - add breadcrumb separators
 
 **route_config.py**
 - short and long descriptions for the new lines
 
+
+**DEPLOY ON TEST AWS MICRO**
 
 ## MUST DO BEFORE LAUNCH
 **wwwAPI.py**

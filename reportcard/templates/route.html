@@ -18,6 +18,12 @@
 {{ super() }}
 {% endblock %}
 
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href={{ url_for('genRouteReport' ,source='nj',route=routereport.route) }}>{{routereport.route}} {{routereport.prettyname}}</a></li>
+
+{% endblock %}}
+
 {% block scripts %}
 
     <!-- Font Awesome -->
