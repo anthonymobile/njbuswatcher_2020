@@ -38,17 +38,12 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
 
-    ran = False
-
     ##############################################
     # 0 -- LOAD ROUTE LIST AND LOOP
     ##############################################
     while True:
 
-        if ran == True:
-            delay = 30
-        else:
-            delay = 0
+        delay = 30
         time.sleep(delay)
 
         for r in reportcard_routes:
@@ -66,7 +61,7 @@ if __name__ == "__main__":
                             BusAPI.get_xml_data(args.source, 'buses_for_route', route=r['route']))
                     except werkzeug.exceptions.NotFound as e:
                         sys.stdout.write('.')
-                        # time.sleep(2)
+                        time.sleep(2)
                         continue
                     break
 
@@ -76,11 +71,6 @@ if __name__ == "__main__":
                     for bus in group:
                         db.session.add(bus)
                 db.session.commit()
-                # print('\n<----observed positions---->')
-                # print ('trip_id\t\t\t\tv\trun\tstop_id\tdistance_to_stop (feet)')
-                # for direction in bus_positions:
-                #    for b in direction:
-                #        print (('t{a}\t\t{b}\t{c}\t{d}\t{e:.0f}').format(a=b.trip_id,b=b.id,c=b.run,d=b.stop_id,e=b.distance_to_stop))
 
                 #   create trip records for any new trips seen
                 triplist = []
@@ -89,7 +79,6 @@ if __name__ == "__main__":
                         triplist.append(bus.trip_id)
                         result = db.session.query(Trip).filter(Trip.trip_id == bus.trip_id).first()
                         if result is None:
-                            # print(('Created a new trip record for {a}').format(a=bus.trip_id))
                             trip_id = Trip(DBConfig.conn_str, args.source, r['route'], bus.id, bus.run, bus.pid)
                             db.session.add(trip_id)
 
@@ -97,16 +86,13 @@ if __name__ == "__main__":
                             pass
                         db.session.commit()
 
-
             ##############################################
             #   2 -- ASSIGN ARRIVALS
             ##############################################
 
             with SQLAlchemyDBConnection(DBConfig.conn_str) as db:
 
-                # print('\n<----approach analysis---->')
                 for trip_id in triplist:
-                    # print(('trip {a}...').format(a=trip_id))
 
                     # load the trip card for reference
                     scheduled_stops = db.session.query(Trip,ScheduledStop)\
@@ -147,13 +133,10 @@ if __name__ == "__main__":
                         ##############################################
 
                         if len(position_list) == 1:
-                            # print(('\tapproaching {a}').format(a=position_list[0].stop_id))
                             arrival_time = position_list[0].timestamp
                             position_list[0].arrival_flag = True
-                            # print(('\t\t 0.0,{a:.0f} distance_to_stop {a:.0f}').format(a=position_list[0].distance_to_stop))
                             case_identifier='1a'
                             approach_array=np.array([0,position_list[0].distance_to_stop])
-                            # plot_approach(trip_id,approach_array,case_identifier)
 
                         ##############################################
                         #   TWO POSITIONS
@@ -166,13 +149,10 @@ if __name__ == "__main__":
                         elif len(position_list) == 2:
 
                             # create and display approach array
-                            # print (('\tapproaching {b}').format(a=trip_id, b=position_list[0].stop_id))
                             points=[]
                             for y in range(len(position_list)):
                                 points.append((y,position_list[y].distance_to_stop))
                             approach_array = np.array(points)
-                            # for point in approach_array:
-                                # print (('\t\t\t{a:.0f} distance_to_stop {b}').format(a=point[0], b=point[1]))
 
                             # calculate classification metrics
                             slope = np.diff(approach_array, axis=0)[:, 1]
@@ -187,7 +167,6 @@ if __name__ == "__main__":
                                 arrival_time = position_list[0].timestamp
                                 position_list[0].arrival_flag = True
                                 case_identifier = '2a'
-                                # plot_approach(trip_id, np.array([0, position_list[0].distance_to_stop]), case_identifier)
 
                             # CASE B approaches, then vanishes
                             # determined by [d is decreasing, slope is always negative]
@@ -197,7 +176,6 @@ if __name__ == "__main__":
                                 arrival_time = position_list[-1].timestamp
                                 position_list[-1].arrival_flag = True
                                 case_identifier = '2b'
-                                # plot_approach(trip_id, np.array([0, position_list[-1].distance_to_stop]), case_identifier)
 
                             # CASE C appears, then departs
                             # determined by [d is increasing, slope is always positive]
@@ -207,7 +185,6 @@ if __name__ == "__main__":
                                 arrival_time = position_list[0].timestamp
                                 position_list[0].arrival_flag = True
                                 case_identifier = '2c'
-                                # plot_approach(trip_id, np.array([0, position_list[0].distance_to_stop]), case_identifier)
 
                         ##############################################
                         #   THREE OR MORE POSITIONS
@@ -261,6 +238,3 @@ if __name__ == "__main__":
                             pass
 
                 db.session.commit()
-            print('x')
-            ran = True
-

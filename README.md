@@ -7,9 +7,6 @@ v2.0
 
 ## NEXT
 
-**tripwatcher.py**
-- single instance reads route_config.py, spaces out scans of them all over 30 seconds and quits (so dont have to cron individual routes) 
-
 **wwwAPI**
     - StopReport.get_arrivals
         - continue debugging 87 with a good bit of data
@@ -64,6 +61,10 @@ v2.0
 
 **reportcard.py**
 - enable and tune caching
+
+**tripwatcher.py**
+    - create a supervisord config to 'daemonize' it
+
 
 ## FUTURE
 
