@@ -1,0 +1,275 @@
+{%- extends "base.html" %}
+
+
+{# Loads some of the macros included with Flask-Bootstrap. We are using the
+   utils module here to automatically render Flask's flashed messages in a
+   bootstrap friendly manner #}
+{% import "bootstrap/utils.html" as utils %}
+
+
+{# Inside the ``content`` is where you should place most of your own stuff.
+   This will keep scripts at the page end and a navbar you add on later
+   intact. #}
+{% block head %}
+<META HTTP-EQUIV="refresh" CONTENT="60">
+
+    <!-- seems to have no effect --> <style> #map { width:100%; } </style>
+
+{{ super() }}
+{% endblock %}
+
+{% block scripts %}
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="{{ url_for('static', filename='mdb/css/bootstrap.min.css')}}" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="{{ url_for('static', filename='mdb/css/mdb.min.css')}}" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="{{ url_for('static', filename='mdb/css/style.min.css')}}" rel="stylesheet">
+
+{% endblock %}
+
+
+{% block content_main %}
+
+
+    <!--Main layout-->
+    <main class="mt-2 pt-5">
+
+        <div class="container">
+
+
+            <!--Section: Menu-->
+
+                <section id="menu" class="text-center">
+
+                <!-- Content -->
+                <div class="card-body text-black text-center mt-4 ">
+
+                    <h1 class="mb-4">
+                        <strong>About BusWatcher</strong>
+                    </h1>
+
+                    <p class="mb-4">
+                        <strong>something</strong>
+                    </p>
+                    <a target="_self" href="#section1" class="btn btn-outline-black btn-lg">section1
+                        <i class="fas fa-graduation-cap ml-2"></i>
+                    </a>
+                    <a target="_self" href="#section2" class="btn btn-outline-black btn-lg">section2
+                        <i class="fas fa-map ml-2"></i>
+                    </a>
+
+
+                </div>
+                <!-- Content -->
+            </section>
+            <!--Section: Menu-->
+
+
+            <hr id="section1" class="my-5">
+
+
+            <!--Section: Section1 -->
+            <section>
+                     <h1 class="mb-4 mt-4">
+                        <strong>Section 1</strong>
+                    </h1>
+
+                <!--Grid row-->
+                <div class="row mb-4 wow fadeIn">
+
+                    <!--Grid column-->
+                    <div class="col-lg-4 col-md-12 mb-4">
+
+
+                        <!--Card-->
+                        <div class="card">
+
+                            <!--Card content-->
+                            <div class="card-body">
+                                <!--Title-->
+                                <p class="card-title">Title</p>
+                                <div class="row mt-2">
+                                    Get fancy card content from original template
+
+                                </div>
+
+                            </div>
+                            <!--/.Card-->
+
+                        </div>
+                        <!--Grid column-->
+
+
+
+                    </div>
+                    <!--Grid row-->
+
+                                        <!--Grid column-->
+                    <div class="col-lg-4 col-md-12 mb-4">
+
+
+                        <!--Card-->
+                        <div class="card">
+
+                            <!--Card content-->
+                            <div class="card-body">
+                                <!--Title-->
+                                <p class="card-title">Title</p>
+                                <div class="row mt-2">
+                                    Get fancy card content from original template
+
+                                </div>
+
+                            </div>
+                            <!--/.Card-->
+
+                        </div>
+                        <!--Grid column-->
+
+
+
+                    </div>
+                    <!--Grid row-->
+
+                                        <!--Grid column-->
+                    <div class="col-lg-4 col-md-12 mb-4">
+
+
+                        <!--Card-->
+                        <div class="card">
+
+                            <!--Card content-->
+                            <div class="card-body">
+                                <!--Title-->
+                                <p class="card-title">Title</p>
+                                <div class="row mt-2">
+                                    Get fancy card content from original template
+
+                                </div>
+
+                            </div>
+                            <!--/.Card-->
+
+                        </div>
+                        <!--Grid column-->
+
+
+
+                    </div>
+                    <!--Grid row-->
+
+                </div>
+
+             </section>
+
+
+
+
+            <hr id="section2" class="my-5">
+
+
+            <!--Section: Section2 -->
+            <section>
+                     <h1 class="mb-4 mt-4">
+                        <strong>Section 2</strong>
+                    </h1>
+
+                <!--Grid row-->
+                <div class="row mb-4 wow fadeIn">
+
+                    <!--Grid column-->
+                    <div class="col-lg-4 col-md-12 mb-4">
+
+
+                        <!--Card-->
+                        <div class="card">
+
+                            <!--Card content-->
+                            <div class="card-body">
+                                <!--Title-->
+                                <p class="card-title">Title</p>
+                                <div class="row mt-2">
+                                    Get fancy card content from original template
+
+                                </div>
+
+                            </div>
+                            <!--/.Card-->
+
+                        </div>
+                        <!--Grid column-->
+
+                    </div>
+                    <!--Grid row-->
+
+                                        <!--Grid column-->
+                    <div class="col-lg-4 col-md-12 mb-4">
+
+
+                        <!--Card-->
+                        <div class="card">
+
+                            <!--Card content-->
+                            <div class="card-body">
+                                <!--Title-->
+                                <p class="card-title">Title</p>
+                                <div class="row mt-2">
+                                    Get fancy card content from original template
+
+                                </div>
+
+                            </div>
+                            <!--/.Card-->
+
+                        </div>
+                        <!--Grid column-->
+
+
+
+                    </div>
+                    <!--Grid row-->
+
+                                        <!--Grid column-->
+                    <div class="col-lg-4 col-md-12 mb-4">
+
+
+                        <!--Card-->
+                        <div class="card">
+
+                            <!--Card content-->
+                            <div class="card-body">
+                                <!--Title-->
+                                <p class="card-title">Title</p>
+                                <div class="row mt-2">
+                                    Get fancy card content from original template
+
+                                </div>
+
+                            </div>
+                            <!--/.Card-->
+
+                        </div>
+                        <!--Grid column-->
+
+
+
+                    </div>
+                    <!--Grid row-->
+
+                </div>
+
+             </section>
+
+
+        </div>
+
+
+    </main>
+    <!--Main layout-->
+
+
+{% endblock %}

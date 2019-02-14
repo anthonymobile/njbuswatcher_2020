@@ -48,6 +48,8 @@ https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css
 {{super()}}
 {# do not forget to call super or Bootstrap's own stylesheets
                     will disappear! #}
+
+
 {% endblock %}
 
 {% block content %}
@@ -56,49 +58,38 @@ https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css
     <header>
 
         <!-- Navbar -->
-        <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
+        <nav aria-label="breadcrumb"class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
+
             <div class="container">
 
-                <!-- Brand -->
+                <!-- Brand
                 <a class="navbar-brand waves-effect" href=" /" target="_self">
                     <strong class="blue-text">Jersey City</strong>
                 </a>
-
-                <!-- Collapse -->
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                -->
 
                 <!-- Links -->
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
                     <!-- Left -->
-                    <ul class="navbar-nav mr-auto">
-
-
-                        <li class="nav-item">
-                            <a class="nav-link waves-effect" href="https://www.njtransit.com/" target="_self">chicken</a>
-                        </li>
-
-
-                        <li class="nav-item">
-                            <a class="nav-link waves-effect" href="https://www.njtransit.com/" target="_self">NJTransit</a>
-                        </li>
-
-
-                    </ul>
+                    <ol class="navbar-nav mr-auto breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                        {% block breadcrumb %}
+                        {% endblock %}
+                    </ol>
 
                     <!-- Right -->
+
                     <ul class="navbar-nav nav-flex-icons">
 
                         <li class="nav-item">
-                            <a href="https://github.com/code4jc/buswatcher" class="nav-link border border-light rounded waves-effect"
+                            <a href="/faq" class="nav-link border border-light rounded waves-effect"
                                 target="_self">
-                                <i class="fab fa-github mr-2"></i>code
+                                <i class="fab fa-github mr-2"></i>About/FAQ
                             </a>
                         </li>
                     </ul>
+
 
                 </div>
 
@@ -119,13 +110,15 @@ https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css
 
         <!--Call to action-->
         <div class="pt-4">
-            <a class="btn btn-outline-white" href="https://www.github.com/code4jc/buswatcher" target="_self" role="button">API
+            <a class="btn btn-outline-white" href="/api" target="_self" role="button">API
                 <i class="fas fa-download ml-2"></i>
             </a>
-            <a class="btn btn-outline-white" href="https://www.bitsandatoms.net" target="_self" role="button">something else
-                <i class="fas fa-graduation-cap ml-2"></i>
+
+            <a class="btn btn-outline-white" href="https://github.com/code4jc/buswatcher" target="_self" role="button">Code
+                <i class="fab fa-github mr-2"></i>
             </a>
         </div>
+
         <!--/.Call to action-->
 
         <hr class="my-4">
@@ -171,8 +164,7 @@ https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css
 
         <!--Copyright-->
         <div class="footer-copyright py-3">
-            © 2018, 2019 Site concept and design by
-      <a href="http://www.bitsandatoms.net" target="_blank"> Bits and Atoms</a> for Code4JC (<a href="https://github.com/code4jc/buswatcher" target="_blank">GitHub</a>). All data, both live and <a href="/static/images/jersey-city-bus-central-avenue-1948.jpg" target="_blank">historical</a>, is provided for informational purposes only.</div>
+            © 2018, 2019 Site concept and design by <a href="http://www.bitsandatoms.net" target="_blank">Bits and Atoms</a>. All data, both live and <a href="/static/images/jersey-city-bus-central-avenue-1948.jpg" target="_blank">historical</a>, is provided for informational purposes only.</div>
 
         </div>
         <!--/.Copyright-->

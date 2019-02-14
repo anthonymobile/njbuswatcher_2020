@@ -1,8 +1,14 @@
-# database setting
+# bus reportcard v2.0
+# february 2019 - by anthony@bitsandatoms.net
+
+################################################
+# VIP INSTANCE CONFIG
+################################################
 conn_str = 'sqlite:///jc_buswatcher.db'
 
-# bus reportcard v2.0
-# january 2019 - by anthony@bitsandatoms.net
+class Dummy():
+    def __init__(self):
+        self.routename = 'Jersey City'
 
 ################################################
 # IMPORTS
@@ -72,17 +78,24 @@ assets.register(bundles)
 # URLS
 ################################################
 
-
 #-------------------------------------------------------------Index
 @app.route('/')
 def displayHome():
-    # setup a dummy routereport for the navbar
-    class Dummy():
-        def __init__(self):
-            self.routename = 'Jersey City'
-    routereport = Dummy()
+    routereport = Dummy() # setup a dummy routereport for the navbar
     waypoints_featurecollection, stops_featurecollection = wwwAPI.get_systemwide_geojson(reportcard_routes)
     return render_template('index.html', citywide_waypoints_geojson=waypoints_featurecollection, citywide_stops_geojson=stops_featurecollection, reportcard_routes=reportcard_routes, routereport=routereport)
+
+#-------------------------------------------------------------FAQ
+@app.route('/faq')
+def displayFAQ():
+    routereport = Dummy() #  setup a dummy routereport for the navbar
+    return render_template('faq.html', reportcard_routes=reportcard_routes, routereport=routereport)
+
+#-------------------------------------------------------------API docs
+@app.route('/api')
+def displayAPI():
+    routereport = Dummy() #  setup a dummy routereport for the navbar
+    return render_template('api.html', reportcard_routes=reportcard_routes, routereport=routereport)
 
 #-------------------------------------------------------------RouteReport
 @app.route('/<source>/<route>')
