@@ -6,18 +6,24 @@ v2.0
 # ROADMAP TO COMPLETION
 
 ## NOW
-    
-**ROUTE PAGE**
-- route.html  
+
+**PRE_DEPLOYMENT** 
+- `Dockerization`: dockerize entire application and its database, using docker-compose [tutorial](https://github.com/stavshamir/docker-tutorial/tree/master/app)
+    - maybe 3 dockers? one for the flask app
+    - one for the db
+    - one for the http server and proxy: nginx and gunicorn
+    - supervisord for tripwatcher.py
+- `AWS deploy for alpha testing`
+
+**ALPHA_DEVELOPMENT**
+- **route.html** 
     - wwwAPI.py - rebuild bunching_report / cron_nightly.py
     - middle section: Route Performance 
         -bunching grade
         -(see below -- mockup for now)  
-    
-**STOP PAGE**
-- wwwAPI. StopReport.get_arrivals
-    - continue debugging with a good bit of data
--stop.html
+- **wwwAPI**
+    - StopReport.get_arrivals = continue debugging with a good bit of data
+- **stop.html**
     - top
         - period picker bar
             - daily, monthly, history, specific date
@@ -26,20 +32,18 @@ v2.0
     -  two column reports
         - left: arrivals for period w/ bunched arrivals highlighted
         - right: hourly frequency for period
-            - make a histogram using the rough.js bar chart (embed script in page if its easier)
-            
-**SMALL STUFF**
+            - make a histogram using the rough.js bar chart (embed script in page if its easier)        
 - **about.html** 
     - write content
 - **index.html**
     - map = fix starting extent (zoom to extent of ALL lines, not just the arbitrary nth [n] line in the route array as currently)
     - add breadcrumb separators
 
-**route_config.py**
-- short and long descriptions for the new lines
+- **route_config.py**
+    - short and long descriptions for the new lines
 
 
-**DEPLOY ON TEST AWS MICRO**
+
 
 ## MUST DO BEFORE LAUNCH
 **wwwAPI.py**
@@ -81,13 +85,6 @@ v2.0
 **Databases.py** 
 - `relationships! use them!` `children_ScheduledStops` and `parent_Trip` are incredibly use attributes any record i pull from the db will have now. use them to extend the query sets we get back!!!!
 - `Exception handler`: smarter check in get_session on table creation --> try if table exists == False:
-
-**sysadmin** 
-- `Dockerization`: dockerize entire application and its database, using docker-compose [tutorial](https://github.com/stavshamir/docker-tutorial/tree/master/app)
-    - maybe 3 dockers? one for the flask app
-    - one for the db
-    - one for the http server and proxy: nginx and gunicorn
-
 
 ---
 # MAIN DOCUMENTATION
