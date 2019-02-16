@@ -36,9 +36,13 @@ services:
       - 1337:80
     depends_on:
       - web
-  dns_updater:
-    build: ./dns_updater
-
+  # tripwatcher
+  #      build:
+  #        - context:
+  #        - Dockerfile:
+  #
+  #  dns_updater:
+  #    build: ./dns_updater
 
 
 volumes:
