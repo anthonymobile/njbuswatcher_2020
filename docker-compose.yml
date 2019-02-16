@@ -1,26 +1,23 @@
-# based on django on docker https://github.com/anthonymobile/django-on-docker
+# based on https://github.com/sladkovm/docker-flask-gunicorn-nginx/blob/master/docker-compose.yml
 
-version: '3.7'
+version: '3'
 
 services:
-  tripwatcher:
-    build:
-      context: ./
-      dockerfile: ./tripwatcher/Dockerfile
-    command: python tripwatcher.py -s nj
-    depends_on:
-      - db
-  gunicorn:
+
+  db:
+    image: postgres:10.5-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
+  reportcard:
+    container_name: reportcard
+    restart: always
     build:
       context: ./
       dockerfile: ./reportcard/Dockerfile
-    command: gunicorn reportcard:app --bind 0.0.0.0:8000 -w 4
-    volumes:
-      - ./reportcard/:/usr/src/reportcard/
-      - static_volume:/usr/src/reportcard/staticfiles
-      - media_volume:/usr/src/reportcard/mediafiles
-    expose:
-      - 8000
+    ports:
+      - "8000:8000"
+    command: gunicorn -w 4 -b :8000 reportcard:app
     environment:
       - SECRET_KEY=please_change_me
       - SQL_ENGINE=django.db.backends.postgresql
@@ -32,21 +29,20 @@ services:
       - DATABASE=postgres
     depends_on:
       - db
-  db:
-    image: postgres:10.5-alpine
-    volumes:
-      - postgres_data:/var/lib/postgresql/data/
-  nginx:
-    build: ./nginx
-    volumes:
-      - static_volume:/usr/src/reportcard/staticfiles
-      - media_volume:/usr/src/reportcard/mediafiles
-    ports:
-      - 1337:80
-    depends_on:
-      - gunicorn
 
-volumes:
-  postgres_data:
-  static_volume:
-  media_volume:
+  nginx:
+    container_name: nginx
+    restart: always
+    build: ./nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - reportcard
+
+  tripwatcher:
+    build:
+      context: ./
+      dockerfile: ./tripwatcher/Dockerfile
+    command: python tripwatcher.py -s nj
+    depends_on:
+      - db

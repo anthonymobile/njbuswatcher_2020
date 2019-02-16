@@ -34,7 +34,7 @@ from route_config import reportcard_routes, grade_descriptions
 ################################################
 # APP
 ################################################
-app = Flask(__name__, static_url_path='/static')
+app = Flask(__name__, static_url_path='../nginx/static')
 CORS(app, support_credentials=True)
 
 ################################################
