@@ -1,0 +1,17 @@
+name: buswatcher
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - mysql-connector-python
+  - SQLAlchemy
+  - pandas
+  - geojson
+  - geopandas
+  - numpy
+  - flask
+  - flask-assets
+  - flask-caching
+  - flask-cors
+  - gunicorn
+  - werkzeug
