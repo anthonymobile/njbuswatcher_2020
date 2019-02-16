@@ -1,6 +1,7 @@
-# based on https://github.com/sladkovm/docker-flask-gunicorn-nginx/blob/master/docker-compose.yml
+# mashup of https://github.com/sladkovm/docker-flask-gunicorn-nginx/
+# and https://testdriven.io/blog/dockerizing-django-with-postgres-gunicorn-and-nginx/
 
-version: '3'
+version: '3.7'
 
 services:
 
@@ -19,14 +20,12 @@ services:
       - "8000:8000"
     command: gunicorn -w 4 -b :8000 reportcard:app
     environment:
-      - SECRET_KEY=please_change_me
-      - SQL_ENGINE=django.db.backends.postgresql
-      - SQL_DATABASE=postgres
-      - SQL_USER=postgres
-      - SQL_PASSWORD=postgres
+      - SQL_DATABASE=exi
+      - SQL_USER=buswatcher
+      - SQL_PASSWORD=njtransit
       - SQL_HOST=db
       - SQL_PORT=5432
-      - DATABASE=postgres
+      - DATABASE=buses
     depends_on:
       - db
 
@@ -43,6 +42,12 @@ services:
     build:
       context: ./
       dockerfile: ./tripwatcher/Dockerfile
-    command: python tripwatcher.py -s nj
     depends_on:
       - db
+
+  ddns:
+    build: ./dns_updater/Dockerfile
+
+volumes:
+  postgres_data:
+
