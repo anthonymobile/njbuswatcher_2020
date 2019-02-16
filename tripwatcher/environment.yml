@@ -1,0 +1,12 @@
+name: tripwatcher
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - mysql-connector-python
+  - SQLAlchemy
+  - pandas
+  - geojson
+  - geopandas
+  - numpy
+
