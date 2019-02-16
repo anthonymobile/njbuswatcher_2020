@@ -6,9 +6,17 @@ version: '3.7'
 services:
 
   db:
-    image: postgres:10.5-alpine
-    volumes:
-      - postgres_data:/var/lib/postgresql/data/
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
 
   reportcard:
     container_name: reportcard
@@ -47,7 +55,3 @@ services:
 
   ddns:
     build: ./dns_updater/Dockerfile
-
-volumes:
-  postgres_data:
-
