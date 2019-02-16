@@ -1,26 +1,18 @@
-# base python supervisor image
-FROM praekeltfoundation/supervisor
+FROM alpine:3.3
+MAINTAINER Shawn McElroy <shawn@skift.io>
 
-# install the requirements
+RUN apk add --no-cache supervisor
 
-# copy the supervisor conf file
-ADD ./tripwatcher/tripwatcher.conf /etc/supervisor/conf.d/
-
-# copy rest of code
-COPY . .
-
-
-
-
-# base python supervisor image
-FROM praekeltfoundation/supervisor
-
+# install requirements
 WORKDIR /home
-COPY ./tripwatcher/requirements.txt /home
+RUN pip install --upgrade pip
+COPY ./reportcard/requirements.txt /home
 RUN pip install --no-cache-dir -r requirements.txt
 
-# copy the supervisor conf file
-ADD ./tripwatcher/supervisord/tripwatcher.conf /etc/supervisor/conf.d/
+# add basic supervisor config
+COPY ./tripwatcher/supervisord.conf /etc/supervisord.conf
 
-# copy rest of code
-COPY . .
+# copy the app supervisor conf file
+COPY ./tripwatcher/reportcard.conf /etc/supervisor/conf.d/
+
+CMD ["supervisord", "-n"]
