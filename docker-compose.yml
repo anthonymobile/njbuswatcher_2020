@@ -1,0 +1,52 @@
+# based on django on docker https://github.com/anthonymobile/django-on-docker
+
+version: '3.7'
+
+services:
+  tripwatcher:
+    build:
+      context: ./
+      dockerfile: ./tripwatcher/Dockerfile
+    command: python tripwatcher.py -s nj
+    depends_on:
+      - db
+  gunicorn:
+    build:
+      context: ./
+      dockerfile: ./reportcard/Dockerfile
+    command: gunicorn reportcard:app --bind 0.0.0.0:8000 -w 4
+    volumes:
+      - ./reportcard/:/usr/src/reportcard/
+      - static_volume:/usr/src/reportcard/staticfiles
+      - media_volume:/usr/src/reportcard/mediafiles
+    expose:
+      - 8000
+    environment:
+      - SECRET_KEY=please_change_me
+      - SQL_ENGINE=django.db.backends.postgresql
+      - SQL_DATABASE=postgres
+      - SQL_USER=postgres
+      - SQL_PASSWORD=postgres
+      - SQL_HOST=db
+      - SQL_PORT=5432
+      - DATABASE=postgres
+    depends_on:
+      - db
+  db:
+    image: postgres:10.5-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+  nginx:
+    build: ./nginx
+    volumes:
+      - static_volume:/usr/src/reportcard/staticfiles
+      - media_volume:/usr/src/reportcard/mediafiles
+    ports:
+      - 1337:80
+    depends_on:
+      - gunicorn
+
+volumes:
+  postgres_data:
+  static_volume:
+  media_volume:

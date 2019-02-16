@@ -8,12 +8,13 @@ v2.0
 ## NOW
 
 **PRE_DEPLOYMENT** 
-- `Dockerization`: dockerize entire application and its database, using docker-compose [tutorial](https://github.com/stavshamir/docker-tutorial/tree/master/app)
-    - maybe 3 dockers? one for the flask app
-    - one for the db
-    - one for the http server and proxy: nginx and gunicorn
-    - supervisord for tripwatcher.py
-- `AWS deploy for alpha testing`
+- finish docker
+- maybe 3 or 4 microservices bound together with docker-compose [tutorial](https://sladkovm.github.io/webdev/2017/10/16/Deploying-Plotly-Dash-in-a-Docker-Container-on-Digitital-Ocean.html)
+    - reportcard.py flask app (gunicorn w/ supervisor)
+    - mysql db
+    - nginx
+    - python app tripwatcher.py (w/ supervisor)
+- `deploy to AWS free micro instance`- for remainder of alpha testing
 
 **ALPHA_DEVELOPMENT**
 - **route.html** 
@@ -41,8 +42,6 @@ v2.0
 
 - **route_config.py**
     - short and long descriptions for the new lines
-
-
 
 
 ## MUST DO BEFORE LAUNCH
