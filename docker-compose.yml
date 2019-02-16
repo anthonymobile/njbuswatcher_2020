@@ -1,0 +1,47 @@
+# from https://github.com/testdrivenio/django-on-docker
+# install with: docker-compose up -d --build
+
+version: '3.7'
+
+services:
+  web:
+    build: ./reportcard
+    command: gunicorn hello_django.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - ./reportcard/:/usr/src/reportcard/
+      - static_volume:/usr/src/reportcard/staticfiles
+      - media_volume:/usr/src/reportcard/mediafiles
+    expose:
+      - 8000
+    environment:
+      - SECRET_KEY=please_change_me
+      - SQL_DATABASE=buses
+      - SQL_USER=buswatcher
+      - SQL_PASSWORD=njtransit
+      - SQL_HOST=db
+      - SQL_PORT=5432
+      - DATABASE=buses
+    depends_on:
+      - db
+  db:
+    image: postgres:10.5-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+  nginx:
+    build: ./nginx
+    volumes:
+      - static_volume:/usr/src/reportcard/staticfiles
+      - media_volume:/usr/src/reportcard/mediafiles
+    ports:
+      - 1337:80
+    depends_on:
+      - web
+  dns_updater:
+    build: ./dns_updater
+
+
+
+volumes:
+  postgres_data:
+  static_volume:
+  media_volume:
