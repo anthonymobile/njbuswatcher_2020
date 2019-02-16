@@ -1,12 +1,4 @@
-FROM continuumio/miniconda3
-
-# copy conda environment
-ADD ./dns_updater/environment.yml /tmp/environment.yml
-
-RUN conda env create -f /tmp/environment.yml
-# Pull the environment name out of the environment.yml
-RUN echo "source activate $(head -1 /tmp/environment.yml | cut -d' ' -f2)" > ~/.bashrc
-ENV PATH /opt/conda/envs/$(head -1 /tmp/environment.yml | cut -d' ' -f2)/bin:$PATH
+FROM python:3
 
 # install supervisor
 RUN apt-get update --fix-missing && \
@@ -18,12 +10,12 @@ COPY ./reportcard/supervisord/supervisord.conf /etc/supervisord.conf
 # copy the app supervisor conf file
 COPY ./dns_updater/dns_updater.conf /etc/supervisor/conf.d/
 
-# copy rest of code
+WORKDIR /usr/src/app
+
+COPY ./dns_updater/requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
 COPY . .
 
 # run supervisor
 CMD ["supervisord", "-n"]
-
-
-
-
