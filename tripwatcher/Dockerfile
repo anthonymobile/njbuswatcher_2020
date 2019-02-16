@@ -16,7 +16,7 @@ COPY . .
 FROM praekeltfoundation/supervisor
 
 WORKDIR /home
-COPY requirements.txt /home
+COPY ./tripwatcher/requirements.txt /home
 RUN pip install --no-cache-dir -r requirements.txt
 
 # copy the supervisor conf file
