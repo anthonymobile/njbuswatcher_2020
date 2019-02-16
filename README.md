@@ -8,12 +8,7 @@ v2.0
 ## NOW
 
 **PRE_DEPLOYMENT** 
-- finish docker
-- maybe 3 or 4 microservices bound together with docker-compose [tutorial](https://sladkovm.github.io/webdev/2017/10/16/Deploying-Plotly-Dash-in-a-Docker-Container-on-Digitital-Ocean.html)
-    - reportcard.py flask app (gunicorn w/ supervisor)
-    - mysql db
-    - nginx
-    - python app tripwatcher.py (w/ supervisor)
+- docker: test
 - `deploy to AWS free micro instance`- for remainder of alpha testing
 
 **ALPHA_DEVELOPMENT**
@@ -45,6 +40,10 @@ v2.0
 
 
 ## MUST DO BEFORE LAUNCH
+
+**docker**
+- rebuild reportcard, tripwatcher, ddns using pip instead of conda to get the images smaller
+
 **wwwAPI.py**
 - deal with self.tripdash staleness
 
