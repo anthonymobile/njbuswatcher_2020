@@ -54,4 +54,6 @@ services:
       - db
 
   ddns:
-    build: ./dns_updater/Dockerfile
+    build:
+      context: ./
+      dockerfile: ./dns_updater/Dockerfile
