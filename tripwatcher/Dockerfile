@@ -1,24 +1,17 @@
-FROM continuumio/miniconda3
+FROM python:3.6-alpine as base
+FROM base as builder
 
-# copy conda environment
-ADD ./tripwatcher/environment.yml /tmp/environment.yml
+RUN apk add --update supervisor && rm  -rf /tmp/* /var/cache/apk/*
+ADD ./reportcard/supervisord/supervisord.conf  /etc/
+ADD ./tripwatcher/tripwatcher.conf /etc/supervisor/conf.d/
 
-RUN conda env create -f /tmp/environment.yml
-# Pull the environment name out of the environment.yml
-RUN echo "source activate $(head -1 /tmp/environment.yml | cut -d' ' -f2)" > ~/.bashrc
-ENV PATH /opt/conda/envs/$(head -1 /tmp/environment.yml | cut -d' ' -f2)/bin:$PATH
-
-# install supervisor
-RUN apt-get update --fix-missing && \
-    apt-get install -y supervisor
-
-# add basic supervisor config
-COPY ./reportcard/supervisord/supervisord.conf /etc/supervisord.conf
-
-# copy the app supervisor conf file
-COPY ./tripwatcher/tripwatcher.conf /etc/supervisor/conf.d/
-
-# copy rest of code
+RUN mkdir /install
+WORKDIR /install
+COPY ./tripwatcher/requirements.txt /requirements.txt
+RUN pip install --install-option="--prefix=/install" -r /requirements.txt
+FROM base
+COPY --from=builder /install /usr/local
 COPY . .
+WORKDIR /
 
 CMD ["supervisord", "-n"]
