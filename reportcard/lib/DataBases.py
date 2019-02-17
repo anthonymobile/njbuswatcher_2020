@@ -12,20 +12,20 @@ Base = declarative_base()
 
 from sqlalchemy.ext.declarative import as_declarative
 
-@as_declarative()
-class Base:
-    def _asdict(self):
-        return {c.key: getattr(self, c.key)
-                for c in inspect(self).mapper.column_attrs}
-
-    def __repr__(self):
-        line = []
-        for prop, value in vars(self).items():
-            line.append((prop, value))
-        line.sort(key=lambda x: x[0])
-        out_string = ' '.join([k + '=' + str(v) for k, v in line])
-        return self.__class__.__name__ + '[%s]' % out_string
-
+# @as_declarative()
+# class Base:
+#     def _asdict(self):
+#         return {c.key: getattr(self, c.key)
+#                 for c in inspect(self).mapper.column_attrs}
+#
+#     def __repr__(self):
+#         line = []
+#         for prop, value in vars(self).items():
+#             line.append((prop, value))
+#         line.sort(key=lambda x: x[0])
+#         out_string = ' '.join([k + '=' + str(v) for k, v in line])
+#         return self.__class__.__name__ + '[%s]' % out_string
+#
 
 
 class DBConfig(object):
