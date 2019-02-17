@@ -8,20 +8,20 @@ services:
     image: postgres:10.5-alpine
     volumes:
       - postgres_data:/var/lib/postgresql/data/
-  tripwatcher:
-    build:
-      context: ./
-      dockerfile: ./tripwatcher/Dockerfile
-    depends_on:
-      - db
-  web:
+#  tripwatcher:
+#    build:
+#      context: ./
+#      dockerfile: ./tripwatcher/Dockerfile
+#    depends_on:
+#      - db
+  flask_gunicorn:
     build:
       context: ./
       dockerfile: ./reportcard/Dockerfile
     command: gunicorn reportcard:app -w 4 -b 0.0.0.0:8000
     volumes:
-      - ./reportcard/:/usr/src/buswatcher/reportcard/
-      - static_volume:/usr/src/buswatcher/reportcard/static
+      - ./reportcard/:/buswatcher/reportcard/
+      - static_volume:/buswatcher/reportcard/static
     expose:
       - 8000
     environment:
@@ -39,7 +39,7 @@ services:
     ports:
       - 8000:80
     depends_on:
-      - web
+      - flask_gunicorn
 #  dns_updater:
 #    build:
 #      context: ./

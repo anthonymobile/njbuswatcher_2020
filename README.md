@@ -8,12 +8,13 @@ v2.0
 ## NOW
 
 **PRE_DEPLOYMENT** 
-- docker 
-    - build with`docker-compose up -d --build`
-    - tripwatcher (pip)
-    - reportcard (conda)
-        - compare size
-        - compare speed to rebuild after changes
+- docker (build with`docker-compose up -d --build`)
+    - fix reportcard
+        - Had that issue and solved it by first `conda update --all` on the host sytem, then `conda export --no-builds > env.yml` and regular installation via `conda env create -f env.yml` on the remote machine.
+
+    - reduce size
+        1. pick one database (mysql or postgres and remove the other conda packages)
+        1. alt build for tripwatcher+reportcard using pip (if too big?)
     - nginx --> should be good as-is
     - dns_updater --> pick a light supervisor python image
 - `deploy to AWS free micro instance`- for remainder of alpha testing
