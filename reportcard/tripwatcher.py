@@ -7,27 +7,27 @@ import sys
 import werkzeug
 import itertools
 import numpy as np
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 import time
 from lib import BusAPI, Localizer
 from lib.DataBases import DBConfig, SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
 
 from route_config import reportcard_routes
 
-def plot_approach(trip_id, approach_array,case_identifier):
-    x = [row[0] for row in approach_array]
-    y = [row[1] for row in approach_array]
-    # x = approach_array[:,0]
-    # y = approach_array[:,1]
-    x_max = np.max(x)
-    y_max = np.max(y)
-    plt.scatter(x, y)
-    label = ('{a} {b}').format(a=trip_id, b=case_identifier)
-    plt.xlabel(label)
-    plt.axis([0, 1.1 * x_max, 0, 1.1 * y_max])
-    plt.show()
-    # print ('plot failed')
-    return
+# def plot_approach(trip_id, approach_array,case_identifier):
+#     x = [row[0] for row in approach_array]
+#     y = [row[1] for row in approach_array]
+#     # x = approach_array[:,0]
+#     # y = approach_array[:,1]
+#     x_max = np.max(x)
+#     y_max = np.max(y)
+#     plt.scatter(x, y)
+#     label = ('{a} {b}').format(a=trip_id, b=case_identifier)
+#     plt.xlabel(label)
+#     plt.axis([0, 1.1 * x_max, 0, 1.1 * y_max])
+#     plt.show()
+#     # print ('plot failed')
+#     return
 
 if __name__ == "__main__":
 

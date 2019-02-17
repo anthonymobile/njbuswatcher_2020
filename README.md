@@ -8,7 +8,14 @@ v2.0
 ## NOW
 
 **PRE_DEPLOYMENT** 
-- docker: test
+- docker 
+    - build with`docker-compose up -d --build`
+    - tripwatcher (pip)
+    - reportcard (conda)
+        - compare size
+        - compare speed to rebuild after changes
+    - nginx --> should be good as-is
+    - dns_updater --> pick a light supervisor python image
 - `deploy to AWS free micro instance`- for remainder of alpha testing
 
 **ALPHA_DEVELOPMENT**

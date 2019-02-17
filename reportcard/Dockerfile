@@ -1,28 +1,17 @@
-# pull official base image
-FROM python:3.7-alpine
+# https://medium.com/@chadlagore/conda-environments-with-docker-82cdc9d25754
+FROM continuumio/miniconda3
+ADD environment.yml /tmp/environment.yml
+RUN conda env create -f /tmp/environment.yml
+# Pull the environment name out of the environment.yml
+RUN echo "source activate $(head -1 /tmp/environment.yml | cut -d' ' -f2)" > ~/.bashrc
+ENV PATH /opt/conda/envs/$(head -1 /tmp/environment.yml | cut -d' ' -f2)/bin:$PATH
 
-# set environment varibles
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
 
 # set work directory
-WORKDIR /usr/src/reportcard
-
-# install psycopg2
-RUN apk update \
-    && apk add --virtual build-deps gcc python3-dev musl-dev \
-    && apk add postgresql-dev \
-    && pip install psycopg2 \
-    && apk del build-deps
-
-# install dependencies
-RUN pip install --upgrade pip
-RUN pip install pipenv
-COPY ./Pipfile /usr/src/reportcard/Pipfile
-RUN pipenv install --skip-lock --system --dev
+WORKDIR /
 
 # copy entrypoint.sh
-COPY ./entrypoint.sh /usr/src/reportcard/entrypoint.sh
+COPY ./reportcard/entrypoint.sh /usr/src/reportcard/entrypoint.sh
 
 # copy project
 COPY . /usr/src/reportcard/
