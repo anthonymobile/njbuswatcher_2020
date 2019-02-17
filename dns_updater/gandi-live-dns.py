@@ -12,6 +12,7 @@ http://doc.livedns.gandi.net/
 http://doc.livedns.gandi.net/#api-endpoint -> https://dns.gandi.net/api/v5/
 '''
 
+import time
 import json
 import requests, config
 import argparse
@@ -121,7 +122,9 @@ if __name__ == "__main__":
     args = parser.parse_args()
         
         
-    main(args.force, args.verbose)
+    while True:
+        time.sleep(3600) # sleep an hour (dockerized version)
+        main(args.force, args.verbose)
 
 
 

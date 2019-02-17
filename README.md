@@ -9,16 +9,26 @@ v2.0
 
 **PRE_DEPLOYMENT** 
 - docker (build with`docker-compose up -d --build`)
-    - fix reportcard
-        - Had that issue and solved it by first `conda update --all` on the host sytem, then `conda export --no-builds > env.yml` and regular installation via `conda env create -f env.yml` on the remote machine.
-
-    - reduce size
-        1. pick one database (mysql or postgres and remove the other conda packages)
-        1. alt build for tripwatcher+reportcard using pip (if too big?)
+    - tripwatcher
+        - finalize conda build
+        - verify location of python executable `/opt/conda/envs/buswatcher/bin/python` for tripwatcher.conf
+        - test its logging data to /jc_buswatcher.db
+    - reportcard
+        - finalize conda build (based on tripwatcher?)
+        - test website comes up (won't connect to db though)
+    - **DataBases.py**
+        - change data store to postgres
     - nginx --> should be good as-is
-    - dns_updater --> pick a light supervisor python image
-- `deploy to AWS free micro instance`- for remainder of alpha testing
-
+    - dns_updater
+        - build as a minimal pip with only `requests` as a dependency
+        - delete config.py from repo
+        - config for Gandi, www.njbuswatcher.com
+        - test Dockerfile, see if it updates DNS
+        - test Dockerfile.alt, see if it updates DNS
+        - pick one for production
+    - `deploy to AWS free micro instance`
+    - test
+    
 **ALPHA_DEVELOPMENT**
 - **route.html** 
     - wwwAPI.py - rebuild bunching_report / cron_nightly.py
@@ -64,9 +74,6 @@ v2.0
      - remove other extraneous output
 - `Interpolate+log missed stops` after scanning each trip and logging any new arrivals, run a function that interpolates arrival times for any stops in between arrivals in the trip card -- theoretically there shouldn't be a lot though if the trip card is correct since we are grabbing positions every 30 seconds.
 - `Boomerang buses (Case E)`: Bus that gets assigned to a stop it already visited after doubling back on a parallel street -- e.g. the 87 going down the hill getting localized to Palisade Ave stops again.
-
-**DataBases.py**
-- change data store to postgres or mysql
 
 **reportcard.py**
 - enable and tune caching

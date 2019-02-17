@@ -8,42 +8,45 @@ services:
     image: postgres:10.5-alpine
     volumes:
       - postgres_data:/var/lib/postgresql/data/
-#  tripwatcher:
-#    build:
-#      context: ./
-#      dockerfile: ./tripwatcher/Dockerfile
-#    depends_on:
-#      - db
-  flask_gunicorn:
+  tripwatcher:
     build:
       context: ./
-      dockerfile: ./reportcard/Dockerfile
-    command: gunicorn reportcard:app -w 4 -b 0.0.0.0:8000
-    volumes:
-      - ./reportcard/:/buswatcher/reportcard/
-      - static_volume:/buswatcher/reportcard/static
-    expose:
-      - 8000
-    environment:
-      - SECRET_KEY=please_change_me
-      - SQL_DATABASE=buses
-      - SQL_USER=buswatcher
-      - SQL_PASSWORD=njtransit
-      - SQL_HOST=db
-      - SQL_PORT=5432
-      - DATABASE=buses
+      dockerfile: ./tripwatcher/docker/Dockerfile.conda
+      # dockerfile: ./tripwatcher/docker/Dockerfile.pip
     depends_on:
       - db
-  nginx:
-    build: ./nginx
-    ports:
-      - 8000:80
-    depends_on:
-      - flask_gunicorn
+#  flask_gunicorn:
+#    build:
+#      context: ./
+#      dockerfile: ./reportcard/docker/Dockerfile
+#    command: gunicorn reportcard:app -w 4 -b 0.0.0.0:8000
+#    volumes:
+#      - ./reportcard/:/buswatcher/reportcard/
+#      - static_volume:/buswatcher/reportcard/static
+#    expose:
+#      - 8000
+#    environment:
+#      - SECRET_KEY=please_change_me
+#      - SQL_DATABASE=buses
+#      - SQL_USER=buswatcher
+#      - SQL_PASSWORD=njtransit
+#      - SQL_HOST=db
+#      - SQL_PORT=5432
+#      - DATABASE=buses
+#    depends_on:
+#      - db
+#  nginx:
+#    build:
+#      context: ./
+#      dockerfile: ./nginx/docker/Dockerfile
+#    ports:
+#      - 8000:80
+#    depends_on:
+#      - flask_gunicorn
 #  dns_updater:
 #    build:
 #      context: ./
-#      dockerfile: ./dns_updater/Dockerfile
+#      dockerfile: ./dns_updater/docker/Dockerfile
 
 volumes:
   postgres_data:
