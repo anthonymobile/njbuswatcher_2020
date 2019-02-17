@@ -1,3 +1,42 @@
+# https://medium.com/@chadlagore/conda-environments-with-docker-82cdc9d25754
+FROM continuumio/miniconda3
+
+ADD ./reportcard/environment.yml /tmp/environment.yml
+
+RUN conda env create -f /tmp/environment.yml
+# Pull the environment name out of the environment.yml
+RUN echo "source activate $(head -1 /tmp/environment.yml | cut -d' ' -f2)" > ~/.bashrc
+ENV PATH /opt/conda/envs/$(head -1 /tmp/environment.yml | cut -d' ' -f2)/bin:$PATH
+
+
+# set work directory
+WORKDIR /
+
+# copy project
+COPY ./tripwatcher .
+
+# add basic supervisor config
+COPY ./tripwatcher/supervisord.conf /etc/supervisord.conf
+
+# add tripwatcher supervisor profile
+ADD ./tripwatcher/tripwatcher.conf /etc/supervisor/conf.d/
+
+
+CMD ["supervisord", "-n"]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # from https://github.com/szelenka/shrink-linalg
 FROM python:3.6-slim-jessie
 MAINTAINER Scott Zelenka (szelenka)
@@ -42,14 +81,3 @@ RUN apt-get update && apt-get install -y binutils libproj-dev gdal-bin
 COPY ./tripwatcher/requirements2.txt /requirements2.txt
 RUN pip install -r /requirements2.txt
 
-# copy project
-COPY ./tripwatcher .
-
-# add basic supervisor config
-COPY ./tripwatcher/supervisord.conf /etc/supervisord.conf
-
-# add tripwatcher supervisor profile
-ADD ./tripwatcher/tripwatcher.conf /etc/supervisor/conf.d/
-
-
-CMD ["supervisord", "-n"]
