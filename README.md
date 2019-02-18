@@ -7,24 +7,6 @@ v2.0
 
 ## NOW
 
-**PRE_DEPLOYMENT** 
-- docker (build with`docker-compose up -d --build`)
-    - reportcard
-        - test website comes up (won't connect to db though)
-        - try putting gunicorn command back in docker-compose.yml or a better way of running than CMD in Dockerfile? (supervisor?)
-    - **DataBases.py**
-        - change data store to postgres
-    - nginx --> should be good as-is
-    - dns_updater
-        - build as a minimal pip with only `requests` as a dependency
-        - delete config.py from repo
-        - config for Gandi, www.njbuswatcher.com
-        - test Dockerfile, see if it updates DNS
-        - test Dockerfile.alt, see if it updates DNS
-        - pick one for production
-    - `deploy to AWS free micro instance`
-    - test
-    
 **ALPHA_DEVELOPMENT**
 - **route.html** 
     - wwwAPI.py - rebuild bunching_report / cron_nightly.py
@@ -55,11 +37,19 @@ v2.0
 
 ## MUST DO BEFORE LAUNCH
 
-**docker**
-- rebuild reportcard, tripwatcher, ddns using pip instead of conda to get the images smaller
-
-**wwwAPI.py**
-- deal with self.tripdash staleness
+**PRE_DEPLOYMENT** 
+- docker (build with`docker-compose up -d --build`)
+    1. finish builds
+        - nginx
+            - working good
+            - serves up static files
+        - flask-gunicorn
+            - running ok, why doesnt nginx connect?
+            - try putting gunicorn command back in docker-compose.yml or a better way of running than CMD in Dockerfile? (supervisor?)
+    2. add postgres integration
+        - **DataBases.py**
+            - change data store to postgres
+    3. `deploy to AWS free micro instance`
 
 **tripwatcher.py**
 - `approach assignment`: 3+ position seems to still be having problems...
@@ -70,16 +60,6 @@ v2.0
      - remove other extraneous output
 - `Interpolate+log missed stops` after scanning each trip and logging any new arrivals, run a function that interpolates arrival times for any stops in between arrivals in the trip card -- theoretically there shouldn't be a lot though if the trip card is correct since we are grabbing positions every 30 seconds.
 - `Boomerang buses (Case E)`: Bus that gets assigned to a stop it already visited after doubling back on a parallel street -- e.g. the 87 going down the hill getting localized to Palisade Ave stops again.
-
-**reportcard.py**
-- enable and tune caching
-
-**tripwatcher.py**
-    - create a supervisord config to 'daemonize' it
-
-**index.html**
-- route cards
-    - add grade, other metrics, link to schedule?
 
 ## FUTURE
 
