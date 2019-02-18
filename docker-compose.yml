@@ -12,29 +12,28 @@ services:
     build:
       context: ./
       dockerfile: ./tripwatcher/docker/Dockerfile.conda
-      # dockerfile: ./tripwatcher/docker/Dockerfile.pip
     depends_on:
       - db
-#  flask_gunicorn:
-#    build:
-#      context: ./
-#      dockerfile: ./reportcard/docker/Dockerfile
-#    command: gunicorn reportcard:app -w 4 -b 0.0.0.0:8000
-#    volumes:
-#      - ./reportcard/:/buswatcher/reportcard/
-#      - static_volume:/buswatcher/reportcard/static
-#    expose:
-#      - 8000
-#    environment:
-#      - SECRET_KEY=please_change_me
-#      - SQL_DATABASE=buses
-#      - SQL_USER=buswatcher
-#      - SQL_PASSWORD=njtransit
-#      - SQL_HOST=db
-#      - SQL_PORT=5432
-#      - DATABASE=buses
-#    depends_on:
-#      - db
+  flask_gunicorn:
+    build:
+      context: ./
+      dockerfile: ./reportcard/docker/Dockerfile.conda
+    # command: gunicorn reportcard:app -w 4 -b 0.0.0.0:8000
+    volumes:
+      - ./reportcard/:/reportcard/
+      - static_volume:/reportcard/static
+    expose:
+      - 8000
+    environment:
+      - SECRET_KEY=please_change_me
+      - SQL_DATABASE=buses
+      - SQL_USER=buswatcher
+      - SQL_PASSWORD=njtransit
+      - SQL_HOST=db
+      - SQL_PORT=5432
+      - DATABASE=buses
+    depends_on:
+      - db
 #  nginx:
 #    build:
 #      context: ./

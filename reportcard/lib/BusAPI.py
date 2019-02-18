@@ -255,10 +255,10 @@ def parse_xml_getRoutePoints(data):
     return routes, coordinates_bundle
 
 def get_xml_data(source, function, **kwargs):
-    import urllib
+    import urllib.request
 
     try:
-        data = urllib.urlopen(_gen_command(source, function, **kwargs)).read()
+        data = urllib.request.urlopen(_gen_command(source, function, **kwargs)).read()
     except:
         from flask import abort
         abort(404)

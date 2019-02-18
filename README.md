@@ -9,13 +9,9 @@ v2.0
 
 **PRE_DEPLOYMENT** 
 - docker (build with`docker-compose up -d --build`)
-    - tripwatcher
-        - finalize conda build
-        - verify location of python executable `/opt/conda/envs/buswatcher/bin/python` for tripwatcher.conf
-        - test its logging data to /jc_buswatcher.db
     - reportcard
-        - finalize conda build (based on tripwatcher?)
         - test website comes up (won't connect to db though)
+        - try putting gunicorn command back in docker-compose.yml or a better way of running than CMD in Dockerfile? (supervisor?)
     - **DataBases.py**
         - change data store to postgres
     - nginx --> should be good as-is
