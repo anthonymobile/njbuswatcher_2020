@@ -18,7 +18,7 @@ services:
     build:
       context: ./
       dockerfile: ./reportcard/docker/Dockerfile.conda
-    # command: gunicorn reportcard:app -w 4 -b 0.0.0.0:8000
+    command: /opt/conda/envs/buswatcher/bin/gunicorn reportcard:app -w 4 -b 0.0.0.0:8000
     volumes:
       - ./reportcard/:/reportcard/
       - static_volume:/reportcard/static
@@ -40,6 +40,7 @@ services:
       dockerfile: ./nginx/docker/Dockerfile
     ports:
       - 80:80
+      - 443:443
     depends_on:
       - flask_gunicorn
 #  dns_updater:
