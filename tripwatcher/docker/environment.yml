@@ -3,116 +3,51 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - attrs=18.2.0
-  - backports=1.0
-  - backports.functools_lru_cache=1.5
-  - backports_abc=0.5
-  - boost-cpp=1.68.0
   - bzip2=1.0.6
   - ca-certificates=2018.11.29
-  - cairo=1.14.12
   - certifi=2018.11.29
-  - click=7.0
-  - click-plugins=1.0.4
-  - cligj=0.5.0
-  - curl=7.64.0
-  - cycler=0.10.0
-  - descartes=1.1.0
-  - enum34=1.1.6
-  - fiona=1.8.4
-  - fontconfig=2.13.1
-  - freetype=2.9.1
-  - freexl=1.0.5
-  - functools32=3.2.3.2
-  - futures=3.2.0
-  - gdal=2.3.3
-  - geojson=2.4.1
-  - geopandas=0.4.0
-  - geos=3.7.1
-  - geotiff=1.4.3
-  - gettext=0.19.8.1
-  - giflib=5.1.4
-  - glib=2.56.2
-  - hdf4=4.2.13
-  - hdf5=1.10.4
-  - icu=58.2
-  - itsdangerous=1.1.0
-  - jpeg=9c
-  - json-c=0.13.1
-  - kealib=1.4.10
-  - kiwisolver=1.0.1
-  - krb5=1.16.3
-  - libcurl=7.64.0
   - libcxx=7.0.0
-  - libdap4=3.19.1
-  - libedit=3.1.20170329
   - libffi=3.2.1
-  - libgdal=2.3.3
-  - libiconv=1.15
-  - libkml=1.3.0
-  - libnetcdf=4.6.2
-  - libpng=1.6.36
-  - libpq=10.6
-  - libprotobuf=3.6.1
-  - libspatialindex=1.8.5
-  - libspatialite=4.3.0a
-  - libssh2=1.8.0
-  - libtiff=4.0.10
-  - libxml2=2.9.8
   - llvm-meta=7.0.0
-  - markupsafe=1.1.0
-  - mkl_fft=1.0.10
-  - mkl_random=1.0.2
-  - munch=2.3.2
-  - mysql-connector-c=6.1.11  # xxx
-  - mysql-connector-python=8.0.15  # xxx
   - ncurses=6.1
-  - openjpeg=2.3.0
   - openssl=1.0.2p
-  - pandas=0.24.1
   - pip=19.0.2
-  - pixman=0.34.0
-  - poppler=0.67.0
-  - poppler-data=0.4.9
-  - postgresql=10.6
-  - proj4=5.2.0
-  - protobuf=3.6.1
-  - psycopg2=2.7.7
-  - pyparsing=2.3.0
-  - pyproj=1.9.6
-  - pysal=1.14.4.post2
-  - python=2.7.15
-  - python-dateutil=2.7.5
-  - pytz=2018.7
+  - python=3.7.1
   - readline=7.0
-  - rtree=0.8.3
   - setuptools=40.8.0
-  - shapely=1.6.4
-  - singledispatch=3.4.0.3
-  - six=1.12.0
-  - sqlalchemy=1.2.18
-  - sqlite=3.26.0  # xxx
-  - subprocess32=3.5.3
-  - supervisor=3.3.4
+  - sqlite=3.26.0
   - tk=8.6.9
-  - tornado=5.1.1
-  - tzcode=2018g
-  - webassets=0.12.1
-  - werkzeug=0.14.1
   - wheel=0.33.0
-  - xerces-c=3.2.2
   - xz=5.2.4
   - zlib=1.2.11
-  - blas=1.0
-  - distribute=0.6.45
-  - expat=2.2.6
-  - intel-openmp=2019.1
-  - libgfortran
-  - meld3=1.0.2
-  - mkl=2018.0.3
-  - numpy=1.15.4
-  - numpy-base=1.15.4
-  - pcre=8.42
-  - scipy=1.1.0
-
-
+  - pip:
+    - attrs==18.2.0
+    - click==7.0
+    - click-plugins==1.0.4
+    - cligj==0.5.0
+    - dominate==2.3.5
+    - fiona==1.8.4
+    - flask==1.0.2
+    - flask-assets==0.12
+    - flask-bootstrap4==4.0.2
+    - flask-caching==1.4.0
+    - flask-cors==3.0.7
+    - geojson==2.4.1
+    - geopandas==0.4.0
+    - gunicorn==19.9.0
+    - itsdangerous==1.1.0
+    - jinja2==2.10
+    - markupsafe==1.1.0
+    - munch==2.3.2
+    - numpy==1.16.1
+    - pandas==0.24.1
+    - pyproj==1.9.6
+    - python-dateutil==2.8.0
+    - pytz==2018.9
+    - scipy==1.2.1
+    - shapely==1.6.4.post2
+    - six==1.12.0
+    - sqlalchemy==1.2.18
+    - visitor==0.1.3
+    - webassets==0.12.1
+    - werkzeug==0.14.1
