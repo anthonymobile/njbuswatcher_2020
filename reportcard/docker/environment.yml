@@ -13,6 +13,7 @@ dependencies:
   - openssl=1.0.2p
   - pip=19.0.2
   - python=3.7.1
+  - pyproj==1.9.6
   - readline=7.0
   - setuptools=40.8.0
   - sqlite=3.26.0
@@ -41,7 +42,6 @@ dependencies:
     - munch==2.3.2
     - numpy==1.16.1
     - pandas==0.24.1
-    - pyproj==1.9.6
     - python-dateutil==2.8.0
     - pytz==2018.9
     - scipy==1.2.1
@@ -51,5 +51,3 @@ dependencies:
     - visitor==0.1.3
     - webassets==0.12.1
     - werkzeug==0.14.1
-
-
