@@ -22,4 +22,5 @@ COPY . ./buswatcher
 # ENTRYPOINT ["/buswatcher/reportcard/docker/entrypoint.sh"]
 
 WORKDIR /buswatcher/reportcard
-CMD ["/opt/conda/envs/buswatcher/bin/gunicorn", "reportcard:app", "-w", "4", "-b", "0.0.0.0:8000"]
+
+# CMD ["/opt/conda/envs/buswatcher/bin/gunicorn", "reportcard:app", "-w", "4", "-b", "0.0.0.0:8000"]

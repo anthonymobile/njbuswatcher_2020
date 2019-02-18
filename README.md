@@ -43,8 +43,8 @@ v2.0
         - nginx
             - working good
             - serves up static files
-        - flask-gunicorn
-            - running ok, why doesnt nginx connect?
+        - flask-gunicorn connection --> nginx
+            - gunicorn is running ok (curl from shell inside teh container works)
             - try putting gunicorn command back in docker-compose.yml or a better way of running than CMD in Dockerfile? (supervisor?)
     2. add postgres integration
         - **DataBases.py**
@@ -64,6 +64,8 @@ v2.0
 ## FUTURE
 
 **NEW METRICS !!! WHY I STARTED THE WHOLE DAMN REFACTOR !!**
+
+**migrate from Flask to FastAPI**  -  [link](https://fastapi.tiangolo.com/)
 
 **Localizer.py**
 - `More accurate distance conversion`:  at least verify how far off we are. current method is using a crude assumption (1 degree = 69 miles = 364,320 feet). more accurate method - "If CRS of geodfs are EPSG 4326 (lat/lon) then returned 'dist' will be in degrees. To meters or ft either first convert both gdf to appropriate CRS proj for your location using .to_crs() or convert from degrees [link](https://t.co/FODrAWskNH)".
