@@ -34,14 +34,14 @@ services:
       - DATABASE=buses
     depends_on:
       - db
-#  nginx:
-#    build:
-#      context: ./
-#      dockerfile: ./nginx/docker/Dockerfile
-#    ports:
-#      - 8000:80
-#    depends_on:
-#      - flask_gunicorn
+  nginx:
+    build:
+      context: ./
+      dockerfile: ./nginx/docker/Dockerfile
+    ports:
+      - 8000:80
+    depends_on:
+      - flask_gunicorn
 #  dns_updater:
 #    build:
 #      context: ./
