@@ -1,7 +1,7 @@
 # from https://github.com/testdrivenio/django-on-docker
 # install with: docker-compose up -d --build
 
-version: '3.7'
+version: '3.3'
 
 services:
   db:
@@ -43,10 +43,10 @@ services:
       - 443:443
     depends_on:
       - flask_gunicorn
-#  dns_updater:
-#    build:
-#      context: ./
-#      dockerfile: ./dns_updater/docker/Dockerfile
+  dns_updater:
+    build:
+      context: ./
+      dockerfile: ./dns_updater/docker/Dockerfile
 
 volumes:
   postgres_data:
