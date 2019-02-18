@@ -1,14 +1,10 @@
 # https://medium.com/@chadlagore/conda-environments-with-docker-82cdc9d25754
 FROM continuumio/miniconda3
 
-ENV DEBIAN_FRONTEND noninteractive
-RUN apt-get update && \
-    apt-get -y install gcc mono-mcs && \
-    rm -rf /var/lib/apt/lists/*
-
 RUN conda update -n base -c defaults conda
 
-ADD ./tripwatcher/docker/environment.yml /tmp/environment.yml
+# get environment from reportcard folder
+ADD ./reportcard/docker/environment.yml /tmp/environment.yml
 RUN conda env create -f /tmp/environment.yml
 
 # Pull the environment name out of the environment.yml
