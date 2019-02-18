@@ -7,7 +7,11 @@ v2.0
 
 ## NOW
 
-**ALPHA_DEVELOPMENT**
+- **DataBases.py**
+    - change data store to postgres
+- **docker**
+    - add postgres integration
+    
 - **route.html** 
     - wwwAPI.py - rebuild bunching_report / cron_nightly.py
     - middle section: Route Performance 
@@ -30,26 +34,11 @@ v2.0
 - **index.html**
     - map = fix starting extent (zoom to extent of ALL lines, not just the arbitrary nth [n] line in the route array as currently)
     - add breadcrumb separators
-
 - **route_config.py**
     - short and long descriptions for the new lines
 
 
 ## MUST DO BEFORE LAUNCH
-
-**PRE_DEPLOYMENT** 
-- docker (build with`docker-compose up -d --build`)
-    1. finish builds
-        - nginx
-            - working good
-            - serves up static files
-        - flask-gunicorn connection --> nginx
-            - gunicorn is running ok (curl from shell inside teh container works)
-            - try putting gunicorn command back in docker-compose.yml or a better way of running than CMD in Dockerfile? (supervisor?)
-    2. add postgres integration
-        - **DataBases.py**
-            - change data store to postgres
-    3. `deploy to AWS free micro instance`
 
 **tripwatcher.py**
 - `approach assignment`: 3+ position seems to still be having problems...
