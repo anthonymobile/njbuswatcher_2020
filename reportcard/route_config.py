@@ -5,6 +5,14 @@
 reportcard_routes=[
 
     {
+        'route': '1',
+        'frequency': 'low',
+        'schedule_url': 'https://www.njtransit.com/pdf/bus/T0001.pdf',
+        'prettyname': 'tbd',
+        'description_short': 'tbd.',
+        'description_long': 'tbd.'},
+
+    {
         'route': '2',
         'frequency': 'low',
         'schedule_url': 'https://www.njtransit.com/pdf/bus/T0002.pdf',
