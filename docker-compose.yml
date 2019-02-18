@@ -39,7 +39,7 @@ services:
       context: ./
       dockerfile: ./nginx/docker/Dockerfile
     ports:
-      - 8000:80
+      - 80:80
     depends_on:
       - flask_gunicorn
 #  dns_updater:
