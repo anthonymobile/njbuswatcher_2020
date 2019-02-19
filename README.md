@@ -12,7 +12,7 @@ v2.0
         - bunching report
     - add
         - period picker bar (daily, monthly, history, specific date)
-        - route grade
+        - route grade as literal 'TODAY IS TYPICAL. TODAY IS WORSE THAN USUAL.'
         - route showing average travel time for period (e.g. visual indication of congestion during the period (mark stations with a lot of above average travel time between stops?)
         
         - **Average Headway.** This provides a way of capturing the bunching in a single, easily understood metric. We can also report variability using standard deviation and that can be converted to a letter grade (e.g. A is < 1 s.d., B is 1 to 1.5, etc.) 
@@ -28,12 +28,13 @@ v2.0
  
 - **stop.html**
     - add
-        - period picker bar (daily, monthly, history, specific date)
+        - service "grade" for current route, "THIS STATION USUALLY HAS DECENT SERVICE or THIS STATION HAS GOOD SERVICE TODAY" or something like that.
+        - period picker bar (daily, monthly, history, specific date) with toggles (rush hour, owl, weekdays)
         - hourly chart features 3 columns
             - average frequency
             - **new metric** average headway (is this different?)
             - **average travel time to end of route from here** (by hour of day?)
-            -- **Average travel speed** - we can calculate this at every observed position with New Localizer. 
+            -- **Average travel speed** - we can calculate this at every observed position with New Localizer.
 - **wwwAPI**
     - debugging
         - RouteReport
@@ -68,17 +69,37 @@ v2.0
 - launch
 
 
-###4 build next version with statewide nav layer
+###3 build next version with statewide nav layer
 - deploy on http://www.njbuswatcher.com
 
 
 ###099 someday
+- **stop.html**
+    -`arrival histogram visualization`
+    - dot graph showing how many buses arrived at stop during each 30 minute bin, modeled after [Nobel prize D3 viz](https://github.com/Kyrand/dataviz-with-python-and-js/tree/master/nobel_viz_D3_V4) from Python+JS book
+        - implementation: concatenate the 3 nobel scripts (core,main,time)
+        - 30 minute bins
+        - use chart.js, or rough,js
+    - optional: show all buses on all routes arriving, each route different color? (would require add/rewrite lib.StopReport) 
 - **Localizer.py**
     - `More accurate distance conversion`:  at least verify how far off we are. current method is using a crude assumption (1 degree = 69 miles = 364,320 feet). more accurate method - "If CRS of geodfs are EPSG 4326 (lat/lon) then returned 'dist' will be in degrees. To meters or ft either first convert both gdf to appropriate CRS proj for your location using .to_crs() or convert from degrees [link](https://t.co/FODrAWskNH)".
 - **Databases.py** 
     - `relationships! use them!` `children_ScheduledStops` and `parent_Trip` are incredibly use attributes any record i pull from the db will have now. use them to extend the query sets we get back!!!!
     - `Exception handler`: smarter check in get_session on table creation --> try if table exists == False:
 - **migrate from Flask to FastAPI**  -  [link](https://fastapi.tiangolo.com/)
+- **GTFS Integration**
+    - This is a big deal but a major headache. Working with GTFS in [Jupyter](http://simplistic.me/playing-with-gtfs.html).
+    - What's needed:
+        - module to create lookup table GTFS:Clever_Devices - timestamp_hr_min+run_id --> gtfs: trip_id+start_time so we can match routelog.run to gtfs.trip_id
+        - GTFS integration:  write a routine to match gtfs trip_id, start_time :: timestamp,run for first observation of a v in routelog series (e.g. map run to trip_id) -- either a machine learning model or something simpler 
+- **Trip Playback**
+    - Generate a list of runs, linked to 'playback' pages via an API call that spits out geojson for all points in routelog for a single run, on a specific date, and display on a page using mapbox live update [tutorial](https://www.mapbox.com/mapbox-gl-js/example/live-update-feature/).
+- **map improvements**
+    - Show Congestion
+        - change color of bunching buses on the map? 
+        - indicate congested route segments   
+
+
 
 ---
 # BUSWATCHER
@@ -104,65 +125,13 @@ It's all dockerized now. Use `docker-compose` and build from the project root.
 
 ### Components
 
-- **tripwatcher.py** The main background process, cron on a 30-second 
+- **tripwatcher.py**. Fetches bus current locations for a route from the NJT API, creates a `Trip` instance for each, and populates it with `ScheduledStop` instances for each stop on the service its running, and a `BusPosition` instance for each observed position.
 - **reportcard.py** The flask app for routing incoming requests.
-- **/lib** Core classes. 
-	
-
-##### Trip Class
-
-**Description.**
-The basis for all route performance metrics are Trips, represented in buswatcher by the `Trip` class. `Trip` instances are created by `tripwatcher.py` as needed to hold `BusPosition` instances (`BusPosition` is an inner class of `Trip`. `TripDB` instances handle writing to the database.
-
-**Data Acquisition.** `tripwatcher.py` fetches bus current locations for a route from the NJT API, creates a `Trip` instance for each, and populates it with a `BusPosition` instance for each observed position. `TripDB` is called to write to the database, creating a table for that route (e.g. `triplog_87`). Since timestamps will always be different, no checks are made for duplicates. Each record is stamped with a unique trip identifier `(v,run,date)` (where date=YYYY-MM-DD) combination, e.g. `4356_305_20181004`.
-
-
-
-#### A2. Stop Performance Metrics
-
-- as letter grade and description, or
-- as literal: e.g. 'TODAY IS TYPICAL. TODAY IS WORSE THAN USUAL.'
-- stop level metrics: - stop.html: THIS STATION USUALLY HAS DECENT SERVICE or THIS STATION HAS GOOD SERVICE TODAY or something like that.
-- stop report page: add additional period options
-    - rush hours (as a toggle?)
-    - weekdays (as a toggle?)
-    - owl (as a toggle?)
-    - date picker
-    - date range picker
-    - others?
-   
-
-### C. Charts and Maps
-Implement with Chart.js
-1. bus frequency symbol histogram (STOP report)
-    - histogram showing how many buses arrived at stop during each 30 minute bin
-    - modeled after [Nobel prize D3 viz](https://github.com/Kyrand/dataviz-with-python-and-js/tree/master/nobel_viz_D3_V4) from Python+JS book
-        - implementation: concatenate the 3 nobel scripts (core,main,time)
-        - 30 minute bins
-    - optional: show all buses on all routes arriving, each route different color? (would require add/rewrite lib.StopReport) 
-2. ridership dataviz
-    - get from NJT or APTA
-    
-3. Map Improvements
-    - Show Congestion
-        - change color of bunching buses on the map? 
-        - indicate congested route segments   
-
+- **/lib** Core classes.
+    - **DataBases.py**
+        - *`Trip` Class*. The basis for all route performance metrics are Trips, represented in buswatcher by the `Trip` class. `Trip` instances are created by `tripwatcher.py` as needed to hold `BusPosition` instances (`BusPosition` is an inner class of `Trip`. `TripDB` instances handle writing to the database.
         
-
-
- 
-#### Trip Playback
-Generate a list of runs, linked to 'playback' pages via an API call that spits out geojson for all points in routelog for a single run, on a specific date, and display on a page using mapbox live update [tutorial](https://www.mapbox.com/mapbox-gl-js/example/live-update-feature/).
-    
-#### GTFS Integration
-This is a big deal but a major headache. Working with GTFS in [Jupyter](http://simplistic.me/playing-with-gtfs.html).
-What's needed: 
-- module to create lookup table GTFS:Clever_Devices - timestamp_hr_min+run_id --> gtfs: trip_id+start_time so we can match routelog.run to gtfs.trip_id
-- GTFS integration:  write a routine to match gtfs trip_id, start_time :: timestamp,run for first observation of a v in routelog series (e.g. map run to trip_id) -- either a machine learning model or something simpler 
-
-
-## API 
+### API 
 
 The API is a work in progress, but we will try to keep it robust and exposing all of the internal data used in the web app.
 
