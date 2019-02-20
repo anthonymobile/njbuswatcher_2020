@@ -56,7 +56,7 @@
                 <div class="card-body text-white text-center py-5 px-5 my-5">
 
                     <h1 class="mb-4">
-                        <strong>Buses are the backbone of Jersey City's neighborhoods.</strong>
+                        <strong>How are Jersey City's buses doing today?</strong>
                     </h1>
                     <p>
                         <strong>Residents and businesses depend on them every day.</strong>
@@ -67,9 +67,9 @@
                     <a target="_self" href="#reportcards" class="btn btn-outline-white btn-lg">Get route reportcards
                         <i class="fas fa-graduation-cap ml-2"></i>
                     </a>
-                    <a target="_self" href="#map" class="btn btn-outline-white btn-lg">View live map
+                    <!--<a target="_self" href="#map" class="btn btn-outline-white btn-lg">View live map
                         <i class="fas fa-map ml-2"></i>
-                    </a>
+                    </a>-->
                     <a target="_self" href="https://goo.gl/forms/VF5S1Oclk9QTdZha2" class="btn btn-outline-white btn-lg">Sign the petition
                         <i class="fas fa-pencil-alt ml-2"></i>
                     </a>
@@ -90,6 +90,9 @@
 
             <!--Section: Cards-->
             <section id="reportcards" class="text-center">
+                <h1 class="mb-4">
+                <strong>Routes</strong>
+                    </h1>
 
                 <!--Grid row-->
                 <div class="row mb-4 wow fadeIn">
@@ -103,13 +106,14 @@
                         <div class="card card-cascade narrower">
 
                             <!--Card image-->
-                            <!--
+
                             <div class="view view-cascade gradient-card-header purple-gradient rounded-top">
                                 <div class="embed-responsive">
-                                    <img class="img-fluid rounded-top" src="{{ url_for('static', filename='images/banner-sm.png')}}"></img>
+                                    <img class="img-fluid rounded-top" src="{{ url_for('static', filename='images/route'+route.route+'.jpg')}}"></img>
+
                                 </div>
                             </div>
-                            -->
+
 
                             <!--Card content-->
                             <div class="card-body card-body-cascade">
