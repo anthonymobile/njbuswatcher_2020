@@ -44,7 +44,10 @@
     </script>
 
     </script>
-    <script type="text/javascript" src="{{ url_for('static', filename='maps/busmap-route.js')}}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='maps/busmap-stop.js')}}"></script>
+
+
+
 {% endblock %}
 
 
@@ -88,46 +91,147 @@
             </section>
             <!--Section: Menu-->
 
-
+            <hr id="arrivals" class="my-5">
 
             <!--Section: Arrivals-->
-            <section id="arrivals">
+            <section id="one">
 
                 <!--Grid row-->
                 <div class="row mb-4 wow fadeIn">
 
+                    <h1 class="mb-4 mt-4">
+                        <strong>What Stops Here?</strong>
+                    </h1>
 
-                    <!--Grid column-->
-                    <div class="col-lg-6 col-md-12 mb-4">
-
-                         <h1 class="mb-4 mt-4">
-                            <strong>What Stops Here?</strong>
-                        </h1>
-
-                        <p class="head">
-                        <mark>Something</mark> shows something.
-                        </p>
                         <p>
                             The {{routereport.route}} stops at {{stopreport.stop_name|title}} but so do other routes. Here are all the arrivals we saw during the following period: <strong>{{period}}</strong>.
 
-                        </p>
+                     </p>
+                </div>
+
+                <!--Grid row-->
+                <div class="row mb-4 wow fadeIn">
+
+                    <!--Grid column-->
+                    <div class="col-lg-4 col-md-12 mb-4">
+
+
 
                         <!--Card-->
                         <div class="card">
 
-                            <!--Card image-->
-                            <!--
-                            <div class="view overlay">
-                                <div class="embed-responsive embed-responsive-16by9 rounded-top">
-                                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/cXTThxoywNQ" allowfullscreen></iframe>
+                            <!--Card content-->
+                            <div class="card-body">
+                                <!--Title-->
+                                <h4 class="card-title">84 New York</h4>
+
+                                <!--Text-->
+                                <div id="buses" class="row mt-2">
+
+
+
+                                             <table class="table table-sm table-hover">
+                                                <thead class="thread-dark">
+                                                  <tr>
+                                                    <th>hour</th>
+                                                    <th>bus every</th>
+                                                  </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                {% for (index,row) in stopreport.hourly_frequency.iterrows() %}
+                                                    <tr class='table'>
+                                                        <td>{{row.hour|hour_as_int}}</td>
+                                                        {% if row.frequency != row.frequency %}
+                                                            <td>- - -</td>
+                                                        {% else %}
+                                                            <td>{{row.frequency|int}} mins</td>
+                                                        {% endif %}
+                                                    </tr>
+                                                {% endfor %}
+
+                                                </tbody>
+                                              </table>
+
+
                                 </div>
+
+
+
+
                             </div>
-                            -->
+
+                        </div>
+                        <!--/.Card-->
+
+
+                    </div>
+                    <!--Grid column-->
+
+                    <!--Grid column-->
+                    <div class="col-lg-4 col-md-12 mb-4">
+
+                        <!--Card-->
+                        <div class="card">
 
                             <!--Card content-->
                             <div class="card-body">
                                 <!--Title-->
-                                <h4 class="card-title">arrivals</h4>
+                                <h4 class="card-title">86 North Bergen</h4>
+
+                                <!--Text-->
+                                <div id="buses" class="row mt-2">
+
+
+
+                                             <table class="table table-sm table-hover">
+                                                <thead class="thread-dark">
+                                                  <tr>
+                                                    <th>hour</th>
+                                                    <th>bus every</th>
+                                                  </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                {% for (index,row) in stopreport.hourly_frequency.iterrows() %}
+                                                    <tr class='table'>
+                                                        <td>{{row.hour|hour_as_int}}</td>
+                                                        {% if row.frequency != row.frequency %}
+                                                            <td>- - -</td>
+                                                        {% else %}
+                                                            <td>{{row.frequency|int}} mins</td>
+                                                        {% endif %}
+                                                    </tr>
+                                                {% endfor %}
+
+                                                </tbody>
+                                              </table>
+
+
+                                </div>
+
+
+
+
+                            </div>
+
+                        </div>
+                        <!--/.Card-->
+
+
+                    </div>
+                    <!--Grid column-->
+
+                    <!--Grid column-->
+                    <div class="col-lg-4 col-md-12 mb-4">
+
+                        <!--Card-->
+                        <div class="card">
+
+                            <!--Card content-->
+                            <div class="card-body">
+                                <!--Title-->
+                                <h4 class="card-title">87 Hoboken</h4>
 
                                 <!--Text-->
                                 <div id="buses" class="row mt-2">
@@ -173,8 +277,19 @@
                     <!--Grid column-->
 
 
+                </div>
+                <!--Grid row-->
+
+
+
+                <hr id="frequency" class="my-5">
+
+                <!--Grid row-->
+                <div class="row mb-4 wow fadeIn">
+
+
                     <!--Grid column-->
-                    <div id="frequency" class="col-lg-6 col-md-12 mb-4">
+                    <div id="frequency" class="col-lg-12 col-md-12 mb-4">
 
                          <h1 class="mb-4 mt-4">
                             <strong>How Often Do Buses Come?</strong>
@@ -249,14 +364,19 @@
                     <!--Grid column-->
 
 
+
                 </div>
                 <!--Grid row-->
 
-                <!--Grid row-->
+
+                <hr id="bunching" class="my-5">
+
+
+                 <!--Grid row-->
                 <div class="row mb-4 wow fadeIn">
 
                     <!--Grid column-->
-                    <div id="bunching" class="col-lg-6 col-md-12 mb-4">
+                    <div id="bunching" class="col-lg-12 col-md-12 mb-4">
 
                         <h1 class="mb-4 mt-4">
                             <strong>How Much Bunching Is Going On?</strong>
@@ -333,8 +453,10 @@
                     <!--Grid column-->
 
 
-                </div>
+                 </div>
                 <!--Grid row-->
+
+
 
 
             </section>
