@@ -11,7 +11,7 @@ v2.0
     -debug
         - bunching report
     - add
-        - period picker bar (daily, monthly, history, specific date)
+        - period picker bar (daily, monthly, history, specific date) -- using [bootstrap-datepicker](https://bootstrap-datepicker.readthedocs.io/en/latest/#) [installation instructions](https://stackoverflow.com/questions/29001753/bootstrap-datetimepicker-installation)
         - route grade as literal 'TODAY IS TYPICAL. TODAY IS WORSE THAN USUAL.'
         - route showing average travel time for period (e.g. visual indication of congestion during the period (mark stations with a lot of above average travel time between stops?)
         

@@ -72,11 +72,16 @@
                     <!--<a target="_self" href="#stops" class="btn btn-outline-black btn-lg">Stop Info-->
                         <!--<i class="fas fa-pencil-alt ml-2"></i>-->
                     <!--</a>-->
-                    <a target="_self" href="#current_service" class="btn btn-outline-black btn-lg">Current Service (Live)
+                    <a target="_self" href="#route_performance" class="btn btn-outline-black btn-lg">Current Stats (Last 2 Hours)
+                        <i class="fas fa-map ml-2"></i>
+                    </a>
+
+                    <a target="_self" href="#map_line" class="btn btn-outline-black btn-lg">Live Map
                         <i class="fas fa-graduation-cap ml-2"></i>
                     </a>
-                    <a target="_self" href="#route_performance" class="btn btn-outline-black btn-lg">Route Performance
-                        <i class="fas fa-map ml-2"></i>
+
+                    <a target="_self" href="#current_service" class="btn btn-outline-black btn-lg">On the Road (Trip Tracker)
+                        <i class="fas fa-graduation-cap ml-2"></i>
                     </a>
 
 
@@ -84,6 +89,209 @@
                 <!-- Content -->
             </section>
             <!--Section: Menu-->
+
+
+            <hr id="route_performance" class="my-5">
+
+
+            <!--Section: Route Performance-->
+            <section  class="text-left">
+                     <h1 class="mb-4">
+                        <strong>Route Performance</strong>
+                    </h1>
+
+
+                <!--Grid row-->
+                <div class="row mb-4 wow fadeIn">
+
+                    <!--Grid column-->
+                    <div class="col-lg-4 col-md-12 mb-4">
+
+                        <!--Card-->
+                        <div class="card">
+
+                            <!--Card image-->
+                            <!--
+                            <div class="view overlay">
+                                <div class="embed-responsive embed-responsive-16by9 rounded-top">
+                                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/cXTThxoywNQ" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                            -->
+
+                            <!--Grade Card-->
+
+
+                            {% if (routereport.grade=='A' or routereport.grade=='B') %}
+                                <div class="card-body table-success">
+                            {% elif routereport.grade=='C' %}
+                                <div class="card-body table-warning">
+                            {% elif (routereport.grade=='D' or routereport.grade=='F') %}
+                                <div class="card-body table-danger">
+                            {% elif (routereport.grade=='N/A') %}
+                                <div class="card-body table-secondary">
+                            {% endif %}
+
+                                <div class="row mb-4 wow fadeIn">
+                                <div class="col-lg-4 col-md-12 mb-4 text-center">
+                                <!--Title-->
+                                <h4 class="card-title ">{{routereport.period_label}} Grade</h4>
+                                <h1 class="card-title ">{{routereport.grade}}</h1>
+
+                                </div>
+                                <div class="col-lg-8 col-md-12 mb-4">
+                                {{routereport.grade_description}}
+
+                                </div>
+
+
+                            </div>
+                            </div>
+
+                        </div>
+                        <!--/.Card-->
+
+
+                    </div>
+                    <!--Grid column-->
+
+
+
+                    <!--Grid column-->
+                    <div class="col-lg-4 col-md-12 mb-4">
+
+                        <!--Card-->
+                        <div class="card">
+
+                            <!--Card image-->
+                            <!--
+                            <div class="view overlay">
+                                <div class="embed-responsive embed-responsive-16by9 rounded-top">
+                                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/cXTThxoywNQ" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                            -->
+
+                            <!--Card content-->
+                            <div class="card-body">
+                                <!--Title-->
+                                <h4 class="card-title">Buses are running every {{routereport.avg_headway['time']}} minutes.</h4>
+                                That's {{routereport.avg_headway['description']}}.
+
+                            </div>
+
+                        </div>
+                        <!--/.Card-->
+
+                        <!--Card-->
+                        <div class="card mt-4">
+
+                        {% if routereport.traveltime['label'] != 'below' %}
+                        <div class="card-body table-danger">
+                        {% else %}
+                        <div class="card-body table-success">
+                        {% endif %}
+
+                            <!--Card image-->
+                            <!--
+                            <div class="view overlay">
+                                <div class="embed-responsive embed-responsive-16by9 rounded-top">
+                                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/cXTThxoywNQ" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                            -->
+
+                            <!--Card content-->
+
+                                <!--Title-->
+                                <h4 class="card-title">Travel times are good.</h4>
+
+                                Average end-to-end travel time today for Route {{routereport.route}} is {{routereport.traveltime['time']}} minutes. Thats {{routereport.traveltime['percent']}} percent {{routereport.traveltime['label']}} normal.
+
+
+                                <div id="buses" class="row mt-2">
+
+
+                                </div>
+
+
+
+
+                            </div>
+
+                        </div>
+                        <!--/.Card-->
+                        </div>
+
+
+
+                    <!--Grid column-->
+
+                    <!--Grid column-->
+                    <div class="col-lg-4 col-md-12 mb-4">
+
+                        <!--Card-->
+                        <div class="card">
+
+                            <!--Card image-->
+                            <!--
+                            <div class="view overlay">
+                                <div class="embed-responsive embed-responsive-16by9 rounded-top">
+                                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/cXTThxoywNQ" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                            -->
+
+                            <!--Card content-->
+                            {% if routereport.dependability['status'] != 'reliable' %}
+                            <div class="card-body table-danger">
+                            {% else %}
+                            <div class="card-body table-success">
+                            {% endif %}
+                                <!--Title-->
+                                <h4 class="card-title">There's a lot of bunching.</h4>
+
+                                {% if routereport.dependability['status'] != 'reliable' %}
+
+                                Service is {{routereport.dependability['status']}}. You should expect {{routereport.dependability['message']}} of {{routereport.dependability['lower']}} to {{routereport.dependability['upper']}} minutes.
+
+                                {% else %}
+
+                                Service is operating normally. No expected delays.
+
+                                {% endif %}
+
+                                <div id="buses" class="row mt-2">
+
+
+                                </div>
+
+
+
+
+                            </div>
+
+                        </div>
+                        <!--/.Card-->
+
+
+
+
+                    </div>
+                    <!--Grid column-->
+
+
+
+                </div>
+                <!--Grid row-->
+
+
+            </section>
+            <!--Section: Route Performance-->
+
+
+            <hr id="map_line" class="my-5">
+
 
             <!--Section: Map-->
             <section id="map_box">
@@ -102,11 +310,9 @@
             </section>
 
 
-
             <hr id="current_service" class="my-5">
 
-
-            <!--Section: Trip Dashboard-->
+            <!--Section: On the Road Now-->
             <section>
                      <h1 class="mb-4 mt-4">
                         <strong>On the Road Now</strong>
@@ -177,7 +383,7 @@
                 </div>
 
              </section>
-            <!--Section: Trip Dashboard-->
+            <!--Section: On the Road Now-->
 
 
 
@@ -246,64 +452,7 @@
             <!--&lt;!&ndash;Section: Stops&ndash;&gt;-->
 
 
-            <hr id="route_performance" class="my-5">
 
-
-                <!--Section: Route Performance-->
-            <section  class="text-left">
-                     <h1 class="mb-4">
-                        <strong>Route Performance</strong>
-                    </h1>
-                <!--Grid row-->
-                <div class="row mb-4 wow fadeIn">
-
-                    <!--Grid column-->
-                    <div class="col-lg-4 col-md-12 mb-4">
-
-                        <!--Card-->
-                        <div class="card">
-
-                            <!--Card image-->
-                            <!--
-                            <div class="view overlay">
-                                <div class="embed-responsive embed-responsive-16by9 rounded-top">
-                                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/cXTThxoywNQ" allowfullscreen></iframe>
-                                </div>
-                            </div>
-                            -->
-
-                            <!--Card content-->
-                            <div class="card-body">
-                                <!--Title-->
-                                <h4 class="card-title">Coming soon.</h4>
-
-                                <div id="buses" class="row mt-2">
-
-
-                                </div>
-
-
-
-
-                            </div>
-
-                        </div>
-                        <!--/.Card-->
-
-
-                    </div>
-                    <!--Grid column-->
-
-
-
-
-
-                </div>
-                <!--Grid row-->
-
-
-            </section>
-            <!--Section: Route Performance-->
 
 
             <!--&lt;!&ndash;Section: Current Service&ndash;&gt;-->
