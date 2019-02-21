@@ -9,6 +9,7 @@ v2.0
 ###1 finish core
 **busmap-stop.js**
     - debug, why doesnt it think passed_citywide_waypoints_geojson is defined? its in the html passed to the script...!?
+        - try hardcoding the coordinates?
 
 - **route.html**    
     - add

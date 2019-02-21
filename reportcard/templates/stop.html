@@ -38,10 +38,10 @@
 
 
     <script type="text/javascript">
+        var passed_route = {{ routereport.route }}
         var passed_reportcard_routes = {{ reportcard_routes|safe }}
         var passed_citywide_waypoints_geojson = {{ stopreport.citywide_waypoints_geojson|safe }}
-        var passed_stop_geojson = {{ stopreport.stop_geojson|safe }}
-        var passed_stop_coordinates  = {{ stopreport.stop_coordinates|safe }}
+        var passed_citywide_stops_geojson = {{ stopreport.stop_geojson|safe }}
     </script>
 
     </script>
