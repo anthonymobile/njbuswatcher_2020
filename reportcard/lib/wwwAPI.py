@@ -198,8 +198,9 @@ class RouteReport:
 
 class StopReport:
 
-    def __init__(self, route, stop, period):
+    def __init__(self, source, route, stop, period):
         # apply passed parameters to instance
+        self.source = source
         self.route = route
         self.stop = stop
         self.period = period
@@ -211,6 +212,9 @@ class StopReport:
         # populate data for webpage
         self.arrivals_list_final_df, self.stop_name = self.get_arrivals(self.route, self.stop, self.period)
         self.hourly_frequency = self.get_hourly_frequency()
+
+        self.citywide_waypoints_geojson = get_systemwide_geojson(reportcard_routes)
+        self.stop_geojson, self.stop_coordinates = self.get_stop_geojson()
 
     # fetch arrivals into a df
     def get_arrivals(self,route,stop,period):
@@ -358,4 +362,25 @@ class StopReport:
             results = pd.DataFrame()
 
         return results
+
+    def get_stop_geojson(self):
+
+        # query the db and grab the lat lon for the first record that stop_id matches this one
+        with SQLAlchemyDBConnection(DBConfig.conn_str) as db:
+            stop_query = db.session.query(
+                ScheduledStop.stop_id,
+                ScheduledStop.lat,
+                ScheduledStop.lon) \
+            .filter(ScheduledStop.stop_id == self.stop) \
+            .first()
+
+            # gejsonize it
+            stop_coordinates = [(float(stop_query[1]),float(stop_query[2]))]
+            stop_geojson = geojson.Point(stop_coordinates)
+            stop_geojson = geojson.dumps(stop_geojson, sort_keys=True)
+            stop_coordinates = ('{{lng: < {lng} >, lat: < {lat} >}}').format(lng=float(stop_query[2]), lat=float(stop_query[1]))
+
+
+            return stop_geojson, stop_coordinates
+
 

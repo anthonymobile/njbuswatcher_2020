@@ -8,10 +8,7 @@ v2.0
 
 ###1 finish core
 **busmap-stop.js**
-    - starts with dummy data set
-    - doesnt display the routes? (why remove though? more work to remove them)
-    - center on the stop lat/lon
-    - zoom level 14 to start?
+    - debug, why doesnt it think passed_citywide_waypoints_geojson is defined? its in the html passed to the script...!?
 
 - **route.html**    
     - add
@@ -45,10 +42,7 @@ v2.0
         - RouteReport
             - get_bunchingreport
         - StopReport
-            - add dummy map data
-                - map script can start with an empty data set (+ no routes)
-            - get_arrivals
-            - add ? for above   
+            - trap error for no data new database / new day
 - **about.html** 
     - write content
 - **index.html**

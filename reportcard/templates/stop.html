@@ -38,9 +38,10 @@
 
 
     <script type="text/javascript">
-        var passed_route = {{ routereport.route }}
-        var passed_waypoints_geojson = {{ routereport.waypoints_geojson|safe }}
-        var passed_stops_geojson = {{ routereport.stops_geojson|safe }}
+        var passed_reportcard_routes = {{ reportcard_routes|safe }}
+        var passed_citywide_waypoints_geojson = {{ stopreport.citywide_waypoints_geojson|safe }}
+        var passed_stop_geojson = {{ stopreport.stop_geojson|safe }}
+        var passed_stop_coordinates  = {{ stopreport.stop_coordinates|safe }}
     </script>
 
     </script>
@@ -90,6 +91,29 @@
                 <!-- Content -->
             </section>
             <!--Section: Menu-->
+
+
+            <!--Section: Map-->
+            <section id="map_box">
+
+             <h1 class="mb-4 mt-4">
+                        <strong>Live Map</strong>
+                    </h1>
+                <!--Grid row-->
+                <div class="row mb-4 wow fadeIn">
+
+
+                     <!--Map column-->
+                     <div  class="col-lg-12 col-md-12">
+
+                        <div id="map" class="container">
+                        </div>
+
+                     </div>
+                </div>
+            </section>
+
+
 
             <hr id="arrivals" class="my-5">
 

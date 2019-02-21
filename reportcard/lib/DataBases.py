@@ -76,7 +76,7 @@ class Trip(Base):
                 if path.id == self.pid:
                     for point in path.points:
                         if isinstance(point, BusAPI.Route.Stop):
-                            this_stop = ScheduledStop(self.trip_id,self.v,self.run,self.date,point.identity,point.st)
+                            this_stop = ScheduledStop(self.trip_id,self.v,self.run,self.date,point.identity,point.st,point.lat,point.lon)
                             self.stop_list.append((point.identity,point.st))
                             for stop in self.stop_list:
                                 self.db.session.add(this_stop)
@@ -109,13 +109,15 @@ class Trip(Base):
 #
 class ScheduledStop(Base):
 
-    def __init__(self, trip_id,v,run,date,stop_id,stop_name):
+    def __init__(self, trip_id,v,run,date,stop_id,stop_name,lat,lon):
         self.trip_id = trip_id
         self.v = v
         self.run = run
         self.date = date
         self.stop_id = stop_id
         self.stop_name = stop_name
+        self.lat = lat
+        self.lon = lon
 
     __tablename__ = 'scheduledstop_log'
     __table_args__ = {'extend_existing': True}
@@ -126,6 +128,8 @@ class ScheduledStop(Base):
     date = Column(String)
     stop_id = Column(Integer(), index=True)
     stop_name = Column(String)
+    lat = Column(Float())
+    lon = Column(Float())
     arrival_timestamp = Column(DateTime(), index=True)
 
     # relationships
