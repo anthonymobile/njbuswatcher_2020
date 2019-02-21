@@ -214,7 +214,7 @@ class StopReport:
         self.hourly_frequency = self.get_hourly_frequency()
 
         self.citywide_waypoints_geojson = get_systemwide_geojson(reportcard_routes)
-        self.stop_geojson, self.stop_coordinates = self.get_stop_geojson()
+        self.stop_geojson = self.get_stop_geojson()
 
     # fetch arrivals into a df
     def get_arrivals(self,route,stop,period):
@@ -378,9 +378,6 @@ class StopReport:
             stop_coordinates = [(float(stop_query[1]),float(stop_query[2]))]
             stop_geojson = geojson.Point(stop_coordinates)
             stop_geojson = geojson.dumps(stop_geojson, sort_keys=True)
-            stop_coordinates = ('{{lng: < {lng} >, lat: < {lat} >}}').format(lng=float(stop_query[2]), lat=float(stop_query[1]))
 
-
-            return stop_geojson, stop_coordinates
-
+            return stop_geojson
 
