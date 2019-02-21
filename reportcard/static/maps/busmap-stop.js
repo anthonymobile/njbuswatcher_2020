@@ -9,31 +9,8 @@ var map = new mapboxgl.Map({
 map.on('load', function() {
 
     // starting view
-    var mapCoordinates = [40.7400, -74.0501];
-    var mapZoom = 13;
-
-
-
-     // THE HEIGHTS -- NEIGHBORHOOD BOUNDARIES
-
-    var boundaries_url = ("/static/maps/heights_boundaries.geojson");
-
-    map.addSource("neighborhoodmap", {
-            type: 'geojson',
-            data: boundaries_url
-        });
-
-    map.addLayer({
-        "id": "neighborhood",
-        "type": "fill",
-        "source": "neighborhoodmap",
-        "paint": {
-            "fill-color": "grey",
-            "fill-opacity": 0.5,
-        }
-
-    });
-
+    // var mapCoordinates = [passed_stop_coordinates];
+    // var mapZoom = 15;
 
 
     // ROUTES
@@ -56,18 +33,18 @@ map.on('load', function() {
 
     });
 
-    // STOPS
-    var stops_geojson = {
+    // STOP
+    var stop_geojson = {
         type: 'geojson',
-        data: passed_citywide_stops_geojson
+        data: passed_stop_geojson
     };
 
-    map.addSource('stops_geojson', stops_geojson);
+    map.addSource('stop_geojson', stop_geojson);
 
     map.addLayer({
-        "id": "stops",
+        "id": "stop",
         "type": "circle",
-        "source": "stops_geojson",
+        "source": "stop_geojson",
         "paint": {
             "circle-radius": 2,
             "circle-opacity": 1,
@@ -114,32 +91,9 @@ map.on('load', function() {
 
     // setup the viewport
     map.jumpTo({
-        'center': [-74.0501, 40.7400],
-        'zoom': 12
+        'center': [passed_stop_coordinates],
+        'zoom': 15
     });
-
-
-    /*
-    // ZOOM TO THE EXTENT
-    // based on https://www.mapbox.com/mapbox-gl-js/example/zoomto-linestring/
-
-    var coordinates = waypoints_geojson.data.features[3].geometry.coordinates;
-    var bounds = coordinates.reduce(function(bounds, coord) {
-      return bounds.extend(coord);
-    }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
-    map.fitBounds(bounds, { padding: 20 });
-
-
-
-    // ZOOM TO THE EXTENT of THE HEIGHTS --- not working
-    // based on https://www.mapbox.com/mapbox-gl-js/example/zoomto-linestring/
-
-    var coordinates = neighborhoodmap.data.features[0].geometry.coordinates;
-    var bounds = coordinates.reduce(function(bounds, coord) {
-      return bounds.extend(coord);
-    }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
-    map.fitBounds(bounds, { padding: 20 });
-    */
 
 
     // HOVER TOOLTIPS

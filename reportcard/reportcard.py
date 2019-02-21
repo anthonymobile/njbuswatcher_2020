@@ -117,11 +117,11 @@ def genRouteReport(source, route):
 @app.route('/<source>/<route>/stop/<stop>/<period>')
 #@cache.cached(timeout=60) # cache for 1 minute
 def genStopReport(source, route, stop, period):
-    stop_report = wwwAPI.StopReport(route, stop, period)
+    stop_report = wwwAPI.StopReport(source, route, stop, period)
     route_report = wwwAPI.RouteReport(source, route)
     predictions = BusAPI.parse_xml_getStopPredictions(BusAPI.get_xml_data('nj', 'stop_predictions', stop=stop, route='all'))
 
-    return render_template('stop.html', source=source, stop=stop, period=period, stopreport=stop_report, predictions=predictions, routereport=route_report)
+    return render_template('stop.html', source=source, stop=stop, period=period, stopreport=stop_report, reportcard_routes=reportcard_routes,predictions=predictions, routereport=route_report)
 
 
 
