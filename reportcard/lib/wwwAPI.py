@@ -214,7 +214,7 @@ class StopReport:
         self.hourly_frequency = self.get_hourly_frequency()
 
         self.citywide_waypoints_geojson = get_systemwide_geojson(reportcard_routes)
-        self.stop_geojson = self.get_stop_geojson()
+        self.stop_lnglatlike, self.stop_geojson = self.get_stop_lnglatlike()
 
     # fetch arrivals into a df
     def get_arrivals(self,route,stop,period):
@@ -363,7 +363,7 @@ class StopReport:
 
         return results
 
-    def get_stop_geojson(self):
+    def get_stop_lnglatlike(self):
 
         # query the db and grab the lat lon for the first record that stop_id matches this one
         with SQLAlchemyDBConnection(DBConfig.conn_str) as db:
@@ -374,10 +374,14 @@ class StopReport:
             .filter(ScheduledStop.stop_id == self.stop) \
             .first()
 
-            # gejsonize it
-            stop_coordinates = [(float(stop_query[1]),float(stop_query[2]))]
+            # format for mapbox LngLatLike
+            stop_lnglatlike = [float(stop_query[2]),float(stop_query[1])]
+
+            # format for geojson
+            stop_coordinates = [float(stop_query[1]), float(stop_query[2])]
             stop_geojson = geojson.Point(stop_coordinates)
             stop_geojson = geojson.dumps(stop_geojson, sort_keys=True)
+            # return stop_geojson
 
-            return stop_geojson
+            return stop_lnglatlike, stop_geojson
 
