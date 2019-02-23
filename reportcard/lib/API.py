@@ -131,6 +131,29 @@ def _fetch_layers_json(route):
 # get geoJSON for citywide map
 def get_map_layers(args, reportcard_routes):
 
+    # if we only want a single stop geojson
+    if 'stop_id' in args.keys():
+
+        # query the db and grab the lat lon for the first record that stop_id matches this one
+        with SQLAlchemyDBConnection(DBConfig.conn_str) as db:
+            stop_query = db.session.query(
+                ScheduledStop.stop_id,
+                ScheduledStop.lat,
+                ScheduledStop.lon) \
+                .filter(ScheduledStop.stop_id == args['stop_id']) \
+                .first()
+
+            # format for mapbox LngLatLike
+            # stop_lnglatlike = [float(stop_query[2]), float(stop_query[1])]
+
+            # format for geojson
+            stop_coordinates = [float(stop_query[1]), float(stop_query[2])]
+            stop_geojson = geojson.Point(stop_coordinates)
+
+            # return stop_lnglatlike, stop_geojson
+            return stop_geojson
+
+    # otherwise continue to get waypoints/stops for one or more routes
     waypoints = []
     stops = []
 

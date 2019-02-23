@@ -6,14 +6,22 @@ v2.0
 # ROADMAP TO COMPLETION
 
 
-###1 finish core
-**busmap-stop.js**
-    - debug, why doesnt it think passed_citywide_waypoints_geojson is defined? its in the html passed to the script...!?
-        - try hardcoding the coordinates?
+### ASAP
+- **map layers API**
+    - finish API.get_map_layers for "all" routes
+    - convert index map and stop map to use API (route map is working!)
+    - add an arg to pick out a single stop
+- **route.html**    
+    - add period picker bar (daily, monthly, history, specific date) -- using [bootstrap-datepicker](https://bootstrap-datepicker.readthedocs.io/en/latest/#) [installation instructions](https://stackoverflow.com/questions/29001753/bootstrap-datetimepicker-installation)
+- **DataBases.py**
+    - change data store to postgres
+- **docker**
+    - add postgres integration
+    
 
+###1 finish core
 - **route.html**    
     - add
-        - period picker bar (daily, monthly, history, specific date) -- using [bootstrap-datepicker](https://bootstrap-datepicker.readthedocs.io/en/latest/#) [installation instructions](https://stackoverflow.com/questions/29001753/bootstrap-datetimepicker-installation)
         - what are the cards that show up here? Are they always the grade, an eval of the timing, and then a good and a bad card? If so I think it would be easier if you condensed it into three cards: GRADE (which could include an evaluation of the timing), DOWNSIDES, and UPSIDES. Then the Performance section is really nice and clear. HERE’S YOUR GRADE, AND HERE ARE THE REASONS WHY IT’S THE GRADE.
             - **Average Headway.** This provides a way of capturing the bunching in a single, easily understood metric. We can also report variability using standard deviation and that can be converted to a letter grade (e.g. A is < 1 s.d., B is 1 to 1.5, etc.) 
                 - Example: `Route 87 has an average headway of 20 minutes, with a service dependability grade of B. That means 80 percent of the time the bus will come every 10 to 30 minutes.` (This needs wordsmithing!)
@@ -64,10 +72,7 @@ v2.0
     - pass correct map variables to stop.html    
 
 ###2 deploy JC version to AWS
-- **DataBases.py**
-    - change data store to postgres
 - **docker**
-    - add postgres integration
     - test/debug dns_updater
     - aws docker site is at
 - build on AWS micro `ec2-18-216-175-102.us-east-2.compute.amazonaws.com`
