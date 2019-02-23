@@ -9,49 +9,35 @@ var map = new mapboxgl.Map({
 map.on('load', function() {
 
     // starting view
-    var mapCoordinates = passed_stop_lnglatlike;
-    var mapZoom = 16;
-
-    // setup the viewport
-    map.jumpTo({
-        'center': mapCoordinates,
-        'zoom': mapZoom
-    });
-
+    var mapCoordinates = [40.7400, -74.0501];
+    var mapZoom = 13;
 
     // ROUTES
-    var waypoints_geojson = {
-        'type': 'geojson',
-        'data': passed_citywide_waypoints_geojson
-    };
 
-    map.addSource('waypoints_geojson', waypoints_geojson);
-
+    var url_waypoints = ("/api/v1/map/layers?layer=waypoints&route="+passed_route);
+    map.addSource('waypoints_geojson', {
+        "type": "geojson",
+        "data": url_waypoints
+    });
     map.addLayer({
         "id": "route",
         "type": "line",
         "source": "waypoints_geojson",
         "paint": {
             "line-color": "blue",
-            "line-opacity": 0.5,
-            "line-width": 3
+            "line-opacity": 0.75,
+            "line-width": 5
         }
-
     });
 
-    // STOPS
 
-        var stops_geojson = {
-        type: 'geojson',
-        data: {
-            "type": "Feature",
-            "properties": {},
-            "geometry": passed_stops_geojson
-        }
-    };
+    // SINGLE STOP
 
-    map.addSource('stops_geojson', stops_geojson);
-
+    var url_stops = ("/api/v1/map/layers?layer=stops&route="+passed_route+"&stop_id="+passed_stop_id);
+    map.addSource('stops_geojson', {
+        "type": "geojson",
+        "data": url_stops
+    });
     map.addLayer({
         "id": "stops",
         "type": "circle",
@@ -64,40 +50,78 @@ map.on('load', function() {
         }
     });
 
+
     // VEHICLES
-    var routelistArray=passed_reportcard_routes;
 
-    for(let j=0; j<routelistArray.length; j++) {
-
-        var url = ('/api/v1/positions?period=now&rt='+routelistArray[j].route);
-
-        map.addSource('vehicles_geojson'+routelistArray[j].route, {
-            type: 'geojson',
-            data: url
-        });
-
-        map.addLayer({
-        "id": "vehicles"+routelistArray[j].route,
+    var url_vehicles = ("/api/v1/positions?period=now&rt="+passed_route);
+    map.addSource('vehicles_geojson', {
+        "type": "geojson",
+        "data": url_vehicles
+    });
+    map.addLayer({
+        "id": "vehicles",
         "type": "circle",
-        "source": "vehicles_geojson"+routelistArray[j].route,
+        "source": "vehicles_geojson",
         "paint": {
             "circle-radius": 4,
             "circle-opacity": 1,
             "circle-stroke-width": 3,
             "circle-stroke-color": "#f6c"
         }
-        })
 
-    };
-
+    });
 
     window.setInterval(function() {
+        map.getSource('vehicles_geojson').setData(url_vehicles);
+    }, 1000);
 
-        for(let j=0; j<routelistArray.length; j++) {
-            var url = ('/api/v1/positions?period=now&rt='+routelistArray[j].route);
-            map.getSource('vehicles_geojson'+routelistArray[j].route).setData(url);
-            }
-    }, 5000);
 
+    // setup the viewport
+    map.jumpTo({
+        'center': [-74.0501, 40.7400],
+        'zoom': 12
+    });
+
+    // ZOOM TO THE EXTENT
+    // based on https://www.mapbox.com/mapbox-gl-js/example/zoomto-linestring/
+
+    var coordinates = stops_geojson.data.geometry.coordinates;
+    var bounds = coordinates.reduce(function(bounds, coord) {
+      return bounds.extend(coord);
+    }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
+    map.fitBounds(bounds, { padding: 20 });
+
+
+    // HOVER TOOLTIPS
+    var popup = new mapboxgl.Popup({
+        closeButton: false,
+        closeOnClick: false
+    });
+
+    map.on('mouseenter', 'vehicles', function(e) {
+        // Change the cursor style as a UI indicator.
+        map.getCanvas().style.cursor = 'pointer';
+
+        var coordinates = e.features[0].geometry.coordinates.slice();
+        var description = (e.features[0].properties.fs + ", Bus " + e.features[0].properties.id + ", Driver " + e.features[0].properties.op + ", Run " + e.features[0].properties.run);
+
+        // Ensure that if the map is zoomed out such that multiple
+        // copies of the feature are visible, the popup appears
+        // over the copy being pointed to.
+        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+        }
+
+        // Populate the popup and set its coordinates
+        // based on the feature found.
+        popup.setLngLat(coordinates)
+            .setHTML(description)
+            .addTo(map);
+    });
+
+    map.on('mouseleave', 'vehicles', function() {
+        map.getCanvas().style.cursor = '';
+        popup.remove();
+    });
 
 });

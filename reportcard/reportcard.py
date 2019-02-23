@@ -131,7 +131,14 @@ def genStopReport(source, route, stop, period):
 # route waypoints
 
 # /api/v1/map/layers?layer=waypoints&route=87
-# /api/v1/map/layers?layer=stops&route=all
+# /api/v1/map/layers?layer=stops&route=87
+# --> returns ALL waypoints or stops for 1 route
+
+# /api/v1/map/layers?layer=waypoints&route=all
+# --> returns ALL waypoints or stops for entire city
+
+# /api/v1/map/layers?layer=stops&route=87&stop_id=30189
+# --> returns a SINGLE stop
 
 @app.route('/api/v1/map/layers')
 @cross_origin()
