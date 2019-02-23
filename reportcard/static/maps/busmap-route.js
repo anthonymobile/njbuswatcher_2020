@@ -14,17 +14,11 @@ map.on('load', function() {
 
     // ROUTES
 
-    var waypoints_geojson = {
-        type: 'geojson',
-        data: {
-            "type": "Feature",
-            "properties": {},
-            "geometry": passed_waypoints_geojson
-        }
-    };
-
-    map.addSource('waypoints_geojson', waypoints_geojson);
-
+    var url_waypoints = ("/api/v1/map/layers?layer=waypoints&route="+passed_route);
+    map.addSource('waypoints_geojson', {
+        "type": "geojson",
+        "data": url_waypoints
+    });
     map.addLayer({
         "id": "route",
         "type": "line",
@@ -34,23 +28,15 @@ map.on('load', function() {
             "line-opacity": 0.75,
             "line-width": 5
         }
-
     });
 
 
     // STOPS
-
-        var stops_geojson = {
-        type: 'geojson',
-        data: {
-            "type": "Feature",
-            "properties": {},
-            "geometry": passed_stops_geojson
-        }
-    };
-
-    map.addSource('stops_geojson', stops_geojson);
-
+    var url_stops = ("/api/v1/map/layers?layer=stops&route="+passed_route);
+    map.addSource('stops_geojson', {
+        "type": "geojson",
+        "data": url_stops
+    });
     map.addLayer({
         "id": "stops",
         "type": "circle",
@@ -66,15 +52,11 @@ map.on('load', function() {
 
     // VEHICLES
 
-    var url = ("/api/v1/positions?period=now&rt="+passed_route);
-
-
+    var url_vehicles = ("/api/v1/positions?period=now&rt="+passed_route);
     map.addSource('vehicles_geojson', {
         "type": "geojson",
-        "data": url
+        "data": url_vehicles
     });
-
-
     map.addLayer({
         "id": "vehicles",
         "type": "circle",
@@ -89,7 +71,7 @@ map.on('load', function() {
     });
 
     window.setInterval(function() {
-        map.getSource('vehicles_geojson').setData(url);
+        map.getSource('vehicles_geojson').setData(url_vehicles);
     }, 1000);
 
 

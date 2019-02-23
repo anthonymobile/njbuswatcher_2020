@@ -19,25 +19,25 @@ map.on('load', function() {
     });
 
 
-    // // ROUTES
-    // var waypoints_geojson = {
-    //     'type': 'geojson',
-    //     'data': passed_citywide_waypoints_geojson
-    // };
-    //
-    // map.addSource('waypoints_geojson', waypoints_geojson);
-    //
-    // map.addLayer({
-    //     "id": "route",
-    //     "type": "line",
-    //     "source": "waypoints_geojson",
-    //     "paint": {
-    //         "line-color": "blue",
-    //         "line-opacity": 0.5,
-    //         "line-width": 3
-    //     }
-    //
-    // });
+    // ROUTES
+    var waypoints_geojson = {
+        'type': 'geojson',
+        'data': passed_citywide_waypoints_geojson
+    };
+
+    map.addSource('waypoints_geojson', waypoints_geojson);
+
+    map.addLayer({
+        "id": "route",
+        "type": "line",
+        "source": "waypoints_geojson",
+        "paint": {
+            "line-color": "blue",
+            "line-opacity": 0.5,
+            "line-width": 3
+        }
+
+    });
 
     // STOPS
 
@@ -63,7 +63,6 @@ map.on('load', function() {
             "circle-stroke-color": "#fff"
         }
     });
-
 
     // VEHICLES
     var routelistArray=passed_reportcard_routes;

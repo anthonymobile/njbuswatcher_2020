@@ -1,3 +1,5 @@
+import json
+
 import lib.BusAPI as BusAPI
 from lib.DataBases import DBConfig, SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
 from sqlalchemy import func
@@ -109,3 +111,42 @@ def get_positions_byargs(args):
     return positions_geojson
 
 
+
+def _fetch_layers_json(route):
+    routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(
+        BusAPI.get_xml_data('nj', 'routes', route=route))
+
+    # todo collapse these into...
+    waypoints_feature = json.loads(coordinate_bundle['waypoints_geojson'])
+    waypoints_feature = geojson.Feature(geometry=waypoints_feature)
+    stops_feature = json.loads(coordinate_bundle['stops_geojson'])
+    stops_feature = geojson.Feature(geometry=stops_feature)
+
+    # todo this?
+    # waypoints_feature = geojson.Feature(geometry=json.loads(coordinate_bundle['waypoints_geojson']))
+    # stops_feature = geojson.Feature(geometry=json.loads(coordinate_bundle['stops_geojson']))
+
+    return waypoints_feature, stops_feature
+
+# get geoJSON for citywide map
+def get_map_layers(args, reportcard_routes):
+
+    waypoints = []
+    stops = []
+
+    if args['route'] == 'all':
+        for r in reportcard_routes:
+            waypoints_item, stops_item = _fetch_layers_json(args['route'])
+            waypoints.append(waypoints_item)
+            stops.append(stops_item)
+    else:
+        waypoints_item, stops_item = _fetch_layers_json(args['route'])
+        waypoints.append(waypoints_item)
+        stops.append(stops_item)
+
+    if args['layer']=='waypoints':
+        waypoints_featurecollection = geojson.FeatureCollection(waypoints)
+        return waypoints_featurecollection
+    elif args['layer']=='stops':
+        stops_featurecollection = geojson.FeatureCollection(stops)
+        return stops_featurecollection

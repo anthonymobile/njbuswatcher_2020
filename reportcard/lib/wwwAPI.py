@@ -11,36 +11,6 @@ from lib.DataBases import DBConfig, SQLAlchemyDBConnection, Trip, BusPosition, S
 from route_config import reportcard_routes, grade_descriptions
 
 
-# geoJSON for citywide map
-def get_systemwide_geojson(reportcard_routes):
-
-    waypoints = []
-    stops = []
-    for r in reportcard_routes:
-        routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(
-            BusAPI.get_xml_data('nj', 'routes', route=r['route']))
-
-        # todo collapse these into...
-        waypoints_feature = json.loads(coordinate_bundle['waypoints_geojson'])
-        stops_feature = json.loads(coordinate_bundle['stops_geojson'])
-
-        # these?..
-        waypoints_feature = geojson.Feature(geometry=waypoints_feature)
-        stops_feature = geojson.Feature(geometry=stops_feature)
-
-        # like this?
-        # waypoints_feature = geojson.Feature(geometry=json.loads(coordinate_bundle['waypoints_geojson']))
-        # stops_feature = geojson.Feature(geometry=json.loads(coordinate_bundle['stops_geojson']))
-
-        waypoints.append(waypoints_feature)
-        stops.append(stops_feature)
-
-    waypoints_featurecollection = geojson.FeatureCollection(waypoints)
-    stops_featurecollection = geojson.FeatureCollection(stops)
-
-    return waypoints_featurecollection, stops_featurecollection
-
-
 # primary classes
 class RouteReport:
 
@@ -213,7 +183,7 @@ class StopReport:
         self.arrivals_list_final_df, self.stop_name = self.get_arrivals(self.route, self.stop, self.period)
         self.hourly_frequency = self.get_hourly_frequency()
 
-        self.citywide_waypoints_geojson = get_systemwide_geojson(reportcard_routes)
+        # self.citywide_waypoints_geojson = get_systemwide_geojson(reportcard_routes)
         self.stop_lnglatlike, self.stop_geojson = self.get_stop_lnglatlike()
 
     # fetch arrivals into a df
