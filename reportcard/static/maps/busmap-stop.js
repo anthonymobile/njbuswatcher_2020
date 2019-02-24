@@ -31,9 +31,9 @@ map.on('load', function() {
     });
 
 
-    // SINGLE STOP
 
-    var url_stops = ("/api/v1/map/layers?layer=stops&route="+passed_route+"&stop_id="+passed_stop_id);
+    // STOPS
+    var url_stops = ("/api/v1/map/layers?layer=stops&route="+passed_route);
     map.addSource('stops_geojson', {
         "type": "geojson",
         "data": url_stops
@@ -82,14 +82,14 @@ map.on('load', function() {
         'zoom': 12
     });
 
-    // ZOOM TO THE EXTENT
-    // based on https://www.mapbox.com/mapbox-gl-js/example/zoomto-linestring/
-
-    var coordinates = stops_geojson.data.geometry.coordinates;
-    var bounds = coordinates.reduce(function(bounds, coord) {
-      return bounds.extend(coord);
-    }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
-    map.fitBounds(bounds, { padding: 20 });
+    // // ZOOM TO THE EXTENT
+    // // based on https://www.mapbox.com/mapbox-gl-js/example/zoomto-linestring/
+    //
+    // var coordinates = stops_geojson.data.geometry.coordinates;
+    // var bounds = coordinates.reduce(function(bounds, coord) {
+    //   return bounds.extend(coord);
+    // }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
+    // map.fitBounds(bounds, { padding: 20 });
 
 
     // HOVER TOOLTIPS

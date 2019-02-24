@@ -7,10 +7,10 @@ v2.0
 
 
 ### ASAP
-- **map layers API**
+- **map API/js/html**
     - finish API.get_map_layers for "all" routes
-    - convert index map and stop map to use API (route map is working!)
-    - add an arg to pick out a single stop
+    - finish debugging stop and index maps
+    - fix map viewport, zoomto -- index, map, stop
 - **route.html**    
     - add period picker bar (daily, monthly, history, specific date) -- using [bootstrap-datepicker](https://bootstrap-datepicker.readthedocs.io/en/latest/#) [installation instructions](https://stackoverflow.com/questions/29001753/bootstrap-datetimepicker-installation)
 - **DataBases.py**
