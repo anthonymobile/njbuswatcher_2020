@@ -13,57 +13,29 @@ map.on('load', function() {
     var mapZoom = 13;
 
 
-
-     // THE HEIGHTS -- NEIGHBORHOOD BOUNDARIES
-
-    var boundaries_url = ("/static/maps/heights_boundaries.geojson");
-
-    map.addSource("neighborhoodmap", {
-            type: 'geojson',
-            data: boundaries_url
-        });
-
-    map.addLayer({
-        "id": "neighborhood",
-        "type": "fill",
-        "source": "neighborhoodmap",
-        "paint": {
-            "fill-color": "grey",
-            "fill-opacity": 0.5,
-        }
-
-    });
-
-
-
     // ROUTES
-    var waypoints_geojson = {
-        'type': 'geojson',
-        'data': passed_citywide_waypoints_geojson
-    };
-
-    map.addSource('waypoints_geojson', waypoints_geojson);
-
+    var url_waypoints = ("/api/v1/map/layers?layer=waypoints&route=all");
+    map.addSource('waypoints_geojson', {
+        "type": "geojson",
+        "data": url_waypoints
+    });
     map.addLayer({
         "id": "route",
         "type": "line",
         "source": "waypoints_geojson",
         "paint": {
             "line-color": "blue",
-            "line-opacity": 0.5,
-            "line-width": 3
+            "line-opacity": 0.75,
+            "line-width": 5
         }
-
     });
 
     // STOPS
-    var stops_geojson = {
-        type: 'geojson',
-        data: passed_citywide_stops_geojson
-    };
-
-    map.addSource('stops_geojson', stops_geojson);
-
+    var url_stops = ("/api/v1/map/layers?layer=stops&route=all");
+    map.addSource('stops_geojson', {
+        "type": "geojson",
+        "data": url_stops
+    });
     map.addLayer({
         "id": "stops",
         "type": "circle",
@@ -71,11 +43,10 @@ map.on('load', function() {
         "paint": {
             "circle-radius": 2,
             "circle-opacity": 1,
-            "circle-stroke-width": 1,
+            "circle-stroke-width": 2,
             "circle-stroke-color": "#fff"
         }
     });
-
 
     // VEHICLES
     var routelistArray=passed_reportcard_routes;
