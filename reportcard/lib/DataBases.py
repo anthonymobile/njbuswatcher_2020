@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import datetime, sys
-from sqlalchemy import inspect, create_engine, Table, Column, Integer, DateTime, Float, String, Boolean, ForeignKey
+from sqlalchemy import inspect, create_engine, Date, Column, Integer, DateTime, Float, String, Text, Boolean, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
 from . import BusAPI
@@ -10,26 +10,10 @@ from . import BusAPI
 #####################################################
 Base = declarative_base()
 
-from sqlalchemy.ext.declarative import as_declarative
-
-# @as_declarative()
-# class Base:
-#     def _asdict(self):
-#         return {c.key: getattr(self, c.key)
-#                 for c in inspect(self).mapper.column_attrs}
-#
-#     def __repr__(self):
-#         line = []
-#         for prop, value in vars(self).items():
-#             line.append((prop, value))
-#         line.sort(key=lambda x: x[0])
-#         out_string = ' '.join([k + '=' + str(v) for k, v in line])
-#         return self.__class__.__name__ + '[%s]' % out_string
-#
-
-
 class DBConfig(object):
-    conn_str='sqlite:///jc_buswatcher.db'
+    #conn_str='sqlite:///jc_buswatcher.db' # WORKS
+    #conn_str ='mysql+pymysql://buswatcher:njtransit@localhost/buses'
+    conn_str ='postgresql://buswatcher:njtransit@localhost/buses'
 
 # from https://medium.com/@ramojol/python-context-managers-and-the-with-statement-8f53d4d9f87
 class SQLAlchemyDBConnection(object):
@@ -40,15 +24,17 @@ class SQLAlchemyDBConnection(object):
         engine = create_engine(self.connection_string)
         Session = sessionmaker()
         self.session = Session(bind=engine)
-
-        try: # try to create tables, just in case they aren't there
-            Base.metadata.create_all(bind=engine)
-        except:
-            pass
-
+        Base.metadata.create_all(bind=engine)
         return self
+
+    def __relax__(self):
+        self.session.execute('SET FOREIGN_KEY_CHECKS = 0;')
+        return self
+
     def __exit__(self, exc_type, exc_val, exc_tb):
+        self.session.execute('SET FOREIGN_KEY_CHECKS = 1;')
         self.session.close()
+
 
 #####################################################
 # CLASS Trip
@@ -88,14 +74,15 @@ class Trip(Base):
     __table_args__ = {'extend_existing': True}
 
     pkey = Column(Integer(), primary_key=True)
-    trip_id = Column(String(255), index=True)
+    trip_id = Column(String(127), index=True, unique=True)
     rt = Column(Integer())
     v = Column(Integer())
     run = Column(Integer())
     pid = Column(Integer())
-    date = Column(String)
-    coordinate_bundle = Column(String)
+    date = Column(Date())
+    coordinate_bundle = Column(Text())
 
+    # relationships
     children_ScheduledStops = relationship("ScheduledStop", backref='trip_log')
     children_BusPositions = relationship("BusPosition", backref='trip_log')
 
@@ -103,10 +90,7 @@ class Trip(Base):
 ################################################################
 # CLASS ScheduledStop
 ################################################################
-# represents a stop on a scheduled trip
-# used to store final inferred arrival time for a single, v, run, date, stop_id
-################################################################
-#
+
 class ScheduledStop(Base):
 
     def __init__(self, trip_id,v,run,date,stop_id,stop_name,lat,lon):
@@ -125,24 +109,20 @@ class ScheduledStop(Base):
     pkey = Column(Integer(), primary_key=True)
     run = Column(Integer())
     v = Column(Integer())
-    date = Column(String)
+    date = Column(Date())
     stop_id = Column(Integer(), index=True)
-    stop_name = Column(String)
+    stop_name = Column(String(255))
     lat = Column(Float())
     lon = Column(Float())
     arrival_timestamp = Column(DateTime(), index=True)
 
     # relationships
-    trip_id = Column(String(255), ForeignKey('trip_log.trip_id'))
+    trip_id = Column(String(127), ForeignKey('trip_log.trip_id'))
     parent_Trip = relationship("Trip",backref='scheduledstop_log')
-
-
 
 
 #####################################################
 # CLASS BusPosition
-#####################################################
-# stores raw positions for later reference
 #####################################################
 
 class BusPosition(Base):
@@ -158,11 +138,12 @@ class BusPosition(Base):
     d = Column(String(20))
     dip = Column(String(20))
     dn = Column(String(20))
-    fs = Column(String(20))
-    id = Column(String(20), index=True)
+    fs = Column(String(127))
+    id = Column(String(20))
+    # id = Column(String(20), index=True)
     m = Column(String(20))
     op = Column(String(20))
-    pd = Column(String(20))
+    pd = Column(String(255))
     pdrtpifeedname = Column(String(255))
     pid = Column(String(20))
     rt = Column(String(20))
@@ -178,8 +159,7 @@ class BusPosition(Base):
     arrival_flag = Column(Boolean())
 
     # relationships
-    trip_id = Column(String(255), ForeignKey('trip_log.trip_id'), index=True)
-    stop_id = Column(String(255), ForeignKey('scheduledstop_log.stop_id'), index=True)
-
+    trip_id = Column(String(127), ForeignKey('trip_log.trip_id'), index=True)
+    stop_id = Column(Integer(), ForeignKey('scheduledstop_log.stop_id'), index=True)
     parent_Trip = relationship("Trip",backref='position_log')
     parent_ScheduledStop = relationship("ScheduledStop",backref='position_log')

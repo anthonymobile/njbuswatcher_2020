@@ -14,7 +14,7 @@ map.on('load', function() {
 
     // ROUTES
 
-    var url_waypoints = ("/api/v1/map/layers?layer=waypoints&route="+passed_route);
+    var url_waypoints = ("/api/v1/maps?layer=waypoints&rt="+passed_route);
     map.addSource('waypoints_geojson', {
         "type": "geojson",
         "data": url_waypoints
@@ -33,7 +33,7 @@ map.on('load', function() {
 
 
     // STOPS
-    var url_stops = ("/api/v1/map/layers?layer=stops&route="+passed_route);
+    var url_stops = ("/api/v1/maps?layer=stops&rt="+passed_route);
     map.addSource('stops_geojson', {
         "type": "geojson",
         "data": url_stops
@@ -51,29 +51,30 @@ map.on('load', function() {
     });
 
 
-    // VEHICLES
+    // // VEHICLES
+    //
+    // var url_vehicles = ("/api/v1/maps?layer=vehicles&rt=all");
+    // map.addSource('vehicles_geojson', {
+    //     "type": "geojson",
+    //     "data": url_vehicles
+    // });
+    // map.addLayer({
+    //     "id": "vehicles",
+    //     "type": "circle",
+    //     "source": "vehicles_geojson",
+    //     "paint": {
+    //         "circle-radius": 4,
+    //         "circle-opacity": 1,
+    //         "circle-stroke-width": 3,
+    //         "circle-stroke-color": "#f6c"
+    //     }
+    //
+    // });
+    //
+    // window.setInterval(function() {
+    //     map.getSource('vehicles_geojson').setData(url_vehicles);
+    // }, 1000);
 
-    var url_vehicles = ("/api/v1/positions?period=now&rt="+passed_route);
-    map.addSource('vehicles_geojson', {
-        "type": "geojson",
-        "data": url_vehicles
-    });
-    map.addLayer({
-        "id": "vehicles",
-        "type": "circle",
-        "source": "vehicles_geojson",
-        "paint": {
-            "circle-radius": 4,
-            "circle-opacity": 1,
-            "circle-stroke-width": 3,
-            "circle-stroke-color": "#f6c"
-        }
-
-    });
-
-    window.setInterval(function() {
-        map.getSource('vehicles_geojson').setData(url_vehicles);
-    }, 1000);
 
 
     // setup the viewport
@@ -82,14 +83,15 @@ map.on('load', function() {
         'zoom': 12
     });
 
-    // // ZOOM TO THE EXTENT
-    // // based on https://www.mapbox.com/mapbox-gl-js/example/zoomto-linestring/
-    //
-    // var coordinates = stops_geojson.data.geometry.coordinates;
-    // var bounds = coordinates.reduce(function(bounds, coord) {
-    //   return bounds.extend(coord);
-    // }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
-    // map.fitBounds(bounds, { padding: 20 });
+
+    // ZOOM TO THE EXTENT
+    // based on https://www.mapbox.com/mapbox-gl-js/example/zoomto-linestring/
+
+    var coordinates = stops_geojson.data.geometry.coordinates;
+    var bounds = coordinates.reduce(function(bounds, coord) {
+      return bounds.extend(coord);
+    }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
+    map.fitBounds(bounds, { padding: 20 });
 
 
     // HOVER TOOLTIPS

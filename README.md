@@ -7,16 +7,35 @@ v2.0
 
 
 ### ASAP
-- **map API/js/html**
-    - finish API.get_map_layers for "all" routes
-    - finish debugging stop and index maps
-    - fix map viewport, zoomto -- index, map, stop
-- **route.html**    
-    - add period picker bar (daily, monthly, history, specific date) -- using [bootstrap-datepicker](https://bootstrap-datepicker.readthedocs.io/en/latest/#) [installation instructions](https://stackoverflow.com/questions/29001753/bootstrap-datetimepicker-installation)
 - **DataBases.py**
-    - change data store to postgres
+    - change data store to postgres and test
+    - continue debugging foreign key constraint
+        - rewrite tripwatcher.1 -- FETCH AND LOCALIZE CURRENT POSITIONS?
+            - fetch the positions, go over it once to update triplog (rewrite the current parser for new trips to not run off the db)
+            - then go over it again normally to parse the BusPositions into the table
 - **docker**
     - add postgres integration
+- **API.py**
+    - check validity of stops, vehicles geoJSON results from API
+- **static/maps/**
+    - busmap-index.js
+        - fix/check source of vehicles_json (http://0.0.0.0:5000/api/v1/positions?rt=all)
+        - fix map viewport, zoomto extent of all vehicles_json
+            - method1: update existing `ZOOM TO THE EXTENT`
+            - method2: use in var map? `bounds: [left, bottom, right, top]` using a LatLongLike object
+    - busmap-route.js
+        - fix/check  source of vehicles_json (http://0.0.0.0:5000/api/v1/positions?rt=87)
+        - fix map viewport, zoomto extent of all vehicles_json 
+    - busmap-stop.js
+        - fix/check source of vehicles_json (http://0.0.0.0:5000/api/v1/positions?rt=all)
+        - fix/check source of stops_json to a single stop (my new API... route=119&stop_id=30189)      
+        - fix map viewport, center on stops_json (single stop), zoom level 16
+- **route.html**    
+    - add period picker bar (daily, monthly, history, specific date) -- using [bootstrap-datepicker](https://bootstrap-datepicker.readthedocs.io/en/latest/#) [installation instructions](https://stackoverflow.com/questions/29001753/bootstrap-datetimepicker-installation)
+
+- **deploy to AWS and test**
+
+-------------------------------------------------------------------------------------
     
 
 ###1 finish core
@@ -106,6 +125,7 @@ v2.0
 - **Trip Playback**
     - Generate a list of runs, linked to 'playback' pages via an API call that spits out geojson for all points in routelog for a single run, on a specific date, and display on a page using mapbox live update [tutorial](https://www.mapbox.com/mapbox-gl-js/example/live-update-feature/).
 - **map improvements**
+    - show bus symbol as circle with route # in center (especially on closer zooms)
     - Show Congestion
         - change color of bunching buses on the map? 
         - indicate congested route segments 
