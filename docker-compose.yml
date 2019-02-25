@@ -5,7 +5,12 @@ version: '3.3'
 
 services:
   db:
-    image: postgres:10.5-alpine
+    image: postgres
+    environment:
+      POSTGRES_DB=buses
+      POSTGRES_USER=buswatcher
+      POSTGRES_PASSWORD=njtransit
+
     volumes:
       - postgres_data:/var/lib/postgresql/data/
   tripwatcher:
@@ -25,13 +30,11 @@ services:
     expose:
       - 8000
     environment:
-      - SECRET_KEY=please_change_me
-      - SQL_DATABASE=buses
+      - SQL_DB=buses
       - SQL_USER=buswatcher
       - SQL_PASSWORD=njtransit
       - SQL_HOST=db
       - SQL_PORT=5432
-      - DATABASE=buses
     depends_on:
       - db
   nginx:

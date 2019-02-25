@@ -14,7 +14,7 @@ map.on('load', function() {
 
 
     // ROUTES
-    var url_waypoints = ("/api/v1/map/layers?layer=waypoints&route=all");
+    var url_waypoints = ("/api/v1/maps?layer=waypoints&rt=all");
     map.addSource('waypoints_geojson', {
         "type": "geojson",
         "data": url_waypoints
@@ -26,62 +26,54 @@ map.on('load', function() {
         "paint": {
             "line-color": "blue",
             "line-opacity": 0.75,
-            "line-width": 5
+            "line-width": 3
         }
     });
 
-    // STOPS
-    var url_stops = ("/api/v1/map/layers?layer=stops&route=all");
-    map.addSource('stops_geojson', {
-        "type": "geojson",
-        "data": url_stops
-    });
-    map.addLayer({
-        "id": "stops",
-        "type": "circle",
-        "source": "stops_geojson",
-        "paint": {
-            "circle-radius": 2,
-            "circle-opacity": 1,
-            "circle-stroke-width": 2,
-            "circle-stroke-color": "#fff"
-        }
-    });
 
-    // VEHICLES
-    var routelistArray=passed_reportcard_routes;
-
-    for(let j=0; j<routelistArray.length; j++) {
-
-        var url = ('/api/v1/positions?period=now&rt='+routelistArray[j].route);
-
-        map.addSource('vehicles_geojson'+routelistArray[j].route, {
-            type: 'geojson',
-            data: url
-        });
-
-        map.addLayer({
-        "id": "vehicles"+routelistArray[j].route,
-        "type": "circle",
-        "source": "vehicles_geojson"+routelistArray[j].route,
-        "paint": {
-            "circle-radius": 4,
-            "circle-opacity": 1,
-            "circle-stroke-width": 3,
-            "circle-stroke-color": "#f6c"
-        }
-        })
-
-    };
+    // // STOPS
+    // var url_stops = ("/api/v1/maps?layer=stops&rt=all");
+    // map.addSource('stops_geojson', {
+    //     "type": "geojson",
+    //     "data": url_stops
+    // });
+    // map.addLayer({
+    //     "id": "stops",
+    //     "type": "circle",
+    //     "source": "stops_geojson",
+    //     "paint": {
+    //         "circle-radius": 2,
+    //         "circle-opacity": 1,
+    //         "circle-stroke-width": 2,
+    //         "circle-stroke-color": "#fff"
+    //     }
+    // });
 
 
-    window.setInterval(function() {
+    // // VEHICLES
+    //
+    // var url_vehicles = ("/api/v1/maps?layer=vehicles&rt=all");
+    // map.addSource('vehicles_geojson', {
+    //     "type": "geojson",
+    //     "data": url_vehicles
+    // });
+    // map.addLayer({
+    //     "id": "vehicles",
+    //     "type": "circle",
+    //     "source": "vehicles_geojson",
+    //     "paint": {
+    //         "circle-radius": 4,
+    //         "circle-opacity": 1,
+    //         "circle-stroke-width": 3,
+    //         "circle-stroke-color": "#f6c"
+    //     }
+    //
+    // });
+    //
+    // window.setInterval(function() {
+    //     map.getSource('vehicles_geojson').setData(url_vehicles);
+    // }, 1000);
 
-        for(let j=0; j<routelistArray.length; j++) {
-            var url = ('/api/v1/positions?period=now&rt='+routelistArray[j].route);
-            map.getSource('vehicles_geojson'+routelistArray[j].route).setData(url);
-            }
-    }, 5000);
 
     // setup the viewport
     map.jumpTo({
@@ -90,66 +82,54 @@ map.on('load', function() {
     });
 
 
-    /*
-    // ZOOM TO THE EXTENT
-    // based on https://www.mapbox.com/mapbox-gl-js/example/zoomto-linestring/
 
-    var coordinates = waypoints_geojson.data.features[3].geometry.coordinates;
-    var bounds = coordinates.reduce(function(bounds, coord) {
-      return bounds.extend(coord);
-    }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
-    map.fitBounds(bounds, { padding: 20 });
-
-
-
-    // ZOOM TO THE EXTENT of THE HEIGHTS --- not working
-    // based on https://www.mapbox.com/mapbox-gl-js/example/zoomto-linestring/
-
-    var coordinates = neighborhoodmap.data.features[0].geometry.coordinates;
-    var bounds = coordinates.reduce(function(bounds, coord) {
-      return bounds.extend(coord);
-    }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
-    map.fitBounds(bounds, { padding: 20 });
-    */
+    // // ZOOM TO THE EXTENT
+    // // based on https://www.mapbox.com/mapbox-gl-js/example/zoomto-linestring/
+    //
+    // var coordinates = waypoints_geojson.data.features[3].geometry.coordinates;
+    // var bounds = coordinates.reduce(function(bounds, coord) {
+    //   return bounds.extend(coord);
+    // }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
+    // map.fitBounds(bounds, { padding: 20 });
 
 
-    // HOVER TOOLTIPS
-
-    for(let j=0; j<routelistArray.length; j++) {
-
-
-        var popup = new mapboxgl.Popup({
-            closeButton: false,
-            closeOnClick: false
-        });
-
-        map.on('mouseenter', ('vehicles'+routelistArray[j].route), function(e) {
-            // Change the cursor style as a UI indicator.
-            map.getCanvas().style.cursor = 'pointer';
-
-            var coordinates = e.features[0].geometry.coordinates.slice();
-            var description = (e.features[0].properties.fs + ", Bus " + e.features[0].properties.id + ", Driver " + e.features[0].properties.op + ", Run " + e.features[0].properties.run);
-
-            // Ensure that if the map is zoomed out such that multiple
-            // copies of the feature are visible, the popup appears
-            // over the copy being pointed to.
-            while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-                coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-            }
-
-            // Populate the popup and set its coordinates
-            // based on the feature found.
-            popup.setLngLat(coordinates)
-                .setHTML(description)
-                .addTo(map);
-        });
-
-        map.on('mouseleave', ('vehicles'+routelistArray[j].route), function() {
-            map.getCanvas().style.cursor = '';
-            popup.remove();
-        });
-
-    }
+    // // HOVER TOOLTIPS
+    //
+    // for(let j=0; j<routelistArray.length; j++) {
+    //
+    //
+    //     var popup = new mapboxgl.Popup({
+    //         closeButton: false,
+    //         closeOnClick: false
+    //     });
+    //
+    //     map.on('mouseenter', ('vehicles'+routelistArray[j].route), function(e) {
+    //         // Change the cursor style as a UI indicator.
+    //         map.getCanvas().style.cursor = 'pointer';
+    //
+    //         var coordinates = e.features[0].geometry.coordinates.slice();
+    //         var description = (e.features[0].properties.fs + ", Bus " + e.features[0].properties.id + ", Driver " + e.features[0].properties.op + ", Run " + e.features[0].properties.run);
+    //
+    //         // Ensure that if the map is zoomed out such that multiple
+    //         // copies of the feature are visible, the popup appears
+    //         // over the copy being pointed to.
+    //         while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+    //             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+    //         }
+    //
+    //         // Populate the popup and set its coordinates
+    //         // based on the feature found.
+    //         popup.setLngLat(coordinates)
+    //             .setHTML(description)
+    //             .addTo(map);
+    //     });
+    //
+    //     map.on('mouseleave', ('vehicles'+routelistArray[j].route), function() {
+    //         map.getCanvas().style.cursor = '';
+    //         popup.remove();
+    //     });
+    //
+    // }
 
 
 

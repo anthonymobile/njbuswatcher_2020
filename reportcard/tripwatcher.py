@@ -84,7 +84,9 @@ if __name__ == "__main__":
 
                         else:
                             pass
-                        db.session.commit()
+
+                        db.session.__relax__() # disable foreign key checks before...
+                        db.session.commit() # we save the position_log.
 
             ##############################################
             #   2 -- ASSIGN ARRIVALS

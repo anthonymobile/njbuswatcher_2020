@@ -4,7 +4,6 @@
 ################################################
 # VIP INSTANCE CONFIG
 ################################################
-conn_str = 'sqlite:///jc_buswatcher.db'
 
 class Dummy():
     def __init__(self):
@@ -128,43 +127,25 @@ def genStopReport(source, route, stop, period):
 # API
 ################################################
 
-# route waypoints
+# map layer geojson generator
+#
+# /api/v1/maps?
+#
+#   layer=waypoints&rt=87               waypoints for single route
+#   layer=waypoints&rt=all              waypoints for ALL routes
+#   layer=stops&rt=87                   stops for single route
+#   layer=stops&rt=87&stop_id=30189     stop for single stop
+#
 
-# /api/v1/map/layers?layer=waypoints&route=87
-# /api/v1/map/layers?layer=stops&route=87
-# --> returns ALL waypoints or stops for 1 route
-
-# /api/v1/map/layers?layer=waypoints&route=all
-# --> returns ALL waypoints or stops for entire city
-
-# /api/v1/map/layers?layer=stops&route=87&stop_id=30189
-# --> returns a SINGLE stop
-
-@app.route('/api/v1/map/layers')
+@app.route('/api/v1/maps')
 @cross_origin()
 def api_map_layer():
     args=request.args
-    layer = API.get_map_layers(args, reportcard_routes)
-    return jsonify(layer)
 
-# /api/v1/positions?rt=87&period={now, daily,yesterday,history}
-@app.route('/api/v1/positions')
-@cross_origin()
-def api_positions_route():
-    args=request.args
-
-    return jsonify(API.get_positions_byargs(args))
-
-# # ARRIVALS ARGS-BASED
-# # /api/v1/arrivals?rt=87&period={daily,yesterday,weekly,history} -- historical from stop_approaches_log database
-# @app.route('/api/v1/arrivals')
-# @cross_origin()
-# def api_arrivals_route():
-#     args=request.args
-#     arrivals_log_df = WebAPI.get_arrivals_byargs(args)
-#     arrivals_log_json = make_response(arrivals_log_df.to_json(orient="records"))
-#     return arrivals_log_json
-
+    if args['layer'] == 'vehicles':
+        return jsonify(API.get_positions_byargs(args, reportcard_routes))
+    else:
+        return jsonify(API.get_map_layers(args, reportcard_routes))
 
 ################################################
 # TRIPWATCHER DIAGNOSTIC DASHBOARD

@@ -14,7 +14,7 @@ map.on('load', function() {
 
     // ROUTES
 
-    var url_waypoints = ("/api/v1/map/layers?layer=waypoints&route="+passed_route);
+    var url_waypoints = ("/api/v1/maps?layer=waypoints&rt="+passed_route);
     map.addSource('waypoints_geojson', {
         "type": "geojson",
         "data": url_waypoints
@@ -32,28 +32,28 @@ map.on('load', function() {
 
 
 
-    // STOPS
-    var url_stops = ("/api/v1/map/layers?layer=stops&route="+passed_route);
-    map.addSource('stops_geojson', {
-        "type": "geojson",
-        "data": url_stops
-    });
-    map.addLayer({
-        "id": "stops",
-        "type": "circle",
-        "source": "stops_geojson",
-        "paint": {
-            "circle-radius": 2,
-            "circle-opacity": 1,
-            "circle-stroke-width": 2,
-            "circle-stroke-color": "#fff"
-        }
-    });
+    // // STOPS
+    // var url_stops = ("/api/v1/maps?layer=stops&rt="+passed_route);
+    // map.addSource('stops_geojson', {
+    //     "type": "geojson",
+    //     "data": url_stops
+    // });
+    // map.addLayer({
+    //     "id": "stops",
+    //     "type": "circle",
+    //     "source": "stops_geojson",
+    //     "paint": {
+    //         "circle-radius": 2,
+    //         "circle-opacity": 1,
+    //         "circle-stroke-width": 2,
+    //         "circle-stroke-color": "#fff"
+    //     }
+    // });
 
 
     // VEHICLES
 
-    var url_vehicles = ("/api/v1/positions?period=now&rt="+passed_route);
+    var url_vehicles = ("/api/v1/maps?layer=vehicles&rt="+passed_route);
     map.addSource('vehicles_geojson', {
         "type": "geojson",
         "data": url_vehicles
