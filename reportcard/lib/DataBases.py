@@ -65,8 +65,8 @@ class Trip(Base):
     coordinate_bundle = Column(Text())
 
     # relationships
-    children_ScheduledStops = relationship("ScheduledStop", backref='trip_log')
-    children_BusPositions = relationship("BusPosition", backref='trip_log')
+    # children_ScheduledStops = relationship("ScheduledStop", backref='trip_log')
+    # children_BusPositions = relationship("BusPosition", backref='trip_log')
 
     # create a corresponding set of ScheduledStop records for each new Trip
     # and populate the self.stoplist and self.coordinates_bundle
@@ -120,7 +120,7 @@ class ScheduledStop(Base):
 
     # relationships
     trip_id = Column(String(127), ForeignKey('trip_log.trip_id'))
-    parent_Trip = relationship("Trip",backref='scheduledstop_log')
+    # parent_Trip = relationship("Trip",backref='scheduledstop_log')
 
 
 #####################################################
@@ -163,5 +163,5 @@ class BusPosition(Base):
     # relationships
     trip_id = Column(String(127), ForeignKey('trip_log.trip_id'), index=True)
     stop_id = Column(Integer(), ForeignKey('scheduledstop_log.stop_id'), index=True)
-    parent_Trip = relationship("Trip",backref='position_log')
-    parent_ScheduledStop = relationship("ScheduledStop",backref='position_log')
+    # parent_Trip = relationship("Trip",backref='position_log')
+    # parent_ScheduledStop = relationship("ScheduledStop",backref='position_log')

@@ -7,9 +7,7 @@ v2.0
 
 
 ### ASAP
-- **DataBases.py**
-    - now getting foreign key error because scheduledstop_log records are getting populated before trip_log gets commited
-    - maybe  
+
 - **docker**
     - add postgres integration
 - **API.py**
