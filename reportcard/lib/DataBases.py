@@ -10,16 +10,16 @@ from . import BusAPI
 #####################################################
 Base = declarative_base()
 
-class DBConfig(object):
-    #conn_str='sqlite:///jc_buswatcher.db' # WORKS
-    #conn_str ='mysql+pymysql://buswatcher:njtransit@localhost/buses'
-    conn_str ='postgresql://buswatcher:njtransit@localhost/buses'
 
 # from https://medium.com/@ramojol/python-context-managers-and-the-with-statement-8f53d4d9f87
 class SQLAlchemyDBConnection(object):
-    def __init__(self, connection_string):
-        self.connection_string = connection_string
+    def __init__(self):
+        self.connection_string = 'mysql+pymysql://buswatcher:njtransit@localhost/buses'
+        # self.connection_string = 'postgresql://buswatcher:njtransit@localhost/buses'
+        # self.connection_string = 'sqlite:///jc_buswatcher.db'  # WORKS
+
         self.session = None
+
     def __enter__(self):
         engine = create_engine(self.connection_string)
         Session = sessionmaker()
@@ -42,7 +42,8 @@ class SQLAlchemyDBConnection(object):
 
 class Trip(Base):
 
-    def __init__(self, conn_str, source, route, v, run, pid):
+    def __init__(self, source, route, v, run, pid):
+        self.source = source
         self.rt = route
         self.v = v
         self.run = run
@@ -50,13 +51,30 @@ class Trip(Base):
         self.date = datetime.datetime.today().strftime('%Y%m%d')
         self.trip_id=('{v}_{run}_{date}').format(v=v,run=run,date=self.date)
 
-        # create a corresponding set of ScheduledStop records for each new Trip
-        # and populate the self.stoplist and self.coordinates_bundle
+    __tablename__ = 'trip_log'
+    __table_args__ = {'extend_existing': True}
 
-        with SQLAlchemyDBConnection(conn_str) as db:
+    pkey = Column(Integer(), primary_key=True)
+    trip_id = Column(String(127), index=True, unique=True)
+    source = Column(String(8))
+    rt = Column(Integer())
+    v = Column(Integer())
+    run = Column(String(8))
+    pid = Column(Integer())
+    date = Column(Date())
+    coordinate_bundle = Column(Text())
+
+    # relationships
+    children_ScheduledStops = relationship("ScheduledStop", backref='trip_log')
+    children_BusPositions = relationship("BusPosition", backref='trip_log')
+
+    # create a corresponding set of ScheduledStop records for each new Trip
+    # and populate the self.stoplist and self.coordinates_bundle
+    def populate_stoplist(self):
+        with SQLAlchemyDBConnection() as db:
             self.db = db
             self.stop_list = []
-            routes, self.coordinates_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(source, 'routes', route=route))
+            routes, self.coordinates_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=self.rt))
             self.routename=routes[0].nm
             for path in routes[0].paths:
                 if path.id == self.pid:
@@ -69,22 +87,6 @@ class Trip(Base):
                 else:
                     pass
             self.db.session.commit()
-
-    __tablename__ = 'trip_log'
-    __table_args__ = {'extend_existing': True}
-
-    pkey = Column(Integer(), primary_key=True)
-    trip_id = Column(String(127), index=True, unique=True)
-    rt = Column(Integer())
-    v = Column(Integer())
-    run = Column(Integer())
-    pid = Column(Integer())
-    date = Column(Date())
-    coordinate_bundle = Column(Text())
-
-    # relationships
-    children_ScheduledStops = relationship("ScheduledStop", backref='trip_log')
-    children_BusPositions = relationship("BusPosition", backref='trip_log')
 
 
 ################################################################
@@ -107,7 +109,7 @@ class ScheduledStop(Base):
     __table_args__ = {'extend_existing': True}
 
     pkey = Column(Integer(), primary_key=True)
-    run = Column(Integer())
+    run = Column(String(8))
     v = Column(Integer())
     date = Column(Date())
     stop_id = Column(Integer(), index=True)
@@ -150,7 +152,7 @@ class BusPosition(Base):
     rtrtpifeedname = Column(String(20))
     rtdd = Column(String(20))
     rtpifeedname = Column(String(20))
-    run = Column(String(20))
+    run = Column(String(8))
     wid1 = Column(String(20))
     wid2 = Column(String(20))
     timestamp = Column(DateTime())
