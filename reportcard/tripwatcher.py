@@ -71,24 +71,6 @@ if __name__ == "__main__":
                         continue
                     break
 
-                # #   OLD
-                # #   create trip records for any new trips seen
-                # triplist = []
-                # for busgroup in bus_positions: # todo for bus in buses:
-                #     for bus in busgroup:
-                #         triplist.append(bus.trip_id)
-                #         result = db.session.query(Trip).filter(Trip.trip_id == bus.trip_id).first()
-                #         if result is None:
-                #             trip_id = Trip(DBConfig.conn_str, args.source, r['route'], bus.id, bus.run, bus.pid)
-                #             db.session.add(trip_id)
-                #
-                #         else:
-                #             pass
-                #
-                #         db.session.__relax__() # disable foreign key checks before...
-                #         db.session.commit() # we save the position_log.
-
-
                 # NEW parse trips separately and create before we add the positions -- to honor the foreign key constraint
                 triplist = []
                 for bus in buses:
@@ -102,15 +84,8 @@ if __name__ == "__main__":
                     else:
                         pass
 
-                    # db.session.__relax__() # disable foreign key checks before...
+                    db.__relax__() # disable foreign key checks before...
                     db.session.commit() # we save the position_log.
-
-                # #  ALT method -- populate stoplist
-                # for trip in triplist:
-                #     record_to_update = db.session.query(Trip) \
-                #         .filter(Trip.trip_id == trip) \
-                #         .first()
-                #     record_to_update.populate_stoplist()
 
                 #populate stoplist
                 records_to_update = db.session.query(Trip).filter(Trip.trip_id.in_(triplist)).all()
