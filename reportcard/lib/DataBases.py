@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import datetime, sys
-from sqlalchemy import inspect, create_engine, Date, Column, Integer, DateTime, Float, String, Text, Boolean, ForeignKey
+from sqlalchemy import inspect, create_engine, ForeignKeyConstraint, Index, Date, Column, Integer, DateTime, Float, String, Text, Boolean, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
 from . import BusAPI
@@ -51,11 +51,33 @@ class Trip(Base):
         self.date = datetime.datetime.today().strftime('%Y%m%d')
         self.trip_id=('{v}_{run}_{date}').format(v=v,run=run,date=self.date)
 
+        # create a corresponding set of ScheduledStop records for each new Trip
+        # and populate the self.stoplist and self.coordinates_bundle
+
+        with SQLAlchemyDBConnection() as db:
+            self.db = db
+            self.stop_list = []
+            routes, self.coordinates_bundle = BusAPI.parse_xml_getRoutePoints(
+                BusAPI.get_xml_data(self.source, 'routes', route=self.rt))
+            self.routename = routes[0].nm
+            for path in routes[0].paths:
+                if path.id == self.pid:
+                    for point in path.points:
+                        if isinstance(point, BusAPI.Route.Stop):
+                            this_stop = ScheduledStop(self.trip_id, self.v, self.run, self.date, point.identity,
+                                                      point.st, point.lat, point.lon)
+                            self.stop_list.append((point.identity, point.st))
+                            for stop in self.stop_list:
+                                self.db.session.add(this_stop)
+                else:
+                    pass
+            self.db.__relax__() # relax so we dont trigger the foreign key constraint
+            self.db.session.commit()
+
     __tablename__ = 'trip_log'
     __table_args__ = {'extend_existing': True}
 
-    pkey = Column(Integer(), primary_key=True)
-    trip_id = Column(String(127), index=True, unique=True)
+    trip_id = Column(String(127), primary_key=True, index=True, unique=True)
     source = Column(String(8))
     rt = Column(Integer())
     v = Column(Integer())
@@ -65,28 +87,8 @@ class Trip(Base):
     coordinate_bundle = Column(Text())
 
     # relationships
-    # children_ScheduledStops = relationship("ScheduledStop", backref='trip_log')
-    # children_BusPositions = relationship("BusPosition", backref='trip_log')
-
-    # create a corresponding set of ScheduledStop records for each new Trip
-    # and populate the self.stoplist and self.coordinates_bundle
-    def populate_stoplist(self):
-        with SQLAlchemyDBConnection() as db:
-            self.db = db
-            self.stop_list = []
-            routes, self.coordinates_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=self.rt))
-            self.routename=routes[0].nm
-            for path in routes[0].paths:
-                if path.id == self.pid:
-                    for point in path.points:
-                        if isinstance(point, BusAPI.Route.Stop):
-                            this_stop = ScheduledStop(self.trip_id,self.v,self.run,self.date,point.identity,point.st,point.lat,point.lon)
-                            self.stop_list.append((point.identity,point.st))
-                            for stop in self.stop_list:
-                                self.db.session.add(this_stop)
-                else:
-                    pass
-            self.db.session.commit()
+    # children_ScheduledStop = relationship("ScheduledStop", back_populates='parent_Trip')
+    # children_BusPosition = relationship("BusPosition", back_populates='parent_Trip')
 
 
 ################################################################
@@ -106,7 +108,7 @@ class ScheduledStop(Base):
         self.lon = lon
 
     __tablename__ = 'scheduledstop_log'
-    __table_args__ = {'extend_existing': True}
+
 
     pkey = Column(Integer(), primary_key=True)
     run = Column(String(8))
@@ -118,9 +120,9 @@ class ScheduledStop(Base):
     lon = Column(Float())
     arrival_timestamp = Column(DateTime(), index=True)
 
-    # relationships
-    trip_id = Column(String(127), ForeignKey('trip_log.trip_id'))
-    # parent_Trip = relationship("Trip",backref='scheduledstop_log')
+    # foreign keys
+    trip_id = Column(String(127), ForeignKey('trip_log.trip_id'), index=True)
+    __table_args__ = (Index('trip_id_stop_id',"trip_id","stop_id"),{'extend_existing': True})
 
 
 #####################################################
@@ -130,7 +132,6 @@ class ScheduledStop(Base):
 class BusPosition(Base):
 
     __tablename__ ='position_log'
-    __table_args__ = {'extend_existing': True}
 
     pkey = Column(Integer(), primary_key=True)
     lat = Column(Float)
@@ -160,8 +161,9 @@ class BusPosition(Base):
     distance_to_stop = Column(Float())
     arrival_flag = Column(Boolean())
 
-    # relationships
-    trip_id = Column(String(127), ForeignKey('trip_log.trip_id'), index=True)
-    stop_id = Column(Integer(), ForeignKey('scheduledstop_log.stop_id'), index=True)
-    # parent_Trip = relationship("Trip",backref='position_log')
-    # parent_ScheduledStop = relationship("ScheduledStop",backref='position_log')
+    # foreign keys
+    trip_id = Column(String(127), index=True)
+    stop_id = Column(Integer(), index=True)
+    __table_args__ = (ForeignKeyConstraint([trip_id, stop_id],
+                                           [ScheduledStop.trip_id, ScheduledStop.stop_id]),
+                                            {'extend_existing': True})

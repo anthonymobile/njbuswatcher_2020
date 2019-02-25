@@ -23,7 +23,7 @@ from flask_cors import CORS, cross_origin
 import lib.BusAPI as BusAPI
 import lib.API as API
 import lib.wwwAPI as wwwAPI
-from lib.DataBases import DBConfig, SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
+from lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
 
 ################################################
 # ROUTE + APP CONFIG

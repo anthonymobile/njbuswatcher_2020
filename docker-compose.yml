@@ -10,7 +10,6 @@ services:
       POSTGRES_DB=buses
       POSTGRES_USER=buswatcher
       POSTGRES_PASSWORD=njtransit
-
     volumes:
       - postgres_data:/var/lib/postgresql/data/
   tripwatcher:

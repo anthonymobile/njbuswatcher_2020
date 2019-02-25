@@ -87,10 +87,10 @@ if __name__ == "__main__":
                     db.__relax__() # disable foreign key checks before...
                     db.session.commit() # we save the position_log.
 
-                #populate stoplist
-                records_to_update = db.session.query(Trip).filter(Trip.trip_id.in_(triplist)).all()
-                for record in records_to_update:
-                    record.populate_stoplist()
+                # #populate stoplist
+                # records_to_update = db.session.query(Trip).filter(Trip.trip_id.in_(triplist)).all()
+                # for record in records_to_update:
+                #     record.populate_stoplist()
 
                 # add the bus positions to the db
                 bus_positions = Localizer.get_nearest_stop(buses,r['route'])
