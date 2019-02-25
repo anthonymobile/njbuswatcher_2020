@@ -1,7 +1,7 @@
 import json
 
 import lib.BusAPI as BusAPI
-from lib.DataBases import DBConfig, SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
+from lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
 from sqlalchemy import func
 from sqlalchemy.sql.expression import and_
 
@@ -79,7 +79,7 @@ def get_map_layers(args, reportcard_routes):
     if 'stop_id' in args.keys():
 
         # query the db and grab the lat lon for the first record that stop_id matches this one
-        with SQLAlchemyDBConnection(DBConfig.conn_str) as db:
+        with SQLAlchemyDBConnection() as db:
             stop_query = db.session.query(
                 ScheduledStop.stop_id,
                 ScheduledStop.lat,

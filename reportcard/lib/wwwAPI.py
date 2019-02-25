@@ -6,7 +6,7 @@ import geojson, json
 from sqlalchemy import inspect, func
 
 import lib.BusAPI as BusAPI
-from lib.DataBases import DBConfig, SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
+from lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
 
 from route_config import reportcard_routes, grade_descriptions
 
@@ -77,7 +77,7 @@ class RouteReport:
 
     # gets all arrivals (see limit) for all runs on current route
     def get_tripdash(self):
-        with SQLAlchemyDBConnection(DBConfig.conn_str) as db:
+        with SQLAlchemyDBConnection() as db:
             # build a list of tuples with (run, trip_id)
             v_on_route = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data(self.source, 'buses_for_route', route=self.route))
             todays_date = datetime.datetime.today().strftime('%Y%m%d')
@@ -118,7 +118,7 @@ class RouteReport:
 
     # def generate_bunching_leaderboard(self, period, route):
     #
-    #     with SQLAlchemyDBConnection(DBConfig.conn_str) as db:
+    #     with SQLAlchemyDBConnection() as db:
     #         # generates top 10 list of stops on the route by # of bunching incidents for period
     #         bunching_leaderboard = []
     #         cum_arrival_total = 0
@@ -189,7 +189,7 @@ class StopReport:
     # fetch arrivals into a df
     def get_arrivals(self,route,stop,period):
 
-        with SQLAlchemyDBConnection(DBConfig.conn_str) as db:
+        with SQLAlchemyDBConnection() as db:
             today_date = datetime.date.today()
             yesterday = datetime.date.today() - datetime.timedelta(1)
 

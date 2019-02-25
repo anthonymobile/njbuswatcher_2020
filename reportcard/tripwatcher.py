@@ -4,13 +4,14 @@
 
 import argparse
 import sys
+import datetime, time
 import werkzeug
 import itertools
 import numpy as np
 # import matplotlib.pyplot as plt
-import time
+
 from lib import BusAPI, Localizer
-from lib.DataBases import DBConfig, SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
+from lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
 
 from route_config import reportcard_routes
 
@@ -41,9 +42,14 @@ if __name__ == "__main__":
     ##############################################
     # 0 -- LOAD ROUTE LIST AND LOOP
     ##############################################
+    ran = False
+
     while True:
 
-        delay = 30
+        if ran == True:
+            delay = 30
+        else:
+            delay = 0
         time.sleep(delay)
 
         for r in reportcard_routes:
@@ -52,7 +58,7 @@ if __name__ == "__main__":
             # 1 -- FETCH AND LOCALIZE CURRENT POSITIONS
             ##############################################
 
-            with SQLAlchemyDBConnection(DBConfig.conn_str) as db:
+            with SQLAlchemyDBConnection() as db:
 
                 # get buses from NJT API
                 while True:
@@ -65,34 +71,66 @@ if __name__ == "__main__":
                         continue
                     break
 
+                # #   OLD
+                # #   create trip records for any new trips seen
+                # triplist = []
+                # for busgroup in bus_positions: # todo for bus in buses:
+                #     for bus in busgroup:
+                #         triplist.append(bus.trip_id)
+                #         result = db.session.query(Trip).filter(Trip.trip_id == bus.trip_id).first()
+                #         if result is None:
+                #             trip_id = Trip(DBConfig.conn_str, args.source, r['route'], bus.id, bus.run, bus.pid)
+                #             db.session.add(trip_id)
+                #
+                #         else:
+                #             pass
+                #
+                #         db.session.__relax__() # disable foreign key checks before...
+                #         db.session.commit() # we save the position_log.
 
+
+                # NEW parse trips separately and create before we add the positions -- to honor the foreign key constraint
+                triplist = []
+                for bus in buses:
+                    bus.trip_id=('{id}_{run}_{dt}').format(id=bus.id, run=bus.run, dt=datetime.datetime.today().strftime('%Y%m%d'))
+                    triplist.append(bus.trip_id)
+                    result = db.session.query(Trip).filter(Trip.trip_id == bus.trip_id).first()
+                    if result is None:
+                        trip_id = Trip(args.source, r['route'], bus.id, bus.run, bus.pid)
+                        db.session.add(trip_id)
+
+                    else:
+                        pass
+
+                    # db.session.__relax__() # disable foreign key checks before...
+                    db.session.commit() # we save the position_log.
+
+                # #  ALT method -- populate stoplist
+                # for trip in triplist:
+                #     record_to_update = db.session.query(Trip) \
+                #         .filter(Trip.trip_id == trip) \
+                #         .first()
+                #     record_to_update.populate_stoplist()
+
+                #populate stoplist
+                records_to_update = db.session.query(Trip).filter(Trip.trip_id.in_(triplist)).all()
+                for record in records_to_update:
+                    record.populate_stoplist()
+
+                # add the bus positions to the db
                 bus_positions = Localizer.get_nearest_stop(buses,r['route'])
                 for group in bus_positions:
                     for bus in group:
                         db.session.add(bus)
                 db.session.commit()
 
-                #   create trip records for any new trips seen
-                triplist = []
-                for busgroup in bus_positions:
-                    for bus in busgroup:
-                        triplist.append(bus.trip_id)
-                        result = db.session.query(Trip).filter(Trip.trip_id == bus.trip_id).first()
-                        if result is None:
-                            trip_id = Trip(DBConfig.conn_str, args.source, r['route'], bus.id, bus.run, bus.pid)
-                            db.session.add(trip_id)
 
-                        else:
-                            pass
-
-                        db.session.__relax__() # disable foreign key checks before...
-                        db.session.commit() # we save the position_log.
 
             ##############################################
             #   2 -- ASSIGN ARRIVALS
             ##############################################
 
-            with SQLAlchemyDBConnection(DBConfig.conn_str) as db:
+            with SQLAlchemyDBConnection() as db:
 
                 for trip_id in triplist:
 
@@ -240,3 +278,4 @@ if __name__ == "__main__":
                             pass
 
                 db.session.commit()
+        ran = True

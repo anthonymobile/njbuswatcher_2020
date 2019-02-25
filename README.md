@@ -8,11 +8,8 @@ v2.0
 
 ### ASAP
 - **DataBases.py**
-    - change data store to postgres and test
-    - continue debugging foreign key constraint
-        - rewrite tripwatcher.1 -- FETCH AND LOCALIZE CURRENT POSITIONS?
-            - fetch the positions, go over it once to update triplog (rewrite the current parser for new trips to not run off the db)
-            - then go over it again normally to parse the BusPositions into the table
+    - now getting foreign key error because scheduledstop_log records are getting populated before trip_log gets commited
+    - maybe  
 - **docker**
     - add postgres integration
 - **API.py**
