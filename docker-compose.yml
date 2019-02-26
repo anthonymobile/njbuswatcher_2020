@@ -4,21 +4,20 @@
 
 version: '3.3'
 
-services:
-  services:
-    db:
-      image: mysql:5.7
-      restart: always
-      environment:
-        MYSQL_DATABASE: 'buses'
-        MYSQL_USER: 'buswatcher'
-        MYSQL_PASSWORD: 'njtransit'
-      ports:
-        - '3306:3306'
-      expose:
-        - '3306'
-      volumes:
-        - my-db:/var/lib/mysql
+services:  
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'buses'
+      MYSQL_USER: 'buswatcher'
+      MYSQL_PASSWORD: 'njtransit'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - my-db:/var/lib/mysql
   tripwatcher:
     build:
       context: ./
