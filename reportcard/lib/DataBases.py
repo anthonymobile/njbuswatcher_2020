@@ -14,8 +14,7 @@ Base = declarative_base()
 # from https://medium.com/@ramojol/python-context-managers-and-the-with-statement-8f53d4d9f87
 class SQLAlchemyDBConnection(object):
     def __init__(self):
-        self.connection_string = 'mysql+pymysql://buswatcher:njtransit@localhost/buses'
-        # self.connection_string = 'postgresql://buswatcher:njtransit@localhost/buses'
+        self.connection_string = 'mysql+pymysql://buswatcher:njtransit@localhost/buses' # WORKS
         # self.connection_string = 'sqlite:///jc_buswatcher.db'  # WORKS
 
         self.session = None
