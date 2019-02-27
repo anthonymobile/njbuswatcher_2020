@@ -18,6 +18,9 @@ WORKDIR /
 RUN mkdir buswatcher
 COPY . ./buswatcher
 
+# copy the proper database config over for docker deployment (replaces the development version)
+COPY ./reportcard/docker/DBconfig.py ./buswatcher/reportcard/lib/DBconfig.py
+
 # run entrypoint.sh
 # ENTRYPOINT ["/buswatcher/reportcard/docker/entrypoint.sh"]
 

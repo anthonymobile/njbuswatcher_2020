@@ -4,6 +4,7 @@ from sqlalchemy import inspect, create_engine, ForeignKeyConstraint, Index, Date
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
 from . import BusAPI
+from . import DBconfig
 
 #####################################################
 # base
@@ -13,8 +14,7 @@ Base = declarative_base()
 class SQLAlchemyDBConnection(object):
     def __init__(self):
         # self.connection_string = 'sqlite:///jc_buswatcher.db'  # TESTING, WORKS
-        self.connection_string = 'mysql+pymysql://buswatcher:njtransit@localhost/buses' # PRODUCTION, WORKS
-        self.session = None
+        self.connection_string = DBconfig.connection_string # replaces 'localhost' with 'db' for development        self.session = None
 
     def __enter__(self):
         engine = create_engine(self.connection_string)
