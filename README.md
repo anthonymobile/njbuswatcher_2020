@@ -8,18 +8,6 @@ v2.0
 
 ###1 finish core
 
-#### Static Content
-- **route_config.py**
-    - complete descriptions for all lines
-    - merge short and long description?
-    - fix frequency for new lines
-- **/static/images**
-    - add images for 2,6,10, 123, tk
-- **index.html/route.html**
-    - change display of short + long description to just 1 description?
-- **about.html** 
-    - write content
-
 #### Maps
 - **static/maps/**
     - busmap-index.js
@@ -34,6 +22,16 @@ v2.0
         - fix/check source of vehicles_json (http://0.0.0.0:5000/api/v1/positions?rt=all)
         - fix/check source of stops_json to a single stop (my new API... route=119&stop_id=30189)      
         - fix map viewport, center on stops_json (single stop), zoom level 16
+
+
+#### Static Content
+- **route_config.py**
+    - complete descriptions for all lines
+    - fix frequency for new lines
+- **/static/images**
+    - add images for 2,6,10, 123, tk
+- **about.html** 
+    - write content
 
 #### Route and Stop Views
 - **route.html**    

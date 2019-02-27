@@ -118,9 +118,8 @@
                             <!--Card content-->
                             <div class="card-body card-body-cascade">
                                 <!--Title-->
-                                <a href = {{ url_for('genRouteReport' ,source='nj',route=route.route) }}><h4 class="card-header-title">{{route.route}}</h4></a>
-                                <!--Text-->
-                                <p class="card-text text-left">{{route.description_short}}</p>
+                                <h4 class="card-header-title text-left"><a href = {{ url_for('genRouteReport' ,source='nj',route=route.route) }}>{{route.route}}.</a>
+                                <!--Text--> {{route.description_short}}</h4>
 
                             </div>
 
