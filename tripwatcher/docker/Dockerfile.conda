@@ -16,6 +16,8 @@ WORKDIR /
 RUN mkdir buswatcher
 COPY . ./buswatcher
 
+# copy the proper database config over for docker deployment (replaces the development version)
+COPY ./reportcard/docker/DBconfig.py ./buswatcher/reportcard/lib/DBconfig.py
 
 
 CMD ["/opt/conda/envs/buswatcher/bin/python", "/buswatcher/reportcard/tripwatcher.py", "-s", "nj"]
