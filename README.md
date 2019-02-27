@@ -149,6 +149,25 @@ Check out a live version focusing on Jersey City  [buswatcher.code4jc.org](http:
 
 It's all dockerized now. Use `docker-compose` and build from the project root.
 
+#### Manual MySQL Database Creation
+
+(for testing)
+
+```
+sudo mysql -u root -p
+mysql> CREATE USER 'buswatcher'@'localhost' IDENTIFIED BY 'njtransit';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> GRANT ALL PRIVILEGES ON buses . * TO 'buswatcher'@'localhost';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> ALTER USER 'buswatcher'@'localhost' IDENTIFIED WITH mysql_native_password BY 'njtransit';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> flush privileges;
+Query OK, 0 rows affected (0.00 sec)
+```
+
 ### Components
 
 - **tripwatcher.py**. Fetches bus current locations for a route from the NJT API, creates a `Trip` instance for each, and populates it with `ScheduledStop` instances for each stop on the service its running, and a `BusPosition` instance for each observed position.
