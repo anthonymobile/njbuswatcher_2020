@@ -1,6 +1,9 @@
 # https://medium.com/@chadlagore/conda-environments-with-docker-82cdc9d25754
 FROM continuumio/miniconda3
 
+ENV TZ=America/New_York
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 RUN conda update -n base -c defaults conda
 
 # get environment from reportcard folder
