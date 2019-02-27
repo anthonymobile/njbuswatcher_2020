@@ -7,17 +7,24 @@ version: '3.3'
 services:  
   db:
     image: mysql:5.7
+    command: --default-authentication-plugin=mysql_native_password
     restart: always
     environment:
+      MYSQL_ROOT_PASSWORD: 'root'
       MYSQL_DATABASE: 'buses'
       MYSQL_USER: 'buswatcher'
       MYSQL_PASSWORD: 'njtransit'
     ports:
-      - '3306:3306'
+      - 3306:3306
     expose:
-      - '3306'
+      - 3306
     volumes:
-      - my-db:/var/lib/mysql
+      - database_volume:/var/lib/mysql
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
   tripwatcher:
     build:
       context: ./
@@ -57,5 +64,5 @@ services:
       dockerfile: ./dns_updater/docker/Dockerfile
 
 volumes:
-  my-db:
+  database_volume:
   static_volume:
