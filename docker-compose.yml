@@ -30,6 +30,7 @@ services:
     build:
       context: ./
       dockerfile: ./tripwatcher/docker/Dockerfile.conda
+    restart: always
     depends_on:
       - db
   flask_gunicorn:
@@ -37,6 +38,7 @@ services:
       context: ./
       dockerfile: ./reportcard/docker/Dockerfile.conda
     command: /opt/conda/envs/buswatcher/bin/gunicorn reportcard:app -w 4 -b 0.0.0.0:8000
+    restart: always
     volumes:
       - ./reportcard/:/reportcard/
       - static_volume:/reportcard/static
@@ -54,12 +56,14 @@ services:
     build:
       context: ./
       dockerfile: ./nginx/docker/Dockerfile
+    restart: always
     ports:
       - 80:80
       - 443:443
     depends_on:
       - flask_gunicorn
   dns_updater:
+    restart: always
     build:
       context: ./
       dockerfile: ./dns_updater/docker/Dockerfile
