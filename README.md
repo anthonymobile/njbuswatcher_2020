@@ -6,12 +6,21 @@ v2.0
 # ROADMAP TO COMPLETION
 
 
-### ASAP
+###1 finish core
 
-- **docker**
-    - add postgres integration
-- **API.py**
-    - check validity of stops, vehicles geoJSON results from API
+#### Static Content
+- **route_config.py**
+    - complete descriptions for all lines
+    - merge short and long description?
+    - fix frequency for new lines
+- **/static/images**
+    - add images for 2,6,10, 123, tk
+- **index.html/route.html**
+    - change display of short + long description to just 1 description?
+- **about.html** 
+    - write content
+
+#### Maps
 - **static/maps/**
     - busmap-index.js
         - fix/check source of vehicles_json (http://0.0.0.0:5000/api/v1/positions?rt=all)
@@ -25,29 +34,22 @@ v2.0
         - fix/check source of vehicles_json (http://0.0.0.0:5000/api/v1/positions?rt=all)
         - fix/check source of stops_json to a single stop (my new API... route=119&stop_id=30189)      
         - fix map viewport, center on stops_json (single stop), zoom level 16
+
+#### Route and Stop Views
 - **route.html**    
     - add period picker bar (daily, monthly, history, specific date) -- using [bootstrap-datepicker](https://bootstrap-datepicker.readthedocs.io/en/latest/#) [installation instructions](https://stackoverflow.com/questions/29001753/bootstrap-datetimepicker-installation)
-
-- **deploy to AWS and test**
-
--------------------------------------------------------------------------------------
-    
-
-###1 finish core
-- **route.html**    
-    - add
-        - what are the cards that show up here? Are they always the grade, an eval of the timing, and then a good and a bad card? If so I think it would be easier if you condensed it into three cards: GRADE (which could include an evaluation of the timing), DOWNSIDES, and UPSIDES. Then the Performance section is really nice and clear. HERE’S YOUR GRADE, AND HERE ARE THE REASONS WHY IT’S THE GRADE.
-            - **Average Headway.** This provides a way of capturing the bunching in a single, easily understood metric. We can also report variability using standard deviation and that can be converted to a letter grade (e.g. A is < 1 s.d., B is 1 to 1.5, etc.) 
-                - Example: `Route 87 has an average headway of 20 minutes, with a service dependability grade of B. That means 80 percent of the time the bus will come every 10 to 30 minutes.` (This needs wordsmithing!)
-                - *Implementation.* For all completed trips in `{period}`, sampling every n minutes, what is the average travel time interval between buses along the route?  Calculate the on-the-road-Directions-API travel time between each two buses in the Trip and average over all the measurements.
-            - **Average Travel Time.** This indicates how long it takes, on average for all observed runs over the `{period}`, to travel from STOP A to STOP B.
-                - On ROUTE VIEW, user chooses the two stops from 'Travel Time Report' drop downs.
-                - Algorithm
-                    - SELECT all calls at the two stops in the period in question from `routelog_87`
-                    - create `Trip` instances for each unique (v,run,date) and calculate travel time between the two stops (set in property `Trip.travel_time_a_to_b` or some such)
-                    - average over the entire group
-        - also, while we’re at it, the headers above each section of the page should match the text on the buttons you have up top
-        - can’t tell what is controlling the order of the busses on the road now. But I think if I was looking at this I might want to be able to quickly see busses going east-west or north-south so I could find the bus I usually ride in the morning, or whatever.
+    - what are the cards that show up here? Are they always the grade, an eval of the timing, and then a good and a bad card? If so I think it would be easier if you condensed it into three cards: GRADE (which could include an evaluation of the timing), DOWNSIDES, and UPSIDES. Then the Performance section is really nice and clear. HERE’S YOUR GRADE, AND HERE ARE THE REASONS WHY IT’S THE GRADE.
+        - **Average Headway.** This provides a way of capturing the bunching in a single, easily understood metric. We can also report variability using standard deviation and that can be converted to a letter grade (e.g. A is < 1 s.d., B is 1 to 1.5, etc.) 
+            - Example: `Route 87 has an average headway of 20 minutes, with a service dependability grade of B. That means 80 percent of the time the bus will come every 10 to 30 minutes.` (This needs wordsmithing!)
+            - *Implementation.* For all completed trips in `{period}`, sampling every n minutes, what is the average travel time interval between buses along the route?  Calculate the on-the-road-Directions-API travel time between each two buses in the Trip and average over all the measurements.
+        - **Average Travel Time.** This indicates how long it takes, on average for all observed runs over the `{period}`, to travel from STOP A to STOP B.
+            - On ROUTE VIEW, user chooses the two stops from 'Travel Time Report' drop downs.
+            - Algorithm
+                - SELECT all calls at the two stops in the period in question from `routelog_87`
+                - create `Trip` instances for each unique (v,run,date) and calculate travel time between the two stops (set in property `Trip.travel_time_a_to_b` or some such)
+                - average over the entire group
+    - also, while we’re at it, the headers above each section of the page should match the text on the buttons you have up top
+    - can’t tell what is controlling the order of the busses on the road now. But I think if I was looking at this I might want to be able to quickly see busses going east-west or north-south so I could find the bus I usually ride in the morning, or whatever.
  
 - **stop.html**
     - add
@@ -66,39 +68,29 @@ v2.0
             - get_bunchingreport
         - StopReport
             - trap error for no data new database / new day
-- **about.html** 
-    - write content
+
+#### Index View
 - **index.html**
-    - populate rest of images and route descriptions in **route_config.py**
-    - map = fix starting extent (zoom to extent of ALL lines, not just the arbitrary nth [n] line in the route array as currently)
-    - add breadcrumb separators
     - can you add a ranking somewhere of all the routes?  if you want to use this as an advocacy tool it may be useful to expose a ranking like that.
     - add the petition link to your footer next to CODE and API
 - **route_config.py**
     - short and long descriptions for the new lines
-    - fix frequency for new lines
+
+#### Tripwatcher Q.C.
 - **tripwatcher.py**
     - `approach assignment`: 3+ position seems to still be having problems...
     - `Interpolate+log missed stops` after scanning each trip and logging any new arrivals, run a function that interpolates arrival times for any stops in between arrivals in the trip card -- theoretically there shouldn't be a lot though if the trip card is correct since we are grabbing positions every 30 seconds.
     - `Boomerang buses (Case E)`: any other indeterminate cases?
-- **reportcart.py**
-    - deactivate dash view
-    - pass correct map variables to stop.html    
-
-###2 deploy JC version to AWS
-- **docker**
-    - test/debug dns_updater
-    - aws docker site is at
-- build on AWS micro `ec2-18-216-175-102.us-east-2.compute.amazonaws.com`
-- test at http://staging.bitsandatoms.net
-- launch
+   
+#### Deploymeny
+- check AWS time zones
+- reduce image size to fit on micro instance?
 
 
-###3 build next version with statewide nav layer
-- deploy on http://www.njbuswatcher.com
 
 
 ###099 someday
+
 - **stop.html**
     -`arrival histogram visualization`
     - dot graph showing how many buses arrived at stop during each 30 minute bin, modeled after [Nobel prize D3 viz](https://github.com/Kyrand/dataviz-with-python-and-js/tree/master/nobel_viz_D3_V4) from Python+JS book
@@ -125,6 +117,11 @@ v2.0
         - change color of bunching buses on the map? 
         - indicate congested route segments 
         - indicated bunching at stops - a red dot and the more bunching happens (or the worse it is) the larger the dot
+ - **add a higher level of geography**
+    - county?
+    - for statewide integration
+- **test re-skinning for another city: Newark**
+    - what needs to be changed (just route-config.py?)
  
 
 ---
