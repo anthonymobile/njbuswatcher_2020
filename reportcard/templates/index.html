@@ -34,8 +34,6 @@
 
 
     <script type="text/javascript">
-        var passed_citywide_waypoints_geojson = {{ citywide_waypoints_geojson|safe }}
-        var passed_citywide_stops_geojson = {{ citywide_stops_geojson|safe }}
         var passed_reportcard_routes = {{ reportcard_routes|safe }}
     </script>
     <script type="text/javascript" src="{{ url_for('static', filename='maps/busmap-index.js')}}"></script>
