@@ -10,7 +10,7 @@ v2.0
 #### Maps
 
 - **API**
-    - fix geoJSON to be valid -- vehicles_json enclosing brackets [ ]
+    - fix geoJSON vehicles_json --> debug API.fc_concat(
 - **static/maps/**
     - busmap-index.js
         - uncomment vehicles layer
