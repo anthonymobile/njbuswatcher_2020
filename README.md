@@ -10,7 +10,7 @@ v2.0
 #### Maps
 
 - **API**
-    - fix geoJSON vehicles_json --> debug API.fc_concat(
+    - fix geoJSON vehicles_json --> debug API.fc_concat
 - **static/maps/**
     - busmap-index.js
         - uncomment vehicles layer
