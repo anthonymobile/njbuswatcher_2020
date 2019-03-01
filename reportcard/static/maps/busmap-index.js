@@ -30,27 +30,33 @@ map.on('load', function() {
         }
     });
 
+    // STOPS
+    var url_stops = ("/api/v1/maps?layer=stops&rt=all");
+    map.addSource('stops_geojson', {
+        "type": "geojson",
+        "data": url_stops
+    });
+    map.addLayer({
+        "id": "stops",
+        "type": "circle",
+        "source": "stops_geojson",
+        "paint": {
+            "circle-radius": 2,
+            "circle-opacity": 1,
+            "circle-stroke-width": 2,
+            "circle-stroke-color": "#fff"
+        }
+    });
 
-    // // STOPS
-    // var url_stops = ("/api/v1/maps?layer=stops&rt=all");
-    // map.addSource('stops_geojson', {
-    //     "type": "geojson",
-    //     "data": url_stops
-    // });
-    // map.addLayer({
-    //     "id": "stops",
-    //     "type": "circle",
-    //     "source": "stops_geojson",
-    //     "paint": {
-    //         "circle-radius": 2,
-    //         "circle-opacity": 1,
-    //         "circle-stroke-width": 2,
-    //         "circle-stroke-color": "#fff"
-    //     }
-    // });
+    // setup the viewport
+    map.jumpTo({
+        'center': [-74.0501, 40.7400],
+        'zoom': 12
+    });
 
 
-    // // VEHICLES
+    // // // VEHICLES
+    //
     //
     // var url_vehicles = ("/api/v1/maps?layer=vehicles&rt=all");
     // map.addSource('vehicles_geojson', {
@@ -75,16 +81,9 @@ map.on('load', function() {
     // }, 1000);
 
 
-    // setup the viewport
-    map.jumpTo({
-        'center': [-74.0501, 40.7400],
-        'zoom': 12
-    });
 
-
-
-    // // ZOOM TO THE EXTENT
-    // // based on https://www.mapbox.com/mapbox-gl-js/example/zoomto-linestring/
+    // ZOOM TO THE EXTENT
+    // based on https://www.mapbox.com/mapbox-gl-js/example/zoomto-linestring/
     //
     // var coordinates = waypoints_geojson.data.features[3].geometry.coordinates;
     // var bounds = coordinates.reduce(function(bounds, coord) {

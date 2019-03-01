@@ -1,27 +1,30 @@
 # NJ BusWatcher
 v2.0
-**20 feb 2019**
+**28 feb 2019**
 
 ---
 # ROADMAP TO COMPLETION
 
-
 ###1 finish core
 
 #### Maps
+
+- **API**
+    - fix geoJSON to be valid -- vehicles_json enclosing brackets [ ]
 - **static/maps/**
     - busmap-index.js
-        - fix/check source of vehicles_json (http://0.0.0.0:5000/api/v1/positions?rt=all)
+        - uncomment vehicles layer
+    - busmap-route.js
+        - fix passed_route coming from route.html (its borking the JS. is hardcoded now)
+        - add vehicles layer back
+    - busmap-stop.js
+        - add vehicles layer back
+        - limit stop layer to single stop? (e.g.?layer=stops&rt=119&stop_id=30189)      
+        - set viewport to zoom level 16
+    - all 3
         - fix map viewport, zoomto extent of all vehicles_json
             - method1: update existing `ZOOM TO THE EXTENT`
             - method2: use in var map? `bounds: [left, bottom, right, top]` using a LatLongLike object
-    - busmap-route.js
-        - fix/check  source of vehicles_json (http://0.0.0.0:5000/api/v1/positions?rt=87)
-        - fix map viewport, zoomto extent of all vehicles_json 
-    - busmap-stop.js
-        - fix/check source of vehicles_json (http://0.0.0.0:5000/api/v1/positions?rt=all)
-        - fix/check source of stops_json to a single stop (my new API... route=119&stop_id=30189)      
-        - fix map viewport, center on stops_json (single stop), zoom level 16
 
 
 #### Static Content
@@ -76,6 +79,7 @@ v2.0
 
 #### Tripwatcher Q.C.
 - **tripwatcher.py**
+    - error trapping for disconnected operation (dying now?)
     - `approach assignment`: 3+ position seems to still be having problems...
     - `Interpolate+log missed stops` after scanning each trip and logging any new arrivals, run a function that interpolates arrival times for any stops in between arrivals in the trip card -- theoretically there shouldn't be a lot though if the trip card is correct since we are grabbing positions every 30 seconds.
     - `Boomerang buses (Case E)`: any other indeterminate cases?
