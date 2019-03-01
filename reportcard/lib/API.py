@@ -14,8 +14,8 @@ def fc_concat(fc_list):
         'features': []
     }
     text = str(fc_list)
-    for line in text:
-        obj = json.loads(text)
+    for line in text.splitlines():
+        obj = json.loads(line)
         fc['features'].extend(obj['features'])
     return fc
 
@@ -54,17 +54,16 @@ def positions2geojson(df):
 # positions
 def get_positions_byargs(args, reportcard_routes):
     if args['rt'] == 'all':
-        positions_list = []
+        positions_list = pd.DataFrame()
         for r in reportcard_routes:
-            waypoints_item = _fetch_positions_json(r['route'])
-            positions_list.append(waypoints_item)
-        # concatenate the feature collections into 1
-        positions_dump=fc_concat(positions_list)
+            positions_list = positions_list.append(_fetch_positions_df(r['route']))
+            # positions_list.append(positions_df)
+        positions_geojson=positions2geojson(positions_list)
     else:
-        positions_dump = _fetch_positions_json(args['rt'])
-    return positions_dump
+        positions_geojson = positions2geojson(_fetch_positions_df(args['rt']))
+    return positions_geojson
 
-def _fetch_positions_json(route):
+def _fetch_positions_df(route):
 
     positions = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data('nj', 'buses_for_route', route=route))
     # now = datetime.now()
@@ -87,9 +86,7 @@ def _fetch_positions_json(route):
     except:
         pass
 
-    positions_geojson = positions2geojson(positions_log)
-
-    return positions_geojson
+    return positions_log # returns a dataframe
 
 
 # get geoJSON for citywide map
