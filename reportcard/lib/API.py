@@ -1,14 +1,23 @@
 import json
-
-import lib.BusAPI as BusAPI
-from lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
-from sqlalchemy import func
-from sqlalchemy.sql.expression import and_
-
 import geojson
 import pandas as pd
 
-import datetime
+import lib.BusAPI as BusAPI
+from lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
+# from sqlalchemy import func
+# from sqlalchemy.sql.expression import and_
+
+# concatenate a list of geojson featurecollections into 1 -- per https://github.com/batpad/merge-geojson
+def fc_concat(fc_list):
+    fc = {
+        'type': 'FeatureCollection',
+        'features': []
+    }
+    text = str(fc_list)
+    for line in text:
+        obj = json.loads(text)
+        fc['features'].extend(obj['features'])
+    return fc
 
 # on-the-fly-GEOJSON-encoder
 def positions2geojson(df):
@@ -16,40 +25,51 @@ def positions2geojson(df):
     df.apply(lambda X: features.append(
             geojson.Feature(geometry=geojson.Point((X["lon"],
                                                     X["lat"]    )),
-                properties=dict(
-                                run=X["run"],
-                                op=X["op"],
-                                dn=X["dn"],
-                                pid=X["pid"],
-                                dip=X["dip"],
-                                id=X["id"],
-                                timestamp=X["timestamp"],
-                                fs = str(X["fs"]),
-                                pd=str(X["pd"])))
-                                    )
-                                , axis=1)
+                # properties=dict(
+                #                 run=X["run"],
+                #                 op=X["op"],
+                #                 dn=X["dn"],
+                #                 pid=X["pid"],
+                #                 dip=X["dip"],
+                #                 id=X["id"],
+                #                 timestamp=X["timestamp"],
+                #                 fs = str(X["fs"]),
+                #                 pd=str(X["pd"])))
+                #                     )
+                #                 , axis=1)
+                properties = dict(
+                    run=X["run"],
+                    op=X["op"],
+                    dn=X["dn"],
+                    pid=X["pid"],
+                    dip=X["dip"],
+                    id=X["id"],
+                    fs=str(X["fs"]),
+                    pd=str(X["pd"])))
+                )
+                , axis = 1)
 
     return geojson.FeatureCollection(features)
 
 # positions
 def get_positions_byargs(args, reportcard_routes):
-
-    positions_dump = []
     if args['rt'] == 'all':
+        positions_list = []
         for r in reportcard_routes:
             waypoints_item = _fetch_positions_json(r['route'])
-            positions_dump.append(waypoints_item)
+            positions_list.append(waypoints_item)
+        # concatenate the feature collections into 1
+        positions_dump=fc_concat(positions_list)
     else:
-        waypoints_item = _fetch_positions_json(args['rt'])
-        positions_dump.append(waypoints_item)
-
+        positions_dump = _fetch_positions_json(args['rt'])
     return positions_dump
 
 def _fetch_positions_json(route):
 
     positions = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data('nj', 'buses_for_route', route=route))
-    now = datetime.datetime.now()
-    labels = ['bid','lon', 'lat', 'run', 'op', 'dn', 'pid', 'dip', 'id', 'timestamp', 'fs','pd']
+    # now = datetime.now()
+    # labels = ['bid','lon', 'lat', 'run', 'op', 'dn', 'pid', 'dip', 'id', 'timestamp', 'fs','pd']
+    labels = ['bid', 'lon', 'lat', 'run', 'op', 'dn', 'pid', 'dip', 'id', 'fs', 'pd']
     positions_log=pd.DataFrame(columns=labels)
 
     for bus in positions:
@@ -59,7 +79,7 @@ def _fetch_positions_json(route):
                 if key == 'lat' or key == 'lon':
                     value = float(value)
                 update[key] = value
-        update['timestamp'] = now
+        # update['timestamp'] = now
         positions_log = positions_log.append(update,ignore_index=True)
 
     try:

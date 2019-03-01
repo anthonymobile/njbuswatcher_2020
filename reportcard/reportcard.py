@@ -149,38 +149,6 @@ def api_map_layer():
     else:
         return jsonify(API.get_map_layers(args, reportcard_routes))
 
-################################################
-# TRIPWATCHER DIAGNOSTIC DASHBOARD
-################################################
-
-# # trip dash
-# @app.route('/<source>/<route>/dash/<run>')
-# def displayTripDash(source,route,run):
-#
-#     with SQLAlchemyDBConnection(DBConfig.conn_str) as db:
-#
-#         # compute trip_ids
-#         todays_date = datetime.datetime.today().strftime('%Y%m%d')
-#         trip_id_list=[]
-#         v_on_route = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data(source, 'buses_for_route', route=route))
-#         for v in v_on_route:
-#             if v.run == run:
-#                 trip_id = (('{a}_{b}_{c}').format(a=v.id, b=v.run, c=todays_date))
-#             else:
-#                 pass
-#         trips_dash = dict()
-#         # load the trip card
-#         scheduled_stops = db.session.query(ScheduledStop) \
-#             .join(Trip) \
-#             .filter(Trip.trip_id == trip_id) \
-#             .order_by(ScheduledStop.pkey.asc()) \
-#             .all()
-#         trips_dash[trip_id]=scheduled_stops
-#
-#     return render_template('trip_dash.html', tripdash=trips_dash, route=route)
-
-
-
 
 
 ################################################
