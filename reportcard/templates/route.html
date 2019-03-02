@@ -38,11 +38,15 @@
 
     <script type="text/javascript">
         var passed_route = {{ routereport.route }}
-        var passed_reportcard_routes = {{ reportcard_routes|safe }}
+        var passed_reportcard_routes = {{ routereport.reportcard_routes|safe }}
     </script>
 
     </script>
     <script type="text/javascript" src="{{ url_for('static', filename='maps/busmap-route.js')}}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='maps/geojson-extent.js')}}"></script>
+
+
+
 {% endblock %}
 
 

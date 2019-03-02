@@ -1,6 +1,6 @@
 # NJ BusWatcher
 v2.0
-**28 feb 2019**
+**1 mar 2019**
 
 ---
 # ROADMAP TO COMPLETION
@@ -9,23 +9,24 @@ v2.0
 
 #### Maps
 
-- **API**
-    - fix geoJSON vehicles_json --> debug API.fc_concat
+
 - **static/maps/**
     - busmap-index.js
-        - uncomment vehicles layer
+        - ? broken...
+        - fix map viewport
+            - zoomto extent of vehicles_json layer
     - busmap-route.js
         - fix passed_route coming from route.html (its borking the JS. is hardcoded now)
-        - add vehicles layer back
+        - fix map viewport
+            - zoomto extent of waypoints_json layer
     - busmap-stop.js
-        - add vehicles layer back
         - limit stop layer to single stop? (e.g.?layer=stops&rt=119&stop_id=30189)      
-        - set viewport to zoom level 16
-    - all 3
-        - fix map viewport, zoomto extent of all vehicles_json
-            - method1: update existing `ZOOM TO THE EXTENT`
-            - method2: use in var map? `bounds: [left, bottom, right, top]` using a LatLongLike object
-
+        - fix map viewport
+            - zoomto extent of stops_json layer
+            - +?zoom level 16?
+    - zoom extent methods?
+        - method1: update existing `ZOOM TO THE EXTENT`
+        - method2: use in var map? `bounds: [left, bottom, right, top]` using a LatLongLike objectwr
 
 #### Static Content
 - **route_config.py**
@@ -34,7 +35,11 @@ v2.0
 - **/static/images**
     - add images for 2,6,10, 123, tk
 - **about.html** 
+- **faq.html** 
+- **api.html** 
     - write content
+- **error_API_down.html** 
+    - replace old template with new base.html template
 
 #### Route and Stop Views
 - **route.html**    

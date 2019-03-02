@@ -55,37 +55,49 @@ map.on('load', function() {
     });
 
 
-    // // // VEHICLES
-    //
-    //
-    // var url_vehicles = ("/api/v1/maps?layer=vehicles&rt=all");
-    // map.addSource('vehicles_geojson', {
-    //     "type": "geojson",
-    //     "data": url_vehicles
-    // });
-    // map.addLayer({
-    //     "id": "vehicles",
-    //     "type": "circle",
-    //     "source": "vehicles_geojson",
-    //     "paint": {
-    //         "circle-radius": 4,
-    //         "circle-opacity": 1,
-    //         "circle-stroke-width": 3,
-    //         "circle-stroke-color": "#f6c"
-    //     }
-    //
-    // });
-    //
-    // window.setInterval(function() {
-    //     map.getSource('vehicles_geojson').setData(url_vehicles);
-    // }, 1000);
+    // VEHICLES
+
+
+    var url_vehicles = ("/api/v1/maps?layer=vehicles&rt=all");
+    map.addSource('vehicles_geojson', {
+        "type": "geojson",
+        "data": url_vehicles
+    });
+    map.addLayer({
+        "id": "vehicles",
+        "type": "circle",
+        "source": "vehicles_geojson",
+        "paint": {
+            "circle-radius": 4,
+            "circle-opacity": 1,
+            "circle-stroke-width": 3,
+            "circle-stroke-color": "#f6c"
+        }
+
+    });
+
+    window.setInterval(function() {
+        map.getSource('vehicles_geojson').setData(url_vehicles);
+    }, 1000);
+
+
+    // https://stackoverflow.com/questions/35586360/mapbox-gl-js-getbounds-fitbounds
+    var bounds_geojson;
+
+    $.getJSON(url_vehicles, function(json){
+    bounds_geojson = json;
+    });
+
+    var bounds = turf.extent(bounds_geojson);
+
+    map.fitBounds(bounds, {padding: 20});
 
 
 
     // ZOOM TO THE EXTENT
     // based on https://www.mapbox.com/mapbox-gl-js/example/zoomto-linestring/
-    //
-    // var coordinates = waypoints_geojson.data.features[3].geometry.coordinates;
+
+    // var coordinates = waypoints_geojson.data.features.geometry.coordinates;
     // var bounds = coordinates.reduce(function(bounds, coord) {
     //   return bounds.extend(coord);
     // }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
