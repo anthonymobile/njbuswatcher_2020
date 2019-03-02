@@ -48,6 +48,31 @@ map.on('load', function() {
         }
     });
 
+    // VEHICLES
+
+    var url_vehicles = ("/api/v1/maps?layer=vehicles&rt=all");
+    map.addSource('vehicles_geojson', {
+        "type": "geojson",
+        "data": url_vehicles
+    });
+    map.addLayer({
+        "id": "vehicles",
+        "type": "circle",
+        "source": "vehicles_geojson",
+        "paint": {
+            "circle-radius": 4,
+            "circle-opacity": 1,
+            "circle-stroke-width": 3,
+            "circle-stroke-color": "#f6c"
+        }
+
+    });
+
+    window.setInterval(function() {
+        map.getSource('vehicles_geojson').setData(url_vehicles);
+    }, 1000);
+
+
     // setup the viewport
     map.jumpTo({
         'center': [-74.0501, 40.7400],

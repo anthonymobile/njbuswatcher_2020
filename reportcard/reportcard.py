@@ -83,19 +83,8 @@ def displayHome():
     routereport = Dummy() # setup a dummy routereport for the navbar
     return render_template('index.html', reportcard_routes=reportcard_routes, routereport=routereport)
 
-#-------------------------------------------------------------FAQ
-@app.route('/faq')
-def displayFAQ():
-    routereport = Dummy() #  setup a dummy routereport for the navbar
-    return render_template('faq.html', reportcard_routes=reportcard_routes, routereport=routereport)
 
-#-------------------------------------------------------------API docs
-@app.route('/api')
-def displayAPI():
-    routereport = Dummy() #  setup a dummy routereport for the navbar
-    return render_template('api.html', reportcard_routes=reportcard_routes, routereport=routereport)
-
-#-------------------------------------------------------------RouteReport
+#-------------------------------------------------------------Route
 @app.route('/<source>/<route>')
 def genRouteReport(source, route):
     route_report = wwwAPI.RouteReport(source, route)
@@ -110,7 +99,7 @@ def genRouteReport(source, route):
 
     return render_template('route.html', source=source, route=route, routereport=route_report)
 
-#------------------------------------------------------------StopReport
+#------------------------------------------------------------Stop
 # /<source>/<route>/stop/<stop>/<period>
 @app.route('/<source>/<route>/stop/<stop>/<period>')
 #@cache.cached(timeout=60) # cache for 1 minute
@@ -121,6 +110,17 @@ def genStopReport(source, route, stop, period):
 
     return render_template('stop.html', source=source, stop=stop, period=period, stopreport=stop_report, reportcard_routes=reportcard_routes,predictions=predictions, routereport=route_report)
 
+#-------------------------------------------------------------FAQ
+@app.route('/faq')
+def displayFAQ():
+    routereport = Dummy() #  setup a dummy routereport for the navbar
+    return render_template('faq.html', reportcard_routes=reportcard_routes, routereport=routereport)
+
+#-------------------------------------------------------------API docs
+@app.route('/api')
+def displayAPI():
+    routereport = Dummy() #  setup a dummy routereport for the navbar
+    return render_template('api.html', reportcard_routes=reportcard_routes, routereport=routereport)
 
 
 ################################################
