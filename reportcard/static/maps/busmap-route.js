@@ -77,10 +77,6 @@ map.on('load', function() {
     }, 1000);
 
 
-    // ZOOM TO EXTENT
-    // https://stackoverflow.com/questions/35586360/mapbox-gl-js-getbounds-fitbounds
-    map.fitBounds(geojsonExtent('vehicles_geojson'));
-
 
 
 

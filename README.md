@@ -8,25 +8,15 @@ v2.0
 ###1 finish core
 
 #### Maps
-
-
 - **static/maps/**
     - busmap-index.js
-        - ? broken...
-        - fix map viewport
-            - zoomto extent of vehicles_json layer
+        - fix zoom to extent of vehicles_json layer w/ https://bl.ocks.org/danswick/83a8ddff7fb9193176a975a02a896792
     - busmap-route.js
-        - fix passed_route coming from route.html (its borking the JS. is hardcoded now)
-        - fix map viewport
-            - zoomto extent of waypoints_json layer
+            - fix zoom to extent of vehicles_json layer w/ https://bl.ocks.org/danswick/83a8ddff7fb9193176a975a02a896792
     - busmap-stop.js
+        - fix zoom to extent of vehicles_json layer w/ https://bl.ocks.org/danswick/83a8ddff7fb9193176a975a02a896792
         - limit stop layer to single stop? (e.g.?layer=stops&rt=119&stop_id=30189)      
-        - fix map viewport
-            - zoomto extent of stops_json layer
-            - +?zoom level 16?
-    - zoom extent methods?
-        - method1: update existing `ZOOM TO THE EXTENT`
-        - method2: use in var map? `bounds: [left, bottom, right, top]` using a LatLongLike objectwr
+
 
 #### Static Content
 - **route_config.py**
