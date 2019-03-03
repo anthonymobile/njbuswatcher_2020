@@ -7,27 +7,13 @@ v2.0
 
 ###1 finish core
 
-#### Route and Stop Views
+- **wwwAPI**
+    - RouteReport.get_avg_headway
+    - RouteReport.get_grade
+    - RouteReport.get_bunching_badboys
+    - RouteReport.get_travel_time
+    
 - **route.html** NEW DESIGN 
-    - header nav - the headers above each section of the page should match the text on the buttons you have up top
-    - row 1
-        - left col (md-6)
-            - grade box
-                - inside left
-                    - letter
-                    - grade_description
-                - inside right
-                    - box summarizing **Average Headway.** This provides a way of capturing the bunching in a single, easily understood metric. We can also report variability using standard deviation and that can be converted to a letter grade (e.g. A is < 1 s.d., B is 1 to 1.5, etc.) 
-                        - Example: `Route 87 has an average headway of 20 minutes, with a service dependability grade of B. That means 80 percent of the time the bus will come every 10 to 30 minutes.` (This needs wordsmithing!)
-                        - *Implementation.* For all completed trips in `{period}`, sampling every n minutes, what is the average travel time interval between buses along the route?  Calculate the on-the-road-Directions-API travel time between each two buses in the Trip and average over all the measurements.
-                    - box summarizing **Average Travel Time.** This indicates how long it takes, on average for all observed runs over the `{period}`, to travel from STOP A to STOP B.
-                        - On ROUTE VIEW, user chooses the two stops from 'Travel Time Report' drop downs.
-                        - Algorithm
-                            - SELECT all calls at the two stops in the period in question from `routelog_87`
-                            - create `Trip` instances for each unique (v,run,date) and calculate travel time between the two stops (set in property `Trip.travel_time_a_to_b` or some such)
-                            - average over the entire group
-        - right col (md-6)
-            - map
     - row 2
         - period picker bar (daily, monthly, history, specific date) 
         -- using [bootstrap-datepicker](https://bootstrap-datepicker.readthedocs.io/en/latest/#) [installation instructions](https://stackoverflow.com/questions/29001753/bootstrap-datetimepicker-installation)
@@ -47,15 +33,7 @@ v2.0
     - stop-only additional panes (in grade box):
         - **average travel time to end of route from here** (by hour of day?)
         - **Average travel speed** - we can calculate this at every observed position with New Localizer.
-
-        
-- **wwwAPI**
-    - debugging
-        - RouteReport
-            - get_bunchingreport
-        - StopReport
-            - trap error for no data new database / new day
-
+      
 #### Index View
 - **index.html**
     - can you add a ranking somewhere of all the routes?  if you want to use this as an advocacy tool it may be useful to expose a ranking like that.
