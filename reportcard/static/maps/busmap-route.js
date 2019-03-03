@@ -8,10 +8,11 @@ var map = new mapboxgl.Map({
 
 map.on('load', function() {
 
-    // starting view
-    var mapCoordinates = [40.7400, -74.0501];
-    var mapZoom = 13;
-
+    // setup the viewport
+    map.jumpTo({
+        'center': [-74.0501, 40.7400],
+        'zoom': 12
+    });
 
     // ROUTES
     // var url_waypoints = ("/api/v1/maps?layer=waypoints&rt=87"); // works
@@ -49,7 +50,6 @@ map.on('load', function() {
             "circle-stroke-color": "#fff"
         }
     });
-
 
 
     // VEHICLES

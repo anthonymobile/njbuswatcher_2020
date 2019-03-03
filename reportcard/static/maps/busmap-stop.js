@@ -8,13 +8,15 @@ var map = new mapboxgl.Map({
 
 map.on('load', function() {
 
-    // starting view
-    var mapCoordinates = [40.7400, -74.0501];
-    var mapZoom = 13;
+    // setup the viewport
+    map.jumpTo({
+        'center': [-74.0501, 40.7400],
+        'zoom': 16
+    });
 
 
     // ROUTES
-    var url_waypoints = ("/api/v1/maps?layer=waypoints&rt=all");
+    var url_waypoints = ("/api/v1/maps?layer=waypoints&rt="+passed_route);
     map.addSource('waypoints_geojson', {
         "type": "geojson",
         "data": url_waypoints
@@ -31,7 +33,7 @@ map.on('load', function() {
     });
 
     // STOPS
-    var url_stops = ("/api/v1/maps?layer=stops&rt=all");
+    var url_stops = ("/api/v1/maps?layer=stops&rt="+passed_route+"&stop="+passed_stop_id);
     map.addSource('stops_geojson', {
         "type": "geojson",
         "data": url_stops
@@ -48,9 +50,11 @@ map.on('load', function() {
         }
     });
 
+
     // VEHICLES
 
-    var url_vehicles = ("/api/v1/maps?layer=vehicles&rt=all");
+
+    var url_vehicles = ("/api/v1/maps?layer=vehicles&rt="+passed_route);
     map.addSource('vehicles_geojson', {
         "type": "geojson",
         "data": url_vehicles
@@ -72,12 +76,6 @@ map.on('load', function() {
         map.getSource('vehicles_geojson').setData(url_vehicles);
     }, 1000);
 
-
-    // setup the viewport
-    map.jumpTo({
-        'center': [40.7400, -74.0501],
-        'zoom': 16
-    });
 
 
 });
