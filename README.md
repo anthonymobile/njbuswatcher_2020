@@ -1,63 +1,54 @@
 # NJ BusWatcher
 v2.0
-**1 mar 2019**
+**2 mar 2019**
 
 ---
 # ROADMAP TO COMPLETION
 
 ###1 finish core
 
-#### Maps
-- **static/maps/**
-    - busmap-index.js
-        - fix zoom to extent of vehicles_json layer w/ https://bl.ocks.org/danswick/83a8ddff7fb9193176a975a02a896792
-    - busmap-route.js
-            - fix zoom to extent of vehicles_json layer w/ https://bl.ocks.org/danswick/83a8ddff7fb9193176a975a02a896792
-    - busmap-stop.js
-        - fix zoom to extent of vehicles_json layer w/ https://bl.ocks.org/danswick/83a8ddff7fb9193176a975a02a896792
-        - limit stop layer to single stop? (e.g.?layer=stops&rt=119&stop_id=30189)      
-
-
-#### Static Content
-- **route_config.py**
-    - complete descriptions for all lines
-    - fix frequency for new lines
-- **/static/images**
-    - add images for 2,6,10, 123, tk
-- **about.html** 
-- **faq.html** 
-- **api.html** 
-    - write content
-- **error_API_down.html** 
-    - replace old template with new base.html template
-
 #### Route and Stop Views
-- **route.html**    
-    - add period picker bar (daily, monthly, history, specific date) -- using [bootstrap-datepicker](https://bootstrap-datepicker.readthedocs.io/en/latest/#) [installation instructions](https://stackoverflow.com/questions/29001753/bootstrap-datetimepicker-installation)
-    - what are the cards that show up here? Are they always the grade, an eval of the timing, and then a good and a bad card? If so I think it would be easier if you condensed it into three cards: GRADE (which could include an evaluation of the timing), DOWNSIDES, and UPSIDES. Then the Performance section is really nice and clear. HERE’S YOUR GRADE, AND HERE ARE THE REASONS WHY IT’S THE GRADE.
-        - **Average Headway.** This provides a way of capturing the bunching in a single, easily understood metric. We can also report variability using standard deviation and that can be converted to a letter grade (e.g. A is < 1 s.d., B is 1 to 1.5, etc.) 
-            - Example: `Route 87 has an average headway of 20 minutes, with a service dependability grade of B. That means 80 percent of the time the bus will come every 10 to 30 minutes.` (This needs wordsmithing!)
-            - *Implementation.* For all completed trips in `{period}`, sampling every n minutes, what is the average travel time interval between buses along the route?  Calculate the on-the-road-Directions-API travel time between each two buses in the Trip and average over all the measurements.
-        - **Average Travel Time.** This indicates how long it takes, on average for all observed runs over the `{period}`, to travel from STOP A to STOP B.
-            - On ROUTE VIEW, user chooses the two stops from 'Travel Time Report' drop downs.
-            - Algorithm
-                - SELECT all calls at the two stops in the period in question from `routelog_87`
-                - create `Trip` instances for each unique (v,run,date) and calculate travel time between the two stops (set in property `Trip.travel_time_a_to_b` or some such)
-                - average over the entire group
-    - also, while we’re at it, the headers above each section of the page should match the text on the buttons you have up top
-    - can’t tell what is controlling the order of the busses on the road now. But I think if I was looking at this I might want to be able to quickly see busses going east-west or north-south so I could find the bus I usually ride in the morning, or whatever.
- 
-- **stop.html**
-    - add
-        - javascript to load map
-        - update variables passed from reportcard in script block
-        - service "grade" for current route, "THIS STATION USUALLY HAS DECENT SERVICE or THIS STATION HAS GOOD SERVICE TODAY" or something like that.
-        - period picker bar (daily, monthly, history, specific date) with toggles (rush hour, owl, weekdays)
-        - hourly chart features 3 columns
-            - average frequency
-            - **new metric** average headway (is this different?)
-            - **average travel time to end of route from here** (by hour of day?)
-            -- **Average travel speed** - we can calculate this at every observed position with New Localizer.
+- **route.html** NEW DESIGN 
+    - header nav - the headers above each section of the page should match the text on the buttons you have up top
+    - row 1
+        - left col (md-6)
+            - grade box
+                - inside left
+                    - letter
+                    - grade_description
+                - inside right
+                    - box summarizing **Average Headway.** This provides a way of capturing the bunching in a single, easily understood metric. We can also report variability using standard deviation and that can be converted to a letter grade (e.g. A is < 1 s.d., B is 1 to 1.5, etc.) 
+                        - Example: `Route 87 has an average headway of 20 minutes, with a service dependability grade of B. That means 80 percent of the time the bus will come every 10 to 30 minutes.` (This needs wordsmithing!)
+                        - *Implementation.* For all completed trips in `{period}`, sampling every n minutes, what is the average travel time interval between buses along the route?  Calculate the on-the-road-Directions-API travel time between each two buses in the Trip and average over all the measurements.
+                    - box summarizing **Average Travel Time.** This indicates how long it takes, on average for all observed runs over the `{period}`, to travel from STOP A to STOP B.
+                        - On ROUTE VIEW, user chooses the two stops from 'Travel Time Report' drop downs.
+                        - Algorithm
+                            - SELECT all calls at the two stops in the period in question from `routelog_87`
+                            - create `Trip` instances for each unique (v,run,date) and calculate travel time between the two stops (set in property `Trip.travel_time_a_to_b` or some such)
+                            - average over the entire group
+        - right col (md-6)
+            - map
+    - row 2
+        - period picker bar (daily, monthly, history, specific date) 
+        -- using [bootstrap-datepicker](https://bootstrap-datepicker.readthedocs.io/en/latest/#) [installation instructions](https://stackoverflow.com/questions/29001753/bootstrap-datetimepicker-installation)
+    - row 3
+        - period = 'now'
+            - 'On the Road' can’t tell what is controlling the order of the busses on the road now. But I think if I was looking at this I might want to be able to quickly see busses going east-west or north-south so I could find the bus I usually ride in the morning, or whatever.
+        - period != 'now'
+            - left
+                - hourly table summarizing **Average Headway.** (e.g. time between arrivals)
+            - right
+                - hourly table summarizing **Average Travel Time.**
+           
+
+- **stop.html** NEW DESIGN 
+    - basically the same as Route view but narrower scope
+    - different set of grade descriptions, e.g. "THIS STATION USUALLY HAS DECENT SERVICE or THIS STATION HAS GOOD SERVICE TODAY" or something like that.
+    - stop-only additional panes (in grade box):
+        - **average travel time to end of route from here** (by hour of day?)
+        - **Average travel speed** - we can calculate this at every observed position with New Localizer.
+
+        
 - **wwwAPI**
     - debugging
         - RouteReport
@@ -79,16 +70,39 @@ v2.0
     - `Interpolate+log missed stops` after scanning each trip and logging any new arrivals, run a function that interpolates arrival times for any stops in between arrivals in the trip card -- theoretically there shouldn't be a lot though if the trip card is correct since we are grabbing positions every 30 seconds.
     - `Boomerang buses (Case E)`: any other indeterminate cases?
    
-#### Deploymeny
+#### Static Content
+- **route_config.py**
+    - complete descriptions for all lines
+    - fix frequency for new lines
+- **/static/images**
+    - add images for 2,6,10, 123, tk
+- **about.html** 
+- **faq.html** 
+- **api.html** 
+    - write content
+- **error_API_down.html** 
+    - replace old template with new base.html template
+
+
+#### Deployment
 - check AWS time zones
 - reduce image size to fit on micro instance?
-
-
+- split tripwatcher, and / or map layers API into another instance to keep small+free
 
 
 ###099 someday
 
+- **static/maps/**
+    - busmap-index.js
+        - add zoom to extent of vehicles_json layer
+    - busmap-route.js
+        - add zoom to extent of waypoints_json layer
+    - busmap-stop.js
+        - limit stop layer to single stop (w/ stops_json source set to '/api/v1/maps?layer=stops&rt=119&stop_id=30189') 
+        - add zoom to extent of stops_json layer
+     
 - **stop.html**
+    - period picker toggles -  (rush hour, owl, weekdays)
     -`arrival histogram visualization`
     - dot graph showing how many buses arrived at stop during each 30 minute bin, modeled after [Nobel prize D3 viz](https://github.com/Kyrand/dataviz-with-python-and-js/tree/master/nobel_viz_D3_V4) from Python+JS book
         - implementation: concatenate the 3 nobel scripts (core,main,time)
@@ -100,7 +114,6 @@ v2.0
 - **Databases.py** 
     - `relationships! use them!` `children_ScheduledStops` and `parent_Trip` are incredibly use attributes any record i pull from the db will have now. use them to extend the query sets we get back!!!!
     - `Exception handler`: smarter check in get_session on table creation --> try if table exists == False:
-- **migrate from Flask to FastAPI**  -  [link](https://fastapi.tiangolo.com/)
 - **GTFS Integration**
     - This is a big deal but a major headache. Working with GTFS in [Jupyter](http://simplistic.me/playing-with-gtfs.html).
     - What's needed:
@@ -120,10 +133,8 @@ v2.0
 - **test re-skinning for another city: Newark**
     - what needs to be changed (just route-config.py?)
  
-
 ---
 # BUSWATCHER
-
 
 ### Version 2
 
