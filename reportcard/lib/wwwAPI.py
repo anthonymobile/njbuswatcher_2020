@@ -22,11 +22,12 @@ class RouteReport:
             self.d = ''
             self.dd = ''
 
-    def __init__(self, source, route):
+    def __init__(self, source, route, period):
 
         # apply passed parameters to instance
         self.source = source
         self.route = route
+        self.period = period
 
         # populate route basics from config
         self.reportcard_routes = reportcard_routes
@@ -38,8 +39,91 @@ class RouteReport:
         self.route_stop_list = self.get_stoplist(self.route)
 
         # populate live report card data
-        # self.active_trips = self.get_activetrips()
+        # self.active_trips = self.get_activetrips() <-- depreceated?
+        self.grade, self.grade_description = self.get_grade(period)
+        self.headway = self.get_headway(period)
+        self.bunching_badboys = self.get_bunching_badboys(period)
+        self.traveltime = self.get_traveltime(period)
+        self.get_period_labels = self.get_period_labels(period)
         self.tripdash = self.get_tripdash()
+
+    def get_grade(self, period):
+
+        # based on A. average headway standard deviation
+
+        # We can also report variability using standard deviation and that can be converted to a letter
+        # (e.g.A is < 1 s.d., B is 1 to 1.5, etc.)
+        # Example: For a headway of 20 minutes, a service dependability grade of B means 80 percent of the time the bus will come every 10 to 30 minutes.
+        # for each (completed trip) in (period)
+        #   for each (stop) on (trip)
+        #       if period = now
+        #           what is the average time between the last 2-3 arrivals
+        #       elif period = anything else
+        #           what is the average time between all the arrivals in the period
+
+        # and B. number of bunching incidents
+
+
+        grade = 'B'
+        # todo read from self.grade_descriptions
+        grade_description = 'Service meets the needs of riders some of the time, but suffers from serious shortcomings and gaps. Focused action is required to improve service in the near-term.'
+
+        return grade, grade_description
+
+    def get_headway(self, period):
+        headway = dict()
+        headway['time'] = 20
+        headway['description'] = 'pretty good'
+
+        # algorithm
+        #
+        # for each (completed trip) in (period)
+        #   for each (stop) on (trip)
+        #       if period = now
+        #           what is the average time between the last 2-3 arrivals
+        #       elif period = anything else
+        #           what is the average time between all the arrivals in the period
+        #   with toggles to limit periods (rush, weekdays, owl, etc)
+        #
+        #
+        #
+
+        # also calculate the standard deviation of the
+
+        # average time between arrivals for each stop
+
+        return headway
+
+    def get_bunching_badboys(self,period):
+        bunching_badboys = dict()
+        bunching_badboys['stops']=list()
+        bunching_badboys['stops'].append('Central Ave + Beacon Ave')
+        bunching_badboys['stops'].append('Martin Luther King Jr Dr + Bidwell Ave')
+        bunching_badboys['stops'].append('Palisade Ave + Hutton St')
+        return bunching_badboys
+
+    def get_traveltime(self, period):
+        traveltime = dict()
+        traveltime['headline'] = 'good'
+        traveltime['time'] = 20
+        traveltime['percent'] = 13
+        traveltime['label'] = 'below'
+
+        # algorithm v/simple
+        #
+        # for all observed trips over the `{period}`
+        #   sort all scheduledstops by arrival_time
+        #   compute elapsed time from earliest observation (arrival at first stop) to last observaton (arrival at last stop)
+        # take the mean of these
+
+        return traveltime
+
+    def get_period_labels(self, period):
+        if period == 'now':
+            period_label = 'Todays'
+        else:
+            period_label = '-no period label assigned-'
+        return period_label
 
 
     def get_route_geojson_and_name(self, route):

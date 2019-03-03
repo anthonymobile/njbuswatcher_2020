@@ -62,12 +62,11 @@ services:
       - 443:443
     depends_on:
       - flask_gunicorn
-  dns_updater:
-    restart: always
-    build:
-      context: ./
-      dockerfile: ./dns_updater/docker/Dockerfile
-
+#  dns_updater:
+#    restart: always
+#    build:
+#      context: ./
+#      dockerfile: ./dns_updater/docker/Dockerfile
 volumes:
   database_volume:
   static_volume:

@@ -85,19 +85,11 @@ def displayHome():
 
 
 #-------------------------------------------------------------Route
-@app.route('/<source>/<route>')
-def genRouteReport(source, route):
-    route_report = wwwAPI.RouteReport(source, route)
+@app.route('/<source>/<route>/<period>')
+def genRouteReport(source, route, period):
+    route_report = wwwAPI.RouteReport(source, route, period)
 
-    # dummy data for UI mockup
-    route_report.grade = 'C'
-    route_report.grade_description='Service meets the needs of riders some of the time, but suffers from serious shortcomings and gaps. Focused action is required to improve service in the near-term.'
-    route_report.period_label='Todays'
-    route_report.avg_headway={'time':20,'description':'pretty good'}
-    route_report.dependability = {'status':'unreliable', 'message':'delays of','lower':5,'upper':15}
-    route_report.traveltime = {'time':53, 'percent':13,'label':'below'}
-
-    return render_template('route.html', source=source, route=route, routereport=route_report)
+    return render_template('route.html', source=source, route=route, period=period, routereport=route_report)
 
 #------------------------------------------------------------Stop
 # /<source>/<route>/stop/<stop>/<period>
@@ -105,7 +97,7 @@ def genRouteReport(source, route):
 #@cache.cached(timeout=60) # cache for 1 minute
 def genStopReport(source, route, stop, period):
     stop_report = wwwAPI.StopReport(source, route, stop, period)
-    route_report = wwwAPI.RouteReport(source, route)
+    route_report = wwwAPI.RouteReport(source, route, period)
     predictions = BusAPI.parse_xml_getStopPredictions(BusAPI.get_xml_data('nj', 'stop_predictions', stop=stop, route='all'))
 
     return render_template('stop.html', source=source, stop=stop, period=period, stopreport=stop_report, reportcard_routes=reportcard_routes,predictions=predictions, routereport=route_report)
