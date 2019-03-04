@@ -1,5 +1,6 @@
 import pickle
 import datetime
+from operator import itemgetter
 import pandas as pd
 import geojson, json
 
@@ -96,11 +97,68 @@ class RouteReport:
 
     def get_bunching_badboys(self,period):
         bunching_badboys = dict()
+        bunching_badboys['flag'] = True
+        bunching_badboys['label'] = 'a lot'
         bunching_badboys['stops']=list()
         bunching_badboys['stops'].append('Central Ave + Beacon Ave')
         bunching_badboys['stops'].append('Martin Luther King Jr Dr + Bidwell Ave')
         bunching_badboys['stops'].append('Palisade Ave + Hutton St')
-        return bunching_badboys
+
+        # todo check if bunching leaderboard is current
+            # if no - create it
+            # if yes load it
+
+
+        with SQLAlchemyDBConnection() as db:
+            # generates top 10 list of stops on the route by # of bunching incidents for period
+            bunching_leaderboard = []
+            cum_arrival_total = 0
+            cum_bunch_total = 0
+            for service in self.route_stop_list:
+
+                # todo query pull all the ScheduledStops for this period on this route, then compile a unique list of stop_ids and use that below instead of service.stops
+
+                for stop in service.stops: #todo first query to make sure there are ScheduledStop instances
+                    bunch_total = 0
+                    arrival_total = 0
+                    report = StopReport(self.source, self.route, stop.identity, period)
+                    for (index, row) in report.arrivals_list_final_df.iterrows():
+                        arrival_total += 1
+                        if (row.delta > report.bigbang) and (row.delta <= report.bunching_interval):
+                            bunch_total += 1
+                    cum_bunch_total = cum_bunch_total+bunch_total
+                    cum_arrival_total = cum_arrival_total + arrival_total
+                    bunching_leaderboard.append((stop.st, bunch_total,stop.identity))
+            bunching_leaderboard.sort(key=itemgetter(1), reverse=True)
+            bunching_leaderboard = bunching_leaderboard[:10]
+
+            # # compute grade
+            # # based on pct of all stops on route during period that were bunched
+            # try:
+            #     grade_numeric = (cum_bunch_total / cum_arrival_total) * 100
+            #     for g in self.grade_descriptions:
+            #         if g['bounds'][0] < grade_numeric <= g['bounds'][1]:
+            #             self.grade = g['grade']
+            #             self.grade_description = g['description']
+            # except:
+            #     self.grade = 'N/A'
+            #     self.grade_description = 'Unable to determine grade.'
+            #     pass
+            #
+            # time_created = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            # bunching_leaderboard_pickle = dict(bunching_leaderboard=bunching_leaderboard, grade=self.grade,
+            #                                    grade_numeric=grade_numeric, grade_description=self.grade_description, time_created=time_created)
+            # outfile = ('data/bunching_leaderboard_'+route+'.pickle')
+            # with open(outfile, 'wb') as handle:
+            #     pickle.dump(bunching_leaderboard_pickle, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+            # def load_bunching_leaderboard(self,route):
+            #         infile = ('data/bunching_leaderboard_'+route+'.pickle')
+            #         with open(infile, 'rb') as handle:
+            #             b = pickle.load(handle)
+            #         return b['bunching_leaderboard'], b['grade'], b['grade_numeric'], b['grade_description'], b['time_created']
+
+        return bunching_leaderboard
 
     def get_traveltime(self, period):
         traveltime = dict()
@@ -325,6 +383,7 @@ class StopReport:
                         pass
 
 
+
             # split by vehicle and calculate arrival intervals
             final_approach_dfs = [g for i, g in arrivals_here.groupby(arrivals_here['v'].ne(arrivals_here['v'].shift()).cumsum())] # split final approach history (sorted by timestamp) at each change in vehicle_id outputs a list of dfs per https://stackoverflow.com/questions/41144231/python-how-to-split-pandas-dataframe-into-subsets-based-on-the-value-in-the-fir
             arrivals_list_final_df = pd.DataFrame() # take the last V(ehicle) approach in each df and add it to final list of arrivals
@@ -372,51 +431,4 @@ class StopReport:
     #
     # RouteReport
     #
-    # def generate_bunching_leaderboard(self, period, route):
-    #
-    #     with SQLAlchemyDBConnection() as db:
-    #         # generates top 10 list of stops on the route by # of bunching incidents for period
-    #         bunching_leaderboard = []
-    #         cum_arrival_total = 0
-    #         cum_bunch_total = 0
-    #         for service in self.route_stop_list:
-    #             for stop in service.stops:
-    #                 bunch_total = 0
-    #                 arrival_total = 0
-    #                 report = StopReport(self.route, stop.identity,period)
-    #                 for (index, row) in report.arrivals_list_final_df.iterrows():
-    #                     arrival_total += 1
-    #                     if (row.delta > report.bigbang) and (row.delta <= report.bunching_interval):
-    #                         bunch_total += 1
-    #                 cum_bunch_total = cum_bunch_total+bunch_total
-    #                 cum_arrival_total = cum_arrival_total + arrival_total
-    #                 bunching_leaderboard.append((stop.st, bunch_total,stop.identity))
-    #         bunching_leaderboard.sort(key=itemgetter(1), reverse=True)
-    #         bunching_leaderboard = bunching_leaderboard[:10]
-    #
-    #         # compute grade passed on pct of all stops on route during period that were bunched
-    #         try:
-    #             grade_numeric = (cum_bunch_total / cum_arrival_total) * 100
-    #             for g in self.grade_descriptions:
-    #                 if g['bounds'][0] < grade_numeric <= g['bounds'][1]:
-    #                     self.grade = g['grade']
-    #                     self.grade_description = g['description']
-    #         except:
-    #             self.grade = 'N/A'
-    #             self.grade_description = 'Unable to determine grade.'
-    #             pass
-    #
-    #         time_created = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    #         bunching_leaderboard_pickle = dict(bunching_leaderboard=bunching_leaderboard, grade=self.grade,
-    #                                            grade_numeric=grade_numeric, grade_description=self.grade_description, time_created=time_created)
-    #         outfile = ('data/bunching_leaderboard_'+route+'.pickle')
-    #         with open(outfile, 'wb') as handle:
-    #             pickle.dump(bunching_leaderboard_pickle, handle, protocol=pickle.HIGHEST_PROTOCOL)
-    #     return
-    #
-    #
-    # def load_bunching_leaderboard(self,route):
-    #         infile = ('data/bunching_leaderboard_'+route+'.pickle')
-    #         with open(infile, 'rb') as handle:
-    #             b = pickle.load(handle)
-    #         return b['bunching_leaderboard'], b['grade'], b['grade_numeric'], b['grade_description'], b['time_created']
+
