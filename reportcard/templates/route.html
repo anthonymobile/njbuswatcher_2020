@@ -223,10 +223,16 @@
 
                                         <div class="card-body table-danger">
 
-                                            <!--Title-->
-                                            <h4 class="card-title">There's a lot of bunching.</h4>
+                                            {% if routereport.bunching_badboys['flag'] == True %}
 
-                                            <P>The biggest trouble spots in the last hour are <strong>{{routereport.bunching_badboys['stops'][0]}}, {{routereport.bunching_badboys['stops'][1]}}, </strong> and <strong>{{routereport.bunching_badboys['stops'][2]}}.</strong></P>
+                                                <!--Title-->
+                                                <h4 class="card-title">There's {{routereport.bunching_badboys['label']}} of bunching.</h4>
+
+                                                <P>The biggest trouble spots in the last hour are <strong>{{routereport.bunching_badboys['stops'][0]}}, {{routereport.bunching_badboys['stops'][1]}}, </strong> and <strong>{{routereport.bunching_badboys['stops'][2]}}.</strong></P>
+                                            {% else %}
+                                                <h4 class="card-title">We haven't seen any bunching during this period.</h4>
+
+                                            {% endif %}
 
                                         </div>
 
