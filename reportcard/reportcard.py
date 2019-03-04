@@ -23,7 +23,6 @@ from flask_cors import CORS, cross_origin
 import lib.BusAPI as BusAPI
 import lib.API as API
 import lib.wwwAPI as wwwAPI
-from lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
 
 ################################################
 # ROUTE + APP CONFIG
@@ -148,7 +147,8 @@ def api_map_layer():
 ################################################
 @app.errorhandler(404)
 def page_not_found(e):
-    return render_template('error_API_down.html'), 404
+    routereport = Dummy() # setup a dummy routereport for the navbar
+    return render_template('error_API_down.html', route_report=routereport), 404
 
 
 ################################################

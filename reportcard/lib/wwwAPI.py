@@ -1,5 +1,6 @@
 import pickle
-import datetime
+from datetime import datetime
+import sys
 from operator import itemgetter
 import pandas as pd
 import geojson, json
@@ -42,20 +43,20 @@ class RouteReport:
         # populate live report card data
         # self.active_trips = self.get_activetrips() <-- depreceated?
         self.grade, self.grade_description = self.get_grade(period)
-        self.headway = self.get_headway(period)
+        self.headway = self.get_headway()
         self.bunching_badboys = self.get_bunching_badboys(period)
         self.traveltime = self.get_traveltime(period)
-        self.get_period_labels = self.get_period_labels(period)
+        self.get_period_labels = self.get_period_labels()
         self.tripdash = self.get_tripdash()
 
 
     # get a list of trips current running the route
 
-    def _get_current_trips(self):
+    def __get_current_trips(self):
 
         v_on_route = BusAPI.parse_xml_getBusesForRoute(
             BusAPI.get_xml_data(self.source, 'buses_for_route', route=self.route))
-        todays_date = datetime.datetime.today().strftime('%Y%m%d')
+        todays_date = datetime.today().strftime('%Y%m%d')
         trip_list = list()
         trip_list_trip_id_only = list()
 
@@ -67,44 +68,65 @@ class RouteReport:
         return trip_list, trip_list_trip_id_only
 
 
+    # def __build_period_filter(self,db,object_class):
+    #
+    #     today_date = datetime.date.today()
+    #
+    #     if self.period == 'daily':
+    #         period_filter = db.session.query(object_class)\
+    #             .filter(func.date(object_class.arrival_timestamp) == today_date)
+    #
+    #     return period_filter
 
-    def get_headway(self, period):
-        headway = dict()
-        headway['time'] = 20
-        headway['description'] = 'pretty good'
 
-        # algorithm
-        #
+    def get_period_labels(self):
+        if self.period == 'now':
+            period_label = 'Todays'
+        else:
+            period_label = '-no period label assigned-'
+        return period_label
+
+
+    def get_headway(self):
+
         with SQLAlchemyDBConnection() as db:
 
-            x, trips_on_road_now = self._get_current_trips()
+            todays_date = datetime(datetime.today().year, datetime.today().month, datetime.today().day)
+            x, trips_on_road_now = self.__get_current_trips()
 
-            if period == 'daily':
+            if self.period == 'daily':
+                arrivals_in_completed_trips=pd.read_sql(
+                    db.session.query(ScheduledStop)
+                    .filter(ScheduledStop.arrival_timestamp != None)
+                    .order_by(ScheduledStop.trip_id.asc())
+                    .order_by(ScheduledStop.pkey.asc())
+                    .filter(ScheduledStop.trip_id.notin_(trips_on_road_now))
+                    .filter(func.date(ScheduledStop.arrival_timestamp) == todays_date) # <------ todo this is the culprit
+                    .statement,
+                    db.session.bind)
 
-                arrivals_in_completed_trips = db.session.query(ScheduledStop) \
-                    .filter(ScheduledStop.arrival_timestamp != None) \
-                    .filter(~any(trips_on_road_now)) \
-                    .order_by(ScheduledStop.pkey.asc()) \
-                    #  what is the average time between the last 2-3 arrivals
-                    .all()
 
-            elif period != "daily":
+            elif self.period != 'daily':
+                sys.exit()
 
 
-                arrivals_in_completed_trips = db.session.query(ScheduledStop) \
-                    .filter(ScheduledStop.arrival_timestamp != None) \
-                    .filter(~any(trips_on_road_now)) \
-                    .order_by(ScheduledStop.pkey.asc()) \
-                    # what is the average time between all the arrivals in the period
-                .all()
 
-            # compute the average headway for the whole line
-            arrivals_in_completed_trips
+            # now = what is the average time between the last 2-3 arrivals
+            # daily =
+            # otherwise compute the average headway for the whole line
 
             # also calculate the standard deviation of the
             # average time between arrivals for each stop
 
+
+            # default for testing template
+            headway = dict()
+            headway['time'] = 20
+            headway['description'] = 'pretty good'
+
             return headway
+
+
 
     def get_bunching_badboys(self,period):
         bunching_badboys = dict()
@@ -211,14 +233,6 @@ class RouteReport:
 
         return traveltime
 
-    def get_period_labels(self, period):
-        if period == 'now':
-            period_label = 'Todays'
-        else:
-            period_label = '-no period label assigned-'
-        return period_label
-
-
     def get_route_geojson_and_name(self, route):
         routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=route))
         return routes[0].nm, coordinate_bundle['waypoints_coordinates'], coordinate_bundle['stops_coordinates'], coordinate_bundle['waypoints_geojson'], coordinate_bundle['stops_geojson']
@@ -266,7 +280,7 @@ class RouteReport:
             #     trip_list.append((trip_id, v.pd, v.bid, v.run))
             #
 
-            trip_list, x = self._get_current_trips()
+            trip_list, x = self.__get_current_trips()
 
             tripdash = dict()
             for trip_id,pd,bid,run in trip_list:

@@ -8,11 +8,11 @@ v2.0
 ###1 finish core
 
 - **wwwAPI**
-    - RouteReport.get_avg_headway
-    - RouteReport.get_grade
-    - RouteReport.get_bunching_badboys
+    - RouteReport.get_get_headway **DEBUGGING**
     - RouteReport.get_travel_time
-    
+    - RouteReport.get_bunching_badboys
+    - RouteReport.get_grade
+
 - **route.html** NEW DESIGN 
     - row 2
         - period picker bar (daily, monthly, history, specific date) 
