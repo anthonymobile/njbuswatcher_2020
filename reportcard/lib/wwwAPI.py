@@ -48,6 +48,130 @@ class RouteReport:
         self.get_period_labels = self.get_period_labels(period)
         self.tripdash = self.get_tripdash()
 
+
+    # get a list of trips current running the route
+
+    def _get_current_trips(self):
+
+        v_on_route = BusAPI.parse_xml_getBusesForRoute(
+            BusAPI.get_xml_data(self.source, 'buses_for_route', route=self.route))
+        todays_date = datetime.datetime.today().strftime('%Y%m%d')
+        trip_list = list()
+        trip_list_trip_id_only = list()
+
+        for v in v_on_route:
+            trip_id = ('{a}_{b}_{c}').format(a=v.id, b=v.run, c=todays_date)
+            trip_list.append((trip_id, v.pd, v.bid, v.run))
+            trip_list_trip_id_only.append(trip_id)
+
+        return trip_list, trip_list_trip_id_only
+
+
+
+    def get_headway(self, period):
+        headway = dict()
+        headway['time'] = 20
+        headway['description'] = 'pretty good'
+
+        # algorithm
+        #
+        with SQLAlchemyDBConnection() as db:
+
+            x, trips_on_road_now = self._get_current_trips()
+
+            if period == 'daily':
+
+                arrivals_in_completed_trips = db.session.query(ScheduledStop) \
+                    .filter(ScheduledStop.arrival_timestamp != None) \
+                    .filter(~any(trips_on_road_now)) \
+                    .order_by(ScheduledStop.pkey.asc()) \
+                    #  what is the average time between the last 2-3 arrivals
+                    .all()
+
+            elif period != "daily":
+
+
+                arrivals_in_completed_trips = db.session.query(ScheduledStop) \
+                    .filter(ScheduledStop.arrival_timestamp != None) \
+                    .filter(~any(trips_on_road_now)) \
+                    .order_by(ScheduledStop.pkey.asc()) \
+                    # what is the average time between all the arrivals in the period
+                .all()
+
+            # compute the average headway for the whole line
+            arrivals_in_completed_trips
+
+            # also calculate the standard deviation of the
+            # average time between arrivals for each stop
+
+            return headway
+
+    def get_bunching_badboys(self,period):
+        bunching_badboys = dict()
+        bunching_badboys['flag'] = True
+        bunching_badboys['label'] = 'a lot'
+        bunching_badboys['stops']=list()
+        bunching_badboys['stops'].append('Central Ave + Beacon Ave')
+        bunching_badboys['stops'].append('Martin Luther King Jr Dr + Bidwell Ave')
+        bunching_badboys['stops'].append('Palisade Ave + Hutton St')
+        #
+        # # todo check if bunching leaderboard is current
+        #     # if no - create it
+        #     # if yes load it
+        #
+        #
+        # with SQLAlchemyDBConnection() as db:
+        #     # generates top 10 list of stops on the route by # of bunching incidents for period
+        #     bunching_leaderboard = []
+        #     cum_arrival_total = 0
+        #     cum_bunch_total = 0
+        #     for service in self.route_stop_list:
+        #
+        #
+        #         for stop in service.stops: #todo first query to make sure there are ScheduledStop instances
+        #             bunch_total = 0
+        #             arrival_total = 0
+        #             report = StopReport(self.source, self.route, stop.identity, period)
+        #             for (index, row) in report.arrivals_list_final_df.iterrows():
+        #                 arrival_total += 1
+        #                 if (row.delta > report.bigbang) and (row.delta <= report.bunching_interval):
+        #                     bunch_total += 1
+        #             cum_bunch_total = cum_bunch_total+bunch_total
+        #             cum_arrival_total = cum_arrival_total + arrival_total
+        #             bunching_leaderboard.append((stop.st, bunch_total,stop.identity))
+        #     bunching_leaderboard.sort(key=itemgetter(1), reverse=True)
+        #     bunching_leaderboard = bunching_leaderboard[:10]
+        #
+        #     # # compute grade
+        #     # # based on pct of all stops on route during period that were bunched
+        #     # try:
+        #     #     grade_numeric = (cum_bunch_total / cum_arrival_total) * 100
+        #     #     for g in self.grade_descriptions:
+        #     #         if g['bounds'][0] < grade_numeric <= g['bounds'][1]:
+        #     #             self.grade = g['grade']
+        #     #             self.grade_description = g['description']
+        #     # except:
+        #     #     self.grade = 'N/A'
+        #     #     self.grade_description = 'Unable to determine grade.'
+        #     #     pass
+        #     #
+        #     # time_created = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        #     # bunching_leaderboard_pickle = dict(bunching_leaderboard=bunching_leaderboard, grade=self.grade,
+        #     #                                    grade_numeric=grade_numeric, grade_description=self.grade_description, time_created=time_created)
+        #     # outfile = ('data/bunching_leaderboard_'+route+'.pickle')
+        #     # with open(outfile, 'wb') as handle:
+        #     #     pickle.dump(bunching_leaderboard_pickle, handle, protocol=pickle.HIGHEST_PROTOCOL)
+        #
+        #     # def load_bunching_leaderboard(self,route):
+        #     #         infile = ('data/bunching_leaderboard_'+route+'.pickle')
+        #     #         with open(infile, 'rb') as handle:
+        #     #             b = pickle.load(handle)
+        #     #         return b['bunching_leaderboard'], b['grade'], b['grade_numeric'], b['grade_description'], b['time_created']
+
+        return bunching_badboys
+
+
+
     def get_grade(self, period):
 
         # based on A. average headway standard deviation
@@ -63,102 +187,13 @@ class RouteReport:
         #           what is the average time between all the arrivals in the period
 
         # and B. number of bunching incidents
-
-
         grade = 'B'
         # todo read from self.grade_descriptions
         grade_description = 'Service meets the needs of riders some of the time, but suffers from serious shortcomings and gaps. Focused action is required to improve service in the near-term.'
-
         return grade, grade_description
 
-    def get_headway(self, period):
-        headway = dict()
-        headway['time'] = 20
-        headway['description'] = 'pretty good'
-
-        # algorithm
-        #
-        # for each (completed trip) in (period)
-        #   for each (stop) on (trip)
-        #       if period = now
-        #           what is the average time between the last 2-3 arrivals
-        #       elif period = anything else
-        #           what is the average time between all the arrivals in the period
-        #   with toggles to limit periods (rush, weekdays, owl, etc)
-        #
-        #
-        #
-
-        # also calculate the standard deviation of the
-
-        # average time between arrivals for each stop
-
-        return headway
-
-    def get_bunching_badboys(self,period):
-        bunching_badboys = dict()
-        bunching_badboys['flag'] = True
-        bunching_badboys['label'] = 'a lot'
-        bunching_badboys['stops']=list()
-        bunching_badboys['stops'].append('Central Ave + Beacon Ave')
-        bunching_badboys['stops'].append('Martin Luther King Jr Dr + Bidwell Ave')
-        bunching_badboys['stops'].append('Palisade Ave + Hutton St')
-
-        # todo check if bunching leaderboard is current
-            # if no - create it
-            # if yes load it
 
 
-        with SQLAlchemyDBConnection() as db:
-            # generates top 10 list of stops on the route by # of bunching incidents for period
-            bunching_leaderboard = []
-            cum_arrival_total = 0
-            cum_bunch_total = 0
-            for service in self.route_stop_list:
-
-                # todo query pull all the ScheduledStops for this period on this route, then compile a unique list of stop_ids and use that below instead of service.stops
-
-                for stop in service.stops: #todo first query to make sure there are ScheduledStop instances
-                    bunch_total = 0
-                    arrival_total = 0
-                    report = StopReport(self.source, self.route, stop.identity, period)
-                    for (index, row) in report.arrivals_list_final_df.iterrows():
-                        arrival_total += 1
-                        if (row.delta > report.bigbang) and (row.delta <= report.bunching_interval):
-                            bunch_total += 1
-                    cum_bunch_total = cum_bunch_total+bunch_total
-                    cum_arrival_total = cum_arrival_total + arrival_total
-                    bunching_leaderboard.append((stop.st, bunch_total,stop.identity))
-            bunching_leaderboard.sort(key=itemgetter(1), reverse=True)
-            bunching_leaderboard = bunching_leaderboard[:10]
-
-            # # compute grade
-            # # based on pct of all stops on route during period that were bunched
-            # try:
-            #     grade_numeric = (cum_bunch_total / cum_arrival_total) * 100
-            #     for g in self.grade_descriptions:
-            #         if g['bounds'][0] < grade_numeric <= g['bounds'][1]:
-            #             self.grade = g['grade']
-            #             self.grade_description = g['description']
-            # except:
-            #     self.grade = 'N/A'
-            #     self.grade_description = 'Unable to determine grade.'
-            #     pass
-            #
-            # time_created = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-            # bunching_leaderboard_pickle = dict(bunching_leaderboard=bunching_leaderboard, grade=self.grade,
-            #                                    grade_numeric=grade_numeric, grade_description=self.grade_description, time_created=time_created)
-            # outfile = ('data/bunching_leaderboard_'+route+'.pickle')
-            # with open(outfile, 'wb') as handle:
-            #     pickle.dump(bunching_leaderboard_pickle, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-            # def load_bunching_leaderboard(self,route):
-            #         infile = ('data/bunching_leaderboard_'+route+'.pickle')
-            #         with open(infile, 'rb') as handle:
-            #             b = pickle.load(handle)
-            #         return b['bunching_leaderboard'], b['grade'], b['grade_numeric'], b['grade_description'], b['time_created']
-
-        return bunching_leaderboard
 
     def get_traveltime(self, period):
         traveltime = dict()
@@ -220,14 +255,18 @@ class RouteReport:
     # gets all arrivals (see limit) for all runs on current route
     def get_tripdash(self):
         with SQLAlchemyDBConnection() as db:
-            # build a list of tuples with (run, trip_id)
-            v_on_route = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data(self.source, 'buses_for_route', route=self.route))
-            todays_date = datetime.datetime.today().strftime('%Y%m%d')
-            trip_list=list()
 
-            for v in v_on_route:
-                trip_id=('{a}_{b}_{c}').format(a=v.id,b=v.run, c=todays_date)
-                trip_list.append((trip_id, v.pd, v.bid, v.run))
+            # # build a list of tuples with (run, trip_id)
+            # v_on_route = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data(self.source, 'buses_for_route', route=self.route))
+            # todays_date = datetime.datetime.today().strftime('%Y%m%d')
+            # trip_list=list()
+            #
+            # for v in v_on_route:
+            #     trip_id=('{a}_{b}_{c}').format(a=v.id,b=v.run, c=todays_date)
+            #     trip_list.append((trip_id, v.pd, v.bid, v.run))
+            #
+
+            trip_list, x = self._get_current_trips()
 
             tripdash = dict()
             for trip_id,pd,bid,run in trip_list:
@@ -303,21 +342,6 @@ class StopReport:
                                 .filter(func.date(ScheduledStop.arrival_timestamp) == today_date)
                                 .statement
                                 ,db.session.bind)
-                print (db.session.query(
-                                     Trip.rt,
-                                     Trip.v,
-                                     Trip.pid,
-                                     Trip.trip_id,
-                                     ScheduledStop.trip_id,
-                                     ScheduledStop.stop_id,
-                                     ScheduledStop.stop_name,
-                                     ScheduledStop.arrival_timestamp)
-                                .join(ScheduledStop)
-                                .filter(Trip.rt == route)
-                                .filter(ScheduledStop.stop_id == stop)
-                                .filter(ScheduledStop.arrival_timestamp != None)
-                                .filter(func.date(ScheduledStop.arrival_timestamp) == today_date)
-                                .statement)
 
 
             elif period == "yesterday":
@@ -382,29 +406,30 @@ class StopReport:
                 except ValueError:
                         pass
 
+                # if the database didn't have results, return an empty dataframe
+                if len(arrivals_here.index) == 0:
 
+                    arrivals_list_final_df = pd.DataFrame(
+                        columns=['rt', 'v', 'pid', 'trip_trip_id', 'stop_trip_id', 'stop_name', 'arrival_timestamp'],
+                        data=['0', '0000', '0', '0000_000_00000000', '0000_000_00000000', 'N/A', datetime.time(0, 1)]
+                        )
+                    stop_name = 'N/A'
+                    self.arrivals_table_time_created = datetime.datetime.now()
 
-            # split by vehicle and calculate arrival intervals
-            final_approach_dfs = [g for i, g in arrivals_here.groupby(arrivals_here['v'].ne(arrivals_here['v'].shift()).cumsum())] # split final approach history (sorted by timestamp) at each change in vehicle_id outputs a list of dfs per https://stackoverflow.com/questions/41144231/python-how-to-split-pandas-dataframe-into-subsets-based-on-the-value-in-the-fir
-            arrivals_list_final_df = pd.DataFrame() # take the last V(ehicle) approach in each df and add it to final list of arrivals
-            for final_approach in final_approach_dfs:  # iterate over every final approach
-                arrival_insert_df = final_approach.tail(1)  # take the last observation
-                arrivals_list_final_df = arrivals_list_final_df.append(arrival_insert_df)  # insert into df
-            arrivals_list_final_df['delta']=(arrivals_list_final_df['arrival_timestamp'] - arrivals_list_final_df['arrival_timestamp'].shift(1)).fillna(0) # calc interval between last bus for each row, fill NaNs
+                    return arrivals_list_final_df, stop_name
 
-            stop_name = arrivals_list_final_df['stop_name'].iloc[0]
+                # Otherwise, cleanup the query results
+                # split by vehicle and calculate arrival intervals
+                final_approach_dfs = [g for i, g in arrivals_here.groupby(arrivals_here['v'].ne(arrivals_here['v'].shift()).cumsum())] # split final approach history (sorted by timestamp) at each change in vehicle_id outputs a list of dfs per https://stackoverflow.com/questions/41144231/python-how-to-split-pandas-dataframe-into-subsets-based-on-the-value-in-the-fir
+                arrivals_list_final_df = pd.DataFrame() # take the last V(ehicle) approach in each df and add it to final list of arrivals
+                for final_approach in final_approach_dfs:  # iterate over every final approach
+                    arrival_insert_df = final_approach.tail(1)  # take the last observation
+                    arrivals_list_final_df = arrivals_list_final_df.append(arrival_insert_df)  # insert into df
+                arrivals_list_final_df['delta']=(arrivals_list_final_df['arrival_timestamp'] - arrivals_list_final_df['arrival_timestamp'].shift(1)).fillna(0) # calc interval between last bus for each row, fill NaNs
 
-            return arrivals_list_final_df, stop_name
+                stop_name = arrivals_list_final_df['stop_name'].iloc[0]
 
-
-            # except:
-            #     arrivals_list_final_df = pd.DataFrame(
-            #         columns=['rt', 'v', 'pid', 'trip_trip_id', 'stop_trip_id', 'stop_name', 'arrival_timestamp'],
-            #         data=['0', '0000', '0', '0000_000_00000000', '0000_000_00000000', 'N/A', datetime.time(0, 1)]
-            #     )
-            #     stop_name = 'N/A'
-            #     self.arrivals_table_time_created = datetime.datetime.now()
-            #     return arrivals_list_final_df, stop_name
+                return arrivals_list_final_df, stop_name
 
 
     def get_hourly_frequency(self):
@@ -426,9 +451,4 @@ class StopReport:
             results = pd.DataFrame()
 
         return results
-
-
-    #
-    # RouteReport
-    #
 
