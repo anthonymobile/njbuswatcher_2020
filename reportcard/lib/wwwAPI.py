@@ -1,9 +1,9 @@
-import pickle
+# import pickle
 from datetime import datetime
 import sys
-from operator import itemgetter
+# from operator import itemgetter
 import pandas as pd
-import geojson, json
+# import geojson, json
 
 from sqlalchemy import inspect, func
 
@@ -72,7 +72,7 @@ class RouteReport:
     #
     #     today_date = datetime.date.today()
     #
-    #     if self.period == 'daily':
+    #     if self.period == 'today':
     #         period_filter = db.session.query(object_class)\
     #             .filter(func.date(object_class.arrival_timestamp) == today_date)
     #
@@ -94,30 +94,30 @@ class RouteReport:
             todays_date = datetime(datetime.today().year, datetime.today().month, datetime.today().day)
             x, trips_on_road_now = self.__get_current_trips()
 
-            if self.period == 'daily':
+            if self.period == 'today':
                 arrivals_in_completed_trips=pd.read_sql(
                     db.session.query(ScheduledStop)
                     .filter(ScheduledStop.arrival_timestamp != None)
                     .order_by(ScheduledStop.trip_id.asc())
                     .order_by(ScheduledStop.pkey.asc())
                     .filter(ScheduledStop.trip_id.notin_(trips_on_road_now))
-                    .filter(func.date(ScheduledStop.arrival_timestamp) == todays_date) # <------ todo this is the culprit
+                    .filter(func.date(ScheduledStop.arrival_timestamp) == todays_date)
                     .statement,
                     db.session.bind)
 
-
-            elif self.period != 'daily':
+            elif self.period != 'today':
                 sys.exit()
 
-
-
-            # now = what is the average time between the last 2-3 arrivals
-            # daily =
-            # otherwise compute the average headway for the whole line
+            # for each hour of the day
+                # for each stop in the list
+                    # create a list of intervals between arrivals (e.g. headways)
+                # take the mean across the entire set
 
             # also calculate the standard deviation of the
             # average time between arrivals for each stop
 
+            # also do a current running NOW average,
+            # now = what is the average time between the last 2-3 arrivals
 
             # default for testing template
             headway = dict()
@@ -339,7 +339,7 @@ class StopReport:
             today_date = datetime.date.today()
             yesterday = datetime.date.today() - datetime.timedelta(1)
 
-            if period == "daily":
+            if period == "today":
                 arrivals_here = pd.read_sql(
                                 db.session.query(
                                      Trip.rt,

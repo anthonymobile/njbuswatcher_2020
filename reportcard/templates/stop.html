@@ -25,6 +25,41 @@
 
 {% endblock %}}
 
+
+{% block sticky_nav %}
+
+<nav class="navbar navbar-expand-sm sticky-top navbar-light bg-white">
+    <div class="container">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar1">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbar1">
+            <ul class="navbar-nav">
+                <li class="breadcrumb-item active"><a href = {{url_for('displayHome')}}>home</a></li>
+             </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="breadcrumb-item "><a href = {{url_for('genStopReport',source=routereport.source,route=routereport.route,stop=stopreport.stop,period='today')}}>today</a></li>
+
+                <li class="breadcrumb-item ">yesterday</li>
+                <li class="breadcrumb-item ">weekly</li>
+                <li class="breadcrumb-item ">monthly - coming soon!</li>
+
+		        <!--<li class="breadcrumb-item "><a href = {{url_for('genStopReport',source=routereport.source,route=routereport.route,stop=stopreport.stop,period='yesterday')}}>yesterday</a></li>-->
+                <!--<li class="breadcrumb-item "><a href = {{url_for('genStopReport',source=routereport.source,route=routereport.route,stop=stopreport.stop,period='weekly')}}>weekly</a></li>-->
+		        <!--<li class="breadcrumb-item "><a href = {{url_for('genRStopReport',source=routereport.source,route=routereport.route,stop=stopreport.stop,period='history')}}>history</a></li>-->
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+{% endblock %}
+
+
+
+
+
 {% block scripts %}
 
     <!-- Font Awesome -->
