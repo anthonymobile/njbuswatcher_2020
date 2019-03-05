@@ -50,6 +50,38 @@
 {% endblock %}
 
 
+{% block sticky_nav %}
+
+<nav class="navbar navbar-expand-sm sticky-top navbar-light bg-white">
+    <div class="container">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar1">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbar1">
+            <ul class="navbar-nav">
+                <li class="breadcrumb-item active"><a href = {{url_for('displayHome')}}>home</a></li>
+             </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="breadcrumb-item "><a href = {{url_for('genRouteReport',source=routereport.source,route=routereport.route,period='today')}}>today</a></li>
+
+                <li class="breadcrumb-item ">yesterday</li>
+                <li class="breadcrumb-item ">weekly</li>
+                <li class="breadcrumb-item ">monthly - coming soon!</li>
+
+		        <!--<li class="breadcrumb-item "><a href = {{url_for('genRouteReport',source=routereport.source,route=routereport.route,period='yesterday')}}>yesterday</a></li>-->
+                <!--<li class="breadcrumb-item "><a href = {{url_for('genRouteReport',source=routereport.source,route=routereport.route,period='weekly')}}>weekly</a></li>-->
+		        <!--<li class="breadcrumb-item "><a href = {{url_for('genRouteReport',source=routereport.source,route=routereport.route,period='history')}}>history</a></li>-->
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+{% endblock %}
+
+
+
 {% block content_main %}
 
 
@@ -63,7 +95,7 @@
                 <section id="menu" class="text-center">
 
                 <!-- Content -->
-                <div class="card-body text-black text-center mt-4 ">
+                <div class="card-body text-black text-center">
 
                     <h1 class="mb-4">
                         <strong>{{routereport.route}} {{routereport.prettyname}}</strong></h1>
@@ -331,7 +363,7 @@
                                                  {% if stop.arrival_timestamp is not none %}
                                                      <td class="table-primary"><span class="small">{{stop.arrival_timestamp|strftime_today}}</span></td>
                                                      <td class="table-secondary">
-                                                         <a href = {{url_for('genStopReport',source=routereport.source,route=routereport.route,stop=stop.stop_id,period='daily') }} id="{{stop.st}}">
+                                                         <a href = {{url_for('genStopReport',source=routereport.source,route=routereport.route,stop=stop.stop_id,period='today') }} id="{{stop.st}}">
                                                          <span class="small">{{stop.stop_name|title}}
                                                      </span>
                                                      </a></td>
@@ -411,7 +443,7 @@
                                 <div id="buses" class="row mt-2">
 
                                     {% for stop in path.stops %}
-                                    <a href = {{url_for('genStopReport',source=routereport.source,route=routereport.route,stop=stop.identity,period='daily') }} id="{{stop.st}}"><span class="label">{{stop.st|title}}-</span>
+                                    <a href = {{url_for('genStopReport',source=routereport.source,route=routereport.route,stop=stop.identity,period='today') }} id="{{stop.st}}"><span class="label">{{stop.st|title}}-</span>
                                     </a>
                                     {% endfor %}
 

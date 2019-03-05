@@ -59,55 +59,14 @@
 
 {% block content %}
 
-    <!--Main Navigation-->
-    <header>
-
-        <!-- Navbar -->
-        <nav aria-label="breadcrumb"class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
-
-            <div class="container">
-
-                <!-- Brand
-                <a class="navbar-brand waves-effect" href=" /" target="_self">
-                    <strong class="blue-text">Jersey City</strong>
-                </a>
-                -->
-
-                <!-- Links -->
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-                    <!-- Left -->
-                    <ol class="navbar-nav mr-auto breadcrumb">
-                        <li class="breadcrumb-item"><a href="/">Home</a></li>
-                        {% block breadcrumb %}
-                        {% endblock %}
-                    </ol>
-
-                    <!-- Right -->
-
-                    <ul class="navbar-nav nav-flex-icons">
-
-                        <li class="nav-item">
-                            <a href="/faq" class="nav-link border border-light rounded waves-effect"
-                                target="_self">
-                                <i class="fab fa-github mr-2"></i>About/FAQ
-                            </a>
-                        </li>
-                    </ul>
 
 
-                </div>
-
-            </div>
-        </nav>
-        <!-- Navbar -->
-
-    </header>
-    <!--Main Navigation-->
+    {% block sticky_nav %}
+    {% endblock %}
 
 
-            {% block content_main %}
-            {% endblock %}
+    {% block content_main %}
+    {% endblock %}
 
 
     <!--Footer-->

@@ -6,17 +6,20 @@ v2.0
 # ROADMAP TO COMPLETION
 
 ###1 finish core
+- **route.html** 
+    - row 2
+        - period picker bar (daily, monthly, history, specific date) 
+        -- using [bootstrap-datepicker](https://bootstrap-datepicker.readthedocs.io/en/latest/#) [installation instructions](https://stackoverflow.com/questions/29001753/bootstrap-datetimepicker-installation)
+  
 
 - **wwwAPI**
+    - REFACTOR: period='daily' to period='today' everywhere
     - RouteReport.get_get_headway **DEBUGGING**
     - RouteReport.get_travel_time
     - RouteReport.get_bunching_badboys
     - RouteReport.get_grade
 
-- **route.html** NEW DESIGN 
-    - row 2
-        - period picker bar (daily, monthly, history, specific date) 
-        -- using [bootstrap-datepicker](https://bootstrap-datepicker.readthedocs.io/en/latest/#) [installation instructions](https://stackoverflow.com/questions/29001753/bootstrap-datetimepicker-installation)
+- **route.html**
     - row 3
         - period = 'now'
             - 'On the Road' can’t tell what is controlling the order of the busses on the road now. But I think if I was looking at this I might want to be able to quickly see busses going east-west or north-south so I could find the bus I usually ride in the morning, or whatever.
