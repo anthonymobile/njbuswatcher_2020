@@ -6,30 +6,31 @@ v2.0
 # ROADMAP TO COMPLETION
 
 ###1 finish core
-- **route.html** 
-    - row 2
-        - period picker bar (daily, monthly, history, specific date) 
-        -- using [bootstrap-datepicker](https://bootstrap-datepicker.readthedocs.io/en/latest/#) [installation instructions](https://stackoverflow.com/questions/29001753/bootstrap-datetimepicker-installation)
-  
 
 - **wwwAPI**
+    - RouteReport.get_headway **DEBUGGING**
+        - can i use StopReport.get_arrivals() instead of redoing it?
+            - maybe run a stop report for every stop on the line and then average those numbers?
+        - versus current algo
+            - pull all the arrivals for completed trips (=arrivals_in_completed_trips)
+            - and then sort, group using same algo as StopReport.get_arrivals() to compute intervals
     - REFACTOR: period='daily' to period='today' everywhere
-    - RouteReport.get_get_headway **DEBUGGING**
     - RouteReport.get_travel_time
     - RouteReport.get_bunching_badboys
     - RouteReport.get_grade
 
 - **route.html**
     - row 3
-        - period = 'now'
-            - 'On the Road' can’t tell what is controlling the order of the busses on the road now. But I think if I was looking at this I might want to be able to quickly see busses going east-west or north-south so I could find the bus I usually ride in the morning, or whatever.
-        - period != 'now'
-            - left
-                - hourly table summarizing **Average Headway.** (e.g. time between arrivals)
-            - right
-                - hourly table summarizing **Average Travel Time.**
-           
-
+        - left
+            - hourly table summarizing **Average Headway.** (e.g. time between arrivals)
+            - borrow code from current production jinja template
+        - right
+            - hourly table summarizing **Average Travel Time.**
+            - borrow code from current production jinja template
+    - row 4
+        - buses on 'On the Road Now'
+        - use current code
+          
 - **stop.html** NEW DESIGN 
     - basically the same as Route view but narrower scope
     - different set of grade descriptions, e.g. "THIS STATION USUALLY HAS DECENT SERVICE or THIS STATION HAS GOOD SERVICE TODAY" or something like that.
@@ -71,7 +72,9 @@ v2.0
 - split tripwatcher, and / or map layers API into another instance to keep small+free
 
 
-###099 someday
+###099 future rolling releases
+- **period picker**
+    - activate other periods (yesterday, weekly, monthly, history, date range using [bootstrap-datepicker](https://bootstrap-datepicker.readthedocs.io/en/latest/#) [installation instructions](https://stackoverflow.com/questions/29001753/bootstrap-datetimepicker-installation) )
 
 - **static/maps/**
     - busmap-index.js
