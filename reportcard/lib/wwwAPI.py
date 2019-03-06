@@ -91,12 +91,29 @@ class RouteReport:
 
         with SQLAlchemyDBConnection() as db:
 
+            headway = dict()
+
             todays_date = datetime.date.today()
             yesterdays_date = datetime.date.today() - datetime.timedelta(1)
+            one_hour_ago = datetime.datetime.now() - datetime.timedelta(hours=1)
 
             x, trips_on_road_now = self.__get_current_trips()
 
-            if self.period == 'today':
+            if self.period == 'now':
+                arrivals_in_completed_trips=pd.read_sql(
+                    db.session.query( ScheduledStop.trip_id,
+                                     ScheduledStop.stop_id,
+                                     ScheduledStop.stop_name,
+                                     ScheduledStop.arrival_timestamp)
+                    .filter(ScheduledStop.arrival_timestamp != None)
+                    .filter(func.date(ScheduledStop.arrival_timestamp) > one_hour_ago) # todo last hour
+                    .filter(ScheduledStop.trip_id.notin_(trips_on_road_now))
+                    .order_by(ScheduledStop.trip_id.asc())
+                    .order_by(ScheduledStop.pkey.asc())
+                    .statement,
+                    db.session.bind)
+
+            elif self.period == 'today':
                 arrivals_in_completed_trips=pd.read_sql(
                     db.session.query( ScheduledStop.trip_id,
                                      ScheduledStop.stop_id,
@@ -110,8 +127,34 @@ class RouteReport:
                     .statement,
                     db.session.bind)
 
-            # elif self.period != 'today':
-            #     sys.exit()
+
+            elif self.period == 'yesterday':
+                arrivals_in_completed_trips=pd.read_sql(
+                    db.session.query( ScheduledStop.trip_id,
+                                     ScheduledStop.stop_id,
+                                     ScheduledStop.stop_name,
+                                     ScheduledStop.arrival_timestamp)
+                    .filter(ScheduledStop.arrival_timestamp != None)
+                    .filter(func.date(ScheduledStop.arrival_timestamp) == yesterdays_date)
+                    .filter(ScheduledStop.trip_id.notin_(trips_on_road_now))
+                    .order_by(ScheduledStop.trip_id.asc())
+                    .order_by(ScheduledStop.pkey.asc())
+                    .statement,
+                    db.session.bind)
+
+            elif self.period == 'history':
+                arrivals_in_completed_trips=pd.read_sql(
+                    db.session.query( ScheduledStop.trip_id,
+                                     ScheduledStop.stop_id,
+                                     ScheduledStop.stop_name,
+                                     ScheduledStop.arrival_timestamp)
+                    .filter(ScheduledStop.arrival_timestamp != None)
+                    .filter(ScheduledStop.trip_id.notin_(trips_on_road_now))
+                    .order_by(ScheduledStop.trip_id.asc())
+                    .order_by(ScheduledStop.pkey.asc())
+                    .statement,
+                    db.session.bind)
+
 
             # if the database didn't have results, return an empty dataframe
             if len(arrivals_in_completed_trips.index) == 0:
@@ -120,40 +163,33 @@ class RouteReport:
                     data=['0000_000_00000000', '0000_000_00000000', 'N/A', datetime.datetime.time(0, 1)]
                     )
 
-            # Otherwise, cleanup the query results
-
-            # split by stop_id and calculate arrival intervals at each stop
+            # Otherwise, split by stop_id and calculate arrival intervals at each stop
             stop_dfs = [g for i, g in arrivals_in_completed_trips.groupby(arrivals_in_completed_trips['stop_id'].ne(arrivals_in_completed_trips['stop_id'].shift()).cumsum())]
-
             headways_df = pd.DataFrame()
-            headway_insert_df = pd.DataFrame()
+            for stop_df in stop_dfs:  # iterate over every stop
+                stop_df['delta'] = (stop_df['arrival_timestamp'] - stop_df['arrival_timestamp'].shift(1)).fillna(0) # calc interval between last bus for each row, fill NaNs
+                stop_df=stop_df.dropna() # drop the NaN (probably just the first one)
+                headways_df = headways_df.append(stop_df)  # dump all these rows into the headways list
 
-            for stop in stop_dfs:  # iterate over every stop
-                for index,arrival in stop.itertuples():
-                    headway_insert_df = arrival  # take the current row
-                    print (arrival)
-                    headway_insert_df['delta'] = (arrival['arrival_timestamp'] - arrival['arrival_timestamp'].shift(1)).fillna(0) # todo BORKING BECAUSE ITERROWS KILLED TIMESTAMP DTYPE
-                    headways_df = headways_df.append(headway_insert_df)  # insert updated arrival into df
+            # average headway for route -- entire period
+            headway['period_mean'] = headways_df['delta'].mean()
+            headway['period_std'] = headways_df['delta'].std()
 
-
-            # for each hour of the day
-                # for each stop in the list
-                    # create a list of intervals between arrivals (e.g. headways)
-                # take the mean across the entire set
-
-            # also calculate the standard deviation of the
-            # average time between arrivals for each stop
-
-            # also do a current running NOW average,
-            # now = what is the average time between the last 2-3 arrivals
+            # average headway for route -- by hour
+            times = pd.DatetimeIndex(headways_df.arrival_timestamp)
+            grouped = headways_df.groupby([times.hour, times.minute])
+            headway['hourly_mean'] = list()
+            headway['hourly_std'] = list()
+            for group in grouped:
+                headway['hourly_mean'].append((group.arrival_timestamp.hour, group.mean()))
+                headway['hourly_std'].append((group.arrival_timestamp.hour, group.std()))
 
             # default for testing template
-            headway = dict()
+
             headway['time'] = 20
             headway['description'] = 'pretty good'
 
             return headway
-
 
 
     def get_bunching_badboys(self,period):
@@ -366,8 +402,28 @@ class StopReport:
         with SQLAlchemyDBConnection() as db:
             today_date = datetime.date.today()
             yesterday = datetime.date.today() - datetime.timedelta(1)
+            one_hour_ago = datetime.datetime.now() - datetime.timedelta(hours=1)
 
-            if period == "today":
+            if period == "now":
+                arrivals_here = pd.read_sql(
+                                db.session.query(
+                                     Trip.rt,
+                                     Trip.v,
+                                     Trip.pid,
+                                     ScheduledStop.trip_id,
+                                     ScheduledStop.stop_id,
+                                     ScheduledStop.stop_name,
+                                     ScheduledStop.arrival_timestamp)
+                                .join(ScheduledStop)
+                                .filter(Trip.rt == route)
+                                .filter(ScheduledStop.stop_id == stop)
+                                .filter(ScheduledStop.arrival_timestamp != None)
+                                .filter(func.date(ScheduledStop.arrival_timestamp) > one_hour_ago)
+                                .statement
+                                ,db.session.bind)
+
+
+            elif period == "today":
                 arrivals_here = pd.read_sql(
                                 db.session.query(
                                      Trip.rt,
