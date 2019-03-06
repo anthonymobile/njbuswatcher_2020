@@ -92,21 +92,55 @@ class RouteReport:
         with SQLAlchemyDBConnection() as db:
 
             todays_date = datetime(datetime.today().year, datetime.today().month, datetime.today().day)
+            # today_date = datetime.date.today()
+            # yesterday = datetime.date.today() - datetime.timedelta(1)
+
             x, trips_on_road_now = self.__get_current_trips()
 
             if self.period == 'today':
                 arrivals_in_completed_trips=pd.read_sql(
-                    db.session.query(ScheduledStop)
+                    db.session.query( ScheduledStop.trip_id,
+                                     ScheduledStop.stop_id,
+                                     ScheduledStop.stop_name,
+                                     ScheduledStop.arrival_timestamp)
                     .filter(ScheduledStop.arrival_timestamp != None)
+                    .filter(func.date(ScheduledStop.arrival_timestamp) == todays_date)
+                    .filter(ScheduledStop.trip_id.notin_(trips_on_road_now))
                     .order_by(ScheduledStop.trip_id.asc())
                     .order_by(ScheduledStop.pkey.asc())
-                    .filter(ScheduledStop.trip_id.notin_(trips_on_road_now))
-                    .filter(func.date(ScheduledStop.arrival_timestamp) == todays_date)
                     .statement,
                     db.session.bind)
 
-            elif self.period != 'today':
-                sys.exit()
+            # elif self.period != 'today':
+            #     sys.exit()
+
+            # if the database didn't have results, return an empty dataframe
+            if len(arrivals_in_completed_trips.index) == 0:
+                arrivals_in_completed_trips = pd.DataFrame(
+                    columns=['trip_id', 'stop_id', 'stop_name', 'arrival_timestamp'],
+                    data=['0000_000_00000000', '0000_000_00000000', 'N/A', datetime.time(0, 1)]
+                    )
+
+            # Otherwise, cleanup the query results
+
+            # split by stop_id and calculate arrival intervals at each stop
+            stop_dfs = [g for i, g in arrivals_in_completed_trips.groupby(arrivals_in_completed_trips['stop_id'].ne(arrivals_in_completed_trips['stop_id'].shift()).cumsum())]
+
+
+            # headways df should be
+            # stop_id, stop_name, arrival_timestamp, delta
+
+            headways_df = pd.DataFrame()
+            headway_insert_df = pd.DataFrame()
+
+            for stop in stop_dfs:  # iterate over every stop
+                for arrival in stop.iterrows():
+                    headway_insert_df = arrival  # take the current row
+                    headway_insert_df['delta'] = (arrival['arrival_timestamp'] - arrival['arrival_timestamp'].shift(1)).fillna(0)
+                    headways_df = headways_df.append(headway_insert_df)  # insert updated arrival into df
+
+                    # todo arrival_timestamp dtype might be lost here -- due to iterrows -- check
+
 
             # for each hour of the day
                 # for each stop in the list
