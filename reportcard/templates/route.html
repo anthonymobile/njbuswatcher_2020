@@ -62,13 +62,11 @@
                 <li class="breadcrumb-item active"><a href = {{url_for('displayHome')}}>home</a></li>
              </ul>
             <ul class="navbar-nav ml-auto">
+                <li class="breadcrumb-item "><a href = {{url_for('genRouteReport',source=routereport.source,route=routereport.route,period='now')}}>now</a></li>
                 <li class="breadcrumb-item "><a href = {{url_for('genRouteReport',source=routereport.source,route=routereport.route,period='today')}}>today</a></li>
+                <li class="breadcrumb-item "><a href = {{url_for('genRouteReport',source=routereport.source,route=routereport.route,period='yesterday')}}>yesterday</a></li>
+                <li class="breadcrumb-item "><a href = {{url_for('genRouteReport',source=routereport.source,route=routereport.route,period='history')}}>history</a></li>
 
-                <li class="breadcrumb-item ">yesterday</li>
-                <li class="breadcrumb-item ">history - coming soon!</li>
-
-		        <!--<li class="breadcrumb-item "><a href = {{url_for('genRouteReport',source=routereport.source,route=routereport.route,period='yesterday')}}>yesterday</a></li>-->
-		        <!--<li class="breadcrumb-item "><a href = {{url_for('genRouteReport',source=routereport.source,route=routereport.route,period='history')}}>history</a></li>-->
 
             </ul>
         </div>
