@@ -3,80 +3,98 @@ v2.0
 **2 mar 2019**
 
 ---
-# ROADMAP TO COMPLETION
+# 23 DAYS TO FINISH
 
-###1 finish core
+#### 
+23 4-hour sprints from Monday April 8 to Tuesday April 30
 
-- **wwwAPI**
-    - RouteReport.get_headway **DEBUGGING**
-        - can i use StopReport.get_arrivals() instead of redoing it?
-            - maybe run a stop report for every stop on the line and then average those numbers?
-        - versus current algo
-            - pull all the arrivals for completed trips (=arrivals_in_completed_trips)
-            - and then sort, group using same algo as StopReport.get_arrivals() to compute intervals
-    - REFACTOR: period='daily' to period='today' everywhere
-    - RouteReport.get_travel_time
-    - RouteReport.get_bunching_badboys
-    - RouteReport.get_grade
+##### route headway test
+    - **wwwAPI.RouteReport.get_headway** add {{headway}} tags to route.html template and start testing
 
-- **route.html**
+##### route bunching write
+    - **wwwAPI.RouteReport.get_bunching_badboys** write code and test
+    
+##### route bunching test
+    - **wwwAPI.RouteReport.get_bunching_badboys** write code and test
+
+##### route grade write and test
+    - **wwwAPI.RouteReport.get_grade** write code and test
+
+##### route page finalize layout
     - row 3
-        - left
-            - hourly table summarizing **Average Headway.** (e.g. time between arrivals)
-            - borrow code from current production jinja template
-        - right
-            - hourly table summarizing **Average Travel Time.**
-            - borrow code from current production jinja template
+        - left = hourly table summarizing **Average Headway.** 
+        - right = hourly table summarizing **Average Travel Time.**
+        - borrow code from current `main` branch
     - row 4
         - buses on 'On the Road Now'
-        - use current code
-          
-- **stop.html** NEW DESIGN 
-    - basically the same as Route view but narrower scope
-    - different set of grade descriptions, e.g. "THIS STATION USUALLY HAS DECENT SERVICE or THIS STATION HAS GOOD SERVICE TODAY" or something like that.
-    - stop-only additional panes (in grade box):
-        - **average travel time to end of route from here** (by hour of day?)
-        - **Average travel speed** - we can calculate this at every observed position with New Localizer.
-      
-#### Index View
-- **index.html**
-    - can you add a ranking somewhere of all the routes?  if you want to use this as an advocacy tool it may be useful to expose a ranking like that.
-    - add the petition link to your footer next to CODE and API
-- **route_config.py**
-    - short and long descriptions for the new lines
+        - keep code in current template
+        
+##### stop page rough layout
 
-#### Tripwatcher Q.C.
-- **tripwatcher.py**
+    - row 1
+        - left = grade card, 4 boxes
+            - **qualitative grade** based on period: "SERVICE IS {good|fair|poor} {period}." --> "SERVICE IS GOOD
+            - **frequency** Same as headway but labelled, presented a little differently.
+            - **travel time** from here to the last stop for {period}
+            - **travel speed** merge with one of the others, or separate box. a little bit of bling. average for last arrival over its most recent n stops?
+            - **bunching** same as route
+        - right = small map
+    - row 2
+        - hourly detail tables
+        - left = **frequency/headway by hour** average for {period} 
+        - right = **arrivals** with bunching highlights for {period}
+        - borrow code from current `main` branch
+        
+##### stop travel time write
+    - **wwwAPI.StopReport.get_travel_time** write code
+##### stop travel time test
+    - **wwwAPI.StopReport.get_travel_time** test 
+
+##### stop travel time write
+    - **wwwAPI.StopReport.get_travel_speed** write code
+
+##### stop travel time test
+    - **wwwAPI.StopReport.get_travel_speed** test 
+
+##### stop grade write
+    - **wwwAPI.StopReport.get_grade** write code
+
+##### stop grade test
+    - **wwwAPI.StopReport.get_grade** test 
+
+##### stop arrivals dash write and test
+    - **wwwAPI.StopReport.get_arrivals** write code and test 
+
+##### stop frequency report write and test
+    - **wwwAPI.StopReport.get_frequency_report** write code and test 
+
+##### finalize home page
+    - add a ranking somewhere of all the routes?  if you want to use this as an advocacy tool it may be useful to expose a ranking like that.
+    - add the petition link to your footer next to CODE and API
+    
+##### route descriptions
+    - **route_config.py**
+        - complete descriptions for all lines
+        - fix frequency for new lines
+             
+##### tripwatcher q.c. and optimization
     - error trapping for disconnected operation (dying now?)
     - `approach assignment`: 3+ position seems to still be having problems...
     - `Interpolate+log missed stops` after scanning each trip and logging any new arrivals, run a function that interpolates arrival times for any stops in between arrivals in the trip card -- theoretically there shouldn't be a lot though if the trip card is correct since we are grabbing positions every 30 seconds.
     - `Boomerang buses (Case E)`: any other indeterminate cases?
-   
-#### Static Content
-- **route_config.py**
-    - complete descriptions for all lines
-    - fix frequency for new lines
-- **/static/images**
-    - add images for 2,6,10, 123, tk
-- **about.html** 
-- **faq.html** 
-- **api.html** 
-    - write content
-- **error_API_down.html** 
+    
+##### fix 404 page
     - replace old template with new base.html template
 
-
-#### Deployment
-- check AWS time zones
-- reduce image size to fit on micro instance?
-- split tripwatcher, and / or map layers API into another instance to keep small+free
-
-
-###099 future rolling releases
-- **period picker**
-    - activate other periods (yesterday, weekly, monthly, history, date range using [bootstrap-datepicker](https://bootstrap-datepicker.readthedocs.io/en/latest/#) [installation instructions](https://stackoverflow.com/questions/29001753/bootstrap-datetimepicker-installation) )
-
-- **static/maps/**
+##### write static content
+    - **about.html** 
+    - **faq.html** 
+    - **api.html** 
+    
+##### upload route images
+    - add images for 2,6,10, 123, tk
+     
+##### maps zoom extent
     - busmap-index.js
         - add zoom to extent of vehicles_json layer
     - busmap-route.js
@@ -85,37 +103,16 @@ v2.0
         - limit stop layer to single stop (w/ stops_json source set to '/api/v1/maps?layer=stops&rt=119&stop_id=30189') 
         - add zoom to extent of stops_json layer
      
-- **stop.html**
-    - period picker toggles -  (rush hour, owl, weekdays)
-    -`arrival histogram visualization`
-    - dot graph showing how many buses arrived at stop during each 30 minute bin, modeled after [Nobel prize D3 viz](https://github.com/Kyrand/dataviz-with-python-and-js/tree/master/nobel_viz_D3_V4) from Python+JS book
-        - implementation: concatenate the 3 nobel scripts (core,main,time)
-        - 30 minute bins
-        - use chart.js, or rough,js
-    - optional: show all buses on all routes arriving, each route different color? (would require add/rewrite lib.StopReport) 
-- **Localizer.py**
-    - `More accurate distance conversion`:  at least verify how far off we are. current method is using a crude assumption (1 degree = 69 miles = 364,320 feet). more accurate method - "If CRS of geodfs are EPSG 4326 (lat/lon) then returned 'dist' will be in degrees. To meters or ft either first convert both gdf to appropriate CRS proj for your location using .to_crs() or convert from degrees [link](https://t.co/FODrAWskNH)".
-- **Databases.py** 
-    - `relationships! use them!` `children_ScheduledStops` and `parent_Trip` are incredibly use attributes any record i pull from the db will have now. use them to extend the query sets we get back!!!!
-    - `Exception handler`: smarter check in get_session on table creation --> try if table exists == False:
-- **GTFS Integration**
-    - This is a big deal but a major headache. Working with GTFS in [Jupyter](http://simplistic.me/playing-with-gtfs.html).
-    - What's needed:
-        - module to create lookup table GTFS:Clever_Devices - timestamp_hr_min+run_id --> gtfs: trip_id+start_time so we can match routelog.run to gtfs.trip_id
-        - GTFS integration:  write a routine to match gtfs trip_id, start_time :: timestamp,run for first observation of a v in routelog series (e.g. map run to trip_id) -- either a machine learning model or something simpler 
-- **Trip Playback**
-    - Generate a list of runs, linked to 'playback' pages via an API call that spits out geojson for all points in routelog for a single run, on a specific date, and display on a page using mapbox live update [tutorial](https://www.mapbox.com/mapbox-gl-js/example/live-update-feature/).
-- **map improvements**
-    - show bus symbol as circle with route # in center (especially on closer zooms)
-    - Show Congestion
-        - change color of bunching buses on the map? 
-        - indicate congested route segments 
-        - indicated bunching at stops - a red dot and the more bunching happens (or the worse it is) the larger the dot
- - **add a higher level of geography**
-    - county?
-    - for statewide integration
-- **test re-skinning for another city: Newark**
-    - what needs to be changed (just route-config.py?)
+##### review and test
+    - check everything
+    - log and fix bugs
+    
+##### deployment
+    - check AWS time zones
+    - reduce image size to fit on micro instance?
+    - split tripwatcher, and / or map layers API into another instance to keep small+free
+
+
  
 ---
 # BUSWATCHER
@@ -276,3 +273,43 @@ Examples of transit agency and transit advocate bus metrics:
 - [MBTA Back on Track](http://www.mbtabackontrack.com/performance/index.html#/detail/reliability/2018-12-01/Bus/Key%20Bus/1/)
 - [BusTurnaround:Scorecards - Transit Center](http://busturnaround.nyc/#bus-report-cards)
 - [NYC Bus Profile (BusStat.nyc)](http://www.busstat.nyc/methodology)
+
+
+
+###DEVELOPMENT TO DO LIST
+- **date range picker**
+    - date range using [bootstrap-datepicker](https://bootstrap-datepicker.readthedocs.io/en/latest/#) [installation instructions](https://stackoverflow.com/questions/29001753/bootstrap-datetimepicker-installation) )
+
+
+- **stop.html**
+    - period picker toggles -  (rush hour, owl, weekdays)
+    -`arrival histogram visualization`
+    - dot graph showing how many buses arrived at stop during each 30 minute bin, modeled after [Nobel prize D3 viz](https://github.com/Kyrand/dataviz-with-python-and-js/tree/master/nobel_viz_D3_V4) from Python+JS book
+        - implementation: concatenate the 3 nobel scripts (core,main,time)
+        - 30 minute bins
+        - use chart.js, or rough,js
+    - optional: show all buses on all routes arriving, each route different color? (would require add/rewrite lib.StopReport) 
+- **Localizer.py**
+    - `More accurate distance conversion`:  at least verify how far off we are. current method is using a crude assumption (1 degree = 69 miles = 364,320 feet). more accurate method - "If CRS of geodfs are EPSG 4326 (lat/lon) then returned 'dist' will be in degrees. To meters or ft either first convert both gdf to appropriate CRS proj for your location using .to_crs() or convert from degrees [link](https://t.co/FODrAWskNH)".
+- **Databases.py** 
+    - `relationships! use them!` `children_ScheduledStops` and `parent_Trip` are incredibly use attributes any record i pull from the db will have now. use them to extend the query sets we get back!!!!
+    - `Exception handler`: smarter check in get_session on table creation --> try if table exists == False:
+- **GTFS Integration**
+    - This is a big deal but a major headache. Working with GTFS in [Jupyter](http://simplistic.me/playing-with-gtfs.html).
+    - What's needed:
+        - module to create lookup table GTFS:Clever_Devices - timestamp_hr_min+run_id --> gtfs: trip_id+start_time so we can match routelog.run to gtfs.trip_id
+        - GTFS integration:  write a routine to match gtfs trip_id, start_time :: timestamp,run for first observation of a v in routelog series (e.g. map run to trip_id) -- either a machine learning model or something simpler 
+- **Trip Playback**
+    - Generate a list of runs, linked to 'playback' pages via an API call that spits out geojson for all points in routelog for a single run, on a specific date, and display on a page using mapbox live update [tutorial](https://www.mapbox.com/mapbox-gl-js/example/live-update-feature/).
+- **map improvements**
+    - show bus symbol as circle with route # in center (especially on closer zooms)
+    - Show Congestion
+        - change color of bunching buses on the map? 
+        - indicate congested route segments 
+        - indicated bunching at stops - a red dot and the more bunching happens (or the worse it is) the larger the dot
+ - **add a higher level of geography**
+    - county?
+    - for statewide integration
+- **test re-skinning for another city: Newark**
+    - what needs to be changed (just route-config.py?)
+    
