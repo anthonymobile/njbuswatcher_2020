@@ -1,7 +1,6 @@
-import lib.ReportCard as ReportCard
+import lib.wwwAPI as wwwAPI
 
-from route_config import reportcard_routes,grade_descriptions
-
+from route_config import reportcard_routes, grade_descriptions
 
 # hardcode transit system
 source = 'nj'
@@ -13,15 +12,13 @@ period = 'weekly'
 for rt_no in reportcard_routes:
 
     # create base RouteReport instance
-    routereport=ReportCard.RouteReport(source,rt_no['route'],reportcard_routes,grade_descriptions)
+    routereport=wwwAPI.RouteReport(source,rt_no['route'])
 
     # generate individual reports to a pickle file
-
-    # every report in lib.ReportCard should have an easy_cache decorator or else we are wasting time
 
     # generate bunching leaderboard
     routereport.generate_bunching_leaderboard(route=rt_no['route'],period=period)
 
     # generate other reports
-    # routereport.get_bunching_leaderboard()
+    # e.g. routereport.get_bunching_leaderboard()
 

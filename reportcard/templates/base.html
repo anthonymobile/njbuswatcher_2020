@@ -22,61 +22,25 @@
    ``super()`` is used: #}
 {% block head %}
 
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="{{ url_for('static', filename='mdb/js/jquery-3.3.1.min.js')}}"></script>
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-109853808-2"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-  gtag('config', 'UA-109853808-2');
+    <!-- FOR MAPBOX GL ROUTE MAP -->
+    <!-- Mapbox GL JS js and css -->
+     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.37.0/mapbox-gl.js'></script>
+     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.37.0/mapbox-gl.css' rel='stylesheet' />
 
-</script>
+    <link rel="stylesheet" type="text/css" href="/static/maps/mapbox-gl-style.css">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
-
-
-<!-- FOR MAPBOX GL ROUTE MAP -->
-<!-- Mapbox GL JS js and css -->
- <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.37.0/mapbox-gl.js'></script>
- <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.37.0/mapbox-gl.css' rel='stylesheet' />
-
-<link rel="stylesheet" type="text/css" href="/static/maps/mapbox-gl-style.css">
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 
 
 {{super()}}
-
-{#- Docs: http://pythonhosted.org/Flask-Bootstrap/macros.html#fixes
-   The sample application already contains the required static files. #}
-
 {%- endblock %}
-
-
-{% block navbar %}
-  <div class="py-2 bg-white">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <ul class="breadcrumb bg-white" style="margin-bottom:0px;margin-top:0px">
-            <li class="breadcrumb-item">
-              <a href="/">Home</a>
-            </li>
-            <li class="breadcrumb-item active">{{routereport.route}}</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-{% endblock %}
 
 
 
@@ -86,18 +50,91 @@
 {% block styles -%}
 
 
-<style>
-    .mapboxgl-popup {
-        max-width: 200px;
-        font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-    }
-</style>
-
-
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-
-    {{super()}}  {# do not forget to call super or Bootstrap's own stylesheets
+{{super()}}
+{# do not forget to call super or Bootstrap's own stylesheets
                     will disappear! #}
+
+
+{% endblock %}
+
+{% block content %}
+
+
+
+    {% block sticky_nav %}
+    {% endblock %}
+
+
+    {% block content_main %}
+    {% endblock %}
+
+
+    <!--Footer-->
+    <footer class="page-footer text-center font-small mdb-color darken-2 mt-4 wow fadeIn">
+
+        <!--Call to action-->
+        <div class="pt-4">
+            <a class="btn btn-outline-white" href="/api" target="_self" role="button">API
+                <i class="fas fa-download ml-2"></i>
+            </a>
+
+            <a class="btn btn-outline-white" href="https://github.com/code4jc/buswatcher" target="_self" role="button">Code
+                <i class="fab fa-github mr-2"></i>
+            </a>
+        </div>
+
+        <!--/.Call to action-->
+
+        <hr class="my-4">
+
+
+        <!-- Social icons -->
+        <!--
+        <div class="pb-4">
+            <a href="https://www.facebook.com/mdbootstrap" target="_self">
+                <i class="fab fa-facebook-f mr-3"></i>
+            </a>
+
+            <a href="https://twitter.com/MDBootstrap" target="_blank">
+                <i class="fab fa-twitter mr-3"></i>
+            </a>
+
+            <a href="https://www.youtube.com/watch?v=7MUISDJ5ZZ4" target="_blank">
+                <i class="fab fa-youtube mr-3"></i>
+            </a>
+
+            <a href="https://plus.google.com/u/0/b/107863090883699620484" target="_blank">
+                <i class="fab fa-google-plus-g mr-3"></i>
+            </a>
+
+            <a href="https://dribbble.com/mdbootstrap" target="_blank">
+                <i class="fab fa-dribbble mr-3"></i>
+            </a>
+
+            <a href="https://pinterest.com/mdbootstrap" target="_blank">
+                <i class="fab fa-pinterest mr-3"></i>
+            </a>
+
+            <a href="https://github.com/mdbootstrap/bootstrap-material-design" target="_blank">
+                <i class="fab fa-github mr-3"></i>
+            </a>
+
+            <a href="http://codepen.io/mdbootstrap/" target="_blank">
+                <i class="fab fa-codepen mr-3"></i>
+            </a>
+        </div>
+        -->
+        <!-- Social icons -->
+
+        <!--Copyright-->
+        <div class="footer-copyright py-3">
+            © 2018, 2019 Site concept and design by <a href="http://www.bitsandatoms.net" target="_blank">Bits and Atoms</a>. All data, both live and <a href="/static/images/jersey-city-bus-central-avenue-1948.jpg" target="_blank">historical</a>, is provided for informational purposes only.</div>
+
+        </div>
+        <!--/.Copyright-->
+
+    </footer>
+    <!--/.Footer-->
 
 
 {% endblock %}

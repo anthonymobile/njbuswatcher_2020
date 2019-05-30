@@ -177,13 +177,12 @@ def parse_xml_getBusesForRoute(data):
 # http://mybusnow.njtransit.com/bustime/map/getRoutePoints.jsp?route=119
 def parse_xml_getRoutePoints(data):
 
+    coordinates_bundle=dict()
     routes = list()
-
     route = Route()
 
     e = xml.etree.ElementTree.fromstring(data)
     for child in e.getchildren():
-
         if len(child.getchildren()) == 0:
             if child.tag == 'id':
                 route.identity = child.text
@@ -191,9 +190,7 @@ def parse_xml_getRoutePoints(data):
                 route.add_kv(child.tag, child.text)
 
         if child.tag == 'pas':
-
             for pa in child.findall('pa'):
-
                 path = Route.Path()
 
                 for path_child in pa.getchildren():
@@ -230,7 +227,6 @@ def parse_xml_getRoutePoints(data):
                         path.points.append(p) # <------ dont append to same list each time
 
                 route.paths.append(path)
-
                 routes.append(route)
             break
 
@@ -251,10 +247,15 @@ def parse_xml_getRoutePoints(data):
     stops_plot = geojson.MultiPoint(stops_coordinates)
     stops_geojson = geojson.dumps(stops_plot, sort_keys=True)
 
-    return routes, waypoint_coordinates, stops_coordinates, waypoints_geojson,stops_geojson
+    coordinates_bundle['waypoints_coordinates'] = waypoint_coordinates
+    coordinates_bundle['stops_coordinates'] = stops_coordinates
+    coordinates_bundle['waypoints_geojson'] = waypoints_geojson
+    coordinates_bundle['stops_geojson'] = stops_geojson
+
+    return routes, coordinates_bundle
 
 def get_xml_data(source, function, **kwargs):
-    import urllib.request, urllib.error, urllib.parse
+    import urllib.request
 
     try:
         data = urllib.request.urlopen(_gen_command(source, function, **kwargs)).read()
