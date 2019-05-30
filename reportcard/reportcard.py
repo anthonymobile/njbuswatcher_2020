@@ -1,28 +1,48 @@
-# bus reportcard v1.0
-# september 2018 - anthony townsend anthony@bitsandatoms.net
+# bus reportcard v2.0
+# february 2019 - by anthony@bitsandatoms.net
+
+################################################
+# VIP INSTANCE CONFIG
+################################################
+
+class Dummy():
+    def __init__(self):
+        self.routename = 'Jersey City'
 
 ################################################
 # IMPORTS
 ################################################
+import datetime, logging, sys
+import geojson, json
 
 from flask import Flask, render_template, request
 from flask_bootstrap import Bootstrap
 from flask import jsonify, make_response, send_from_directory
 from flask_cors import CORS, cross_origin
 
-import logging
-import lib.ReportCard as ReportCard
 import lib.BusAPI as BusAPI
-import lib.WebAPI as WebAPI
+import lib.API as API
+import lib.wwwAPI as wwwAPI
 
+################################################
+# ROUTE + APP CONFIG
+################################################
+from route_config import reportcard_routes, grade_descriptions
 
 ################################################
 # APP
 ################################################
-
 app = Flask(__name__, static_url_path='/static')
 CORS(app, support_credentials=True)
+
+################################################
+# BOOTSTRAP
+################################################
+app.config.update(
+    BOOTSTRAP_CDN_FORCE_SSL=True
+)
 Bootstrap(app)
+
 
 ################################################
 # SETUP CACHE
@@ -34,112 +54,91 @@ cache = Cache(app,config={'CACHE_TYPE': 'simple'})
 # LOGGING
 # per https://medium.com/@trstringer/logging-flask-and-gunicorn-the-manageable-way-2e6f0b8beb2f
 ################################################
-
 if __name__ != "__main__":
     gunicorn_logger = logging.getLogger("gunicorn.error")
     app.logger.handlers = gunicorn_logger.handlers
     app.logger.setLevel(gunicorn_logger.level)
 
-
-################################################
-# APPLICATION DATA IMPORT
-################################################
-
-from route_config import reportcard_routes,grade_descriptions
-
-
 ################################################
 # STATIC ASSETS
 ################################################
-
 from flask_assets import Bundle, Environment
-
 bundles = {
-
     'route_css': Bundle(
         'css/theme.css',
         'css/theme.scss',
         output='gen/route.css'),
-
 }
-
 assets = Environment(app)
 assets.register(bundles)
-
 
 ################################################
 # URLS
 ################################################
 
-#1 home page
+#-------------------------------------------------------------Index
 @app.route('/')
 def displayHome():
-    # routereport = routereport # setup a dummy for the navbar
-    class Dummy():
-        def __init__(self):
-            self.routename = 'NJTransit'
-    routereport = Dummy()
-
-    citywide_waypoints_geojson, citywide_stops_geojson = WebAPI.render_citywide_map_geojson(reportcard_routes)
-
-    return render_template('index.html', citywide_waypoints_geojson=citywide_waypoints_geojson, citywide_stops_geojson=citywide_stops_geojson,routereport=routereport,reportcard_routes=reportcard_routes)
-
-#2 route report
-@app.route('/<source>/<route>')
-@cache.cached(timeout=3600) # cache for 1 hour
-def genRouteReport(source, route):
-    routereport = ReportCard.RouteReport(source, route, reportcard_routes, grade_descriptions)
-    period='weekly'
-    bunchingreport, grade_letter, grade_numeric, grade_description, time_created = routereport.load_bunching_leaderboard( route)
-    return render_template('route.html', routereport=routereport, bunchingreport=bunchingreport, period=period, grade_letter=grade_letter, grade_numeric=grade_numeric, grade_description=grade_description, time_created=time_created)
+    routereport = Dummy() # setup a dummy routereport for the navbar
+    return render_template('index.html', reportcard_routes=reportcard_routes, routereport=routereport)
 
 
-#3 stop report
+#-------------------------------------------------------------Route
+@app.route('/<source>/<route>/<period>')
+def genRouteReport(source, route, period):
+    route_report = wwwAPI.RouteReport(source, route, period)
+
+    return render_template('route.html', source=source, route=route, period=period, routereport=route_report)
+
+#------------------------------------------------------------Stop
+# /<source>/<route>/stop/<stop>/<period>
 @app.route('/<source>/<route>/stop/<stop>/<period>')
-@cache.cached(timeout=60) # cache for 1 minute
+#@cache.cached(timeout=60) # cache for 1 minute
 def genStopReport(source, route, stop, period):
-    stopreport = ReportCard.StopReport(route, stop, period)
-    hourly_frequency = stopreport.get_hourly_frequency(route, stop, period)
-    routereport = ReportCard.RouteReport(source, route, reportcard_routes, grade_descriptions)
+    stop_report = wwwAPI.StopReport(source, route, stop, period)
+    route_report = wwwAPI.RouteReport(source, route, period)
     predictions = BusAPI.parse_xml_getStopPredictions(BusAPI.get_xml_data('nj', 'stop_predictions', stop=stop, route='all'))
 
-    return render_template('stop.html', stopreport=stopreport, hourly_frequency=hourly_frequency, routereport=routereport, predictions=predictions,period=period)
+    return render_template('stop.html', source=source, stop=stop, period=period, stopreport=stop_report, reportcard_routes=reportcard_routes,predictions=predictions, routereport=route_report)
+
+#-------------------------------------------------------------FAQ
+@app.route('/faq')
+def displayFAQ():
+    routereport = Dummy() #  setup a dummy routereport for the navbar
+    return render_template('faq.html', reportcard_routes=reportcard_routes, routereport=routereport)
+
+#-------------------------------------------------------------API docs
+@app.route('/api')
+def displayAPI():
+    routereport = Dummy() #  setup a dummy routereport for the navbar
+    return render_template('api.html', reportcard_routes=reportcard_routes, routereport=routereport)
 
 
 ################################################
 # API
 ################################################
 
-# POSITIONS ARGS-BASED
-# /api/v1/positions?rt=87&period=now -- real-time from NJT API
-# /api/v1/positions?rt=87&period={daily,yesterday,weekly,history} -- historical from routelog database
-@app.route('/api/v1/positions')
+# map layer geojson generator
+#
+# /api/v1/maps?
+#
+#   layer=waypoints&rt=87               waypoints for single route
+#   layer=waypoints&rt=all              waypoints for ALL routes
+#   layer=stops&rt=87                   stops for single route
+#   layer=stops&rt=87&stop_id=30189     stop for single stop
+#   layer=vehicles&rt=87               vehicles for single stop
+#   layer=vehicles&rt=all              vehicles forALL routes
+#
+
+@app.route('/api/v1/maps')
 @cross_origin()
-def api_positions_route():
+def api_map_layer():
     args=request.args
-    return jsonify(WebAPI.get_positions_byargs(args))
 
-# ARRIVALS ARGS-BASED
-# /api/v1/arrivals?rt=87&period={daily,yesterday,weekly,history} -- historical from stop_approaches_log database
-@app.route('/api/v1/arrivals')
-@cross_origin()
-def api_arrivals_route():
-    args=request.args
-    arrivals_log_df = WebAPI.get_arrivals_byargs(args)
-    arrivals_log_json = make_response(arrivals_log_df.to_json(orient="records"))
-    return arrivals_log_json
-
-
-# HOURLY FREQUENCY HISTOGRAM - BY ROUTE, STOP, PERIOD
-# /api/v1/frequency?rt=87&stop_id=87&period={daily,yesterday,weekly,history}
-@app.route('/api/v1/frequency')
-@cross_origin()
-def api_frequency_stop():
-    args=request.args
-    frequency_histogram_df = WebAPI.get_frequency_byargs(args)
-    frequency_histogram_json = make_response(frequency_histogram_df.to_json(orient="columns"))
-    return frequency_histogram_json
-
+    if args['layer'] == 'vehicles':
+        return jsonify(API.get_positions_byargs(args, reportcard_routes))
+    else:
+        return jsonify(API.get_map_layers(args, reportcard_routes))
 
 
 
@@ -148,7 +147,8 @@ def api_frequency_stop():
 ################################################
 @app.errorhandler(404)
 def page_not_found(e):
-    return render_template('error_API_down.html'), 404
+    routereport = Dummy() # setup a dummy routereport for the navbar
+    return render_template('error_API_down.html', route_report=routereport), 404
 
 
 ################################################
@@ -215,6 +215,10 @@ def pretty_timedelta(td):
     else:
         pretty_time = ("{a} mins").format(a=minutes)
     return pretty_time
+
+@app.template_filter('split_')
+def splitpart (value, index, char = '_'):
+    return value.split(char)[index]
 
 ################################################
 # MAIN

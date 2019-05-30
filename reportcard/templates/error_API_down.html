@@ -1,87 +1,87 @@
-{%- extends "bootstrap/base.html" %}
+{%- extends "base.html" %}
 
+
+{# Loads some of the macros included with Flask-Bootstrap. We are using the
+   utils module here to automatically render Flask's flashed messages in a
+   bootstrap friendly manner #}
+{% import "bootstrap/utils.html" as utils %}
+
+
+{# Inside the ``content`` is where you should place most of your own stuff.
+   This will keep scripts at the page end and a navbar you add on later
+   intact. #}
 {% block head %}
 
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        #map { width:100%; }
+    </style>
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-109853808-2"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'UA-109853808-2');
-</script>
 
-{{super()}}
-
-{#- Docs: http://pythonhosted.org/Flask-Bootstrap/macros.html#fixes
-   The sample application already contains the required static files. #}
-
-{%- endblock %}
-
-{% block navbar %}
-  <div class="py-2 bg-white">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <ul class="breadcrumb bg-white" style="margin-bottom:0px;margin-top:0px">
-            <li class="breadcrumb-item">
-              <a href="/">Home</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
+{{ super() }}
 {% endblock %}
 
+{% block scripts %}
 
-
-{# Adding our own CSS files is also done here. Check the documentation at
-   http://pythonhosted.org/Flask-Bootstrap/basic-usage.html#available-blocks
-   for an overview. #}
-{% block styles -%}
-
-<link rel="stylesheet" type="text/css"
-          href="{{url_for('static', filename='css/theme.css')}}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
-    {{super()}}  {# do not forget to call super or Bootstrap's own stylesheets
-                    will disappear! #}
-
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="{{ url_for('static', filename='mdb/css/bootstrap.min.css')}}" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="{{ url_for('static', filename='mdb/css/mdb.min.css')}}" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="{{ url_for('static', filename='mdb/css/style.min.css')}}" rel="stylesheet">
 
 {% endblock %}
+
 
 {% block content %}
 
 
+    <!--Main layout-->
+    <main class="mt-2 pt-5">
+        <div class="container">
 
-  <div class="py-2 bg-dark">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <h1 class="">API Error</h1>
+
+            <!--Section: Jumbotron-->
+            <section class="card wow fadeIn" style="background-image: url({{ url_for('static', filename='images/404chair.jpg')}});">
+
+
+
+
+                <!-- Content -->
+                <div class="card-body text-white text-center py-5 px-5 my-5">
+
+                    <h1 class="mb-4">
+                        <strong>Oops!</strong>
+                    </h1>
+                    <p>
+                        <strong>We're having trouble talking to NJTransit's servers right now.</strong>
+                    </p>
+
+                    <p>
+                        <strong>Please try again later.</strong>
+                    </p>
+
+
+
+                </div>
+                <!-- Content -->
+            </section>
+            <!--Section: Jumbotron-->
+
+
+            <hr class="my-5">
+
+
+
         </div>
-      </div>
-    </div>
-  </div>
 
 
-  <div class="py-3">
-    <div class="container">
-      <div class="row">
-
-         <div class="col-md-12">
-             <p class="lead">Something went really wrong -- looks like our server can't connect to the NJTransit API.</p>
 
 
-        </div>
-
-      </div>
-    </div>
-  </div>
+    </main>
+    <!--Main layout-->
 
 
 {% endblock %}

@@ -1,0 +1,62 @@
+{%- extends "bootstrap/base.html" %}
+
+
+{%  block head %}
+
+{{ super() }}
+<META HTTP-EQUIV="refresh" CONTENT="30">
+
+{% endblock %}
+
+{%  block body %}
+
+    <div class="container">
+        <div class="row">
+            <h2>TripWatcher/Localizer v2.0</h2>
+        </div>
+        <div class="row">
+            <p>Shows trips with all stops for all buses on the road now in New Jersey on Route {{ route }}. n.b. tripwatcher.py must be running separately.</p>
+        </div>
+    <div class="row">
+            <h1>Route {{ route }}</h1>
+    </div>
+
+
+    <div class="row">
+
+
+             <div id="buses2" class="row mt-2">
+
+                {% for trip,stoplist in tripdash.items() %}
+                    <div class="col-sm-12">
+
+                        <p class="lead">trip {{ trip }} </p>
+
+                            {% for stop in stoplist %}
+                                <button type="button" class="btn btn-light">
+                                    {{stop.stop_id}}
+                                    {% if stop.arrival_timestamp is not none %}
+                                        <span class="badge badge-primary">{{stop.arrival_timestamp|strftime_today}}</span>
+                                    {% else %}
+                                        ---
+                                    {% endif %}
+                                </button>
+                            {% endfor %}
+
+                    </div>
+                {% endfor %}
+
+
+           </div>
+
+
+
+
+        </div>
+
+
+     </div>
+    </div>
+
+
+{% endblock %}

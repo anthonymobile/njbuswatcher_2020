@@ -1,6 +1,5 @@
-{# This simple template derives from ``base.html``. See ``base.html`` for
-   more information about template inheritance. #}
 {%- extends "base.html" %}
+
 
 {# Loads some of the macros included with Flask-Bootstrap. We are using the
    utils module here to automatically render Flask's flashed messages in a
@@ -11,106 +10,143 @@
 {# Inside the ``content`` is where you should place most of your own stuff.
    This will keep scripts at the page end and a navbar you add on later
    intact. #}
-
-
 {% block head %}
-{{ super() }}
-
-    <link href="static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
         #map { width:100%; }
     </style>
 
-{% endblock %}
 
+
+{{ super() }}
+{% endblock %}
 
 {% block scripts %}
 
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="{{ url_for('static', filename='mdb/css/bootstrap.min.css')}}" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="{{ url_for('static', filename='mdb/css/mdb.min.css')}}" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="{{ url_for('static', filename='mdb/css/style.min.css')}}" rel="stylesheet">
 
- <script type="text/javascript">
 
-    var passed_citywide_waypoints_geojson = {{ citywide_waypoints_geojson|safe }}
-    var passed_citywide_stops_geojson = {{ citywide_stops_geojson|safe }}
-    var passed_reportcard_routes = {{ reportcard_routes|safe }}
-</script>
+    <script type="text/javascript">
+        var passed_reportcard_routes = {{ reportcard_routes|safe }}
+    </script>
+    <script type="text/javascript" src="{{ url_for('static', filename='maps/busmap-index.js')}}"></script>
+    <script src='https://api.mapbox.com/mapbox.js/plugins/turf/v2.0.2/turf.min.js'></script>
+{% endblock %}
 
- <script type="text/javascript" src="{{ url_for('static', filename='maps/busmap-index.js')}}"></script>
 
+{% block content_main %}
+
+
+    <!--Main layout-->
+    <main class="mt-2 pt-5">
+        <div class="container">
+
+            <!--Section: Jumbotron-->
+            <section class="card wow fadeIn" style="background-image: url(https://mdbootstrap.com/img/Photos/Others/gradient1.jpg);">
+
+                <!-- Content -->
+                <div class="card-body text-white text-center py-5 px-5 my-5">
+
+                    <h1 class="mb-4">
+                        <strong>How are Jersey City's buses doing today?</strong>
+                    </h1>
+                    <p>
+                        <strong>Residents and businesses depend on them every day.</strong>
+                    </p>
+                    <p class="mb-4">
+                        <strong>But its hard to evaluate the quality of bus service. That's why we built this site to provide a one-stop shop for bus performance information. Here you can see data on past performance, view maps of current service, and sign a petition to support our campaign for better bus service from NJTransit.</strong>
+                    </p>
+                    <a target="_self" href="#reportcards" class="btn btn-outline-white btn-lg">Get route reportcards
+                        <i class="fas fa-graduation-cap ml-2"></i>
+                    </a>
+                    <!--<a target="_self" href="#map" class="btn btn-outline-white btn-lg">View live map
+                        <i class="fas fa-map ml-2"></i>
+                    </a>-->
+                    <a target="_self" href="https://goo.gl/forms/VF5S1Oclk9QTdZha2" class="btn btn-outline-white btn-lg">Sign the petition
+                        <i class="fas fa-pencil-alt ml-2"></i>
+                    </a>
+
+                </div>
+                <!-- Content -->
+            </section>
+            <!--Section: Jumbotron-->
+
+            <!--Section: Map-->
+            <section class=""card">
+                <div id="map" class="container">
+                </div>
+            </section>
+
+
+            <hr class="my-5">
+
+            <!--Section: Cards-->
+            <section id="reportcards" class="text-center">
+                <h1 class="mb-4">
+                <strong>Routes</strong>
+                    </h1>
+
+                <!--Grid row-->
+                <div class="row mb-4 wow fadeIn">
+
+                    {% for route in reportcard_routes %}
+                    <!--Grid column-->
+                    <div class="col-lg-4 col-md-12 mb-4">
+
+
+                        <!--Card-->
+                        <div class="card card-cascade narrower">
+
+                            <!--Card image-->
+
+                            <div class="view view-cascade gradient-card-header purple-gradient rounded-top">
+                                <div class="embed-responsive">
+                                    <img class="img-fluid rounded-top" src="{{ url_for('static', filename='images/route'+route.route+'.jpg')}}"></img>
+
+                                </div>
+                            </div>
+
+
+                            <!--Card content-->
+                            <div class="card-body card-body-cascade">
+                                <!--Title-->
+                                <h4 class="card-header-title text-left"><a href = {{ url_for('genRouteReport' ,source='nj',route=route.route, period='now') }}>{{route.route}}.</a>
+                                <!--Text--> {{route.description_short}}</h4>
+
+                            </div>
+
+                        </div>
+                        <!--/.Card-->
+
+
+                    </div>
+                    <!--Grid column-->
+                    {% endfor %}
+
+
+                </div>
+                <!--Grid row-->
+
+
+            </section>
+            <!--Section: Cards-->
+
+        </div>
+
+
+
+
+    </main>
+    <!--Main layout-->
 
 
 {% endblock %}
 
-{% block content %}
 
-
-    <!-- Page Content -->
-
-    <div class="container">
-
-
-     <div class="row">
-    <div class="col-sm-3 align-self-center">
-        <img class="align-self-start mr-5" src="/static/images/banner-xsm.png" alt="87 Bus in Snow">
-    </div>
-    <div class="col-sm-9">
-        <h1 class="mt-0">Buses are the backbone of Jersey City's neighborhoods.</h1>
-    <h4 class="mt-0">Residents and businesses in The Heights depend on them every day.</h4>
-    <p class="lead text-left">But its hard to evaluate the quality of bus service. That's why we built this site to provide a one-stop shop for bus performance information. Here you can see data on past performance, view maps of current service, and sign a petition to support our campaign for better bus service from NJTransit.</p>
-            <a target="_self" href="#reportcards" class="btn btn-indigo btn-lg">Browse the report cards<i class="fa fa-graduation-cap ml-2"></i>
-              <a target="_self" href="#map" class="btn btn-indigo btn-lg">View the map<i class="fa fa-map ml-2"></i></a>
-                <a target="_self" href="https://goo.gl/forms/VF5S1Oclk9QTdZha2" class="btn btn-indigo btn-lg">Sign the petition<i class="fa fa-pencil-alt ml-2"></i></a>
-          </a>
-    </div>
-    </div>
-
-
-    <!-- route grid -->
-
-    <div id="reportcards" class="row mt-5">
-        {% for route in reportcard_routes %}
-            <div class="col-sm-3">
-                <a href = {{ url_for('genRouteReport' ,source='nj',route=route.route) }}>
-                    <h1 class="display-3 text-center">{{route.route}}</h1>
-                </a>
-               <p class="lead text-left">{{route.description_short}}</p>
-            </div>
-        {% endfor %}
-
-   </div>
-
-
-
-    <!-- Page Content 3-->
-     <div class="row my-4">
-            <div id="map" class=".container-fluid">
-            </div>
-         <p >Map displays routes currently in service with live vehicle locations (positions may be 1-2 minutes behind ground truth).</p>
-      </div>
-
-
-        <!-- Page Content 4-->
-     <div class="row">
-
-            <div class="footer-copyright py-3 text-left">
-      © 2018 Site concept and design by
-      <a href="http://www.bitsandatoms.net" target="_blank"> Bits and Atoms</a> for Code4JC (<a href="https://github.com/code4jc/buswatcher" target="_blank">GitHub</a>). All data, both live and <a href="/static/images/jersey-city-bus-central-avenue-1948.jpg" target="_blank">historical</a>, is provided for informational purposes only.</div>
-
-        </div>
-      </div>
-
-
-
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="static/vendor/jquery/jquery.min.js"></script>
-    <script src="static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-
-
-  <!-- MDB core JavaScript -->
-  <script type="text/javascript" src="static/mdb/js/mdb.min.js"></script>
-  <!-- Initializations -->
-
-
-{%- endblock %}
