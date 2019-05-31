@@ -1,6 +1,7 @@
-# this is where the routes are configured for the homepage, and the dashboard
-# 5 and only 5, 6th is TBD
+# NJBuswatcher.com
+# config
 
+# all routes to be tracked, and their sitewide metadata + descriptions
 
 reportcard_routes=[
 
@@ -142,6 +143,34 @@ reportcard_routes=[
         'description_long': 'The 125 is a primarily rush-hour oriented service providing local scheduled service to and from New York City\'s Port Authority.'
     }
     ]
+
+
+# city collections
+# each will create a minisite at https://www.njbuswatcher.com/collection_name
+
+city_collections = [
+    {
+        'collection_url': 'jerseycity',
+        'city_name': 'Jersey City',
+        'prettyname': 'Chilltown',
+        'routelist': ['2','6','10','80','81','82','83','84','85','86','87','88','89','119','123','125'],
+        'citygov_url': 'https://jerseycitynj.gov/community/transportation',
+        'description_short': 'A short city description for titles and taglines.',
+        'description_long': 'A longer city description '
+    },
+        {
+        'collection_url': 'hoboken',
+        'city_name': 'Hoboken',
+        'prettyname': 'The Mile Square City',
+        'routelist': ['22','84','85','87','126'],
+        'citygov_url': 'https://jerseycitynj.gov/community/transportation',
+        'description_short': 'A short city description for titles and taglines.',
+        'description_long': 'A longer city description '
+    }
+    ]
+
+
+
 
 # {'grade': 'A',
 # 'bounds': (0, 2.5),

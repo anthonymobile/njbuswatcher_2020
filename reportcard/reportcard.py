@@ -76,19 +76,42 @@ assets.register(bundles)
 # URLS
 ################################################
 
-#-------------------------------------------------------------Index
+#-------------------------------------------------------------Statewide Index
 @app.route('/')
-def displayHome():
+def displayIndex():
+
+    city_collections=wwwAPI.load_collection_metadata() # get list of collections
     routereport = Dummy() # setup a dummy routereport for the navbar
-    return render_template('index.html', reportcard_routes=reportcard_routes, routereport=routereport)
+    return render_template('index.html', city_collections=city_collections, reportcard_routes=reportcard_routes, routereport=routereport)
+
+
+#-------------------------------------------------------------City Index
+@app.route('/<collection_url>')
+def displayCollection(collection_url):
+
+
+    # get list of routes from route_config.city_collections
+    # set reportcard_routes to that
+
+    collection_metadata=wwwAPI.parse_collection_metadata(collection_url)
+
+    routereport = Dummy()  # setup a dummy routereport for the navbar
+    return render_template('collection.html',collection_metadata=collection_metadata, reportcard_routes=reportcard_routes, routereport=routereport)
 
 
 #-------------------------------------------------------------Route
-@app.route('/<source>/<route>/<period>')
-def genRouteReport(source, route, period):
+@app.route('/<route>/<period>')
+def genRouteReportFlat(route, period):
+    source='nj'
     route_report = wwwAPI.RouteReport(source, route, period)
+    collection_url='not_collection_url'
+    return render_template('route.html', source=source, collection_url=collection_url, route=route, period=period, routereport=route_report)
 
-    return render_template('route.html', source=source, route=route, period=period, routereport=route_report)
+@app.route('/<collection_url>/<route>/<period>')
+def genRouteReportCollection(collection_url, route, period):
+    source='nj'
+    route_report = wwwAPI.RouteReport(source, route, period)
+    return render_template('route.html', source=source, collection_url=collection_url, route=route, period=period, routereport=route_report)
 
 #------------------------------------------------------------Stop
 # /<source>/<route>/stop/<stop>/<period>
