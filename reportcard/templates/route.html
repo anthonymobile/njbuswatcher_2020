@@ -20,7 +20,7 @@
 
 
 {% block breadcrumb %}
-<li class="breadcrumb-item"><a href={{ url_for('genRouteReportFlat' ,source='nj',route=routereport.route, period='now') }}>{{routereport.route}} {{routereport.prettyname}}</a></li>
+<li class="breadcrumb-item"><a href={{ url_for('genRouteReportCollection' ,source='nj',route=routereport.route, period='now') }}>{{routereport.route}} {{routereport.prettyname}}</a></li>
 
 {% endblock %}}
 
@@ -62,10 +62,10 @@
                 <li class="breadcrumb-item active"><a href = {{url_for('displayIndex')}}>home</a></li>
              </ul>
             <ul class="navbar-nav ml-auto">
-                <li class="breadcrumb-item "><a href = {{url_for('genRouteReportFlat',source=routereport.source,route=routereport.route,period='now')}}>now</a></li>
-                <li class="breadcrumb-item "><a href = {{url_for('genRouteReportFlat',source=routereport.source,route=routereport.route,period='today')}}>today</a></li>
-                <li class="breadcrumb-item "><a href = {{url_for('genRouteReportFlat',source=routereport.source,route=routereport.route,period='yesterday')}}>yesterday</a></li>
-                <li class="breadcrumb-item "><a href = {{url_for('genRouteReportFlat',source=routereport.source,route=routereport.route,period='history')}}>history</a></li>
+                <li class="breadcrumb-item "><a href = {{url_for('genRouteReportCollection',source=routereport.source,route=routereport.route,period='now')}}>now</a></li>
+                <li class="breadcrumb-item "><a href = {{url_for('genRouteReportCollection',source=routereport.source,route=routereport.route,period='today')}}>today</a></li>
+                <li class="breadcrumb-item "><a href = {{url_for('genRouteReportCollection',source=routereport.source,route=routereport.route,period='yesterday')}}>yesterday</a></li>
+                <li class="breadcrumb-item "><a href = {{url_for('genRouteReportCollection',source=routereport.source,route=routereport.route,period='history')}}>history</a></li>
 
 
             </ul>
