@@ -100,18 +100,12 @@ def displayCollection(collection_url):
 
 
 #-------------------------------------------------------------Route
-@app.route('/<route>/<period>')
-def genRouteReportFlat(route, period):
-    source='nj'
-    route_report = wwwAPI.RouteReport(source, route, period)
-    collection_url='not_collection_url'
-    return render_template('route.html', source=source, collection_url=collection_url, route=route, period=period, routereport=route_report)
 
 @app.route('/<collection_url>/<route>/<period>')
-def genRouteReportCollection(collection_url, route, period):
+def genRouteReport(route, period):
     source='nj'
     route_report = wwwAPI.RouteReport(source, route, period)
-    return render_template('route.html', source=source, collection_url=collection_url, route=route, period=period, routereport=route_report)
+    return render_template('route.html', source=source, route=route, period=period, routereport=route_report)
 
 #------------------------------------------------------------Stop
 # /<source>/<route>/stop/<stop>/<period>

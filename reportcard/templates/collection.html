@@ -68,7 +68,7 @@
                     </a>
 
                     {% for route_number in collection_metadata.routelist %}
-                    <a target="_self" href={{ url_for('genRouteReportCollection', collection_url=collection_metadata.city_name ,route=route_number, period='now') }} class="btn btn-outline-white btn-lg">{{ route_number }}
+                    <a target="_self" href={{ url_for('genRouteReportCollection', collection_url=collection_metadata.collection_url ,route=route_number, period='now') }} class="btn btn-outline-white btn-lg">{{ route_number }}
                         <i class="fas fa-map ml-2"></i>
                     </a>
                     {%  endfor %}
@@ -123,7 +123,7 @@
                             <!--Card content-->
                             <div class="card-body card-body-cascade">
                                 <!--Title-->
-                                <h4 class="card-header-title text-left"><a href = {{ url_for('genRouteReportCollection',collection_url=collection_metadata.city_name ,source='nj',route=route.route, period='now') }}>{{route.route}}.</a>
+                                <h4 class="card-header-title text-left"><a href = {{ url_for('genRouteReportCollection',collection_url=collection_url ,source='nj',route=route.route, period='now') }}>{{route.route}}.</a>
                                 <!--Text--> {{route.description_short}}</h4>
 
                             </div>
