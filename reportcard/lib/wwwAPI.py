@@ -10,7 +10,22 @@ from sqlalchemy import inspect, func
 import lib.BusAPI as BusAPI
 from lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
 
-from route_config import reportcard_routes, grade_descriptions
+from route_config import reportcard_routes, grade_descriptions, city_collections
+
+
+# helper to retrieve a collection from config
+
+def load_collection_metadata():
+    return city_collections
+
+
+def parse_collection_metadata(collection_url):
+    collection_metadata = dict()
+    # iterate over collection and grab the one that matches
+    for city in city_collections:
+        if city['collection_url']==collection_url:
+            collection_metadata=city
+    return collection_metadata
 
 
 # primary classes

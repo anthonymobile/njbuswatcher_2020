@@ -55,24 +55,29 @@
                 <div class="card-body text-white text-center py-5 px-5 my-5">
 
                     <h1 class="mb-4">
-                        <strong>How are New Jersey's buses doing today?</strong>
+                        <strong>How are {{ collection_metadata.city_name}}'s buses doing today?</strong>
                     </h1>
                     <p>
-                        <strong>Residents and businesses depend on them every day.</strong>
+                        <strong>{{ collection_metadata.description_short }}</strong>
                     </p>
                     <p class="mb-4">
-                        <strong>But its hard to evaluate the quality of bus service. That's why we built this site to provide a one-stop shop for bus performance information. Here you can see data on past performance, view maps of current service, and sign a petition to support our campaign for better bus service from NJTransit.</strong>
+                        <strong>{{ collection_metadata.description_long }}</strong>
                     </p>
-                    <a target="_self" href="#reportcards" class="btn btn-outline-white btn-lg">Pick A Route
+                    <a target="_self" href="#reportcards" class="btn btn-outline-white btn-lg">Get route reportcards
                         <i class="fas fa-graduation-cap ml-2"></i>
                     </a>
 
-
-                    {% for city in city_collections %}
-                    <a target="_self" href="/{{ city.collection_url }}" class="btn btn-outline-white btn-lg">{{ city.city_name }}
+                    {% for route_number in collection_metadata.routelist %}
+                    <a target="_self" href={{ url_for('genRouteReportCollection', collection_url=collection_metadata.city_name ,route=route_number, period='now') }} class="btn btn-outline-white btn-lg">{{ route_number }}
                         <i class="fas fa-map ml-2"></i>
                     </a>
                     {%  endfor %}
+
+
+
+                    <!--<a target="_self" href="#map" class="btn btn-outline-white btn-lg">View live map
+                        <i class="fas fa-map ml-2"></i>
+                    </a>-->
 
                 </div>
                 <!-- Content -->
@@ -118,7 +123,7 @@
                             <!--Card content-->
                             <div class="card-body card-body-cascade">
                                 <!--Title-->
-                                <h4 class="card-header-title text-left"><a href = {{ url_for('genRouteReportFlat' ,source='nj',route=route.route, period='now') }}>{{route.route}}.</a>
+                                <h4 class="card-header-title text-left"><a href = {{ url_for('genRouteReportCollection',collection_url=collection_metadata.city_name ,source='nj',route=route.route, period='now') }}>{{route.route}}.</a>
                                 <!--Text--> {{route.description_short}}</h4>
 
                             </div>
