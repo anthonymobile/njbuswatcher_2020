@@ -12,6 +12,23 @@ v2.0
     - accumulate some data on the desktop, need completed trips
     - **wwwAPI.RouteReport.get_headway** add {{headway}} tags to route.html template and start testing
 
+##### new statewide nav structure
+
+    - implementation strategies
+        - 1 single site with statewide at top and infinite and non-exclusive (e.g. routes can appear in multiple places) defineable minisites - e.g. www.njBusWatcher.com/jerseycity
+        - 2 each instance is a single city dash, with a config-defined set of routes
+    - implementation notes
+        - Pass forward a tuple (cityindex=true, city=“jersey city”) and use this in Jinja to rewrite the urls
+        - define sub-url dashboard minisites that allow aggregation of urls using another dict definition in the config file 
+            - e.g. city_dashboards = {'Jersey City Heights':[82,85,87,89,119],'Downtown Jersey City':[10,11,12]}
+        -  home page render
+            - Displays the route index page from the route_config.py file with forward links to Www.Buswatcher.org/jerseycity/119
+        - minisite home page render
+            - Displays the route index page from the route_config.py file with forward links to Www.Buswatcher.org/jerseycity/119
+            - back link to city index -- www.njBusWatcher.com/jerseycity
+            - Alt route direct — back link goes to home index -- www.njbuswatcher.org/route/119
+
+
 ##### route bunching write
     - **wwwAPI.RouteReport.get_bunching_badboys** write code and test
     

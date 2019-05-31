@@ -36,14 +36,15 @@ class RouteReport:
         self.grade_descriptions = grade_descriptions
 
         # populate static report card data
-        self.routename, self.waypoints_coordinates, self.stops_coordinates, self.waypoints_geojson, self.stops_geojson = self.get_route_geojson_and_name(self.route) #todo -- would be nice to read this from Trip, but since RouteReport has more than 1 trip, which path will we use? this is why buses sometimes show up on maps not on a route
+        #todo -- would be nice to read this from Trip, but since RouteReport has more than 1 trip, which path will we use? this is why buses sometimes show up on maps not on a route
+        self.routename, self.waypoints_coordinates, self.stops_coordinates, self.waypoints_geojson, self.stops_geojson = self.get_route_geojson_and_name(self.route)
         self.load_route_description()
         self.route_stop_list = self.get_stoplist(self.route)
 
         # populate live report card data
         # self.active_trips = self.get_activetrips() <-- depreceated?
         self.grade, self.grade_description = self.get_grade(period)
-        self.headway = self.get_headway()
+        # todo self.headway = self.get_headway()
         self.bunching_badboys = self.get_bunching_badboys(period)
         self.traveltime = self.get_traveltime(period)
         self.get_period_labels = self.get_period_labels()
