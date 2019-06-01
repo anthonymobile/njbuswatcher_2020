@@ -141,6 +141,47 @@ reportcard_routes=[
         'prettyname':'Journal Square-NYC (via JFK Blvd)',
         'description_short': 'Manhattan commuter line serving the West Side of The Heights along JFK Boulevard.',
         'description_long': 'The 125 is a primarily rush-hour oriented service providing local scheduled service to and from New York City\'s Port Authority.'
+    },
+
+    {
+        'route': '450',
+        'frequency': 'low',
+        'schedule_url': 'https://www.njtransit.com/pdf/bus/T0450.pdf',
+        'prettyname': 'Camden-Cherry Hill Mall',
+        'description_short': 'This is a generic short route description.',
+        'description_long': 'This is a generic long route description that says a little bit more about the route and the reason it exists, and maybe a bit about what does\'t work well.'
+    },
+    {
+        'route': '451',
+        'frequency': 'low',
+        'schedule_url': 'https://www.njtransit.com/pdf/bus/T0451.pdf',
+        'prettyname': 'Camden-Voorhees Town Center',
+        'description_short': 'This is a generic short route description.',
+        'description_long': 'This is a generic long route description that says a little bit more about the route and the reason it exists, and maybe a bit about what does\'t work well.'
+    },
+    {
+        'route': '452',
+        'frequency': 'low',
+        'schedule_url': 'https://www.njtransit.com/pdf/bus/T0452.pdf',
+        'prettyname': 'Journal Square-NYC (via JFK Blvd)',
+        'description_short': 'This is a generic short route description.',
+        'description_long': 'This is a generic long route description that says a little bit more about the route and the reason it exists, and maybe a bit about what does\'t work well.'
+    },
+    {
+        'route': '453',
+        'frequency': 'low',
+        'schedule_url': 'https://www.njtransit.com/pdf/bus/T0453.pdf',
+        'prettyname': 'Journal Square-NYC (via JFK Blvd)',
+        'description_short': 'This is a generic short route description.',
+        'description_long': 'This is a generic long route description that says a little bit more about the route and the reason it exists, and maybe a bit about what does\'t work well.'
+    },
+    {
+        'route': '457',
+        'frequency': 'low',
+        'schedule_url': 'https://www.njtransit.com/pdf/bus/T0457.pdf',
+        'prettyname': 'Journal Square-NYC (via JFK Blvd)',
+        'description_short': 'This is a generic short route description.',
+        'description_long': 'This is a generic long route description that says a little bit more about the route and the reason it exists, and maybe a bit about what does\'t work well.'
     }
     ]
 
@@ -150,22 +191,31 @@ reportcard_routes=[
 
 city_collections = [
     {
+        'collection_url': 'camden',
+        'city_name': 'Camden',
+        'prettyname': 'Souptown',
+        'routelist': ['450', '451', '452', '453', '457'],
+        'citygov_url': 'https://camden.com',
+        'description_short': 'A short city description for titles and taglines.',
+        'description_long': 'A longer city description that says something about the city and the system that serves it. Can contain a link to a petition or other local organizing effort. A longer city description that says something about the city and the system that serves it. Can contain a link to a petition or other local organizing effort.'
+    },
+    {
         'collection_url': 'jerseycity',
         'city_name': 'Jersey City',
         'prettyname': 'Chilltown',
         'routelist': ['2','6','10','80','81','82','83','84','85','86','87','88','89','119','123','125'],
         'citygov_url': 'https://jerseycitynj.gov/community/transportation',
         'description_short': 'A short city description for titles and taglines.',
-        'description_long': 'A longer city description '
+        'description_long': 'A longer city description that says something about the city and the system that serves it. Can contain a link to a petition or other local organizing effort. A longer city description that says something about the city and the system that serves it. Can contain a link to a petition or other local organizing effort.'
     },
         {
         'collection_url': 'hoboken',
         'city_name': 'Hoboken',
         'prettyname': 'The Mile Square City',
         'routelist': ['22','84','85','87','126'],
-        'citygov_url': 'https://jerseycitynj.gov/community/transportation',
+        'citygov_url': 'https://hoboken.gov',
         'description_short': 'A short city description for titles and taglines.',
-        'description_long': 'A longer city description '
+        'description_long': 'A longer city description that says something about the city and the system that serves it. Can contain a link to a petition or other local organizing effort. A longer city description that says something about the city and the system that serves it. Can contain a link to a petition or other local organizing effort.'
     }
     ]
 

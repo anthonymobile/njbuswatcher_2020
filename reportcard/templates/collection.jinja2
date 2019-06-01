@@ -1,0 +1,168 @@
+{%- extends "base.jinja2" %}
+
+
+{# Loads some of the macros included with Flask-Bootstrap. We are using the
+   utils module here to automatically render Flask's flashed messages in a
+   bootstrap friendly manner #}
+{% import "bootstrap/utils.html" as utils %}
+
+
+{# Inside the ``content`` is where you should place most of your own stuff.
+   This will keep scripts at the page end and a navbar you add on later
+   intact. #}
+{% block head %}
+
+    <style>
+        #map { width:100%; }
+    </style>
+
+
+
+{{ super() }}
+{% endblock %}
+
+{% block scripts %}
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="{{ url_for('static', filename='mdb/css/bootstrap.min.css')}}" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="{{ url_for('static', filename='mdb/css/mdb.min.css')}}" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="{{ url_for('static', filename='mdb/css/style.min.css')}}" rel="stylesheet">
+
+
+    <script type="text/javascript">
+        var passed_reportcard_routes = {{ reportcard_routes|safe }}
+    </script>
+    <script type="text/javascript" src="{{ url_for('static', filename='maps/busmap-index.js')}}"></script>
+    <script src='https://api.mapbox.com/mapbox.js/plugins/turf/v2.0.2/turf.min.js'></script>
+{% endblock %}
+
+
+{% block sticky_nav %}
+
+<nav class="navbar navbar-expand-sm sticky-top navbar-light bg-white">
+    <div class="container">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar1">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbar1">
+            <ul class="navbar-nav">
+                <li class="breadcrumb-item active"><a href = {{url_for('displayIndex')}}>home</a></li>
+             </ul>
+
+        </div>
+    </div>
+</nav>
+
+
+{% endblock %}
+
+
+{% block content_main %}
+
+
+    <!--Main layout-->
+    <main class="mt-2 pt-5 ">
+        <div class="container">
+
+                <!--Grid row-->
+                <div class="row mb-4 wow fadeIn">
+                    <!--Grid column-->
+                    <div class="col-lg-12 col-md-12 mb-4 ">
+                        <h1 class="mb-4"><strong>{{ collection_metadata.city_name}}'s buses buses are performing *above average* today.</strong></h1>
+                        <h4 class="mb-4 text-left">
+                            <strong>{{ collection_metadata.description_short }}</strong>
+                        </h4>
+                        <p class="mb-4 text-left">
+                            <strong>{{ collection_metadata.description_long }}</strong>
+                        </p>
+                    </div>
+                </div>
+
+                <!--Grid row-->
+                <div class="row mb-4 wow fadeIn">
+
+                    <!--Grid column-->
+                    <div class="col-lg-6 col-md-12 mb-4 ">
+
+
+
+                    <div class="row mb-4 wow fadeIn">
+
+                        {% for route in collection_metadata.routelist %}
+
+                        <!--Grid column-->
+                        <div class="col-lg-6 col-md-12 mb-4">
+
+                            <!--Card-->
+                            <div class="card card-cascade narrower">
+
+                                {# <!--Card image-->
+                                <div class="view view-cascade gradient-card-header purple-gradient rounded-top">
+                                    <div class="embed-responsive">
+                                        <img class="img-fluid rounded-top" src="{{ url_for('static', filename='images/route'+route+'.jpg')}}"></img>
+                                    </div>
+                                </div>#}
+
+                                <!--Card content-->
+                                <div class="card-body card-body-cascade">
+                                    <!--Title-->
+                                    <h4 class="card-header-title text-left"><a href = {{ url_for('genRouteReport',collection_url=collection_metadata.collection_url,route=route, period='now') }}>{{route}}.</a>
+                                    </h4>
+                                    {#todo This is very inefficient, better if we loaded the route descriptions for each collection with a wwwAPI helper#}
+                                    <p class="text-left">
+
+                                        {% for route_2_match in reportcard_routes %}
+
+                                            {% if route==route_2_match.route %}
+                                                <h4 class="card-header-title text-left">{{route_2_match.prettyname }}</h4>
+                                                {#{{route_2_match.description_short }}#}
+                                            {%  endif %}
+                                        {%  endfor %}
+                                    </p>
+
+                                </div>
+
+                            </div>
+                            <!--/.Card-->
+
+                        </div>
+                        <!--Grid column-->
+                    {% endfor %}
+
+                    </div>
+                    <!--Grid row-->
+
+
+                </div>
+
+                            <!--Grid column-->
+            <div class="col-lg-6 col-md-12 mb-4">
+                <div id="map" class="container">
+                </div>
+            </div>
+                <!-- Content -->
+            </div>
+
+
+
+
+        <!--Grid row-->
+        </div>
+
+
+    </div>
+
+
+
+
+    </main>
+    <!--Main layout-->
+
+
+{% endblock %}
+
+

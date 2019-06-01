@@ -5,6 +5,7 @@
 # VIP INSTANCE CONFIG
 ################################################
 
+source_global='nj'
 class Dummy():
     def __init__(self):
         self.routename = 'Jersey City'
@@ -82,30 +83,27 @@ def displayIndex():
 
     city_collections=wwwAPI.load_collection_metadata() # get list of collections
     routereport = Dummy() # setup a dummy routereport for the navbar
-    return render_template('index.html', city_collections=city_collections, reportcard_routes=reportcard_routes, routereport=routereport)
+    return render_template('index.jinja2', city_collections=city_collections, reportcard_routes=reportcard_routes, routereport=routereport)
 
 
 #-------------------------------------------------------------City Index
 @app.route('/<collection_url>')
 def displayCollection(collection_url):
 
-
     # get list of routes from route_config.city_collections
-    # set reportcard_routes to that
-
     collection_metadata=wwwAPI.parse_collection_metadata(collection_url)
-
     routereport = Dummy()  # setup a dummy routereport for the navbar
-    return render_template('collection.html',collection_metadata=collection_metadata, reportcard_routes=reportcard_routes, routereport=routereport)
+    return render_template('collection.jinja2',collection_metadata=collection_metadata, reportcard_routes=reportcard_routes, routereport=routereport)
 
 
 #-------------------------------------------------------------Route
 
 @app.route('/<collection_url>/<route>/<period>')
-def genRouteReport(route, period):
-    source='nj'
+def genRouteReport(collection_url,route, period):
+    source=source_global
+    collection_metadata = wwwAPI.parse_collection_metadata(collection_url)
     route_report = wwwAPI.RouteReport(source, route, period)
-    return render_template('route.html', source=source, route=route, period=period, routereport=route_report)
+    return render_template('route.jinja2', collection_metadata=collection_metadata, route=route, period=period, routereport=route_report)
 
 #------------------------------------------------------------Stop
 # /<source>/<route>/stop/<stop>/<period>
@@ -116,19 +114,19 @@ def genStopReport(source, route, stop, period):
     route_report = wwwAPI.RouteReport(source, route, period)
     predictions = BusAPI.parse_xml_getStopPredictions(BusAPI.get_xml_data('nj', 'stop_predictions', stop=stop, route='all'))
 
-    return render_template('stop.html', source=source, stop=stop, period=period, stopreport=stop_report, reportcard_routes=reportcard_routes,predictions=predictions, routereport=route_report)
+    return render_template('stop.jinja2', source=source, stop=stop, period=period, stopreport=stop_report, reportcard_routes=reportcard_routes,predictions=predictions, routereport=route_report)
 
 #-------------------------------------------------------------FAQ
 @app.route('/faq')
 def displayFAQ():
     routereport = Dummy() #  setup a dummy routereport for the navbar
-    return render_template('faq.html', reportcard_routes=reportcard_routes, routereport=routereport)
+    return render_template('faq.jinja2', reportcard_routes=reportcard_routes, routereport=routereport)
 
 #-------------------------------------------------------------API docs
 @app.route('/api')
 def displayAPI():
     routereport = Dummy() #  setup a dummy routereport for the navbar
-    return render_template('api.html', reportcard_routes=reportcard_routes, routereport=routereport)
+    return render_template('api.jinja2', reportcard_routes=reportcard_routes, routereport=routereport)
 
 
 ################################################
