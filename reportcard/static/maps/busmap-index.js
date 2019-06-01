@@ -10,7 +10,7 @@ map.on('load', function() {
 
     // setup the viewport
     map.jumpTo({
-        'center': [-74.2501, 40.0000],
+        'center': [-74.5, 40.15],
         'zoom': 7
     });
 

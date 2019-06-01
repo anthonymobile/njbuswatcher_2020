@@ -11,25 +11,11 @@ v2.0
 
 ##### new statewide nav structure (started 31 may 2019)
 
-    - implementation strategy
-        - a single site with statewide at top  www.njbuswatcher.com/
-            - render with index.html
-        - any number of collections can be defined in route_config.py 
-        
-        and infinite and non-exclusive (e.g. routes can appear in multiple places) defineable minisites - e.g. www.njBusWatcher.com/jerseycity
-     
-    - implementation notes
-        - Pass forward a tuple (cityindex=true, city=“jersey city”) and use this in Jinja to rewrite the urls
-        - define sub-url dashboard minisites that allow aggregation of urls using another dict definition in the config file 
-            - e.g. city_dashboards = {'Jersey City Heights':[82,85,87,89,119],'Downtown Jersey City':[10,11,12]}
-        -  home page render
-            - Displays the route index page from the route_config.py file with forward links to Www.Buswatcher.org/jerseycity/119
-        - minisite home page render
-            - Displays the route index page from the route_config.py file with forward links to Www.Buswatcher.org/jerseycity/119
-            - back link to city index -- www.njBusWatcher.com/jerseycity
-            - Alt route direct — back link goes to home index -- www.njbuswatcher.org/route/119
-
-
+    - finish display of routes on the bottom of collection.jinja2 page
+    - create a new busmap-collection.js that only displays this city and zooms to its extent
+    - build out route.jinja2
+    - build out stop.jinja2
+    
 ##### route headway test
     - accumulate some data on the desktop, need completed trips
     - **wwwAPI.RouteReport.get_headway** add {{headway}} tags to route.html template and start testing

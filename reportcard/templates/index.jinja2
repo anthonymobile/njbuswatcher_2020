@@ -1,4 +1,4 @@
-{%- extends "base.html" %}
+{%- extends "base.jinja2" %}
 
 
 {# Loads some of the macros included with Flask-Bootstrap. We are using the
@@ -49,48 +49,75 @@
         <div class="container">
 
             <!--Section: Jumbotron-->
-            <section class="card wow fadeIn" style="background-image: url(https://mdbootstrap.com/img/Photos/Others/gradient1.jpg);">
+{#            <section class="card wow fadeIn" style="background-image: url(https://mdbootstrap.com/img/Photos/Others/gradient1.jpg);">#}
 
-                <!-- Content -->
-                <div class="card-body text-white text-center py-5 px-5 my-5">
+                <!--Grid row-->
+                <div class="row mb-4 wow fadeIn">
 
-                    <h1 class="mb-4">
-                        <strong>How are {{ collection_metadata.city_name}}'s buses doing today?</strong>
-                    </h1>
-                    <p>
-                        <strong>{{ collection_metadata.description_short }}</strong>
-                    </p>
-                    <p class="mb-4">
-                        <strong>{{ collection_metadata.description_long }}</strong>
-                    </p>
-                    <a target="_self" href="#reportcards" class="btn btn-outline-white btn-lg">Get route reportcards
-                        <i class="fas fa-graduation-cap ml-2"></i>
-                    </a>
+                    <!--Grid column-->
+                    <div class="col-lg-6 col-md-12 mb-4">
 
-                    {% for route_number in collection_metadata.routelist %}
-                    <a target="_self" href={{ url_for('genRouteReportCollection', collection_url=collection_metadata.collection_url ,route=route_number, period='now') }} class="btn btn-outline-white btn-lg">{{ route_number }}
-                        <i class="fas fa-map ml-2"></i>
-                    </a>
-                    {%  endfor %}
+                    <!-- Content -->
+                    <div class="card-body text-black text-center py-5 px-5 my-5">
+                    {# <div class="card-body text-white col-lg-4 col-md-12 mb-4"> #}
 
 
+                        <h1 class="mb-4">
+                            <strong>How are New Jersey's buses doing today?</strong>
+                        </h1>
+                        <h4 class="mb-4">
+                            <strong>Residents and businesses depend on them every day.</strong>
+                        </h4>
+                        <p class="mb-4 text-left">
+                            <strong>But its hard to evaluate the quality of bus service. That's why we built this site to provide a one-stop shop for bus performance information. Here you can see data on past performance and view maps of current service,.</strong>
+                        </p>
+    {#                    <a target="_self" href="#reportcards" class="btn btn-outline-white btn-lg">Pick A Route
+                            <i class="fas fa-graduation-cap ml-2"></i>
+                        </a>
+    #}
 
-                    <!--<a target="_self" href="#map" class="btn btn-outline-white btn-lg">View live map
-                        <i class="fas fa-map ml-2"></i>
-                    </a>-->
+
+                        {% for city in city_collections %}
+                        <a target="_self" href="/{{ city.collection_url }}" class="btn btn-outline-black btn-lg">{{ city.city_name }}
+                            <i class="fas fa-map ml-2"></i>
+                        </a>
+                        {%  endfor %}
+
+                    </div>
+                    <!-- Content -->
 
                 </div>
-                <!-- Content -->
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div id="map" class="container col-lg-6 col-md-12 mt-2 mb-2">
+                </div>
+
+
+
+
+            </div>
+            <!--Grid row-->
+
+
+
             </section>
             <!--Section: Jumbotron-->
 
+{#
             <!--Section: Map-->
-            <section class=""card">
-                <div id="map" class="container">
+
+
+            <section class="card">
+                <div class="card-body text-white col-lg-8 col-md-12 mb-4">
+                    <div id="map" class="container">
+                    </div>
                 </div>
             </section>
+#}
 
 
+{#
             <hr class="my-5">
 
             <!--Section: Cards-->
@@ -123,7 +150,7 @@
                             <!--Card content-->
                             <div class="card-body card-body-cascade">
                                 <!--Title-->
-                                <h4 class="card-header-title text-left"><a href = {{ url_for('genRouteReportCollection',collection_url=collection_url ,source='nj',route=route.route, period='now') }}>{{route.route}}.</a>
+                                <h4 class="card-header-title text-left"><a href = {{ url_for('genRouteReport', collection_url='',source='nj',route=route.route, period='now') }}>{{route.route}}.</a>
                                 <!--Text--> {{route.description_short}}</h4>
 
                             </div>
@@ -143,6 +170,7 @@
 
             </section>
             <!--Section: Cards-->
+#}
 
         </div>
 
