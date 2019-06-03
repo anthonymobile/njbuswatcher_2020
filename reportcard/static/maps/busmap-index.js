@@ -15,16 +15,68 @@ map.on('load', function() {
     });
 
 
-    // ROUTES
+    // https://stackoverflow.com/questions/2177548/load-json-into-variable
+
+
+    // AJAX request for vehicles data
+    var url_vehicles = ("/api/v1/maps?layer=vehicles&rt=all");
+    var vehicles_geojson = (function () {
+        var json = null;
+        $.ajax({
+            'async': false,
+            'global': false,
+            'url': url_vehicles,
+            'dataType': "json",
+            'success': function (data) {
+                json = data;
+            }
+        });
+        return json;
+    })();
+
+    map.addSource('vehicles_source', {
+    "type": "geojson",
+    "data": vehicles_geojson
+        });
+
+    map.addLayer({
+        "id": "vehicles",
+        "type": "circle",
+        "source": "vehicles_source",
+        "paint": {
+            "circle-radius": 4,
+            "circle-opacity": 1,
+            "circle-stroke-width": 3,
+            "circle-stroke-color": "#f6c"
+        }
+     })
+    ;
+
+    // AJAX request for waypoinys data
     var url_waypoints = ("/api/v1/maps?layer=waypoints&rt=all");
-    map.addSource('waypoints_geojson', {
-        "type": "geojson",
-        "data": url_waypoints
-    });
+    var waypoints_geojson = (function () {
+        var json = null;
+        $.ajax({
+            'async': false,
+            'global': false,
+            'url': url_waypoints,
+            'dataType': "json",
+            'success': function (data) {
+                json = data;
+            }
+        });
+        return json;
+    })();
+
+    map.addSource('waypoints_source', {
+    "type": "geojson",
+    "data": waypoints_geojson
+        });
+
     map.addLayer({
         "id": "route",
         "type": "line",
-        "source": "waypoints_geojson",
+        "source": "waypoints_source",
         "paint": {
             "line-color": "blue",
             "line-opacity": 0.75,
@@ -32,50 +84,23 @@ map.on('load', function() {
         }
     });
 
-    // STOPS
-    var url_stops = ("/api/v1/maps?layer=stops&rt=all");
-    map.addSource('stops_geojson', {
-        "type": "geojson",
-        "data": url_stops
+
+    // from https://www.isaveutime.com/mapbox-fitbounds-using-geojson/
+    // // Run once the vehicles data request is complete
+    // $.when(vehicles_geojson).done(function () {
+
+
+    // from https://docs.mapbox.com/mapbox-gl-js/example/zoomto-linestring/
+    // Fit map to the routes LineString
+    var coordinates = waypoints_geojson.features[0].geometry.coordinates;
+    var bounds = coordinates.reduce(function(bounds, coord) {
+    return bounds.extend(coord);
+    }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
+
+    map.fitBounds(bounds, {
+    padding: 20
     });
-    map.addLayer({
-        "id": "stops",
-        "type": "circle",
-        "source": "stops_geojson",
-        "paint": {
-            "circle-radius": 2,
-            "circle-opacity": 1,
-            "circle-stroke-width": 2,
-            "circle-stroke-color": "#fff"
-        }
-    });
-
-
-    // VEHICLES
-
-
-    var url_vehicles = ("/api/v1/maps?layer=vehicles&rt=all");
-    map.addSource('vehicles_geojson', {
-        "type": "geojson",
-        "data": url_vehicles
-    });
-    map.addLayer({
-        "id": "vehicles",
-        "type": "circle",
-        "source": "vehicles_geojson",
-        "paint": {
-            "circle-radius": 4,
-            "circle-opacity": 1,
-            "circle-stroke-width": 3,
-            "circle-stroke-color": "#f6c"
-        }
-
-    });
-
-    window.setInterval(function() {
-        map.getSource('vehicles_geojson').setData(url_vehicles);
-    }, 1000);
-
-
 
 });
+
+

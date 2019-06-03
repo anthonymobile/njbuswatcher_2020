@@ -1,35 +1,50 @@
 # NJ BusWatcher
 v2.0
-**30 may 2019**
+**3 june 2019**
 
 ---
-# 23 DAYS TO FINISH
-
-#### 
-23 4-hour sprints
+# V2 MASTER TO-DO
 
 
-##### new statewide nav structure (started 31 may 2019)
-
-    - finish display of routes on the bottom of collection.jinja2 page
-    - create a new busmap-collection.js that only displays this city and zooms to its extent
-    - build out route.jinja2
-    - build out stop.jinja2
+#### maps zoom extent
+- implementation docs [here](https://stackoverflow.com/questions/35586360/mapbox-gl-js-getbounds-fitbounds)
+- method 1 -- geojson-extent.js
+    - ```<script type="text/javascript" src="https://raw.githubusercontent.com/mapbox/geojson-extent/master/geojson-extent.js"></script>```
+- method 2. -- turf.js method
+    - ```var bounds = turf.bbox(markers); map.fitBounds(bounds, {padding: 20});```
+- extents
+    - busmap-index-old.js
+        - to extent of vehicles_json layer
+    - busmap-route.js
+        - ??? to extent waypoints_json layer ???
+    - busmap-route.js
+        - to extent waypoints_json layer
+    - busmap-stop.js
+        - limit stop layer to single stop (w/ stops_json source set to '/api/v1/maps?layer=stops&rt=119&stop_id=30189') 
+        - to extent of stops_json layer
+        
+        
+#### rewrite tripwatcher.py to watch all NJ
+1. add a switch for statewide watching?
+    - with just a single call to getBusesForRouteAll.jsp
     
-##### route headway test
-    - accumulate some data on the desktop, need completed trips
-    - **wwwAPI.RouteReport.get_headway** add {{headway}} tags to route.html template and start testing
+#### auto route descriptions/metadata populator
+1. fetch raw data from Clever Devices API --  either ```schedules.jsp``` or ```getRoutePoints```
+2. write it to a file
+3. make sure tripwatcher loads this file
+4. load overrides from **route_config.py** (definitely prettynames but maybe also descriptions, and high)frequency flag)
 
-##### route bunching write
-    - **wwwAPI.RouteReport.get_bunching_badboys** write code and test
     
-##### route bunching test
-    - **wwwAPI.RouteReport.get_bunching_badboys** write code and test
+#### write static content
+- **about.html** 
+- **faq.html** 
+- **api.html**
+- **fix 404 page**, replace old template with new base.html template
 
-##### route grade write and test
-    - **wwwAPI.RouteReport.get_grade** write code and test
-
-##### route page finalize layout
+    
+#### merge statewide branch --> back into new_localizer
+    
+#### build out route.jinja2
     - row 3
         - left = hourly table summarizing **Average Headway.** 
         - right = hourly table summarizing **Average Travel Time.**
@@ -38,8 +53,17 @@ v2.0
         - buses on 'On the Road Now'
         - keep code in current template
         
-##### stop page rough layout
+#### route headway debug + test
+- accumulate some data on the desktop, need completed trips
+- **wwwAPI.RouteReport.get_headway** add {{headway}} tags to route.html template and start testing
 
+#### route metrics
+- write code and test
+    - bunching (**wwwAPI.RouteReport**)
+    - grade (**wwwAPI.RouteReport.get_grade**)
+
+
+#### build out stop.jinja2
     - row 1
         - left = grade card, 4 boxes
             - **qualitative grade** based on period: "SERVICE IS {good|fair|poor} {period}." --> "SERVICE IS GOOD
@@ -53,75 +77,31 @@ v2.0
         - left = **frequency/headway by hour** average for {period} 
         - right = **arrivals** with bunching highlights for {period}
         - borrow code from current `main` branch
-        
-##### stop travel time write
-    - **wwwAPI.StopReport.get_travel_time** write code
-##### stop travel time test
-    - **wwwAPI.StopReport.get_travel_time** test 
 
-##### stop travel time write
-    - **wwwAPI.StopReport.get_travel_speed** write code
+#### stop metrics
+-write code and test
+    - travel times (**wwwAPI.StopReport.get_travel_time**)
+    - grade (**wwwAPI.StopReport.get_grade**)
+    - arrivals dash (**wwwAPI.StopReport.get_arrivals**)
+    - frequency report(**wwwAPI.StopReport.get_frequency_report**)
 
-##### stop travel time test
-    - **wwwAPI.StopReport.get_travel_speed** test 
+#### finalize home page
+- add a ranking somewhere of all the routes?  if you want to use this as an advocacy tool it may be useful to expose a ranking like that.
+       
+#### tripwatcher debug + optimization
+- error trapping for disconnected operation (dying now?)
+- `approach assignment`: 3+ position seems to still be having problems...
+- `Interpolate+log missed stops` after scanning each trip and logging any new arrivals, run a function that interpolates arrival times for any stops in between arrivals in the trip card -- theoretically there shouldn't be a lot though if the trip card is correct since we are grabbing positions every 30 seconds.
+- `Boomerang buses (Case E)`: any other indeterminate cases? 
 
-##### stop grade write
-    - **wwwAPI.StopReport.get_grade** write code
-
-##### stop grade test
-    - **wwwAPI.StopReport.get_grade** test 
-
-##### stop arrivals dash write and test
-    - **wwwAPI.StopReport.get_arrivals** write code and test 
-
-##### stop frequency report write and test
-    - **wwwAPI.StopReport.get_frequency_report** write code and test 
-
-##### finalize home page
-    - add a ranking somewhere of all the routes?  if you want to use this as an advocacy tool it may be useful to expose a ranking like that.
-    - add the petition link to your footer next to CODE and API
+#### review and test
+- check everything
+- log and fix bugs
     
-##### route descriptions
-    - **route_config.py**
-        - complete descriptions for all lines
-        - fix frequency for new lines
-             
-##### tripwatcher q.c. and optimization
-    - error trapping for disconnected operation (dying now?)
-    - `approach assignment`: 3+ position seems to still be having problems...
-    - `Interpolate+log missed stops` after scanning each trip and logging any new arrivals, run a function that interpolates arrival times for any stops in between arrivals in the trip card -- theoretically there shouldn't be a lot though if the trip card is correct since we are grabbing positions every 30 seconds.
-    - `Boomerang buses (Case E)`: any other indeterminate cases?
-    
-##### fix 404 page
-    - replace old template with new base.html template
-
-##### write static content
-    - **about.html** 
-    - **faq.html** 
-    - **api.html** 
-    
-##### upload route images
-    - add images for 2,6,10, 123, tk
-     
-##### maps zoom extent
-    - busmap-index.js
-        - add zoom to extent of vehicles_json layer
-    - busmap-route.js
-        - add zoom to extent of waypoints_json layer
-    - busmap-stop.js
-        - limit stop layer to single stop (w/ stops_json source set to '/api/v1/maps?layer=stops&rt=119&stop_id=30189') 
-        - add zoom to extent of stops_json layer
-     
-##### review and test
-    - check everything
-    - log and fix bugs
-    
-##### deployment
-    - check AWS time zones
-    - reduce image size to fit on micro instance?
-    - split tripwatcher, and / or map layers API into another instance to keep small+free
-
-
+#### deployment
+- check AWS time zones
+- Add net-data to BusWatcher docker yml 
+- pick minimum instance size and budget
  
 ---
 # BUSWATCHER
