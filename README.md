@@ -7,21 +7,18 @@ v2.0
 
 
 #### maps zoom extent
-- implementation docs [here](https://stackoverflow.com/questions/35586360/mapbox-gl-js-getbounds-fitbounds)
-- method 1 -- geojson-extent.js
-    - ```<script type="text/javascript" src="https://raw.githubusercontent.com/mapbox/geojson-extent/master/geojson-extent.js"></script>```
-- method 2. -- turf.js method
-    - ```var bounds = turf.bbox(markers); map.fitBounds(bounds, {padding: 20});```
-- extents
-    - busmap-index-old.js
-        - to extent of vehicles_json layer
-    - busmap-route.js
-        - ??? to extent waypoints_json layer ???
-    - busmap-route.js
-        - to extent waypoints_json layer
-    - busmap-stop.js
-        - limit stop layer to single stop (w/ stops_json source set to '/api/v1/maps?layer=stops&rt=119&stop_id=30189') 
-        - to extent of stops_json layer
+
+- busmap-index.js
+    - add stops
+    - update zoom code to zoom to ALL routes, not just the first one (alt: soom to extent of vehicles_json instead, though might not work since not a linestring)
+- busmap-collection.js (same script with different variable for API endpoint query?)
+    - redo with new code
+    - same zoom as index
+- busmap-route.js
+    - to extent waypoints_json layer
+- busmap-stop.js
+    - limit stop layer to single stop (w/ stops_json source set to '/api/v1/maps?layer=stops&rt=119&stop_id=30189') 
+    - to extent of stops_json layer
         
         
 #### rewrite tripwatcher.py to watch all NJ
