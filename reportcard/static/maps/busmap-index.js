@@ -135,6 +135,7 @@ map.on('load', function() {
 
 
 
+/*
     ////////////////////////////
     // ZOOM CODE
     ////////////////////////////
@@ -153,6 +154,22 @@ map.on('load', function() {
     map.fitBounds(bounds, {
     padding: 20
     });
+*/
+
+
+    ////////////////////////////
+    // ZOOM CODE - BETTER
+    ////////////////////////////
+
+    // https://stackoverflow.com/questions/35586360/mapbox-gl-js-getbounds-fitbounds
+
+    var bounds = new mapboxgl.LngLatBounds();
+    waypoints_geojson.features.forEach(function(feature) {
+        bounds.extend(feature.geometry.coordinates);
+    });
+
+    map.fitBounds(bounds, { padding: '20' });
+
 
 });
 
