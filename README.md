@@ -8,6 +8,9 @@ v2.0
 
 #### maps zoom extent
 
+- busmap-index.js
+    - fix stacking order of layers, regardless of load sequence
+    - draw with different styles than the smaller maps?
 
 - busmap-route.js
     - to extent waypoints_json layer
