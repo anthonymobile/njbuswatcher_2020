@@ -10,9 +10,18 @@ var map = new mapboxgl.Map({
 // zoom implemented using https://stackoverflow.com/questions/49354133/turf-js-to-find-bounding-box-of-data-loaded-with-mapbox-gl-js
 
 
-var url_waypoints = ("/api/v1/maps?layer=waypoints&rt=all");
-var url_stops = ("/api/v1/maps?layer=stops&rt=all");
-var url_vehicles = ("/api/v1/maps?layer=vehicles&rt=all");
+// todo hould be able to reuse one JS for all maps?
+// e.g.
+// var url_waypoints = ("/api/v1/maps?layer=waypoints&rt="+passed_route);
+// for index, just set passed_route = "all" in the HTML
+
+// var url_waypoints = ("/api/v1/maps?layer=waypoints&rt=all");
+// var url_stops = ("/api/v1/maps?layer=stops&rt=all");
+// var url_vehicles = ("/api/v1/maps?layer=vehicles&rt=all");
+
+var url_waypoints = ("/api/v1/maps?layer=waypoints&rt="+passed_route);
+var url_stops = ("/api/v1/maps?layer=stops&rt="+passed_route);
+var url_vehicles = ("/api/v1/maps?layer=vehicles&rt="+passed_route);
 
 map.on('load', function() {
 
@@ -51,7 +60,7 @@ map.on('load', function() {
                 "line-opacity": 0.75,
                 "line-width": 3
             }
-        });
+        },"waypoints"); // layer to add before
     });
 
 
@@ -72,7 +81,7 @@ map.on('load', function() {
                 "circle-stroke-width": 3,
                 "circle-stroke-color": "#f6c"
             }
-         })
+         },"stops") // layer to add before
         ;
 
     })
@@ -80,8 +89,8 @@ map.on('load', function() {
 
 });
 
-map.moveLayer("stops","waypoints");
-map.moveLayer("vehicles","stops");
+// map.moveLayer("stops","waypoints");
+// map.moveLayer("vehicles","stops");
 
 map.addControl(new mapboxgl.NavigationControl());
 
