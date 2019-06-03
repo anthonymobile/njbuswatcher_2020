@@ -35,8 +35,9 @@
 
     <script type="text/javascript">
         var passed_reportcard_routes = {{ reportcard_routes|safe }}
+        var passed_route = "all"
     </script>
-    <script type="text/javascript" src="{{ url_for('static', filename='maps/busmap-index.js')}}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='maps/busmap.js')}}"></script>
 
     <!-- zoom to extent stuff -->
     <script src='https://api.mapbox.com/mapbox.js/plugins/turf/v3.0.11/turf.min.js'></script>
