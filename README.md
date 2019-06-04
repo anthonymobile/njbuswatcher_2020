@@ -6,23 +6,9 @@ v2.0
 # V2 MASTER TO-DO
 
 
-#### maps zoom extent
 
-- busmap.js
-    - use same for collection.jinja2 and route.jinja2, just pass different *passed_route*
-    - might need to rewrite the API to pass a collection
-        - figure out how to pass through the list of route #s
-        - and then fetch and concatenate the individual route geojsons (probably write another API call, easier to do in python than JS?)
-
-- busmap-stop.js
-    - might need to be different since we want a single stop
-    - limit stop layer to single stop (w/ stops_json source set to '/api/v1/maps?layer=stops&rt=119&stop_id=30189') 
-    - to extent of stops_json layer
-    
-        
 #### rewrite tripwatcher.py to watch all NJ
-1. add a switch for statewide watching?
-    - with just a single call to getBusesForRouteAll.jsp
+- figure out the delay loop again
     
 #### auto route descriptions/metadata populator
 1. fetch raw data from Clever Devices API --  either ```schedules.jsp``` or ```getRoutePoints```
@@ -30,7 +16,19 @@ v2.0
 3. make sure tripwatcher loads this file
 4. load overrides from **route_config.py** (definitely prettynames but maybe also descriptions, and high)frequency flag)
 
+
+#### maps JS scripts
+- busmap.js
+    - use same for collection.jinja2 and route.jinja2, just pass different *passed_route*
+    - might need to rewrite the API to pass a collection
+        - figure out how to pass through the list of route #s
+        - and then fetch and concatenate the individual route geojsons (probably write another API call, easier to do in python than JS?)
+- busmap-stop.js
+    - might need to be different since we want a single stop
+    - limit stop layer to single stop (w/ stops_json source set to '/api/v1/maps?layer=stops&rt=119&stop_id=30189') 
+    - to extent of stops_json layer
     
+           
 #### write static content
 - **about.html** 
 - **faq.html** 
