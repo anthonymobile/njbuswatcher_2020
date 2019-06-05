@@ -17,7 +17,7 @@ from lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledSt
 from route_config import reportcard_routes
 
 
-def watch(**kwargs):
+def watch(limit,r):
 
     ##############################################
     # 1 -- FETCH AND LOCALIZE CURRENT POSITIONS
@@ -40,16 +40,26 @@ def watch(**kwargs):
                     continue
                 break
 
-        if limit is not True:
+        elif limit is not True:
             ## entire state
             while True:
                 try:
-                    buses = BusAPI.arse_xml_getBusesForRouteAll(
+                    buses = BusAPI.parse_xml_getBusesForRouteAll(
                         BusAPI.get_xml_data(args.source, 'all_buses'))
                 except werkzeug.exceptions.NotFound as e:
                     sys.stdout.write('.')
                     time.sleep(2)
                     continue
+
+                # remove any bus not on an active route
+                buses_cleaned=list()
+                for bus in buses:
+                    try:
+                        rt = int(bus.rt)
+                        buses_cleaned.append(bus)
+                    except:
+                        continue
+                buses=buses_cleaned
                 break
 
         # NEW parse trips separately and create before we add the positions -- to honor the foreign key constraint
@@ -60,7 +70,7 @@ def watch(**kwargs):
             triplist.append(bus.trip_id)
             result = db.session.query(Trip).filter(Trip.trip_id == bus.trip_id).first()
             if result is None:
-                trip_id = Trip(args.source, r['route'], bus.id, bus.run, bus.pid)
+                trip_id = Trip(args.source, bus.rt, bus.id, bus.run, bus.pid)
                 db.session.add(trip_id)
 
             else:
@@ -69,17 +79,30 @@ def watch(**kwargs):
             db.__relax__()  # disable foreign key checks before...
             db.session.commit()  # we save the position_log.
 
-        # #populate stoplist
-        # records_to_update = db.session.query(Trip).filter(Trip.trip_id.in_(triplist)).all()
-        # for record in records_to_update:
-        #     record.populate_stoplist()
+        # localize and add the bus positions to the db
+        if limit is True:
+            bus_positions = Localizer.get_nearest_stop(buses, r['route'])
 
-        # add the bus positions to the db
-        bus_positions = Localizer.get_nearest_stop(buses, r['route'])
-        for group in bus_positions:
-            for bus in group:
-                db.session.add(bus)
-        db.session.commit()
+            for group in bus_positions:
+                for bus in group:
+                    db.session.add(bus)
+            db.session.commit()
+
+        elif limit is not True:
+
+            # find all the routes
+            route_list = [bus.rt for bus in buses]
+
+            # loop over each route
+            for route in route_list:
+                bus_positions = Localizer.get_nearest_stop(buses, route)
+                for group in bus_positions:
+                    for bus in group:
+                        db.session.add(bus)
+                db.session.commit()
+
+
+
 
     ##############################################
     #   2 -- ASSIGN ARRIVALS
@@ -239,7 +262,7 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
     parser.add_argument('-s', '--source', dest='source', default='nj', help='source name')
-    parser.add_argument('-l', '--limit', dest='limit', required=True, default=False, help='use routes specified in route_config.py only')
+    parser.add_argument('-l', '--limit', dest='limit', action='store_true', help='use routes specified in route_config.py only')
     args = parser.parse_args()
 
     ran = False

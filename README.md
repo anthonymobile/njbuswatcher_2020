@@ -5,10 +5,6 @@ v2.0
 ---
 # V2 MASTER TO-DO
 
-
-
-#### rewrite tripwatcher.py to watch all NJ
-- figure out the delay loop again
     
 #### auto route descriptions/metadata populator
 1. fetch raw data from Clever Devices API --  either ```schedules.jsp``` or ```getRoutePoints```
