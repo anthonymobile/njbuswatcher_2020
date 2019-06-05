@@ -135,7 +135,7 @@ class BusPosition(Base):
     cars = Column(String(20))
     consist = Column(String(20))
     d = Column(String(20))
-    dip = Column(String(20))
+    # dip = Column(String(20))
     dn = Column(String(20))
     fs = Column(String(127))
     id = Column(String(20))

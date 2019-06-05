@@ -147,7 +147,7 @@ def get_nearest_stop(buses,route):
                     position.cars = row.cars
                     position.consist = row.consist
                     position.d = row.d
-                    position.dip = row.dip
+                    # position.dip = row.dip
                     position.dn = row.dn
                     position.fs = row.fs
                     position.id = row.id
