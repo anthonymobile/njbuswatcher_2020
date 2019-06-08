@@ -4,6 +4,14 @@
 # (only routes in route_config.py)      tripwatcher.py --limit
 #
 
+#todo add error trapping for disconnected operation (dying now?)
+#todo debug approach assignment: 3+ position seems to still be having problems...
+#todo debug `Boomerang buses (Case E)`
+#todo add Interpolate+log missed stops
+# after scanning each trip and logging any new arrivals, run a function that interpolates arrival times for any stops in between arrivals in the trip card -- theoretically there shouldn't be a lot though if the trip card is correct since we are grabbing positions every 30 seconds.
+
+
+
 import argparse
 import sys
 import datetime, time

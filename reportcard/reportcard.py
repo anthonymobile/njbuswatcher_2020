@@ -1,5 +1,7 @@
+# todo merge statewide branch back into new_localizer
+
 # bus reportcard v2.0
-# february 2019 - by anthony@bitsandatoms.net
+# june 2019 - by anthony@bitsandatoms.net
 
 ################################################
 # VIP INSTANCE CONFIG
@@ -14,7 +16,6 @@ class Dummy():
 # IMPORTS
 ################################################
 import datetime, logging, sys
-import geojson, json
 
 from flask import Flask, render_template, request
 from flask_bootstrap import Bootstrap

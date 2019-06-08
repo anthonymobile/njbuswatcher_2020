@@ -1,3 +1,8 @@
+# todo rewrite positions calls to accept a collection not just a single route as an argument
+# e.g. figure out how to pass through the list of route #s and then fetch and concatenate the individual route geojsons (probably write another API call, easier to do in python than JS?)
+
+
+
 import json
 import geojson
 import pandas as pd
