@@ -1,5 +1,5 @@
-// todo reuse this for index,connection, and route, just pass a different *passed_route*
-// todo might need to rewrite the API to pass a collection instaed of a single route
+// todo 1 reuse this for index,connection, and route, just pass a different *passed_route*
+// might need to rewrite the API to pass a collection instaed of a single route
 //  e.g. figure out how to pass through the list of route #s and then fetch and concatenate the individual route geojsons (probably write another API call, easier to do in python than JS?)
 
 
@@ -15,7 +15,6 @@ var map = new mapboxgl.Map({
 // zoom implemented using https://stackoverflow.com/questions/49354133/turf-js-to-find-bounding-box-of-data-loaded-with-mapbox-gl-js
 
 
-// todo can i reuse one JS for all maps
 // e.g.
 // var url_waypoints = ("/api/v1/maps?layer=waypoints&rt="+passed_route);
 // for index, just set passed_route = "all" in the HTML

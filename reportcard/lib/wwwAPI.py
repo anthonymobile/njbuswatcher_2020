@@ -10,22 +10,8 @@ from sqlalchemy import inspect, func
 import lib.BusAPI as BusAPI
 from lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
 
-from route_config import reportcard_routes, grade_descriptions, city_collections
 
-
-# helper to retrieve a collection from config
-
-def load_collection_metadata():
-    return city_collections
-
-
-def parse_collection_metadata(collection_url):
-    collection_metadata = dict()
-    # iterate over collection and grab the one that matches
-    for city in city_collections:
-        if city['collection_url']==collection_url:
-            collection_metadata=city
-    return collection_metadata
+from route_config import load_config
 
 
 # primary classes
@@ -47,11 +33,11 @@ class RouteReport:
         self.period = period
 
         # populate route basics from config
-        self.reportcard_routes = reportcard_routes
-        self.grade_descriptions = grade_descriptions
+
+        self.route_definitions, self.grade_descriptions, self.collection_descriptions = load_config()
 
         # populate static report card data
-        #todo -- would be nice to read this from Trip, but since RouteReport has more than 1 trip, which path will we use? this is why buses sometimes show up on maps not on a route
+        #todo 3 would be nice to read this from Trip, but since RouteReport has more than 1 trip, which path will we use? this is why buses sometimes show up on maps not on a route
         self.routename, self.waypoints_coordinates, self.stops_coordinates, self.waypoints_geojson, self.stops_geojson = self.get_route_geojson_and_name(self.route)
         self.load_route_description()
         self.route_stop_list = self.get_stoplist(self.route)
@@ -59,7 +45,7 @@ class RouteReport:
         # populate live report card data
         # self.active_trips = self.get_activetrips() <-- depreceated?
         self.grade, self.grade_description = self.get_grade(period)
-        # todo self.headway = self.get_headway()
+        # todo 2 self.headway = self.get_headway()
         self.bunching_badboys = self.get_bunching_badboys(period)
         self.traveltime = self.get_traveltime(period)
         self.get_period_labels = self.get_period_labels()
@@ -102,7 +88,7 @@ class RouteReport:
             period_label = '-no period label assigned-'
         return period_label
 
-    # todo finish route headway metric
+    # todo 2 finish route headway metric
     # accumulate some data on the desktop, need completed trips
     # **wwwAPI.RouteReport.get_headway** add {{headway}} tags to route.html template and start testing
 
@@ -125,7 +111,8 @@ class RouteReport:
                                      ScheduledStop.stop_name,
                                      ScheduledStop.arrival_timestamp)
                     .filter(ScheduledStop.arrival_timestamp != None)
-                    .filter(func.date(ScheduledStop.arrival_timestamp) > one_hour_ago) # todo last hour
+                    # todo 1 last hour doesnt work
+                    .filter(func.date(ScheduledStop.arrival_timestamp) > one_hour_ago)
                     .filter(ScheduledStop.trip_id.notin_(trips_on_road_now))
                     .order_by(ScheduledStop.trip_id.asc())
                     .order_by(ScheduledStop.pkey.asc())
@@ -222,7 +209,7 @@ class RouteReport:
             return headway
 
 
-    # todo finish route bunching metric
+    # todo 1 finish route bunching metric
 
     def get_bunching_badboys(self,period):
         bunching_badboys = dict()
@@ -233,7 +220,8 @@ class RouteReport:
         bunching_badboys['stops'].append('Martin Luther King Jr Dr + Bidwell Ave')
         bunching_badboys['stops'].append('Palisade Ave + Hutton St')
         #
-        # # todo check if bunching leaderboard is current
+        # check if bunching leaderboard is current
+        #
         #     # if no - create it
         #     # if yes load it
         #
@@ -246,7 +234,7 @@ class RouteReport:
         #     for service in self.route_stop_list:
         #
         #
-        #         for stop in service.stops: #todo first query to make sure there are ScheduledStop instances
+        #         for stop in service.stops: # first query to make sure there are ScheduledStop instances
         #             bunch_total = 0
         #             arrival_total = 0
         #             report = StopReport(self.source, self.route, stop.identity, period)
@@ -288,7 +276,7 @@ class RouteReport:
 
         return bunching_badboys
 
-    # todo finish route grade metric
+    # todo 1 finish route grade metric
 
     def get_grade(self, period):
 
@@ -334,7 +322,7 @@ class RouteReport:
         return routes[0].nm, coordinate_bundle['waypoints_coordinates'], coordinate_bundle['stops_coordinates'], coordinate_bundle['waypoints_geojson'], coordinate_bundle['stops_geojson']
 
     def load_route_description(self):
-        for route in self.reportcard_routes:
+        for route in self.reportcard_definitions:
             if route['route'] == self.route:
                 self.frequency = route['frequency']
                 self.description_long = route['description_long']
@@ -424,9 +412,6 @@ class StopReport:
         # populate data for webpage
         self.arrivals_list_final_df, self.stop_name = self.get_arrivals(self.route, self.stop, self.period)
         self.hourly_frequency = self.get_hourly_frequency()
-
-        # self.citywide_waypoints_geojson = get_systemwide_geojson(reportcard_routes)
-        # self.stop_lnglatlike, self.stop_geojson = self.get_stop_lnglatlike()
 
     # fetch arrivals into a df
     def get_arrivals(self,route,stop,period):
@@ -582,7 +567,7 @@ class StopReport:
 
         return results
 
-    # todo write stop get_arrivals arrivals dashboard
-    # todo write stop get_frequency_report
-    # todo write stop get_travel_time metric
-    # todo write stop get_grade metric
+    # todo 1 write stop get_arrivals arrivals dashboard
+    # todo 1 write stop get_frequency_report
+    # todo 2 write stop get_travel_time metric
+    # todo 2 write stop get_grade metric

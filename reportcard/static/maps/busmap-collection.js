@@ -23,7 +23,7 @@ map.on('load', function() {
     ////////////////////////////
 
     // ajax request for waypoints data
-    //todo figure out how to pass this script a list of routes to show, will have to generate that in reportcard.py, and then pass it thorugh the collections.jinja2
+    //todo 1 figure out how to pass this script a list of routes to show, will have to generate that in reportcard.py, and then pass it thorugh the collections.jinja2
     var url_waypoints = ("/api/v1/maps?layer=waypoints&rt=all");
     var waypoints_geojson = (function () {
         var json = null;
