@@ -1,3 +1,21 @@
+{#todo build out stop.jinja2
+
+    - row 1
+        - left = grade card, 4 boxes
+            - **qualitative grade** based on period: "SERVICE IS {good|fair|poor} {period}." --> "SERVICE IS GOOD
+            - **frequency** Same as headway but labelled, presented a little differently.
+            - **travel time** from here to the last stop for {period}
+            - **travel speed** merge with one of the others, or separate box. a little bit of bling. average for last arrival over its most recent n stops?
+            - **bunching** same as route
+        - right = small map
+    - row 2
+        - hourly detail tables
+        - left = **frequency/headway by hour** average for {period}
+        - right = **arrivals** with bunching highlights for {period}
+        - borrow code from current `main` branch
+#}
+
+
 {%- extends "base.jinja2" %}
 
 

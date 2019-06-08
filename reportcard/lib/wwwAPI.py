@@ -102,6 +102,9 @@ class RouteReport:
             period_label = '-no period label assigned-'
         return period_label
 
+    # todo finish route headway metric
+    # accumulate some data on the desktop, need completed trips
+    # **wwwAPI.RouteReport.get_headway** add {{headway}} tags to route.html template and start testing
 
     def get_headway(self):
 
@@ -219,6 +222,8 @@ class RouteReport:
             return headway
 
 
+    # todo finish route bunching metric
+
     def get_bunching_badboys(self,period):
         bunching_badboys = dict()
         bunching_badboys['flag'] = True
@@ -283,7 +288,7 @@ class RouteReport:
 
         return bunching_badboys
 
-
+    # todo finish route grade metric
 
     def get_grade(self, period):
 
@@ -577,3 +582,7 @@ class StopReport:
 
         return results
 
+    # todo write stop get_arrivals arrivals dashboard
+    # todo write stop get_frequency_report
+    # todo write stop get_travel_time metric
+    # todo write stop get_grade metric

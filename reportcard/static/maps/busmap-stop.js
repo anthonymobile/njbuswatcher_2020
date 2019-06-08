@@ -1,3 +1,7 @@
+// todo see if possible to collapse into busmap.js -- perhaps just pass a var view_type (index, collection, route, stop) and then use conditionals to control display of layers
+// might need to be different since we want a single stop - limit stop layer to single stop (w/ stops_json source set to '/api/v1/maps?layer=stops&rt=119&stop_id=30189') - to extent of stops_json layer
+
+
 mapboxgl.accessToken = 'pk.eyJ1IjoiYml0c2FuZGF0b21zIiwiYSI6ImNqbDhvZnl1YjB4NHczcGxsbTF6bWRjMWQifQ.w2TI_q7ClI4JE5I7QU3hEA';
 var map = new mapboxgl.Map({
     container: 'map',
