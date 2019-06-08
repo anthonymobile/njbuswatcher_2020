@@ -59,9 +59,12 @@ Usage with arguments
 http://buswatcher.code4jc.org/api/v1/positions?rt=119&period=weekly
 ```
 
-#### required arguments
-`rt`    NJ transit route number (e.g. 119)
+#### required arguments (one of following)
+`rt`            NJ transit route number (e.g. 119, or rt=all)
+`collection`    NJ transit route number (e.g. collection=camden)
+
 #### optional arguments
+
 `period`  How much data to grab ('daily'=today, 'yesterday', 'weekly'=week to date,'history'=all time(default)) -- n.b. soon we'll add ability to query on specific dates in 'yyyy-mm-dd' format
 
 `pd` Destination name (be careful will need an exact match)

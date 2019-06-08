@@ -4,13 +4,6 @@
 # (only routes in route_config.py)      tripwatcher.py --limit
 #
 
-#todo add error trapping for disconnected operation (dying now?)
-#todo debug approach assignment: 3+ position seems to still be having problems...
-#todo debug `Boomerang buses (Case E)`
-#todo add Interpolate+log missed stops
-# after scanning each trip and logging any new arrivals, run a function that interpolates arrival times for any stops in between arrivals in the trip card -- theoretically there shouldn't be a lot though if the trip card is correct since we are grabbing positions every 30 seconds.
-
-
 
 import argparse
 import sys
@@ -21,8 +14,7 @@ import numpy as np
 
 from lib import BusAPI, Localizer
 from lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
-
-from route_config import reportcard_routes
+from route_config import load_config
 
 
 def watch(limit,r):
@@ -42,9 +34,10 @@ def watch(limit,r):
                 try:
                     buses = BusAPI.parse_xml_getBusesForRoute(
                         BusAPI.get_xml_data(args.source, 'buses_for_route', route=r['route']))
+                # todo 1 fix this error handler for 404
                 except werkzeug.exceptions.NotFound as e:
                     sys.stdout.write('.')
-                    time.sleep(2)
+                    time.sleep(5) # sleep for 5 seconds and try again
                     continue
                 break
 
@@ -54,9 +47,14 @@ def watch(limit,r):
                 try:
                     buses = BusAPI.parse_xml_getBusesForRouteAll(
                         BusAPI.get_xml_data(args.source, 'all_buses'))
-                except werkzeug.exceptions.NotFound as e:
+
+                # todo 1 fix this error parsing
+                except xml.etree.ElementTree.ParseError as e:
+                    # except werkzeug.exceptions.NotFound as e:
                     sys.stdout.write('.')
                     time.sleep(2)
+                    continue
+                else:
                     continue
 
                 # remove any bus not on an active route
@@ -253,10 +251,13 @@ def watch(limit,r):
                             case_identifier = '3c'
                             # plot_approach(trip_id, np.array([0, position_list[0].distance_to_stop]), case_identifier)
 
+                        # todo add 2 `Boomerang buses (Case D)`
+
                     except:
                         pass
 
                 # catch errors for unassigned 3+-position approaches
+                # todo 2 debug approach assignment: 3+ position seems to still be having problems...
                 try:
                     stop_to_update[0][0].arrival_timestamp = arrival_time
                 except:
@@ -265,8 +266,18 @@ def watch(limit,r):
         db.session.commit()
 
 
+#todo 2 add Interpolate+log missed stops
+def interpolate_missed():
+    # interpolates arrival times for any stops in between arrivals in the trip card
+    # theoretically there shouldn't be a lot though if the trip card is correct
+    # since we are grabbing positions every 30 seconds.)
+    return
+
+
 
 if __name__ == "__main__":
+
+    route_definitions, grade_descriptions, collection_descriptions = load_config()
 
     parser = argparse.ArgumentParser()
     parser.add_argument('-s', '--source', dest='source', default='nj', help='source name')
@@ -282,32 +293,17 @@ if __name__ == "__main__":
             delay = 0
         time.sleep(delay)
 
-        if args.limit is True:
-            for route_iteration in reportcard_routes:
-                watch(limit=args.limit, r=route_iteration)
-            ran = True
+        try:
+            if args.limit is True:
+                for route_to_watch in route_definitions: # iterate over all routes known
+                    watch(limit=args.limit, r=route_to_watch)
+                interpolate_missed(r=route_to_watch)  # interpolate+log missed stops
+                ran = True
 
-        if args.limit is False:
-            watch(limit=args.limit, r=0)
-            ran = True
+            if args.limit is False:
+                watch(limit=args.limit, r=0)
+                ran = True
+        except:
+            pass
 
-
-##################################################
-# UNUSED - FOR VISUAL APPROACH DIAGNOSTICS
-##################################################
-#
-# import matplotlib.pyplot as plt
-# def plot_approach(trip_id, approach_array,case_identifier):
-#     x = [row[0] for row in approach_array]
-#     y = [row[1] for row in approach_array]
-#     # x = approach_array[:,0]
-#     # y = approach_array[:,1]
-#     x_max = np.max(x)
-#     y_max = np.max(y)
-#     plt.scatter(x, y)
-#     label = ('{a} {b}').format(a=trip_id, b=case_identifier)
-#     plt.xlabel(label)
-#     plt.axis([0, 1.1 * x_max, 0, 1.1 * y_max])
-#     plt.show()
-#     # print ('plot failed')
-#     return
+#todo 1 deploy to AWS for testing

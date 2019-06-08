@@ -1,29 +1,23 @@
 # NJBuswatcher.com
 # config
 
-# todo finish testing the route_config.py loader
-
 import json, sys
 import lib.BusAPI as BusAPI
 
 
-def load_route_grade_metadata():
-    # todo figure out which JSON format is better (grades, or routes)
-
+def load_config():
     with open('config/grade_descriptions.json') as f:
-        grade_descriptions = json.load(f)
-
+        grade_descriptions = json.load(f)['grade_descriptions']
     with open('config/route_definitions.json') as f:
-        route_definitions = json.load(f)
-
-    return route_definitions, grade_descriptions
+        route_definitions = json.load(f)['route_definitions']
+    with open('config/collection_descriptions.json') as f:
+        collection_descriptions = json.load(f)['collection_descriptions']
+    return route_definitions, grade_descriptions, collection_descriptions
 
 
 def fetch_update_route_metadata():
 
-    route_definitions, grade_definitions = load_route_grade_metadata()
-
-    # todo 1 add any routes in retrieved list from API not in OVERRIDES
+    route_definitions, grade_descriptions, collection_descriptions = load_config()
 
     # UPDATE ROUTES FROM API
 
@@ -47,36 +41,47 @@ def fetch_update_route_metadata():
     # fetch route metadata
     rt_nm= list()
     for r in routes_active:
-        # todo can i get this data with a less data-intensive API call?
         sys.stdout.write (r+'...')
         route_metadata = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data('nj', 'routes', route=r))
-        route_entry = {'rd': route_metadata[0][0].identity, 'uglyname': route_metadata[0][0].nm}
+        route_entry = {'rd': route_metadata[0][0].identity, 'nm': route_metadata[0][0].nm}
         rt_nm.append(route_entry)
 
+    #todo 1 test new solution in this loop
+
     # merge API data into routes_definitions
-    for updating in route_definitions['routes'].iteritems(): # iterate over existing route defintions
-        for k,v in updating.iteritems(): # iterate over keys in each route
-            for i,j in routes_active.iteritems(): # iterate over keys in data fetched from API
+    for updating in route_definitions: # iterate over existing route definitions
+        for k,v in updating.items(): # iterate over keys in each route
+            print ('k\t%a\tv\t%b\t').format(a=k, b=v)
+            for i,j in rt_nm: # iterate over keys in data fetched from API
+                print ('i\t%c\tj %d\t').format(c=i,d=j)
                 if k == i: # if keys match
                     if v != j: # but values dont
-                        v = j # update the updating value with the routes_active one
+                        print ('setting updating[%a] = %b').format(a=v,b=j)
+                        updating[v] = j # update the updating value with the routes_active one
 
-    # now go back and add any missing routes seen from API to route_definitions
-    for route in routes_active.iteritems():
-        if route['route'] not in route_definitions['routes'].values():
-            route_definitions[route['route']] = route # add that one to the route defitionsl
-    # dump routes_definitions.json, overwriting
-    with open('config/route_definitions.json') as f:
-        json.dump(route_definitions, f)
+    # now go back and add any missing routes seen from API results to route_definitions
+    for rt, nm in rt_nm:
+        try:
+            for r in route_definitions:
+                if r['route'] == rt: # if so
+                    r['nm'] = nm # update the name with API results (just in case)
+
+        except: # if not
+            update = {'route':rt_nm[0], "nm":rt_nm[0], "ttl":"1d"} # convert the tuple to a dict and
+            route_definitions.append(update) #add it to the route_definitions file so we dont scan it again until the TTL expires
+
+    # delete existing route_definition.json and dump new complete as a json
+    with open('config/route_definitions.json','w') as f:
+        outdata = {'route_definitions':route_definitions}
+        json.dump(outdata, f)
 
     return
 
 
 if __name__ == "__main__":
 
-    route_definitions, grade_descriptions=load_route_grade_metadata()
-    print (len(route_definitions['routes']))
+    route_definitions=load_config()[0]
+    print ("loaded "+str(len(route_definitions))+" routes from route_definitions" )
     fetch_update_route_metadata()
-    route_definitions, grade_descriptions = load_route_grade_metadata()
-    print (len(route_definitions['routes']))
-
+    route_definition = load_config()[0]
+    print ("loaded "+str(len(route_definitions))+" routes from route_definitions" )

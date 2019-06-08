@@ -1,4 +1,4 @@
-# todo merge statewide branch back into new_localizer
+# todo 1 merge statewide branch back into new_localizer
 
 # bus reportcard v2.0
 # june 2019 - by anthony@bitsandatoms.net
@@ -29,7 +29,8 @@ import lib.wwwAPI as wwwAPI
 ################################################
 # ROUTE + APP CONFIG
 ################################################
-from route_config import reportcard_routes, grade_descriptions
+from route_config import load_config #NEW
+route_definitions, grade_descriptions, collection_descriptions = load_config()
 
 ################################################
 # APP
@@ -84,7 +85,7 @@ def displayIndex():
 
     city_collections=wwwAPI.load_collection_metadata() # get list of collections
     routereport = Dummy() # setup a dummy routereport for the navbar
-    return render_template('index.jinja2', city_collections=city_collections, reportcard_routes=reportcard_routes, routereport=routereport)
+    return render_template('index.jinja2', city_collections=city_collections, reportcard_routes=route_definitions, routereport=routereport)
 
 
 #-------------------------------------------------------------City Index
@@ -94,7 +95,7 @@ def displayCollection(collection_url):
     # get list of routes from route_config.city_collections
     collection_metadata=wwwAPI.parse_collection_metadata(collection_url)
     routereport = Dummy()  # setup a dummy routereport for the navbar
-    return render_template('collection.jinja2',collection_metadata=collection_metadata, reportcard_routes=reportcard_routes, routereport=routereport)
+    return render_template('collection.jinja2',collection_metadata=collection_metadata, reportcard_routes=route_definitions, routereport=routereport)
 
 
 #-------------------------------------------------------------Route
@@ -115,19 +116,19 @@ def genStopReport(source, route, stop, period):
     route_report = wwwAPI.RouteReport(source, route, period)
     predictions = BusAPI.parse_xml_getStopPredictions(BusAPI.get_xml_data('nj', 'stop_predictions', stop=stop, route='all'))
 
-    return render_template('stop.jinja2', source=source, stop=stop, period=period, stopreport=stop_report, reportcard_routes=reportcard_routes,predictions=predictions, routereport=route_report)
+    return render_template('stop.jinja2', source=source, stop=stop, period=period, stopreport=stop_report, reportcard_routes=route_definitions,predictions=predictions, routereport=route_report)
 
 #-------------------------------------------------------------FAQ
 @app.route('/faq')
 def displayFAQ():
     routereport = Dummy() #  setup a dummy routereport for the navbar
-    return render_template('faq.jinja2', reportcard_routes=reportcard_routes, routereport=routereport)
+    return render_template('faq.jinja2', reportcard_routes=route_definitions, routereport=routereport)
 
 #-------------------------------------------------------------API docs
 @app.route('/api')
 def displayAPI():
     routereport = Dummy() #  setup a dummy routereport for the navbar
-    return render_template('api.jinja2', reportcard_routes=reportcard_routes, routereport=routereport)
+    return render_template('api.jinja2', reportcard_routes=route_definitions, routereport=routereport)
 
 
 ################################################
@@ -137,14 +138,28 @@ def displayAPI():
 # map layer geojson generator
 #
 # /api/v1/maps?
-#
-#   layer=waypoints&rt=87               waypoints for single route
+
+# for index map
 #   layer=waypoints&rt=all              waypoints for ALL routes
+#   layer=stops&rt=all              waypoints for ALL routes
+#   layer=vehicles&rt=all               vehicles for ALL routes
+
+# for collection map
+#   layer=waypoints&collection=camden   waypoints for camden routes
+#   layer=stops&collection=camden       stops for camden routes
+#   layer=stops&collection=camden       vehicles for camden routes
+
+# for route map
+#   layer=waypoints&rt=87               waypoints for single route
 #   layer=stops&rt=87                   stops for single route
+#   layer=vehicles&rt=87                vehicles for single route
+
+# for stop map
 #   layer=stops&rt=87&stop_id=30189     stop for single stop
-#   layer=vehicles&rt=87               vehicles for single stop
-#   layer=vehicles&rt=all              vehicles forALL routes
-#
+#   TK url for stop map waypoints
+#   TK document url for stop map vehicles
+
+
 
 @app.route('/api/v1/maps')
 @cross_origin()
@@ -152,9 +167,9 @@ def api_map_layer():
     args=request.args
 
     if args['layer'] == 'vehicles':
-        return jsonify(API.get_positions_byargs(args, reportcard_routes))
+        return jsonify(API.get_positions_byargs(args,route_definitions,collection_descriptions))
     else:
-        return jsonify(API.get_map_layers(args, reportcard_routes))
+        return jsonify(API.get_map_layers(args,route_definitions,collection_descriptions))
 
 
 

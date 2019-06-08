@@ -116,7 +116,7 @@
                                     <!--Title-->
                                     <h4 class="card-header-title text-left"><a href = {{ url_for('genRouteReport',collection_url=collection_metadata.collection_url,route=route, period='now') }}>{{route}}.</a>
                                     </h4>
-                                    {#todo This is very inefficient, better if we loaded the route descriptions for each collection with a wwwAPI helper#}
+                                    {#todo 3 This is very inefficient, better if we loaded the route descriptions for each collection with a wwwAPI helper#}
                                     <p class="text-left">
 
                                         {% for route_2_match in reportcard_routes %}
