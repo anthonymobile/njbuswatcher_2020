@@ -24,7 +24,7 @@ map.on('load', function() {
 
     // ajax request for waypoints data
     //todo 1 figure out how to pass this script a list of routes to show, will have to generate that in reportcard.py, and then pass it thorugh the collections.jinja2
-    var url_waypoints = ("/api/v1/maps?layer=waypoints&rt=all");
+    var url_waypoints = ("/api/v1/maps?layer=waypoints&collection="+collection_metadata['collection_url']);
     var waypoints_geojson = (function () {
         var json = null;
         $.ajax({
@@ -61,7 +61,7 @@ map.on('load', function() {
     ////////////////////////////
 
     // ajax request for stops data
-    var url_stops = ("/api/v1/maps?layer=stops&rt=all");
+    var url_stops = ("/api/v1/maps?layer=stops&collection="+collection_metadata['collection_url']);
     var stops_geojson = (function () {
         var json = null;
         $.ajax({
@@ -100,7 +100,7 @@ map.on('load', function() {
     ////////////////////////////
 
     // ajax request for vehicles data
-    var url_vehicles = ("/api/v1/maps?layer=vehicles&rt=all");
+    var url_vehicles = ("/api/v1/maps?layer=vehicles&collection="+collection_metadata['collectuion_url']);
     var vehicles_geojson = (function () {
         var json = null;
         $.ajax({
