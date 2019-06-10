@@ -75,6 +75,21 @@ bundles = {
 assets = Environment(app)
 assets.register(bundles)
 
+
+# HELPERS
+
+def load_collection_routes(collection_url):
+# get list of routes in collection from route_config
+    d1, d2, collection_descriptions = load_config()
+    collection_metadata=dict()
+    for collection in collection_descriptions:
+        if collection['collection_url'] == collection_url:
+            collection_metadata = collection
+            break
+        else:
+            continue
+    return collection_metadata
+
 ################################################
 # URLS
 ################################################
@@ -82,18 +97,17 @@ assets.register(bundles)
 #-------------------------------------------------------------Statewide Index
 @app.route('/')
 def displayIndex():
+    d1, d2, collection_descriptions = load_config()
 
-    city_collections=wwwAPI.load_collection_metadata() # get list of collections
+
     routereport = Dummy() # setup a dummy routereport for the navbar
-    return render_template('index.jinja2', city_collections=city_collections, reportcard_routes=route_definitions, routereport=routereport)
+    return render_template('index.jinja2', collection_descriptions=collection_descriptions, reportcard_routes=route_definitions, routereport=routereport)
 
 
 #-------------------------------------------------------------City Index
 @app.route('/<collection_url>')
 def displayCollection(collection_url):
-
-    # get list of routes from route_config.city_collections
-    collection_metadata=wwwAPI.parse_collection_metadata(collection_url)
+    collection_metadata=load_collection_routes(collection_url)
     routereport = Dummy()  # setup a dummy routereport for the navbar
     return render_template('collection.jinja2',collection_metadata=collection_metadata, reportcard_routes=route_definitions, routereport=routereport)
 
@@ -103,20 +117,22 @@ def displayCollection(collection_url):
 @app.route('/<collection_url>/<route>/<period>')
 def genRouteReport(collection_url,route, period):
     source=source_global
-    collection_metadata = wwwAPI.parse_collection_metadata(collection_url)
+    collection_metadata=load_collection_routes(collection_url)
     route_report = wwwAPI.RouteReport(source, route, period)
     return render_template('route.jinja2', collection_metadata=collection_metadata, route=route, period=period, routereport=route_report)
 
 #------------------------------------------------------------Stop
 # /<source>/<route>/stop/<stop>/<period>
-@app.route('/<source>/<route>/stop/<stop>/<period>')
+@app.route('/<collection_url>/<route>/stop/<stop>/<period>')
 #@cache.cached(timeout=60) # cache for 1 minute
-def genStopReport(source, route, stop, period):
+def genStopReport(collection_url, route, stop, period):
+    source = source_global
+    collection_metadata=load_collection_routes(collection_url)
     stop_report = wwwAPI.StopReport(source, route, stop, period)
     route_report = wwwAPI.RouteReport(source, route, period)
     predictions = BusAPI.parse_xml_getStopPredictions(BusAPI.get_xml_data('nj', 'stop_predictions', stop=stop, route='all'))
 
-    return render_template('stop.jinja2', source=source, stop=stop, period=period, stopreport=stop_report, reportcard_routes=route_definitions,predictions=predictions, routereport=route_report)
+    return render_template('stop.jinja2', collection_metadata=collection_metadata, source=source, stop=stop, period=period, stopreport=stop_report, reportcard_routes=route_definitions,predictions=predictions, routereport=route_report)
 
 #-------------------------------------------------------------FAQ
 @app.route('/faq')

@@ -42,25 +42,26 @@ def positions2geojson(df):
 
 # positions
 def get_positions_byargs(args, route_definitions, collection_descriptions):
-    if args['collection']:
+
+    if 'rt' in args.keys():
+        if args['rt'] == 'all':
+            positions_list = pd.DataFrame()
+            for r in route_definitions:
+                positions_list = positions_list.append(_fetch_positions_df(r['route']))
+                # positions_list.append(positions_df)
+            return positions2geojson(positions_list)
+        else:
+            return positions2geojson(_fetch_positions_df(args['rt']))
+
+    elif 'collection' in args.keys():
         positions_list = pd.DataFrame()
-        # look up the right collection
         for city in collection_descriptions:
             if args['collection'] == city['collection']:
                 # iterate over its routelist
                 for r in city['routelist']:
-                    positions_list = positions_list.append(_fetch_positions_df(r['route']))
+                    positions_list = positions_list.append(_fetch_positions_df(r))
                     # positions_list.append(positions_df)
-                positions_geojson=positions2geojson(positions_list)
-    elif args['rt'] == 'all':
-        positions_list = pd.DataFrame()
-        for r in route_definitions:
-            positions_list = positions_list.append(_fetch_positions_df(r['route']))
-            # positions_list.append(positions_df)
-        positions_geojson=positions2geojson(positions_list)
-    else:
-        positions_geojson = positions2geojson(_fetch_positions_df(args['rt']))
-    return positions_geojson
+                return positions2geojson(positions_list)
 
 
 def _fetch_positions_df(route):
