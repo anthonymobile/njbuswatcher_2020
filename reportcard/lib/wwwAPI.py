@@ -9,9 +9,7 @@ from sqlalchemy import inspect, func
 
 import lib.BusAPI as BusAPI
 from lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
-
-
-from route_config import load_config
+import lib.RouteConfig as RouteConfig
 
 
 # primary classes
@@ -34,7 +32,7 @@ class RouteReport:
 
         # populate route basics from config
 
-        self.route_definitions, self.grade_descriptions, self.collection_descriptions = load_config()
+        self.route_definitions, self.grade_descriptions, self.collection_descriptions = RouteConfig.load_config()
 
         # populate static report card data
         #todo 3 would be nice to read this from Trip, but since RouteReport has more than 1 trip, which path will we use? this is why buses sometimes show up on maps not on a route
@@ -294,7 +292,7 @@ class RouteReport:
 
         # and B. number of bunching incidents
         grade = 'B'
-        # todo read from self.grade_descriptions
+        # todo 1 read from self.grade_descriptions
         grade_description = 'Service meets the needs of riders some of the time, but suffers from serious shortcomings and gaps. Focused action is required to improve service in the near-term.'
         return grade, grade_description
 
@@ -322,7 +320,7 @@ class RouteReport:
         return routes[0].nm, coordinate_bundle['waypoints_coordinates'], coordinate_bundle['stops_coordinates'], coordinate_bundle['waypoints_geojson'], coordinate_bundle['stops_geojson']
 
     def load_route_description(self):
-        for route in self.reportcard_definitions:
+        for route in self.route_definitions:
             if route['route'] == self.route:
                 self.frequency = route['frequency']
                 self.description_long = route['description_long']

@@ -1,8 +1,3 @@
-// todo 1 reuse this for index,connection, and route, just pass a different *passed_route*
-// might need to rewrite the API to pass a collection instaed of a single route
-//  e.g. figure out how to pass through the list of route #s and then fetch and concatenate the individual route geojsons (probably write another API call, easier to do in python than JS?)
-
-
 mapboxgl.accessToken = 'pk.eyJ1IjoiYml0c2FuZGF0b21zIiwiYSI6ImNqbDhvZnl1YjB4NHczcGxsbTF6bWRjMWQifQ.w2TI_q7ClI4JE5I7QU3hEA';
 var map = new mapboxgl.Map({
     container: 'map',

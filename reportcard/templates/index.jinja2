@@ -1,6 +1,6 @@
-{# todo 1 finalize home page content
+{# todo 2 add a ranking somewhere of all the routes?
 
-add a ranking somewhere of all the routes?  if you want to use this as an advocacy tool it may be useful to expose a ranking like that. #}
+if you want to use this as an advocacy tool it may be useful to expose a ranking like that. #}
 
 
 {%- extends "base.jinja2" %}
@@ -39,7 +39,7 @@ add a ranking somewhere of all the routes?  if you want to use this as an advoca
 
 
     <script type="text/javascript">
-        var passed_reportcard_routes = {{ reportcard_routes|safe }}
+        var passed_reportcard_routes = {{ route_definitions|safe }}
         var passed_route = "all"
     </script>
     <script type="text/javascript" src="{{ url_for('static', filename='maps/busmap.js')}}"></script>
@@ -139,7 +139,7 @@ add a ranking somewhere of all the routes?  if you want to use this as an advoca
                 <!--Grid row-->
                 <div class="row mb-4 wow fadeIn">
 
-                    {% for route in reportcard_routes %}
+                    {% for route in route_definitions %}
                     <!--Grid column-->
                     <div class="col-lg-4 col-md-12 mb-4">
 

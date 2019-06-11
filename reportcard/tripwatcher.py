@@ -14,7 +14,7 @@ import numpy as np
 
 from lib import BusAPI, Localizer
 from lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
-from route_config import load_config
+from lib.RouteConfig import load_config
 
 
 def watch(limit,r):

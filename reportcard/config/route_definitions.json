@@ -1,132 +1,866 @@
 {
-  "route_definitions": [
-    {
-      "route": "2",
-      "frequency": "low",
-      "schedule_url": "https://www.njtransit.com/pdf/bus/T0002.pdf",
-      "prettyname": "Pretty Name",
-      "description_short": "TK long, local, infrequent service linking Journal Square and downtown Hackensack via The Heights.",
-      "description_long": "tbd."
-    },
-    {
-      "route": "6",
-      "frequency": "low",
-      "schedule_url": "https://www.njtransit.com/pdf/bus/T0006.pdf",
-      "prettyname": "Pretty Name",
-      "description_short": "TK long, local, infrequent service linking Journal Square and downtown Hackensack via The Heights.",
-      "description_long": "tbd."
-    },
-    {
-      "route": "10",
-      "frequency": "low",
-      "schedule_url": "https://www.njtransit.com/pdf/bus/T0010.pdf",
-      "prettyname": "Pretty Name",
-      "description_short": "TK long, local, infrequent service linking Journal Square and downtown Hackensack via The Heights.",
-      "description_long": "tbd."
-    },
-    {
-      "route": "80",
-      "frequency": "low",
-      "schedule_url": "https://www.njtransit.com/pdf/bus/T0080.pdf",
-      "prettyname": "Pretty Name",
-      "description_short": "TK long, local, infrequent service linking Journal Square and downtown Hackensack via The Heights.",
-      "description_long": "tbd."
-    },
-    {
-      "route": "81",
-      "frequency": "low",
-      "schedule_url": "https://www.njtransit.com/pdf/bus/T0081.pdf",
-      "prettyname": "Pretty Name",
-      "description_short": "TK long, local, infrequent service linking Journal Square and downtown Hackensack via The Heights.",
-      "description_long": "tbd."
-    },
-    {
-      "route": "82",
-      "frequency": "low",
-      "schedule_url": "https://www.njtransit.com/pdf/bus/T0082.pdf",
-      "prettyname": "Heights-Exchange Place",
-      "description_short": "Rush-hour only service between the Heights and Exchange Place.",
-      "description_long": "Tracing a long-defunct streetcar line, the 82 connects a corner of The Heights to Downtown Jersey City at Exchange Place."
-    },
-    {
-      "route": "83",
-      "frequency": "low",
-      "schedule_url": "https://www.njtransit.com/pdf/bus/T0083.pdf",
-      "prettyname": "Journal Square-Hackensack",
-      "description_short": "A long, local, infrequent service linking Journal Square and downtown Hackensack via The Heights.",
-      "description_long": "The 83 links Journal Square and downtown Hackensack along JFK Boulevard in The Heights, making it one of the few inter-county routes served from Jersey City."
-    },
-    {
-      "route": "84",
-      "frequency": "high",
-      "schedule_url": "https://www.njtransit.com/pdf/bus/T0084.pdf",
-      "prettyname": "Journal Square-North Bergen (via Palisade)",
-      "description_short": "The Palisade Avenue local links the Journal Square, the Heights, Union City, and North Bergen.",
-      "description_long": "One of the most frequent buses operating along the Palisade Ave corridor, the 84 provides a vital connector between the eastern side of The Heights and Journal Square, as well as points further north along the Palisades in Hudson County."
-    },
-    {
-      "route": "85",
-      "frequency": "low",
-      "schedule_url": "https://www.njtransit.com/pdf/bus/T0085.pdf",
-      "prettyname": "Hoboken Terminal-Secaucus",
-      "description_short": "An infrequent but vital link to shopping and jobs in the Secaucus Meadowlands.",
-      "description_long": "The 85 provides infrequent service every 30-60 minutes providing a vital link to shopping and employment in the Secaucus area."
-    },
-    {
-      "route": "86",
-      "frequency": "low",
-      "schedule_url": "https://www.njtransit.com/pdf/bus/T0086.pdf",
-      "prettyname": "Union City-The Heights-Grove Street-Newport Mall",
-      "description_short": "Connects the Heights and Downtown Jersey City.",
-      "description_long": "Running along the Palisade Corridor, the 86(and 86P) link into downtown Jersey City where the bustling Grove Street area and Newport Mall feature lots of dining and entertainment options."
-    },
-    {
-      "route": "87",
-      "frequency": "high",
-      "schedule_url": "https://www.njtransit.com/pdf/bus/T0087.pdf",
-      "prettyname": "Hoboken-Journal Square",
-      "description_short": "The Heights\" backbone service, offering rail connections at Journal Square and Hoboken Terminal.",
-      "description_long": "The 87 snakes through The Heights, linking to important rail stations at Journal Square, the 9th Street Light Rail Station, and Hoboken Terminal. It has the worst bunching problems of all NJTransit routes in the area due to heavy traffic, railroad grade crossings, and more."
-    },
-    {
-      "route": "88",
-      "frequency": "high",
-      "schedule_url": "https://www.njtransit.com/pdf/bus/T0088.pdf",
-      "prettyname": "Journal Square-North Bergen (via JFK)",
-      "description_short": "The JFK local links the Journal Square, the Heights, Union City, and North Bergen.",
-      "description_long": "The 88 provides service throughout the day along JFK Boulevard providing a north-south connection along the western portion of Hudson County."
-    },
-    {
-      "route": "89",
-      "frequency": "low",
-      "schedule_url": "https://www.njtransit.com/pdf/bus/T0089.pdf",
-      "prettyname": "Pretty Name",
-      "description_short": "TK long, local, infrequent service linking Journal Square and downtown Hackensack via The Heights.",
-      "description_long": "TK 88 provides service throughout the day along JFK Boulevard providing a north-south connection along the western portion of Hudson County."
-    },
-    {
-      "route": "119",
-      "frequency": "high",
-      "schedule_url": "https://www.njtransit.com/pdf/bus/T0119.pdf",
-      "prettyname": "Journal Square-NYC (via Central Ave)",
-      "description_short": "The Height\"s Manhattan commuter service faces severe overcrowding, despite recent service increases.",
-      "description_long": "The 119 does triple-duty: as a Hudson County north-south connector, a Central Avenue local, and main express commuter line to midtown Manhattan, and fails at all three missions. The 119 is too long, infrequent, and overcrowded."
-    },
-    {
-      "route": "123",
-      "frequency": "high",
-      "schedule_url": "https://www.njtransit.com/pdf/bus/T0123.pdf",
-      "prettyname": "The Heights-NYC (via Palisade Ave)",
-      "description_short": "Alternate Palisade Ave local service to Union City and Manhattan.",
-      "description_long": "The 123 provides local Palisade Avenue service along the length of Union City, before proceeding into Manhattan. A handful of rush-hour runs continue down through The Heights, terminating at Christ Hospital."
-    },
-    {
-      "route": "125",
-      "frequency": "low",
-      "schedule_url": "https://www.njtransit.com/pdf/bus/T0125.pdf",
-      "prettyname": "Journal Square-NYC (via JFK Blvd)",
-      "description_short": "Manhattan commuter line serving the West Side of The Heights along JFK Boulevard.",
-      "description_long": "The 125 is a primarily rush-hour oriented service providing local scheduled service to and from New York City\"s Port Authority."
-    }
-  ]
+    "route_definitions": [
+        {
+            "description_long": "tbd.",
+            "description_short": "TK long, local, infrequent service linking Journal Square and downtown Hackensack via The Heights.",
+            "frequency": "low",
+            "nm": "Jersey City-JournalSq-Secaucus",
+            "prettyname": "Pretty Name",
+            "route": "2",
+            "schedule_url": "https://www.njtransit.com/pdf/bus/T0002.pdf"
+        },
+        {
+            "description_long": "tbd.",
+            "description_short": "TK long, local, infrequent service linking Journal Square and downtown Hackensack via The Heights.",
+            "frequency": "low",
+            "nm": "Ocean Avenue - Journal Square",
+            "prettyname": "Pretty Name",
+            "route": "6",
+            "schedule_url": "https://www.njtransit.com/pdf/bus/T0006.pdf"
+        },
+        {
+            "description_long": "tbd.",
+            "description_short": "TK long, local, infrequent service linking Journal Square and downtown Hackensack via The Heights.",
+            "frequency": "low",
+            "prettyname": "Pretty Name",
+            "route": "10",
+            "schedule_url": "https://www.njtransit.com/pdf/bus/T0010.pdf"
+        },
+        {
+            "description_long": "tbd.",
+            "description_short": "TK long, local, infrequent service linking Journal Square and downtown Hackensack via The Heights.",
+            "frequency": "low",
+            "nm": "Greenville-JournalSq-Exchange",
+            "prettyname": "Pretty Name",
+            "route": "80",
+            "schedule_url": "https://www.njtransit.com/pdf/bus/T0080.pdf"
+        },
+        {
+            "description_long": "tbd.",
+            "description_short": "TK long, local, infrequent service linking Journal Square and downtown Hackensack via The Heights.",
+            "frequency": "low",
+            "nm": "Bayonne - Jersey City",
+            "prettyname": "Pretty Name",
+            "route": "81",
+            "schedule_url": "https://www.njtransit.com/pdf/bus/T0081.pdf"
+        },
+        {
+            "description_long": "Tracing a long-defunct streetcar line, the 82 connects a corner of The Heights to Downtown Jersey City at Exchange Place.",
+            "description_short": "Rush-hour only service between the Heights and Exchange Place.",
+            "frequency": "low",
+            "prettyname": "Heights-Exchange Place",
+            "route": "82",
+            "schedule_url": "https://www.njtransit.com/pdf/bus/T0082.pdf"
+        },
+        {
+            "description_long": "The 83 links Journal Square and downtown Hackensack along JFK Boulevard in The Heights, making it one of the few inter-county routes served from Jersey City.",
+            "description_short": "A long, local, infrequent service linking Journal Square and downtown Hackensack via The Heights.",
+            "frequency": "low",
+            "nm": "Hackensack-Jersy City-JournSQ",
+            "prettyname": "Journal Square-Hackensack",
+            "route": "83",
+            "schedule_url": "https://www.njtransit.com/pdf/bus/T0083.pdf"
+        },
+        {
+            "description_long": "One of the most frequent buses operating along the Palisade Ave corridor, the 84 provides a vital connector between the eastern side of The Heights and Journal Square, as well as points further north along the Palisades in Hudson County.",
+            "description_short": "The Palisade Avenue local links the Journal Square, the Heights, Union City, and North Bergen.",
+            "frequency": "high",
+            "nm": "N Bergen-Jersey City-JournSq",
+            "prettyname": "Journal Square-North Bergen (via Palisade)",
+            "route": "84",
+            "schedule_url": "https://www.njtransit.com/pdf/bus/T0084.pdf"
+        },
+        {
+            "description_long": "The 85 provides infrequent service every 30-60 minutes providing a vital link to shopping and employment in the Secaucus area.",
+            "description_short": "An infrequent but vital link to shopping and jobs in the Secaucus Meadowlands.",
+            "frequency": "low",
+            "nm": "Mill Crk-HarmonMeadow-Hbken",
+            "prettyname": "Hoboken Terminal-Secaucus",
+            "route": "85",
+            "schedule_url": "https://www.njtransit.com/pdf/bus/T0085.pdf"
+        },
+        {
+            "description_long": "Running along the Palisade Corridor, the 86(and 86P) link into downtown Jersey City where the bustling Grove Street area and Newport Mall feature lots of dining and entertainment options.",
+            "description_short": "Connects the Heights and Downtown Jersey City.",
+            "frequency": "low",
+            "nm": "Union City-JersyCity-NwprtMal",
+            "prettyname": "Union City-The Heights-Grove Street-Newport Mall",
+            "route": "86",
+            "schedule_url": "https://www.njtransit.com/pdf/bus/T0086.pdf"
+        },
+        {
+            "description_long": "The 87 snakes through The Heights, linking to important rail stations at Journal Square, the 9th Street Light Rail Station, and Hoboken Terminal. It has the worst bunching problems of all NJTransit routes in the area due to heavy traffic, railroad grade crossings, and more.",
+            "description_short": "The Heights\" backbone service, offering rail connections at Journal Square and Hoboken Terminal.",
+            "frequency": "high",
+            "nm": "Jersey City - Hoboken",
+            "prettyname": "Hoboken-Journal Square",
+            "route": "87",
+            "schedule_url": "https://www.njtransit.com/pdf/bus/T0087.pdf"
+        },
+        {
+            "description_long": "The 88 provides service throughout the day along JFK Boulevard providing a north-south connection along the western portion of Hudson County.",
+            "description_short": "The JFK local links the Journal Square, the Heights, Union City, and North Bergen.",
+            "frequency": "high",
+            "nm": "N Bergen-Jersey City-JournSq",
+            "prettyname": "Journal Square-North Bergen (via JFK)",
+            "route": "88",
+            "schedule_url": "https://www.njtransit.com/pdf/bus/T0088.pdf"
+        },
+        {
+            "description_long": "TK 88 provides service throughout the day along JFK Boulevard providing a north-south connection along the western portion of Hudson County.",
+            "description_short": "TK long, local, infrequent service linking Journal Square and downtown Hackensack via The Heights.",
+            "frequency": "low",
+            "nm": "North Bergen - Hoboken",
+            "prettyname": "Pretty Name",
+            "route": "89",
+            "schedule_url": "https://www.njtransit.com/pdf/bus/T0089.pdf"
+        },
+        {
+            "description_long": "The 119 does triple-duty: as a Hudson County north-south connector, a Central Avenue local, and main express commuter line to midtown Manhattan, and fails at all three missions. The 119 is too long, infrequent, and overcrowded.",
+            "description_short": "The Height\"s Manhattan commuter service faces severe overcrowding, despite recent service increases.",
+            "frequency": "high",
+            "nm": "Bayonne-Jersey City-NY",
+            "prettyname": "Journal Square-NYC (via Central Ave)",
+            "route": "119",
+            "schedule_url": "https://www.njtransit.com/pdf/bus/T0119.pdf"
+        },
+        {
+            "description_long": "The 123 provides local Palisade Avenue service along the length of Union City, before proceeding into Manhattan. A handful of rush-hour runs continue down through The Heights, terminating at Christ Hospital.",
+            "description_short": "Alternate Palisade Ave local service to Union City and Manhattan.",
+            "frequency": "high",
+            "nm": "Jersey City-Union City-NY",
+            "prettyname": "The Heights-NYC (via Palisade Ave)",
+            "route": "123",
+            "schedule_url": "https://www.njtransit.com/pdf/bus/T0123.pdf"
+        },
+        {
+            "description_long": "The 125 is a primarily rush-hour oriented service providing local scheduled service to and from New York City\"s Port Authority.",
+            "description_short": "Manhattan commuter line serving the West Side of The Heights along JFK Boulevard.",
+            "frequency": "low",
+            "nm": "Jersey City-Journal Sq-NY",
+            "prettyname": "Journal Square-NYC (via JFK Blvd)",
+            "route": "125",
+            "schedule_url": "https://www.njtransit.com/pdf/bus/T0125.pdf"
+        },
+        {
+            "nm": "Newark",
+            "route": "1",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Irvington - New York",
+            "route": "107",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Newark - New York",
+            "route": "108",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Newark - Willowbrook",
+            "route": "11",
+            "ttl": "1d"
+        },
+        {
+            "nm": "New York-IKEA-Jersey Gardens",
+            "route": "111",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Clark - New York",
+            "route": "112",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Dunellen - New York",
+            "route": "113",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Bridgewater - New York",
+            "route": "114",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Rahway - New York",
+            "route": "115",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Perth Amboy - New York",
+            "route": "116",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Secaucus - New York",
+            "route": "124",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Hoboken - New York",
+            "route": "126",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Ridgefield-Union City-NY",
+            "route": "127",
+            "ttl": "1d"
+        },
+        {
+            "nm": "North Bergen-Blvd East-NY",
+            "route": "128",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Secaucus-Union City-New York",
+            "route": "129",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Broad Street - Clinton Avenue",
+            "route": "13",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Lakewood-NY-Union Hill Exp",
+            "route": "130",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Sayreville - New York",
+            "route": "131",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Old Bridge-Aberdeen-New York",
+            "route": "133",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Toms River - New York",
+            "route": "137",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Lakewood-Old Bridge-NY",
+            "route": "139",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Fort Lee-Palisades Park-NY",
+            "route": "154",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Englewood Cliffs-Fort Lee-NY",
+            "route": "156",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Fort Lee-Edgewater-New York",
+            "route": "158",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Fort Lee-New York",
+            "route": "159",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Elmwood Park-Wallington-NY",
+            "route": "160",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Paterson-Passaic-New York",
+            "route": "161",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Ridgewood - New York",
+            "route": "163",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Midland Park-Fair Lawn-NY",
+            "route": "164",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Westwood - New York",
+            "route": "165",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Cresskill - Bergenfield - NY",
+            "route": "166",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Harrington Park-Teaneck-NY",
+            "route": "167",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Paramus - New York",
+            "route": "168",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Paterson - New York (GWB)",
+            "route": "171",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Ridgewood - New York (GWB)",
+            "route": "175",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Union City - New York (GWB)",
+            "route": "181",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Hackensack - New York (GWB)",
+            "route": "182",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Dumont - New York (GWB)",
+            "route": "186",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Paterson-Secaucus-New York",
+            "route": "190",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Willowbrook-Montclair-NY",
+            "route": "191",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Clifton - New York",
+            "route": "192",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Willowbrook - New York",
+            "route": "193",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Stockholm-West Milford-NY",
+            "route": "194",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Willowbrook-Cedar Grove-NY",
+            "route": "195",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Warwick - Wayne - New York",
+            "route": "197",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Wayne-WilliamPatersonUniv-NY",
+            "route": "198",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Clifton-Lyndhurst-New York",
+            "route": "199",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Main Street",
+            "route": "21",
+            "ttl": "1d"
+        },
+        {
+            "nm": "N Bergen-Union City-Hoboken",
+            "route": "22",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Springfield Avenue",
+            "route": "25",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Nwk Airport-Nwk-Bloomfield",
+            "route": "258",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Mount Prospect",
+            "route": "27",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Nwk-MontclairUniv-Willowbrook",
+            "route": "28",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Bloomfield Avenue",
+            "route": "29",
+            "ttl": "1d"
+        },
+        {
+            "nm": "North Arlington-Kearny-Newark",
+            "route": "30",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Cape May-Wildwood-Phila",
+            "route": "313",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Asbury Park-Fort Dix-Phila",
+            "route": "317",
+            "ttl": "1d"
+        },
+        {
+            "nm": "NY-Atlantic City-Cape",
+            "route": "319",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Mill Creek-N Bergen P/R-NY",
+            "route": "320",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Vince Lombardi Park/Ride-NY",
+            "route": "321",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Market Street",
+            "route": "34",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Lyons Avenue",
+            "route": "37",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Irvington - Newark",
+            "route": "39",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Kearny - Jersey Gardens",
+            "route": "40",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Sicklerville - Philadelphia",
+            "route": "400",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Salem - Philadelphia",
+            "route": "401",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Pennsville - Philadelphia",
+            "route": "402",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Camden-Lindenwold-Turnersvil",
+            "route": "403",
+            "ttl": "1d"
+        },
+        {
+            "nm": "CherryHillMall-Pennsauken-Ph",
+            "route": "404",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Berlin-Marlton-Philadelphia",
+            "route": "406",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Cmdn-Mrchntville-MorstwnMall",
+            "route": "407",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Millville - Philadelphia",
+            "route": "408",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Trenton-Willingboro-Phila",
+            "route": "409",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Park Avenue",
+            "route": "41",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Bridgeton - Philadelphia",
+            "route": "410",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Sewell-Glassboro-Phila",
+            "route": "412",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Camden-MountHolly-Burlington",
+            "route": "413",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Cmdn-Rt73/Pennsauken St-Burl",
+            "route": "419",
+            "ttl": "1d"
+        },
+        {
+            "nm": "CherryHillMal-Audubon-Camden",
+            "route": "450",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Camden - 36th St. Station",
+            "route": "452",
+            "ttl": "1d"
+        },
+        {
+            "nm": "CherryHillMall-Wdbury-Paulsb",
+            "route": "455",
+            "ttl": "1d"
+        },
+        {
+            "nm": "VoorheesTC-CamdenCC-Avandale",
+            "route": "459",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Elizabeth-Woodbridge-Perth Am",
+            "route": "48",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Kinney",
+            "route": "5",
+            "ttl": "1d"
+        },
+        {
+            "nm": "AtlanticCity-Brigantine Beac",
+            "route": "501",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Atl City-HamiltonMall-Atl/CC",
+            "route": "502",
+            "ttl": "1d"
+        },
+        {
+            "nm": "BngalwPk-ChlseaHgts-VntrPlz",
+            "route": "504",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Atl City-Margate-Longport",
+            "route": "505",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Atlantic City - Ocean City",
+            "route": "507",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Atl City-StocktonColl-HamMal",
+            "route": "508",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Atl City-SomersPt-Ocean City",
+            "route": "509",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Philadelphia - Atlantic City",
+            "route": "551",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Cape May - Atlantic City",
+            "route": "552",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Upper Deerfield-Atl City",
+            "route": "553",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Lindenwold-PATCO-Atl City",
+            "route": "554",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Lakewood - Atlantic City",
+            "route": "559",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Tremley",
+            "route": "57",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Elizabeth - Kenilworth",
+            "route": "58",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Plainfield - Newark",
+            "route": "59",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Trenton - Plainsboro",
+            "route": "600",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Coll of NJ-Trenton-Ham MktPl",
+            "route": "601",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Montgomery-Princeton-QBMall",
+            "route": "605",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Princeton-Mrcrville-HamMktPl",
+            "route": "606",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Ewing-Trenton-Indep Plz",
+            "route": "607",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Hamilton - West Trenton",
+            "route": "608",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Ewing - Quaker Bridge Mall",
+            "route": "609",
+            "ttl": "1d"
+        },
+        {
+            "nm": "MercerMall-Yardville-Ham Mkt",
+            "route": "613",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Ewing-Mercer County College",
+            "route": "619",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Newark-Nwk Airport-Elizabeth",
+            "route": "62",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Pennington - East Trenton",
+            "route": "624",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Newark - Mountainside",
+            "route": "66",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Toms River-Lakewood-Newark",
+            "route": "67",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Newark - Livingston Mall",
+            "route": "70",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Haledon-Paterson-East Ruther",
+            "route": "703",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Paterson - Willowbrook Mall",
+            "route": "704",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Passaic - Willowbrook Mall",
+            "route": "705",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Bloomfield-Passaic-Paramus",
+            "route": "709",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Newark-West Caldwell",
+            "route": "71",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Hackensack-Paterson-Willowbr",
+            "route": "712",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Paterson-Bloomfield-Newark",
+            "route": "72",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Newark - Orange - Livingston",
+            "route": "73",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Paterson - Nutley - Newark",
+            "route": "74",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Passaic - Paterson - Wayne",
+            "route": "744",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Paramus-Cliffside Park-Edgew",
+            "route": "751",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Oakland-Ridgewood-Hackensack",
+            "route": "752",
+            "ttl": "1d"
+        },
+        {
+            "nm": "New Milford - Paramus",
+            "route": "753",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Paramus-Fort Lee-Edgewater",
+            "route": "755",
+            "ttl": "1d"
+        },
+        {
+            "nm": "EnglewoodCliffs-FortLee-Para",
+            "route": "756",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Passaic - Paramus Park",
+            "route": "758",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Newark - Hackensack",
+            "route": "76",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Paterson - Hackensack",
+            "route": "770",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Passaic-Hackensack-Englewood",
+            "route": "780",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Newark - Parsippany Express",
+            "route": "79",
+            "ttl": "1d"
+        },
+        {
+            "nm": "New Brunswick-Woodbridge Ctr",
+            "route": "810",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Perth Amboy-Middlesex CC",
+            "route": "813",
+            "ttl": "1d"
+        },
+        {
+            "nm": "N Brunswick-NewBrnswck-MidCC",
+            "route": "814",
+            "ttl": "1d"
+        },
+        {
+            "nm": "NBrnswick-EBrnswick-WdbrdgeC",
+            "route": "815",
+            "ttl": "1d"
+        },
+        {
+            "nm": "NBrnswick-EBrnswick-OldBrdg",
+            "route": "818",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Red Bank-MonMall-Asbury Prk",
+            "route": "832",
+            "ttl": "1d"
+        },
+        {
+            "nm": "AsbryPrk-Free-RaceMal-Centra",
+            "route": "836",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Grove Street Crosstown",
+            "route": "90",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Orange Crosstown",
+            "route": "92",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Stuyvesant Crosstown",
+            "route": "94",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Clifton Avenue Crosstown",
+            "route": "99",
+            "ttl": "1d"
+        }
+    ]
 }
