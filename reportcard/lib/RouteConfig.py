@@ -2,6 +2,7 @@
 # config
 
 import json, sys
+import yaml
 import reportcard.lib.BusAPI as BusAPI
 
 
@@ -72,7 +73,12 @@ def fetch_update_route_metadata():
     # delete existing route_definition.json and dump new complete as a json
     with open('config/route_definitions.json','w') as f:
         outdata = {'route_definitions':route_definitions}
-        json.dump(outdata, f, indent=4, sort_keys=True)
+        json.dump(outdata, f, indent=4)
+
+
+    # with open('config/route_definitions.yml', 'w') as yaml_file:
+    #     outdata = {'route_definitions':route_definitions}
+    #     yaml.dump(outdata, yaml_file, default_flow_style=False)
 
     return
 
