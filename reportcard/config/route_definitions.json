@@ -22,6 +22,7 @@
             "description_long": "tbd.",
             "description_short": "TK long, local, infrequent service linking Journal Square and downtown Hackensack via The Heights.",
             "frequency": "low",
+            "nm": "Bayonne - Jersey City",
             "prettyname": "Pretty Name",
             "route": "10",
             "schedule_url": "https://www.njtransit.com/pdf/bus/T0010.pdf"
@@ -860,6 +861,11 @@
         {
             "nm": "Clifton Avenue Crosstown",
             "route": "99",
+            "ttl": "1d"
+        },
+        {
+            "nm": "Hackensack-Englewood-NY(GWB)",
+            "route": "178",
             "ttl": "1d"
         }
     ]
