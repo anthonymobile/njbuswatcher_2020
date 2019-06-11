@@ -15,11 +15,11 @@ class Dummy():
 ################################################
 # IMPORTS
 ################################################
-import datetime, logging, sys
+import logging
 
 from flask import Flask, render_template, request
 from flask_bootstrap import Bootstrap
-from flask import jsonify, make_response, send_from_directory
+from flask import jsonify
 from flask_cors import CORS, cross_origin
 
 import lib.BusAPI as BusAPI
@@ -29,7 +29,7 @@ import lib.wwwAPI as wwwAPI
 ################################################
 # ROUTE + APP CONFIG
 ################################################
-from route_config import load_config #NEW
+from lib.RouteConfig import load_config
 route_definitions, grade_descriptions, collection_descriptions = load_config()
 
 ################################################
@@ -98,10 +98,8 @@ def load_collection_routes(collection_url):
 @app.route('/')
 def displayIndex():
     d1, d2, collection_descriptions = load_config()
-
-
     routereport = Dummy() # setup a dummy routereport for the navbar
-    return render_template('index.jinja2', collection_descriptions=collection_descriptions, reportcard_routes=route_definitions, routereport=routereport)
+    return render_template('index.jinja2', collection_descriptions=collection_descriptions, route_definitions=route_definitions, routereport=routereport)
 
 
 #-------------------------------------------------------------City Index
@@ -109,7 +107,7 @@ def displayIndex():
 def displayCollection(collection_url):
     collection_metadata=load_collection_routes(collection_url)
     routereport = Dummy()  # setup a dummy routereport for the navbar
-    return render_template('collection.jinja2',collection_metadata=collection_metadata, reportcard_routes=route_definitions, routereport=routereport)
+    return render_template('collection.jinja2',collection_metadata=collection_metadata, route_definitions=route_definitions, routereport=routereport)
 
 
 #-------------------------------------------------------------Route
@@ -138,7 +136,7 @@ def genStopReport(collection_url, route, stop, period):
 @app.route('/faq')
 def displayFAQ():
     routereport = Dummy() #  setup a dummy routereport for the navbar
-    return render_template('faq.jinja2', reportcard_routes=route_definitions, routereport=routereport)
+    return render_template('faq.jinja2', route_definitions=route_definitions, routereport=routereport)
 
 #-------------------------------------------------------------API docs
 @app.route('/api')

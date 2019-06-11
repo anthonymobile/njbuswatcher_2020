@@ -100,18 +100,34 @@ def get_map_layers(args, route_definitions,collection_descriptions):
             stop_geojson = geojson.Point(stop_coordinates)
             # return stop_lnglatlike, stop_geojson
             return stop_geojson
-    # otherwise continue to get waypoints/stops for one or more routes
-    waypoints = []
-    stops = []
-    if args['rt'] == 'all':
-        for r in route_definitions:
-            waypoints_item, stops_item = _fetch_layers_json(r['route'])
+
+    # otherwise continue to get waypoints/stops for all routes, one route
+    elif 'rt' in args.keys():
+        waypoints = []
+        stops = []
+        if args['rt'] == 'all':
+            for r in route_definitions:
+                waypoints_item, stops_item = _fetch_layers_json(r['route'])
+                waypoints.append(waypoints_item)
+                stops.append(stops_item)
+        else:
+            waypoints_item, stops_item = _fetch_layers_json(args['rt'])
             waypoints.append(waypoints_item)
             stops.append(stops_item)
-    else:
-        waypoints_item, stops_item = _fetch_layers_json(args['rt'])
-        waypoints.append(waypoints_item)
-        stops.append(stops_item)
+
+    # or a collection of routes
+    elif 'collection' in args.keys():
+        waypoints = []
+        stops = []
+        # pick the right collection
+        for c in collection_descriptions:
+            if c['collection_url'] == args['collection']:
+                for r in c['routelist']:
+                    waypoints_item, stops_item = _fetch_layers_json(r)
+                    waypoints.append(waypoints_item)
+                    stops.append(stops_item)
+
+    # now render the layers as geojson
     if args['layer']=='waypoints':
         waypoints_featurecollection = geojson.FeatureCollection(waypoints)
         return waypoints_featurecollection

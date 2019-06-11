@@ -34,7 +34,8 @@
 
 
     <script type="text/javascript">
-        var passed_reportcard_routes = {{ collection_metadata|safe }}
+
+        var collection_metadata = {{ collection_metadata|safe }}
     </script>
     <script type="text/javascript" src="{{ url_for('static', filename='maps/busmap-collection.js')}}"></script>
 
@@ -99,11 +100,11 @@
                         {% for route in collection_metadata.routelist %}
 
                         <!--Grid column-->
-                        <div class="col-lg-6 col-md-12 mb-4">
+                        <div class="col-lg-10 col-md-12 mb-4">
 
                             <!--Card-->
-                            <div class="card ">
-                            <!--<div class="card card-cascade narrower">-->
+                            <!-- <div class="card "> -->
+                            <div class="card card-cascade narrower">
 
                                 {# <!--Card image-->
                                 <div class="view view-cascade gradient-card-header purple-gradient rounded-top">
@@ -115,28 +116,34 @@
                                 <!--Card content-->
                                 <div class="card-body card-body-cascade">
                                     <!--Title-->
-                                    <h4 class="card-header-title text-left"><a href = {{ url_for('genRouteReport',collection_url=collection_metadata.collection_url,route=route, period='now') }}>{{route}}</a>
-
-                                    {#todo 3 This is very inefficient, better if we loaded the route descriptions for each collection with a wwwAPI helper#}
-
-
-                                        {% for route_2_match in reportcard_routes %}
-
+                                    <h5 class="card-header-title text-left">{{route}} <a href = {{ url_for('genRouteReport',collection_url=collection_metadata.collection_url,route=route, period='now') }}>
+                                    {# todo 3 is this turns out to be slow, can pass a variable into this template that's just the subset of route_definitions for this collection_metadata.routelist #}
+                                        {% for route_2_match in route_definitions %}
                                             {% if route==route_2_match.route %}
                                                  {{route_2_match.prettyname }}
                                                 {#{{route_2_match.description_short }}#}
                                             {%  endif %}
                                         {%  endfor %}
-
-                                    </h4>
+                                        </a>
+                                    </h5>
 
                                 </div>
+
 
                             </div>
                             <!--/.Card-->
 
                         </div>
                         <!--Grid column-->
+
+                            <div class="col-lg-2 col-md-12 mb-4">
+                                <div class="card card-cascade narrower">
+                                    <div class="card-body card-body-cascade">
+                                        <h5 class="card-header-title text-left">A
+                                        </h5>
+                                    </div>
+                                </div>
+                            </div>
                     {% endfor %}
 
                     </div>
