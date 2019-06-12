@@ -2,8 +2,7 @@
 # config
 
 import json, sys
-import yaml
-import reportcard.lib.BusAPI as BusAPI
+import buswatcher.lib.BusAPI as BusAPI
 
 
 def load_config():

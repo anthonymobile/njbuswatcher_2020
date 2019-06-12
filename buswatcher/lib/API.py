@@ -3,8 +3,8 @@ import json
 import geojson
 import pandas as pd
 
-import lib.BusAPI as BusAPI
-from lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
+import buswatcher.lib.BusAPI as BusAPI
+from buswatcher.lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
 # from sqlalchemy import func
 # from sqlalchemy.sql.expression import and_
 

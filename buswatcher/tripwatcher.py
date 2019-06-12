@@ -12,9 +12,9 @@ import werkzeug
 import itertools
 import numpy as np
 
-from lib import BusAPI, Localizer
-from lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
-from lib.RouteConfig import load_config
+from buswatcher.lib import BusAPI, Localizer
+from buswatcher.lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
+from buswatcher.lib.RouteConfig import load_config
 
 
 def watch(limit,r):
