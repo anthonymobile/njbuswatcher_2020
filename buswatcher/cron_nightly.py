@@ -1,6 +1,7 @@
-import lib.wwwAPI as wwwAPI
+# todo 1 dump this into a decorator in www.py so it runs everytime a page is triggered, and it checks the TTL on the config/route_descriptions.json file
 
-import lib.RouteConfig as RouteConfig
+import buswatcher.lib.wwwAPI as wwwAPI
+import buswatcher.lib.RouteConfig as RouteConfig
 
 # hardcode transit system
 source = 'nj'
@@ -9,7 +10,7 @@ source = 'nj'
 period = 'weekly'
 
 # loop over all routes
-for rt_no in reportcard_routes:
+for rt_no in reportcard_routes: # todo 3 fix this
 
     # create base RouteReport instance
     routereport=wwwAPI.RouteReport(source,rt_no['route'])

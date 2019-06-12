@@ -36,12 +36,12 @@ services:
   flask_gunicorn:
     build:
       context: ./
-      dockerfile: ./reportcard/docker/Dockerfile.conda
-    command: /opt/conda/envs/buswatcher/bin/gunicorn reportcard:app -w 4 -b 0.0.0.0:8000
+      dockerfile: buswatcher/docker/Dockerfile.conda
+    command: /opt/conda/envs/buswatcher/bin/gunicorn buswatcher:app -w 4 -b 0.0.0.0:8000
     restart: always
     volumes:
-      - ./reportcard/:/reportcard/
-      - static_volume:/reportcard/static
+      - ./buswatcher/:/buswatcher/
+      - static_volume:/buswatcher/static
     expose:
       - 8000
     environment:

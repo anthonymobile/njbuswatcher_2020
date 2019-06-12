@@ -1,6 +1,6 @@
 # todo 1 merge statewide branch back into new_localizer
 
-# bus reportcard v2.0
+# bus buswatcher v2.0
 # june 2019 - by anthony@bitsandatoms.net
 
 ################################################
@@ -22,9 +22,10 @@ from flask_bootstrap import Bootstrap
 from flask import jsonify
 from flask_cors import CORS, cross_origin
 
-import lib.BusAPI as BusAPI
-import lib.API as API
-import lib.wwwAPI as wwwAPI
+import buswatcher.lib.BusAPI as BusAPI
+import buswatcher.lib.API as API
+import buswatcher.lib.wwwAPI as wwwAPI
+
 
 ################################################
 # ROUTE + APP CONFIG

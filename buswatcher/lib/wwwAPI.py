@@ -4,9 +4,10 @@ import geojson, json
 
 from sqlalchemy import inspect, func
 
-import lib.BusAPI as BusAPI
-from lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
-import lib.RouteConfig as RouteConfig
+import buswatcher.lib.BusAPI as BusAPI
+import buswatcher.lib.RouteConfig as RouteConfig
+
+from buswatcher.lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
 
 
 # primary classes
