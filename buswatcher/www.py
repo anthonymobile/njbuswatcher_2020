@@ -16,21 +16,24 @@ class Dummy():
 # IMPORTS
 ################################################
 import logging
+from dateutil import parser
+from datetime import datetime, timedelta
 
 from flask import Flask, render_template, request
 from flask_bootstrap import Bootstrap
 from flask import jsonify
 from flask_cors import CORS, cross_origin
 
-import buswatcher.lib.BusAPI as BusAPI
 import buswatcher.lib.API as API
+import buswatcher.lib.BusAPI as BusAPI
+import buswatcher.lib.RouteConfig as RouteConfig
 import buswatcher.lib.wwwAPI as wwwAPI
 
 
 ################################################
 # ROUTE + APP CONFIG
 ################################################
-from lib.RouteConfig import load_config
+from buswatcher.lib.RouteConfig import load_config
 route_definitions, grade_descriptions, collection_descriptions = load_config()
 
 ################################################
@@ -54,6 +57,7 @@ Bootstrap(app)
 from flask_caching import Cache
 cache = Cache(app,config={'CACHE_TYPE': 'simple'})
 
+
 ################################################
 # LOGGING
 # per https://medium.com/@trstringer/logging-flask-and-gunicorn-the-manageable-way-2e6f0b8beb2f
@@ -62,6 +66,7 @@ if __name__ != "__main__":
     gunicorn_logger = logging.getLogger("gunicorn.error")
     app.logger.handlers = gunicorn_logger.handlers
     app.logger.setLevel(gunicorn_logger.level)
+
 
 ################################################
 # STATIC ASSETS
@@ -76,8 +81,9 @@ bundles = {
 assets = Environment(app)
 assets.register(bundles)
 
-
-# HELPERS
+################################################
+# HELPERS + DECORATORS
+################################################
 
 def load_collection_routes(collection_url):
 # get list of routes in collection from route_config
@@ -91,12 +97,46 @@ def load_collection_routes(collection_url):
             continue
     return collection_metadata
 
+
+def maintenance_check(route_definitions):
+
+    now = datetime.now()
+
+    # check and update route definitions
+    print (route_definitions['last_updated'])
+    try:
+        route_definitions_last_updated = parser.parse(route_definitions['last_updated'])
+    except:
+        route_definitions_last_updated = parser.parse('2000-01-01 01:01:01')
+    route_definitions_ttl = timedelta(seconds=route_definitions['ttl'])
+    if route_definitions_last_updated + route_definitions_ttl > now:
+        RouteConfig.fetch_update_route_metadata()
+
+    # todo 2 other nightly/hourly tasks
+    # for r in route_definitions['route_definitons']:
+    #
+    #     # create base RouteReport instance
+    #     routereport = wwwAPI.RouteReport(source, rt_no['route'])
+    #
+    #     # generate individual reports to a pickle file
+    #
+    #     # generate bunching leaderboard
+    #     routereport.generate_bunching_leaderboard(route=rt_no['route'], period=period)
+    #
+    #     # generate other reports
+    #     # e.g. routereport.get_bunching_leaderboard()
+
+    return
+
+
+
 ################################################
 # URLS
 ################################################
 
 #-------------------------------------------------------------Statewide Index
 @app.route('/')
+@maintenance_check(route_definitions)
 def displayIndex():
     d1, d2, collection_descriptions = load_config()
     routereport = Dummy() # setup a dummy routereport for the navbar
