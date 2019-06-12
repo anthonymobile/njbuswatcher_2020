@@ -18,6 +18,8 @@ def load_config():
 def fetch_update_route_metadata():
 
     route_definitions, grade_descriptions, collection_descriptions = load_config()
+    route_definitions = route_definitions['route_definitions'] # ignore the ttl, last_updated key:value pairs
+
 
     # UPDATE ROUTES FROM API
 
@@ -85,7 +87,10 @@ def fetch_update_route_metadata():
 if __name__ == "__main__":
 
     route_definitions=load_config()[0]
+    route_definitions = route_definitions['route_definitions'] # ignore the ttl, last_updated key:value pairs
     print ("loaded "+str(len(route_definitions))+" routes from route_definitions" )
     fetch_update_route_metadata()
-    route_definition = load_config()[0]
+
+    route_definitions = load_config()[0]
+    route_definitions = route_definitions['route_definitions'] # ignore the ttl, last_updated key:value pairs
     print ("loaded "+str(len(route_definitions))+" routes from route_definitions" )
