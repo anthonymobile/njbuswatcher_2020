@@ -318,7 +318,7 @@ class RouteReport:
         return routes[0].nm, coordinate_bundle['waypoints_coordinates'], coordinate_bundle['stops_coordinates'], coordinate_bundle['waypoints_geojson'], coordinate_bundle['stops_geojson']
 
     def load_route_description(self):
-        for route in self.route_definitions:
+        for route in self.route_definitions['route_definitions']:
             if route['route'] == self.route:
                 self.frequency = route['frequency']
                 self.description_long = route['description_long']

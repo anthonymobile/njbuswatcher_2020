@@ -25,6 +25,10 @@ It's all dockerized now. Use `docker-compose` and build from the project root.
 
 ```
 sudo mysql -u root -p
+
+mysql> CREATE database buses;
+Query OK, 1 row affected (0.00 sec)
+
 mysql> CREATE USER 'buswatcher'@'localhost' IDENTIFIED BY 'njtransit';
 Query OK, 0 rows affected (0.00 sec)
 

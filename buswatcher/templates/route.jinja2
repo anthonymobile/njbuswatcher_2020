@@ -51,12 +51,12 @@
 
 
     <script type="text/javascript">
-        var passed_route = {{ routereport.route }}
+        var passed_route = {{ route | safe}}
         var passed_reportcard_routes = {{ route_definitions|safe }}
     </script>
 
     </script>
-    <script type="text/javascript" src="{{ url_for('static', filename='maps/busmap.js')}}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='maps/busmap-route.js')}}"></script>
 
    <!-- zoom to extent stuff -->
     <script src='https://api.mapbox.com/mapbox.js/plugins/turf/v3.0.11/turf.min.js'></script>
@@ -75,9 +75,10 @@
         </button>
         <div class="collapse navbar-collapse" id="navbar1">
             <ul class="navbar-nav">
-                <li class="breadcrumb-item active"><a href = {{url_for('displayIndex')}}>home</a></li>
+                <li class="breadcrumb-item active"><a href = "/">home</a></li>
              </ul>
             <ul class="navbar-nav ml-auto">
+
                 <li class="breadcrumb-item "><a href = {{url_for('genRouteReport',collection_url=collection_metadata.collection_url,route=routereport.route,period='now')}}>now</a></li>
                 <li class="breadcrumb-item "><a href = {{url_for('genRouteReport',collection_url=collection_metadata.collection_url,route=routereport.route,period='today')}}>today</a></li>
                 <li class="breadcrumb-item "><a href = {{url_for('genRouteReport',collection_url=collection_metadata.collection_url,route=routereport.route,period='yesterday')}}>yesterday</a></li>

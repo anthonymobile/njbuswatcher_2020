@@ -18,10 +18,9 @@ var map = new mapboxgl.Map({
 // var url_stops = ("/api/v1/maps?layer=stops&rt=all");
 // var url_vehicles = ("/api/v1/maps?layer=vehicles&rt=all");
 
-var url_waypoints = ("/api/v1/maps?layer=waypoints&rt=" + passed_route); //todo not accepting 'all'
-var url_stops = ("/api/v1/maps?layer=stops&rt=" + passed_route);
-var url_vehicles = ("/api/v1/maps?layer=vehicles&rt=" + passed_route);
-
+var url_waypoints = ("/api/v1/maps?layer=waypoints&collection="+passed_route);
+var url_stops = ("/api/v1/maps?layer=stops&collection="+passed_route);
+var url_vehicles = ("/api/v1/maps?layer=vehicles&collection="+passed_route);
 
 map.on('load', function() {
 
@@ -60,7 +59,7 @@ map.on('load', function() {
                 "line-opacity": 0.75,
                 "line-width": 3
             }
-        },"waypoints"); // layer to add before
+        },"waypoints"); // todo 1 fix layer order -- layer to add before
     });
 
 
@@ -81,7 +80,7 @@ map.on('load', function() {
                 "circle-stroke-width": 3,
                 "circle-stroke-color": "#f6c"
             }
-         },"stops") // layer to add before
+         },"stops") // todo 1 fix layer order -- layer to add before
         ;
 
     })
