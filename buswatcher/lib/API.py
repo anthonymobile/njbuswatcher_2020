@@ -46,7 +46,7 @@ def get_positions_byargs(args, route_definitions, collection_descriptions):
     if 'rt' in args.keys():
         if args['rt'] == 'all':
             positions_list = pd.DataFrame()
-            for r in route_definitions:
+            for r in route_definitions['route_definitions']:
                 positions_list = positions_list.append(_fetch_positions_df(r['route']))
                 # positions_list.append(positions_df)
             return positions2geojson(positions_list)
@@ -106,7 +106,7 @@ def get_map_layers(args, route_definitions,collection_descriptions):
         waypoints = []
         stops = []
         if args['rt'] == 'all':
-            for r in route_definitions:
+            for r in route_definitions['route_definitions']:
                 waypoints_item, stops_item = _fetch_layers_json(r['route'])
                 waypoints.append(waypoints_item)
                 stops.append(stops_item)
@@ -135,7 +135,7 @@ def get_map_layers(args, route_definitions,collection_descriptions):
         stops_featurecollection = geojson.FeatureCollection(stops)
         return stops_featurecollection
 
-def _fetch_layers_json(route):
+def _fetch_layers_json(route): # todo 1 cache these results for an hour
     routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(
         BusAPI.get_xml_data('nj', 'routes', route=route))
     waypoints_feature = json.loads(coordinate_bundle['waypoints_geojson'])

@@ -1,5 +1,5 @@
 {
-    "last_updated": "2019-06-13 14:08:28",
+    "last_updated": "2019-06-13 17:48:16",
     "ttl": "86400",
     "route_definitions": [
         {
@@ -988,6 +988,261 @@
         {
             "route": "99",
             "nm": "Clifton Avenue Crosstown",
+            "ttl": "1d"
+        },
+        {
+            "route": "115",
+            "nm": "Rahway - New York",
+            "ttl": "1d"
+        },
+        {
+            "route": "117",
+            "nm": "Somerville - New York Exp",
+            "ttl": "1d"
+        },
+        {
+            "route": "120",
+            "nm": "Bayonne - New York Downtown",
+            "ttl": "1d"
+        },
+        {
+            "route": "121",
+            "nm": "North Bergen - New York",
+            "ttl": "1d"
+        },
+        {
+            "route": "122",
+            "nm": "Secaucus - New York",
+            "ttl": "1d"
+        },
+        {
+            "route": "124",
+            "nm": "Secaucus - New York",
+            "ttl": "1d"
+        },
+        {
+            "route": "127",
+            "nm": "Ridgefield-Union City-NY",
+            "ttl": "1d"
+        },
+        {
+            "route": "128",
+            "nm": "North Bergen-Blvd East-NY",
+            "ttl": "1d"
+        },
+        {
+            "route": "130",
+            "nm": "Lakewood-NY-Union Hill Exp",
+            "ttl": "1d"
+        },
+        {
+            "route": "131",
+            "nm": "Sayreville - New York",
+            "ttl": "1d"
+        },
+        {
+            "route": "132",
+            "nm": "Lakewood-NY-GordonsCornerExp",
+            "ttl": "1d"
+        },
+        {
+            "route": "133",
+            "nm": "Old Bridge-Aberdeen-New York",
+            "ttl": "1d"
+        },
+        {
+            "route": "135",
+            "nm": "Freehold-Matawan-New York",
+            "ttl": "1d"
+        },
+        {
+            "route": "136",
+            "nm": "Lakewood-NY-Freehold Mall Ex",
+            "ttl": "1d"
+        },
+        {
+            "route": "138",
+            "nm": "Old Bridge-East Brunswick-NY",
+            "ttl": "1d"
+        },
+        {
+            "route": "144",
+            "nm": "Elmwood Park-Hackensack-NY",
+            "ttl": "1d"
+        },
+        {
+            "route": "145",
+            "nm": "Fair Lawn - New York",
+            "ttl": "1d"
+        },
+        {
+            "route": "148",
+            "nm": "Midland Park - New York",
+            "ttl": "1d"
+        },
+        {
+            "route": "151",
+            "nm": "Paterson - New York Express",
+            "ttl": "1d"
+        },
+        {
+            "route": "153",
+            "nm": "Fairview - Fort Lee - NY",
+            "ttl": "1d"
+        },
+        {
+            "route": "155",
+            "nm": "Bogota-Ridgefield Park-NY",
+            "ttl": "1d"
+        },
+        {
+            "route": "157",
+            "nm": "Teaneck-Ridgefield Park-NY",
+            "ttl": "1d"
+        },
+        {
+            "route": "162",
+            "nm": "Maywood - New York",
+            "ttl": "1d"
+        },
+        {
+            "route": "177",
+            "nm": "HarringtonPk-NewMilford-NY X",
+            "ttl": "1d"
+        },
+        {
+            "route": "181",
+            "nm": "Union City - New York (GWB)",
+            "ttl": "1d"
+        },
+        {
+            "route": "193",
+            "nm": "Willowbrook - New York",
+            "ttl": "1d"
+        },
+        {
+            "route": "195",
+            "nm": "Willowbrook-Cedar Grove-NY",
+            "ttl": "1d"
+        },
+        {
+            "route": "196",
+            "nm": "Warwick-Ringwood-New York",
+            "ttl": "1d"
+        },
+        {
+            "route": "199",
+            "nm": "Clifton-Lyndhurst-New York",
+            "ttl": "1d"
+        },
+        {
+            "route": "23",
+            "nm": "N Bergen-Weehawken-Hoboken",
+            "ttl": "1d"
+        },
+        {
+            "route": "250",
+            "nm": "Go Bus (Springfield Ave BR)",
+            "ttl": "1d"
+        },
+        {
+            "route": "324",
+            "nm": "Wayne Rt 23 Transit Ctr-NY X",
+            "ttl": "1d"
+        },
+        {
+            "route": "329",
+            "nm": "Harmon Cove-SecaucusJunction",
+            "ttl": "1d"
+        },
+        {
+            "route": "361",
+            "nm": "Newark Express",
+            "ttl": "1d"
+        },
+        {
+            "route": "375",
+            "nm": "Springfield Ave Line Express",
+            "ttl": "1d"
+        },
+        {
+            "route": "402",
+            "nm": "Pennsville - Philadelphia",
+            "ttl": "1d"
+        },
+        {
+            "route": "414",
+            "nm": "Philadelphia - Moorestown",
+            "ttl": "1d"
+        },
+        {
+            "route": "417",
+            "nm": "Mt. Holly-Willingboro-Phila",
+            "ttl": "1d"
+        },
+        {
+            "route": "418",
+            "nm": "Trenton Express",
+            "ttl": "1d"
+        },
+        {
+            "route": "555",
+            "nm": "Phila-Avandale Park&amp;Ride",
+            "ttl": "1d"
+        },
+        {
+            "route": "612",
+            "nm": "Lwrnce-WWindsor-Prnceton Jct",
+            "ttl": "1d"
+        },
+        {
+            "route": "63",
+            "nm": "Lakewood-JrsyCity-Weehawken X",
+            "ttl": "1d"
+        },
+        {
+            "route": "64",
+            "nm": "Lakewood-Jersey City-Weehawke",
+            "ttl": "1d"
+        },
+        {
+            "route": "65",
+            "nm": "Newark - Somerville",
+            "ttl": "1d"
+        },
+        {
+            "route": "68",
+            "nm": "OldBridge-EBrunswick-JerseyC",
+            "ttl": "1d"
+        },
+        {
+            "route": "801",
+            "nm": "Metropark - JFK Hospital",
+            "ttl": "1d"
+        },
+        {
+            "route": "802",
+            "nm": "Metropark - Rt. 1/Green St.",
+            "ttl": "1d"
+        },
+        {
+            "route": "803",
+            "nm": "Metropark - Woodbridge Cente",
+            "ttl": "1d"
+        },
+        {
+            "route": "804",
+            "nm": "Metropark - Wood Ave.",
+            "ttl": "1d"
+        },
+        {
+            "route": "805",
+            "nm": "Metropark - Ford Ave.",
+            "ttl": "1d"
+        },
+        {
+            "route": "874",
+            "nm": "Morristown - Willowbrook",
             "ttl": "1d"
         }
     ]

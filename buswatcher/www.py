@@ -16,8 +16,7 @@ class Dummy():
 # IMPORTS
 ################################################
 import logging
-from dateutil import parser
-from datetime import datetime, timedelta
+
 
 from flask import Flask, render_template, request
 from flask_bootstrap import Bootstrap
@@ -97,44 +96,12 @@ def load_collection_routes(collection_url):
     return collection_metadata
 
 
-def maintenance_check(f):
-    def wrapper(*args,**kwargs):
-
-        now = datetime.now()
-
-        # check and update route definitions
-        try:
-            route_definitions_last_updated = parser.parse(route_definitions['last_updated'])
-        except:
-            route_definitions_last_updated = parser.parse('2000-01-01 01:01:01')
-        route_definitions_ttl = timedelta(seconds=int(route_definitions['ttl']))
-        if now - route_definitions_last_updated > route_definitions_ttl:
-            RouteConfig.fetch_update_route_metadata()
-
-        # todo 2 add other maintenance task
-        # for r in route_definitions['route_definitons']:
-        #     # create base RouteReport instance
-        #     routereport = wwwAPI.RouteReport(source, rt_no['route'])
-
-        # todo 2 add other maintenance task
-        # for r in route_definitions['route_definitons']:
-        #     # generate bunching leaderboard
-        #     routereport.generate_bunching_leaderboard(route=rt_no['route'], period=period)
-        #     # generate other reports
-        #     # e.g. routereport.get_bunching_leaderboard()
-
-        return f(*args,**kwargs)
-    return wrapper
-
-
-
 ################################################
 # URLS
 ################################################
 
 #-------------------------------------------------------------Statewide Index
 @app.route('/')
-@maintenance_check
 def displayIndex():
     d1, d2, collection_descriptions = load_config()
     routereport = Dummy() # setup a dummy routereport for the navbar
