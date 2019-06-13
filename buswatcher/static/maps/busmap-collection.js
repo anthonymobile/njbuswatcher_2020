@@ -59,7 +59,7 @@ map.on('load', function() {
                 "line-opacity": 0.75,
                 "line-width": 3
             }
-        },"waypoints"); // todo 1 fix layer order -- layer to add before
+        },"vehicles"); // todo 1 fix layer order -- layer to add before
     });
 
 

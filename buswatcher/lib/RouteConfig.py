@@ -1,9 +1,10 @@
 # NJBuswatcher.com
 # config
 
-import json, sys, datetime
+import json, sys
 import buswatcher.lib.BusAPI as BusAPI
-
+from dateutil import parser
+from datetime import datetime, timedelta
 
 def load_config():
     with open('config/grade_descriptions.json') as f:
@@ -14,13 +15,36 @@ def load_config():
         collection_descriptions = json.load(f)['collection_descriptions']
     return route_definitions, grade_descriptions, collection_descriptions
 
+def maintenance_check():
+    now=datetime.now()
+    route_definitions, a, b = load_config()
+    try:
+        route_definitions_last_updated = parser.parse(route_definitions['last_updated'])
+    except:
+        route_definitions_last_updated = parser.parse('2000-01-01 01:01:01')
+    route_definitions_ttl = timedelta(seconds=int(route_definitions['ttl']))
+    if (now - route_definitions_last_updated) > route_definitions_ttl:
+        fetch_update_route_metadata()
+
+    # todo 2 add other maintenance task
+    # for r in route_definitions['route_definitons']:
+    #     # create base RouteReport instance
+    #     routereport = wwwAPI.RouteReport(source, rt_no['route'])
+
+    # todo 3 add other maintenance task
+    # for r in route_definitions['route_definitons']:
+    #     # generate bunching leaderboard
+    #     routereport.generate_bunching_leaderboard(route=rt_no['route'], period=period)
+    #     # generate other reports
+    #     # e.g. routereport.get_bunching_leaderboard()
+    return
 
 def fetch_update_route_metadata():
 
     route_definitions, grade_descriptions, collection_descriptions = load_config()
     route_definitions = route_definitions['route_definitions'] # ignore the ttl, last_updated key:value pairs
 
-
+    print ('Updating route_descriptions.json')
     # UPDATE ROUTES FROM API
 
     # get list of active routes
@@ -73,7 +97,7 @@ def fetch_update_route_metadata():
 
     # create data to dump with last_updated and ttl
     outdata = dict()
-    now = datetime.datetime.now()
+    now = datetime.now()
     outdata['last_updated'] = now.strftime("%Y-%m-%d %H:%M:%S")
     outdata['ttl'] = '86400'
     outdata['route_definitions'] = route_definitions
@@ -84,7 +108,6 @@ def fetch_update_route_metadata():
 
 
     return
-
 
 if __name__ == "__main__":
 

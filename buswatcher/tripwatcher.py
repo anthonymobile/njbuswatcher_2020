@@ -7,105 +7,86 @@
 import argparse
 import sys
 import datetime, time
-import werkzeug
+
 import itertools
 import numpy as np
-from xml.etree.ElementTree import ParseError
 
 from buswatcher.lib import BusAPI, Localizer
 from buswatcher.lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
-from buswatcher.lib.RouteConfig import load_config
+from buswatcher.lib.RouteConfig import load_config,maintenance_check, fetch_update_route_metadata
 
-
-def watch(limit, r):
-
-    ##############################################
-    # 1 -- FETCH AND LOCALIZE CURRENT POSITIONS
-    ##############################################
+def watcher(statewide, r):
 
     with SQLAlchemyDBConnection() as db:
 
-        # retrieve bus locations from NJT API
-        if limit is True:
-            try:
-                buses = BusAPI.parse_xml_getBusesForRoute(
-                    BusAPI.get_xml_data(args.source, 'buses_for_route', route=r))
-            except:
-                sys.stdout.write('.')
-                time.sleep(5)
-        elif limit is not True:
-            try:
-                print('fetching buses')
-                buses = BusAPI.parse_xml_getBusesForRouteAll(
-                    BusAPI.get_xml_data(args.source, 'all_buses'))
-            except:
-                print('fetch failed, wait to try again')
-                sys.stdout.write('.')
-                time.sleep(5)
+        print('fetching buses')
 
-        # remove buses not actively running routes (e.g. letter route codes)
+        if statewide is False:
+            buses = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data('nj', 'buses_for_route', route=r))
+        elif statewide is True:
+            buses = BusAPI.parse_xml_getBusesForRouteAll(BusAPI.get_xml_data('nj', 'all_buses'))
+
+        fetched_timestamp = datetime.datetime.now()
+        print('\rfetched at ' + str(fetched_timestamp))
+
+        # CLEAN buses not actively running routes (e.g. letter route codes)
         buses_cleaned=[]
         for bus in buses:
             try:
                 int(bus.rt)
                 buses_cleaned.append(bus)
-                sys.stdout.write("good ")
             except:
-                sys.stdout.write ("bad ")
+                pass
         buses = buses_cleaned
         cleaned_timestamp = datetime.datetime.now()
-        print('\rdata cleaned at ' + str(cleaned_timestamp))
+        print('\rcleaned at ' + str(cleaned_timestamp))
 
-        # create missing trip records first, to honor foreign key constraints
+        # PARSE trips, create missing trip records first, to honor foreign key constraints
+        # todo 1 getting key integrity errors here now, not sure why
         trip_list = []
+        sys.stdout.write('parsing')
         for bus in buses:
             bus.trip_id = ('{id}_{run}_{dt}').format(id=bus.id, run=bus.run, dt=datetime.datetime.today().strftime('%Y%m%d'))
             trip_list.append(bus.trip_id)
-            result = db.session.query(Trip).filter(Trip.trip_id == bus.trip_id).first()
+            result = db.session.query(Trip).filter(Trip.trip_id == bus.trip_id).first() # todo 2 prohibitively slow for statewide
+            sys.stdout.write('.')
             if result is None:
-                trip_id = Trip(args.source, bus.rt, bus.id, bus.run, bus.pid)
+                trip_id = Trip('nj', bus.rt, bus.id, bus.run, bus.pid)
                 db.session.add(trip_id)
             else:
                 continue
             db.__relax__()  # disable foreign key checks before...
             db.session.commit()  # we save the position_log.
         parsed_timestamp = datetime.datetime.now()
-        print('\rtrips parsed at ' + str(parsed_timestamp))
+        print('\rparsed at ' + str(parsed_timestamp))
 
-
-        # todo localizer seems to fail every so often for no reason
-        # localize and add the bus positions to the db
-        if limit is True:
+        # LOCALIZE
+        if statewide is False:
+            sys.stdout.write('localizing')
             bus_positions = Localizer.get_nearest_stop(buses, r)
             for group in bus_positions:
                 for bus in group:
                     db.session.add(bus)
+                    sys.stdout.write('.')
             db.session.commit()
-
-        elif limit is not True:
-            print ('localizing (this could take a while)')
+        elif statewide is True:
             # find all the routes
             route_list = [bus.rt for bus in buses]
+            print ('localizing %a buses on %b routes.').format(a=str(len(buses)),b=str(len(route_list)))
             # loop over each route
             for route in route_list:
+                print('localizing routes %a').format(a=route)
                 bus_positions = Localizer.get_nearest_stop(buses, route)
                 for group in bus_positions:
                     for bus in group:
                         db.session.add(bus)
                 db.session.commit()
                 sys.stdout.write('.')
-
         localized_timestamp = datetime.datetime.now()
-        print('\rbuses localized at ' + str(localized_timestamp))
+        print('\rlocalized at ' + str(localized_timestamp))
 
-
-    ##############################################
-    #   2 -- ASSIGN ARRIVALS
-    ##############################################
-
-    with SQLAlchemyDBConnection() as db:
+        # ASSIGN TO NEAREST STOP
         for trip_id in trip_list:
-
             # load the trip card for reference
             scheduled_stops = db.session.query(Trip, ScheduledStop) \
                 .join(ScheduledStop) \
@@ -256,54 +237,53 @@ def watch(limit, r):
         assigned_timestamp = datetime.datetime.now()
         print('\rarrivals assigned at ' + str(assigned_timestamp))
 
+        # INTERPOLATE ARRIVALS AT MISSED STOPS
+        # todo 2 add Interpolate+log missed stops
+            # interpolates arrival times for any stops in between arrivals in the trip card
+            # theoretically there shouldn't be a lot though if the trip card is correct
+            # since we are grabbing positions every 30 seconds.)
 
-#todo 2 add Interpolate+log missed stops
-def interpolate_missed():
-    # interpolates arrival times for any stops in between arrivals in the trip card
-    # theoretically there shouldn't be a lot though if the trip card is correct
-    # since we are grabbing positions every 30 seconds.)
     return
 
 
 
 if __name__ == "__main__":
 
+    # maintenance check
+    maintenance_check()
+
     route_definitions, grade_descriptions, collection_descriptions = load_config()
     route_definitions = route_definitions['route_definitions'] # ignore the ttl, last_updated key:value pairs
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('-s', '--source', dest='source', default='nj', help='source name')
-    parser.add_argument('-l', '--limit', dest='limit', action='store_true', help='use routes specified in route_config.py only')
+    parser.add_argument('-s', '--statewide', dest='statewide', action='store_true', help='Watch all active routes in NJ. (requires lots of CPU).')
     args = parser.parse_args()
 
     ran = False
 
-    # 30 second pause between runs
-    # todo make it 30 seconds less processing time from previous run
-
     while True:
+
         time.sleep(30)
 
-        try:
-            if args.limit is True:
-                print('running in limited mode')
+        if args.statewide is False:
+            print('running in normal mode')
 
-                # make a list of all the routes in all the collections
-                limited_route_list=list()
-                for c in collection_descriptions:
-                    for rt in c['routelist']:
-                        limited_route_list.append((rt))
+            # make a list of all the routes in all the collections
+            limited_route_list=list()
+            for c in collection_descriptions:
+                for rt in c['routelist']:
+                    limited_route_list.append((rt))
 
-                # watch each route in limited_route_list
-                for route_to_watch in limited_route_list:
-                    watch(limit=args.limit, r=route_to_watch)
-                    # interpolate_missed(r=route_to_watch)
-                ran = True
+            # watch each route in limited_route_list
+            for route_to_watch in limited_route_list:
+                watcher(statewide=args.statewide, r=route_to_watch)
 
-            if args.limit is False:
-                print('running in statewide mode')
-                watch(limit=args.limit, r=0)
-                # interpolate_missed(r=0)
-                ran = True
-        except:
-            pass
+                # interpolate_missed(r=route_to_watch)
+            ran = True
+
+        if args.statewide is True:
+            print('running in statewide mode')
+            watcher(statewide=args.statewide, r=0)
+            # interpolate_missed(r=0)
+            ran = True
+
