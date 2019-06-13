@@ -98,35 +98,30 @@ def load_collection_routes(collection_url):
     return collection_metadata
 
 
-def maintenance_check(route_definitions):
+def maintenance_check(f):
+    def wrapper(*args,**kwargs):
+        now = datetime.now()
+        # check and update route definitions
+        print (route_definitions['last_updated'])
+        try:
+            route_definitions_last_updated = parser.parse(route_definitions['last_updated'])
+        except:
+            route_definitions_last_updated = parser.parse('2000-01-01 01:01:01')
+        route_definitions_ttl = timedelta(seconds=route_definitions['ttl'])
+        if route_definitions_last_updated + route_definitions_ttl > now:
+            RouteConfig.fetch_update_route_metadata()
+        # todo 2 other nightly/hourly tasks
+        # for r in route_definitions['route_definitons']:
+        #     # create base RouteReport instance
+        #     routereport = wwwAPI.RouteReport(source, rt_no['route'])
+        #     # generate individual reports to a pickle file
+        #     # generate bunching leaderboard
+        #     routereport.generate_bunching_leaderboard(route=rt_no['route'], period=period)
+        #     # generate other reports
+        #     # e.g. routereport.get_bunching_leaderboard()
 
-    now = datetime.now()
-
-    # check and update route definitions
-    print (route_definitions['last_updated'])
-    try:
-        route_definitions_last_updated = parser.parse(route_definitions['last_updated'])
-    except:
-        route_definitions_last_updated = parser.parse('2000-01-01 01:01:01')
-    route_definitions_ttl = timedelta(seconds=route_definitions['ttl'])
-    if route_definitions_last_updated + route_definitions_ttl > now:
-        RouteConfig.fetch_update_route_metadata()
-
-    # todo 2 other nightly/hourly tasks
-    # for r in route_definitions['route_definitons']:
-    #
-    #     # create base RouteReport instance
-    #     routereport = wwwAPI.RouteReport(source, rt_no['route'])
-    #
-    #     # generate individual reports to a pickle file
-    #
-    #     # generate bunching leaderboard
-    #     routereport.generate_bunching_leaderboard(route=rt_no['route'], period=period)
-    #
-    #     # generate other reports
-    #     # e.g. routereport.get_bunching_leaderboard()
-
-    return
+        return f(*args,**kwargs)
+    return wrapper
 
 
 
@@ -136,7 +131,7 @@ def maintenance_check(route_definitions):
 
 #-------------------------------------------------------------Statewide Index
 @app.route('/')
-@maintenance_check(route_definitions)
+@maintenance_check(route_definitions=route_definitions)
 def displayIndex():
     d1, d2, collection_descriptions = load_config()
     routereport = Dummy() # setup a dummy routereport for the navbar
