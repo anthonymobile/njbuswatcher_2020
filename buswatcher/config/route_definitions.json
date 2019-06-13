@@ -1,6 +1,6 @@
 {
+    "last_updated": "2019-06-13 14:08:28",
     "ttl": "86400",
-    "last_updated": "2000-06-06 01:01:01",
     "route_definitions": [
         {
             "description_long": "tbd.",
@@ -146,728 +146,848 @@
             "schedule_url": "https://www.njtransit.com/pdf/bus/T0125.pdf"
         },
         {
-            "nm": "Newark",
             "route": "1",
+            "nm": "Newark",
             "ttl": "1d"
         },
         {
-            "nm": "Irvington - New York",
             "route": "107",
+            "nm": "Irvington - New York",
             "ttl": "1d"
         },
         {
-            "nm": "Newark - New York",
             "route": "108",
+            "nm": "Newark - New York",
             "ttl": "1d"
         },
         {
-            "nm": "Newark - Willowbrook",
             "route": "11",
+            "nm": "Newark - Willowbrook",
             "ttl": "1d"
         },
         {
-            "nm": "New York-IKEA-Jersey Gardens",
             "route": "111",
+            "nm": "New York-IKEA-Jersey Gardens",
             "ttl": "1d"
         },
         {
-            "nm": "Clark - New York",
             "route": "112",
+            "nm": "Clark - New York",
             "ttl": "1d"
         },
         {
-            "nm": "Dunellen - New York",
             "route": "113",
+            "nm": "Dunellen - New York",
             "ttl": "1d"
         },
         {
-            "nm": "Bridgewater - New York",
             "route": "114",
+            "nm": "Bridgewater - New York",
             "ttl": "1d"
         },
         {
-            "nm": "Rahway - New York",
-            "route": "115",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Perth Amboy - New York",
             "route": "116",
+            "nm": "Perth Amboy - New York",
             "ttl": "1d"
         },
         {
-            "nm": "Secaucus - New York",
-            "route": "124",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Hoboken - New York",
             "route": "126",
+            "nm": "Hoboken - New York",
             "ttl": "1d"
         },
         {
-            "nm": "Ridgefield-Union City-NY",
-            "route": "127",
-            "ttl": "1d"
-        },
-        {
-            "nm": "North Bergen-Blvd East-NY",
-            "route": "128",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Secaucus-Union City-New York",
             "route": "129",
+            "nm": "Secaucus-Union City-New York",
             "ttl": "1d"
         },
         {
-            "nm": "Broad Street - Clinton Avenue",
             "route": "13",
+            "nm": "Broad Street - Clinton Avenue",
             "ttl": "1d"
         },
         {
-            "nm": "Lakewood-NY-Union Hill Exp",
-            "route": "130",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Sayreville - New York",
-            "route": "131",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Old Bridge-Aberdeen-New York",
-            "route": "133",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Toms River - New York",
             "route": "137",
+            "nm": "Toms River - New York",
             "ttl": "1d"
         },
         {
-            "nm": "Lakewood-Old Bridge-NY",
             "route": "139",
+            "nm": "Lakewood-Old Bridge-NY",
             "ttl": "1d"
         },
         {
-            "nm": "Fort Lee-Palisades Park-NY",
             "route": "154",
+            "nm": "Fort Lee-Palisades Park-NY",
             "ttl": "1d"
         },
         {
-            "nm": "Englewood Cliffs-Fort Lee-NY",
             "route": "156",
+            "nm": "Englewood Cliffs-Fort Lee-NY",
             "ttl": "1d"
         },
         {
-            "nm": "Fort Lee-Edgewater-New York",
             "route": "158",
+            "nm": "Fort Lee-Edgewater-New York",
             "ttl": "1d"
         },
         {
-            "nm": "Fort Lee-New York",
             "route": "159",
+            "nm": "Fort Lee-New York",
             "ttl": "1d"
         },
         {
-            "nm": "Elmwood Park-Wallington-NY",
             "route": "160",
+            "nm": "Elmwood Park-Wallington-NY",
             "ttl": "1d"
         },
         {
-            "nm": "Paterson-Passaic-New York",
             "route": "161",
+            "nm": "Paterson-Passaic-New York",
             "ttl": "1d"
         },
         {
-            "nm": "Ridgewood - New York",
             "route": "163",
+            "nm": "Ridgewood - New York",
             "ttl": "1d"
         },
         {
-            "nm": "Midland Park-Fair Lawn-NY",
             "route": "164",
+            "nm": "Midland Park-Fair Lawn-NY",
             "ttl": "1d"
         },
         {
-            "nm": "Westwood - New York",
             "route": "165",
+            "nm": "Westwood - New York",
             "ttl": "1d"
         },
         {
-            "nm": "Cresskill - Bergenfield - NY",
             "route": "166",
+            "nm": "Cresskill - Bergenfield - NY",
             "ttl": "1d"
         },
         {
-            "nm": "Harrington Park-Teaneck-NY",
             "route": "167",
+            "nm": "Harrington Park-Teaneck-NY",
             "ttl": "1d"
         },
         {
-            "nm": "Paramus - New York",
             "route": "168",
+            "nm": "Paramus - New York",
             "ttl": "1d"
         },
         {
-            "nm": "Paterson - New York (GWB)",
             "route": "171",
+            "nm": "Paterson - New York (GWB)",
             "ttl": "1d"
         },
         {
-            "nm": "Ridgewood - New York (GWB)",
             "route": "175",
+            "nm": "Ridgewood - New York (GWB)",
             "ttl": "1d"
         },
         {
-            "nm": "Union City - New York (GWB)",
-            "route": "181",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Hackensack - New York (GWB)",
-            "route": "182",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Dumont - New York (GWB)",
-            "route": "186",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Paterson-Secaucus-New York",
-            "route": "190",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Willowbrook-Montclair-NY",
-            "route": "191",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Clifton - New York",
-            "route": "192",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Willowbrook - New York",
-            "route": "193",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Stockholm-West Milford-NY",
-            "route": "194",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Willowbrook-Cedar Grove-NY",
-            "route": "195",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Warwick - Wayne - New York",
-            "route": "197",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Wayne-WilliamPatersonUniv-NY",
-            "route": "198",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Clifton-Lyndhurst-New York",
-            "route": "199",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Main Street",
-            "route": "21",
-            "ttl": "1d"
-        },
-        {
-            "nm": "N Bergen-Union City-Hoboken",
-            "route": "22",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Springfield Avenue",
-            "route": "25",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Nwk Airport-Nwk-Bloomfield",
-            "route": "258",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Mount Prospect",
-            "route": "27",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Nwk-MontclairUniv-Willowbrook",
-            "route": "28",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Bloomfield Avenue",
-            "route": "29",
-            "ttl": "1d"
-        },
-        {
-            "nm": "North Arlington-Kearny-Newark",
-            "route": "30",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Cape May-Wildwood-Phila",
-            "route": "313",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Asbury Park-Fort Dix-Phila",
-            "route": "317",
-            "ttl": "1d"
-        },
-        {
-            "nm": "NY-Atlantic City-Cape",
-            "route": "319",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Mill Creek-N Bergen P/R-NY",
-            "route": "320",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Vince Lombardi Park/Ride-NY",
-            "route": "321",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Market Street",
-            "route": "34",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Lyons Avenue",
-            "route": "37",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Irvington - Newark",
-            "route": "39",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Kearny - Jersey Gardens",
-            "route": "40",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Sicklerville - Philadelphia",
-            "route": "400",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Salem - Philadelphia",
-            "route": "401",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Pennsville - Philadelphia",
-            "route": "402",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Camden-Lindenwold-Turnersvil",
-            "route": "403",
-            "ttl": "1d"
-        },
-        {
-            "nm": "CherryHillMall-Pennsauken-Ph",
-            "route": "404",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Berlin-Marlton-Philadelphia",
-            "route": "406",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Cmdn-Mrchntville-MorstwnMall",
-            "route": "407",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Millville - Philadelphia",
-            "route": "408",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Trenton-Willingboro-Phila",
-            "route": "409",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Park Avenue",
-            "route": "41",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Bridgeton - Philadelphia",
-            "route": "410",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Sewell-Glassboro-Phila",
-            "route": "412",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Camden-MountHolly-Burlington",
-            "route": "413",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Cmdn-Rt73/Pennsauken St-Burl",
-            "route": "419",
-            "ttl": "1d"
-        },
-        {
-            "nm": "CherryHillMal-Audubon-Camden",
-            "route": "450",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Camden - 36th St. Station",
-            "route": "452",
-            "ttl": "1d"
-        },
-        {
-            "nm": "CherryHillMall-Wdbury-Paulsb",
-            "route": "455",
-            "ttl": "1d"
-        },
-        {
-            "nm": "VoorheesTC-CamdenCC-Avandale",
-            "route": "459",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Elizabeth-Woodbridge-Perth Am",
-            "route": "48",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Kinney",
-            "route": "5",
-            "ttl": "1d"
-        },
-        {
-            "nm": "AtlanticCity-Brigantine Beac",
-            "route": "501",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Atl City-HamiltonMall-Atl/CC",
-            "route": "502",
-            "ttl": "1d"
-        },
-        {
-            "nm": "BngalwPk-ChlseaHgts-VntrPlz",
-            "route": "504",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Atl City-Margate-Longport",
-            "route": "505",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Atlantic City - Ocean City",
-            "route": "507",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Atl City-StocktonColl-HamMal",
-            "route": "508",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Atl City-SomersPt-Ocean City",
-            "route": "509",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Philadelphia - Atlantic City",
-            "route": "551",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Cape May - Atlantic City",
-            "route": "552",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Upper Deerfield-Atl City",
-            "route": "553",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Lindenwold-PATCO-Atl City",
-            "route": "554",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Lakewood - Atlantic City",
-            "route": "559",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Tremley",
-            "route": "57",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Elizabeth - Kenilworth",
-            "route": "58",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Plainfield - Newark",
-            "route": "59",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Trenton - Plainsboro",
-            "route": "600",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Coll of NJ-Trenton-Ham MktPl",
-            "route": "601",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Montgomery-Princeton-QBMall",
-            "route": "605",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Princeton-Mrcrville-HamMktPl",
-            "route": "606",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Ewing-Trenton-Indep Plz",
-            "route": "607",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Hamilton - West Trenton",
-            "route": "608",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Ewing - Quaker Bridge Mall",
-            "route": "609",
-            "ttl": "1d"
-        },
-        {
-            "nm": "MercerMall-Yardville-Ham Mkt",
-            "route": "613",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Ewing-Mercer County College",
-            "route": "619",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Newark-Nwk Airport-Elizabeth",
-            "route": "62",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Pennington - East Trenton",
-            "route": "624",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Newark - Mountainside",
-            "route": "66",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Toms River-Lakewood-Newark",
-            "route": "67",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Newark - Livingston Mall",
-            "route": "70",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Haledon-Paterson-East Ruther",
-            "route": "703",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Paterson - Willowbrook Mall",
-            "route": "704",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Passaic - Willowbrook Mall",
-            "route": "705",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Bloomfield-Passaic-Paramus",
-            "route": "709",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Newark-West Caldwell",
-            "route": "71",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Hackensack-Paterson-Willowbr",
-            "route": "712",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Paterson-Bloomfield-Newark",
-            "route": "72",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Newark - Orange - Livingston",
-            "route": "73",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Paterson - Nutley - Newark",
-            "route": "74",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Passaic - Paterson - Wayne",
-            "route": "744",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Paramus-Cliffside Park-Edgew",
-            "route": "751",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Oakland-Ridgewood-Hackensack",
-            "route": "752",
-            "ttl": "1d"
-        },
-        {
-            "nm": "New Milford - Paramus",
-            "route": "753",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Paramus-Fort Lee-Edgewater",
-            "route": "755",
-            "ttl": "1d"
-        },
-        {
-            "nm": "EnglewoodCliffs-FortLee-Para",
-            "route": "756",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Passaic - Paramus Park",
-            "route": "758",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Newark - Hackensack",
-            "route": "76",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Paterson - Hackensack",
-            "route": "770",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Passaic-Hackensack-Englewood",
-            "route": "780",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Newark - Parsippany Express",
-            "route": "79",
-            "ttl": "1d"
-        },
-        {
-            "nm": "New Brunswick-Woodbridge Ctr",
-            "route": "810",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Perth Amboy-Middlesex CC",
-            "route": "813",
-            "ttl": "1d"
-        },
-        {
-            "nm": "N Brunswick-NewBrnswck-MidCC",
-            "route": "814",
-            "ttl": "1d"
-        },
-        {
-            "nm": "NBrnswick-EBrnswick-WdbrdgeC",
-            "route": "815",
-            "ttl": "1d"
-        },
-        {
-            "nm": "NBrnswick-EBrnswick-OldBrdg",
-            "route": "818",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Red Bank-MonMall-Asbury Prk",
-            "route": "832",
-            "ttl": "1d"
-        },
-        {
-            "nm": "AsbryPrk-Free-RaceMal-Centra",
-            "route": "836",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Grove Street Crosstown",
-            "route": "90",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Orange Crosstown",
-            "route": "92",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Stuyvesant Crosstown",
-            "route": "94",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Clifton Avenue Crosstown",
-            "route": "99",
-            "ttl": "1d"
-        },
-        {
-            "nm": "Hackensack-Englewood-NY(GWB)",
             "route": "178",
+            "nm": "Hackensack-Englewood-NY(GWB)",
+            "ttl": "1d"
+        },
+        {
+            "route": "182",
+            "nm": "Hackensack - New York (GWB)",
+            "ttl": "1d"
+        },
+        {
+            "route": "186",
+            "nm": "Dumont - New York (GWB)",
+            "ttl": "1d"
+        },
+        {
+            "route": "188",
+            "nm": "West New York-New York(GWB)",
+            "ttl": "1d"
+        },
+        {
+            "route": "190",
+            "nm": "Paterson-Secaucus-New York",
+            "ttl": "1d"
+        },
+        {
+            "route": "191",
+            "nm": "Willowbrook-Montclair-NY",
+            "ttl": "1d"
+        },
+        {
+            "route": "192",
+            "nm": "Clifton - New York",
+            "ttl": "1d"
+        },
+        {
+            "route": "194",
+            "nm": "Stockholm-West Milford-NY",
+            "ttl": "1d"
+        },
+        {
+            "route": "197",
+            "nm": "Warwick - Wayne - New York",
+            "ttl": "1d"
+        },
+        {
+            "route": "198",
+            "nm": "Wayne-WilliamPatersonUniv-NY",
+            "ttl": "1d"
+        },
+        {
+            "route": "21",
+            "nm": "Main Street",
+            "ttl": "1d"
+        },
+        {
+            "route": "22",
+            "nm": "N Bergen-Union City-Hoboken",
+            "ttl": "1d"
+        },
+        {
+            "route": "25",
+            "nm": "Springfield Avenue",
+            "ttl": "1d"
+        },
+        {
+            "route": "258",
+            "nm": "Nwk Airport-Nwk-Bloomfield",
+            "ttl": "1d"
+        },
+        {
+            "route": "26",
+            "nm": "Irvington - Elizabeth",
+            "ttl": "1d"
+        },
+        {
+            "route": "27",
+            "nm": "Mount Prospect",
+            "ttl": "1d"
+        },
+        {
+            "route": "28",
+            "nm": "Nwk-MontclairUniv-Willowbrook",
+            "ttl": "1d"
+        },
+        {
+            "route": "29",
+            "nm": "Bloomfield Avenue",
+            "ttl": "1d"
+        },
+        {
+            "route": "30",
+            "nm": "North Arlington-Kearny-Newark",
+            "ttl": "1d"
+        },
+        {
+            "route": "313",
+            "nm": "Cape May-Wildwood-Phila",
+            "ttl": "1d"
+        },
+        {
+            "route": "315",
+            "nm": "Cape May-Wildwood-Phila",
+            "ttl": "1d"
+        },
+        {
+            "route": "317",
+            "nm": "Asbury Park-Fort Dix-Phila",
+            "ttl": "1d"
+        },
+        {
+            "route": "319",
+            "nm": "NY-Atlantic City-Cape",
+            "ttl": "1d"
+        },
+        {
+            "route": "320",
+            "nm": "Mill Creek-N Bergen P/R-NY",
+            "ttl": "1d"
+        },
+        {
+            "route": "321",
+            "nm": "Vince Lombardi Park/Ride-NY",
+            "ttl": "1d"
+        },
+        {
+            "route": "34",
+            "nm": "Market Street",
+            "ttl": "1d"
+        },
+        {
+            "route": "37",
+            "nm": "Lyons Avenue",
+            "ttl": "1d"
+        },
+        {
+            "route": "39",
+            "nm": "Irvington - Newark",
+            "ttl": "1d"
+        },
+        {
+            "route": "40",
+            "nm": "Kearny - Jersey Gardens",
+            "ttl": "1d"
+        },
+        {
+            "route": "400",
+            "nm": "Sicklerville - Philadelphia",
+            "ttl": "1d"
+        },
+        {
+            "route": "401",
+            "nm": "Salem - Philadelphia",
+            "ttl": "1d"
+        },
+        {
+            "route": "403",
+            "nm": "Camden-Lindenwold-Turnersvil",
+            "ttl": "1d"
+        },
+        {
+            "route": "404",
+            "nm": "CherryHillMall-Pennsauken-Ph",
+            "ttl": "1d"
+        },
+        {
+            "route": "405",
+            "nm": "Camden-Merchantville-Cherry",
+            "ttl": "1d"
+        },
+        {
+            "route": "406",
+            "nm": "Berlin-Marlton-Philadelphia",
+            "ttl": "1d"
+        },
+        {
+            "route": "407",
+            "nm": "Cmdn-Mrchntville-MorstwnMall",
+            "ttl": "1d"
+        },
+        {
+            "route": "408",
+            "nm": "Millville - Philadelphia",
+            "ttl": "1d"
+        },
+        {
+            "route": "409",
+            "nm": "Trenton-Willingboro-Phila",
+            "ttl": "1d"
+        },
+        {
+            "route": "41",
+            "nm": "Park Avenue",
+            "ttl": "1d"
+        },
+        {
+            "route": "410",
+            "nm": "Bridgeton - Philadelphia",
+            "ttl": "1d"
+        },
+        {
+            "route": "412",
+            "nm": "Sewell-Glassboro-Phila",
+            "ttl": "1d"
+        },
+        {
+            "route": "413",
+            "nm": "Camden-MountHolly-Burlington",
+            "ttl": "1d"
+        },
+        {
+            "route": "419",
+            "nm": "Cmdn-Rt73/Pennsauken St-Burl",
+            "ttl": "1d"
+        },
+        {
+            "route": "450",
+            "nm": "CherryHillMal-Audubon-Camden",
+            "ttl": "1d"
+        },
+        {
+            "route": "451",
+            "nm": "Camden-Voorhees Town Center",
+            "ttl": "1d"
+        },
+        {
+            "route": "452",
+            "nm": "Camden - 36th St. Station",
+            "ttl": "1d"
+        },
+        {
+            "route": "453",
+            "nm": "Ferry Avenue PATCO - Camden",
+            "ttl": "1d"
+        },
+        {
+            "route": "455",
+            "nm": "CherryHillMall-Wdbury-Paulsb",
+            "ttl": "1d"
+        },
+        {
+            "route": "457",
+            "nm": "Moorestown Mall - Camden",
+            "ttl": "1d"
+        },
+        {
+            "route": "459",
+            "nm": "VoorheesTC-CamdenCC-Avandale",
+            "ttl": "1d"
+        },
+        {
+            "route": "463",
+            "nm": "Woodbury-Avandale P/R",
+            "ttl": "1d"
+        },
+        {
+            "route": "468",
+            "nm": "Penns Grove-Salem-Woodstown",
+            "ttl": "1d"
+        },
+        {
+            "route": "48",
+            "nm": "Elizabeth-Woodbridge-Perth Am",
+            "ttl": "1d"
+        },
+        {
+            "route": "5",
+            "nm": "Kinney",
+            "ttl": "1d"
+        },
+        {
+            "route": "501",
+            "nm": "AtlanticCity-Brigantine Beac",
+            "ttl": "1d"
+        },
+        {
+            "route": "502",
+            "nm": "Atl City-HamiltonMall-Atl/CC",
+            "ttl": "1d"
+        },
+        {
+            "route": "504",
+            "nm": "BngalwPk-ChlseaHgts-VntrPlz",
+            "ttl": "1d"
+        },
+        {
+            "route": "505",
+            "nm": "Atl City-Margate-Longport",
+            "ttl": "1d"
+        },
+        {
+            "route": "507",
+            "nm": "Atlantic City - Ocean City",
+            "ttl": "1d"
+        },
+        {
+            "route": "508",
+            "nm": "Atl City-StocktonColl-HamMal",
+            "ttl": "1d"
+        },
+        {
+            "route": "509",
+            "nm": "Atl City-SomersPt-Ocean City",
+            "ttl": "1d"
+        },
+        {
+            "route": "52",
+            "nm": "Morris Avenue",
+            "ttl": "1d"
+        },
+        {
+            "route": "551",
+            "nm": "Philadelphia - Atlantic City",
+            "ttl": "1d"
+        },
+        {
+            "route": "552",
+            "nm": "Cape May - Atlantic City",
+            "ttl": "1d"
+        },
+        {
+            "route": "553",
+            "nm": "Upper Deerfield-Atl City",
+            "ttl": "1d"
+        },
+        {
+            "route": "554",
+            "nm": "Lindenwold-PATCO-Atl City",
+            "ttl": "1d"
+        },
+        {
+            "route": "559",
+            "nm": "Lakewood - Atlantic City",
+            "ttl": "1d"
+        },
+        {
+            "route": "56",
+            "nm": "Elizabeth - Winfield",
+            "ttl": "1d"
+        },
+        {
+            "route": "57",
+            "nm": "Tremley",
+            "ttl": "1d"
+        },
+        {
+            "route": "58",
+            "nm": "Elizabeth - Kenilworth",
+            "ttl": "1d"
+        },
+        {
+            "route": "59",
+            "nm": "Plainfield - Newark",
+            "ttl": "1d"
+        },
+        {
+            "route": "600",
+            "nm": "Trenton - Plainsboro",
+            "ttl": "1d"
+        },
+        {
+            "route": "601",
+            "nm": "Coll of NJ-Trenton-Ham MktPl",
+            "ttl": "1d"
+        },
+        {
+            "route": "603",
+            "nm": "Mercer Mall-Ham Sq-Ham MktPl",
+            "ttl": "1d"
+        },
+        {
+            "route": "605",
+            "nm": "Montgomery-Princeton-QBMall",
+            "ttl": "1d"
+        },
+        {
+            "route": "606",
+            "nm": "Princeton-Mrcrville-HamMktPl",
+            "ttl": "1d"
+        },
+        {
+            "route": "607",
+            "nm": "Ewing-Trenton-Indep Plz",
+            "ttl": "1d"
+        },
+        {
+            "route": "608",
+            "nm": "Hamilton - West Trenton",
+            "ttl": "1d"
+        },
+        {
+            "route": "609",
+            "nm": "Ewing - Quaker Bridge Mall",
+            "ttl": "1d"
+        },
+        {
+            "route": "611",
+            "nm": "Trenton-RiverViewPlz-Circ",
+            "ttl": "1d"
+        },
+        {
+            "route": "613",
+            "nm": "MercerMall-Yardville-Ham Mkt",
+            "ttl": "1d"
+        },
+        {
+            "route": "619",
+            "nm": "Ewing-Mercer County College",
+            "ttl": "1d"
+        },
+        {
+            "route": "62",
+            "nm": "Newark-Nwk Airport-Elizabeth",
+            "ttl": "1d"
+        },
+        {
+            "route": "624",
+            "nm": "Pennington - East Trenton",
+            "ttl": "1d"
+        },
+        {
+            "route": "66",
+            "nm": "Newark - Mountainside",
+            "ttl": "1d"
+        },
+        {
+            "route": "67",
+            "nm": "Toms River-Lakewood-Newark",
+            "ttl": "1d"
+        },
+        {
+            "route": "70",
+            "nm": "Newark - Livingston Mall",
+            "ttl": "1d"
+        },
+        {
+            "route": "702",
+            "nm": "Paterson - Elmwood Park",
+            "ttl": "1d"
+        },
+        {
+            "route": "703",
+            "nm": "Haledon-Paterson-East Ruther",
+            "ttl": "1d"
+        },
+        {
+            "route": "704",
+            "nm": "Paterson - Willowbrook Mall",
+            "ttl": "1d"
+        },
+        {
+            "route": "705",
+            "nm": "Passaic - Willowbrook Mall",
+            "ttl": "1d"
+        },
+        {
+            "route": "707",
+            "nm": "Paterson - Paramus",
+            "ttl": "1d"
+        },
+        {
+            "route": "709",
+            "nm": "Bloomfield-Passaic-Paramus",
+            "ttl": "1d"
+        },
+        {
+            "route": "71",
+            "nm": "Newark-West Caldwell",
+            "ttl": "1d"
+        },
+        {
+            "route": "712",
+            "nm": "Hackensack-Paterson-Willowbr",
+            "ttl": "1d"
+        },
+        {
+            "route": "72",
+            "nm": "Paterson-Bloomfield-Newark",
+            "ttl": "1d"
+        },
+        {
+            "route": "73",
+            "nm": "Newark - Orange - Livingston",
+            "ttl": "1d"
+        },
+        {
+            "route": "74",
+            "nm": "Paterson - Nutley - Newark",
+            "ttl": "1d"
+        },
+        {
+            "route": "744",
+            "nm": "Passaic - Paterson - Wayne",
+            "ttl": "1d"
+        },
+        {
+            "route": "746",
+            "nm": "Ridgewood - Paterson",
+            "ttl": "1d"
+        },
+        {
+            "route": "748",
+            "nm": "Paterson - Wayne",
+            "ttl": "1d"
+        },
+        {
+            "route": "751",
+            "nm": "Paramus-Cliffside Park-Edgew",
+            "ttl": "1d"
+        },
+        {
+            "route": "752",
+            "nm": "Oakland-Ridgewood-Hackensack",
+            "ttl": "1d"
+        },
+        {
+            "route": "753",
+            "nm": "New Milford - Paramus",
+            "ttl": "1d"
+        },
+        {
+            "route": "755",
+            "nm": "Paramus-Fort Lee-Edgewater",
+            "ttl": "1d"
+        },
+        {
+            "route": "756",
+            "nm": "EnglewoodCliffs-FortLee-Para",
+            "ttl": "1d"
+        },
+        {
+            "route": "758",
+            "nm": "Passaic - Paramus Park",
+            "ttl": "1d"
+        },
+        {
+            "route": "76",
+            "nm": "Newark - Hackensack",
+            "ttl": "1d"
+        },
+        {
+            "route": "762",
+            "nm": "Hackensack-NMilford-Paramus",
+            "ttl": "1d"
+        },
+        {
+            "route": "770",
+            "nm": "Paterson - Hackensack",
+            "ttl": "1d"
+        },
+        {
+            "route": "772",
+            "nm": "Paramus-Hackensack-Meadowlan",
+            "ttl": "1d"
+        },
+        {
+            "route": "78",
+            "nm": "Newark - Secaucus",
+            "ttl": "1d"
+        },
+        {
+            "route": "780",
+            "nm": "Passaic-Hackensack-Englewood",
+            "ttl": "1d"
+        },
+        {
+            "route": "79",
+            "nm": "Newark - Parsippany Express",
+            "ttl": "1d"
+        },
+        {
+            "route": "810",
+            "nm": "New Brunswick-Woodbridge Ctr",
+            "ttl": "1d"
+        },
+        {
+            "route": "811",
+            "nm": "New Brunswick - South River",
+            "ttl": "1d"
+        },
+        {
+            "route": "813",
+            "nm": "Perth Amboy-Middlesex CC",
+            "ttl": "1d"
+        },
+        {
+            "route": "814",
+            "nm": "N Brunswick-NewBrnswck-MidCC",
+            "ttl": "1d"
+        },
+        {
+            "route": "815",
+            "nm": "NBrnswick-EBrnswick-WdbrdgeC",
+            "ttl": "1d"
+        },
+        {
+            "route": "817",
+            "nm": "Perth Amboy-Campbell's Junct",
+            "ttl": "1d"
+        },
+        {
+            "route": "818",
+            "nm": "NBrnswick-EBrnswick-OldBrdg",
+            "ttl": "1d"
+        },
+        {
+            "route": "819",
+            "nm": "Piscataway-Plainfield-Metuch",
+            "ttl": "1d"
+        },
+        {
+            "route": "822",
+            "nm": "Plainfield-North Plainfield",
+            "ttl": "1d"
+        },
+        {
+            "route": "830",
+            "nm": "Asbury Prk-Pt Pleasant Beach",
+            "ttl": "1d"
+        },
+        {
+            "route": "831",
+            "nm": "Red Bank-MonMall-LongBranch",
+            "ttl": "1d"
+        },
+        {
+            "route": "832",
+            "nm": "Red Bank-MonMall-Asbury Prk",
+            "ttl": "1d"
+        },
+        {
+            "route": "834",
+            "nm": "Red Bank - Highlands",
+            "ttl": "1d"
+        },
+        {
+            "route": "836",
+            "nm": "AsbryPrk-Free-RaceMal-Centra",
+            "ttl": "1d"
+        },
+        {
+            "route": "837",
+            "nm": "LongBranch-AsburyPrk-Seaview",
+            "ttl": "1d"
+        },
+        {
+            "route": "838",
+            "nm": "Freehold-Red Bank-Sea Bright",
+            "ttl": "1d"
+        },
+        {
+            "route": "871",
+            "nm": "Morristown-Boonton-Willowbro",
+            "ttl": "1d"
+        },
+        {
+            "route": "872",
+            "nm": "Morristown-Rt.10-Livingston",
+            "ttl": "1d"
+        },
+        {
+            "route": "873",
+            "nm": "Greystone-Morristown-Livings",
+            "ttl": "1d"
+        },
+        {
+            "route": "875",
+            "nm": "Morristown-Dover-Roxbury",
+            "ttl": "1d"
+        },
+        {
+            "route": "880",
+            "nm": "Morristown-Dover-Rockaway",
+            "ttl": "1d"
+        },
+        {
+            "route": "90",
+            "nm": "Grove Street Crosstown",
+            "ttl": "1d"
+        },
+        {
+            "route": "92",
+            "nm": "Orange Crosstown",
+            "ttl": "1d"
+        },
+        {
+            "route": "94",
+            "nm": "Stuyvesant Crosstown",
+            "ttl": "1d"
+        },
+        {
+            "route": "96",
+            "nm": "18th Street Crosstown",
+            "ttl": "1d"
+        },
+        {
+            "route": "97",
+            "nm": "East Orange - Montclair",
+            "ttl": "1d"
+        },
+        {
+            "route": "99",
+            "nm": "Clifton Avenue Crosstown",
             "ttl": "1d"
         }
     ]

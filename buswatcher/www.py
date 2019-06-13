@@ -34,7 +34,6 @@ import buswatcher.lib.wwwAPI as wwwAPI
 # ROUTE + APP CONFIG
 ################################################
 from buswatcher.lib.RouteConfig import load_config
-route_definitions, grade_descriptions, collection_descriptions = load_config()
 
 ################################################
 # APP
@@ -100,21 +99,25 @@ def load_collection_routes(collection_url):
 
 def maintenance_check(f):
     def wrapper(*args,**kwargs):
+
         now = datetime.now()
+
         # check and update route definitions
-        print (route_definitions['last_updated'])
         try:
             route_definitions_last_updated = parser.parse(route_definitions['last_updated'])
         except:
             route_definitions_last_updated = parser.parse('2000-01-01 01:01:01')
-        route_definitions_ttl = timedelta(seconds=route_definitions['ttl'])
-        if route_definitions_last_updated + route_definitions_ttl > now:
+        route_definitions_ttl = timedelta(seconds=int(route_definitions['ttl']))
+        if now - route_definitions_last_updated > route_definitions_ttl:
             RouteConfig.fetch_update_route_metadata()
-        # todo 2 other nightly/hourly tasks
+
+        # todo 2 add other maintenance task
         # for r in route_definitions['route_definitons']:
         #     # create base RouteReport instance
         #     routereport = wwwAPI.RouteReport(source, rt_no['route'])
-        #     # generate individual reports to a pickle file
+
+        # todo 2 add other maintenance task
+        # for r in route_definitions['route_definitons']:
         #     # generate bunching leaderboard
         #     routereport.generate_bunching_leaderboard(route=rt_no['route'], period=period)
         #     # generate other reports
@@ -131,7 +134,7 @@ def maintenance_check(f):
 
 #-------------------------------------------------------------Statewide Index
 @app.route('/')
-@maintenance_check(route_definitions=route_definitions)
+@maintenance_check
 def displayIndex():
     d1, d2, collection_descriptions = load_config()
     routereport = Dummy() # setup a dummy routereport for the navbar
@@ -153,7 +156,7 @@ def genRouteReport(collection_url,route, period):
     source=source_global
     collection_metadata=load_collection_routes(collection_url)
     route_report = wwwAPI.RouteReport(source, route, period)
-    return render_template('route.jinja2', collection_metadata=collection_metadata, route=route, period=period, routereport=route_report)
+    return render_template('route.jinja2', collection_metadata=collection_metadata, route_definitions=route_definitions, route=route, period=period, routereport=route_report)
 
 #------------------------------------------------------------Stop
 # /<source>/<route>/stop/<stop>/<period>
@@ -306,6 +309,7 @@ def splitpart (value, index, char = '_'):
 ################################################
 
 if __name__ == "__main__":
+    route_definitions, grade_descriptions, collection_descriptions = load_config()
     app.run(host='0.0.0.0', debug=True)
 
 

@@ -1,7 +1,7 @@
 #
 # usage:
 # (statewide)                                           tripwatcher.py
-# (only routes in config/route_description.json)        tripwatcher.py --limit
+# (only routes in defined collections)                  tripwatcher.py --limit
 #
 
 import argparse
@@ -10,13 +10,14 @@ import datetime, time
 import werkzeug
 import itertools
 import numpy as np
+from xml.etree.ElementTree import ParseError
 
 from buswatcher.lib import BusAPI, Localizer
 from buswatcher.lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
 from buswatcher.lib.RouteConfig import load_config
 
 
-def watch(limit,r):
+def watch(limit, r):
 
     ##############################################
     # 1 -- FETCH AND LOCALIZE CURRENT POSITIONS
@@ -24,80 +25,67 @@ def watch(limit,r):
 
     with SQLAlchemyDBConnection() as db:
 
-
-        # get buses from NJT API
-
+        # retrieve bus locations from NJT API
         if limit is True:
-            ## route_config buses only
-            while True:
-                try:
-                    buses = BusAPI.parse_xml_getBusesForRoute(
-                        BusAPI.get_xml_data(args.source, 'buses_for_route', route=r['route']))
-                # todo 1 fix this error handler for 404
-                except werkzeug.exceptions.NotFound as e:
-                    sys.stdout.write('.')
-                    time.sleep(5) # sleep for 5 seconds and try again
-                    continue
-                break
-
+            try:
+                buses = BusAPI.parse_xml_getBusesForRoute(
+                    BusAPI.get_xml_data(args.source, 'buses_for_route', route=r))
+            except:
+                sys.stdout.write('.')
+                time.sleep(5)
         elif limit is not True:
-            ## entire state
-            while True:
-                try:
-                    buses = BusAPI.parse_xml_getBusesForRouteAll(
-                        BusAPI.get_xml_data(args.source, 'all_buses'))
+            try:
+                print('fetching buses')
+                buses = BusAPI.parse_xml_getBusesForRouteAll(
+                    BusAPI.get_xml_data(args.source, 'all_buses'))
+            except:
+                print('fetch failed, wait to try again')
+                sys.stdout.write('.')
+                time.sleep(5)
 
-                # todo 1 fix this error parsing
-                except xml.etree.ElementTree.ParseError as e:
-                    # except werkzeug.exceptions.NotFound as e:
-                    sys.stdout.write('.')
-                    time.sleep(2)
-                    continue
-                else:
-                    continue
-
-                # remove any bus not on an active route
-                buses_cleaned=list()
-                for bus in buses:
-                    try:
-                        rt = int(bus.rt)
-                        buses_cleaned.append(bus)
-                    except:
-                        continue
-                buses=buses_cleaned
-                break
-
-        # NEW parse trips separately and create before we add the positions -- to honor the foreign key constraint
-        triplist = []
+        # remove buses not actively running routes (e.g. letter route codes)
+        buses_cleaned=[]
         for bus in buses:
-            bus.trip_id = ('{id}_{run}_{dt}').format(id=bus.id, run=bus.run,
-                                                     dt=datetime.datetime.today().strftime('%Y%m%d'))
-            triplist.append(bus.trip_id)
+            try:
+                int(bus.rt)
+                buses_cleaned.append(bus)
+                sys.stdout.write("good ")
+            except:
+                sys.stdout.write ("bad ")
+        buses = buses_cleaned
+        cleaned_timestamp = datetime.datetime.now()
+        print('\rdata cleaned at ' + str(cleaned_timestamp))
+
+        # create missing trip records first, to honor foreign key constraints
+        trip_list = []
+        for bus in buses:
+            bus.trip_id = ('{id}_{run}_{dt}').format(id=bus.id, run=bus.run, dt=datetime.datetime.today().strftime('%Y%m%d'))
+            trip_list.append(bus.trip_id)
             result = db.session.query(Trip).filter(Trip.trip_id == bus.trip_id).first()
             if result is None:
                 trip_id = Trip(args.source, bus.rt, bus.id, bus.run, bus.pid)
                 db.session.add(trip_id)
-
             else:
-                pass
-
+                continue
             db.__relax__()  # disable foreign key checks before...
             db.session.commit()  # we save the position_log.
+        parsed_timestamp = datetime.datetime.now()
+        print('\rtrips parsed at ' + str(parsed_timestamp))
 
+
+        # todo localizer seems to fail every so often for no reason
         # localize and add the bus positions to the db
         if limit is True:
-            bus_positions = Localizer.get_nearest_stop(buses, r['route'])
-
+            bus_positions = Localizer.get_nearest_stop(buses, r)
             for group in bus_positions:
                 for bus in group:
                     db.session.add(bus)
             db.session.commit()
 
         elif limit is not True:
-
+            print ('localizing (this could take a while)')
             # find all the routes
             route_list = [bus.rt for bus in buses]
-
             # loop over each route
             for route in route_list:
                 bus_positions = Localizer.get_nearest_stop(buses, route)
@@ -105,8 +93,10 @@ def watch(limit,r):
                     for bus in group:
                         db.session.add(bus)
                 db.session.commit()
+                sys.stdout.write('.')
 
-
+        localized_timestamp = datetime.datetime.now()
+        print('\rbuses localized at ' + str(localized_timestamp))
 
 
     ##############################################
@@ -114,7 +104,7 @@ def watch(limit,r):
     ##############################################
 
     with SQLAlchemyDBConnection() as db:
-        for trip_id in triplist:
+        for trip_id in trip_list:
 
             # load the trip card for reference
             scheduled_stops = db.session.query(Trip, ScheduledStop) \
@@ -263,6 +253,8 @@ def watch(limit,r):
                     pass
 
         db.session.commit()
+        assigned_timestamp = datetime.datetime.now()
+        print('\rarrivals assigned at ' + str(assigned_timestamp))
 
 
 #todo 2 add Interpolate+log missed stops
@@ -286,24 +278,32 @@ if __name__ == "__main__":
 
     ran = False
 
+    # 30 second pause between runs
+    # todo make it 30 seconds less processing time from previous run
+
     while True:
-        if ran is True:
-            delay = 30
-        else:
-            delay = 0
-        time.sleep(delay)
+        time.sleep(30)
 
         try:
             if args.limit is True:
-                for route_to_watch in route_definitions: # iterate over all routes known
+                print('running in limited mode')
+
+                # make a list of all the routes in all the collections
+                limited_route_list=list()
+                for c in collection_descriptions:
+                    for rt in c['routelist']:
+                        limited_route_list.append((rt))
+
+                # watch each route in limited_route_list
+                for route_to_watch in limited_route_list:
                     watch(limit=args.limit, r=route_to_watch)
-                interpolate_missed(r=route_to_watch)  # interpolate+log missed stops
+                    # interpolate_missed(r=route_to_watch)
                 ran = True
 
             if args.limit is False:
+                print('running in statewide mode')
                 watch(limit=args.limit, r=0)
+                # interpolate_missed(r=0)
                 ran = True
         except:
             pass
-
-#todo 1 deploy to AWS for testing

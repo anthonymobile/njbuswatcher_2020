@@ -1,7 +1,7 @@
 # NJBuswatcher.com
 # config
 
-import json, sys
+import json, sys, datetime
 import buswatcher.lib.BusAPI as BusAPI
 
 
@@ -43,7 +43,7 @@ def fetch_update_route_metadata():
     # fetch route metadata
     api_response= list()
     for r in routes_active:
-        sys.stdout.write (r+'...')
+        sys.stdout.write ('.')
         route_metadata = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data('nj', 'routes', route=r))
         route_entry = {'route': route_metadata[0][0].identity, 'nm': route_metadata[0][0].nm}
         api_response.append(route_entry)
@@ -71,15 +71,17 @@ def fetch_update_route_metadata():
             print ("<<Added route record>>"+json.dumps(update))
             route_definitions.append(update) #add it to the route_definitions file so we dont scan it again until the TTL expires
 
+    # create data to dump with last_updated and ttl
+    outdata = dict()
+    now = datetime.datetime.now()
+    outdata['last_updated'] = now.strftime("%Y-%m-%d %H:%M:%S")
+    outdata['ttl'] = '86400'
+    outdata['route_definitions'] = route_definitions
+
     # delete existing route_definition.json and dump new complete as a json
     with open('config/route_definitions.json','w') as f:
-        outdata = {'route_definitions':route_definitions}
         json.dump(outdata, f, indent=4)
 
-
-    # with open('config/route_definitions.yml', 'w') as yaml_file:
-    #     outdata = {'route_definitions':route_definitions}
-    #     yaml.dump(outdata, yaml_file, default_flow_style=False)
 
     return
 
