@@ -17,6 +17,22 @@ from buswatcher.lib import BusAPI, Localizer
 from buswatcher.lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
 from buswatcher.lib.RouteConfig import load_config,maintenance_check, fetch_update_route_metadata
 
+def timeit(f):
+
+    def timed(*args, **kw):
+
+        ts = time.time()
+        result = f(*args, **kw)
+        te = time.time()
+
+        print ('func:%r took: %2.4f sec' % \
+          (f.__name__, te-ts))
+        # print ('func:%r args:[%r, %r] took: %2.4f sec' % \
+        #   (f.__name__, args, kw, te-ts))
+        return result
+
+    return timed
+
 
 class RouteScan:
 
@@ -48,10 +64,23 @@ class RouteScan:
     def fetch_positions(self):
 
         if self.statewide is False:
-            self.buses = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data('nj', 'buses_for_route', route=self.route))
-        elif self.statewide is True:
-            self.buses = BusAPI.parse_xml_getBusesForRouteAll(BusAPI.get_xml_data('nj', 'all_buses'))
 
+            self.buses = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data('nj', 'buses_for_route', route=self.route))
+            sys.stdout.write('\rfetched route' + str(self.route) + '... ')
+
+            self.clean_buses()
+
+        elif self.statewide is True:
+
+            self.buses = BusAPI.parse_xml_getBusesForRouteAll(BusAPI.get_xml_data('nj', 'all_buses'))
+            sys.stdout.write('\rfetched ' + str(len(self.buses)) + ' buses...')
+
+            self.clean_buses()
+
+        return
+
+
+    def clean_buses(self):
         # CLEAN buses not actively running routes (e.g. letter route codes)
         buses_cleaned=[]
         for bus in self.buses:
@@ -62,11 +91,10 @@ class RouteScan:
                 pass
         self.buses = buses_cleaned
 
-        sys.stdout.write('\rfetched route' + self.route + ' ')
-
         return
 
 
+    @timeit
     def parse_positions(self):
 
         with self.db as db:
@@ -89,6 +117,7 @@ class RouteScan:
             return
 
 
+    @timeit
     def localize_positions(self):
 
             with self.db as db:
@@ -128,6 +157,7 @@ class RouteScan:
             return
 
 
+    @timeit
     def assign_positions(self):
 
         with self.db as db:
@@ -286,6 +316,7 @@ class RouteScan:
             return
 
 
+    @timeit
     def interpolate_missed_stops(self):
 
         # INTERPOLATE ARRIVALS AT MISSED STOPS
