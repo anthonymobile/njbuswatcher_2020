@@ -2,16 +2,27 @@
 # Localizer
 ###########################################################################
 
-import datetime, collections
+import datetime, time, collections
 
 import pandas as pd
 import numpy as np
+from functools import lru_cache
 
 import geopandas
 from scipy.spatial import cKDTree
 from shapely.geometry import Point
 
 from . import DataBases, BusAPI
+
+@lru_cache()
+def memoized_fetch_routedata(route, ttl_hash=None):
+    routedata, coordinates_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data('nj', 'routes', route=route))
+    return routedata
+
+def get_ttl_hash(seconds=3600):
+    """Return the same value withing `seconds` time period"""
+    return round(time.time() / seconds)
+
 
 
 ###########################################################################
@@ -83,7 +94,10 @@ def get_nearest_stop(buses,route):
 
     # acquire and sort stop data in directions (ignoring services)
 
-    routedata, coordinates_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data('nj', 'routes', route=route)) # todo 0 load from a cache to improve performance -- ttl is 1 hour
+    # routedata, coordinates_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data('nj', 'routes', route=route))
+
+    routedata = memoized_fetch_routedata(route, ttl_hash=get_ttl_hash())
+
     stoplist = []
     for rt in routedata:
         for path in rt.paths:
