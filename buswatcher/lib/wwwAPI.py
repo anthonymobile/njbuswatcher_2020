@@ -33,7 +33,7 @@ class RouteReport:
         self.route_definitions, self.grade_descriptions, self.collection_descriptions = RouteConfig.load_config()
 
         # populate static report card data
-        #todo 3 would be nice to read this from Trip, but since RouteReport has more than 1 trip, which path will we use? this is why buses sometimes show up on maps not on a route
+        #todo 1 would be nice to read this from Trip, but since RouteReport has more than 1 trip, which path will we use? this is why buses sometimes show up on maps not on a route
         self.routename, self.waypoints_coordinates, self.stops_coordinates, self.waypoints_geojson, self.stops_geojson = self.get_route_geojson_and_name(self.route)
         self.load_route_description()
         self.route_stop_list = self.get_stoplist(self.route)
@@ -41,7 +41,7 @@ class RouteReport:
         # populate live report card data
         # self.active_trips = self.get_activetrips() <-- depreceated?
         self.grade, self.grade_description = self.get_grade(period)
-        # todo 2 self.headway = self.get_headway()
+        # to do 2 self.headway = self.get_headway()
         self.bunching_badboys = self.get_bunching_badboys(period)
         self.traveltime = self.get_traveltime(period)
         self.get_period_labels = self.get_period_labels()
@@ -84,7 +84,7 @@ class RouteReport:
             period_label = '-no period label assigned-'
         return period_label
 
-    # todo 2 finish route headway metric
+    # to do 2 finish route headway metric
     # accumulate some data on the desktop, need completed trips
     # **wwwAPI.RouteReport.get_headway** add {{headway}} tags to route.html template and start testing
 
@@ -565,5 +565,5 @@ class StopReport:
 
     # todo 1 write stop get_arrivals arrivals dashboard
     # todo 1 write stop get_frequency_report
-    # todo 2 write stop get_travel_time metric
-    # todo 2 write stop get_grade metric
+    # to do 2 write stop get_travel_time metric
+    # to do 2 write stop get_grade metric

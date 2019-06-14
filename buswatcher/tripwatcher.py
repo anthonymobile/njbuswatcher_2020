@@ -36,6 +36,7 @@ def timeit(f):
 
 class RouteScan:
 
+    @timeit
     def __init__(self, route, statewide):
 
         # apply passed parameters to instance
@@ -94,19 +95,18 @@ class RouteScan:
         return
 
 
-    @timeit
     def parse_positions(self):
 
         with self.db as db:
 
             # PARSE trips, create missing trip records first, to honor foreign key constraints
-            sys.stdout.write('parsing...')
+            # sys.stdout.write('parsing...')
 
             for bus in self.buses:
                 bus.trip_id = ('{id}_{run}_{dt}').format(id=bus.id, run=bus.run,dt=datetime.datetime.today().strftime('%Y%m%d'))
                 self.trip_list.append(bus.trip_id)
                 result = db.session.query(Trip).filter(Trip.trip_id == bus.trip_id).first()
-                sys.stdout.write('.')
+                # sys.stdout.write('.')
                 if result is None:
                     trip_id = Trip('nj', bus.rt, bus.id, bus.run, bus.pid)
                     db.session.add(trip_id)
@@ -117,7 +117,6 @@ class RouteScan:
             return
 
 
-    @timeit
     def localize_positions(self):
 
             with self.db as db:
@@ -125,22 +124,22 @@ class RouteScan:
                 try:
                     # LOCALIZE
                     if self.statewide is False:
-                        sys.stdout.write('localizing...')
+                        # sys.stdout.write('localizing...')
                         bus_positions = Localizer.get_nearest_stop(self.buses, self.route)
                         for group in bus_positions:
                             for bus in group:
                                 db.session.add(bus)
-                                sys.stdout.write('.')
+                                # sys.stdout.write('.')
                         db.__relax__()  # disable foreign key checks before commit # todo 1 is this wise? remove?
                         db.session.commit()
 
                     elif self.statewide is True:
                         # find all the routes
                         statewide_route_list = [bus.rt for bus in self.buses]
-                        print ('localizing %a buses on %b routes...').format(a=str(len(self.buses)), b=str(len(statewide_route_list)))
+                        # print ('localizing %a buses on %b routes...').format(a=str(len(self.buses)), b=str(len(statewide_route_list)))
                         # loop over each route
                         for r in statewide_route_list:
-                            print('localizing routes %a').format(a=r)
+                            # print('localizing routes %a').format(a=r)
                             bus_positions = Localizer.get_nearest_stop(self.buses, r)
                             for group in bus_positions:
                                 for bus in group:
@@ -157,12 +156,11 @@ class RouteScan:
             return
 
 
-    @timeit
     def assign_positions(self):
 
         with self.db as db:
 
-            sys.stdout.write('assigning...')
+            # sys.stdout.write('assigning...')
             # ASSIGN TO NEAREST STOP
             for trip_id in self.trip_list:
                 # load the trip card for reference
@@ -299,13 +297,13 @@ class RouteScan:
                                 case_identifier = '3c'
                                 # plot_approach(trip_id, np.array([0, position_list[0].distance_to_stop]), case_identifier)
 
-                            # todo add 2 `Boomerang buses (Case D)`
+                            # to do add 2 `Boomerang buses (Case D)`
 
                         except:
                             pass
 
                     # catch errors for unassigned 3+-position approaches
-                    # todo 2 debug approach assignment: 3+ position seems to still be having problems...
+                    # to do 2 debug approach assignment: 3+ position seems to still be having problems...
                     try:
                         stop_to_update[0][0].arrival_timestamp = arrival_time
                     except:
@@ -316,11 +314,10 @@ class RouteScan:
             return
 
 
-    @timeit
     def interpolate_missed_stops(self):
 
         # INTERPOLATE ARRIVALS AT MISSED STOPS
-        # todo 2 add Interpolate+log missed stops
+        # to do 2 add Interpolate+log missed stops
         # interpolates arrival times for any stops in between arrivals in the trip card
         # theoretically there shouldn't be a lot though if the trip card is correct
         # since we are grabbing positions every 30 seconds.)

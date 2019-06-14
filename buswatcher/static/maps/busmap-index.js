@@ -9,7 +9,7 @@ var map = new mapboxgl.Map({
 
 // zoom implemented using https://stackoverflow.com/questions/49354133/turf-js-to-find-bounding-box-of-data-loaded-with-mapbox-gl-js
 
-var url_vehicles = ("/api/v1/maps?layer=vehicles&rt=" + passed_route); // todo make this worko on collections instead (can use the same script as busmap-colletions.js?
+var url_vehicles = ("/api/v1/maps?layer=vehicles&rt=" + passed_route); // todo 1 make this worko on collections instead (can use the same script as busmap-colletions.js?
 
 
 map.on('load', function() {

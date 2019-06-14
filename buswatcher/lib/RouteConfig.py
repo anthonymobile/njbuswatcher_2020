@@ -26,12 +26,12 @@ def maintenance_check():
     if (now - route_definitions_last_updated) > route_definitions_ttl:
         fetch_update_route_metadata()
 
-    # todo 2 add other maintenance task
+    # to do 2 add other maintenance task
     # for r in route_definitions['route_definitons']:
     #     # create base RouteReport instance
     #     routereport = wwwAPI.RouteReport(source, rt_no['route'])
 
-    # todo 3 add other maintenance task
+    # to do 3 add other maintenance task
     # for r in route_definitions['route_definitons']:
     #     # generate bunching leaderboard
     #     routereport.generate_bunching_leaderboard(route=rt_no['route'], period=period)
