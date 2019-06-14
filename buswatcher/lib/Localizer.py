@@ -14,7 +14,8 @@ from shapely.geometry import Point
 
 from . import DataBases, BusAPI
 
-@lru_cache()
+@lru_cache() # todo 0 not sure cache is doing anything
+# todo 0 alt cache method would be to get the route points in RouteConfig.maintenance_check and then just load them here, or load themi ntripwatcher and pass them into Localizer with each call -- if do this make sure to exploit it everywhere else we are fetching that same data
 def memoized_fetch_routedata(route, ttl_hash=None):
     routedata, coordinates_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data('nj', 'routes', route=route))
     return routedata
