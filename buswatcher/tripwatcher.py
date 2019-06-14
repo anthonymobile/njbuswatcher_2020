@@ -11,6 +11,8 @@ import datetime, time
 import itertools
 import numpy as np
 
+from pymysql import IntegrityError
+
 from buswatcher.lib import BusAPI, Localizer
 from buswatcher.lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
 from buswatcher.lib.RouteConfig import load_config,maintenance_check, fetch_update_route_metadata
@@ -60,8 +62,7 @@ class RouteScan:
                 pass
         self.buses = buses_cleaned
 
-        fetched_timestamp = datetime.datetime.now()
-        print('\rfetched at ' + str(fetched_timestamp))
+        sys.stdout.write('\rfetched route' + self.route + ' ')
 
         return
 
@@ -71,7 +72,7 @@ class RouteScan:
         with self.db as db:
 
             # PARSE trips, create missing trip records first, to honor foreign key constraints
-            sys.stdout.write('parsing')
+            sys.stdout.write('parsing...')
 
             for bus in self.buses:
                 bus.trip_id = ('{id}_{run}_{dt}').format(id=bus.id, run=bus.run,dt=datetime.datetime.today().strftime('%Y%m%d'))
@@ -85,40 +86,44 @@ class RouteScan:
                     continue
                 db.__relax__()  # disable foreign key checks before...
                 db.session.commit()  # we save the position_log.
-
-            parsed_timestamp = datetime.datetime.now()
-            print('\rparsed at ' + str(parsed_timestamp))
             return
 
 
     def localize_positions(self):
 
             with self.db as db:
-                # LOCALIZE
-                if self.statewide is False:
-                    sys.stdout.write('localizing')
-                    bus_positions = Localizer.get_nearest_stop(self.buses, self.route)
-                    for group in bus_positions:
-                        for bus in group:
-                            db.session.add(bus)
-                            sys.stdout.write('.')
-                    db.session.commit()
-                elif self.statewide is True:
-                    # find all the routes
-                    statewide_route_list = [bus.rt for bus in self.buses]
-                    print ('localizing %a buses on %b routes.').format(a=str(len(self.buses)), b=str(len(statewide_route_list)))
-                    # loop over each route
-                    for r in statewide_route_list:
-                        print('localizing routes %a').format(a=r)
-                        bus_positions = Localizer.get_nearest_stop(self.buses, r)
+
+                try:
+                    # LOCALIZE
+                    if self.statewide is False:
+                        sys.stdout.write('localizing...')
+                        bus_positions = Localizer.get_nearest_stop(self.buses, self.route)
                         for group in bus_positions:
                             for bus in group:
                                 db.session.add(bus)
+                                sys.stdout.write('.')
+                        db.__relax__()  # disable foreign key checks before commit # todo 1 is this wise? remove?
                         db.session.commit()
-                        sys.stdout.write('.')
 
-                localized_timestamp = datetime.datetime.now()
-                print('\rlocalized at ' + str(localized_timestamp))
+                    elif self.statewide is True:
+                        # find all the routes
+                        statewide_route_list = [bus.rt for bus in self.buses]
+                        print ('localizing %a buses on %b routes...').format(a=str(len(self.buses)), b=str(len(statewide_route_list)))
+                        # loop over each route
+                        for r in statewide_route_list:
+                            print('localizing routes %a').format(a=r)
+                            bus_positions = Localizer.get_nearest_stop(self.buses, r)
+                            for group in bus_positions:
+                                for bus in group:
+                                    db.session.add(bus)
+                            db.__relax__()  # disable foreign key checks before commit # todo 1 is this wise? remove?
+                            db.session.commit()
+                            sys.stdout.write('.')
+
+
+                except (IntegrityError) as e:
+                    error_count = + 1
+                    print(e + 'mysql integrity error #' + error_count)
 
             return
 
@@ -127,6 +132,7 @@ class RouteScan:
 
         with self.db as db:
 
+            sys.stdout.write('assigning...')
             # ASSIGN TO NEAREST STOP
             for trip_id in self.trip_list:
                 # load the trip card for reference
@@ -277,9 +283,6 @@ class RouteScan:
 
             db.session.commit()
 
-            assigned_timestamp = datetime.datetime.now()
-            print('\rarrivals assigned at ' + str(assigned_timestamp))
-
             return
 
 
@@ -324,7 +327,7 @@ if __name__ == "__main__":
             print('running in statewide mode (watch all routes in NJ)')
             scan = RouteScan(0, args.statewide)
 
-        print ('***sleeping***')
+        print ('\r***sleeping***')
         time.sleep(run_frequency - ((time.monotonic() - time_start) % 60.0)) # sleep remainder of the 60 second loop
 
 
