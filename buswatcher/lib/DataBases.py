@@ -54,7 +54,7 @@ class Trip(Base):
             self.db = db
             self.stop_list = []
             routes, self.coordinates_bundle = BusAPI.parse_xml_getRoutePoints(
-                BusAPI.get_xml_data(self.source, 'routes', route=self.rt))
+                BusAPI.get_xml_data(self.source, 'routes', route=self.rt)) #todo 0 replace with RouteConfig.load_route_geometry(self.rt)
             self.routename = routes[0].nm
             for path in routes[0].paths:
                 if path.id == self.pid:

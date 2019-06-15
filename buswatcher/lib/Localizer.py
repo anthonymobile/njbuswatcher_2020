@@ -13,16 +13,17 @@ from scipy.spatial import cKDTree
 from shapely.geometry import Point
 
 from . import DataBases, BusAPI
+from buswatcher.lib.RouteConfig import load_route_geometry
 
-@lru_cache() # todo 0 not sure cache is doing anything
-# todo 0 alt cache method would be to get the route points in RouteConfig.maintenance_check and then just load them here, or load themi ntripwatcher and pass them into Localizer with each call -- if do this make sure to exploit it everywhere else we are fetching that same data
-def memoized_fetch_routedata(route, ttl_hash=None):
-    routedata, coordinates_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data('nj', 'routes', route=route))
-    return routedata
-
-def get_ttl_hash(seconds=3600):
-    """Return the same value withing `seconds` time period"""
-    return round(time.time() / seconds)
+# @lru_cache() # todo 0 not sure cache is doing anything
+# # todo 0 alt cache method would be to get the route points in RouteConfig.maintenance_check and then just load them here, or load themi ntripwatcher and pass them into Localizer with each call -- if do this make sure to exploit it everywhere else we are fetching that same data
+# def memoized_fetch_routedata(route, ttl_hash=None):
+#     routedata, coordinates_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data('nj', 'routes', route=route))
+#     return routedata
+#
+# def get_ttl_hash(seconds=3600):
+#     """Return the same value withing `seconds` time period"""
+#     return round(time.time() / seconds)
 
 
 
@@ -96,8 +97,7 @@ def get_nearest_stop(buses,route):
     # acquire and sort stop data in directions (ignoring services)
 
     # routedata, coordinates_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data('nj', 'routes', route=route))
-
-    routedata = memoized_fetch_routedata(route, ttl_hash=get_ttl_hash())
+    routedata = BusAPI.parse_xml_getRoutePoints(load_route_geometry(route))
 
     stoplist = []
     for rt in routedata:
