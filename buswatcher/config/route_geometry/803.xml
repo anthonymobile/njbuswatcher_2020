@@ -1,0 +1,492 @@
+<?xml version="1.0"?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<route>
+		<id>803</id> 
+		<rtpiFeedName></rtpiFeedName>
+		<sn>803</sn> 
+		<nm>803 Metropark - Woodbridge Cente</nm> 
+		<displayDesignator>803</displayDesignator> 
+		<vmode>1</vmode>   
+		
+		<sbs>
+
+
+
+		</sbs>
+
+		<c>#ff6600</c>
+
+		<pas>
+
+
+			<pa>
+				<id>285</id>
+
+				<d>Woodbridge</d> 
+				<dd>Woodbridge</dd>  
+				<directionRtpiFeedName></directionRtpiFeedName>
+
+				<pt>
+					<lat>40.567550000001326</lat>
+			        <lon>-74.33028000000006</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>30534</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>METROPARK RAIL STATION BUS LANE 3</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.56728</lat>
+			        <lon>-74.33043</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.56718</lat>
+			        <lon>-74.33055</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.56708</lat>
+			        <lon>-74.33056</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.56647</lat>
+			        <lon>-74.32984</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.56721</lat>
+			        <lon>-74.32878</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.56796</lat>
+			        <lon>-74.32749</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.56868</lat>
+			        <lon>-74.32641</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.56907</lat>
+			        <lon>-74.32589</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57026</lat>
+			        <lon>-74.32449</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.568534</lat>
+			        <lon>-74.323721</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.56838999999926</lat>
+			        <lon>-74.3236799999997</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>24141</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>GILL LN + MIDDLESEX-ESSEX TPKE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.56815</lat>
+			        <lon>-74.32351</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.56724</lat>
+			        <lon>-74.32309</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.56613</lat>
+			        <lon>-74.32238</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.56559</lat>
+			        <lon>-74.32225</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.56535</lat>
+			        <lon>-74.32209</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.56374</lat>
+			        <lon>-74.31988</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.56343</lat>
+			        <lon>-74.31952</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.56326</lat>
+			        <lon>-74.31923</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.56314</lat>
+			        <lon>-74.31891</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.56291</lat>
+			        <lon>-74.31732</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.56269</lat>
+			        <lon>-74.31667</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.56167</lat>
+			        <lon>-74.31432</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.56138</lat>
+			        <lon>-74.31371</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.56072</lat>
+			        <lon>-74.3128</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.560569</lat>
+			        <lon>-74.312671</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.56045000000022</lat>
+			        <lon>-74.3125700000006</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>24142</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>HARROWS GATE (GILL LANE)</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.56031</lat>
+			        <lon>-74.31224</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.55981</lat>
+			        <lon>-74.31138</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.55944</lat>
+			        <lon>-74.31085</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.55898</lat>
+			        <lon>-74.31046</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.5581</lat>
+			        <lon>-74.30996</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.55788</lat>
+			        <lon>-74.30973</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.55749</lat>
+			        <lon>-74.30922</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.557</lat>
+			        <lon>-74.30836</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.55659</lat>
+			        <lon>-74.30742</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.55629</lat>
+			        <lon>-74.30661</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.55609</lat>
+			        <lon>-74.30594</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.55578</lat>
+			        <lon>-74.30438</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.55548</lat>
+			        <lon>-74.30318</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.55509</lat>
+			        <lon>-74.30203</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.55502</lat>
+			        <lon>-74.30188</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.554877</lat>
+			        <lon>-74.301737</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.554790000001134</lat>
+			        <lon>-74.30164999999849</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>24262</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WOODBRIDGE CENTER DR + WOODBRIDGE TER</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.55472</lat>
+			        <lon>-74.30129</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.55405</lat>
+			        <lon>-74.30014</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.55369</lat>
+			        <lon>-74.2996</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.55326</lat>
+			        <lon>-74.29916</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.553</lat>
+			        <lon>-74.29902</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.55241</lat>
+			        <lon>-74.29857</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.55203</lat>
+			        <lon>-74.29837</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.5515</lat>
+			        <lon>-74.2982</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.54999</lat>
+			        <lon>-74.2981</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.54968</lat>
+			        <lon>-74.298179</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.54956999999912</lat>
+			        <lon>-74.29822999999897</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>24263</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WOODBRIDGE CTR DR + PLAZA DR</st> 
+					</bs>
+
+				</pt>
+
+			</pa>
+
+
+		</pas>
+	</route>

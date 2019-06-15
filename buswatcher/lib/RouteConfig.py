@@ -29,8 +29,10 @@ def maintenance_check():
     if (now - route_definitions_last_updated) > route_definitions_ttl:
         fetch_update_route_metadata()
 
-    # update route geometry local XMLs
-    fetch_update_route_geometry()
+        # update route geometry local XMLs
+        fetch_update_route_geometry()  # todo 0 set a timer to make this not run every single time
+
+
 
     # additional maintenance task
     # for r in route_definitions['route_definitons']:
@@ -74,7 +76,7 @@ def fetch_update_route_metadata():
     api_response= list()
     for r in routes_active:
         sys.stdout.write ('.')
-        route_metadata = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data('nj', 'routes', route=r)) #todo 0 replace with RouteConfig.load_route_geometry(self.rt)
+        route_metadata = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data('nj', 'routes', route=r)) #todo 0 replace with RouteConfig.load_route_geometry(self.rt), what about first run though?
         route_entry = {'route': route_metadata[0][0].identity, 'nm': route_metadata[0][0].nm}
         api_response.append(route_entry)
 
@@ -119,23 +121,24 @@ def fetch_update_route_geometry(): # grabs a copy of the route XML for all defin
 
     route_definitions, a, b = load_config()
 
-    for r in route_definitions:
+    for r in route_definitions['route_definitions']:
         try:
-            route_xml =  BusAPI.get_xml_data('nj', 'routes', route=r)
+            route_xml =  BusAPI.get_xml_data('nj', 'routes', route=r['route'])
         except:
             continue
 
-        filename = ('config/route_geometry/' +r +'.xml')
-        with open(filename,'w') as f: # overwrite existing fille
+        outfile = ('config/route_geometry/' + r['route'] +'.xml')
+        with open(outfile,'wb') as f: # overwrite existing fille
             f.write(route_xml)
+        # print ('dumped '+r['route'] +'.xml')
     return
 
 
-def load_route_geometry(route):
+def load_route_geometry(r):
+    infile = ('config/route_geometry/' + r +'.xml')
+    with open(infile,'rb') as f: #todo 0 debug why this isn't loading properly
+        return f.read()
 
-    with open('config/grade_descriptions.json') as f:
-        route_geometry = BusAPI.parse_xml_getRoutePoints(f)
-    return route_geometry
 
 
 if __name__ == "__main__":
