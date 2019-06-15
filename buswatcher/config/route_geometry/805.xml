@@ -1,0 +1,387 @@
+<?xml version="1.0"?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<route>
+		<id>805</id> 
+		<rtpiFeedName></rtpiFeedName>
+		<sn>805</sn> 
+		<nm>805 Metropark - Ford Ave.</nm> 
+		<displayDesignator>805</displayDesignator> 
+		<vmode>1</vmode>   
+		
+		<sbs>
+
+
+
+		</sbs>
+
+		<c>#663399</c>
+
+		<pas>
+
+
+			<pa>
+				<id>327</id>
+
+				<d>From Metropark</d> 
+				<dd>From Metropark</dd>  
+				<directionRtpiFeedName></directionRtpiFeedName>
+
+				<pt>
+					<lat>40.567800000001355</lat>
+			        <lon>-74.32996000000117</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>30535</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>METROPARK RAIL STATION BUS LANE 5</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.567494</lat>
+			        <lon>-74.33021</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.56716</lat>
+			        <lon>-74.33059</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.56704</lat>
+			        <lon>-74.33058</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.56646</lat>
+			        <lon>-74.32986</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.5633</lat>
+			        <lon>-74.33437</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.5631</lat>
+			        <lon>-74.3346</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.56228</lat>
+			        <lon>-74.33527</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.56106</lat>
+			        <lon>-74.33642</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.5608</lat>
+			        <lon>-74.33656</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.56026</lat>
+			        <lon>-74.33667</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.55999</lat>
+			        <lon>-74.33676</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.55963</lat>
+			        <lon>-74.33702</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.559276</lat>
+			        <lon>-74.337388</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.559189999999134</lat>
+			        <lon>-74.33748999999982</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>23241</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>THORNALL ST + EVERGREEN RD(266N)</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.55839</lat>
+			        <lon>-74.33817</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.5583</lat>
+			        <lon>-74.33811</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.557874</lat>
+			        <lon>-74.337342</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.557760000000336</lat>
+			        <lon>-74.33718999999958</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>23107</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>EVERGREEN RD + MEADOW BROOK RD</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.55766</lat>
+			        <lon>-74.33684</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.55715</lat>
+			        <lon>-74.33578</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.55697</lat>
+			        <lon>-74.33551</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.55663</lat>
+			        <lon>-74.33519</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.55575</lat>
+			        <lon>-74.33472</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.55494</lat>
+			        <lon>-74.33375</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.55468</lat>
+			        <lon>-74.33364</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.5544</lat>
+			        <lon>-74.33364</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.55414</lat>
+			        <lon>-74.33372</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.55401</lat>
+			        <lon>-74.33379</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.5538</lat>
+			        <lon>-74.33402</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.55243</lat>
+			        <lon>-74.33649</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.55231</lat>
+			        <lon>-74.33646</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.55133</lat>
+			        <lon>-74.33583</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.54953</lat>
+			        <lon>-74.3345</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.549238</lat>
+			        <lon>-74.33435</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.54909000000133</lat>
+			        <lon>-74.33429000000086</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>23183</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PARSONAGE RD + OAKWOOD AVE(1300S)</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.54889</lat>
+			        <lon>-74.33403</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.54734</lat>
+			        <lon>-74.33288</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.54697</lat>
+			        <lon>-74.33263</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.546794</lat>
+			        <lon>-74.33258</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.54662000000117</lat>
+			        <lon>-74.33253000000111</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>23280</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PARSONAGE RD + LAFAYETTE AVE</st> 
+					</bs>
+
+				</pt>
+
+			</pa>
+
+
+		</pas>
+	</route>

@@ -97,7 +97,7 @@ def get_nearest_stop(buses,route):
     # acquire and sort stop data in directions (ignoring services)
 
     # routedata, coordinates_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data('nj', 'routes', route=route))
-    routedata = BusAPI.parse_xml_getRoutePoints(load_route_geometry(route))
+    routedata, coordinates_bundle = BusAPI.parse_xml_getRoutePoints(load_route_geometry(route))
 
     stoplist = []
     for rt in routedata:
