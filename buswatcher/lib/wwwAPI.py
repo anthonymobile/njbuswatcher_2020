@@ -314,7 +314,7 @@ class RouteReport:
         return traveltime
 
     def get_route_geojson_and_name(self, route):
-        routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=route))
+        routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=route)) #todo 0 replace with RouteConfig.load_route_geometry(self.rt)
         return routes[0].nm, coordinate_bundle['waypoints_coordinates'], coordinate_bundle['stops_coordinates'], coordinate_bundle['waypoints_geojson'], coordinate_bundle['stops_geojson']
 
     def load_route_description(self):
@@ -330,7 +330,7 @@ class RouteReport:
 
     # gets all stops on all active routes
     def get_stoplist(self, route):
-        routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=self.route))
+        routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=self.route)) #todo 0 replace with RouteConfig.load_route_geometry(self.rt)
         route_stop_list = []
         for r in routes:
             path_list = []

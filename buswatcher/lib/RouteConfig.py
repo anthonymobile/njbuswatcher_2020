@@ -16,7 +16,10 @@ def load_config():
     return route_definitions, grade_descriptions, collection_descriptions
 
 def maintenance_check():
+
     now=datetime.now()
+
+    # update route definitions
     route_definitions, a, b = load_config()
     try:
         route_definitions_last_updated = parser.parse(route_definitions['last_updated'])
@@ -26,12 +29,15 @@ def maintenance_check():
     if (now - route_definitions_last_updated) > route_definitions_ttl:
         fetch_update_route_metadata()
 
-    # to do 2 add other maintenance task
+    # update route geometry local XMLs
+    fetch_update_route_geometry()
+
+    # additional maintenance task
     # for r in route_definitions['route_definitons']:
     #     # create base RouteReport instance
     #     routereport = wwwAPI.RouteReport(source, rt_no['route'])
 
-    # to do 3 add other maintenance task
+    # additional maintenance task
     # for r in route_definitions['route_definitons']:
     #     # generate bunching leaderboard
     #     routereport.generate_bunching_leaderboard(route=rt_no['route'], period=period)
@@ -68,7 +74,7 @@ def fetch_update_route_metadata():
     api_response= list()
     for r in routes_active:
         sys.stdout.write ('.')
-        route_metadata = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data('nj', 'routes', route=r))
+        route_metadata = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data('nj', 'routes', route=r)) #todo 0 replace with RouteConfig.load_route_geometry(self.rt)
         route_entry = {'route': route_metadata[0][0].identity, 'nm': route_metadata[0][0].nm}
         api_response.append(route_entry)
 
@@ -108,6 +114,29 @@ def fetch_update_route_metadata():
 
 
     return
+
+def fetch_update_route_geometry(): # grabs a copy of the route XML for all defined routes
+
+    route_definitions, a, b = load_config()
+
+    for r in route_definitions:
+        try:
+            route_xml =  BusAPI.get_xml_data('nj', 'routes', route=r)
+        except:
+            continue
+
+        filename = ('config/route_geometry/' +r +'.xml')
+        with open(filename,'w') as f: # overwrite existing fille
+            f.write(route_xml)
+    return
+
+
+def load_route_geometry(route):
+
+    with open('config/grade_descriptions.json') as f:
+        route_geometry = BusAPI.parse_xml_getRoutePoints(f)
+    return route_geometry
+
 
 if __name__ == "__main__":
 
