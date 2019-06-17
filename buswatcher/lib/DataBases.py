@@ -9,6 +9,13 @@ from . import BusAPI
 from . import DBconfig
 from . import RouteConfig
 
+
+
+#####################################################
+# sitewide functions
+#####################################################
+
+
 #####################################################
 # base
 #####################################################
@@ -33,6 +40,7 @@ class SQLAlchemyDBConnection(object):
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.session.execute('SET FOREIGN_KEY_CHECKS = 1;')
         self.session.close()
+
 
 
 #####################################################

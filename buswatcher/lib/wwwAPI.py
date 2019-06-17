@@ -10,7 +10,6 @@ import buswatcher.lib.RouteConfig as RouteConfig
 
 from buswatcher.lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
 
-
 # primary classes
 class RouteReport:
 
@@ -48,11 +47,39 @@ class RouteReport:
         self.get_period_labels = self.get_period_labels()
         self.tripdash = self.get_tripdash()
 
+    def get_route_geojson_and_name(self, route):
 
-    # get a list of trips current running the route
+        routes, coordinates_bundle = BusAPI.parse_xml_getRoutePoints(RouteConfig.get_route_geometry(self.route))
+        # routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=route))
+        return routes[0].nm, coordinates_bundle['waypoints_coordinates'], coordinates_bundle['stops_coordinates'], \
+               coordinates_bundle['waypoints_geojson'], coordinates_bundle['stops_geojson']
+
+    def load_route_description(self):
+        for route in self.route_definitions['route_definitions']:
+            if route['route'] == self.route:
+                self.frequency = route['frequency']
+                self.description_long = route['description_long']
+                self.prettyname = route['prettyname']
+                self.schedule_url = route['schedule_url']
+            else:
+                pass
+        return
+
+    def get_period_labels(self):
+        if self.period == 'now':
+            period_label = "current"
+        elif self.period == 'today':
+            period_label = "today's"
+        elif self.period == 'yesterday':
+            period_label = "yesterday's"
+        elif self.period == 'history':
+            period_label = "forever's"
+        else:
+            period_label = '-no period label assigned-'
+        return period_label
 
     def __get_current_trips(self):
-
+        # get a list of trips current running the route
         v_on_route = BusAPI.parse_xml_getBusesForRoute(
             BusAPI.get_xml_data(self.source, 'buses_for_route', route=self.route))
         todays_date = datetime.datetime.today().strftime('%Y%m%d')
@@ -66,24 +93,21 @@ class RouteReport:
 
         return trip_list, trip_list_trip_id_only
 
+    def __build_period_filter(self,db,object_class,period):
 
-    # def __build_period_filter(self,db,object_class):
-    #
-    #     today_date = datetime.date.today()
-    #
-    #     if self.period == 'today':
-    #         period_filter = db.session.query(object_class)\
-    #             .filter(func.date(object_class.arrival_timestamp) == today_date)
-    #
-    #     return period_filter
+        todays_date = datetime.date.today()
+        yesterdays_date = datetime.date.today() - datetime.timedelta(1)
 
+        query = db.query(object_class)
+        if self.period == 'today':
+            query = query.filter(ScheduledStop.arrival_timestamp != None).filter(func.date(ScheduledStop.arrival_timestamp) == todays_date)
+        elif self.period == 'yesterday':
+            query = query.filter(ScheduledStop.arrival_timestamp != None).filter(func.date(ScheduledStop.arrival_timestamp) == yesterdays_date)
+        elif self.period == 'history':
+            query = query.filter(ScheduledStop.arrival_timestamp != None)
 
-    def get_period_labels(self):
-        if self.period == 'now':
-            period_label = 'Todays'
-        else:
-            period_label = '-no period label assigned-'
-        return period_label
+        return query
+
 
     # to do 2 finish route headway metric
     # accumulate some data on the desktop, need completed trips
@@ -205,10 +229,10 @@ class RouteReport:
 
             return headway
 
-
     # todo 1 finish route bunching metric
 
     def get_bunching_badboys(self,period):
+
         bunching_badboys = dict()
         bunching_badboys['flag'] = True
         bunching_badboys['label'] = 'a lot'
@@ -295,45 +319,98 @@ class RouteReport:
         grade_description = 'Service meets the needs of riders some of the time, but suffers from serious shortcomings and gaps. Focused action is required to improve service in the near-term.'
         return grade, grade_description
 
+    def get_traveltime(self, period): # todo 0 implement this and check against www display
+
+        with SQLAlchemyDBConnection() as db:
+
+            traveltime = dict()
+
+            # get a list of all COMPLETED trips on this route for this period
+
+            todays_date = datetime.date.today()
+            yesterdays_date = datetime.date.today() - datetime.timedelta(1)
+            one_hour_ago = datetime.datetime.now() - datetime.timedelta(hours=1)
+
+            x, trips_on_road_now = self.__get_current_trips()
 
 
+            if self.period == 'now':
+                arrivals_in_completed_trips = pd.read_sql(
+                    db.session.query(ScheduledStop.trip_id,
+                                     ScheduledStop.stop_id,
+                                     ScheduledStop.stop_name,
+                                     ScheduledStop.arrival_timestamp)
+                        .filter(ScheduledStop.arrival_timestamp != None)
+                        # todo 1 last hour doesnt work
+                        .filter(func.date(ScheduledStop.arrival_timestamp) > one_hour_ago)
+                        .filter(ScheduledStop.trip_id.notin_(trips_on_road_now))
+                        .order_by(ScheduledStop.trip_id.asc())
+                        .order_by(ScheduledStop.arrival_timestamp.asc())
+                        .statement,
+                    db.session.bind)
 
-    def get_traveltime(self, period):
-        traveltime = dict()
-        traveltime['headline'] = 'good'
-        traveltime['time'] = 20
-        traveltime['percent'] = 13
-        traveltime['label'] = 'below'
+            elif self.period == 'today':
+                arrivals_in_completed_trips = pd.read_sql(
+                    db.session.query(ScheduledStop.trip_id,
+                                     ScheduledStop.stop_id,
+                                     ScheduledStop.stop_name,
+                                     ScheduledStop.arrival_timestamp)
+                        .filter(ScheduledStop.arrival_timestamp != None)
+                        .filter(func.date(ScheduledStop.arrival_timestamp) == todays_date)
+                        .filter(ScheduledStop.trip_id.notin_(trips_on_road_now))
+                        .order_by(ScheduledStop.trip_id.asc())
+                        .order_by(ScheduledStop.arrival_timestamp.asc())
+                        .statement,
+                    db.session.bind)
 
-        # algorithm v/simple
-        #
-        # for all observed trips over the `{period}`
-        #   sort all scheduledstops by arrival_time
-        #   compute elapsed time from earliest observation (arrival at first stop) to last observaton (arrival at last stop)
-        # take the mean of these
 
-        return traveltime
+            elif self.period == 'yesterday':
+                arrivals_in_completed_trips = pd.read_sql(
+                    db.session.query(ScheduledStop.trip_id,
+                                     ScheduledStop.stop_id,
+                                     ScheduledStop.stop_name,
+                                     ScheduledStop.arrival_timestamp)
+                        .filter(ScheduledStop.arrival_timestamp != None)
+                        .filter(func.date(ScheduledStop.arrival_timestamp) == yesterdays_date)
+                        .filter(ScheduledStop.trip_id.notin_(trips_on_road_now))
+                        .order_by(ScheduledStop.trip_id.asc())
+                        .order_by(ScheduledStop.arrival_timestamp.asc())
+                        .statement,
+                    db.session.bind)
 
-    def get_route_geojson_and_name(self, route):
+            elif self.period == 'history':
+                arrivals_in_completed_trips = pd.read_sql(
+                    db.session.query(ScheduledStop.trip_id,
+                                     ScheduledStop.stop_id,
+                                     ScheduledStop.stop_name,
+                                     ScheduledStop.arrival_timestamp)
+                        .filter(ScheduledStop.arrival_timestamp != None)
+                        .filter(ScheduledStop.trip_id.notin_(trips_on_road_now))
+                        .order_by(ScheduledStop.trip_id.asc())
+                        .order_by(ScheduledStop.arrival_timestamp.asc())
+                        .statement,
+                    db.session.bind)
 
-        routes, coordinates_bundle = BusAPI.parse_xml_getRoutePoints(RouteConfig.get_route_geometry(self.rt))
-        # routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=route))
-        return routes[0].nm, coordinates_bundle['waypoints_coordinates'], coordinates_bundle['stops_coordinates'], coordinates_bundle['waypoints_geojson'], coordinates_bundle['stops_geojson']
 
-    def load_route_description(self):
-        for route in self.route_definitions['route_definitions']:
-            if route['route'] == self.route:
-                self.frequency = route['frequency']
-                self.description_long = route['description_long']
-                self.prettyname = route['prettyname']
-                self.schedule_url = route['schedule_url']
-            else:
-                pass
-        return
+            # now, using pandas, find the difference in arrival_timestamp between first and last row of each group
+
+            # Group the data frame by month and item and extract a number of stats from each group
+
+            trip_start_end_times = arrivals_in_completed_trips.groupby("trip_id").agg({"arrival_timestamp": "min", "arrival_timestamp": "max"})
+
+            travel_times = []
+            # now calculate the duration of the min:max tuples in trip_start_end_times, then average of those
+            for min,max in trip_start_end_times:
+                travel_times.append(str(max-min))
+            traveltime['time'] = sum(travel_times) / float(len(travel_times))  # todo 0 format this to 0 decimal points
+
+            # traveltime['time'] = 20
+
+            return traveltime
 
     # gets all stops on all active routes
     def get_stoplist(self, route):
-        routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(RouteConfig.get_route_geometry(self.rt))
+        routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(RouteConfig.get_route_geometry(self.route))
         # routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=self.route))
         route_stop_list = []
         for r in routes:
@@ -352,6 +429,7 @@ class RouteReport:
 
     # gets all arrivals (see limit) for all runs on current route
     def get_tripdash(self):
+
         with SQLAlchemyDBConnection() as db:
 
             # # build a list of tuples with (run, trip_id)
@@ -393,7 +471,6 @@ class RouteReport:
                 tripdash[trip_id] = trip_dict
 
         return tripdash
-
 
 
 class StopReport:
