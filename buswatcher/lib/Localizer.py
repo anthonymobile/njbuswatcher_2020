@@ -6,26 +6,15 @@ import datetime, time, collections
 
 import pandas as pd
 import numpy as np
-from functools import lru_cache
+# from functools import lru_cache
 
 import geopandas
 from scipy.spatial import cKDTree
 from shapely.geometry import Point
 
 from . import DataBases, BusAPI
-from buswatcher.lib.RouteConfig import load_route_geometry
-
-# @lru_cache() # todo 0 not sure cache is doing anything
-# # todo 0 alt cache method would be to get the route points in RouteConfig.maintenance_check and then just load them here, or load themi ntripwatcher and pass them into Localizer with each call -- if do this make sure to exploit it everywhere else we are fetching that same data
-# def memoized_fetch_routedata(route, ttl_hash=None):
-#     routedata, coordinates_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data('nj', 'routes', route=route))
-#     return routedata
-#
-# def get_ttl_hash(seconds=3600):
-#     """Return the same value withing `seconds` time period"""
-#     return round(time.time() / seconds)
-
-
+from buswatcher.lib.RouteConfig import get_route_geometry
+from buswatcher.lib.CommonTools import timeit
 
 ###########################################################################
 # CKDNEAREST
@@ -35,7 +24,7 @@ from buswatcher.lib.RouteConfig import load_route_geometry
 # It assumes both gdfs have a geometry column (of points).
 ###########################################################################
 
-def ckdnearest(gdA, gdB, bcol):
+def ckdnearest(gdA, gdB, bcol): # seems to be getting hung on on bus 5800 for soem reason
     nA = np.array(list(zip(gdA.geometry.x, gdA.geometry.y)) )
     nB = np.array(list(zip(gdB.geometry.x, gdB.geometry.y)) )
     btree = cKDTree(nB)
@@ -70,7 +59,6 @@ def ckdnearest(gdA, gdB, bcol):
 
 
 
-
 ###########################################################################
 # GET_NEAREST_STOP
 #
@@ -79,7 +67,7 @@ def ckdnearest(gdA, gdB, bcol):
 #
 ###########################################################################
 
-def get_nearest_stop(buses,route):
+def get_nearest_stop(buses,route): #todo 1 try to rewrite some of the loops as map or comprehensions to speed up -- takes 0.5-1.5 seconds per bus though its mostly the pandas stuff
 
     # sort bus data into directions
 
@@ -97,7 +85,7 @@ def get_nearest_stop(buses,route):
     # acquire and sort stop data in directions (ignoring services)
 
     # routedata, coordinates_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data('nj', 'routes', route=route))
-    routedata, coordinates_bundle = BusAPI.parse_xml_getRoutePoints(load_route_geometry(route))
+    routedata, coordinates_bundle = BusAPI.parse_xml_getRoutePoints(get_route_geometry(route))
 
     stoplist = []
     for rt in routedata:
