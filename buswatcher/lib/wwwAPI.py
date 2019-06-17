@@ -1,8 +1,9 @@
 import datetime
 import pandas as pd
-import geojson, json
+# import geojson, json
 
-from sqlalchemy import inspect, func
+from sqlalchemy import func
+# from sqlalchemy import inspect
 
 import buswatcher.lib.BusAPI as BusAPI
 import buswatcher.lib.RouteConfig as RouteConfig
@@ -314,8 +315,10 @@ class RouteReport:
         return traveltime
 
     def get_route_geojson_and_name(self, route):
-        routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=route)) #todo 0 replace with RouteConfig.load_route_geometry(self.rt)
-        return routes[0].nm, coordinate_bundle['waypoints_coordinates'], coordinate_bundle['stops_coordinates'], coordinate_bundle['waypoints_geojson'], coordinate_bundle['stops_geojson']
+
+        routes, coordinates_bundle = BusAPI.parse_xml_getRoutePoints(RouteConfig.get_route_geometry(self.rt))
+        # routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=route))
+        return routes[0].nm, coordinates_bundle['waypoints_coordinates'], coordinates_bundle['stops_coordinates'], coordinates_bundle['waypoints_geojson'], coordinates_bundle['stops_geojson']
 
     def load_route_description(self):
         for route in self.route_definitions['route_definitions']:
@@ -330,7 +333,8 @@ class RouteReport:
 
     # gets all stops on all active routes
     def get_stoplist(self, route):
-        routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=self.route)) #todo 0 replace with RouteConfig.load_route_geometry(self.rt)
+        routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(RouteConfig.get_route_geometry(self.rt))
+        # routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=self.route))
         route_stop_list = []
         for r in routes:
             path_list = []

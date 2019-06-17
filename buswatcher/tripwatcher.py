@@ -16,27 +16,11 @@ from pymysql import IntegrityError
 from buswatcher.lib import BusAPI, Localizer
 from buswatcher.lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
 from buswatcher.lib.RouteConfig import load_config,maintenance_check, fetch_update_route_metadata
-
-def timeit(f):
-
-    def timed(*args, **kw):
-
-        ts = time.time()
-        result = f(*args, **kw)
-        te = time.time()
-
-        print ('func:%r took: %2.4f sec' % \
-          (f.__name__, te-ts))
-        # print ('func:%r args:[%r, %r] took: %2.4f sec' % \
-        #   (f.__name__, args, kw, te-ts))
-        return result
-
-    return timed
-
+from buswatcher.lib.CommonTools import timeit
 
 class RouteScan:
 
-    @timeit
+    # @timeit
     def __init__(self, route, statewide):
 
         # apply passed parameters to instance
@@ -67,14 +51,14 @@ class RouteScan:
         if self.statewide is False:
 
             self.buses = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data('nj', 'buses_for_route', route=self.route))
-            sys.stdout.write('\rfetched route' + str(self.route) + '... ')
+            # sys.stdout.write('\rfetched route' + str(self.route) + '... ')
 
             self.clean_buses()
 
         elif self.statewide is True:
 
             self.buses = BusAPI.parse_xml_getBusesForRouteAll(BusAPI.get_xml_data('nj', 'all_buses'))
-            sys.stdout.write('\rfetched ' + str(len(self.buses)) + ' buses...')
+            print('\rfetched ' + str(len(self.buses)) + ' buses...')
 
             self.clean_buses()
 
@@ -106,7 +90,7 @@ class RouteScan:
                 bus.trip_id = ('{id}_{run}_{dt}').format(id=bus.id, run=bus.run,dt=datetime.datetime.today().strftime('%Y%m%d'))
                 self.trip_list.append(bus.trip_id)
                 result = db.session.query(Trip).filter(Trip.trip_id == bus.trip_id).first()
-                # sys.stdout.write('.')
+                sys.stdout.write('x')
                 if result is None:
                     trip_id = Trip('nj', bus.rt, bus.id, bus.run, bus.pid)
                     db.session.add(trip_id)
@@ -124,19 +108,17 @@ class RouteScan:
                 try:
                     # LOCALIZE
                     if self.statewide is False:
-                        # sys.stdout.write('localizing...')
                         bus_positions = Localizer.get_nearest_stop(self.buses, self.route)
                         for group in bus_positions:
                             for bus in group:
                                 db.session.add(bus)
-                                # sys.stdout.write('.')
+                                sys.stdout.write('o')
                         db.__relax__()  # disable foreign key checks before commit # todo 1 is this wise? remove?
                         db.session.commit()
 
                     elif self.statewide is True:
                         # find all the routes
                         statewide_route_list = [bus.rt for bus in self.buses]
-                        # print ('localizing %a buses on %b routes...').format(a=str(len(self.buses)), b=str(len(statewide_route_list)))
                         # loop over each route
                         for r in statewide_route_list:
                             # print('localizing routes %a').format(a=r)
@@ -146,7 +128,7 @@ class RouteScan:
                                     db.session.add(bus)
                             db.__relax__()  # disable foreign key checks before commit # todo 1 is this wise? remove?
                             db.session.commit()
-                            sys.stdout.write('.')
+                            sys.stdout.write('o')
 
 
                 except (IntegrityError) as e:
@@ -160,9 +142,9 @@ class RouteScan:
 
         with self.db as db:
 
-            # sys.stdout.write('assigning...')
             # ASSIGN TO NEAREST STOP
             for trip_id in self.trip_list:
+                sys.stdout.write('.')
                 # load the trip card for reference
                 scheduled_stops = db.session.query(Trip, ScheduledStop) \
                     .join(ScheduledStop) \
@@ -324,6 +306,24 @@ class RouteScan:
 
         return
 
+@timeit
+def main_loop():
+
+    if args.statewide is False:
+
+        print('running in collections mode (watch all routes in all collections)')
+
+        routes_to_watch = []
+        for c in collection_descriptions:
+            for r in c['routelist']:
+                scan = RouteScan(r, args.statewide)
+            print()
+
+    elif args.statewide is True:
+        print('running in statewide mode (watch all routes in NJ)')
+        scan = RouteScan(0, args.statewide)
+
+    return scan
 
 if __name__ == "__main__":
 
@@ -341,21 +341,10 @@ if __name__ == "__main__":
     time_start=time.monotonic()
 
     while True:
+        scan = main_loop()
+        print('***sleeping***')
+        time.sleep(run_frequency - ((time.monotonic() - time_start) % 60.0))  # sleep remainder of the 60 second loop
 
-        if args.statewide is False:
 
-            print('running in collections mode (watch all routes in all collections)')
-
-            routes_to_watch = []
-            for c in collection_descriptions:
-                for r in c['routelist']:
-                    scan = RouteScan(r, args.statewide)
-
-        elif args.statewide is True:
-            print('running in statewide mode (watch all routes in NJ)')
-            scan = RouteScan(0, args.statewide)
-
-        print ('\r***sleeping***')
-        time.sleep(run_frequency - ((time.monotonic() - time_start) % 60.0)) # sleep remainder of the 60 second loop
 
 

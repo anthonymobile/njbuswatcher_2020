@@ -6,6 +6,8 @@ import buswatcher.lib.BusAPI as BusAPI
 from dateutil import parser
 from datetime import datetime, timedelta
 
+from buswatcher.lib.CommonTools import timeit
+
 def load_config():
     with open('config/grade_descriptions.json') as f:
         grade_descriptions = json.load(f)['grade_descriptions']
@@ -30,8 +32,7 @@ def maintenance_check():
         fetch_update_route_metadata()
 
         # update route geometry local XMLs
-        fetch_update_route_geometry()  # todo 0 set a timer to make this not run every single time
-
+        fetch_update_route_geometry()
 
 
     # additional maintenance task
@@ -76,8 +77,9 @@ def fetch_update_route_metadata():
     api_response= list()
     for r in routes_active:
         sys.stdout.write ('.')
-        route_metadata = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data('nj', 'routes', route=r)) #todo 0 replace with RouteConfig.load_route_geometry(self.rt), what about first run though?
-        route_entry = {'route': route_metadata[0][0].identity, 'nm': route_metadata[0][0].nm}
+        # route_metadata = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data('nj', 'routes', route=r))
+        route_metadata = BusAPI.parse_xml_getRoutePoints(get_route_geometry(r)) # this might now work if there isn't already a copy of the XML route data
+        route_entry = {'route': route_metadata[0][0].identity,'nm': route_metadata[0][0].nm}
         api_response.append(route_entry)
 
     # merge API data into routes_definitions
@@ -99,7 +101,8 @@ def fetch_update_route_metadata():
                 matched = True
         if matched == False:
             print ("no match for route "+a['route']+" in route_definitions")
-            update = {"route": a['route'], "nm": a['nm'].split(' ', 1)[1], "ttl": "1d"}  # convert the tuple to a dict and
+            update = {"route": a['route'], "nm": a['nm'].split(' ', 1)[1], "ttl": "1d","description_long": "", "description_short": "", "frequency": "low", "prettyname": "",
+                      "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"}  # todo 1 not sure if this is working
             print ("<<Added route record>>"+json.dumps(update))
             route_definitions.append(update) #add it to the route_definitions file so we dont scan it again until the TTL expires
 
@@ -117,13 +120,14 @@ def fetch_update_route_metadata():
 
     return
 
-def fetch_update_route_geometry(): # grabs a copy of the route XML for all defined routes
+def fetch_update_route_geometry(): # grabs a copy of the route XML for all defined routes # todo 2 rewrite this to store in database table as XML or JSON objects... or after it is parsed as a picklefile?
 
     route_definitions, a, b = load_config()
 
     for r in route_definitions['route_definitions']:
         try:
             route_xml =  BusAPI.get_xml_data('nj', 'routes', route=r['route'])
+            # todo 2 run it through BusAPI.parse_xml_getRoutePoints and then pickle that or store the two returns (routes, coordinates_bundle)
         except:
             continue
 
@@ -133,13 +137,10 @@ def fetch_update_route_geometry(): # grabs a copy of the route XML for all defin
         # print ('dumped '+r['route'] +'.xml')
     return
 
-
-def load_route_geometry(r):
+def get_route_geometry(r): # todo 2 rewrite this to retrieve from database table as XML or JSON objects
     infile = ('config/route_geometry/' + r +'.xml')
-    with open(infile,'rb') as f: #todo 0 debug why this isn't loading properly
+    with open(infile,'rb') as f:
         return f.read()
-
-
 
 if __name__ == "__main__":
 

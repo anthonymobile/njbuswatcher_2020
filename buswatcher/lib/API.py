@@ -5,6 +5,8 @@ import pandas as pd
 
 import buswatcher.lib.BusAPI as BusAPI
 from buswatcher.lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
+from buswatcher.lib.RouteConfig import get_route_geometry
+
 # from sqlalchemy import func
 # from sqlalchemy.sql.expression import and_
 
@@ -135,9 +137,9 @@ def get_map_layers(args, route_definitions,collection_descriptions):
         stops_featurecollection = geojson.FeatureCollection(stops)
         return stops_featurecollection
 
-def _fetch_layers_json(route): # todo 1 cache these results for an hour
-    routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(
-        BusAPI.get_xml_data('nj', 'routes', route=route))
+def _fetch_layers_json(route):
+    # routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data('nj', 'routes', route=route))
+    routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(get_route_geometry(route))
     waypoints_feature = json.loads(coordinate_bundle['waypoints_geojson'])
     waypoints_feature = geojson.Feature(geometry=waypoints_feature)
     stops_feature = json.loads(coordinate_bundle['stops_geojson'])

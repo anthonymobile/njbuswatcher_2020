@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
-import datetime, sys
+import datetime
+# import sys
 from sqlalchemy import inspect, create_engine, ForeignKeyConstraint, Index, Date, Column, Integer, DateTime, Float, String, Text, Boolean, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import relationship, sessionmaker
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import relationship
 from . import BusAPI
 from . import DBconfig
+from . import RouteConfig
 
 #####################################################
 # base
@@ -53,8 +56,7 @@ class Trip(Base):
         with SQLAlchemyDBConnection() as db:
             self.db = db
             self.stop_list = []
-            routes, self.coordinates_bundle = BusAPI.parse_xml_getRoutePoints(
-                BusAPI.get_xml_data(self.source, 'routes', route=self.rt)) #todo 0 replace with RouteConfig.load_route_geometry(self.rt)
+            routes, self.coordinates_bundle = BusAPI.parse_xml_getRoutePoints(RouteConfig.get_route_geometry(self.rt))
             self.routename = routes[0].nm
             for path in routes[0].paths:
                 if path.id == self.pid:
