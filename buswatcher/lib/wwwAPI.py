@@ -3,6 +3,7 @@ import pandas as pd
 # import geojson, json
 
 from sqlalchemy import func
+from sqlalchemy.orm import Query
 # from sqlalchemy import inspect
 
 import buswatcher.lib.BusAPI as BusAPI
@@ -33,28 +34,27 @@ class RouteReport:
         self.route_definitions, self.grade_descriptions, self.collection_descriptions = RouteConfig.load_config()
 
         # populate static report card data
-        #todo 1 would be nice to read this from Trip, but since RouteReport has more than 1 trip, which path will we use? this is why buses sometimes show up on maps not on a route
-        self.routename, self.waypoints_coordinates, self.stops_coordinates, self.waypoints_geojson, self.stops_geojson = self.get_route_geojson_and_name(self.route)
-        self.load_route_description()
+        self.__load_route_description()
+        self.routename, self.waypoints_coordinates, self.stops_coordinates, self.waypoints_geojson, self.stops_geojson = self.__get_route_geojson_and_name(self.route) # todo 3 how to pick which route to return, some routes have multiple paths
         self.route_stop_list = self.get_stoplist(self.route)
+        self.period_labels = self.__get_period_labels()
 
         # populate live report card data
-        # self.active_trips = self.get_activetrips() <-- depreceated?
-        self.grade, self.grade_description = self.get_grade(period)
-        # to do 2 self.headway = self.get_headway()
+        self.headway = self.get_headway()
         self.bunching_badboys = self.get_bunching_badboys(period)
+        self.grade, self.grade_description = self.get_grade(period)
         self.traveltime = self.get_traveltime(period)
-        self.get_period_labels = self.get_period_labels()
+
         self.tripdash = self.get_tripdash()
 
-    def get_route_geojson_and_name(self, route):
+    def __get_route_geojson_and_name(self, route):
 
         routes, coordinates_bundle = BusAPI.parse_xml_getRoutePoints(RouteConfig.get_route_geometry(self.route))
         # routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=route))
         return routes[0].nm, coordinates_bundle['waypoints_coordinates'], coordinates_bundle['stops_coordinates'], \
                coordinates_bundle['waypoints_geojson'], coordinates_bundle['stops_geojson']
 
-    def load_route_description(self):
+    def __load_route_description(self):
         for route in self.route_definitions['route_definitions']:
             if route['route'] == self.route:
                 self.frequency = route['frequency']
@@ -65,7 +65,7 @@ class RouteReport:
                 pass
         return
 
-    def get_period_labels(self):
+    def __get_period_labels(self):
         if self.period == 'now':
             period_label = "current"
         elif self.period == 'today':
@@ -93,104 +93,59 @@ class RouteReport:
 
         return trip_list, trip_list_trip_id_only
 
-    def __build_period_filter(self,db,object_class,period):
+    def __query_factory(self, db, **kwargs):
 
         todays_date = datetime.date.today()
         yesterdays_date = datetime.date.today() - datetime.timedelta(1)
+        one_hour_ago = datetime.datetime.now() - datetime.timedelta(hours=1)
 
-        query = db.query(object_class)
-        if self.period == 'today':
+        # tables (new version)
+        query = Query(kwargs['targets'], session=db.session)
+
+        # tables (old version)
+        # if 'Trip' in kwargs['tables']:
+        #     query=db.session.query(Trip)
+        # elif 'ScheduledStop' in kwargs['tables']:
+        #     query=db.session.query(ScheduledStop)
+        # elif 'BusPosition' in kwargs['tables']:
+        #     query=db.session.query(BusPosition)
+
+        # add period #todo implement this with a dict mapping?
+        if kwargs['period'] == 'now':
+            query = query.filter(ScheduledStop.arrival_timestamp != None).filter(func.date(ScheduledStop.arrival_timestamp) > one_hour_ago)# todo 1 fix filter for 1 hour ago
+        elif kwargs['period'] == 'today':
             query = query.filter(ScheduledStop.arrival_timestamp != None).filter(func.date(ScheduledStop.arrival_timestamp) == todays_date)
-        elif self.period == 'yesterday':
+        elif kwargs['period'] == 'yesterday':
             query = query.filter(ScheduledStop.arrival_timestamp != None).filter(func.date(ScheduledStop.arrival_timestamp) == yesterdays_date)
-        elif self.period == 'history':
+        elif kwargs['period'] == 'history':
             query = query.filter(ScheduledStop.arrival_timestamp != None)
 
         return query
-
-
-    # to do 2 finish route headway metric
-    # accumulate some data on the desktop, need completed trips
-    # **wwwAPI.RouteReport.get_headway** add {{headway}} tags to route.html template and start testing
 
     def get_headway(self):
 
         with SQLAlchemyDBConnection() as db:
 
-            headway = dict()
-
-            todays_date = datetime.date.today()
-            yesterdays_date = datetime.date.today() - datetime.timedelta(1)
-            one_hour_ago = datetime.datetime.now() - datetime.timedelta(hours=1)
-
+            # build the query
             x, trips_on_road_now = self.__get_current_trips()
+            # targets = ['ScheduledStop'] # the next one should work?
+            targets = ['scheduledstop_log.trip_id','scheduledstop_log.stop_id','scheduledstop_log.stop_name','scheduledstop_log.arrival_timestamp']
+            query = self.__query_factory(db, period=self.period, targets=targets)
+            query=query\
+                .filter(ScheduledStop.trip_id.notin_(trips_on_road_now))\
+                .order_by(ScheduledStop.trip_id.asc())\
+                .order_by(ScheduledStop.pkey.asc())\
+                .statement
 
-            if self.period == 'now':
-                arrivals_in_completed_trips=pd.read_sql(
-                    db.session.query( ScheduledStop.trip_id,
-                                     ScheduledStop.stop_id,
-                                     ScheduledStop.stop_name,
-                                     ScheduledStop.arrival_timestamp)
-                    .filter(ScheduledStop.arrival_timestamp != None)
-                    # todo 1 last hour doesnt work
-                    .filter(func.date(ScheduledStop.arrival_timestamp) > one_hour_ago)
-                    .filter(ScheduledStop.trip_id.notin_(trips_on_road_now))
-                    .order_by(ScheduledStop.trip_id.asc())
-                    .order_by(ScheduledStop.pkey.asc())
-                    .statement,
-                    db.session.bind)
-
-            elif self.period == 'today':
-                arrivals_in_completed_trips=pd.read_sql(
-                    db.session.query( ScheduledStop.trip_id,
-                                     ScheduledStop.stop_id,
-                                     ScheduledStop.stop_name,
-                                     ScheduledStop.arrival_timestamp)
-                    .filter(ScheduledStop.arrival_timestamp != None)
-                    .filter(func.date(ScheduledStop.arrival_timestamp) == todays_date)
-                    .filter(ScheduledStop.trip_id.notin_(trips_on_road_now))
-                    .order_by(ScheduledStop.trip_id.asc())
-                    .order_by(ScheduledStop.pkey.asc())
-                    .statement,
-                    db.session.bind)
-
-
-            elif self.period == 'yesterday':
-                arrivals_in_completed_trips=pd.read_sql(
-                    db.session.query( ScheduledStop.trip_id,
-                                     ScheduledStop.stop_id,
-                                     ScheduledStop.stop_name,
-                                     ScheduledStop.arrival_timestamp)
-                    .filter(ScheduledStop.arrival_timestamp != None)
-                    .filter(func.date(ScheduledStop.arrival_timestamp) == yesterdays_date)
-                    .filter(ScheduledStop.trip_id.notin_(trips_on_road_now))
-                    .order_by(ScheduledStop.trip_id.asc())
-                    .order_by(ScheduledStop.pkey.asc())
-                    .statement,
-                    db.session.bind)
-
-            elif self.period == 'history':
-                arrivals_in_completed_trips=pd.read_sql(
-                    db.session.query( ScheduledStop.trip_id,
-                                     ScheduledStop.stop_id,
-                                     ScheduledStop.stop_name,
-                                     ScheduledStop.arrival_timestamp)
-                    .filter(ScheduledStop.arrival_timestamp != None)
-                    .filter(ScheduledStop.trip_id.notin_(trips_on_road_now))
-                    .order_by(ScheduledStop.trip_id.asc())
-                    .order_by(ScheduledStop.pkey.asc())
-                    .statement,
-                    db.session.bind)
-
-
-            # if the database didn't have results, return an empty dataframe
+            # execute query + if the database didn't have results, return an empty dataframe
+            arrivals_in_completed_trips = pd.read_sql(query,db.session.bind) # if this doesnt work just use (query,db.session.bind)
             if len(arrivals_in_completed_trips.index) == 0:
                 arrivals_in_completed_trips = pd.DataFrame(
                     columns=['trip_id', 'stop_id', 'stop_name', 'arrival_timestamp'],
                     data=[['0000_000_00000000', '0000_000_00000000', 'N/A', datetime.datetime(2010,1,1,7,0,0)]]
                     )
 
-            # Otherwise, split by stop_id and calculate arrival intervals at each stop
+            # split by stop_id and calculate arrival intervals at each stop
             stop_dfs = [g for i, g in arrivals_in_completed_trips.groupby(arrivals_in_completed_trips['stop_id'].ne(arrivals_in_completed_trips['stop_id'].shift()).cumsum())]
             headways_df = pd.DataFrame()
             for stop_df in stop_dfs:  # iterate over every stop
@@ -198,35 +153,26 @@ class RouteReport:
                 stop_df=stop_df.dropna() # drop the NaN (probably just the first one)
                 headways_df = headways_df.append(stop_df)  # dump all these rows into the headways list
 
+            # assemble the results and return
+            headway = dict()
             # average headway for route -- entire period
             headway['period_mean'] = headways_df['delta'].mean()
             headway['period_std'] = headways_df['delta'].std()
-
             # average headway for route -- by hour
             times = pd.DatetimeIndex(headways_df.arrival_timestamp)
             hourly_arrival_groups = headways_df.groupby([times.hour, times.minute])
             headway['hourly_mean'] = list()
             headway['hourly_std'] = list()
-
-            for hourly_arrivals in hourly_arrival_groups:
-
+            for hourly_arrivals in hourly_arrival_groups: #todo 1 finalize headway
                 df_hourly_arrivals=hourly_arrivals[1] # grab the df from the tuple
                 # append the summary statistics to the headway dict
                 headway['hourly_mean'].append((df_hourly_arrivals['arrival_timestamp'].hour, df_hourly_arrivals.mean()))
                 headway['hourly_std'].append((df_hourly_arrivals['arrival_timestamp'].hour, df_hourly_arrivals.std()))
-
-
                 # # iterate over the df to compute the means and stds
                 # for index, row in df_hourly_arrivals.iterrows():
                 #     print row['c1'], row['c2']
-
-
-
-            # default for testing template
-
             headway['time'] = 20
             headway['description'] = 'pretty good'
-
             return headway
 
     # todo 1 finish route bunching metric
@@ -319,92 +265,92 @@ class RouteReport:
         grade_description = 'Service meets the needs of riders some of the time, but suffers from serious shortcomings and gaps. Focused action is required to improve service in the near-term.'
         return grade, grade_description
 
-    def get_traveltime(self, period): # todo 0 implement this and check against www display
+    def get_traveltime(self, period): # todo 1 write and test get_traveltime using new query_factory
 
         with SQLAlchemyDBConnection() as db:
 
             traveltime = dict()
 
-            # get a list of all COMPLETED trips on this route for this period
+            # # get a list of all COMPLETED trips on this route for this period
+            #
+            # todays_date = datetime.date.today()
+            # yesterdays_date = datetime.date.today() - datetime.timedelta(1)
+            # one_hour_ago = datetime.datetime.now() - datetime.timedelta(hours=1)
+            #
+            # x, trips_on_road_now = self.__get_current_trips()
+            #
+            #
+            # if self.period == 'now':
+            #     arrivals_in_completed_trips = pd.read_sql(
+            #         db.session.query(ScheduledStop.trip_id,
+            #                          ScheduledStop.stop_id,
+            #                          ScheduledStop.stop_name,
+            #                          ScheduledStop.arrival_timestamp)
+            #             .filter(ScheduledStop.arrival_timestamp != None)
+            #             # todo 1 last hour doesnt work
+            #             .filter(func.date(ScheduledStop.arrival_timestamp) > one_hour_ago)
+            #             .filter(ScheduledStop.trip_id.notin_(trips_on_road_now))
+            #             .order_by(ScheduledStop.trip_id.asc())
+            #             .order_by(ScheduledStop.arrival_timestamp.asc())
+            #             .statement,
+            #         db.session.bind)
+            #
+            # elif self.period == 'today':
+            #     arrivals_in_completed_trips = pd.read_sql(
+            #         db.session.query(ScheduledStop.trip_id,
+            #                          ScheduledStop.stop_id,
+            #                          ScheduledStop.stop_name,
+            #                          ScheduledStop.arrival_timestamp)
+            #             .filter(ScheduledStop.arrival_timestamp != None)
+            #             .filter(func.date(ScheduledStop.arrival_timestamp) == todays_date)
+            #             .filter(ScheduledStop.trip_id.notin_(trips_on_road_now))
+            #             .order_by(ScheduledStop.trip_id.asc())
+            #             .order_by(ScheduledStop.arrival_timestamp.asc())
+            #             .statement,
+            #         db.session.bind)
+            #
+            #
+            # elif self.period == 'yesterday':
+            #     arrivals_in_completed_trips = pd.read_sql(
+            #         db.session.query(ScheduledStop.trip_id,
+            #                          ScheduledStop.stop_id,
+            #                          ScheduledStop.stop_name,
+            #                          ScheduledStop.arrival_timestamp)
+            #             .filter(ScheduledStop.arrival_timestamp != None)
+            #             .filter(func.date(ScheduledStop.arrival_timestamp) == yesterdays_date)
+            #             .filter(ScheduledStop.trip_id.notin_(trips_on_road_now))
+            #             .order_by(ScheduledStop.trip_id.asc())
+            #             .order_by(ScheduledStop.arrival_timestamp.asc())
+            #             .statement,
+            #         db.session.bind)
+            #
+            # elif self.period == 'history':
+            #     arrivals_in_completed_trips = pd.read_sql(
+            #         db.session.query(ScheduledStop.trip_id,
+            #                          ScheduledStop.stop_id,
+            #                          ScheduledStop.stop_name,
+            #                          ScheduledStop.arrival_timestamp)
+            #             .filter(ScheduledStop.arrival_timestamp != None)
+            #             .filter(ScheduledStop.trip_id.notin_(trips_on_road_now))
+            #             .order_by(ScheduledStop.trip_id.asc())
+            #             .order_by(ScheduledStop.arrival_timestamp.asc())
+            #             .statement,
+            #         db.session.bind)
+            #
+            #
+            # # now, using pandas, find the difference in arrival_timestamp between first and last row of each group
+            #
+            # # Group the data frame by month and item and extract a number of stats from each group
+            #
+            # trip_start_end_times = arrivals_in_completed_trips.groupby("trip_id").agg({"arrival_timestamp": "min", "arrival_timestamp": "max"})
+            #
+            # travel_times = []
+            # # now calculate the duration of the min:max tuples in trip_start_end_times, then average of those
+            # for min,max in trip_start_end_times:
+            #     travel_times.append(str(max-min))
+            # traveltime['time'] = sum(travel_times) / float(len(travel_times))  # todo 0 format this to 0 decimal points
 
-            todays_date = datetime.date.today()
-            yesterdays_date = datetime.date.today() - datetime.timedelta(1)
-            one_hour_ago = datetime.datetime.now() - datetime.timedelta(hours=1)
-
-            x, trips_on_road_now = self.__get_current_trips()
-
-
-            if self.period == 'now':
-                arrivals_in_completed_trips = pd.read_sql(
-                    db.session.query(ScheduledStop.trip_id,
-                                     ScheduledStop.stop_id,
-                                     ScheduledStop.stop_name,
-                                     ScheduledStop.arrival_timestamp)
-                        .filter(ScheduledStop.arrival_timestamp != None)
-                        # todo 1 last hour doesnt work
-                        .filter(func.date(ScheduledStop.arrival_timestamp) > one_hour_ago)
-                        .filter(ScheduledStop.trip_id.notin_(trips_on_road_now))
-                        .order_by(ScheduledStop.trip_id.asc())
-                        .order_by(ScheduledStop.arrival_timestamp.asc())
-                        .statement,
-                    db.session.bind)
-
-            elif self.period == 'today':
-                arrivals_in_completed_trips = pd.read_sql(
-                    db.session.query(ScheduledStop.trip_id,
-                                     ScheduledStop.stop_id,
-                                     ScheduledStop.stop_name,
-                                     ScheduledStop.arrival_timestamp)
-                        .filter(ScheduledStop.arrival_timestamp != None)
-                        .filter(func.date(ScheduledStop.arrival_timestamp) == todays_date)
-                        .filter(ScheduledStop.trip_id.notin_(trips_on_road_now))
-                        .order_by(ScheduledStop.trip_id.asc())
-                        .order_by(ScheduledStop.arrival_timestamp.asc())
-                        .statement,
-                    db.session.bind)
-
-
-            elif self.period == 'yesterday':
-                arrivals_in_completed_trips = pd.read_sql(
-                    db.session.query(ScheduledStop.trip_id,
-                                     ScheduledStop.stop_id,
-                                     ScheduledStop.stop_name,
-                                     ScheduledStop.arrival_timestamp)
-                        .filter(ScheduledStop.arrival_timestamp != None)
-                        .filter(func.date(ScheduledStop.arrival_timestamp) == yesterdays_date)
-                        .filter(ScheduledStop.trip_id.notin_(trips_on_road_now))
-                        .order_by(ScheduledStop.trip_id.asc())
-                        .order_by(ScheduledStop.arrival_timestamp.asc())
-                        .statement,
-                    db.session.bind)
-
-            elif self.period == 'history':
-                arrivals_in_completed_trips = pd.read_sql(
-                    db.session.query(ScheduledStop.trip_id,
-                                     ScheduledStop.stop_id,
-                                     ScheduledStop.stop_name,
-                                     ScheduledStop.arrival_timestamp)
-                        .filter(ScheduledStop.arrival_timestamp != None)
-                        .filter(ScheduledStop.trip_id.notin_(trips_on_road_now))
-                        .order_by(ScheduledStop.trip_id.asc())
-                        .order_by(ScheduledStop.arrival_timestamp.asc())
-                        .statement,
-                    db.session.bind)
-
-
-            # now, using pandas, find the difference in arrival_timestamp between first and last row of each group
-
-            # Group the data frame by month and item and extract a number of stats from each group
-
-            trip_start_end_times = arrivals_in_completed_trips.groupby("trip_id").agg({"arrival_timestamp": "min", "arrival_timestamp": "max"})
-
-            travel_times = []
-            # now calculate the duration of the min:max tuples in trip_start_end_times, then average of those
-            for min,max in trip_start_end_times:
-                travel_times.append(str(max-min))
-            traveltime['time'] = sum(travel_times) / float(len(travel_times))  # todo 0 format this to 0 decimal points
-
-            # traveltime['time'] = 20
+            traveltime['time'] = 20
 
             return traveltime
 
