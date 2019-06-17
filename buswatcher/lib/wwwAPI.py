@@ -99,16 +99,10 @@ class RouteReport:
         yesterdays_date = datetime.date.today() - datetime.timedelta(1)
         one_hour_ago = datetime.datetime.now() - datetime.timedelta(hours=1)
 
-        # tables (new version)
-        query = Query(kwargs['targets'], session=db.session)
+        query = db.session.query(kwargs['tables'])
+        query=query.add_columns(kwargs['columns']) # todo use add_column to add them https://groups.google.com/forum/#!topic/sqlalchemy/U9kYEKc7OXA
 
-        # tables (old version)
-        # if 'Trip' in kwargs['tables']:
-        #     query=db.session.query(Trip)
-        # elif 'ScheduledStop' in kwargs['tables']:
-        #     query=db.session.query(ScheduledStop)
-        # elif 'BusPosition' in kwargs['tables']:
-        #     query=db.session.query(BusPosition)
+        # query = Query(kwargs['targets'], session=db.session
 
         # add period #todo implement this with a dict mapping?
         if kwargs['period'] == 'now':
@@ -128,9 +122,10 @@ class RouteReport:
 
             # build the query
             x, trips_on_road_now = self.__get_current_trips()
-            # targets = ['ScheduledStop'] # the next one should work?
-            targets = ['scheduledstop_log.trip_id','scheduledstop_log.stop_id','scheduledstop_log.stop_name','scheduledstop_log.arrival_timestamp']
-            query = self.__query_factory(db, period=self.period, targets=targets)
+            tables = [ScheduledStop]
+            columns = [ScheduledStop.trip_id, ScheduledStop.stop_id, ScheduledStop.stop_name, ScheduledStop.arrival_timestamp]
+            # targets = ['scheduledstop_log.trip_id','scheduledstop_log.stop_id','scheduledstop_log.stop_name','scheduledstop_log.arrival_timestamp']
+            query = self.__query_factory(db, period=self.period, tables=tables, columns=columns)
             query=query\
                 .filter(ScheduledStop.trip_id.notin_(trips_on_road_now))\
                 .order_by(ScheduledStop.trip_id.asc())\
