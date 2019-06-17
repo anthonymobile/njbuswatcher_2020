@@ -50,6 +50,7 @@ def maintenance_check():
 
 def fetch_update_route_metadata():
 
+    # todo try-except to catch JSON file errors here
     route_definitions, grade_descriptions, collection_descriptions = load_config()
     route_definitions = route_definitions['route_definitions'] # ignore the ttl, last_updated key:value pairs
 
@@ -105,6 +106,11 @@ def fetch_update_route_metadata():
                       "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"}  # todo 1 not sure if this is working
             print ("<<Added route record>>"+json.dumps(update))
             route_definitions.append(update) #add it to the route_definitions file so we dont scan it again until the TTL expires
+
+    # todo 1 make one last scan of file --  if prettyname in file is blank, should copy nm from file to prettyname
+    for route in route_definitions:
+        if route['prettyname'] == "":
+            route['prettyname'] = route['nm']
 
     # create data to dump with last_updated and ttl
     outdata = dict()
