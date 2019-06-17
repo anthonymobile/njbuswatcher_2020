@@ -90,7 +90,7 @@ class RouteScan:
                 bus.trip_id = ('{id}_{run}_{dt}').format(id=bus.id, run=bus.run,dt=datetime.datetime.today().strftime('%Y%m%d'))
                 self.trip_list.append(bus.trip_id)
                 result = db.session.query(Trip).filter(Trip.trip_id == bus.trip_id).first()
-                sys.stdout.write('x')
+
                 if result is None:
                     trip_id = Trip('nj', bus.rt, bus.id, bus.run, bus.pid)
                     db.session.add(trip_id)
@@ -112,7 +112,7 @@ class RouteScan:
                         for group in bus_positions:
                             for bus in group:
                                 db.session.add(bus)
-                                sys.stdout.write('o')
+
                         db.__relax__()  # disable foreign key checks before commit # todo 1 is this wise? remove?
                         db.session.commit()
 
@@ -128,7 +128,7 @@ class RouteScan:
                                     db.session.add(bus)
                             db.__relax__()  # disable foreign key checks before commit # todo 1 is this wise? remove?
                             db.session.commit()
-                            sys.stdout.write('o')
+
 
 
                 except (IntegrityError) as e:
@@ -144,7 +144,7 @@ class RouteScan:
 
             # ASSIGN TO NEAREST STOP
             for trip_id in self.trip_list:
-                sys.stdout.write('.')
+
                 # load the trip card for reference
                 scheduled_stops = db.session.query(Trip, ScheduledStop) \
                     .join(ScheduledStop) \
@@ -306,23 +306,15 @@ class RouteScan:
 
         return
 
-@timeit
+@timeit # only need to isolate this in a function so we can timeit
 def main_loop():
-
     if args.statewide is False:
-
-        print('running in collections mode (watch all routes in all collections)')
-
-        routes_to_watch = []
         for c in collection_descriptions:
             for r in c['routelist']:
                 scan = RouteScan(r, args.statewide)
             print()
-
     elif args.statewide is True:
-        print('running in statewide mode (watch all routes in NJ)')
         scan = RouteScan(0, args.statewide)
-
     return scan
 
 if __name__ == "__main__":
@@ -336,6 +328,11 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('-s', '--statewide', dest='statewide', action='store_true', help='Watch all active routes in NJ. (requires lots of CPU).')
     args = parser.parse_args()
+
+    if args.statewide is False:
+        print('running in collections mode (watch all routes in all collections)')
+    elif args.statewide is True:
+        print('running in statewide mode (watch all routes in NJ)')
 
     run_frequency = 60 # seconds
     time_start=time.monotonic()
