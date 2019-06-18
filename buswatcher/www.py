@@ -1,4 +1,4 @@
-# todo 2 merge statewide branch back into new_localizer
+# todo 1 merge statewide branch back into new_localizer
 
 # bus buswatcher v2.0
 # june 2019 - by anthony@bitsandatoms.net

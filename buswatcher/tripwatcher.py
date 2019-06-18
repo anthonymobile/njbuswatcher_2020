@@ -1,4 +1,3 @@
-# todo 0 deploy to AWS to start gathering data for more advanced reporting tools
 #
 # usage:
 # (statewide)                                           tripwatcher.py --statewide
