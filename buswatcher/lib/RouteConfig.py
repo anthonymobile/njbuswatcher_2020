@@ -77,8 +77,7 @@ def fetch_update_route_metadata():
     # fetch route metadata
     api_response= list()
     for r in routes_active:
-        sys.stdout.write ('.')
-        # route_metadata = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data('nj', 'routes', route=r))
+
         try:
             route_metadata = BusAPI.parse_xml_getRoutePoints(get_route_geometry(r)) # this might not work if there isn't already a copy of the XML route data
             route_entry = {'route': route_metadata[0][0].identity,'nm': route_metadata[0][0].nm}

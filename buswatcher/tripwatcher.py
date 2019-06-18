@@ -47,7 +47,7 @@ class RouteScan:
             self.interpolate_missed_stops()
             self.assign_positions()
 
-    def filter_system_map_xml(self): # todo 0 see if this will work, then pass it into Localizer
+    def filter_system_map_xml(self):
         for route in self.system_map_xml.route_geometries:
             if route['route'] == self.route:
                 return route
