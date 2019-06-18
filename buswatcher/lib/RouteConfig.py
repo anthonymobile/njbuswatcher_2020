@@ -50,7 +50,7 @@ def maintenance_check():
 
 def fetch_update_route_metadata():
 
-    # todo try-except to catch JSON file errors here
+    # add a try-except to catch JSON file errors here
     route_definitions, grade_descriptions, collection_descriptions = load_config()
     route_definitions = route_definitions['route_definitions'] # ignore the ttl, last_updated key:value pairs
 
@@ -103,11 +103,11 @@ def fetch_update_route_metadata():
         if matched == False:
             print ("no match for route "+a['route']+" in route_definitions")
             update = {"route": a['route'], "nm": a['nm'].split(' ', 1)[1], "ttl": "1d","description_long": "", "description_short": "", "frequency": "low", "prettyname": "",
-                      "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"}  # todo 1 not sure if this is working
+                      "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"}
             print ("<<Added route record>>"+json.dumps(update))
             route_definitions.append(update) #add it to the route_definitions file so we dont scan it again until the TTL expires
 
-    # todo 1 make one last scan of file --  if prettyname in file is blank, should copy nm from file to prettyname
+    # make one last scan of file --  if prettyname in file is blank, should copy nm from file to prettyname
     for route in route_definitions:
         if route['prettyname'] == "":
             route['prettyname'] = route['nm']
@@ -126,14 +126,14 @@ def fetch_update_route_metadata():
 
     return
 
-def fetch_update_route_geometry(): # grabs a copy of the route XML for all defined routes # todo 2 rewrite this to store in database table as XML or JSON objects... or after it is parsed as a picklefile?
+def fetch_update_route_geometry(): # grabs a copy of the route XML for all defined routes # rewrite this to store in database table as XML or JSON objects... or after it is parsed as a picklefile?
 
     route_definitions, a, b = load_config()
 
     for r in route_definitions['route_definitions']:
         try:
             route_xml =  BusAPI.get_xml_data('nj', 'routes', route=r['route'])
-            # todo 2 run it through BusAPI.parse_xml_getRoutePoints and then pickle that or store the two returns (routes, coordinates_bundle)
+            # todo 1 run it through BusAPI.parse_xml_getRoutePoints and then pickle that or store the two returns (routes, coordinates_bundle)
         except:
             continue
 

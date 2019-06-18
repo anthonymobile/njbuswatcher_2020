@@ -10,6 +10,8 @@ import buswatcher.lib.BusAPI as BusAPI
 import buswatcher.lib.RouteConfig as RouteConfig
 
 from buswatcher.lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
+from buswatcher.lib.CommonTools import get_stoplist
+
 
 # primary classes
 class RouteReport:
@@ -36,7 +38,7 @@ class RouteReport:
         # populate static report card data
         self.__load_route_description()
         self.routename, self.waypoints_coordinates, self.stops_coordinates, self.waypoints_geojson, self.stops_geojson = self.__get_route_geojson_and_name(self.route) # todo 3 how to pick which route to return, some routes have multiple paths
-        self.route_stop_list = self.get_stoplist(self.route)
+        self.route_stop_list = get_stoplist(self.route)
         self.period_labels = self.__get_period_labels()
 
         # populate live report card data
@@ -95,16 +97,13 @@ class RouteReport:
 
     def __query_factory(self, db, **kwargs):
 
+        query = db.session.query(kwargs['tables'])
+        query = query.add_columns(kwargs['columns']) # todo use add_column to add them https://groups.google.com/forum/#!topic/sqlalchemy/U9kYEKc7OXA
+
+        # add period #todo implement this with a dict mapping?
         todays_date = datetime.date.today()
         yesterdays_date = datetime.date.today() - datetime.timedelta(1)
         one_hour_ago = datetime.datetime.now() - datetime.timedelta(hours=1)
-
-        query = db.session.query(kwargs['tables'])
-        query=query.add_columns(kwargs['columns']) # todo use add_column to add them https://groups.google.com/forum/#!topic/sqlalchemy/U9kYEKc7OXA
-
-        # query = Query(kwargs['targets'], session=db.session
-
-        # add period #todo implement this with a dict mapping?
         if kwargs['period'] == 'now':
             query = query.filter(ScheduledStop.arrival_timestamp != None).filter(func.date(ScheduledStop.arrival_timestamp) > one_hour_ago)# todo 1 fix filter for 1 hour ago
         elif kwargs['period'] == 'today':
@@ -343,30 +342,11 @@ class RouteReport:
             # # now calculate the duration of the min:max tuples in trip_start_end_times, then average of those
             # for min,max in trip_start_end_times:
             #     travel_times.append(str(max-min))
-            # traveltime['time'] = sum(travel_times) / float(len(travel_times))  # todo 0 format this to 0 decimal points
+            # traveltime['time'] = sum(travel_times) / float(len(travel_times))  # todo 1 format this to 0 decimal points
 
             traveltime['time'] = 20
 
             return traveltime
-
-    # gets all stops on all active routes
-    def get_stoplist(self, route):
-        routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(RouteConfig.get_route_geometry(self.route))
-        # routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=self.route))
-        route_stop_list = []
-        for r in routes:
-            path_list = []
-            for path in r.paths:
-                stops_points = RouteReport.Path()
-                for point in path.points:
-                    if isinstance(point, BusAPI.Route.Stop):
-                        stops_points.stops.append(point)
-                stops_points.id=path.id
-                stops_points.d=path.d
-                stops_points.dd=path.dd
-                path_list.append(stops_points) # path_list is now a couple of Path instances, plus the metadata id,d,dd fields
-            route_stop_list.append(path_list)
-        return route_stop_list[0] # transpose a single copy since the others are all repeats (can be verified by path ids)
 
     # gets all arrivals (see limit) for all runs on current route
     def get_tripdash(self):
