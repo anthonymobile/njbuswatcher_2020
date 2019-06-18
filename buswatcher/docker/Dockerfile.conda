@@ -6,7 +6,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN conda update -n base -c defaults conda
 
-ADD ./reportcard/docker/environment.yml /tmp/environment.yml
+ADD ./buswatcher/docker/environment.yml /tmp/environment.yml
 RUN conda env create -f /tmp/environment.yml
 
 # Pull the environment name out of the environment.yml
@@ -19,10 +19,10 @@ RUN mkdir buswatcher
 COPY . ./buswatcher
 
 # copy the proper database config over for docker deployment (replaces the development version)
-COPY ./reportcard/docker/DBconfig.py ./buswatcher/reportcard/lib/DBconfig.py
+COPY ./buswatcher/docker/DBconfig.py ./buswatcher/buswatcher/lib/DBconfig.py
 
 # run entrypoint.sh
-# ENTRYPOINT ["/buswatcher/reportcard/docker/entrypoint.sh"]
+# ENTRYPOINT ["/buswatcher/buswatcher/docker/entrypoint.sh"]
 
 WORKDIR /buswatcher/reportcard
 
