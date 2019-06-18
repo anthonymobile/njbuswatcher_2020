@@ -79,9 +79,12 @@ def fetch_update_route_metadata():
     for r in routes_active:
         sys.stdout.write ('.')
         # route_metadata = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data('nj', 'routes', route=r))
-        route_metadata = BusAPI.parse_xml_getRoutePoints(get_route_geometry(r)) # this might now work if there isn't already a copy of the XML route data
-        route_entry = {'route': route_metadata[0][0].identity,'nm': route_metadata[0][0].nm}
-        api_response.append(route_entry)
+        try:
+            route_metadata = BusAPI.parse_xml_getRoutePoints(get_route_geometry(r)) # this might not work if there isn't already a copy of the XML route data
+            route_entry = {'route': route_metadata[0][0].identity,'nm': route_metadata[0][0].nm}
+            api_response.append(route_entry)
+        except:
+            pass
 
     # merge API data into routes_definitions
     for a in api_response: # iterate over routes fetched from API
@@ -133,7 +136,6 @@ def fetch_update_route_geometry(): # grabs a copy of the route XML for all defin
     for r in route_definitions['route_definitions']:
         try:
             route_xml =  BusAPI.get_xml_data('nj', 'routes', route=r['route'])
-            # todo 1 run it through BusAPI.parse_xml_getRoutePoints and then pickle that or store the two returns (routes, coordinates_bundle)
         except:
             continue
 
@@ -143,10 +145,22 @@ def fetch_update_route_geometry(): # grabs a copy of the route XML for all defin
         # print ('dumped '+r['route'] +'.xml')
     return
 
-def get_route_geometry(r): # todo 0 this is the old way of doing this, superseded by RouteScan.route_map
-    infile = ('config/route_geometry/' + r +'.xml')
-    with open(infile,'rb') as f:
-        return f.read()
+def get_route_geometry(r):
+    try:
+        infile = ('config/route_geometry/' + r +'.xml')
+        with open(infile,'rb') as f:
+            return f.read()
+    except: # if the xml for route r is missing, let's grab it (duplicated code here, but it works so...)
+
+        route_xml = BusAPI.get_xml_data('nj', 'routes', route=r)
+
+        outfile = ('config/route_geometry/' + r +'.xml')
+        with open(outfile,'wb') as f: # overwrite existing fille
+            f.write(route_xml)
+
+        infile = ('config/route_geometry/' + r + '.xml')
+        with open(infile, 'rb') as f:
+            return f.read()
 
 if __name__ == "__main__":
 
