@@ -1,5 +1,5 @@
 {
-    "last_updated": "2019-06-17 22:45:42",
+    "last_updated": "2019-06-18 11:46:07",
     "ttl": "86400",
     "route_definitions": [
         {
@@ -1543,6 +1543,376 @@
             "description_short": "",
             "frequency": "low",
             "prettyname": "Stuyvesant Crosstown",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "315",
+            "nm": "Cape May-Wildwood-Phila",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Cape May-Wildwood-Phila",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "321",
+            "nm": "Vince Lombardi Park/Ride-NY",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Vince Lombardi Park/Ride-NY",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "401",
+            "nm": "Salem - Philadelphia",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Salem - Philadelphia",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "451",
+            "nm": "Camden-Voorhees Town Center",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Camden-Voorhees Town Center",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "453",
+            "nm": "Ferry Avenue PATCO - Camden",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Ferry Avenue PATCO - Camden",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "463",
+            "nm": "Woodbury-Avandale P/R",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Woodbury-Avandale P/R",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "468",
+            "nm": "Penns Grove-Salem-Woodstown",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Penns Grove-Salem-Woodstown",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "52",
+            "nm": "Morris Avenue",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Morris Avenue",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "56",
+            "nm": "Elizabeth - Winfield",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Elizabeth - Winfield",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "58",
+            "nm": "Elizabeth - Kenilworth",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Elizabeth - Kenilworth",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "600",
+            "nm": "Trenton - Plainsboro",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Trenton - Plainsboro",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "603",
+            "nm": "Mercer Mall-Ham Sq-Ham MktPl",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Mercer Mall-Ham Sq-Ham MktPl",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "611",
+            "nm": "Trenton-RiverViewPlz-Circ",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Trenton-RiverViewPlz-Circ",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "702",
+            "nm": "Paterson - Elmwood Park",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Paterson - Elmwood Park",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "707",
+            "nm": "Paterson - Paramus",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Paterson - Paramus",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "744",
+            "nm": "Passaic - Paterson - Wayne",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Passaic - Paterson - Wayne",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "746",
+            "nm": "Ridgewood - Paterson",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Ridgewood - Paterson",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "752",
+            "nm": "Oakland-Ridgewood-Hackensack",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Oakland-Ridgewood-Hackensack",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "753",
+            "nm": "New Milford - Paramus",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "New Milford - Paramus",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "762",
+            "nm": "Hackensack-NMilford-Paramus",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Hackensack-NMilford-Paramus",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "772",
+            "nm": "Paramus-Hackensack-Meadowlan",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Paramus-Hackensack-Meadowlan",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "78",
+            "nm": "Newark - Secaucus",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Newark - Secaucus",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "811",
+            "nm": "New Brunswick - South River",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "New Brunswick - South River",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "817",
+            "nm": "Perth Amboy-Campbell's Junct",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Perth Amboy-Campbell's Junct",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "819",
+            "nm": "Piscataway-Plainfield-Metuch",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Piscataway-Plainfield-Metuch",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "822",
+            "nm": "Plainfield-North Plainfield",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Plainfield-North Plainfield",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "830",
+            "nm": "Asbury Prk-Pt Pleasant Beach",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Asbury Prk-Pt Pleasant Beach",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "831",
+            "nm": "Red Bank-MonMall-LongBranch",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Red Bank-MonMall-LongBranch",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "834",
+            "nm": "Red Bank - Highlands",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Red Bank - Highlands",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "837",
+            "nm": "LongBranch-AsburyPrk-Seaview",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "LongBranch-AsburyPrk-Seaview",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "838",
+            "nm": "Freehold-Red Bank-Sea Bright",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Freehold-Red Bank-Sea Bright",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "871",
+            "nm": "Morristown-Boonton-Willowbro",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Morristown-Boonton-Willowbro",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "873",
+            "nm": "Greystone-Morristown-Livings",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Greystone-Morristown-Livings",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "874",
+            "nm": "Morristown - Willowbrook",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Morristown - Willowbrook",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "875",
+            "nm": "Morristown-Dover-Roxbury",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Morristown-Dover-Roxbury",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "880",
+            "nm": "Morristown-Dover-Rockaway",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Morristown-Dover-Rockaway",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "96",
+            "nm": "18th Street Crosstown",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "18th Street Crosstown",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
         }
     ]

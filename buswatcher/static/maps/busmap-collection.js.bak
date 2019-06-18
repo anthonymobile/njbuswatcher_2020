@@ -59,7 +59,7 @@ map.on('load', function() {
                 "line-opacity": 0.75,
                 "line-width": 3
             }
-        },"waypoints"); // todo 1 fix layer order -- layer to add before
+        },"waypoints"); // to do fix layer order -- layer to add before
     });
 
 
@@ -80,7 +80,7 @@ map.on('load', function() {
                 "circle-stroke-width": 3,
                 "circle-stroke-color": "#f6c"
             }
-         },"stops") // todo 1 fix layer order -- layer to add before
+         },"stops") // to do fix layer order -- layer to add before
         ;
 
     })
