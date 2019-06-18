@@ -13,7 +13,7 @@ import numpy as np
 
 from pymysql import IntegrityError
 
-from buswatcher.lib import BusAPI, Localizer
+from buswatcher.lib import BusAPI, Localizer, wwwAPI
 from buswatcher.lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
 from buswatcher.lib.RouteConfig import load_config,maintenance_check, fetch_update_route_metadata
 from buswatcher.lib.CommonTools import timeit
@@ -21,11 +21,12 @@ from buswatcher.lib.CommonTools import timeit
 class RouteScan:
 
     # @timeit
-    def __init__(self, route, statewide):
+    def __init__(self, route, statewide,system_map_xml):
 
         # apply passed parameters to instance
         self.route = route
         self.statewide = statewide
+        self.route_map_xml = self.filter_system_map_xml(system_map_xml)
 
         # create database connectio
         self.db = SQLAlchemyDBConnection()
@@ -45,6 +46,12 @@ class RouteScan:
             self.interpolate_missed_stops()
             self.assign_positions()
 
+    def filter_system_map_xml(self): # todo 0 see if this will work, then pass it into Localizer
+        for route in self.system_map_xml:
+            if route['route'] == self.route:
+                return route
+            else:
+                continue
 
     def fetch_positions(self):
 
@@ -122,7 +129,7 @@ class RouteScan:
                         # loop over each route
                         for r in statewide_route_list:
                             # print('localizing routes %a').format(a=r)
-                            bus_positions = Localizer.get_nearest_stop(self.buses, r)
+                            bus_positions = Localizer.get_nearest_stop(self.route_map_xml, self.buses, r)
                             for group in bus_positions:
                                 for bus in group:
                                     db.session.add(bus)
@@ -308,10 +315,12 @@ class RouteScan:
 
 @timeit # only need to isolate this in a function so we can timeit
 def main_loop():
+
+    system_map_xml = wwwAPI.NJTransitSystem()
     if args.statewide is False:
         for c in collection_descriptions:
             for r in c['routelist']:
-                scan = RouteScan(r, args.statewide)
+                scan = RouteScan(r, args.statewide,system_map_xml)
             print()
     elif args.statewide is True:
         scan = RouteScan(0, args.statewide)

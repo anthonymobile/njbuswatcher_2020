@@ -22,7 +22,7 @@ class NJTransitSystem:
         self.route_definitions, self.grade_descriptions, self.collection_descriptions = RouteConfig.load_config()
 
         # load the route table
-
+        self.route_geometries = [({'route':r['route'],'xml':RouteConfig.get_route_geometry(r['route'])}) for r in self.route_definitions['route_definitions']]
 
 
 class RouteReport:

@@ -13,7 +13,7 @@ from scipy.spatial import cKDTree
 from shapely.geometry import Point
 
 from . import DataBases, BusAPI
-from buswatcher.lib.RouteConfig import get_route_geometry
+from buswatcher.lib.wwwAPI import get_route_geometry
 from buswatcher.lib.CommonTools import timeit
 
 
@@ -99,7 +99,7 @@ def ckdnearest(gdA, gdB, bcol): # seems to be getting hung on on bus 5800 for so
 #
 ###########################################################################
 
-def get_nearest_stop(buses,route):
+def get_nearest_stop(route_map_xml,buses,route):
 
 
     #todo 1 try to rewrite some of the loops as list comprehensions to speed up -- takes 0.5-1.5 seconds per bus though its mostly the pandas stuff
@@ -121,7 +121,8 @@ def get_nearest_stop(buses,route):
 
 
     # acquire and sort stop data in directions (ignoring services)
-    routedata, coordinates_bundle = BusAPI.parse_xml_getRoutePoints(get_route_geometry(route))
+    # routedata, coordinates_bundle = BusAPI.parse_xml_getRoutePoints(get_route_geometry(route))
+    routedata, coordinates_bundle = BusAPI.parse_xml_getRoutePoints(route_map_xml)
 
     stoplist = []
     for rt in routedata:
