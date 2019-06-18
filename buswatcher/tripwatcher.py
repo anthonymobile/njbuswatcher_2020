@@ -26,7 +26,8 @@ class RouteScan:
         # apply passed parameters to instance
         self.route = route
         self.statewide = statewide
-        self.route_map_xml = self.filter_system_map_xml(system_map_xml)
+        self.system_map_xml = system_map_xml
+        self.route_map_xml = self.filter_system_map_xml()
 
         # create database connectio
         self.db = SQLAlchemyDBConnection()
@@ -47,7 +48,7 @@ class RouteScan:
             self.assign_positions()
 
     def filter_system_map_xml(self): # todo 0 see if this will work, then pass it into Localizer
-        for route in self.system_map_xml:
+        for route in self.system_map_xml.route_geometries:
             if route['route'] == self.route:
                 return route
             else:
@@ -115,7 +116,7 @@ class RouteScan:
                 try:
                     # LOCALIZE
                     if self.statewide is False:
-                        bus_positions = Localizer.get_nearest_stop(self.buses, self.route)
+                        bus_positions = Localizer.get_nearest_stop(self.route_map_xml, self.buses, self.route)
                         for group in bus_positions:
                             for bus in group:
                                 db.session.add(bus)
@@ -323,7 +324,7 @@ def main_loop():
                 scan = RouteScan(r, args.statewide,system_map_xml)
             print()
     elif args.statewide is True:
-        scan = RouteScan(0, args.statewide)
+        scan = RouteScan(0, args.statewide,system_map_xml)
     return scan
 
 if __name__ == "__main__":
