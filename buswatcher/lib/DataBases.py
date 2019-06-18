@@ -4,7 +4,7 @@ import datetime
 from sqlalchemy import inspect, create_engine, ForeignKeyConstraint, Index, Date, Column, Integer, DateTime, Float, String, Text, Boolean, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy.orm import relationship
+
 from . import BusAPI
 from . import DBconfig
 from . import RouteConfig

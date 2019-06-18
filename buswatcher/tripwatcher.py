@@ -6,7 +6,6 @@
 #
 
 import argparse
-import sys
 import datetime, time
 
 import itertools

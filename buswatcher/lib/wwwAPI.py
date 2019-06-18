@@ -10,10 +10,21 @@ import buswatcher.lib.BusAPI as BusAPI
 import buswatcher.lib.RouteConfig as RouteConfig
 
 from buswatcher.lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
-from buswatcher.lib.CommonTools import get_stoplist
-
 
 # primary classes
+
+
+class NJTransitSystem:
+
+    def __init__(self):
+
+        # load the basics
+        self.route_definitions, self.grade_descriptions, self.collection_descriptions = RouteConfig.load_config()
+
+        # load the route table
+
+
+
 class RouteReport:
 
     class Path():
@@ -37,8 +48,10 @@ class RouteReport:
 
         # populate static report card data
         self.__load_route_description()
-        self.routename, self.waypoints_coordinates, self.stops_coordinates, self.waypoints_geojson, self.stops_geojson = self.__get_route_geojson_and_name(self.route) # todo 3 how to pick which route to return, some routes have multiple paths
-        self.route_stop_list = get_stoplist(self.route)
+        self.route_geometry = RouteConfig.get_route_geometry(route)
+        self.routes, self.coordinate_bundle = BusAPI.parse_xml_getRoutePoints(RouteConfig.get_route_geometry(self.route))
+        self.routename, self.waypoints_coordinates, self.stops_coordinates, self.waypoints_geojson, self.stops_geojson = self.routes[0].nm, self.coordinate_bundle['waypoints_coordinates'], self.coordinate_bundle['stops_coordinates'], self.coordinate_bundle['waypoints_geojson'], self.coordinate_bundle['stops_geojson']
+        self.route_stop_list = self.__get_stoplist()
         self.period_labels = self.__get_period_labels()
 
         # populate live report card data
@@ -48,13 +61,6 @@ class RouteReport:
         self.traveltime = self.get_traveltime(period)
 
         self.tripdash = self.get_tripdash()
-
-    def __get_route_geojson_and_name(self, route):
-
-        routes, coordinates_bundle = BusAPI.parse_xml_getRoutePoints(RouteConfig.get_route_geometry(self.route))
-        # routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=route))
-        return routes[0].nm, coordinates_bundle['waypoints_coordinates'], coordinates_bundle['stops_coordinates'], \
-               coordinates_bundle['waypoints_geojson'], coordinates_bundle['stops_geojson']
 
     def __load_route_description(self):
         for route in self.route_definitions['route_definitions']:
@@ -94,6 +100,25 @@ class RouteReport:
             trip_list_trip_id_only.append(trip_id)
 
         return trip_list, trip_list_trip_id_only
+
+    def __get_stoplist(self):
+        routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(self.route_geometry)
+        # routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=self.route))
+        route_stop_list = []
+        for r in routes:
+            path_list = []
+            for path in r.paths:
+                stops_points = RouteReport.Path()
+                for point in path.points:
+                    if isinstance(point, BusAPI.Route.Stop):
+                        stops_points.stops.append(point)
+                stops_points.id = path.id
+                stops_points.d = path.d
+                stops_points.dd = path.dd
+                path_list.append(
+                    stops_points)  # path_list is now a couple of Path instances, plus the metadata id,d,dd fields
+            route_stop_list.append(path_list)
+        return route_stop_list[0]  # transpose a single copy since the others are all repeats (can be verified by path ids)
 
     def __query_factory(self, db, **kwargs):
 
