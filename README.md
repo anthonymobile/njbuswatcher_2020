@@ -19,8 +19,11 @@ Check out a live version focusing on Jersey City  [buswatcher.code4jc.org](http:
 
 It's all dockerized now. Use `docker-compose` and build from the project root.
 
-1. 
-
+1. create EC2 instance
+2. download keypair
+3. login, install docker
+4. fetch image and build with docker-compose
+5. setup DNS forwarding (Gandi control panel)
 
 #### Manual MySQL Database Creation
 
