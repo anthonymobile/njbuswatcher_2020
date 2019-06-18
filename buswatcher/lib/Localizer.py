@@ -14,7 +14,40 @@ from shapely.geometry import Point
 
 from . import DataBases, BusAPI
 from buswatcher.lib.RouteConfig import get_route_geometry
-from buswatcher.lib.CommonTools import timeit
+from buswatcher.lib.CommonTools import timeit, get_stoplist
+
+
+def turn_row_into_BusPosition(row):
+
+    position = DataBases.BusPosition()
+    position.lat = row.lat
+    position.lon = row.lon
+    position.cars = row.cars
+    position.consist = row.consist
+    position.d = row.d
+    position.dn = row.dn
+    position.fs = row.fs
+    position.id = row.id
+    position.m = row.m
+    position.op = row.op
+    position.pd = row.pd
+    position.pdrtpifeedname = row.pdRtpiFeedName
+    position.pid = row.pid
+    position.rt = row.rt
+    position.rtrtpifeedname = row.rtRtpiFeedName
+    position.rtdd = row.rtdd
+    position.rtpifeedname = row.rtpiFeedName
+    position.run = row.run
+    position.wid1 = row.wid1
+    position.wid2 = row.wid2
+
+    position.trip_id = ('{id}_{run}_{dt}').format(id=row.id, run=row.run, dt=datetime.datetime.today().strftime('%Y%m%d'))
+    position.arrival_flag = False
+    position.distance_to_stop = row.distance
+    position.stop_id = row.stop_id
+    position.timestamp = datetime.datetime.now()
+
+    return position
 
 ###########################################################################
 # CKDNEAREST
@@ -67,33 +100,38 @@ def ckdnearest(gdA, gdB, bcol): # seems to be getting hung on on bus 5800 for so
 #
 ###########################################################################
 
-def get_nearest_stop(buses,route): #todo 1 try to rewrite some of the loops as map or comprehensions to speed up -- takes 0.5-1.5 seconds per bus though its mostly the pandas stuff
+def get_nearest_stop(buses,route):
+
+
+    #todo 1 try to rewrite some of the loops as list comprehensions to speed up -- takes 0.5-1.5 seconds per bus though its mostly the pandas stuff
+    # can use external functions like
+    # def process(e):
+    #   return e_processed
+    # and then in the main body the list comp is:
+    # results = [process(entry) for entry in entries]
 
     # sort bus data into directions
-
     buses_as_dicts = [b.to_dict() for b in buses]
     result2 = collections.defaultdict(list)
-
     for b in buses_as_dicts:
         result2[b['dd']].append(b)
     buses_by_direction = list(result2.values())
-
     if len(buses) == 0:
         bus_positions = []
         return bus_positions
 
-    # acquire and sort stop data in directions (ignoring services)
 
-    # routedata, coordinates_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data('nj', 'routes', route=route))
-    routedata, coordinates_bundle = BusAPI.parse_xml_getRoutePoints(get_route_geometry(route))
-
-    stoplist = []
-    for rt in routedata:
-        for path in rt.paths:
-            for p in path.points:
-                if p.__class__.__name__ == 'Stop':
-                    stoplist.append(
-                        {'stop_id': p.identity, 'st': p.st, 'd': p.d, 'lat': p.lat, 'lon': p.lon})
+    # # acquire and sort stop data in directions (ignoring services)
+    # routedata, coordinates_bundle = BusAPI.parse_xml_getRoutePoints(get_route_geometry(route))
+    #
+    # stoplist = []
+    # for rt in routedata:
+    #     for path in rt.paths:
+    #         for p in path.points:
+    #             if p.__class__.__name__ == 'Stop':
+    #                 stoplist.append(
+    #                     {'stop_id': p.identity, 'st': p.st, 'd': p.d, 'lat': p.lat, 'lon': p.lon})
+    stoplist = get_stoplist(route)
 
     result = collections.defaultdict(list)
     for d in stoplist:
@@ -101,11 +139,8 @@ def get_nearest_stop(buses,route): #todo 1 try to rewrite some of the loops as m
     stops_by_direction = list(result.values())
 
     # loop over the directions in buses_by_direction
-
     bus_positions = []
-
     for bus_direction in buses_by_direction: #
-
         # create bus geodataframe
         #df1 = pd.DataFrame.from_records([b.to_dict() for b in buses])
         df1 = pd.DataFrame.from_records(bus_direction)
@@ -140,46 +175,46 @@ def get_nearest_stop(buses,route): #todo 1 try to rewrite some of the loops as m
 
                 # serialize as a list of BusPosition objects
 
-                bus_list = []
 
-                for index, row in gdf1.iterrows():
-                    position = DataBases.BusPosition()
+                # bus_list = []
+                # for index, row in gdf1.iterrows(): # possible speedup here
+                #     position = DataBases.BusPosition()
+                #
+                #     position.lat = row.lat
+                #     position.lon = row.lon
+                #     position.cars = row.cars
+                #     position.consist = row.consist
+                #     position.d = row.d
+                #     # position.dip = row.dip
+                #     position.dn = row.dn
+                #     position.fs = row.fs
+                #     position.id = row.id
+                #     position.m = row.m
+                #     position.op = row.op
+                #     position.pd = row.pd
+                #     position.pdrtpifeedname = row.pdRtpiFeedName
+                #     position.pid = row.pid
+                #     position.rt = row.rt
+                #     position.rtrtpifeedname = row.rtRtpiFeedName
+                #     position.rtdd = row.rtdd
+                #     position.rtpifeedname = row.rtpiFeedName
+                #     position.run = row.run
+                #     position.wid1 = row.wid1
+                #     position.wid2 = row.wid2
+                #
+                #     position.trip_id = ('{id}_{run}_{dt}').format(id=row.id, run=row.run, dt=datetime.datetime.today().strftime('%Y%m%d'))
+                #     position.arrival_flag = False
+                #     position.distance_to_stop = row.distance
+                #     position.stop_id = row.stop_id
+                #     position.timestamp = datetime.datetime.now()
+                #
+                #     bus_list.append(position)
 
-                    position.lat = row.lat
-                    position.lon = row.lon
-                    position.cars = row.cars
-                    position.consist = row.consist
-                    position.d = row.d
-                    # position.dip = row.dip
-                    position.dn = row.dn
-                    position.fs = row.fs
-                    position.id = row.id
-                    position.m = row.m
-                    position.op = row.op
-                    position.pd = row.pd
-                    position.pdrtpifeedname = row.pdRtpiFeedName
-                    position.pid = row.pid
-                    position.rt = row.rt
-                    position.rtrtpifeedname = row.rtRtpiFeedName
-                    position.rtdd = row.rtdd
-                    position.rtpifeedname = row.rtpiFeedName
-                    position.run = row.run
-                    position.wid1 = row.wid1
-                    position.wid2 = row.wid2
-
-                    position.trip_id = ('{id}_{run}_{dt}').format(id=row.id, run=row.run, dt=datetime.datetime.today().strftime('%Y%m%d'))
-                    position.arrival_flag = False
-                    position.distance_to_stop = row.distance
-                    position.stop_id = row.stop_id
-                    position.timestamp = datetime.datetime.now()
-
-                    bus_list.append(position)
+                bus_list = gdf1.apply(lambda row: turn_row_into_BusPosition(row), axis=1)
 
                 bus_positions.append(bus_list)
 
             else:
                 pass
-
-
 
     return bus_positions

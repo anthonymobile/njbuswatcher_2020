@@ -1,3 +1,4 @@
+# todo 0 deploy to AWS to start gathering data for more advanced reporting tools
 #
 # usage:
 # (statewide)                                           tripwatcher.py --statewide
@@ -113,7 +114,7 @@ class RouteScan:
                             for bus in group:
                                 db.session.add(bus)
 
-                        db.__relax__()  # disable foreign key checks before commit # todo 1 is this wise? remove?
+                        db.__relax__()  # disable foreign key checks before commit
                         db.session.commit()
 
                     elif self.statewide is True:
@@ -126,7 +127,7 @@ class RouteScan:
                             for group in bus_positions:
                                 for bus in group:
                                     db.session.add(bus)
-                            db.__relax__()  # disable foreign key checks before commit # todo 1 is this wise? remove?
+                            db.__relax__()  # disable foreign key checks before commit
                             db.session.commit()
 
 
