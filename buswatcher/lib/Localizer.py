@@ -14,7 +14,7 @@ from shapely.geometry import Point
 
 from . import DataBases, BusAPI
 from buswatcher.lib.RouteConfig import get_route_geometry
-from buswatcher.lib.CommonTools import timeit, get_stoplist
+from buswatcher.lib.CommonTools import timeit
 
 
 def turn_row_into_BusPosition(row):
@@ -91,7 +91,6 @@ def ckdnearest(gdA, gdB, bcol): # seems to be getting hung on on bus 5800 for so
     return df
 
 
-
 ###########################################################################
 # GET_NEAREST_STOP
 #
@@ -121,18 +120,16 @@ def get_nearest_stop(buses,route):
         return bus_positions
 
 
-    # # acquire and sort stop data in directions (ignoring services)
-    # routedata, coordinates_bundle = BusAPI.parse_xml_getRoutePoints(get_route_geometry(route))
-    #
-    # stoplist = []
-    # for rt in routedata:
-    #     for path in rt.paths:
-    #         for p in path.points:
-    #             if p.__class__.__name__ == 'Stop':
-    #                 stoplist.append(
-    #                     {'stop_id': p.identity, 'st': p.st, 'd': p.d, 'lat': p.lat, 'lon': p.lon})
-    stoplist = get_stoplist(route)
+    # acquire and sort stop data in directions (ignoring services)
+    routedata, coordinates_bundle = BusAPI.parse_xml_getRoutePoints(get_route_geometry(route))
 
+    stoplist = []
+    for rt in routedata:
+        for path in rt.paths:
+            for p in path.points:
+                if p.__class__.__name__ == 'Stop':
+                    stoplist.append(
+                        {'stop_id': p.identity, 'st': p.st, 'd': p.d, 'lat': p.lat, 'lon': p.lon})
     result = collections.defaultdict(list)
     for d in stoplist:
         result[d['d']].append(d)
