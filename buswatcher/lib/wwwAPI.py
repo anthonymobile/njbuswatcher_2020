@@ -9,6 +9,7 @@ from sqlalchemy.orm import Query
 
 import buswatcher.lib.BusAPI as BusAPI
 import buswatcher.lib.RouteConfig as RouteConfig
+from buswatcher.lib.CommonTools import timeit
 
 from buswatcher.lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
 
@@ -56,8 +57,8 @@ class RouteReport:
         self.period_labels = self.__get_period_labels()
 
         # populate live report card data
-        self.headway = self.get_headway()
-        self.bunching_badboys = self.get_bunching_badboys(period)
+        # self.headway = self.get_headway()
+        # self.bunching_badboys = self.get_bunching_badboys(period)
         self.grade, self.grade_description = self.get_grade(period)
         self.traveltime = self.get_traveltime(period)
 
@@ -147,8 +148,15 @@ class RouteReport:
 
         return query
 
+    # caclulate intervals between stop calls
+    @timeit
+    def f_timing(self,stop_df):
+        stop_df['delta'] = (stop_df['arrival_timestamp'] - stop_df['arrival_timestamp'].shift(1)).fillna(
+            0)  # calc interval between last bus for each row, fill NaNs
+        stop_df = stop_df.dropna()  # drop the NaN (probably just the first one)
+        return stop_df
 
-    def get_headway(self):
+    def get_headway(self): #todo 0 need to rethink how these statistics are caluclated. either need to use numpy or batch them every hour in the background and load them seaparately.
 
         with SQLAlchemyDBConnection() as db:
 
@@ -196,10 +204,11 @@ class RouteReport:
             # split by stop_id and calculate arrival intervals at each stop
             stop_dfs = [g for i, g in arrivals_in_completed_trips.groupby(arrivals_in_completed_trips['stop_id'].ne(arrivals_in_completed_trips['stop_id'].shift()).cumsum())]
             headways_df = pd.DataFrame()
+
+
             for stop_df in stop_dfs:  # iterate over every stop
-                stop_df['delta'] = (stop_df['arrival_timestamp'] - stop_df['arrival_timestamp'].shift(1)).fillna(0) # calc interval between last bus for each row, fill NaNs
-                stop_df=stop_df.dropna() # drop the NaN (probably just the first one)
-                headways_df = headways_df.append(stop_df)  # dump all these rows into the headways list
+                headways_df = headways_df.append(self.f_timing(stop_df))  # dump all these rows into the headways list
+
 
             # assemble the results and return
             headway = dict()
@@ -228,7 +237,7 @@ class RouteReport:
 
                 headway['hourly_table'].append((hour,mean,std))
 
-            # todo 2 average headway -- by hour, by stop
+            # to do average headway -- by hour, by stop
 
             return headway
 

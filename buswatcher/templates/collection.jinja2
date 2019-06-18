@@ -110,7 +110,6 @@
                                 <div class="card-body card-body-cascade">
                                     <!--Title-->
                                     <h5 class="card-header-title text-left">{{route}} <a href = {{ url_for('genRouteReport',collection_url=collection_metadata.collection_url,route=route, period='now') }}>
-                                    {# todo 1 fix retrieval and display of route prettyname  #}
 
                                         {% for route_2_match in route_definitions.route_definitions %}
                                             {% if route==route_2_match.route %}
