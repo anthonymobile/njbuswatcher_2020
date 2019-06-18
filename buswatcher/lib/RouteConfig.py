@@ -143,7 +143,7 @@ def fetch_update_route_geometry(): # grabs a copy of the route XML for all defin
         # print ('dumped '+r['route'] +'.xml')
     return
 
-def get_route_geometry(r): # todo 2 rewrite this to retrieve from database table as XML or JSON objects -- or fetch it from RouteReport.route_geometry
+def get_route_geometry(r): # todo 0 this is the old way of doing this, superseded by RouteScan.route_map
     infile = ('config/route_geometry/' + r +'.xml')
     with open(infile,'rb') as f:
         return f.read()

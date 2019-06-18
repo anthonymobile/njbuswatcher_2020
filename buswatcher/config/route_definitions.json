@@ -1,12 +1,12 @@
 {
-    "last_updated": "2019-06-16 22:04:09",
+    "last_updated": "2019-06-17 22:06:33",
     "ttl": "86400",
     "route_definitions": [
         {
             "description_long": "tbd.",
             "description_short": "This is a short description to be filled in later.",
             "frequency": "low",
-            "nm": "Journal Sq-Secaucus Jct",
+            "nm": "Jersey City-JournalSq-Secaucus",
             "prettyname": "Journal Sq-Secaucus Jct",
             "route": "2",
             "schedule_url": "https://www.njtransit.com/pdf/bus/T0002.pdf"
@@ -993,6 +993,556 @@
             "description_short": "",
             "frequency": "low",
             "prettyname": "Elizabeth-Woodbridge-Perth Am",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "11",
+            "nm": "Newark - Willowbrook",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Newark - Willowbrook",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "111",
+            "nm": "New York-IKEA-Jersey Gardens",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "New York-IKEA-Jersey Gardens",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "115",
+            "nm": "Rahway - New York",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Rahway - New York",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "128",
+            "nm": "North Bergen-Blvd East-NY",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "North Bergen-Blvd East-NY",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "154",
+            "nm": "Fort Lee-Palisades Park-NY",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Fort Lee-Palisades Park-NY",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "156",
+            "nm": "Englewood Cliffs-Fort Lee-NY",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Englewood Cliffs-Fort Lee-NY",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "160",
+            "nm": "Elmwood Park-Wallington-NY",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Elmwood Park-Wallington-NY",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "178",
+            "nm": "Hackensack-Englewood-NY(GWB)",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Hackensack-Englewood-NY(GWB)",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "181",
+            "nm": "Union City - New York (GWB)",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Union City - New York (GWB)",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "182",
+            "nm": "Hackensack - New York (GWB)",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Hackensack - New York (GWB)",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "186",
+            "nm": "Dumont - New York (GWB)",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Dumont - New York (GWB)",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "188",
+            "nm": "West New York-New York(GWB)",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "West New York-New York(GWB)",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "193",
+            "nm": "Willowbrook - New York",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Willowbrook - New York",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "199",
+            "nm": "Clifton-Lyndhurst-New York",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Clifton-Lyndhurst-New York",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "22",
+            "nm": "N Bergen-Union City-Hoboken",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "N Bergen-Union City-Hoboken",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "26",
+            "nm": "Irvington - Elizabeth",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Irvington - Elizabeth",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "40",
+            "nm": "Kearny - Jersey Gardens",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Kearny - Jersey Gardens",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "405",
+            "nm": "Camden-Merchantville-Cherry",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Camden-Merchantville-Cherry",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "407",
+            "nm": "Cmdn-Mrchntville-MorstwnMall",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Cmdn-Mrchntville-MorstwnMall",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "412",
+            "nm": "Sewell-Glassboro-Phila",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Sewell-Glassboro-Phila",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "455",
+            "nm": "CherryHillMall-Wdbury-Paulsb",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "CherryHillMall-Wdbury-Paulsb",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "457",
+            "nm": "Moorestown Mall - Camden",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Moorestown Mall - Camden",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "459",
+            "nm": "VoorheesTC-CamdenCC-Avandale",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "VoorheesTC-CamdenCC-Avandale",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "5",
+            "nm": "Kinney",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Kinney",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "502",
+            "nm": "Atl City-HamiltonMall-Atl/CC",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Atl City-HamiltonMall-Atl/CC",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "504",
+            "nm": "BngalwPk-ChlseaHgts-VntrPlz",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "BngalwPk-ChlseaHgts-VntrPlz",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "57",
+            "nm": "Tremley",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Tremley",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "59",
+            "nm": "Plainfield - Newark",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Plainfield - Newark",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "601",
+            "nm": "Coll of NJ-Trenton-Ham MktPl",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Coll of NJ-Trenton-Ham MktPl",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "605",
+            "nm": "Montgomery-Princeton-QBMall",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Montgomery-Princeton-QBMall",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "608",
+            "nm": "Hamilton - West Trenton",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Hamilton - West Trenton",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "609",
+            "nm": "Ewing - Quaker Bridge Mall",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Ewing - Quaker Bridge Mall",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "619",
+            "nm": "Ewing-Mercer County College",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Ewing-Mercer County College",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "624",
+            "nm": "Pennington - East Trenton",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Pennington - East Trenton",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "703",
+            "nm": "Haledon-Paterson-East Ruther",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Haledon-Paterson-East Ruther",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "704",
+            "nm": "Paterson - Willowbrook Mall",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Paterson - Willowbrook Mall",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "705",
+            "nm": "Passaic - Willowbrook Mall",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Passaic - Willowbrook Mall",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "709",
+            "nm": "Bloomfield-Passaic-Paramus",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Bloomfield-Passaic-Paramus",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "712",
+            "nm": "Hackensack-Paterson-Willowbr",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Hackensack-Paterson-Willowbr",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "748",
+            "nm": "Paterson - Wayne",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Paterson - Wayne",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "751",
+            "nm": "Paramus-Cliffside Park-Edgew",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Paramus-Cliffside Park-Edgew",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "755",
+            "nm": "Paramus-Fort Lee-Edgewater",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Paramus-Fort Lee-Edgewater",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "756",
+            "nm": "EnglewoodCliffs-FortLee-Para",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "EnglewoodCliffs-FortLee-Para",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "758",
+            "nm": "Passaic - Paramus Park",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Passaic - Paramus Park",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "76",
+            "nm": "Newark - Hackensack",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Newark - Hackensack",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "770",
+            "nm": "Paterson - Hackensack",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Paterson - Hackensack",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "780",
+            "nm": "Passaic-Hackensack-Englewood",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Passaic-Hackensack-Englewood",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "79",
+            "nm": "Newark - Parsippany Express",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Newark - Parsippany Express",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "810",
+            "nm": "New Brunswick-Woodbridge Ctr",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "New Brunswick-Woodbridge Ctr",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "813",
+            "nm": "Perth Amboy-Middlesex CC",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Perth Amboy-Middlesex CC",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "814",
+            "nm": "N Brunswick-NewBrnswck-MidCC",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "N Brunswick-NewBrnswck-MidCC",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "815",
+            "nm": "NBrnswick-EBrnswick-WdbrdgeC",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "NBrnswick-EBrnswick-WdbrdgeC",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "818",
+            "nm": "NBrnswick-EBrnswick-OldBrdg",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "NBrnswick-EBrnswick-OldBrdg",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "832",
+            "nm": "Red Bank-MonMall-Asbury Prk",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Red Bank-MonMall-Asbury Prk",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "94",
+            "nm": "Stuyvesant Crosstown",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Stuyvesant Crosstown",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
         }
     ]
