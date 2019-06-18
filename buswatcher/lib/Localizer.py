@@ -12,7 +12,7 @@ import geopandas
 from scipy.spatial import cKDTree
 from shapely.geometry import Point
 
-from . import DataBases, BusAPI
+from . import DataBases, BusAPI, RouteConfig
 
 from buswatcher.lib.CommonTools import timeit
 
@@ -114,7 +114,11 @@ def get_nearest_stop(route_map_xml,buses,route):
 
     # acquire and sort stop data in directions (ignoring services)
     # routedata, coordinates_bundle = BusAPI.parse_xml_getRoutePoints(get_route_geometry(route))
-    routedata, coordinates_bundle = BusAPI.parse_xml_getRoutePoints(route_map_xml['xml']) # todo 0 debug -- this isn't loading some xmls because they arent in route_definitins.json
+    if route_map_xml is None:
+        route_map_xml=dict()
+        route_map_xml['xml'] = RouteConfig.get_route_geometry(route)
+
+    routedata, coordinates_bundle = BusAPI.parse_xml_getRoutePoints(route_map_xml['xml'])
 
     stoplist = []
     for rt in routedata:
