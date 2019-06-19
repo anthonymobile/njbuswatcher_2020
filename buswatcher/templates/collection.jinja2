@@ -77,7 +77,7 @@
                 <div class="row mb-4 wow fadeIn">
                     <!--Grid column-->
                     <div class="col-lg-12 col-md-12 mb-4 ">
-                        <h1 class="mb-4"><strong>{{ collection_metadata.city_name}}'s buses buses are performing *TKstatic above average* today.</strong></h1>
+                        <h1 class="mb-4"><strong>{{ collection_metadata.city_name}} has {{ collection_metadata.number_of_active_vehicles}} buses serving {{ collection_metadata.number_of_active_routes}} routes right now.</strong></h1>
                         <h4 class="mb-4 text-left">
                             <strong>{{ collection_metadata.description_short }}</strong>
                         </h4>
@@ -129,7 +129,7 @@
                         </div>
                         <!--Grid column-->
 
-                            <div class="col-lg-2 col-md-12 mb-4">
+                            <!-- <div class="col-lg-2 col-md-12 mb-4">
                                 <div class="card card-cascade narrower">
                                     <div class="card-body card-body-cascade">
                                         <h5 class="card-header-title text-left">A
@@ -137,6 +137,7 @@
                                     </div>
                                 </div>
                             </div>
+                            -->
                     {% endfor %}
 
                     </div>

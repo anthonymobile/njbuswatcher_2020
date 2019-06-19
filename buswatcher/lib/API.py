@@ -7,8 +7,7 @@ import buswatcher.lib.BusAPI as BusAPI
 from buswatcher.lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
 from buswatcher.lib.RouteConfig import get_route_geometry
 
-# from sqlalchemy import func
-# from sqlalchemy.sql.expression import and_
+from buswatcher.lib.CommonTools import timeit
 
 # concatenate a list of geojson featurecollections into 1 -- per https://github.com/batpad/merge-geojson
 def fc_concat(fc_list):
@@ -23,7 +22,7 @@ def fc_concat(fc_list):
     return fc
 
 # on-the-fly-GEOJSON-encoder
-def positions2geojson(df):
+def __positions2geojson(df):
     features = []
     df.apply(lambda X: features.append(
             geojson.Feature(geometry=geojson.Point((X["lon"],
@@ -40,31 +39,6 @@ def positions2geojson(df):
                 )
                 , axis = 1)
     return geojson.FeatureCollection(features)
-
-
-# positions
-def get_positions_byargs(args, route_definitions, collection_descriptions):
-
-    if 'rt' in args.keys():
-        if args['rt'] == 'all':
-            positions_list = pd.DataFrame()
-            for r in route_definitions['route_definitions']:
-                positions_list = positions_list.append(_fetch_positions_df(r['route']))
-                # positions_list.append(positions_df)
-            return positions2geojson(positions_list)
-        else:
-            return positions2geojson(_fetch_positions_df(args['rt']))
-
-    elif 'collection' in args.keys():
-        positions_list = pd.DataFrame()
-        for city in collection_descriptions:
-            if args['collection'] == city['collection']:
-                # iterate over its routelist
-                for r in city['routelist']:
-                    positions_list = positions_list.append(_fetch_positions_df(r))
-                    # positions_list.append(positions_df)
-                return positions2geojson(positions_list)
-
 
 def _fetch_positions_df(route):
     positions = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data('nj', 'buses_for_route', route=route))
@@ -84,9 +58,42 @@ def _fetch_positions_df(route):
         pass
     return positions_log # returns a dataframe
 
+def _fetch_layers_json(route):
+    # routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data('nj', 'routes', route=route))
+    routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(get_route_geometry(route))
+    waypoints_feature = json.loads(coordinate_bundle['waypoints_geojson'])
+    waypoints_feature = geojson.Feature(geometry=waypoints_feature)
+    stops_feature = json.loads(coordinate_bundle['stops_geojson'])
+    stops_feature = geojson.Feature(geometry=stops_feature)
+    return waypoints_feature, stops_feature
 
-# get geoJSON for citywide map
-def get_map_layers(args, route_definitions,collection_descriptions):
+# positions
+
+def get_positions_byargs(args, route_definitions, collection_descriptions):
+
+    if 'rt' in args.keys():
+        if args['rt'] == 'all': # todo 0 speed this up for index map takes about 15 seconds for statewide -- probably means removing pandas from _fetch_positions_df, __positions2geojson by writing a new class
+            positions_list = pd.DataFrame()
+            for r in route_definitions['route_definitions']:
+                positions_list = positions_list.append(_fetch_positions_df(r['route']))
+
+            return __positions2geojson(positions_list)
+        else:
+            return __positions2geojson(_fetch_positions_df(args['rt']))
+
+    elif 'collection' in args.keys():
+        positions_list = pd.DataFrame()
+        for city in collection_descriptions:
+            if args['collection'] == city['collection']:
+                # iterate over its routelist
+                for r in city['routelist']:
+                    positions_list = positions_list.append(_fetch_positions_df(r))
+                    # positions_list.append(positions_df)
+                return __positions2geojson(positions_list)
+
+
+# get geoJSON for collection map
+def get_map_layers(args, route_definitions, collection_descriptions):
     # if we only want a single stop geojson
     if 'stop_id' in args.keys():
         # query the db and grab the lat lon for the first record that stop_id matches this one
@@ -137,11 +144,3 @@ def get_map_layers(args, route_definitions,collection_descriptions):
         stops_featurecollection = geojson.FeatureCollection(stops)
         return stops_featurecollection
 
-def _fetch_layers_json(route):
-    # routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data('nj', 'routes', route=route))
-    routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(get_route_geometry(route))
-    waypoints_feature = json.loads(coordinate_bundle['waypoints_geojson'])
-    waypoints_feature = geojson.Feature(geometry=waypoints_feature)
-    stops_feature = json.loads(coordinate_bundle['stops_geojson'])
-    stops_feature = geojson.Feature(geometry=stops_feature)
-    return waypoints_feature, stops_feature

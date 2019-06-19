@@ -7,24 +7,35 @@ var map = new mapboxgl.Map({
 });
 
 
-// zoom implemented using https://stackoverflow.com/questions/49354133/turf-js-to-find-bounding-box-of-data-loaded-with-mapbox-gl-js
-
-
-// e.g.
-// var url_waypoints = ("/api/v1/maps?layer=waypoints&rt="+passed_route);
-// for index, just set passed_route = "all" in the HTML
-
-// var url_waypoints = ("/api/v1/maps?layer=waypoints&rt=all");
-// var url_stops = ("/api/v1/maps?layer=stops&rt=all");
-// var url_vehicles = ("/api/v1/maps?layer=vehicles&rt=all");
-
 var url_waypoints = ("/api/v1/maps?layer=waypoints&collection="+collection_metadata['collection_url']);
-var url_stops = ("/api/v1/maps?layer=stops&collection="+collection_metadata['collection_url']);
 var url_vehicles = ("/api/v1/maps?layer=vehicles&collection="+collection_metadata['collection_url']);
 
 map.on('load', function() {
 
-    $.getJSON(url_waypoints, (geojson) => {
+
+    $.getJSON(url_vehicles, (geojson) => {
+        map.addSource('vehicles_source', {
+            type: 'geojson',
+            data: geojson
+        });
+        /* map.fitBounds(turf.bbox(geojson), {padding: 20}); */
+
+        map.addLayer({
+            "id": "vehicles",
+            "type": "circle",
+            "source": "vehicles_source",
+            "paint": {
+                "circle-radius": 4,
+                "circle-opacity": 1,
+                "circle-stroke-width": 3,
+                "circle-stroke-color": "#f6c"
+            }
+         })
+        ;
+
+    });
+
+        $.getJSON(url_waypoints, (geojson) => {
         map.addSource('waypoints_source', {
             type: 'geojson',
             data: geojson
@@ -43,48 +54,9 @@ map.on('load', function() {
         });
     });
 
-    $.getJSON(url_stops, (geojson) => {
-        map.addSource('stops_source', {
-            type: 'geojson',
-            data: geojson
-        });
-        map.fitBounds(turf.bbox(geojson), {padding: 20});
-
-        map.addLayer({
-            "id": "route",
-            "type": "line",
-            "source": "stops_source",
-            "paint": {
-                "line-color": "blue",
-                "line-opacity": 0.75,
-                "line-width": 3
-            }
-        },"vehicles"); // to do fix layer order -- layer to add before
-    });
-
-
-    $.getJSON(url_vehicles, (geojson) => {
-        map.addSource('vehicles_source', {
-            type: 'geojson',
-            data: geojson
-        });
-        map.fitBounds(turf.bbox(geojson), {padding: 20});
-
-        map.addLayer({
-            "id": "vehicles",
-            "type": "circle",
-            "source": "vehicles_source",
-            "paint": {
-                "circle-radius": 4,
-                "circle-opacity": 1,
-                "circle-stroke-width": 3,
-                "circle-stroke-color": "#f6c"
-            }
-         },"stops") // to do fix layer order -- layer to add before
-        ;
-
-    })
-
+        window.setInterval(function() {
+        map.getSource('vehicles_source').setData(url_vehicles);
+        }, 5000)
 
 });
 

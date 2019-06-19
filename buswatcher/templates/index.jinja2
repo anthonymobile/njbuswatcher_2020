@@ -38,11 +38,11 @@ if you want to use this as an advocacy tool it may be useful to expose a ranking
     <link href="{{ url_for('static', filename='mdb/css/style.min.css')}}" rel="stylesheet">
 
 
-    <script type="text/javascript">
-        var passed_reportcard_routes = {{ route_definitions|safe }}
-        var passed_route = "all"
+    <!-- <script type="text/javascript">
+        var passed_v_geojson = {{ v_geojson|safe }}
     </script>
-    <script type="text/javascript" src="{{ url_for('static', filename='maps/busmap-index.js')}}"></script>
+    -->
+    <script type="text/javascript" src="{{ url_for('static', filename='maps/busmap_index.js')}}"></script>
 
     <!-- zoom to extent stuff -->
     <script src='https://api.mapbox.com/mapbox.js/plugins/turf/v3.0.11/turf.min.js'></script>
