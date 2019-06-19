@@ -6,8 +6,9 @@ var map = new mapboxgl.Map({
     zoom: 7 // starting zoom
 });
 
-var url_waypoints = ("/api/v1/maps?layer=waypoints&rt="+passed_route);
-var url_vehicles = ("/api/v1/maps?layer=vehicles&rt="+passed_route);
+
+var url_waypoints = ("/api/v1/maps?layer=waypoints&collection="+collection_metadata['collection_url']);
+var url_vehicles = ("/api/v1/maps?layer=vehicles&collection="+collection_metadata['collection_url']);
 
 map.on('load', function() {
 
@@ -17,7 +18,7 @@ map.on('load', function() {
             type: 'geojson',
             data: geojson
         });
-        /* map.fitBounds(turf.bbox(geojson), {padding: 20}); */
+        map.fitBounds(turf.bbox(geojson), {padding: 20});
 
         map.addLayer({
             "id": "vehicles",
@@ -29,7 +30,7 @@ map.on('load', function() {
                 "circle-stroke-width": 3,
                 "circle-stroke-color": "#f6c"
             }
-         })
+         }) // todo 0 fix layer order -- layer to add before
         ;
 
     });
@@ -39,7 +40,7 @@ map.on('load', function() {
             type: 'geojson',
             data: geojson
         });
-        map.fitBounds(turf.bbox(geojson), {padding: 50});
+        map.fitBounds(turf.bbox(geojson), {padding: 20});
 
         map.addLayer({
             "id": "route",
@@ -51,14 +52,11 @@ map.on('load', function() {
                 "line-width": 3
             }
         });
-    });
-
-        window.setInterval(function() {
-        map.getSource('vehicles_source').setData(url_vehicles);
-        }, 5000)
-
+    })
 });
 
+// map.moveLayer("stops","waypoints");
+// map.moveLayer("vehicles","stops");
 
 map.addControl(new mapboxgl.NavigationControl());
 

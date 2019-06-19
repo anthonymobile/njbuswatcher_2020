@@ -103,7 +103,9 @@ def load_collection_routes(collection_url):
 #-------------------------------------------------------------Statewide Index
 @app.route('/')
 def displayIndex():
-    d1, d2, collection_descriptions = load_config()
+
+    route_d, grade_d, collection_d = load_config()
+
     routereport = Dummy() # setup a dummy routereport for the navbar
     return render_template('index.jinja2', collection_descriptions=collection_descriptions, route_definitions=route_definitions, routereport=routereport)
 
@@ -112,6 +114,8 @@ def displayIndex():
 @app.route('/<collection_url>')
 def displayCollection(collection_url):
     collection_metadata=load_collection_routes(collection_url)
+    collection_metadata['number_of_active_vehicles']='13' # todo 0 fetch this from ? lib.API
+    collection_metadata['number_of_active_routes']='4' # todo 0 fetch this from ? lib.API
     routereport = Dummy()  # setup a dummy routereport for the navbar
     return render_template('collection.jinja2',collection_metadata=collection_metadata, route_definitions=route_definitions, routereport=routereport)
 
