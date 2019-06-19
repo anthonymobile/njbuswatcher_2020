@@ -6,17 +6,44 @@ from sqlalchemy import func
 import buswatcher.lib.BusAPI as BusAPI
 import buswatcher.lib.RouteConfig as RouteConfig
 from buswatcher.lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
+from buswatcher.lib.CommonTools import timeit
 
+class TransitSystem:
 
-class NJTransitSystem:
-
+    @timeit
     def __init__(self):
 
         # load the basics
         self.route_definitions, self.grade_descriptions, self.collection_descriptions = RouteConfig.load_config()
 
         # load the route table
-        self.route_geometries = [({'route':r['route'],'xml':RouteConfig.get_route_geometry(r['route'])}) for r in self.route_definitions['route_definitions']]
+        self.route_geometries_local = [({'route':r['route'],'xml':RouteConfig.get_route_geometry(r['route'])}) for r in self.route_definitions['route_definitions']]
+
+        print ('fetching route geometry XML from NJTransit')
+        # fetch the route tables from NJT API
+        self.route_geometries_remote=dict()
+
+        for r in self.route_definitions['route_definitions']:
+            try:
+                self.route_geometries_remote[r['route']]=BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data('nj','routes',route=r['route']))
+            except:
+                pass
+
+        #method to return geojson -- stops, waypoints -- for a specific route
+        def render_geojson(self,**kwargs):
+            kwargs['rt']
+            kwargs['layer']
+            return
+
+        # todo 0 FUNCTIONS TO MOVE INTO TransitSystem class as a Method, or replace
+        # RouteReport.__get_stoplist(route)
+        # API.__fetch_layers_json
+        # API.get_map_layers
+        # RouteConfig.maintenance_check
+        # RouteConfig.load_config
+        # RouteConfig.get_route_geometry
+        # ? RouteConfig.fetch_update_route_metadata
+
 
 
 class RouteReport:
@@ -98,7 +125,7 @@ class RouteReport:
 
         return trip_list, trip_list_trip_id_only
 
-    def __get_stoplist(self):
+    def __get_stoplist(self): #todo move to TransitSystem
         routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(self.route_geometry)
         # routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=self.route))
         route_stop_list = []

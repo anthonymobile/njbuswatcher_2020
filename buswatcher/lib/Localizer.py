@@ -14,8 +14,6 @@ from shapely.geometry import Point
 
 from . import DataBases, BusAPI, RouteConfig
 
-from buswatcher.lib.CommonTools import timeit
-
 
 def turn_row_into_BusPosition(row):
 
