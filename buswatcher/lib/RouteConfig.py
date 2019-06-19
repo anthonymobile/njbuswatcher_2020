@@ -9,12 +9,16 @@ from datetime import datetime, timedelta
 from buswatcher.lib.CommonTools import timeit
 
 def load_config():
+
     with open('config/grade_descriptions.json') as f:
         grade_descriptions = json.load(f)['grade_descriptions']
+
     with open('config/route_definitions.json') as f:
         route_definitions = json.load(f)
+
     with open('config/collection_descriptions.json') as f:
         collection_descriptions = json.load(f)['collection_descriptions']
+
     return route_definitions, grade_descriptions, collection_descriptions
 
 def maintenance_check():
