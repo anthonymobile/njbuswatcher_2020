@@ -50,6 +50,7 @@ class RouteReport:
 
         # populate live report card data
         self.bunching_badboys = self.get_bunching_badboys()
+        # self.bunching_badboys = generator.fetch_bunching_report(RouteReport)
         self.grade, self.grade_description = self.get_grade()
 
         # FUTURE
@@ -178,8 +179,6 @@ class RouteReport:
 
     def get_bunching_badboys(self):
 
-        # todo 1 replace this placeholder with a query that grabs the JSON bunching report created by generator.py for this (route, period) from the database
-
         bunching_badboys = dict()
         bunching_badboys['flag'] = True
         bunching_badboys['label'] = 'a lot'
@@ -192,11 +191,27 @@ class RouteReport:
 
     def get_grade(self): # todo 1 finish route grade metric
 
-        # todo 1 LAUNCH -- based on # of bunching incidents
+        # todo 0 -- based on # of bunching incidents
         # and B. number of bunching incidents
+
+
+        # LOAD THE GRADE DESCRIPTION
+
+        # method1
+        # grade_description = next((item for item in self.grade_descriptions if item["grade"] == grade), None)
+
+        # method2
+        # grade_description2 = list(filter(lambda letter: letter['grade'] == grade, self.grade_descriptions))
+
+        # method3
+        # for letter in self.grade_descriptions:
+        #     try letter['grade'] == grade:
+        #         grade_description = letter['description']
+        #     else:
+        #         grade_description = 'No grade description available.'
+
         grade = 'B'
-        # todo 1 read from self.grade_descriptions
-        grade_description = 'Service meets the needs of riders some of the time, but suffers from serious shortcomings and gaps. Focused action is required to improve service in the near-term.'
+        grade_description = "This isn't working."
         return grade, grade_description
 
         # FUTURE -- based on average headway standard deviation
@@ -387,7 +402,4 @@ class StopReport:
 
         return results
 
-    # todo 1 write stop get_arrivals arrivals dashboard
-    # todo 1 write stop get_frequency_report
-    # to do 2 write stop get_travel_time metric
-    # to do 2 write stop get_grade metric
+

@@ -14,9 +14,11 @@ from buswatcher.lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, 
 from buswatcher.lib.RouteConfig import load_config
 from buswatcher.lib.CommonTools import timeit
 
+# todo 0 refactor all the CPU-intensive tasks for wwwAPI.RouteReport and StopReport in here
 
-def generate_bunching_report(route): # todo 1 finish route bunching metric, with most of this moved to generator, and the bunching reports grabbed from JSON tables in the database
+def generate_bunching_report(RouteReport):
 
+    # TO DO THIS OUTPUTS TO a table of JSON in the db
 
     #
     # check if bunching leaderboard is current
@@ -119,8 +121,7 @@ def generate_bunching_report(route): # todo 1 finish route bunching metric, with
 #
 #
 # def get_headway(
-#         self):  # todo 0 need to rethink how these statistics are caluclated. either need to use numpy or batch them every hour in the background and load them seaparately.
-#
+#         self):
 #     with SQLAlchemyDBConnection() as db:
 #
 #         # build the query
@@ -137,8 +138,7 @@ def generate_bunching_report(route): # todo 1 finish route bunching metric, with
 #
 #         # add the period
 #         query = self.__query_factory(db, query,
-#                                      period=self.period)  # todo fix __query factory -- look at other bigdate filters like wwwAPI.get_traveltime -- for some reason the date filters aren't working (e.g. > :date_1)
-#
+#                                      period=self.period)
 #         # # add extra filters -- EXCLUDES current trips
 #         # query=query\
 #         #     .filter(ScheduledStop.trip_id.notin_(trips_on_road_now))\
@@ -187,7 +187,7 @@ def generate_bunching_report(route): # todo 1 finish route bunching metric, with
 #
 #         for hourly_arrivals in hourly_arrival_groups:
 #             df_hourly_arrivals = hourly_arrivals[1]  # grab the df from the tuple
-#             hour = datetime.time(7)  # todo 1 make dynamic with the actual hour
+#             hour = datetime.time(7)
 #
 #             # try this https://stackoverflow.com/questions/45239742/aggregations-for-timedelta-values-in-the-python-dataframe
 #             mean = df_hourly_arrivals.delta.mean(numeric_only=False)
@@ -204,7 +204,7 @@ def generate_bunching_report(route): # todo 1 finish route bunching metric, with
 #         return headway
 #
 #
-# def get_traveltime(self, period):  # todo 1 write and test get_traveltime using new query_factory
+# def get_traveltime(self, period):
 #
 #     with SQLAlchemyDBConnection() as db:
 #         traveltime = dict()
@@ -225,7 +225,7 @@ def generate_bunching_report(route): # todo 1 finish route bunching metric, with
 #         #                          ScheduledStop.stop_name,
 #         #                          ScheduledStop.arrival_timestamp)
 #         #             .filter(ScheduledStop.arrival_timestamp != None)
-#         #             # todo 0 last hour doesnt work
+#         #             # to dolast hour doesnt work
 #         #             .filter(func.date(ScheduledStop.arrival_timestamp) > one_hour_ago)
 #         #             .filter(ScheduledStop.trip_id.notin_(trips_on_road_now))
 #         #             .order_by(ScheduledStop.trip_id.asc())
@@ -300,6 +300,9 @@ def generate_bunching_report(route): # todo 1 finish route bunching metric, with
 #     def class_method(self):
 #
 #         return
+
+def fetch_bunching_report(RouteReport):
+
 
 @timeit # only need to isolate this in a function so we can timeit
 def main_loop():
