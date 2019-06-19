@@ -7,8 +7,6 @@ import buswatcher.lib.BusAPI as BusAPI
 from buswatcher.lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
 from buswatcher.lib.RouteConfig import get_route_geometry
 
-from buswatcher.lib.CommonTools import timeit
-
 # concatenate a list of geojson featurecollections into 1 -- per https://github.com/batpad/merge-geojson
 def fc_concat(fc_list):
     fc = {

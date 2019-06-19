@@ -47,7 +47,7 @@ class RouteScan:
             self.assign_positions()
 
     def filter_system_map_xml(self):
-        for route in self.system_map_xml.route_geometries:
+        for route in self.system_map_xml.route_geometries_local:
             if route['route'] == self.route:
                 return route
             else:
@@ -316,7 +316,7 @@ class RouteScan:
 @timeit # only need to isolate this in a function so we can timeit
 def main_loop():
 
-    system_map_xml = wwwAPI.NJTransitSystem()
+    system_map_xml = wwwAPI.TransitSystem()
     if args.statewide is False:
         for c in collection_descriptions:
             for r in c['routelist']:

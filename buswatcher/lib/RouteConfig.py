@@ -10,13 +10,13 @@ from buswatcher.lib.CommonTools import timeit
 
 def load_config():
 
-    with open('config/grade_descriptions.json') as f:
+    with open('config/grade_descriptions.json') as f: #todo 0 this should load the grade_descriptions as a dict, not a list (restructure grade_description.json) and rewrite everything that references it
         grade_descriptions = json.load(f)['grade_descriptions']
 
     with open('config/route_definitions.json') as f:
         route_definitions = json.load(f)
 
-    with open('config/collection_descriptions.json') as f:
+    with open('config/collection_descriptions.json') as f: #todo 0 this should load the collections as a dict, not a list (restructure collection_description.json) and rewrite everything that references it
         collection_descriptions = json.load(f)['collection_descriptions']
 
     return route_definitions, grade_descriptions, collection_descriptions
