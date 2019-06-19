@@ -1,14 +1,4 @@
-{# todo 0 finish route page layout -- rethink with fewer, simpler route metrics.
-
-    - row 3
-        - left = hourly table summarizing **Average Headway.**
-        - right = hourly table summarizing **Average Travel Time.**
-        - borrow code from current `main` branch
-    - row 4
-        - buses on 'On the Road Now'
-        - keep code in current template
-
-#}
+{# todo 0 finish route page layout -- get it up and running and add metrics as time permits. #}
 
 
 
@@ -208,10 +198,10 @@
                                         <!--Card content-->
                                         <div class="card-body">
                                             <!--Title-->
-                                            <h4 class="card-title">Headway</h4>
+                                            <h4 class="card-title">Something</h4>
 
-                                            <h4 class="card-title">Buses are running every {{routereport.headway['period_mean']}} minutes. </h4>
-                                            <p>The standard deviation across all stops is {{routereport.headway['period_std']}} giving you a sense of how universal that figure is. Click here to find out how we calculate <strong>average headway</strong>.</p>
+                                            <h4 class="card-title">This used to be for headway. Now its for something else like the current time.</h4>
+                                            <p>I could say something else here.</strong>.</p>
 
 
                                         </div>
@@ -222,11 +212,7 @@
                                     <!--Card-->
                                     <div class="card mt-4">
 
-                                    {% if routereport.traveltime['label'] != 'below' %}
-                                    <div class="card-body table-danger">
-                                    {% else %}
                                     <div class="card-body table-success">
-                                    {% endif %}
 
                                         <!--Card image-->
                                         <!--
@@ -240,7 +226,7 @@
                                         <!--Card content-->
 
                                             <!--Title-->
-                                            <h4 class="card-title">Average travel time today is {{routereport.traveltime['time']}}.</h4>
+                                            <h4 class="card-title">This used to be for travel time.</h4>
 
                                             That's how long it takes buses on Route {{routereport.route}} to get from one end to the other.
 
