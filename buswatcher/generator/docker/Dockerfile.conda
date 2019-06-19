@@ -6,7 +6,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN conda update -n base -c defaults conda
 
-# get environment from reportcard folder
+# get environment from buswatcher folder
 ADD ./buswatcher/docker/environment.yml /tmp/environment.yml
 RUN conda env create -f /tmp/environment.yml
 
@@ -23,4 +23,4 @@ COPY . ./buswatcher
 COPY ./buswatcher/docker/DBconfig.py ./buswatcher/buswatcher/lib/DBconfig.py
 
 
-CMD ["/opt/conda/envs/buswatcher/bin/python", "/buswatcher/buswatcher/tripwatcher.py", "-s", "nj"]
+CMD ["/opt/conda/envs/buswatcher/bin/python", "/buswatcher/buswatcher/generator.py", "-s", "nj"]
