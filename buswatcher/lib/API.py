@@ -72,7 +72,7 @@ def _fetch_layers_json(route):
 def get_positions_byargs(args, route_definitions, collection_descriptions):
 
     if 'rt' in args.keys():
-        if args['rt'] == 'all': # todo 0 speed this up for index map takes about 15 seconds for statewide -- probably means removing pandas from _fetch_positions_df, __positions2geojson by writing a new class
+        if args['rt'] == 'all': # todo 2 speed this up for index map takes about 15 seconds for statewide -- probably means removing pandas from _fetch_positions_df, __positions2geojson by writing a new class
             positions_list = pd.DataFrame()
             for r in route_definitions['route_definitions']:
                 positions_list = positions_list.append(_fetch_positions_df(r['route']))
