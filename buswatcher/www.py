@@ -114,8 +114,15 @@ def displayIndex():
 @app.route('/<collection_url>')
 def displayCollection(collection_url):
     collection_metadata=load_collection_routes(collection_url)
-    collection_metadata['number_of_active_vehicles']='13' # todo 0 fetch this from ? lib.API
-    collection_metadata['number_of_active_routes']='4' # todo 0 fetch this from ? lib.API
+    collection_metadata['number_of_active_vehicles']='13'
+
+    # todo 2 better to find a less latency way to do this (with a db query)
+    vehicles_now = API.get_positions_byargs({'collection': collection_url, 'layer': 'vehicles'}, route_definitions,
+                             collection_descriptions)
+    collection_metadata['number_of_active_vehicles'] = len(vehicles_now['features'])
+    collection_metadata['number_of_active_routes'] = len (collection_metadata['routelist'])
+
+
     routereport = Dummy()  # setup a dummy routereport for the navbar
     return render_template('collection.jinja2',collection_metadata=collection_metadata, route_definitions=route_definitions, routereport=routereport)
 
