@@ -1,5 +1,5 @@
 {
-  "collection_descriptions": [
+  "camden":
     {
       "collection": "camden",
       "collection_url": "camden",
@@ -16,7 +16,7 @@
       "description_short": "A short city description for titles and taglines.",
       "description_long": "A longer city description that says something about the city and the system that serves it. Can contain a link to a petition or other local organizing effort. A longer city description that says something about the city and the system that serves it. Can contain a link to a petition or other local organizing effort."
     },
-    {
+   "jerseycity": {
       "collection": "jerseycity",
       "collection_url": "jerseycity",
       "city_name": "Jersey City",
@@ -43,7 +43,7 @@
       "description_short": "A short city description for titles and taglines.",
       "description_long": "A longer city description that says something about the city and the system that serves it. Can contain a link to a petition or other local organizing effort. A longer city description that says something about the city and the system that serves it. Can contain a link to a petition or other local organizing effort."
     },
-    {
+    "newark": {
       "collection": "newark",
       "collection_url": "newark",
       "city_name": "Newark",
@@ -76,5 +76,4 @@
       "description_short": "A short city description for titles and taglines.",
       "description_long": "A longer city description that says something about the city and the system that serves it. Can contain a link to a petition or other local organizing effort. A longer city description that says something about the city and the system that serves it. Can contain a link to a petition or other local organizing effort."
     }
-  ]
 }

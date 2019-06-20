@@ -14,19 +14,19 @@ from pymysql import IntegrityError
 
 from buswatcher.lib import BusAPI, Localizer, wwwAPI
 from buswatcher.lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
-from buswatcher.lib.RouteConfig import load_config,maintenance_check, fetch_update_route_metadata
+from buswatcher.lib.RouteConfig import load_system_map, maintenance_check
 from buswatcher.lib.CommonTools import timeit
 
 class RouteScan:
 
     # @timeit
-    def __init__(self, route, statewide,system_map_xml):
+    def __init__(self, route, statewide):
 
         # apply passed parameters to instance
         self.route = route
         self.statewide = statewide
-        self.system_map_xml = system_map_xml
-        self.route_map_xml = self.filter_system_map_xml()
+        # self.system_map_xml = system_map_xml
+        # self.route_map_xml = self.filter_system_map_xml()
 
         # create database connectio
         self.db = SQLAlchemyDBConnection()
@@ -36,7 +36,8 @@ class RouteScan:
         self.trip_list = []
 
         #  populate route basics from config
-        self.route_definitions, self.grade_descriptions, self.collection_descriptions = load_config()
+        system_map=load_system_map()
+
 
         # generate scan data and results
         with SQLAlchemyDBConnection() as self.db:
@@ -46,12 +47,12 @@ class RouteScan:
             self.interpolate_missed_stops()
             self.assign_positions()
 
-    def filter_system_map_xml(self):
-        for route in self.system_map_xml.route_geometries_local:
-            if route['route'] == self.route:
-                return route
-            else:
-                continue
+    # def filter_system_map_xml(self):
+    #     for route in self.system_map_xml.route_geometries_local:
+    #         if route['route'] == self.route:
+    #             return route
+    #         else:
+    #             continue
 
     def fetch_positions(self):
 
@@ -314,25 +315,24 @@ class RouteScan:
         return
 
 @timeit # only need to isolate this in a function so we can timeit
-def main_loop():
+def main_loop(system_map):
 
-    system_map_xml = wwwAPI.TransitSystem()
     if args.statewide is False:
-        for c in collection_descriptions:
+        for c in system_map.collection_descriptions:
             for r in c['routelist']:
-                scan = RouteScan(r, args.statewide,system_map_xml)
-            print()
+                RouteScan(r, args.statewide)
     elif args.statewide is True:
-        scan = RouteScan(0, args.statewide,system_map_xml)
-    return scan
+        RouteScan(0, args.statewide)
+    return
 
 if __name__ == "__main__":
 
-    # maintenance check
-    maintenance_check()
+    system_map=load_system_map()
+    # route_definitions, grade_descriptions, collection_descriptions = load_config()
+    # route_definitions = route_definitions['route_definitions'] # ignore the ttl, last_updated key:value pairs
 
-    route_definitions, grade_descriptions, collection_descriptions = load_config()
-    route_definitions = route_definitions['route_definitions'] # ignore the ttl, last_updated key:value pairs
+    # maintenance check
+    maintenance_check(system_map)
 
     parser = argparse.ArgumentParser()
     parser.add_argument('-s', '--statewide', dest='statewide', action='store_true', help='Watch all active routes in NJ. (requires lots of CPU).')
@@ -347,7 +347,7 @@ if __name__ == "__main__":
     time_start=time.monotonic()
 
     while True:
-        scan = main_loop()
+        scan = main_loop(system_map)
         print('***sleeping***')
         time.sleep(run_frequency - ((time.monotonic() - time_start) % 60.0))  # sleep remainder of the 60 second loop
 

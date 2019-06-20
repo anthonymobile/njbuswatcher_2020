@@ -1,0 +1,4229 @@
+<?xml version="1.0"?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<route>
+		<id>10</id> 
+		<rtpiFeedName></rtpiFeedName>
+		<sn>10</sn> 
+		<nm>10 Bayonne - Jersey City</nm> 
+		<displayDesignator>10</displayDesignator> 
+		<vmode>1</vmode>   
+		
+		<sbs>
+
+
+
+		</sbs>
+
+		<c>#cc6633</c>
+
+		<pas>
+
+
+			<pa>
+				<id>1202</id>
+
+				<d>Jersey City</d> 
+				<dd>Jersey City</dd>  
+				<directionRtpiFeedName></directionRtpiFeedName>
+
+				<pt>
+					<lat>40.648720000001276</lat>
+			        <lon>-74.13762000000001</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20383</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + 3RD ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.64902</lat>
+			        <lon>-74.13742</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.65029</lat>
+			        <lon>-74.13635</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.650412</lat>
+			        <lon>-74.136175</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.650520000000675</lat>
+			        <lon>-74.13601999999969</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20384</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + 4TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.650863</lat>
+			        <lon>-74.135877</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.65124</lat>
+			        <lon>-74.1356</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.6515</lat>
+			        <lon>-74.13547</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.65271</lat>
+			        <lon>-74.13519</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.652878</lat>
+			        <lon>-74.135106</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.65296999999979</lat>
+			        <lon>-74.13506000000015</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>31594</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + W 7TH STREET</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.65324</lat>
+			        <lon>-74.13499</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.65416</lat>
+			        <lon>-74.13392</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.65454</lat>
+			        <lon>-74.1334</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.65469</lat>
+			        <lon>-74.13309</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.65484</lat>
+			        <lon>-74.13259</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.65493</lat>
+			        <lon>-74.13245</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.65608</lat>
+			        <lon>-74.13148</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.656352</lat>
+			        <lon>-74.13117</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.65636999999964</lat>
+			        <lon>-74.1311500000001</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20385</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + 8TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.65662</lat>
+			        <lon>-74.13099</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.65743</lat>
+			        <lon>-74.13032</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.657709</lat>
+			        <lon>-74.130021</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.65771999999881</lat>
+			        <lon>-74.13000999999927</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20386</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + 10TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.65797</lat>
+			        <lon>-74.12987</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.65845</lat>
+			        <lon>-74.12943</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.65859000000077</lat>
+			        <lon>-74.12928000000026</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20387</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + 12TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.65885</lat>
+			        <lon>-74.12913</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.65977</lat>
+			        <lon>-74.12835</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.660042</lat>
+			        <lon>-74.12804</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.66005999999978</lat>
+			        <lon>-74.12801999999898</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20388</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + 14TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.66032</lat>
+			        <lon>-74.12788</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.66136</lat>
+			        <lon>-74.127</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.661492</lat>
+			        <lon>-74.126839</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.661590000000395</lat>
+			        <lon>-74.12672000000131</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20389</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + 16TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.66186</lat>
+			        <lon>-74.12658</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.662688</lat>
+			        <lon>-74.125845</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.662769999999796</lat>
+			        <lon>-74.1257700000009</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20390</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + ANDREW ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.6637</lat>
+			        <lon>-74.125</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.663826</lat>
+			        <lon>-74.124831</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.663909999998836</lat>
+			        <lon>-74.12472000000092</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20391</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + 19TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.66416</lat>
+			        <lon>-74.12458</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.66486</lat>
+			        <lon>-74.12399</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.664985</lat>
+			        <lon>-74.123819</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.665050000001294</lat>
+			        <lon>-74.12372999999874</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20392</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + 21ST ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.66531</lat>
+			        <lon>-74.12361</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.666371</lat>
+			        <lon>-74.122673</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.666500000000596</lat>
+			        <lon>-74.12254000000094</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20393</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + 23RD ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.66941</lat>
+			        <lon>-74.12016</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.669541</lat>
+			        <lon>-74.119997</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.66965000000122</lat>
+			        <lon>-74.11986000000063</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20394</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + 27TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.66991</lat>
+			        <lon>-74.11974</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.67131</lat>
+			        <lon>-74.11859</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.671552</lat>
+			        <lon>-74.118328</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.671639999999144</lat>
+			        <lon>-74.11821999999906</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20395</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + 30TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.6719</lat>
+			        <lon>-74.1181</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.67283</lat>
+			        <lon>-74.11733</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.673074</lat>
+			        <lon>-74.117071</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.67321000000067</lat>
+			        <lon>-74.11690999999972</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20396</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + 32ND ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.67347</lat>
+			        <lon>-74.11678</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.67509</lat>
+			        <lon>-74.1154</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.675562</lat>
+			        <lon>-74.114939</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.67566000000019</lat>
+			        <lon>-74.11482000000106</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20397</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + 34TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.67593</lat>
+			        <lon>-74.11471</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.67617</lat>
+			        <lon>-74.11454</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.6763</lat>
+			        <lon>-74.11448</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.67657</lat>
+			        <lon>-74.11449</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.6771</lat>
+			        <lon>-74.11469</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.67737</lat>
+			        <lon>-74.11472</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.67764</lat>
+			        <lon>-74.11465</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.678</lat>
+			        <lon>-74.1144</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.678131</lat>
+			        <lon>-74.114237</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.678199999999684</lat>
+			        <lon>-74.1141500000011</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>30400</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + 38 TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.67847</lat>
+			        <lon>-74.11405</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.67895</lat>
+			        <lon>-74.1137</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.679222</lat>
+			        <lon>-74.11339</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.67923999999954</lat>
+			        <lon>-74.1133700000006</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20398</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + 39TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.67951</lat>
+			        <lon>-74.11329</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.67999</lat>
+			        <lon>-74.11294</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.680277</lat>
+			        <lon>-74.112653</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.680290000000085</lat>
+			        <lon>-74.11264000000153</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20399</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + DELVIN DR</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.68056</lat>
+			        <lon>-74.11252</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.68175</lat>
+			        <lon>-74.11163</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.681882</lat>
+			        <lon>-74.111468</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.68196999999888</lat>
+			        <lon>-74.11135999999998</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>31455</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + 44TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.682313</lat>
+			        <lon>-74.111216</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.68392</lat>
+			        <lon>-74.11009</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.68428</lat>
+			        <lon>-74.10982</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.684411</lat>
+			        <lon>-74.109657</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.68447999999994</lat>
+			        <lon>-74.10956999999999</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20400</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + 48TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.68476</lat>
+			        <lon>-74.10947</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.68584</lat>
+			        <lon>-74.10868</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.685975</lat>
+			        <lon>-74.108524</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.6861000000003</lat>
+			        <lon>-74.10837999999912</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20401</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + 50TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.68636</lat>
+			        <lon>-74.10824</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.687184</lat>
+			        <lon>-74.107492</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.68728000000114</lat>
+			        <lon>-74.10738000000022</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20402</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + 52ND ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.68754</lat>
+			        <lon>-74.10724</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.688378</lat>
+			        <lon>-74.106517</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.68851000000046</lat>
+			        <lon>-74.10637000000082</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20403</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + 54TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.68876</lat>
+			        <lon>-74.10622</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.689819</lat>
+			        <lon>-74.10528</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.68994999999926</lat>
+			        <lon>-74.10513999999928</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20404</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + 57TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.69021</lat>
+			        <lon>-74.10498</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.690462</lat>
+			        <lon>-74.104734</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.690610000000895</lat>
+			        <lon>-74.1045800000006</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20405</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + 58TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.69118</lat>
+			        <lon>-74.10407</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69189</lat>
+			        <lon>-74.10353</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69234</lat>
+			        <lon>-74.10313</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69257</lat>
+			        <lon>-74.102833</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69266000000084</lat>
+			        <lon>-74.1027000000012</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20406</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + 63RD ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.69289</lat>
+			        <lon>-74.10205</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69311</lat>
+			        <lon>-74.10159</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69341</lat>
+			        <lon>-74.10122</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69493</lat>
+			        <lon>-74.09968</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.695191</lat>
+			        <lon>-74.099354</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.695210000000294</lat>
+			        <lon>-74.09933000000004</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20791</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + GATES AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.69545</lat>
+			        <lon>-74.09915</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.6961</lat>
+			        <lon>-74.09849</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69635</lat>
+			        <lon>-74.09832</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69678</lat>
+			        <lon>-74.09788</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.696894</lat>
+			        <lon>-74.097697</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69698000000078</lat>
+			        <lon>-74.09756000000152</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>31756</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + WINFIELD AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.69724</lat>
+			        <lon>-74.09741</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69757</lat>
+			        <lon>-74.09708</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.697804</lat>
+			        <lon>-74.096719</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69780999999941</lat>
+			        <lon>-74.09670999999831</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20792</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + PEARSALL AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.69807</lat>
+			        <lon>-74.09658</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.6984</lat>
+			        <lon>-74.09626</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69889</lat>
+			        <lon>-74.09592</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.699</lat>
+			        <lon>-74.09581</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.699081</lat>
+			        <lon>-74.095598</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.6991300000001</lat>
+			        <lon>-74.09547000000059</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20793</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + GREENVILLE AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.69941</lat>
+			        <lon>-74.0953</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.700035</lat>
+			        <lon>-74.094507</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.700140000001156</lat>
+			        <lon>-74.09433999999901</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20794</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + DANFORTH AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.70038</lat>
+			        <lon>-74.09415</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7014</lat>
+			        <lon>-74.09295</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.701601</lat>
+			        <lon>-74.092624</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.70166000000129</lat>
+			        <lon>-74.09251000000027</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20795</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + MCADOO AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.7019</lat>
+			        <lon>-74.09233</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.70251</lat>
+			        <lon>-74.0916</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.70274</lat>
+			        <lon>-74.091235</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.70274999999908</lat>
+			        <lon>-74.09121999999898</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20796</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + WADE ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.70298</lat>
+			        <lon>-74.09102</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.70337</lat>
+			        <lon>-74.09053</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7036</lat>
+			        <lon>-74.09032</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.704045</lat>
+			        <lon>-74.090198</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.704140000001296</lat>
+			        <lon>-74.09017000000088</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20797</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + FOWLER AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.7045</lat>
+			        <lon>-74.090179</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.70466</lat>
+			        <lon>-74.0901</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.70522</lat>
+			        <lon>-74.08959</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.705342</lat>
+			        <lon>-74.089415</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.70545000000072</lat>
+			        <lon>-74.0892599999992</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20799</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + WOODLAWN AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.70574</lat>
+			        <lon>-74.08923</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.70666</lat>
+			        <lon>-74.08886</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.70678</lat>
+			        <lon>-74.08878</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.706886</lat>
+			        <lon>-74.088588</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.70694000000106</lat>
+			        <lon>-74.08849000000083</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20800</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + DWIGHT ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.70719</lat>
+			        <lon>-74.08832</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.70769</lat>
+			        <lon>-74.08771</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.707869</lat>
+			        <lon>-74.087298</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.707890000000575</lat>
+			        <lon>-74.08725000000123</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20801</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + AUDUBON AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.70816</lat>
+			        <lon>-74.08709</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.70853</lat>
+			        <lon>-74.08656</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.709076</lat>
+			        <lon>-74.08593</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.709179999998724</lat>
+			        <lon>-74.08579000000093</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>31591</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + BAYVIEW AVENUE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.70948</lat>
+			        <lon>-74.08578</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.71027</lat>
+			        <lon>-74.08549</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.71063</lat>
+			        <lon>-74.08524</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.71085</lat>
+			        <lon>-74.08501</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.71093</lat>
+			        <lon>-74.084798</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.71099000000128</lat>
+			        <lon>-74.08464000000149</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20802</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + BROADMAN PKWY</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.71129</lat>
+			        <lon>-74.08456</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7119</lat>
+			        <lon>-74.08413</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.71204</lat>
+			        <lon>-74.08398</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.712180000001254</lat>
+			        <lon>-74.08382999999938</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20803</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + CLAREMONT AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.71247</lat>
+			        <lon>-74.08378</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.71322</lat>
+			        <lon>-74.08334</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.713356</lat>
+			        <lon>-74.083185</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.71343000000016</lat>
+			        <lon>-74.0831</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20804</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + MORTON PL</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.71372</lat>
+			        <lon>-74.08312</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.71411</lat>
+			        <lon>-74.08297</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.714403</lat>
+			        <lon>-74.082695</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.71442000000023</lat>
+			        <lon>-74.08268000000167</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20805</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + EGE AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.71474</lat>
+			        <lon>-74.08269</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.71499</lat>
+			        <lon>-74.08255</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.71535</lat>
+			        <lon>-74.08228</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.716041</lat>
+			        <lon>-74.081597</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.71610999999966</lat>
+			        <lon>-74.08151000000143</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20806</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + BOYD AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.71637</lat>
+			        <lon>-74.0814</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.71685</lat>
+			        <lon>-74.08103</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.71718</lat>
+			        <lon>-74.08071</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7176</lat>
+			        <lon>-74.08</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.717633</lat>
+			        <lon>-74.079767</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.71765000000079</lat>
+			        <lon>-74.0796500000015</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20807</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + CLENDENNY AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.71793</lat>
+			        <lon>-74.07947</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.71859</lat>
+			        <lon>-74.07882</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.718795</lat>
+			        <lon>-74.078497</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.718879999998855</lat>
+			        <lon>-74.07833999999984</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20808</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + CLINTON AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.71913</lat>
+			        <lon>-74.07818</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.71943</lat>
+			        <lon>-74.07782</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.71978</lat>
+			        <lon>-74.07752</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.719905</lat>
+			        <lon>-74.077349</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.72001999999949</lat>
+			        <lon>-74.07719000000148</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20809</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + COMMUNIPAW AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.72029</lat>
+			        <lon>-74.07707</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.72074</lat>
+			        <lon>-74.07667</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.72086</lat>
+			        <lon>-74.076493</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.72092999999877</lat>
+			        <lon>-74.07638999999942</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20810</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + BENTLEY AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.72121</lat>
+			        <lon>-74.07631</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.72254</lat>
+			        <lon>-74.07539</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.722679</lat>
+			        <lon>-74.07524</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.722809999999285</lat>
+			        <lon>-74.07510000000013</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20811</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + KENSINGTON AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.72309</lat>
+			        <lon>-74.07501</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.72345</lat>
+			        <lon>-74.07474</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.723719</lat>
+			        <lon>-74.074426</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.72375000000052</lat>
+			        <lon>-74.07439000000043</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20812</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + JEWETT AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.72414</lat>
+			        <lon>-74.07425</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.72485</lat>
+			        <lon>-74.07371</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.724981</lat>
+			        <lon>-74.073547</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.72509999999962</lat>
+			        <lon>-74.07340000000066</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20813</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + DUNCAN AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.725403</lat>
+			        <lon>-74.073143</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.72553</lat>
+			        <lon>-74.07299</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.72592</lat>
+			        <lon>-74.07225</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.726373</lat>
+			        <lon>-74.071496</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.726430000000974</lat>
+			        <lon>-74.07136999999938</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20814</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + MONTGOMERY ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.72671</lat>
+			        <lon>-74.07124</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.727573</lat>
+			        <lon>-74.070587</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.72771000000101</lat>
+			        <lon>-74.0704499999994</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20815</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + GLENWOOD AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.72797</lat>
+			        <lon>-74.07035</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.72883</lat>
+			        <lon>-74.06979</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.729123</lat>
+			        <lon>-74.069515</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.72913999999987</lat>
+			        <lon>-74.06949999999865</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20816</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + STUYVESANT AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.7294</lat>
+			        <lon>-74.06937</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73018</lat>
+			        <lon>-74.06863</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73103</lat>
+			        <lon>-74.06806</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.731168</lat>
+			        <lon>-74.067908</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73123999999963</lat>
+			        <lon>-74.06783000000158</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20817</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + SIP AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.731226</lat>
+			        <lon>-74.067593</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.731213</lat>
+			        <lon>-74.067357</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73121000000125</lat>
+			        <lon>-74.06730999999866</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21092</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>SIP AVE + TONNELLE AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.73095</lat>
+			        <lon>-74.065</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73068</lat>
+			        <lon>-74.06341</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73061</lat>
+			        <lon>-74.06288</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73063</lat>
+			        <lon>-74.06273</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73102</lat>
+			        <lon>-74.06258</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7313</lat>
+			        <lon>-74.06223</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73171</lat>
+			        <lon>-74.06217</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.731878</lat>
+			        <lon>-74.062086</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.732049999999255</lat>
+			        <lon>-74.06199999999957</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>31732</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JOURNAL SQUARE</st> 
+					</bs>
+
+				</pt>
+
+			</pa>
+
+			<pa>
+				<id>346</id>
+
+				<d>Bayonne</d> 
+				<dd>Bayonne</dd>  
+				<directionRtpiFeedName></directionRtpiFeedName>
+
+				<pt>
+					<lat>40.732049999999255</lat>
+			        <lon>-74.06199999999957</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>31732</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JOURNAL SQUARE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.73233</lat>
+			        <lon>-74.06206</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73287</lat>
+			        <lon>-74.06197</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73298</lat>
+			        <lon>-74.06304</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73229</lat>
+			        <lon>-74.06362</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73187</lat>
+			        <lon>-74.06409</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73163</lat>
+			        <lon>-74.06424</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73095</lat>
+			        <lon>-74.06439</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73088</lat>
+			        <lon>-74.06447</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73114</lat>
+			        <lon>-74.06661</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.731199</lat>
+			        <lon>-74.066834</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73125000000106</lat>
+			        <lon>-74.06702999999914</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21093</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>SIP AVE + TONNELLE AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.73129</lat>
+			        <lon>-74.06741</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73138</lat>
+			        <lon>-74.06775</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.731208</lat>
+			        <lon>-74.068031</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73110999999961</lat>
+			        <lon>-74.06815000000016</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20852</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + SIP AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.73082</lat>
+			        <lon>-74.0682</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73021</lat>
+			        <lon>-74.0686</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.72954</lat>
+			        <lon>-74.06924</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.729427</lat>
+			        <lon>-74.069425</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.729349999999584</lat>
+			        <lon>-74.06954999999887</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20853</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + STUYVESANT AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.72906</lat>
+			        <lon>-74.06963</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.72845</lat>
+			        <lon>-74.07003</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.728311</lat>
+			        <lon>-74.07018</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.72820000000092</lat>
+			        <lon>-74.07029999999844</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20854</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + HIGHLAND AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.72792</lat>
+			        <lon>-74.07038</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.72708</lat>
+			        <lon>-74.07098</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.72682</lat>
+			        <lon>-74.071308</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.72680999999978</lat>
+			        <lon>-74.0713199999994</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20855</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + MONTGOMERY ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.72653</lat>
+			        <lon>-74.07139</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.72623</lat>
+			        <lon>-74.07176</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.72557</lat>
+			        <lon>-74.07291</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.725047</lat>
+			        <lon>-74.073657</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.72502999999867</lat>
+			        <lon>-74.07368000000088</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20856</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + DUNCAN AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.72476</lat>
+			        <lon>-74.07378</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.72332</lat>
+			        <lon>-74.07483</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.723204</lat>
+			        <lon>-74.075011</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.72314000000064</lat>
+			        <lon>-74.07511000000032</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20858</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + KENSINGTON AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.72285</lat>
+			        <lon>-74.07518</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.72249</lat>
+			        <lon>-74.07543</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.72221</lat>
+			        <lon>-74.075729</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.72220000000034</lat>
+			        <lon>-74.07574000000035</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20859</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + BELMONT AVENUE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.72191</lat>
+			        <lon>-74.07578</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7212</lat>
+			        <lon>-74.07632</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.720935</lat>
+			        <lon>-74.076641</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.72092000000064</lat>
+			        <lon>-74.07665999999915</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20860</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + BENTLEY AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.72065</lat>
+			        <lon>-74.07675</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.71951</lat>
+			        <lon>-74.07775</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7194</lat>
+			        <lon>-74.07786</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.719303</lat>
+			        <lon>-74.07806</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.71921999999865</lat>
+			        <lon>-74.0782299999989</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20861</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + COMMUNIPAW AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.71896</lat>
+			        <lon>-74.07838</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.71855</lat>
+			        <lon>-74.07886</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.718451</lat>
+			        <lon>-74.079058</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7184000000008</lat>
+			        <lon>-74.07915999999913</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20862</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + OXFORD AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.71812</lat>
+			        <lon>-74.0793</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7179</lat>
+			        <lon>-74.0795</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.71765</lat>
+			        <lon>-74.07993</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.717575</lat>
+			        <lon>-74.080145</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.717510000000715</lat>
+			        <lon>-74.08033000000177</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20863</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + CLENDENNY AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.71686</lat>
+			        <lon>-74.08102</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.71604</lat>
+			        <lon>-74.08166</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.715799</lat>
+			        <lon>-74.082012</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.715780000000784</lat>
+			        <lon>-74.08204000000063</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20864</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + BOYD AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.71549</lat>
+			        <lon>-74.08215</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.71502</lat>
+			        <lon>-74.08254</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.714481</lat>
+			        <lon>-74.08285</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.714380000000546</lat>
+			        <lon>-74.08292000000114</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20865</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + EGE AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.71411</lat>
+			        <lon>-74.08297</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.71358</lat>
+			        <lon>-74.08318</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.713434</lat>
+			        <lon>-74.083319</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.713349999999465</lat>
+			        <lon>-74.08340000000027</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20866</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + MORTON PL</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.71306</lat>
+			        <lon>-74.08342</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.71244</lat>
+			        <lon>-74.08379</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.71215</lat>
+			        <lon>-74.08407</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.71214000000127</lat>
+			        <lon>-74.08407999999862</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20867</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + CLAREMONT AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.71187</lat>
+			        <lon>-74.08415</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.71126</lat>
+			        <lon>-74.08458</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.711027</lat>
+			        <lon>-74.084853</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.710929999998925</lat>
+			        <lon>-74.0849899999995</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20868</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + BROADMAN PKWY</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.71046</lat>
+			        <lon>-74.08537</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.71021</lat>
+			        <lon>-74.08552</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.70929</lat>
+			        <lon>-74.08587</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.709007</lat>
+			        <lon>-74.086163</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.708990000000476</lat>
+			        <lon>-74.08617999999844</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>31592</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + BAYVIEW AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.70873</lat>
+			        <lon>-74.08632</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.708047</lat>
+			        <lon>-74.087295</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.707949999999066</lat>
+			        <lon>-74.08747999999986</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20869</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + AUDUBON AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.70771</lat>
+			        <lon>-74.08768</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.70751</lat>
+			        <lon>-74.08793</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.70742</lat>
+			        <lon>-74.088136</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.70736999999976</lat>
+			        <lon>-74.08824999999932</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20870</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + STEGMAN PKWY</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.70712</lat>
+			        <lon>-74.08842</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.70692</lat>
+			        <lon>-74.088738</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.706860000000965</lat>
+			        <lon>-74.08883999999885</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20871</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + VAN HOUTEN AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.70655</lat>
+			        <lon>-74.08891</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.70589</lat>
+			        <lon>-74.08915</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.70539</lat>
+			        <lon>-74.08945</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.705267</lat>
+			        <lon>-74.089623</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7051400000002</lat>
+			        <lon>-74.08979999999873</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20872</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + WOODLAWN AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.70486</lat>
+			        <lon>-74.08992</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.704488</lat>
+			        <lon>-74.090247</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.70438999999882</lat>
+			        <lon>-74.09032999999907</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20873</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + VAN NOSTRAND AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.70397</lat>
+			        <lon>-74.09025</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.70369</lat>
+			        <lon>-74.09028</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.70345</lat>
+			        <lon>-74.09044</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.70305</lat>
+			        <lon>-74.09093</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.702965</lat>
+			        <lon>-74.091139</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.70292000000018</lat>
+			        <lon>-74.09124999999939</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20875</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + WADE ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.70266</lat>
+			        <lon>-74.09141</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.70185</lat>
+			        <lon>-74.09239</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.701747</lat>
+			        <lon>-74.092585</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.70166999999957</lat>
+			        <lon>-74.09272999999935</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20876</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + MCADOO AVENUE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.70143</lat>
+			        <lon>-74.09291</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7002</lat>
+			        <lon>-74.09435</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.700101</lat>
+			        <lon>-74.094548</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.70000000000124</lat>
+			        <lon>-74.09475000000047</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20877</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + DANFORTH AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.69973</lat>
+			        <lon>-74.09491</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.699009</lat>
+			        <lon>-74.095816</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.698890000000084</lat>
+			        <lon>-74.09598999999928</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20878</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + GREENVILLE AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.69862</lat>
+			        <lon>-74.09611</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69838</lat>
+			        <lon>-74.09628</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.697927</lat>
+			        <lon>-74.096773</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.6978299999995</lat>
+			        <lon>-74.09691000000127</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20879</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + PEARSALL AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.69758</lat>
+			        <lon>-74.09707</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69725</lat>
+			        <lon>-74.0974</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.697016</lat>
+			        <lon>-74.09776</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69698999999879</lat>
+			        <lon>-74.09780000000038</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20880</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + WINFIELD AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.69673</lat>
+			        <lon>-74.09794</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69512</lat>
+			        <lon>-74.09962</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.695002</lat>
+			        <lon>-74.099799</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.694890000000036</lat>
+			        <lon>-74.09997000000095</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20881</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + GATES AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.69463</lat>
+			        <lon>-74.10012</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69387</lat>
+			        <lon>-74.10089</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.693762</lat>
+			        <lon>-74.10108</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69365999999891</lat>
+			        <lon>-74.10126000000139</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20882</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + PAMRAPO AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.69339</lat>
+			        <lon>-74.1014</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69311</lat>
+			        <lon>-74.1018</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69287</lat>
+			        <lon>-74.10245</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.692764</lat>
+			        <lon>-74.102903</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69275999999931</lat>
+			        <lon>-74.10291999999926</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20407</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + 63RD ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.69161</lat>
+			        <lon>-74.10391</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.6909</lat>
+			        <lon>-74.10447</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69065</lat>
+			        <lon>-74.10461</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.68995</lat>
+			        <lon>-74.10519</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.689851</lat>
+			        <lon>-74.105388</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.68978999999864</lat>
+			        <lon>-74.1055100000001</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20409</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + 57TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.6895</lat>
+			        <lon>-74.10558</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.68823</lat>
+			        <lon>-74.10667</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.688111</lat>
+			        <lon>-74.106848</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.68800999999995</lat>
+			        <lon>-74.10699999999888</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20410</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + 54TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.68773</lat>
+			        <lon>-74.10709</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.68715</lat>
+			        <lon>-74.10756</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.686896</lat>
+			        <lon>-74.107896</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.686869999999935</lat>
+			        <lon>-74.10792999999876</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20411</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + 52ND ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.6866</lat>
+			        <lon>-74.10803</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.68603</lat>
+			        <lon>-74.10853</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.68507</lat>
+			        <lon>-74.10924</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.684805</lat>
+			        <lon>-74.10956</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.68477999999951</lat>
+			        <lon>-74.1095900000003</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20412</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + 48TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.6845</lat>
+			        <lon>-74.10966</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.6833</lat>
+			        <lon>-74.11053</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.68318</lat>
+			        <lon>-74.110707</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.68310999999922</lat>
+			        <lon>-74.11080999999889</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20413</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + 46TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.68282</lat>
+			        <lon>-74.11087</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.68258</lat>
+			        <lon>-74.11104</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.682335</lat>
+			        <lon>-74.111388</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.682320000001205</lat>
+			        <lon>-74.11140999999839</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20414</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + 44TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.68202</lat>
+			        <lon>-74.11143</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.68083</lat>
+			        <lon>-74.11233</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.680711</lat>
+			        <lon>-74.112508</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.68064999999947</lat>
+			        <lon>-74.11259999999989</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20415</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + 42ND ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.68037</lat>
+			        <lon>-74.11266</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.67989</lat>
+			        <lon>-74.11301</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.679638</lat>
+			        <lon>-74.113349</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.679630000000806</lat>
+			        <lon>-74.11336000000061</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20416</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + DILLON DR</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.67934</lat>
+			        <lon>-74.11342</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.67826</lat>
+			        <lon>-74.1142</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.678146</lat>
+			        <lon>-74.114384</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.67807999999953</lat>
+			        <lon>-74.11448999999936</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20417</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + 37TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.67753</lat>
+			        <lon>-74.11469</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.67726</lat>
+			        <lon>-74.11472</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.6766</lat>
+			        <lon>-74.1145</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.676247</lat>
+			        <lon>-74.114593</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.67622000000035</lat>
+			        <lon>-74.11459999999843</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20418</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + 35TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.67595</lat>
+			        <lon>-74.11469</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.67467</lat>
+			        <lon>-74.11576</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.674316</lat>
+			        <lon>-74.116208</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.67429999999898</lat>
+			        <lon>-74.1162299999997</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20419</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + 33RD ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.67402</lat>
+			        <lon>-74.11632</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.67148</lat>
+			        <lon>-74.11845</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.671232</lat>
+			        <lon>-74.118793</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.67122000000031</lat>
+			        <lon>-74.1188099999984</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20420</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + 30TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.67094</lat>
+			        <lon>-74.11889</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.66943</lat>
+			        <lon>-74.12014</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.66932</lat>
+			        <lon>-74.120328</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.669259999999994</lat>
+			        <lon>-74.12043000000126</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20421</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + 27TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.66899</lat>
+			        <lon>-74.1205</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.66783</lat>
+			        <lon>-74.12147</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.667719</lat>
+			        <lon>-74.121657</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.66763999999998</lat>
+			        <lon>-74.12179000000117</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20422</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + 25TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.66735</lat>
+			        <lon>-74.12187</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.66631</lat>
+			        <lon>-74.12275</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.666074</lat>
+			        <lon>-74.12302</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.665999999998746</lat>
+			        <lon>-74.12311999999875</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20423</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + 23RD ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.66573</lat>
+			        <lon>-74.12325</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.66366</lat>
+			        <lon>-74.12502</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.663555</lat>
+			        <lon>-74.125213</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.66348000000129</lat>
+			        <lon>-74.12535000000013</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20424</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + 19TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.66318</lat>
+			        <lon>-74.12545</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.66133</lat>
+			        <lon>-74.12702</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.661213</lat>
+			        <lon>-74.127201</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.661130000000064</lat>
+			        <lon>-74.12732999999906</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20425</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + 16TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.66085</lat>
+			        <lon>-74.12743</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.65912</lat>
+			        <lon>-74.12889</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.658903</lat>
+			        <lon>-74.129181</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.65882000000064</lat>
+			        <lon>-74.12933000000156</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20426</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + 12TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.65853</lat>
+			        <lon>-74.1294</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.65749</lat>
+			        <lon>-74.13027</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.657375</lat>
+			        <lon>-74.130452</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.6573000000009</lat>
+			        <lon>-74.13056999999858</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20427</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + 10TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.65702</lat>
+			        <lon>-74.13066</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.65622</lat>
+			        <lon>-74.13135</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.656104</lat>
+			        <lon>-74.131532</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.656010000000315</lat>
+			        <lon>-74.13168000000056</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20428</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + 8TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.65572</lat>
+			        <lon>-74.13177</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.65492</lat>
+			        <lon>-74.13246</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.65468</lat>
+			        <lon>-74.1331</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.65454</lat>
+			        <lon>-74.13341</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.65426</lat>
+			        <lon>-74.1338</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.65335</lat>
+			        <lon>-74.13489</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.65311</lat>
+			        <lon>-74.13507</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.65244</lat>
+			        <lon>-74.13524</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.652278</lat>
+			        <lon>-74.135343</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.652139999998894</lat>
+			        <lon>-74.13543000000102</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>31595</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD. + 6TH STREET</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.65185</lat>
+			        <lon>-74.13538</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.65145</lat>
+			        <lon>-74.13549</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.65119</lat>
+			        <lon>-74.13562</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.65061</lat>
+			        <lon>-74.13609</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.650492</lat>
+			        <lon>-74.136269</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.650399999999806</lat>
+			        <lon>-74.13641000000098</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>31596</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD. + 4TH STREET</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.65011</lat>
+			        <lon>-74.1365</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.64873</lat>
+			        <lon>-74.13767</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.64778</lat>
+			        <lon>-74.1384</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.647699</lat>
+			        <lon>-74.138612</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.647650000001065</lat>
+			        <lon>-74.13873999999998</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20430</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK BLVD + 2ND ST</st> 
+					</bs>
+
+				</pt>
+
+			</pa>
+
+
+		</pas>
+	</route>

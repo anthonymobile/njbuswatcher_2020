@@ -25,14 +25,13 @@ from flask_cors import CORS, cross_origin
 
 import buswatcher.lib.API as API
 import buswatcher.lib.BusAPI as BusAPI
-import buswatcher.lib.RouteConfig as RouteConfig
 import buswatcher.lib.wwwAPI as wwwAPI
 
 
 ################################################
 # ROUTE + APP CONFIG
 ################################################
-from buswatcher.lib.RouteConfig import load_config
+from buswatcher.lib.RouteConfig import load_system_map
 
 ################################################
 # APP
@@ -104,10 +103,8 @@ def load_collection_routes(collection_url):
 @app.route('/')
 def displayIndex():
 
-    route_d, grade_d, collection_d = load_config()
-
     routereport = Dummy() # setup a dummy routereport for the navbar
-    return render_template('index.jinja2', collection_descriptions=collection_descriptions, route_definitions=route_definitions, routereport=routereport)
+    return render_template('index.jinja2', collection_descriptions=collection_descriptions, route_definitions=route_descriptions, routereport=routereport)
 
 
 #-------------------------------------------------------------City Index
@@ -117,14 +114,14 @@ def displayCollection(collection_url):
     collection_metadata['number_of_active_vehicles']='13'
 
     # todo 2 better to find a less latency way to do this (with a db query)
-    vehicles_now = API.get_positions_byargs({'collection': collection_url, 'layer': 'vehicles'}, route_definitions,
+    vehicles_now = API.get_positions_byargs({'collection': collection_url, 'layer': 'vehicles'}, route_descriptions,
                              collection_descriptions)
     collection_metadata['number_of_active_vehicles'] = len(vehicles_now['features'])
     collection_metadata['number_of_active_routes'] = len (collection_metadata['routelist'])
 
 
     routereport = Dummy()  # setup a dummy routereport for the navbar
-    return render_template('collection.jinja2',collection_metadata=collection_metadata, route_definitions=route_definitions, routereport=routereport)
+    return render_template('collection.jinja2',collection_metadata=collection_metadata, route_definitions=route_descriptions, routereport=routereport)
 
 
 #-------------------------------------------------------------Route
@@ -133,8 +130,8 @@ def displayCollection(collection_url):
 def genRouteReport(collection_url,route, period):
     source=source_global
     collection_metadata=load_collection_routes(collection_url)
-    route_report = wwwAPI.RouteReport(source, route, period)
-    return render_template('route.jinja2', collection_metadata=collection_metadata, route_definitions=route_definitions, route=route, period=period, routereport=route_report)
+    route_report = wwwAPI.RouteReport(system_map, route, period)
+    return render_template('route.jinja2', collection_metadata=collection_metadata, route_definitions=route_descriptions, route=route, period=period, routereport=route_report)
 
 #------------------------------------------------------------Stop
 # /<source>/<route>/stop/<stop>/<period>
@@ -143,8 +140,8 @@ def genRouteReport(collection_url,route, period):
 def genStopReport(collection_url, route, stop, period):
     source = source_global
     collection_metadata=load_collection_routes(collection_url)
-    stop_report = wwwAPI.StopReport(source, route, stop, period)
-    route_report = wwwAPI.RouteReport(source, route, period)
+    stop_report = wwwAPI.StopReport(system_map, route, stop, period)
+    route_report = wwwAPI.RouteReport(system_map, route, period)
     predictions = BusAPI.parse_xml_getStopPredictions(BusAPI.get_xml_data('nj', 'stop_predictions', stop=stop, route='all'))
 
     return render_template('stop.jinja2', collection_metadata=collection_metadata, source=source, stop=stop, period=period, stopreport=stop_report, reportcard_routes=route_definitions,predictions=predictions, routereport=route_report)
@@ -153,13 +150,13 @@ def genStopReport(collection_url, route, stop, period):
 @app.route('/faq')
 def displayFAQ():
     routereport = Dummy() #  setup a dummy routereport for the navbar
-    return render_template('faq.jinja2', route_definitions=route_definitions, routereport=routereport)
+    return render_template('faq.jinja2', route_definitions=route_descriptions, routereport=routereport)
 
 #-------------------------------------------------------------API docs
 @app.route('/api')
 def displayAPI():
     routereport = Dummy() #  setup a dummy routereport for the navbar
-    return render_template('api.jinja2', reportcard_routes=route_definitions, routereport=routereport)
+    return render_template('api.jinja2', reportcard_routes=route_descriptions, routereport=routereport)
 
 
 ################################################
@@ -198,9 +195,9 @@ def api_map_layer():
     args=request.args
 
     if args['layer'] == 'vehicles':
-        return jsonify(API.get_positions_byargs(args,route_definitions,collection_descriptions))
+        return jsonify(API.get_positions_byargs(args,route_descriptions,collection_descriptions))
     else:
-        return jsonify(API.get_map_layers(args,route_definitions,collection_descriptions))
+        return jsonify(API.get_map_layers(args,route_descriptions,collection_descriptions))
 
 
 
@@ -287,7 +284,13 @@ def splitpart (value, index, char = '_'):
 ################################################
 
 if __name__ == "__main__":
-    route_definitions, grade_descriptions, collection_descriptions = load_config()
+
+    system_map=load_system_map() # n.b. this will be a separate instance
+    print (system_map.cwd)
+    route_descriptions = system_map.route_descriptions
+    grade_descriptions = system_map.grade_descriptions
+    collection_descriptions = system_map.grade_descriptions
+
     app.run(host='0.0.0.0', debug=True)
 
 
