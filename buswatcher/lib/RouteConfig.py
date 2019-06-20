@@ -17,12 +17,12 @@ class TransitSystem:
         try:
             with open('config/grade_descriptions.json') as f:
                 self.grade_descriptions = json.load(f)
-            with open('config/route_definitions.json') as f:
+            with open('config/route_descriptions.json') as f:
                 self.route_descriptions = json.load(f)
             with open('config/collection_descriptions.json') as f:
                 self.collection_descriptions = json.load(f)
         except:
-            print('cant find the files fucker')
+            print('cant find the files')
 
         # load the route geometries locally (to be deprecated)
         self.route_geometries = [({'route':r['route'], 'xml':get_route_geometry(r['route'])}) for r in self.route_descriptions['routedata']]
@@ -72,46 +72,37 @@ def load_system_map():
     try:
         my_abs_path = system_map_pickle_file.resolve(strict=True)
     except FileNotFoundError:
-        map = TransitSystem()
+        new_map = TransitSystem()
         with open(system_map_pickle_file, "wb") as f:
-            pickle.dump(map,f)
+            pickle.dump(new_map,f)
     else:
         with open(system_map_pickle_file, "rb") as f:
-            map=pickle.load(f)
+            new_map=pickle.load(f)
 
-    return map
+    return new_map
 
 def maintenance_check(system_map):
 
     now=datetime.now()
 
     try:
-        route_definitions_last_updated = parser.parse(system_map.route_descriptions.last_updated)
+        route_descriptions_last_updated = parser.parse(system_map.route_descriptions.last_updated)
     except:
-        route_definitions_last_updated = parser.parse('2000-01-01 01:01:01')
-    route_definitions_ttl = timedelta(seconds=int(system_map.route_descriptions.ttl))
+        route_descriptions_last_updated = parser.parse('2000-01-01 01:01:01')
+    route_descriptions_ttl = timedelta(seconds=int(system_map.route_descriptions['ttl']))
 
     # if TTL expired, update route geometry local XMLs
-    if (now - route_definitions_last_updated) > route_definitions_ttl:
-        fetch_update_route_metadata()
-
+    if (now - route_descriptions_last_updated) > route_descriptions_ttl:
+        update_route_descriptions_file(system_map)
         fetch_update_route_geometry(system_map)
 
-
-    # additional maintenance task
+    # generate bunching leaderboard
     # for r in route_definitions['route_definitons']:
-    #     # create base RouteReport instance
-    #     routereport = wwwAPI.RouteReport(source, rt_no['route'])
-
-    # additional maintenance task
-    # for r in route_definitions['route_definitons']:
-    #     # generate bunching leaderboard
     #     routereport.generate_bunching_leaderboard(route=rt_no['route'], period=period)
-    #     # generate other reports
-    #     # e.g. routereport.get_bunching_leaderboard()
+
     return
 
-def fetch_update_route_metadata(system_map):
+def update_route_descriptions_file(system_map):
 
     # add a try-except to catch JSON file errors here
     # route_definitions, grade_descriptions, collection_descriptions = load_config()
@@ -150,7 +141,7 @@ def fetch_update_route_metadata(system_map):
 
     # merge API data into routes_definitions
     for a in api_response: # iterate over routes fetched from API
-        for r in system_map.route_descriptions.routedata:  # iterate over defined routes
+        for r in system_map.route_descriptions['routedata']:  # iterate over defined routes
             if a['route'] == r['route']:  # match on route number
                 for k,v in a.items():  # then iterate over API response keys
                     try:
@@ -162,7 +153,7 @@ def fetch_update_route_metadata(system_map):
     # now go back and add any missing routes seen from API results to route_definitions
     for a in api_response:
         matched = False
-        for r in system_map.route_descriptions.routedata:
+        for r in system_map.route_descriptions['routedata']:
             if r['route'] == a['route']:
                 matched = True
         if matched == False:
@@ -173,7 +164,7 @@ def fetch_update_route_metadata(system_map):
             system_map.route_descriptions.append(update) #add it to the route_definitions file so we dont scan it again until the TTL expires
 
     # make one last scan of file --  if prettyname in file is blank, should copy nm from file to prettyname
-    for route in system_map.route_descriptions.routedata:
+    for route in system_map.route_descriptions['routedata']:
         if route['prettyname'] == "":
             route['prettyname'] = route['nm']
 
@@ -182,18 +173,18 @@ def fetch_update_route_metadata(system_map):
     now = datetime.now()
     outdata['last_updated'] = now.strftime("%Y-%m-%d %H:%M:%S")
     outdata['ttl'] = '86400'
-    outdata['route_definitions'] = system_map.route_descriptions.routedata
+    outdata['routedata'] = system_map.route_descriptions['routedata']
 
     # delete existing route_definition.json and dump new complete as a json
-    with open('config/route_definitions.json','w') as f:
+    with open('config/route_descriptions.json','w') as f:
         json.dump(outdata, f, indent=4)
 
 
     return
 
-def fetch_update_route_geometry(system_map): # grabs a copy of the route XML for all defined routes # rewrite this to store in database table as XML or JSON objects... or after it is parsed as a picklefile?
+def fetch_update_route_geometry(system_map): # grabs a copy of the route XML to a file. this can probably be deprecated with TransitSystem now
 
-    for r in system_map.route_descriptions.routedata:
+    for r in system_map.route_descriptions['routedata']:
         try:
             route_xml =  BusAPI.get_xml_data('nj', 'routes', route=r['route'])
         except:
@@ -235,7 +226,7 @@ def is_time_between(begin_time, end_time, check_time=None):
 if __name__ == "__main__":
 
     system_map = load_system_map()
-    fetch_update_route_metadata(system_map)
+
 
     # route_definitions=load_config()[0]
     # route_definitions = route_definitions['route_definitions'] # ignore the ttl, last_updated key:value pairs

@@ -56,7 +56,7 @@ def _fetch_positions_df(route):
         pass
     return positions_log # returns a dataframe
 
-def _fetch_layers_json(route):
+def _fetch_layers_json(route):  #todo 0 move into/replace with method if RouteConfig.TransitSystem
     # routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data('nj', 'routes', route=route))
     routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(get_route_geometry(route))
     waypoints_feature = json.loads(coordinate_bundle['waypoints_geojson'])
@@ -67,7 +67,7 @@ def _fetch_layers_json(route):
 
 # positions
 
-def get_positions_byargs(args, route_definitions, collection_descriptions):
+def get_positions_byargs(args, route_definitions, collection_descriptions): #todo 0 move into/replace with method if RouteConfig.TransitSystem
 
     if 'rt' in args.keys():
         if args['rt'] == 'all': # todo 2 speed this up for index map takes about 15 seconds for statewide -- probably means removing pandas from _fetch_positions_df, __positions2geojson by writing a new class
@@ -91,7 +91,7 @@ def get_positions_byargs(args, route_definitions, collection_descriptions):
 
 
 # get geoJSON for collection map
-def get_map_layers(args, route_definitions, collection_descriptions):
+def get_map_layers(args, route_definitions, collection_descriptions):  #todo 0 move into/replace with method if RouteConfig.TransitSystem
     # if we only want a single stop geojson
     if 'stop_id' in args.keys():
         # query the db and grab the lat lon for the first record that stop_id matches this one
