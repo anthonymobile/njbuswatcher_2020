@@ -12,7 +12,7 @@ import argparse, time
 
 from buswatcher.lib.Generators import *
 from buswatcher.lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
-from buswatcher.lib.RouteConfig import load_config
+from buswatcher.lib.RouteConfig import load_system_map
 from buswatcher.lib.CommonTools import timeit
 
 
@@ -27,9 +27,9 @@ def hourly_loop():
 
 if __name__ == "__main__":
 
+    system_map = load_system_map()
 
-    route_definitions, grade_descriptions, collection_descriptions = load_config()
-    route_definitions = route_definitions['route_definitions'] # ignore the ttl, last_updated key:value pairs
+    # route_definitions = system_map.route_descriptions
 
     parser = argparse.ArgumentParser()
     parser.add_argument('-s', '--statewide', dest='statewide', action='store_true', help='Watch all active routes in NJ. (requires lots of CPU).')

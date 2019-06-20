@@ -1,0 +1,1358 @@
+<?xml version="1.0"?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<route>
+		<id>453</id> 
+		<rtpiFeedName></rtpiFeedName>
+		<sn>453</sn> 
+		<nm>453 Ferry Avenue PATCO - Camden</nm> 
+		<displayDesignator>453</displayDesignator> 
+		<vmode>1</vmode>   
+		
+		<sbs>
+
+
+
+		</sbs>
+
+		<c>#336633</c>
+
+		<pas>
+
+
+			<pa>
+				<id>546</id>
+
+				<d>Federal St at Delaware Ave</d> 
+				<dd>Federal St at Delaware Ave</dd>  
+				<directionRtpiFeedName></directionRtpiFeedName>
+
+				<pt>
+					<lat>39.92294999999896</lat>
+			        <lon>-75.09255999999972</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>15123</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>FERRY AVE PATCO(0)</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>39.92299</lat>
+			        <lon>-75.09292</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.92194</lat>
+			        <lon>-75.09406</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.92182</lat>
+			        <lon>-75.09407</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.921262</lat>
+			        <lon>-75.093853</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.921149999999685</lat>
+			        <lon>-75.09382999999839</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>30129</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>DAVIS ST + STATION DRIVE(240N)</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>39.92065</lat>
+			        <lon>-75.09353</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.920571</lat>
+			        <lon>-75.093319</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.920530000000376</lat>
+			        <lon>-75.09321000000062</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>16455</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>FERRY AVE + EVERGREEN AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>39.92108</lat>
+			        <lon>-75.09138</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.92184</lat>
+			        <lon>-75.0899</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.92072</lat>
+			        <lon>-75.089654</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.92059999999927</lat>
+			        <lon>-75.08965000000144</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>30420</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WHITE HORSE PIKE (CR606) + PARK AVENUE(110W)</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>39.91981</lat>
+			        <lon>-75.08929</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.91966</lat>
+			        <lon>-75.08957</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.91957</lat>
+			        <lon>-75.08969</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.91885</lat>
+			        <lon>-75.09021</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.91875</lat>
+			        <lon>-75.09033</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.91797</lat>
+			        <lon>-75.09241</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.917937</lat>
+			        <lon>-75.092641</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.917909999998884</lat>
+			        <lon>-75.09283000000063</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>16456</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WOODLYNNE AVE + EVERGREEN AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>39.91772</lat>
+			        <lon>-75.09309</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.91755</lat>
+			        <lon>-75.09358</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.91751</lat>
+			        <lon>-75.09411</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.91751</lat>
+			        <lon>-75.09447</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.9175</lat>
+			        <lon>-75.09465</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.9175</lat>
+			        <lon>-75.09483</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.91749</lat>
+			        <lon>-75.095</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.917505</lat>
+			        <lon>-75.095234</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.917519999999534</lat>
+			        <lon>-75.09545999999992</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>16457</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WOODLYNNE AVE + COOPER AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>39.91747</lat>
+			        <lon>-75.09599</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.91747</lat>
+			        <lon>-75.09617</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.91746</lat>
+			        <lon>-75.09635</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.91746</lat>
+			        <lon>-75.09652</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.91745</lat>
+			        <lon>-75.0967</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.91745</lat>
+			        <lon>-75.09688</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.91744</lat>
+			        <lon>-75.09706</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.91744</lat>
+			        <lon>-75.09724</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.91743</lat>
+			        <lon>-75.09741</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.91743</lat>
+			        <lon>-75.09759</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.91742</lat>
+			        <lon>-75.09777</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.91742</lat>
+			        <lon>-75.09795</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.91741</lat>
+			        <lon>-75.09813</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.917426</lat>
+			        <lon>-75.098894</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.917439999999644</lat>
+			        <lon>-75.09909999999957</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>16459</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WOODLYNNE AVE + POWELTON AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>39.91735</lat>
+			        <lon>-75.09999</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.917</lat>
+			        <lon>-75.10134</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.91705</lat>
+			        <lon>-75.10145</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.91723</lat>
+			        <lon>-75.10145</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.91733000000047</lat>
+			        <lon>-75.10144999999856</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>16450</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MT. EPHRAIM AVE + WOODLYNNE AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>39.91756</lat>
+			        <lon>-75.10169</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.918416</lat>
+			        <lon>-75.102068</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.91844999999997</lat>
+			        <lon>-75.10208000000013</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>15190</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MT. EPHRAIM AVE + FERRY AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>39.91869</lat>
+			        <lon>-75.10228</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.92074</lat>
+			        <lon>-75.1033</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.920917</lat>
+			        <lon>-75.103339</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.92106000000104</lat>
+			        <lon>-75.10336999999898</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>15191</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MT. EPHRAIM AVE + SAYRS AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>39.92128</lat>
+			        <lon>-75.10358</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.922616</lat>
+			        <lon>-75.104199</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.92279999999921</lat>
+			        <lon>-75.10424999999917</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>15192</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MT. EPHRAIM AVE + DECATUR ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>39.92303</lat>
+			        <lon>-75.10445</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.9238</lat>
+			        <lon>-75.10482</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.92383</lat>
+			        <lon>-75.10494</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.923732</lat>
+			        <lon>-75.105336</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.92370000000056</lat>
+			        <lon>-75.10548999999867</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>15066</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>CARL MILLER BLVD + MARYLAND ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>39.92355</lat>
+			        <lon>-75.1058</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.92336</lat>
+			        <lon>-75.10647</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.923386</lat>
+			        <lon>-75.106702</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.923409999998874</lat>
+			        <lon>-75.10691999999962</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>15067</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>CARL MILLER BLVD + KOLO ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>39.92336</lat>
+			        <lon>-75.10728</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.923413</lat>
+			        <lon>-75.108581</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.9234300000008</lat>
+			        <lon>-75.10869999999889</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>15068</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>CARL MILLER BLVD + S 10TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>39.92339</lat>
+			        <lon>-75.10905</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.923436</lat>
+			        <lon>-75.110352</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.923449999999676</lat>
+			        <lon>-75.11047999999857</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>15069</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>CARL MILLER BLVD + S 9TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>39.92342</lat>
+			        <lon>-75.11084</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.923447</lat>
+			        <lon>-75.112142</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.92346000000133</lat>
+			        <lon>-75.1122599999997</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>15070</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>CARL MILLER BLVD + S 8TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>39.92342</lat>
+			        <lon>-75.11263</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.92344</lat>
+			        <lon>-75.11405</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.92086</lat>
+			        <lon>-75.11392</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.9208</lat>
+			        <lon>-75.11398</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.920927</lat>
+			        <lon>-75.114355</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.920979999999425</lat>
+			        <lon>-75.1144800000005</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>31131</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>FERRY AVE + 7TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>39.921</lat>
+			        <lon>-75.11485</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.9212</lat>
+			        <lon>-75.1157</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.92338</lat>
+			        <lon>-75.11559</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.92344</lat>
+			        <lon>-75.11569</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.923485</lat>
+			        <lon>-75.117522</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.92350999999917</lat>
+			        <lon>-75.11774999999844</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>15071</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>CARL MILLER BLVD + S 6TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>39.92346</lat>
+			        <lon>-75.11811</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.92348</lat>
+			        <lon>-75.11936</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.92353</lat>
+			        <lon>-75.11966</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.924709</lat>
+			        <lon>-75.119604</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.92474999999873</lat>
+			        <lon>-75.11960000000091</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>15019</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BROADWAY + JACKSON ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>39.92502</lat>
+			        <lon>-75.11963</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.926438</lat>
+			        <lon>-75.119567</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.92652999999919</lat>
+			        <lon>-75.11955000000044</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>15020</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BROADWAY + EVERETT ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>39.92681</lat>
+			        <lon>-75.11959</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.92804</lat>
+			        <lon>-75.11957</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.928536</lat>
+			        <lon>-75.119494</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.92855999999876</lat>
+			        <lon>-75.11949000000024</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>15021</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BROADWAY + ATLANTIC AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>39.92884</lat>
+			        <lon>-75.11954</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.930658</lat>
+			        <lon>-75.119458</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.930759999999715</lat>
+			        <lon>-75.11943999999879</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>15022</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BROADWAY + KAIGHN AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>39.93104</lat>
+			        <lon>-75.11948</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.932218</lat>
+			        <lon>-75.119424</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.93224999999922</lat>
+			        <lon>-75.11942000000171</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>15023</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BROADWAY + CHESTNUT ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>39.93377</lat>
+			        <lon>-75.11944</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.933946</lat>
+			        <lon>-75.119394</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.934040000000294</lat>
+			        <lon>-75.11937000000073</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>15024</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BROADWAY + WALNUT ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>39.93431</lat>
+			        <lon>-75.11942</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.934947</lat>
+			        <lon>-75.119366</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.934990000000255</lat>
+			        <lon>-75.11936000000141</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>15025</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BROADWAY + SPRUCE ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>39.93527</lat>
+			        <lon>-75.11941</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.936268</lat>
+			        <lon>-75.119363</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.936379999998934</lat>
+			        <lon>-75.11933999999955</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>15026</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BROADWAY + PINE ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>39.93694</lat>
+			        <lon>-75.11938</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.937657</lat>
+			        <lon>-75.119331</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.93775000000021</lat>
+			        <lon>-75.11931000000102</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>15027</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BROADWAY + ROYDEN ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>39.93802</lat>
+			        <lon>-75.11936</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.939068</lat>
+			        <lon>-75.119294</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.939100000000046</lat>
+			        <lon>-75.11929000000093</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>15028</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BROADWAY + BERKELEY ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>39.93937</lat>
+			        <lon>-75.11933</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.940647</lat>
+			        <lon>-75.119262</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.94074999999868</lat>
+			        <lon>-75.11923999999958</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>15029</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BROADWAY + BENSON ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>39.94102</lat>
+			        <lon>-75.11928</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.941337</lat>
+			        <lon>-75.11924</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.941470000000244</lat>
+			        <lon>-75.11920999999961</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>15030</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BROADWAY + STEVENS ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>39.94175</lat>
+			        <lon>-75.11926</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.94298</lat>
+			        <lon>-75.11923</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.943145</lat>
+			        <lon>-75.119138</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.94324999999989</lat>
+			        <lon>-75.11908000000126</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>15031</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WRBWIN</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>39.94353</lat>
+			        <lon>-75.1192</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.94407</lat>
+			        <lon>-75.11918</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.94514</lat>
+			        <lon>-75.11883</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.94522</lat>
+			        <lon>-75.11888</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.94542</lat>
+			        <lon>-75.11927</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.94542999999995</lat>
+			        <lon>-75.11929000000055</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>15181</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MARKET ST + N 6TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>39.94534</lat>
+			        <lon>-75.11967</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.94556</lat>
+			        <lon>-75.12107</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.94587</lat>
+			        <lon>-75.12244</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.945974</lat>
+			        <lon>-75.122631</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.94604999999902</lat>
+			        <lon>-75.12277</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>15182</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MARKET ST + N 4TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>39.94604</lat>
+			        <lon>-75.12315</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.94617</lat>
+			        <lon>-75.12366</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.946011</lat>
+			        <lon>-75.123876</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.94593999999956</lat>
+			        <lon>-75.1239799999991</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>15296</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>3RD ST + MARKET ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>39.94563</lat>
+			        <lon>-75.12388</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.9443</lat>
+			        <lon>-75.12431</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.94427</lat>
+			        <lon>-75.12444</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.94453</lat>
+			        <lon>-75.12835</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.944586</lat>
+			        <lon>-75.128573</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>39.944640000000554</lat>
+			        <lon>-75.12879000000068</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>15328</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>FEDERAL ST + DELAWARE AVE</st> 
+					</bs>
+
+				</pt>
+
+			</pa>
+
+
+		</pas>
+	</route>

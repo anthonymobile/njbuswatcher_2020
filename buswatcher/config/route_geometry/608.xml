@@ -1,0 +1,1482 @@
+<?xml version="1.0"?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<route>
+		<id>608</id> 
+		<rtpiFeedName></rtpiFeedName>
+		<sn>608</sn> 
+		<nm>608 Hamilton - West Trenton</nm> 
+		<displayDesignator>608</displayDesignator> 
+		<vmode>1</vmode>   
+		
+		<sbs>
+
+
+
+		</sbs>
+
+		<c>#ff6633</c>
+
+		<pas>
+
+
+			<pa>
+				<id>2018</id>
+
+				<d>Hamilton</d> 
+				<dd>Hamilton</dd>  
+				<directionRtpiFeedName></directionRtpiFeedName>
+
+				<pt>
+					<lat>40.238080000000366</lat>
+			        <lon>-74.80291000000082</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>31252</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>EDGEWOOD AVE + SULLIVAN WAY</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.23779</lat>
+			        <lon>-74.80311</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.23738</lat>
+			        <lon>-74.80315</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.23725</lat>
+			        <lon>-74.80311</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.23715</lat>
+			        <lon>-74.803</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.23709</lat>
+			        <lon>-74.80284</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.237055</lat>
+			        <lon>-74.802074</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.23705000000026</lat>
+			        <lon>-74.80184999999888</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>22765</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>SANHICAN DRIVE + SULLIVAN WAY</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.236985</lat>
+			        <lon>-74.801386</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.23623</lat>
+			        <lon>-74.79905</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.235944</lat>
+			        <lon>-74.798514</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.23593000000035</lat>
+			        <lon>-74.79849000000165</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>22766</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WEST STATE ST + LEE AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.23581</lat>
+			        <lon>-74.79817</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.235213</lat>
+			        <lon>-74.797113</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.235120000000606</lat>
+			        <lon>-74.79698999999827</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>22767</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WEST STATE ST + NEWELL AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.23501</lat>
+			        <lon>-74.79665</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.234304</lat>
+			        <lon>-74.79527</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.234219999999404</lat>
+			        <lon>-74.79514000000106</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>22768</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WEST STATE ST + S DEAN AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.23412</lat>
+			        <lon>-74.79479</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.233384</lat>
+			        <lon>-74.79322</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.23330000000031</lat>
+			        <lon>-74.79309000000129</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>22769</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WEST STATE ST + LENAPE AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.23321</lat>
+			        <lon>-74.79275</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.23267</lat>
+			        <lon>-74.79171</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.232413</lat>
+			        <lon>-74.79138</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.232390000000635</lat>
+			        <lon>-74.79135000000063</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>22770</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WEST STATE ST + PARKSIDE AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.2323</lat>
+			        <lon>-74.791</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.23136</lat>
+			        <lon>-74.78923</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.231224</lat>
+			        <lon>-74.789076</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.23113999999875</lat>
+			        <lon>-74.78897999999917</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>22771</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WEST STATE ST + GOUVERNUER AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.23105</lat>
+			        <lon>-74.78863</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.2302</lat>
+			        <lon>-74.787</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.229855</lat>
+			        <lon>-74.786541</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.229829999999936</lat>
+			        <lon>-74.78650999999867</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>22772</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WEST STATE ST + OVERBROOK AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.22975</lat>
+			        <lon>-74.78615</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.22926</lat>
+			        <lon>-74.78529</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.229036</lat>
+			        <lon>-74.784992</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.228949999999124</lat>
+			        <lon>-74.78488999999885</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>22773</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WEST STATE ST + HERMITAGE AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.22883</lat>
+			        <lon>-74.78456</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.22792</lat>
+			        <lon>-74.783</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.2278</lat>
+			        <lon>-74.78268</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.22765</lat>
+			        <lon>-74.78144</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.227589</lat>
+			        <lon>-74.781219</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.22755000000128</lat>
+			        <lon>-74.7810799999985</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>22774</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WEST STATE ST + FISHER PL</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.22747</lat>
+			        <lon>-74.78074</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.22701</lat>
+			        <lon>-74.77963</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.22685</lat>
+			        <lon>-74.77935</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.22642</lat>
+			        <lon>-74.7789</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.22626</lat>
+			        <lon>-74.778793</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.22611999999867</lat>
+			        <lon>-74.77870000000033</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>22775</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WEST STATE ST + RICHEY PL</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.22591</lat>
+			        <lon>-74.77847</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.224929</lat>
+			        <lon>-74.777694</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.22477000000046</lat>
+			        <lon>-74.77759000000091</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>22776</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WEST STATE ST 161S OF PERDICARIS PL</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.22379</lat>
+			        <lon>-74.77652</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.223709999999</lat>
+			        <lon>-74.77644999999907</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>22777</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WEST STATE ST + RUTGERS PL</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.22249</lat>
+			        <lon>-74.775</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.22225</lat>
+			        <lon>-74.774649</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.22223000000087</lat>
+			        <lon>-74.77462000000173</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>22778</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WEST STATE ST + CALHOUN ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.22221</lat>
+			        <lon>-74.77425</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.22179</lat>
+			        <lon>-74.77274</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.221697</lat>
+			        <lon>-74.772538</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.221609999998705</lat>
+			        <lon>-74.77234999999824</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>22779</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>W STATE ST + GREEN PL</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.22157</lat>
+			        <lon>-74.77198</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.22058</lat>
+			        <lon>-74.76807</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.220426</lat>
+			        <lon>-74.767644</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.22040999999881</lat>
+			        <lon>-74.76760000000095</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>22780</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>W STATE ST + BARRACK ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.22044</lat>
+			        <lon>-74.76722</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.220276</lat>
+			        <lon>-74.766056</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.22027000000023</lat>
+			        <lon>-74.76601000000132</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>22781</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>W STATE ST + S WARREN ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.22016</lat>
+			        <lon>-74.764525</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.220150000001</lat>
+			        <lon>-74.76427999999966</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>31733</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>E STATE ST + S BROAD ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.22012</lat>
+			        <lon>-74.76392</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.22016</lat>
+			        <lon>-74.76321</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.22059</lat>
+			        <lon>-74.75985</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.220604</lat>
+			        <lon>-74.759445</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.22060000000028</lat>
+			        <lon>-74.75930999999898</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>22740</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>EAST STATE ST + S STOCKTON ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.22069</lat>
+			        <lon>-74.75897</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.220943</lat>
+			        <lon>-74.756615</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.22095000000009</lat>
+			        <lon>-74.75648000000172</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>31997</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>E STATE ST + CARROLL ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.22108</lat>
+			        <lon>-74.75545</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.21892</lat>
+			        <lon>-74.75499</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.219192</lat>
+			        <lon>-74.754243</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.21919999999886</lat>
+			        <lon>-74.75421999999938</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>22733</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>TRENTON TRANSIT CENTER</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.21943</lat>
+			        <lon>-74.75379</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.22002</lat>
+			        <lon>-74.75304</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.22107</lat>
+			        <lon>-74.75219</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.221201</lat>
+			        <lon>-74.752028</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.22131999999864</lat>
+			        <lon>-74.75187999999875</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>22734</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>RAOUL WALLENBERG BLVD + EAST STATE ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.22156</lat>
+			        <lon>-74.751529</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.22166</lat>
+			        <lon>-74.75064</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.22166</lat>
+			        <lon>-74.74975</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.22287</lat>
+			        <lon>-74.74715</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.222936</lat>
+			        <lon>-74.746931</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.222969999999215</lat>
+			        <lon>-74.74681999999854</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>22741</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>EAST STATE ST + CHAMBERS ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.22323</lat>
+			        <lon>-74.74641</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.22482</lat>
+			        <lon>-74.743206</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.22490999999914</lat>
+			        <lon>-74.74299999999886</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>22841</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>E STATE ST + SOUTH COOK AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.2251</lat>
+			        <lon>-74.74273</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.225777</lat>
+			        <lon>-74.741317</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.22581999999926</lat>
+			        <lon>-74.7411999999983</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>22742</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>EAST STATE ST + CUYLER AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.22681</lat>
+			        <lon>-74.739405</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.226889999999344</lat>
+			        <lon>-74.73925000000176</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>22743</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>E STATE ST + N OLDEN AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.22727</lat>
+			        <lon>-74.73875</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.228102</lat>
+			        <lon>-74.73741</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.228130000000746</lat>
+			        <lon>-74.73735999999857</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>22744</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>EAST STATE ST + CLEVELAND AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.22834</lat>
+			        <lon>-74.73712</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.2303</lat>
+			        <lon>-74.73412</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.23121</lat>
+			        <lon>-74.73278</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.23151</lat>
+			        <lon>-74.73242</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.231726</lat>
+			        <lon>-74.732044</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.23174000000033</lat>
+			        <lon>-74.73202000000069</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>30703</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>E STATE ST + S JOHNSTON AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.232</lat>
+			        <lon>-74.73187</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.23334</lat>
+			        <lon>-74.73062</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.2334</lat>
+			        <lon>-74.73049</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.23334</lat>
+			        <lon>-74.72959</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.233154</lat>
+			        <lon>-74.728119</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.2331299999987</lat>
+			        <lon>-74.72795999999887</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>22306</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>NOTTINGHAM WAY + HOLLYWOOD DR</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.2331</lat>
+			        <lon>-74.7276</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.232404</lat>
+			        <lon>-74.724214</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.23239000000014</lat>
+			        <lon>-74.72415999999978</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>31269</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>NOTTINGHAM WAY + SCULPTORS WAY</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.23214</lat>
+			        <lon>-74.72241</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.23213</lat>
+			        <lon>-74.72223</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.23219</lat>
+			        <lon>-74.7221</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.233254</lat>
+			        <lon>-74.721582</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.23334000000049</lat>
+			        <lon>-74.7215300000011</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>30589</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>SCULPTORS WAY + NOTTINGHAM WAY(200N)</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.23529</lat>
+			        <lon>-74.72064</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.23569</lat>
+			        <lon>-74.7205</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.23609</lat>
+			        <lon>-74.72042</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.2365</lat>
+			        <lon>-74.7204</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.23705</lat>
+			        <lon>-74.7205</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.237871</lat>
+			        <lon>-74.720843</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.237979999999574</lat>
+			        <lon>-74.72089000000156</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>22236</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>SCULPTORS WAY + FAIRGROUNDS</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.23853</lat>
+			        <lon>-74.72145</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.23983</lat>
+			        <lon>-74.72304</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.23993</lat>
+			        <lon>-74.723</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.240123</lat>
+			        <lon>-74.722658</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.240209999999855</lat>
+			        <lon>-74.72246999999926</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>30705</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>E STATE ST EXT + SCULPTORS WAY</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.24045</lat>
+			        <lon>-74.72228</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.24328</lat>
+			        <lon>-74.71837</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.243373</lat>
+			        <lon>-74.718168</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.243459999998784</lat>
+			        <lon>-74.71797999999845</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>30706</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>E STATE ST EXT + FAIRGROUNDS RD</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.2437</lat>
+			        <lon>-74.71778</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.24758</lat>
+			        <lon>-74.71245</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.24775</lat>
+			        <lon>-74.71218</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.24787</lat>
+			        <lon>-74.71186</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.24797</lat>
+			        <lon>-74.71098</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.24815</lat>
+			        <lon>-74.710968</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.248270000000865</lat>
+			        <lon>-74.71096000000085</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>30937</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>KLOCKNER RD + E STATE STREET EXT</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.24854</lat>
+			        <lon>-74.71107</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.24922</lat>
+			        <lon>-74.71117</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.2495</lat>
+			        <lon>-74.71117</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.24963</lat>
+			        <lon>-74.71115</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.24988</lat>
+			        <lon>-74.711</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.25009</lat>
+			        <lon>-74.71077</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.25123</lat>
+			        <lon>-74.70922</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.25158</lat>
+			        <lon>-74.70867</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.25175</lat>
+			        <lon>-74.70818</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.25194</lat>
+			        <lon>-74.70714</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.25192</lat>
+			        <lon>-74.70606</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.25195</lat>
+			        <lon>-74.70589</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.25215</lat>
+			        <lon>-74.70567</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.2527</lat>
+			        <lon>-74.7056</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.25297</lat>
+			        <lon>-74.70554</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.25309</lat>
+			        <lon>-74.70547</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.25327</lat>
+			        <lon>-74.70521</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.25439</lat>
+			        <lon>-74.70452</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.2548</lat>
+			        <lon>-74.70405</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.2549</lat>
+			        <lon>-74.70405</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.25492</lat>
+			        <lon>-74.70419</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.254851</lat>
+			        <lon>-74.704408</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.254799999998944</lat>
+			        <lon>-74.70457000000123</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>22187</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>HAMILTON RAIL STATION</st> 
+					</bs>
+
+				</pt>
+
+			</pa>
+
+
+		</pas>
+	</route>

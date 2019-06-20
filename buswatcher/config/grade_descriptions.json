@@ -1,6 +1,5 @@
 {
-    "grade_descriptions": [
-        {
+    "A":  {
             "grade": "A",
             "bounds": [
                 "0",
@@ -8,6 +7,7 @@
             ],
             "description": "Service is provided in line with rider expectations of reliability, capacity, and quality."
         },
+    "B":
         {
             "grade": "B",
             "bounds": [
@@ -16,6 +16,7 @@
             ],
             "description": "Service is usually good but occasionally falls short of rider expectations."
         },
+    "C":
         {
             "grade": "C",
             "bounds": [
@@ -24,6 +25,7 @@
             ],
             "description": "Service meets the needs of riders some of the time, but suffers from serious shortcomings and gaps. Focused action is required to improve service in the near-term."
         },
+    "D":
         {
             "grade": "D",
             "bounds": [
@@ -32,6 +34,7 @@
             ],
             "description": "Service frequently fails to meet the needs of riders, and requires substantial effort at improvement."
         },
+    "F":
         {
             "grade": "F",
             "bounds": [
@@ -40,6 +43,7 @@
             ],
             "description": "Service frequently fails to meeting rider needs and expectations. Immediate action required to achieve minimum level of service."
         },
+    "N/A":
         {
             "grade": "N/A",
             "bounds": [
@@ -48,5 +52,4 @@
             ],
             "description": "No grade available. Insufficient data to calculate a score for this period"
         }
-    ]
 }

@@ -6,44 +6,6 @@ from sqlalchemy import func
 import buswatcher.lib.BusAPI as BusAPI
 import buswatcher.lib.RouteConfig as RouteConfig
 from buswatcher.lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
-from buswatcher.lib.CommonTools import timeit
-
-class TransitSystem:
-
-    @timeit
-    def __init__(self):
-
-        # load the basics
-        self.route_definitions, self.grade_descriptions, self.collection_descriptions = RouteConfig.load_config()
-
-        # load the route table
-        self.route_geometries_local = [({'route':r['route'],'xml':RouteConfig.get_route_geometry(r['route'])}) for r in self.route_definitions['route_definitions']]
-
-        print ('fetching route geometry XML from NJTransit')
-        # fetch the route tables from NJT API
-        self.route_geometries_remote=dict()
-
-        for r in self.route_definitions['route_definitions']:
-            try:
-                self.route_geometries_remote[r['route']]=BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data('nj','routes',route=r['route']))
-            except:
-                pass
-
-        #method to return geojson -- stops, waypoints -- for a specific route
-        def render_geojson(self,**kwargs):
-            kwargs['rt']
-            kwargs['layer']
-            return
-
-        # todo 0 FUNCTIONS TO MOVE INTO TransitSystem class as a Method, or replace
-        # RouteReport.__get_stoplist(route)
-        # API.__fetch_layers_json
-        # API.get_map_layers
-        # RouteConfig.maintenance_check
-        # RouteConfig.load_config
-        # RouteConfig.get_route_geometry
-        # ? RouteConfig.fetch_update_route_metadata
-
 
 
 class RouteReport:
@@ -56,23 +18,23 @@ class RouteReport:
             self.d = ''
             self.dd = ''
 
-    def __init__(self, source, route, period):
+    def __init__(self, system_map, route, period):
 
         # apply passed parameters to instance
-        self.source = source
+        self.source='nj'
         self.route = route
         self.period = period
 
-        # populate route basics from config
-
-        self.route_definitions, self.grade_descriptions, self.collection_descriptions = RouteConfig.load_config()
+        # populate route basics from system_map
+        self.description_long = system_map.route_definitions[self.route].description_long
+        self.prettyname = system_map.route_definitions[self.route].prettyname
+        self.schedule_url = system_map.route_definitions[self.route].schedule_url
 
         # populate static report card data
-        self.__load_route_description()
-        self.route_geometry = RouteConfig.get_route_geometry(route)
-        self.routes, self.coordinate_bundle = BusAPI.parse_xml_getRoutePoints(RouteConfig.get_route_geometry(self.route))
-        self.routename, self.waypoints_coordinates, self.stops_coordinates, self.waypoints_geojson, self.stops_geojson = self.routes[0].nm, self.coordinate_bundle['waypoints_coordinates'], self.coordinate_bundle['stops_coordinates'], self.coordinate_bundle['waypoints_geojson'], self.coordinate_bundle['stops_geojson']
-        self.route_stop_list = self.__get_stoplist()
+        # self.route_geometry = RouteConfig.get_route_geometry(route) # todo 0 get this from system_map too
+        self.routes, self.coordinate_bundle = BusAPI.parse_xml_getRoutePoints(RouteConfig.get_route_geometry(self.route)) # todo 0 get this from system_map too
+        self.routename, self.waypoints_coordinates, self.stops_coordinates, self.waypoints_geojson, self.stops_geojson = self.routes[0].nm, self.coordinate_bundle['waypoints_coordinates'], self.coordinate_bundle['stops_coordinates'], self.coordinate_bundle['waypoints_geojson'], self.coordinate_bundle['stops_geojson'] # todo 0 get this from system_map too
+        self.route_stop_list = self.__get_stoplist() # todo 0 get this from system_map too
         self.period_labels = self.__get_period_labels()
 
         # populate live report card data
@@ -86,18 +48,8 @@ class RouteReport:
 
         self.tripdash = self.get_tripdash()
 
-    def __load_route_description(self):
-        for route in self.route_definitions['route_definitions']:
-            if route['route'] == self.route:
-                self.frequency = route['frequency']
-                self.description_long = route['description_long']
-                self.prettyname = route['prettyname']
-                self.schedule_url = route['schedule_url']
-            else:
-                pass
-        return
 
-    def __get_period_labels(self):
+    def __get_period_labels(self): # todo 1 get this from a configuration file, that also has the SQL filters for wwwAPI.Query_factory
         if self.period == 'now':
             period_label = "current"
         elif self.period == 'today':
@@ -125,7 +77,7 @@ class RouteReport:
 
         return trip_list, trip_list_trip_id_only
 
-    def __get_stoplist(self): #todo move to TransitSystem
+    def __get_stoplist(self):
         routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(self.route_geometry)
         # routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=self.route))
         route_stop_list = []
@@ -146,12 +98,10 @@ class RouteReport:
 
     def __query_factory(self, db, query, **kwargs):
 
-
         # todo 0 possible solution https://stackoverflow.com/questions/7075828/make-sqlalchemy-use-date-in-filter-using-postgresql
 
         # my_data = session.query(MyObject). \
         #    filter(cast(MyObject.date_time, Date) == date.today()).all()
-
 
         todays_date = datetime.date.today()
         yesterdays_date = datetime.date.today() - datetime.timedelta(1)
@@ -170,7 +120,7 @@ class RouteReport:
 
         return query
 
-    def get_tripdash(self): # gets all arrivals (see limit) for all runs on current route
+    def get_tripdash(self): # gets all arrivals (see limit) for all runs on current route # todo 0 debug this
 
         with SQLAlchemyDBConnection() as db:
 
@@ -261,9 +211,10 @@ class RouteReport:
 
 class StopReport:
 
-    def __init__(self, source, route, stop, period):
+    def __init__(self, system_map, route, stop, period):
+
         # apply passed parameters to instance
-        self.source = source
+        self.source = 'nj'
         self.route = route
         self.stop = stop
         self.period = period
