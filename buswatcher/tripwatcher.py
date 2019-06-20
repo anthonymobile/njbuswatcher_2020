@@ -318,8 +318,8 @@ class RouteScan:
 def main_loop(system_map):
 
     if args.statewide is False:
-        for c in system_map.collection_descriptions:
-            for r in c['routelist']:
+        for collection,collection_metadata in system_map.collection_descriptions:
+            for r in collection_metadata['routelist']:
                 RouteScan(r, args.statewide)
     elif args.statewide is True:
         RouteScan(0, args.statewide)
