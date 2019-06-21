@@ -3,7 +3,7 @@ from dateutil import parser
 from pathlib import Path
 import json
 import pickle
-import os
+import sys
 
 import buswatcher.lib.BusAPI as BusAPI
 from buswatcher.lib.CommonTools import timeit
@@ -187,6 +187,7 @@ def fetch_update_route_geometry(system_map): # grabs a copy of the route XML to 
     for r in system_map.route_descriptions['routedata']:
         try:
             route_xml =  BusAPI.get_xml_data('nj', 'routes', route=r['route'])
+            sys.write.stdout('.')
         except:
             continue
 
