@@ -82,17 +82,17 @@ assets.register(bundles)
 # HELPERS + DECORATORS
 ################################################
 
-def load_collection_routes(collection_url):
-# get list of routes in collection from route_config
-    d1, d2, collection_descriptions = load_config()
-    collection_metadata=dict()
-    for collection in collection_descriptions:
-        if collection['collection_url'] == collection_url:
-            collection_metadata = collection
-            break
-        else:
-            continue
-    return collection_metadata
+# def load_collection_routes(collection_url):
+# # get list of routes in collection from route_config
+#     d1, d2, collection_descriptions = load_config()
+#     collection_metadata=dict()
+#     for collection in collection_descriptions:
+#         if collection['collection_url'] == collection_url:
+#             collection_metadata = collection
+#             break
+#         else:
+#             continue
+#     return collection_metadata
 
 
 ################################################
@@ -103,25 +103,33 @@ def load_collection_routes(collection_url):
 @app.route('/')
 def displayIndex():
 
+    # # todo 2 better to find a less latency way to do this (with a db query?) or cache this
+    vehicle_data = BusAPI.parse_xml_getBusesForRouteAll(BusAPI.get_xml_data('nj','all_buses'))
+    vehicle_count = len(vehicle_data)
+    # for v in vehicle_count:
+    #     print (route)
+    # raw_routelist = [v.route for v in vehicle_count]
+    # unique_routelist = list(set(raw_routelist))
+    route_count = len(list(set([v.rt for v in vehicle_data])))
+
+    dummy= collection_descriptions
     routereport = Dummy() # setup a dummy routereport for the navbar
-    return render_template('index.jinja2', collection_descriptions=collection_descriptions, route_definitions=route_descriptions, routereport=routereport)
+    return render_template('index.jinja2', collection_descriptions=collection_descriptions,  routereport=routereport, vehicle_count=vehicle_count, route_count=route_count)
 
 
 #-------------------------------------------------------------City Index
 @app.route('/<collection_url>')
 def displayCollection(collection_url):
-    collection_metadata=load_collection_routes(collection_url)
-    collection_metadata['number_of_active_vehicles']='13'
 
     # todo 2 better to find a less latency way to do this (with a db query)
     vehicles_now = API.get_positions_byargs({'collection': collection_url, 'layer': 'vehicles'}, route_descriptions,
                              collection_descriptions)
-    collection_metadata['number_of_active_vehicles'] = len(vehicles_now['features'])
-    collection_metadata['number_of_active_routes'] = len (collection_metadata['routelist'])
 
+    collection_descriptions['number_of_active_vehicles'] = len(vehicles_now['features'])
+    collection_descriptions['number_of_active_routes'] = len(collection_descriptions[collection_url]['routelist'])
 
     routereport = Dummy()  # setup a dummy routereport for the navbar
-    return render_template('collection.jinja2',collection_metadata=collection_metadata, route_definitions=route_descriptions, routereport=routereport)
+    return render_template('collection.jinja2',collection_url=collection_url,collection_descriptions=collection_descriptions, route_descriptions=route_descriptions, routereport=routereport)
 
 
 #-------------------------------------------------------------Route
@@ -129,9 +137,10 @@ def displayCollection(collection_url):
 @app.route('/<collection_url>/<route>/<period>')
 def genRouteReport(collection_url,route, period):
     source=source_global
-    collection_metadata=load_collection_routes(collection_url)
+    # collection_metadata=load_collection_routes(collection_url)
     route_report = wwwAPI.RouteReport(system_map, route, period)
-    return render_template('route.jinja2', collection_metadata=collection_metadata, route_definitions=route_descriptions, route=route, period=period, routereport=route_report)
+    # return render_template('route.jinja2', collection_metadata=collection_metadata, route_definitions=route_descriptions, route=route, period=period, routereport=route_report)
+    return render_template('route.jinja2', collection_descriptions=collection_descriptions, route=route, period=period, routereport=route_report)
 
 #------------------------------------------------------------Stop
 # /<source>/<route>/stop/<stop>/<period>
@@ -139,12 +148,12 @@ def genRouteReport(collection_url,route, period):
 #@cache.cached(timeout=60) # cache for 1 minute
 def genStopReport(collection_url, route, stop, period):
     source = source_global
-    collection_metadata=load_collection_routes(collection_url)
+    # collection_metadata=load_collection_routes(collection_url)
     stop_report = wwwAPI.StopReport(system_map, route, stop, period)
     route_report = wwwAPI.RouteReport(system_map, route, period)
     predictions = BusAPI.parse_xml_getStopPredictions(BusAPI.get_xml_data('nj', 'stop_predictions', stop=stop, route='all'))
 
-    return render_template('stop.jinja2', collection_metadata=collection_metadata, source=source, stop=stop, period=period, stopreport=stop_report, reportcard_routes=route_definitions,predictions=predictions, routereport=route_report)
+    return render_template('stop.jinja2', collection_descriptions=collection_descriptions, source=source, stop=stop, period=period, stopreport=stop_report, reportcard_routes=route_definitions,predictions=predictions, routereport=route_report)
 
 #-------------------------------------------------------------FAQ
 @app.route('/faq')
@@ -286,10 +295,9 @@ def splitpart (value, index, char = '_'):
 if __name__ == "__main__":
 
     system_map=load_system_map() # n.b. this will be a separate instance
-    print (system_map.cwd)
     route_descriptions = system_map.route_descriptions
     grade_descriptions = system_map.grade_descriptions
-    collection_descriptions = system_map.grade_descriptions
+    collection_descriptions = system_map.collection_descriptions
 
     app.run(host='0.0.0.0', debug=True)
 

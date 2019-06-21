@@ -81,10 +81,10 @@ def get_positions_byargs(args, route_definitions, collection_descriptions): #tod
 
     elif 'collection' in args.keys():
         positions_list = pd.DataFrame()
-        for city in collection_descriptions:
-            if args['collection'] == city['collection']:
+        for city,citydata in collection_descriptions.items():
+            if args['collection'] == citydata['collection']:
                 # iterate over its routelist
-                for r in city['routelist']:
+                for r in citydata['routelist']:
                     positions_list = positions_list.append(_fetch_positions_df(r))
                     # positions_list.append(positions_df)
                 return __positions2geojson(positions_list)

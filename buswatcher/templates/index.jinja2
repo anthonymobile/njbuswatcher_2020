@@ -76,19 +76,21 @@ if you want to use this as an advocacy tool it may be useful to expose a ranking
                             <strong>How are New Jersey's buses doing today?</strong>
                         </h1>
                         <h4 class="mb-4">
-                            <strong>Residents and businesses depend on them every day.</strong>
+                            <strong>We're tracking {{  vehicle_count }} buses serving {{  route_count }} routes across the state, right now.</strong>
                         </h4>
                         <p class="mb-4 text-left">
-                            <strong>But its hard to evaluate the quality of bus service. That's why we built this site to provide a one-stop shop for bus performance information. Here you can see data on past performance and view maps of current service,.</strong>
+                            <strong>Residents and businesses depend on NJTransit buses every day. But its hard to evaluate the quality of bus service.</strong>
                         </p>
+                    <p class="mb-4 text-left">That's why we built this site to provide a one-stop shop for bus performance information. Here you can see data on past performance and view maps of current service.</p>
     {#                    <a target="_self" href="#reportcards" class="btn btn-outline-white btn-lg">Pick A Route
                             <i class="fas fa-graduation-cap ml-2"></i>
                         </a>
     #}
 
 
-                        {% for city in collection_descriptions %}
-                        <a target="_self" href="/{{ city.collection_url }}" class="btn btn-outline-black btn-lg">{{ city.city_name }}
+                        {% for city, citydata in collection_descriptions.items() %}
+
+                        <a target="_self" href="/{{ citydata.collection_url }}" class="btn btn-outline-black btn-lg">{{ citydata.city_name }}
                             <i class="fas fa-map ml-2"></i>
                         </a>
                         {%  endfor %}
@@ -114,73 +116,7 @@ if you want to use this as an advocacy tool it may be useful to expose a ranking
             </section>
             <!--Section: Jumbotron-->
 
-{#
-            <!--Section: Map-->
 
-
-            <section class="card">
-                <div class="card-body text-white col-lg-8 col-md-12 mb-4">
-                    <div id="map" class="container">
-                    </div>
-                </div>
-            </section>
-#}
-
-
-{#
-            <hr class="my-5">
-
-            <!--Section: Cards-->
-            <section id="reportcards" class="text-center">
-                <h1 class="mb-4">
-                <strong>Routes</strong>
-                    </h1>
-
-                <!--Grid row-->
-                <div class="row mb-4 wow fadeIn">
-
-                    {% for route in route_definitions %}
-                    <!--Grid column-->
-                    <div class="col-lg-4 col-md-12 mb-4">
-
-
-                        <!--Card-->
-                        <div class="card card-cascade narrower">
-
-                            <!--Card image-->
-
-                            <div class="view view-cascade gradient-card-header purple-gradient rounded-top">
-                                <div class="embed-responsive">
-                                    <img class="img-fluid rounded-top" src="{{ url_for('static', filename='images/route'+route.route+'.jpg')}}"></img>
-
-                                </div>
-                            </div>
-
-
-                            <!--Card content-->
-                            <div class="card-body card-body-cascade">
-                                <!--Title-->
-                                <h4 class="card-header-title text-left"><a href = {{ url_for('genRouteReport', collection_url='',source='nj',route=route.route, period='now') }}>{{route.route}}.</a>
-                                <!--Text--> {{route.description_short}}</h4>
-
-                            </div>
-
-                        </div>
-                        <!--/.Card-->
-
-
-                    </div>
-                    <!--Grid column-->
-                    {% endfor %}
-
-
-                </div>
-                <!--Grid row-->
-
-
-            </section>
-            <!--Section: Cards-->
-#}
 
         </div>
 

@@ -24,7 +24,7 @@
 
 
 {% block breadcrumb %}
-<li class="breadcrumb-item"><a href={{ url_for('genRouteReport', collection_url=collection_metadata.collection_url,route=routereport.route, period='now') }}>{{routereport.route}} {{routereport.prettyname}}</a></li>
+<li class="breadcrumb-item"><a href={{ url_for('genRouteReport', collection_url=collection_descriptions.collection_url,route=routereport.route, period='now') }}>{{routereport.route}} {{routereport.prettyname}}</a></li>
 
 {% endblock %}}
 
@@ -42,10 +42,9 @@
 
     <script type="text/javascript">
         var passed_route = {{ route | safe}}
-        var passed_reportcard_routes = {{ route_definitions|safe }}
+        <!-- var passed_reportcard_routes = {{ route_definitions|safe }} -->
     </script>
 
-    </script>
     <script type="text/javascript" src="{{ url_for('static', filename='maps/busmap-route.js')}}"></script>
 
    <!-- zoom to extent stuff -->
@@ -69,10 +68,10 @@
              </ul>
             <ul class="navbar-nav ml-auto">
 
-                <li class="breadcrumb-item "><a href = {{url_for('genRouteReport',collection_url=collection_metadata.collection_url,route=routereport.route,period='now')}}>now</a></li>
-                <li class="breadcrumb-item "><a href = {{url_for('genRouteReport',collection_url=collection_metadata.collection_url,route=routereport.route,period='today')}}>today</a></li>
-                <li class="breadcrumb-item "><a href = {{url_for('genRouteReport',collection_url=collection_metadata.collection_url,route=routereport.route,period='yesterday')}}>yesterday</a></li>
-                <li class="breadcrumb-item "><a href = {{url_for('genRouteReport',collection_url=collection_metadata.collection_url,route=routereport.route,period='history')}}>history</a></li>
+                <li class="breadcrumb-item "><a href = {{url_for('genRouteReport',collection_url=collection_descriptions.collection_url,route=routereport.route,period='now')}}>now</a></li>
+                <li class="breadcrumb-item "><a href = {{url_for('genRouteReport',collection_url=collection_descriptions.collection_url,route=routereport.route,period='today')}}>today</a></li>
+                <li class="breadcrumb-item "><a href = {{url_for('genRouteReport',collection_url=collection_descriptions.collection_url,route=routereport.route,period='yesterday')}}>yesterday</a></li>
+                <li class="breadcrumb-item "><a href = {{url_for('genRouteReport',collection_url=collection_descriptions.collection_url,route=routereport.route,period='history')}}>history</a></li>
 
             </ul>
         </div>
@@ -369,7 +368,7 @@
                                                  {% if stop.arrival_timestamp is not none %}
                                                      <td class="table-primary"><span class="small">{{stop.arrival_timestamp|strftime_today}}</span></td>
                                                      <td class="table-secondary">
-                                                         <a href = {{url_for('genStopReport',collection_url=collection_metadata.collection_url, source=routereport.source,route=routereport.route,stop=stop.stop_id,period='today') }} id="{{stop.st}}">
+                                                         <a href = {{url_for('genStopReport',collection_url=collection_descriptions.collection_url, source=routereport.source,route=routereport.route,stop=stop.stop_id,period='today') }} id="{{stop.st}}">
                                                          <span class="small">{{stop.stop_name|title}}
                                                      </span>
                                                      </a></td>
@@ -449,7 +448,7 @@
                                 <div id="buses" class="row mt-2">
 
                                     {% for stop in path.stops %}
-                                    <a href = {{url_for('genStopReport',collection_url=collection_metadata.collection_url, source=routereport.source,route=routereport.route,stop=stop.identity,period='today') }} id="{{stop.st}}"><span class="label">{{stop.st|title}}-</span>
+                                    <a href = {{url_for('genStopReport',collection_url=collection_descriptions.collection_url, source=routereport.source,route=routereport.route,stop=stop.identity,period='today') }} id="{{stop.st}}"><span class="label">{{stop.st|title}}-</span>
                                     </a>
                                     {% endfor %}
 
