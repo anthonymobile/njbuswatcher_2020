@@ -12,7 +12,7 @@ import geopandas
 from scipy.spatial import cKDTree
 from shapely.geometry import Point
 
-from . import DataBases, BusAPI, RouteConfig
+from . import DataBases, BusAPI, RouteConfig, CommonTools
 
 
 def turn_row_into_BusPosition(row):
@@ -97,6 +97,7 @@ def ckdnearest(gdA, gdB, bcol): # seems to be getting hung on on bus 5800 for so
 #
 ###########################################################################
 
+@CommonTools.timeit
 def get_nearest_stop(route_map_xml,buses,route):
 
     # sort bus data into directions
@@ -118,15 +119,23 @@ def get_nearest_stop(route_map_xml,buses,route):
 
     routedata, coordinates_bundle = BusAPI.parse_xml_getRoutePoints(route_map_xml['xml'])
 
-    stoplist = []
+    # # todo 2 test this one-liner replacement
+    # stoplist = [[[
+    #                 {'stop_id': p.identity, 'st': p.st, 'd': p.d, 'lat': p.lat, 'lon': p.lon}
+    #                 for p in path.points if p.__class__.__name__ == 'Stop']
+    #                 for path in rt.paths]
+    #                 for rt in routedata]
+
+    stoplist = [] # todo 0 faster to load this from system_map?
     for rt in routedata:
         for path in rt.paths:
             for p in path.points:
                 if p.__class__.__name__ == 'Stop':
                     stoplist.append(
                         {'stop_id': p.identity, 'st': p.st, 'd': p.d, 'lat': p.lat, 'lon': p.lon})
+
     result = collections.defaultdict(list)
-    for d in stoplist:
+    for d in stoplist: # todo 2 debug here what was produced by the above one-liner
         result[d['d']].append(d)
     stops_by_direction = list(result.values())
 
@@ -164,43 +173,6 @@ def get_nearest_stop(route_map_xml,buses,route):
                 gdf1['stop_id'] = inferred_stops['stop_id']
                 gdf1['distance'] = inferred_stops['distance']
 
-
-                # serialize as a list of BusPosition objects
-
-
-                # bus_list = []
-                # for index, row in gdf1.iterrows(): # possible speedup here
-                #     position = DataBases.BusPosition()
-                #
-                #     position.lat = row.lat
-                #     position.lon = row.lon
-                #     position.cars = row.cars
-                #     position.consist = row.consist
-                #     position.d = row.d
-                #     # position.dip = row.dip
-                #     position.dn = row.dn
-                #     position.fs = row.fs
-                #     position.id = row.id
-                #     position.m = row.m
-                #     position.op = row.op
-                #     position.pd = row.pd
-                #     position.pdrtpifeedname = row.pdRtpiFeedName
-                #     position.pid = row.pid
-                #     position.rt = row.rt
-                #     position.rtrtpifeedname = row.rtRtpiFeedName
-                #     position.rtdd = row.rtdd
-                #     position.rtpifeedname = row.rtpiFeedName
-                #     position.run = row.run
-                #     position.wid1 = row.wid1
-                #     position.wid2 = row.wid2
-                #
-                #     position.trip_id = ('{id}_{run}_{dt}').format(id=row.id, run=row.run, dt=datetime.datetime.today().strftime('%Y%m%d'))
-                #     position.arrival_flag = False
-                #     position.distance_to_stop = row.distance
-                #     position.stop_id = row.stop_id
-                #     position.timestamp = datetime.datetime.now()
-                #
-                #     bus_list.append(position)
 
                 bus_list = gdf1.apply(lambda row: turn_row_into_BusPosition(row), axis=1)
 

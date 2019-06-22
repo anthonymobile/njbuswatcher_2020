@@ -7,8 +7,8 @@ var map = new mapboxgl.Map({
 });
 
 
-var url_waypoints = ("/api/v1/maps?layer=waypoints&collection="+collection_descriptions['collection_url']);
-var url_vehicles = ("/api/v1/maps?layer=vehicles&collection="+collection_descriptions['collection_url']);
+var url_waypoints = ("/api/v1/maps?layer=waypoints&collection="+collection_descriptions['collection_url']); /* todo 0 fix key['key'] */
+var url_vehicles = ("/api/v1/maps?layer=vehicles&collection="+collection_descriptions['collection_url']);/* todo 0 fix key['key'] */
 
 map.on('load', function() {
 

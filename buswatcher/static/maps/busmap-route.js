@@ -6,8 +6,8 @@ var map = new mapboxgl.Map({
     zoom: 7 // starting zoom
 });
 
-var url_waypoints = ("/api/v1/maps?layer=waypoints&rt="+passed_route);
-var url_vehicles = ("/api/v1/maps?layer=vehicles&rt="+passed_route);
+var url_waypoints = ("/api/v1/maps?layer=waypoints&rt="+passed_route); /* todo 0 test and fix as needed */
+var url_vehicles = ("/api/v1/maps?layer=vehicles&rt="+passed_route); /* todo 0 test and fix as needed */
 
 map.on('load', function() {
 
