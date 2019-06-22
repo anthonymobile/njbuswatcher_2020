@@ -145,7 +145,7 @@
                 <div class="row mb-4 wow fadeIn">
 
                     <!--Grid column-->
-                    <div class="col-lg-8 col-md-12 mb-4">
+                    <div class="col-lg-12 col-md-12 mb-4">
 
                         <!--Card-->
                         <div class="card">
@@ -159,6 +159,8 @@
                             </div>
                             -->
 
+                        <div class="card-body table">
+                        <!--
                             {% if (routereport.grade=='A' or routereport.grade=='B') %}
                                 <div class="card-body table-success">
                             {% elif routereport.grade=='C' %}
@@ -168,109 +170,77 @@
                             {% elif (routereport.grade=='N/A') %}
                                 <div class="card-body table-secondary">
                             {% endif %}
+                            -->
 
                                 <div class="row mb-4 wow fadeIn">
-                                <div class="col-lg-4 col-md-12 mb-4 text-left">
+                                <div class="col-lg-8 col-md-12 mb-4 text-left">
                                     <!--Title-->
-                                    <h4 class="card-title ">{{routereport.period_label}}Current Grade</h4>
+
+                                    <h1 class="card-title">There are {{ routereport.active_bus_count }} buses operating on the {{routereport.route}} right now.</h1>
+
+                                            <h4 class="card-title">The timetables below show recent arrivals. Click on the stop name, or browse the full list of stops below for more detail.</h4>
+
+                                    <!-- <h4 class="card-title ">{{routereport.period_label}}Current Grade</h4>
                                     <h1 class="card-title ">{{routereport.grade}}</h1>
-                                    <h4 class="card-title ">{{routereport.period_label}}{{routereport.grade_description}}</h4>
+                                    <h4 class="card-title ">{{routereport.period_label}}{{routereport.grade_description}}</h4> -->
 
-
+                                </div>
                                 </div>
 
 
-                                    <div class="col-lg-8 col-md-12 mb-4">
 
-                                    <!--Card-->
-                                    <div class="card">
+                <div class="row mb-4 wow fadeIn">
 
-                                        <!--Card image-->
-                                        <!--
-                                        <div class="view overlay">
-                                            <div class="embed-responsive embed-responsive-16by9 rounded-top">
-                                                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/cXTThxoywNQ" allowfullscreen></iframe>
-                                            </div>
-                                        </div>
-                                        -->
+                    <div class="col-lg-8 col-md-12 mb-4">
+                        {% for trip_id,trip_dict in routereport.tripdash.items() %}
+                            <!--Card-->
+                            <div class="card">
+                                <div class="card-body">
+                                    <p class="card-title"><strong>To {{ trip_dict['pd'] }}</strong> <span class="small">{{ trip_id | split_(0) }}</span></p>
+                                    <div class="row mt-2">
+                                        <table class="table table-sm table-hover">
+                                                    <tbody>
+                                                    {% for stop in trip_dict['stoplist'] %}
+                                                     <tr class='table text-left'>
 
-                                        <!--Card content-->
-                                        <div class="card-body">
-                                            <!--Title-->
-                                            <h4 class="card-title">There are {{ routereport.active_bus_count }} buses operating on the {{routereport.route}} right now.</h4>
-
-                                            <h4 class="card-title">This used to be for headway. Now its for something else like the current time.</h4>
-                                            <p>I could say something else here.</strong>.</p>
-
-
-                                        </div>
-
+                                                     {% if stop.arrival_timestamp is not none %}
+                                                         <td class="table-primary">{{stop.arrival_timestamp|strftime_today}}</td>
+                                                         <td class="table-secondary">
+                                                             <a href = {{url_for('genStopReport',collection_url=collection_descriptions.collection_url, source=routereport.source,route=routereport.route,stop=stop.stop_id,period='today') }} id="{{stop.st}}"> {#  todo 0 fix this url_for StopReport #}
+                                                             {{stop.stop_name|title}}
+                                                         </a></td>
+                                                     {% else %}
+                                                         <td>--</td>
+                                                         <td><{{stop.stop_name|title}}</td>
+                                                     {% endif %}
+                                                    </tr>
+                                                    {% endfor %}
+                                                    </tbody>
+                                        </table>
                                     </div>
-                                    <!--/.Card-->
+                                </div>
+                            </div>
+                          {% endfor %}
+                    </div>
 
-                                    <!--Card-->
+                    <div class="col-lg-4 col-md-12 mb-4">
+                        <div id="map" class="container">
+                        </div>
+                    </div>
+                    <!--Grid column-->
+                </div>
+
+
+
+
+                                <!-- BUNCHING REPORT -->
+                                    <!--Card
                                     <div class="card mt-4">
-
-                                    <div class="card-body table-success">
-
-                                        <!--Card image-->
-                                        <!--
-                                        <div class="view overlay">
-                                            <div class="embed-responsive embed-responsive-16by9 rounded-top">
-                                                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/cXTThxoywNQ" allowfullscreen></iframe>
-                                            </div>
-                                        </div>
-                                        -->
-
-                                        <!--Card content-->
-
-                                            <!--Title-->
-                                            <h4 class="card-title">This used to be for travel time.</h4>
-
-                                            That's how long it takes buses on Route {{routereport.route}} to get from one end to the other.
-
-
-                                            <div id="buses" class="row mt-2">
-
-
-                                            </div>
-
-
-
-
-                                        </div>
-
-                                    </div>
-                                    <!--/.Card-->
-
-
-
-                                    <!--Card-->
-                                    <div class="card mt-4">
-
-                                        <!--Card image-->
-                                        <!--
-                                        <div class="view overlay">
-                                            <div class="embed-responsive embed-responsive-16by9 rounded-top">
-                                                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/cXTThxoywNQ" allowfullscreen></iframe>
-                                            </div>
-                                        </div>
-                                        -->
-
-                                        <!--Card content-->
-
                                         <div class="card-body table-danger">
-
-
-                                                <h4 class="card-title">We haven't seen any bunching during this period.</h4>
-
-
-
+                                                <h4 class="card-title">We haven't seen any bunching {{routereport.period_label}}.</h4>
                                         </div>
-
                                     </div>
-                                    <!--/.Card-->
-
+                                    Card-->
 
                                     {#   <!--Card-->
                                     <div class="card mt-4">
@@ -322,26 +292,6 @@
 
 
 
-                    </div>
-                    <!--Grid column-->
-
-
-
-                    <!--Map column-->
-                    <div class="col-lg-4 col-md-12 mb-4">
-
-                        <div id="map" class="container">
-                        </div>
-
-
-                    </div>
-                    <!--Grid column-->
-
-
-
-                </div>
-                <!--Grid row-->
-
 
             </section>
             <!--Section: Grade Card-->
@@ -363,83 +313,6 @@
                      <!--</div>-->
                 </div>
             </section>
-
-
-            <hr id="current_service" class="my-5">
-
-            <!--Section: On the Road Now-->
-            <section>
-                     <h1 class="mb-4 mt-4">
-                        <strong>Buses On the Road Now</strong>
-                    </h1>
-
-                <!--Grid row-->
-                <div class="row mb-4 wow fadeIn">
-
-                    {% for trip_id,trip_dict in routereport.tripdash.items() %}
-
-                    <!--Grid column-->
-                    <div class="col-lg-4 col-md-12 mb-4">
-
-
-                        <!--Card-->
-                        <div class="card">
-
-                            <!--Card content-->
-                            <div class="card-body">
-                                <!--Title-->
-                                <p class="card-title">To {{ trip_dict['pd'] }} (#{{ trip_id | split_(0) }})</p>
-                                <div class="row mt-2">
-
-                                    <table class="table table-sm table-hover">
-
-
-                                                <tbody>
-                                                {% for stop in trip_dict['stoplist'] %}
-                                                 <tr class='table text-left'>
-
-                                                 {% if stop.arrival_timestamp is not none %}
-                                                     <td class="table-primary"><span class="small">{{stop.arrival_timestamp|strftime_today}}</span></td>
-                                                     <td class="table-secondary">
-                                                         <a href = {{url_for('genStopReport',collection_url=collection_descriptions.collection_url, source=routereport.source,route=routereport.route,stop=stop.stop_id,period='today') }} id="{{stop.st}}">
-                                                         <span class="small">{{stop.stop_name|title}}
-                                                     </span>
-                                                     </a></td>
-
-
-
-
-
-                                                 {% else %}
-                                                     <td><small>--</small></td>
-                                                     <td><small>{{stop.stop_name|title}}</small></td>
-                                                 {% endif %}
-
-                                                </tr>
-
-
-                                                {% endfor %}
-
-                                                </tbody>
-                                    </table>
-
-                                </div>
-
-                            </div>
-                            <!--/.Card-->
-
-
-                        </div>
-                        <!--Grid column-->
-
-                    </div>
-                    <!--Grid row-->
-                    {% endfor %}
-                </div>
-
-             </section>
-            <!--Section: On the Road Now-->
-
 
 
             <!--Section: Stops-->

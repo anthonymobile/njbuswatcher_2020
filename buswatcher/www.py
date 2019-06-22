@@ -124,12 +124,12 @@ def displayCollection(collection_url):
     # todo 2 better to find a less latency way to do this (with a db query)
     vehicles_now = API.get_positions_byargs({'collection': collection_url, 'layer': 'vehicles'}, route_descriptions,
                              collection_descriptions)
-
-    collection_descriptions['number_of_active_vehicles'] = len(vehicles_now['features'])
-    collection_descriptions['number_of_active_routes'] = len(collection_descriptions[collection_url]['routelist'])
+    collection_description=collection_descriptions[collection_url]
+    collection_description['number_of_active_vehicles'] = len(vehicles_now['features'])
+    collection_description['number_of_active_routes'] = len(collection_descriptions[collection_url]['routelist'])
 
     routereport = Dummy()  # setup a dummy routereport for the navbar
-    return render_template('collection.jinja2',collection_url=collection_url,collection_descriptions=collection_descriptions, route_descriptions=route_descriptions, routereport=routereport)
+    return render_template('collection.jinja2',collection_url=collection_url,collection_description=collection_description, route_descriptions=route_descriptions, routereport=routereport)
 
 
 #-------------------------------------------------------------Route
@@ -137,7 +137,6 @@ def displayCollection(collection_url):
 @app.route('/<collection_url>/<route>/<period>')
 def genRouteReport(collection_url,route, period):
     source=source_global
-    # collection_metadata=load_collection_routes(collection_url)
     route_report = wwwAPI.RouteReport(system_map, route, period)
     # return render_template('route.jinja2', collection_metadata=collection_metadata, route_definitions=route_descriptions, route=route, period=period, routereport=route_report)
     return render_template('route.jinja2', collection_descriptions=collection_descriptions, route=route, period=period, routereport=route_report)

@@ -1,5 +1,5 @@
 {
-    "last_updated": "2019-06-21 23:31:12",
+    "last_updated": "2019-06-22 17:20:26",
     "ttl": "86400",
     "routedata": [
         {
@@ -1913,6 +1913,36 @@
             "description_short": "",
             "frequency": "low",
             "prettyname": "18th Street Crosstown",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "316",
+            "nm": "Cape May-Wildwood-Phila Exp",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Cape May-Wildwood-Phila Exp",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "510",
+            "nm": "Cape May - Wildwood Shuttle",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Cape May - Wildwood Shuttle",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "97",
+            "nm": "East Orange - Montclair",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "East Orange - Montclair",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
         }
     ]

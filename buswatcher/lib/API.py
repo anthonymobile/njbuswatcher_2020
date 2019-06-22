@@ -82,7 +82,7 @@ def get_positions_byargs(args, route_definitions, collection_descriptions): #tod
     elif 'collection' in args.keys():
         positions_list = pd.DataFrame()
         for city,citydata in collection_descriptions.items():
-            if args['collection'] == citydata['collection']:
+            if args['collection'] == citydata['collection']: # todo 0 bug
                 # iterate over its routelist
                 for r in citydata['routelist']:
                     positions_list = positions_list.append(_fetch_positions_df(r))
@@ -128,7 +128,7 @@ def get_map_layers(args, route_definitions, collection_descriptions):  #todo 0 m
         stops = []
         # pick the right collection
         for c in collection_descriptions:
-            if c['collection_url'] == args['collection']:
+            if c['collection_url'] == args['collection']: # todo 0 error
                 for r in c['routelist']:
                     waypoints_item, stops_item = _fetch_layers_json(r)
                     waypoints.append(waypoints_item)
