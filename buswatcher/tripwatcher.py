@@ -25,7 +25,10 @@ class RouteScan:
         # apply passed parameters to instance
         self.route = route
         self.statewide = statewide
-        self.route_map_xml=[x for x in system_map.route_geometries if x['route'] == self.route][0]
+        try:
+            self.route_map_xml=[x for x in system_map.route_geometries if x['route'] == self.route][0]
+        except:
+            self.route_map_xml={'xml':''}
 
         # create database connection
         self.db = SQLAlchemyDBConnection()
