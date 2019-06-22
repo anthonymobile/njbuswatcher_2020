@@ -20,15 +20,14 @@ from buswatcher.lib.CommonTools import timeit
 class RouteScan:
 
     # @timeit
-    def __init__(self, route, statewide):
+    def __init__(self, system_map, route, statewide):
 
         # apply passed parameters to instance
         self.route = route
         self.statewide = statewide
-        # self.system_map_xml = system_map_xml
-        # self.route_map_xml = self.filter_system_map_xml()
+        self.route_map_xml=[x for x in system_map.route_geometries if x['route'] == self.route][0]
 
-        # create database connectio
+        # create database connection
         self.db = SQLAlchemyDBConnection()
 
         # initialize instance variables
@@ -47,12 +46,6 @@ class RouteScan:
             self.interpolate_missed_stops()
             self.assign_positions()
 
-    # def filter_system_map_xml(self):
-    #     for route in self.system_map_xml.route_geometries_local:
-    #         if route['route'] == self.route:
-    #             return route
-    #         else:
-    #             continue
 
     def fetch_positions(self):
 
@@ -318,11 +311,11 @@ class RouteScan:
 def main_loop(system_map):
 
     if args.statewide is False:
-        for collection,collection_metadata in system_map.collection_descriptions:
-            for r in collection_metadata['routelist']:
-                RouteScan(r, args.statewide)
+        for collection,collection_description in system_map.collection_descriptions.items():
+            for r in collection_description['routelist']:
+                RouteScan(system_map, r, args.statewide)
     elif args.statewide is True:
-        RouteScan(0, args.statewide)
+        RouteScan(system_map, 0, args.statewide)
     return
 
 if __name__ == "__main__":

@@ -1,3 +1,4 @@
+# todo 0 get rid of this for now?
 # generator.py
 #
 # description:
@@ -10,7 +11,7 @@
 #
 import argparse, time
 
-from buswatcher.lib.Generators import *
+import buswatcher.lib.Generators as Generators
 from buswatcher.lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
 from buswatcher.lib.RouteConfig import load_system_map
 from buswatcher.lib.CommonTools import timeit
@@ -20,10 +21,16 @@ from buswatcher.lib.CommonTools import timeit
 def hourly_loop():
 
     if args.statewide is False:
-        print ('do something')
+        print ('run stuff from buswatcher.lib.Generators')
+
     elif args.statewide is True:
-        print ('do something')
+        print ('run stuff from buswatcher.lib.Generators')
     return
+
+def hello(name):
+    print
+    "Hello %s!" % name
+
 
 if __name__ == "__main__":
 
@@ -40,14 +47,26 @@ if __name__ == "__main__":
     elif args.statewide is True:
         print('running in statewide mode (watch all routes in NJ)')
 
-    # todo schedule this instead
-    run_frequency = 3600 # seconds, runs once per hour
-    time_start=time.monotonic()
+    # todo 0 come up a cron-like scheme
+    #
+    # 1 https://stackoverflow.com/questions/2398661/schedule-a-repeating-event-in-python-3#2399145
+    # 2 https://apscheduler.readthedocs.io/en/3.0/
+
+
+    # tasks that need to be run on a certain schedules
+    # Generators.generate_headway_report(all) -- once per minute
+    # Generators.generate_traveltime_report(all)  -- once every 15 minutes
+    # Generators.generate_bunching_report(all) -- once per day
+
+
+    run_frequency = 3600  # seconds, runs once per hour
+    time_start = time.monotonic()
 
     while True:
         hourly_loop()
         print('***sleeping***')
         time.sleep(run_frequency - ((time.monotonic() - time_start) % run_frequency))  # sleep remainder of the 60 second loop
+
 
 
 

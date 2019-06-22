@@ -161,7 +161,7 @@ def update_route_descriptions_file(system_map):
             update = {"route": a['route'], "nm": a['nm'].split(' ', 1)[1], "ttl": "1d","description_long": "", "description_short": "", "frequency": "low", "prettyname": "",
                       "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"}
             print ("<<Added route record>>"+json.dumps(update))
-            system_map.route_descriptions.append(update) #add it to the route_definitions file so we dont scan it again until the TTL expires
+            system_map.route_descriptions['routedata'].append(update) #add it to the route_definitions file so we dont scan it again until the TTL expires
 
     # make one last scan of file --  if prettyname in file is blank, should copy nm from file to prettyname
     for route in system_map.route_descriptions['routedata']:
@@ -179,7 +179,6 @@ def update_route_descriptions_file(system_map):
     with open('config/route_descriptions.json','w') as f:
         json.dump(outdata, f, indent=4)
 
-
     return
 
 def fetch_update_route_geometry(system_map): # grabs a copy of the route XML to a file. this can probably be deprecated with TransitSystem now
@@ -187,7 +186,7 @@ def fetch_update_route_geometry(system_map): # grabs a copy of the route XML to 
     for r in system_map.route_descriptions['routedata']:
         try:
             route_xml =  BusAPI.get_xml_data('nj', 'routes', route=r['route'])
-            sys.write.stdout('.')
+            sys.stdout.write('.')
         except:
             continue
 
@@ -199,10 +198,13 @@ def fetch_update_route_geometry(system_map): # grabs a copy of the route XML to 
 
 def get_route_geometry(r):
     try:
-        infile = ('config/route_geometry/' + r +'.xml')
-        with open(infile,'rb') as f:
-            return f.read()
-    except: # if the xml for route r is missing, let's grab it (duplicated code here, but it works so...)
+        [x['xml'] for x in system_map.route_geometries if x['route'] == r]
+
+        # infile = ('config/route_geometry/' + r +'.xml')
+        # with open(infile,'rb') as f:
+        #     return f.read()
+    # except: # if the xml for route r is missing, let's grab it (duplicated code here, but it works so...)
+    except: # if its not in the system_map, fetch the XML and return that instead
 
         route_xml = BusAPI.get_xml_data('nj', 'routes', route=r)
 
@@ -213,6 +215,8 @@ def get_route_geometry(r):
         infile = ('config/route_geometry/' + r + '.xml')
         with open(infile, 'rb') as f:
             return f.read()
+
+
 
 def is_time_between(begin_time, end_time, check_time=None):
     # If check time is not given, default to current UTC time
