@@ -96,7 +96,7 @@ def ckdnearest(gdA, gdB, bcol): # seems to be getting hung on on bus 5800 for so
 #
 ###########################################################################
 
-@CommonTools.timeit
+#@CommonTools.timeit
 def get_nearest_stop(route_map_xml,buses,route):
 
     # sort bus data into directions
@@ -111,7 +111,7 @@ def get_nearest_stop(route_map_xml,buses,route):
 
 
     # acquire and sort stop data in directions (ignoring services)
-    # routedata, coordinates_bundle = BusAPI.parse_xml_getRoutePoints(get_route_geometry(route))
+    # routedata, coordinates_bundle = BusAPI.parse_xml_getRoutePoints(get_route_xml(route))
     if route_map_xml is None:
         route_map_xml=dict()
         route_map_xml['xml'] = RouteConfig.get_route_geometry(route)

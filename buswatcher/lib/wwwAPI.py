@@ -90,7 +90,7 @@ class RouteReport:
 
         return trip_list, trip_list_trip_id_only
 
-    def __get_stoplist(self,system_map):
+    def __get_stoplist(self,system_map): # todo 0000!!! getting key errors here on any that are not JerseyCity
 
         route_stop_list = []
         for route in system_map.route_geometries_remote[self.route][0]:
@@ -203,6 +203,14 @@ class StopReport:
         # populate data for webpage
         self.arrivals_list_final_df, self.stop_name = self.get_arrivals(self.route, self.stop, self.period)
         self.hourly_frequency = self.get_hourly_frequency()
+
+
+    #
+    #
+    # WORKING HERE!!!!!!!!!!1
+    #
+    #
+
 
     # fetch arrivals into a df
     def get_arrivals(self,route,stop,period):
@@ -326,18 +334,16 @@ class StopReport:
 
                 # Otherwise, cleanup the query results
                 # split by vehicle and calculate arrival intervals
-                # todo replace with not groupby per alex
+
+                # todo 1 optimize the groupby here
+                # alex r says:
                 # for group in df['col'].unique():
                 #     slice = df[df['col'] == group]
                 #
-                # is like
-                # 10
-                # x
-                # faster
-                # then
-                # going:
-                #
+                # is like 10x faster than
                 # df.groupby('col').apply( < stuffhere >)
+
+
                 final_approach_dfs = [g for i, g in arrivals_here.groupby(arrivals_here['v'].ne(arrivals_here['v'].shift()).cumsum())] # split final approach history (sorted by timestamp) at each change in vehicle_id outputs a list of dfs per https://stackoverflow.com/questions/41144231/python-how-to-split-pandas-dataframe-into-subsets-based-on-the-value-in-the-fir
                 arrivals_list_final_df = pd.DataFrame() # take the last V(ehicle) approach in each df and add it to final list of arrivals
                 for final_approach in final_approach_dfs:  # iterate over every final approach

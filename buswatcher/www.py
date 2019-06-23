@@ -122,8 +122,9 @@ def displayIndex():
 def displayCollection(collection_url):
 
     # todo 2 better to find a less latency way to do this (with a db query)
-    vehicles_now = API.get_positions_byargs({'collection': collection_url, 'layer': 'vehicles'}, route_descriptions,
+    vehicles_now = API.get_positions_byargs(system_map, {'collection': collection_url, 'layer': 'vehicles'}, route_descriptions,
                              collection_descriptions)
+
     collection_description=collection_descriptions[collection_url]
     collection_description['number_of_active_vehicles'] = len(vehicles_now['features'])
     collection_description['number_of_active_routes'] = len(collection_descriptions[collection_url]['routelist'])
@@ -136,23 +137,19 @@ def displayCollection(collection_url):
 
 @app.route('/<collection_url>/<route>/<period>')
 def genRouteReport(collection_url,route, period):
-    source=source_global
     route_report = wwwAPI.RouteReport(system_map, route, period)
-    # return render_template('route.jinja2', collection_metadata=collection_metadata, route_definitions=route_descriptions, route=route, period=period, routereport=route_report)
-    return render_template('route.jinja2', collection_descriptions=collection_descriptions, route=route, period=period, routereport=route_report)
+
+    return render_template('route.jinja2', collection_url=collection_url, collection_descriptions=collection_descriptions, route=route, period=period, routereport=route_report)
 
 #------------------------------------------------------------Stop
-# /<source>/<route>/stop/<stop>/<period>
-@app.route('/<collection_url>/<route>/stop/<stop>/<period>')
-#@cache.cached(timeout=60) # cache for 1 minute
+@app.route('/<collection_url>/route/<route>/stop/<stop>/<period>')
 def genStopReport(collection_url, route, stop, period):
-    source = source_global
-    # collection_metadata=load_collection_routes(collection_url)
+
     stop_report = wwwAPI.StopReport(system_map, route, stop, period)
     route_report = wwwAPI.RouteReport(system_map, route, period)
     predictions = BusAPI.parse_xml_getStopPredictions(BusAPI.get_xml_data('nj', 'stop_predictions', stop=stop, route='all'))
 
-    return render_template('stop.jinja2', collection_descriptions=collection_descriptions, source=source, stop=stop, period=period, stopreport=stop_report, reportcard_routes=route_definitions,predictions=predictions, routereport=route_report)
+    return render_template('stop.jinja2',collection_url=collection_url, collection_descriptions=collection_descriptions, stop=stop, period=period, stopreport=stop_report, reportcard_routes=route_descriptions,predictions=predictions, routereport=route_report)
 
 #-------------------------------------------------------------FAQ
 @app.route('/faq')
@@ -203,9 +200,9 @@ def api_map_layer():
     args=request.args
 
     if args['layer'] == 'vehicles':
-        return jsonify(API.get_positions_byargs(args,route_descriptions,collection_descriptions))
+        return jsonify(API.get_positions_byargs(system_map,args,route_descriptions,collection_descriptions))
     else:
-        return jsonify(API.get_map_layers(args,route_descriptions,collection_descriptions))
+        return jsonify(API.get_map_layers(system_map,args,route_descriptions,collection_descriptions))
 
 
 
