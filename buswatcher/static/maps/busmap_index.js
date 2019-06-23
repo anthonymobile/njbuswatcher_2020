@@ -9,9 +9,11 @@ var map = new mapboxgl.Map({
 
 // zoom implemented using https://stackoverflow.com/questions/49354133/turf-js-to-find-bounding-box-of-data-loaded-with-mapbox-gl-js
 
-var url_vehicles = ("/api/v1/maps?layer=vehicles&rt=all"); /* todo 0 fix this. check the API */
+var url_vehicles = ("/api/v1/maps?layer=vehicles&rt=all");
 
 
+
+/* todo 0 seems to take about 5 seconds before issuing the API request */
 map.on('load', function() {
 
 
@@ -19,7 +21,7 @@ map.on('load', function() {
 
         window.setInterval(function() {
             map.getSource('vehicles_source').setData(url_vehicles);
-            }, 60000);
+            }, 5000);
 
 
         map.addSource('vehicles_source', {

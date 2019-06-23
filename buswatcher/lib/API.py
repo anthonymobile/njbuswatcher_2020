@@ -56,23 +56,15 @@ def _fetch_positions_df(route):
         pass
     return positions_log # returns a dataframe
 
-def _fetch_layers_json(route):  #todo 0 move into/replace with method if RouteConfig.TransitSystem
-    # routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data('nj', 'routes', route=route))
-    routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(get_route_geometry(route))
-    waypoints_feature = json.loads(coordinate_bundle['waypoints_geojson'])
-    waypoints_feature = geojson.Feature(geometry=waypoints_feature)
-    stops_feature = json.loads(coordinate_bundle['stops_geojson'])
-    stops_feature = geojson.Feature(geometry=stops_feature)
-    return waypoints_feature, stops_feature
 
 # positions
 
-def get_positions_byargs(args, route_definitions, collection_descriptions): #todo 0 move into/replace with method if RouteConfig.TransitSystem
+def get_positions_byargs(system_map, args, route_descriptions, collection_descriptions):
 
     if 'rt' in args.keys():
-        if args['rt'] == 'all': # todo 0 speed this up for index map takes about 15 seconds for statewide -- probably means removing pandas from _fetch_positions_df, __positions2geojson by writing a new class
+        if args['rt'] == 'all': # todo 0 speed this up for index map takes about 15 seconds for statewide -- probably means removing pandas from _fetch_positions_df, __positions2geojson
             positions_list = pd.DataFrame()
-            for r in route_definitions['route_definitions']:
+            for r in route_descriptions['routedata']:
                 positions_list = positions_list.append(_fetch_positions_df(r['route']))
 
             return __positions2geojson(positions_list)
@@ -90,55 +82,8 @@ def get_positions_byargs(args, route_definitions, collection_descriptions): #tod
                 return __positions2geojson(positions_list)
 
 
-# get geoJSON for collection map
-def get_map_layers(args, route_definitions, collection_descriptions):  #todo 0 move into/replace with method if RouteConfig.TransitSystem
-    # if we only want a single stop geojson
-    if 'stop_id' in args.keys():
-        # query the db and grab the lat lon for the first record that stop_id matches this one
-        with SQLAlchemyDBConnection() as db:
-            stop_query = db.session.query(
-                ScheduledStop.stop_id,
-                ScheduledStop.lat,
-                ScheduledStop.lon) \
-                .filter(ScheduledStop.stop_id == args['stop_id']) \
-                .first()
-            # format for geojson
-            stop_coordinates = [float(stop_query[1]), float(stop_query[2])]
-            stop_geojson = geojson.Point(stop_coordinates)
-            # return stop_lnglatlike, stop_geojson
-            return stop_geojson
+# get geoJSON
+def get_map_layers(system_map, args, route_descriptions, collection_descriptions):  #todo 0 replace all usages with TransitSystem.render_geojson
 
-    # otherwise continue to get waypoints/stops for all routes, one route
-    elif 'rt' in args.keys():
-        waypoints = []
-        stops = []
-        if args['rt'] == 'all':
-            for r in route_definitions['route_definitions']:
-                waypoints_item, stops_item = _fetch_layers_json(r['route'])
-                waypoints.append(waypoints_item)
-                stops.append(stops_item)
-        else:
-            waypoints_item, stops_item = _fetch_layers_json(args['rt'])
-            waypoints.append(waypoints_item)
-            stops.append(stops_item)
-
-    # or a collection of routes
-    elif 'collection' in args.keys():
-        waypoints = []
-        stops = []
-        # pick the right collection
-        for c in collection_descriptions:
-            if c['collection_url'] == args['collection']: # todo 0 error
-                for r in c['routelist']:
-                    waypoints_item, stops_item = _fetch_layers_json(r)
-                    waypoints.append(waypoints_item)
-                    stops.append(stops_item)
-
-    # now render the layers as geojson
-    if args['layer']=='waypoints':
-        waypoints_featurecollection = geojson.FeatureCollection(waypoints)
-        return waypoints_featurecollection
-    elif args['layer']=='stops':
-        stops_featurecollection = geojson.FeatureCollection(stops)
-        return stops_featurecollection
+    return system_map.render_geojson(args)
 

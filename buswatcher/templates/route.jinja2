@@ -95,69 +95,26 @@
         <div class="container">
 
 
-            <!--Section: Title-->
+            <!--Section: Title
+            <section id="menu" class="text-center">
 
-                <section id="menu" class="text-center">
-
-                <!-- Content -->
                 <div class="card-body text-black text-center">
-
                     <h1 class="mb-4">
                         <strong>{{routereport.route}} {{routereport.prettyname}}</strong></h1>
-
-                    <!-- Jump to Section Buttons -->
-                    <!--<p class="mb-4">-->
-                        <!--<strong>{{routereport.description_long}}</strong>-->
-                    <!--</p>-->
-                    <!--<a target="_self" href="#stops" class="btn btn-outline-black btn-lg">Stop Info-->
-                        <!--<i class="fas fa-pencil-alt ml-2"></i>-->
-                    <!--</a>-->
-                    <!--<a target="_self" href="#route_performance" class="btn btn-outline-black btn-lg">Current Stats (Last 2 Hours)-->
-                        <!--<i class="fas fa-map ml-2"></i>-->
-                    <!--</a>-->
-
-                    <!--<a target="_self" href="#map_line" class="btn btn-outline-black btn-lg">Live Map-->
-                        <!--<i class="fas fa-graduation-cap ml-2"></i>-->
-                    <!--</a>-->
-
-                    <!--<a target="_self" href="#current_service" class="btn btn-outline-black btn-lg">On the Road (Trip Tracker)-->
-                        <!--<i class="fas fa-graduation-cap ml-2"></i>-->
-                    <!--</a>-->
-
-
                 </div>
-                <!-- Content -->
+
             </section>
-            <!--Section: Title-->
+            -->
 
-
-            <!--<hr id="grade_card" class="my-5">-->
-
-
-            <!--Section: Grade Card-->
+            <!--Section: Title, Arrivals, and Map -->
             <section  class="text-left">
-                     <!--<h1 class="mb-4">-->
-                        <!--<strong>Route Performance</strong>-->
-                    <!--</h1>-->
-
-
                 <!--Grid row-->
                 <div class="row mb-4 wow fadeIn">
-
                     <!--Grid column-->
                     <div class="col-lg-12 col-md-12 mb-4">
-
                         <!--Card-->
                         <div class="card">
 
-                            <!--Card image-->
-                            <!--
-                            <div class="view overlay">
-                                <div class="embed-responsive embed-responsive-16by9 rounded-top">
-                                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/cXTThxoywNQ" allowfullscreen></iframe>
-                                </div>
-                            </div>
-                            -->
 
                         <div class="card-body table">
                         <!--
@@ -173,10 +130,10 @@
                             -->
 
                                 <div class="row mb-4 wow fadeIn">
-                                <div class="col-lg-8 col-md-12 mb-4 text-left">
+                                <div class="col-lg-12 col-md-12 mb-4 text-left">
                                     <!--Title-->
 
-                                    <h1 class="card-title">There are {{ routereport.active_bus_count }} buses operating on the {{routereport.route}} right now.</h1>
+                                    <h1 class="card-title">There are {{ routereport.active_bus_count }} buses operating on the {{routereport.route}} {{routereport.prettyname}} right now.</h1>
 
                                             <h4 class="card-title">The timetables below show recent arrivals. Click on the stop name, or browse the full list of stops below for more detail.</h4>
 
@@ -206,7 +163,7 @@
                                                      {% if stop.arrival_timestamp is not none %}
                                                          <td class="table-primary">{{stop.arrival_timestamp|strftime_today}}</td>
                                                          <td class="table-secondary">
-                                                             <a href = {{url_for('genStopReport',collection_url=collection_descriptions.collection_url, source=routereport.source,route=routereport.route,stop=stop.stop_id,period='today') }} id="{{stop.st}}"> {#  todo 0 fix this url_for StopReport #}
+                                                             <a href = {{url_for('genStopReport',collection_url=collection_url, route=routereport.route,stop=stop.stop_id,period='today') }} id="{{stop.st}}"> {#  todo 0 fix this url_for StopReport #}
                                                              {{stop.stop_name|title}}
                                                          </a></td>
                                                      {% else %}
@@ -354,7 +311,7 @@
                                 <div id="buses" class="row mt-2">
 
                                     {% for stop in path.stops %}
-                                    <a href = {{url_for('genStopReport',collection_url=collection_descriptions.collection_url, source=routereport.source,route=routereport.route,stop=stop.identity,period='today') }} id="{{stop.st}}"><span class="label">{{stop.st|title}}-</span>
+                                    <a href = {{url_for('genStopReport',collection_url=collection_url, source=routereport.source,route=routereport.route,stop=stop.identity,period='today') }} id="{{stop.st}}"><span class="label">{{stop.st|title}}-</span>
                                     </a>
                                     {% endfor %}
 
