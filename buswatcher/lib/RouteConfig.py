@@ -83,7 +83,7 @@ class TransitSystem:
     def get_single_route_stoplist_for_wwwAPI(self, route):
         route_stop_list = []
 
-        for direction in system_map.get_single_route_Paths(route)[0]:
+        for direction in self.get_single_route_Paths(route)[0]:
             path_list = []
             for path in direction.paths:
                 stops_points = RouteReport.Path()
@@ -98,8 +98,6 @@ class TransitSystem:
             route_stop_list.append(path_list)
             return route_stop_list[0]  # transpose a single copy since the others are all repeats (can be verified by path ids)
 
-
-
     def extract_geojson_features_from_system_map(self, route):
         waypoints_feature = geojson.Feature(geometry=json.loads(self.route_geometries[route]['coordinate_bundle']['waypoints_geojson']))
         stops_feature = geojson.Feature(geometry=json.loads(self.route_geometries[route]['coordinate_bundle']['stops_geojson']))
@@ -110,9 +108,7 @@ class TransitSystem:
         # stops_feature = geojson.Feature(geometry=stops_feature)
         return waypoints_feature, stops_feature
 
-
-    #return geojson -- stops, waypoints -- for a specific route
-    def render_geojson(self, args): # todo 0 separate the waypoints, vehicles, stops into different routes in www.py so that we can cache the waypoints layers
+    def render_geojson(self, args): # todo 1 separate the waypoints, stops into different routes in www.py so that we can cache the waypoints layers
 
         # if we only want a single stop geojson
         if 'stop_id' in args.keys():
@@ -172,8 +168,11 @@ class TransitSystem:
 
         return
 
+    def get_positions_byargs(self, args): #todo 0 move API.get_positions_byargs here
+        return
 
 
+        
 ##################################################################
 # Class TransitSystem bootstrapper
 ##################################################################

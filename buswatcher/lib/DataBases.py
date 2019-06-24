@@ -1,27 +1,24 @@
-# -*- coding: utf-8 -*-
 import datetime
-# import sys
-from sqlalchemy import inspect, create_engine, ForeignKeyConstraint, Index, Date, Column, Integer, DateTime, Float, String, Text, Boolean, ForeignKey
+from sqlalchemy import create_engine, ForeignKeyConstraint, Index, Date, Column, Integer, DateTime, Float, String, Text, Boolean, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 from . import BusAPI
 from . import DBconfig
-from . import RouteConfig
-
-
 
 #####################################################
-# sitewide functions
+# sqlalchemy Base metaclass
 #####################################################
 
-
-#####################################################
-# base
-#####################################################
 Base = declarative_base()
 
+#####################################################
+# database connection class
+#####################################################
+
+
 class SQLAlchemyDBConnection(object):
+
     def __init__(self):
         # self.connection_string = 'sqlite:///jc_buswatcher.db'  # TESTING, WORKS
         self.connection_string = DBconfig.connection_string # replaces 'localhost' with 'db' for development        self.session = None
@@ -29,6 +26,7 @@ class SQLAlchemyDBConnection(object):
     def __enter__(self):
         engine = create_engine(self.connection_string)
         Session = sessionmaker()
+
         self.session = Session(bind=engine)
         Base.metadata.create_all(bind=engine)
         return self
