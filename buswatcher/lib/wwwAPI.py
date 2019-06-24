@@ -41,8 +41,9 @@ class RouteReport:
         self.prettyname = [x['prettyname'] for x in system_map.route_descriptions['routedata'] if x['route'] == self.route][0]
         self.schedule_url = [x['schedule_url'] for x in system_map.route_descriptions['routedata'] if x['route'] == self.route][0]
 
-        self.route_geometry = RouteConfig.get_route_geometry(route)
-        self.routes, self.coordinate_bundle = BusAPI.parse_xml_getRoutePoints(RouteConfig.get_route_geometry(self.route))
+        self.route_geometry = system_map.route_geometries[self.route] # RouteConfig.get_route_geometry(system_map,route)
+
+        self.routes, self.coordinate_bundle = system_map.get_single_route_paths_and_coordinatebundle(self.route) # BusAPI.parse_xml_getRoutePoints(RouteConfig.get_route_geometry(self.route))
         self.routename, self.waypoints_coordinates, self.stops_coordinates, self.waypoints_geojson, self.stops_geojson = \
             self.routes[0].nm, self.coordinate_bundle['waypoints_coordinates'], self.coordinate_bundle['stops_coordinates'], \
             self.coordinate_bundle['waypoints_geojson'], self.coordinate_bundle['stops_geojson']
@@ -90,12 +91,12 @@ class RouteReport:
 
         return trip_list, trip_list_trip_id_only
 
-    def __get_stoplist(self,system_map): # todo 0000!!! getting key errors here on any that are not JerseyCity
-
+    def __get_stoplist(self,system_map):
         route_stop_list = []
-        for route in system_map.route_geometries_remote[self.route][0]:
+
+        for direction in system_map.get_single_route_Paths(self.route)[0]: # for route in system_map.route_geometries_remote[self.route][0]:
             path_list = []
-            for path in route.paths:
+            for path in direction.paths:
                 stops_points = RouteReport.Path()
                 for point in path.points:
                     if isinstance(point, BusAPI.Route.Stop):

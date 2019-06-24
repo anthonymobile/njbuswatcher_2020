@@ -49,7 +49,7 @@ class SQLAlchemyDBConnection(object):
 
 class Trip(Base):
 
-    def __init__(self, source, route, v, run, pid):
+    def __init__(self, source, system_map, route, v, run, pid):
         self.source = source
         self.rt = route
         self.v = v
@@ -62,9 +62,11 @@ class Trip(Base):
         # and populate the self.stoplist and self.coordinates_bundle
 
         with SQLAlchemyDBConnection() as db:
+
             self.db = db
             self.stop_list = []
-            routes, self.coordinates_bundle = BusAPI.parse_xml_getRoutePoints(RouteConfig.get_route_geometry(self.rt))
+            routes, self.coordinates_bundle = system_map.get_single_route_paths_and_coordinatebundle(self.rt)
+
             self.routename = routes[0].nm
             for path in routes[0].paths:
                 if path.id == self.pid:

@@ -22,6 +22,7 @@ def hourly_loop():
 
     if args.statewide is False:
         print ('run stuff from buswatcher.lib.Generators')
+        # todo 0 delete and rebuild the system_map picklefile (build it first and swap, so it doesn't start looping.)
 
     elif args.statewide is True:
         print ('run stuff from buswatcher.lib.Generators')

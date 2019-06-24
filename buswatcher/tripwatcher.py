@@ -12,7 +12,8 @@ import numpy as np
 
 from pymysql import IntegrityError
 
-from buswatcher.lib import BusAPI, Localizer, wwwAPI
+from buswatcher.lib import BusAPI, Localizer
+from buswatcher.lib.RouteConfig import TransitSystem
 from buswatcher.lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
 from buswatcher.lib.RouteConfig import load_system_map, maintenance_check
 from buswatcher.lib.CommonTools import timeit
@@ -26,7 +27,7 @@ class RouteScan:
         self.route = route
         self.statewide = statewide
         try:
-            self.route_map_xml=[x for x in system_map.route_geometries if x['route'] == self.route][0]
+            self.route_map_xml=system_map.single_route_xml(self.route)
         except:
             self.route_map_xml={'xml':''}
 
@@ -44,8 +45,8 @@ class RouteScan:
         # generate scan data and results
         with SQLAlchemyDBConnection() as self.db:
             self.fetch_positions()
-            self.parse_positions()
-            self.localize_positions()
+            self.parse_positions(system_map)
+            self.localize_positions(system_map)
             self.interpolate_missed_stops()
             self.assign_positions()
 
@@ -83,20 +84,19 @@ class RouteScan:
         return
 
 
-    def parse_positions(self):
+    def parse_positions(self,system_map):
 
         with self.db as db:
 
             # PARSE trips, create missing trip records first, to honor foreign key constraints
             # sys.stdout.write('parsing...')
-
             for bus in self.buses:
                 bus.trip_id = ('{id}_{run}_{dt}').format(id=bus.id, run=bus.run,dt=datetime.datetime.today().strftime('%Y%m%d'))
                 self.trip_list.append(bus.trip_id)
                 result = db.session.query(Trip).filter(Trip.trip_id == bus.trip_id).first()
 
                 if result is None:
-                    trip_id = Trip('nj', bus.rt, bus.id, bus.run, bus.pid)
+                    trip_id = Trip('nj', system_map, bus.rt, bus.id, bus.run, bus.pid)
                     db.session.add(trip_id)
                 else:
                     continue
@@ -105,14 +105,14 @@ class RouteScan:
             return
 
 
-    def localize_positions(self):
+    def localize_positions(self,system_map):
 
             with self.db as db:
 
                 try:
                     # LOCALIZE
                     if self.statewide is False:
-                        bus_positions = Localizer.get_nearest_stop(self.route_map_xml, self.buses, self.route)
+                        bus_positions = Localizer.get_nearest_stop(system_map, self.buses, self.route)
                         for group in bus_positions:
                             for bus in group:
                                 db.session.add(bus)
@@ -126,7 +126,7 @@ class RouteScan:
                         # loop over each route
                         for r in statewide_route_list:
                             # print('localizing routes %a').format(a=r)
-                            bus_positions = Localizer.get_nearest_stop(self.route_map_xml, self.buses, r)
+                            bus_positions = Localizer.get_nearest_stop(system_map, self.buses, r)
                             for group in bus_positions:
                                 for bus in group:
                                     db.session.add(bus)
@@ -310,13 +310,13 @@ class RouteScan:
 
         return
 
-@timeit # only need to isolate this in a function so we can timeit
+@timeit
 def main_loop(system_map):
 
     if args.statewide is False:
         for collection,collection_description in system_map.collection_descriptions.items():
             for r in collection_description['routelist']:
-                RouteScan(system_map, r, args.statewide)
+                RouteScan(system_map, r, args.statewide) # todo 2 was dying on 65 here down the stack in system_map.get_single_route_paths_and_coordinatebundle, because it is listed in the Newark collection definition, but isnt in route_descriptions, and presumably we have never run the updater when it is active? hardcoding for now but need to address later
     elif args.statewide is True:
         RouteScan(system_map, 0, args.statewide)
     return

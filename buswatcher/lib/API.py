@@ -5,7 +5,6 @@ import pandas as pd
 
 import buswatcher.lib.BusAPI as BusAPI
 from buswatcher.lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
-from buswatcher.lib.RouteConfig import get_route_geometry
 
 # concatenate a list of geojson featurecollections into 1 -- per https://github.com/batpad/merge-geojson
 def fc_concat(fc_list):
@@ -83,7 +82,6 @@ def get_positions_byargs(system_map, args, route_descriptions, collection_descri
 
 
 # get geoJSON
-def get_map_layers(system_map, args, route_descriptions, collection_descriptions):  #todo 0 replace all usages with TransitSystem.render_geojson
-
+def get_map_layers(system_map, args, route_descriptions, collection_descriptions):
     return system_map.render_geojson(args)
 
