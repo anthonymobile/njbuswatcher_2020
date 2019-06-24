@@ -9,6 +9,7 @@ import sys
 import buswatcher.lib.BusAPI as BusAPI
 # from buswatcher.lib.DataBases import SQLAlchemyDBConnection
 import buswatcher.lib.DataBases as DataBases
+from buswatcher.lib.wwwAPI import RouteReport
 
 class TransitSystem:
 
@@ -67,8 +68,36 @@ class TransitSystem:
         coordinates_bundle = self.route_geometries[route]['coordinate_bundle']
         return routes, coordinates_bundle
 
-    def get_single_route_stoplist(self, route): #todo 0 write this
-        return
+    def get_single_route_stoplist_for_localizer(self, route):
+
+        routedata, coordinate_bundle = self.get_single_route_paths_and_coordinatebundle(route)
+        stoplist=[]
+        for rt in routedata:
+            for path in rt.paths:
+                for p in path.points:
+                    if p.__class__.__name__ == 'Stop':
+                        stoplist.append(
+                            {'stop_id': p.identity, 'st': p.st, 'd': p.d, 'lat': p.lat, 'lon': p.lon})
+        return stoplist
+
+    def get_single_route_stoplist_for_wwwAPI(self, route):
+        route_stop_list = []
+
+        for direction in system_map.get_single_route_Paths(route)[0]:
+            path_list = []
+            for path in direction.paths:
+                stops_points = RouteReport.Path()
+                for point in path.points:
+                    if isinstance(point, BusAPI.Route.Stop):
+                        stops_points.stops.append(point)
+                stops_points.id = path.id
+                stops_points.d = path.d
+                stops_points.dd = path.dd
+                path_list.append(
+                    stops_points)  # path_list is now a couple of Path instances, plus the metadata id,d,dd fields
+            route_stop_list.append(path_list)
+            return route_stop_list[0]  # transpose a single copy since the others are all repeats (can be verified by path ids)
+
 
 
     def extract_geojson_features_from_system_map(self, route):

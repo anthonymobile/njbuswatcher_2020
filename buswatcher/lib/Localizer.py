@@ -113,13 +113,14 @@ def get_nearest_stop(system_map,  buses, route):
         bus_positions = []
         return bus_positions
 
-    stoplist = [] # todo 0 point this to system_map.get_single_route_stoplist
-    for rt in routedata:
-        for path in rt.paths:
-            for p in path.points:
-                if p.__class__.__name__ == 'Stop':
-                    stoplist.append(
-                        {'stop_id': p.identity, 'st': p.st, 'd': p.d, 'lat': p.lat, 'lon': p.lon})
+    stoplist = system_map.get_single_route_stoplist_for_localizer(route) # todo 0 test
+    # stoplist = []
+    # for rt in routedata:
+    #     for path in rt.paths:
+    #         for p in path.points:
+    #             if p.__class__.__name__ == 'Stop':
+    #                 stoplist.append(
+    #                     {'stop_id': p.identity, 'st': p.st, 'd': p.d, 'lat': p.lat, 'lon': p.lon})
 
     result = collections.defaultdict(list)
     for d in stoplist:
