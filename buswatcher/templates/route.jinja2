@@ -1,5 +1,3 @@
-{# todo 0 finish route page layout -- get it up and running and add metrics as time permits. #}
-
 
 
 {%- extends "base.jinja2" %}
@@ -163,7 +161,7 @@
                                                      {% if stop.arrival_timestamp is not none %}
                                                          <td class="table-primary">{{stop.arrival_timestamp|strftime_today}}</td>
                                                          <td class="table-secondary">
-                                                             <a href = {{url_for('genStopReport',collection_url=collection_url, route=routereport.route,stop=stop.stop_id,period='today') }} id="{{stop.st}}"> {#  todo 0 fix this url_for StopReport #}
+                                                             <a href = {{url_for('genStopReport',collection_url=collection_url, route=routereport.route,stop=stop.stop_id,period='today') }} id="{{stop.st}}">
                                                              {{stop.stop_name|title}}
                                                          </a></td>
                                                      {% else %}

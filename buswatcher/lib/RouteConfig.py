@@ -63,9 +63,12 @@ class TransitSystem:
             pass
 
     def get_single_route_paths_and_coordinatebundle(self, route):
-        routes = self.route_geometries[route]['paths'] # todo this is dying because route 65 isnt in route descriptions, but
+        routes = self.route_geometries[route]['paths']
         coordinates_bundle = self.route_geometries[route]['coordinate_bundle']
         return routes, coordinates_bundle
+
+    def get_single_route_stoplist(self, route): #todo 0 write this
+        return
 
 
     def extract_geojson_features_from_system_map(self, route):
@@ -80,7 +83,7 @@ class TransitSystem:
 
 
     #return geojson -- stops, waypoints -- for a specific route
-    def render_geojson(self, args): # todo 1 separate the waypoints, vehicles, stops into different routes in www.py so that we can cache the waypoints layers
+    def render_geojson(self, args): # todo 0 separate the waypoints, vehicles, stops into different routes in www.py so that we can cache the waypoints layers
 
         # if we only want a single stop geojson
         if 'stop_id' in args.keys():
@@ -150,7 +153,7 @@ def load_system_map():
 
     system_map_pickle_file = Path("config/system_map.pickle")
 
-    try: #todo 0 this is dying when file isn't there
+    try:
         my_abs_path = system_map_pickle_file.resolve(strict=True)
     except FileNotFoundError:
         system_map = TransitSystem()
@@ -197,7 +200,7 @@ def get_route_xml(r): # create a system_map and then pulls a single route from i
 ##################################################################
 
 
-def maintenance_check(system_map): #todo 0 move to Generators / generator.py
+def maintenance_check(system_map): #todo 2 move to Generators / generator.py
 
     now=datetime.now()
 
@@ -210,7 +213,7 @@ def maintenance_check(system_map): #todo 0 move to Generators / generator.py
     # if TTL expired, update route geometry local XMLs
     if (now - route_descriptions_last_updated) > route_descriptions_ttl:
         update_route_descriptions_file(system_map)
-        fetch_update_route_geometry(system_map)
+        # fetch_update_route_geometry(system_map)
 
 
 
@@ -295,20 +298,20 @@ def update_route_descriptions_file(system_map):
 
     return
 
-def fetch_update_route_geometry(system_map): # todo 0 can be deprecated with TransitSystem now
-
-    for r in system_map.route_descriptions['routedata']:
-        try:
-            route_xml =  BusAPI.get_xml_data('nj', 'routes', route=r['route'])
-            sys.stdout.write('.')
-        except:
-            continue
-
-        outfile = ('config/route_geometry/' + r['route'] +'.xml')
-        with open(outfile,'wb') as f: # overwrite existing fille
-            f.write(route_xml)
-        # print ('dumped '+r['route'] +'.xml')
-    return
+# def fetch_update_route_geometry(system_map): # to be deprecated, redundant with TransitSystem.__init__
+#
+#     for r in system_map.route_descriptions['routedata']:
+#         try:
+#             route_xml =  BusAPI.get_xml_data('nj', 'routes', route=r['route'])
+#             sys.stdout.write('.')
+#         except:
+#             continue
+#
+#         outfile = ('config/route_geometry/' + r['route'] +'.xml')
+#         with open(outfile,'wb') as f: # overwrite existing fille
+#             f.write(route_xml)
+#         # print ('dumped '+r['route'] +'.xml')
+#     return
 
 
 

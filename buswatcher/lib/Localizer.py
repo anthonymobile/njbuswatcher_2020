@@ -65,6 +65,7 @@ def ckdnearest(gdA, gdB, bcol): # seems to be getting hung on on bus 5800 for so
     # current crude method, 1 degree = 69 miles = 364,320 feet
     df = pd.DataFrame.from_dict({'distance': (dist.astype(float)*364320),bcol : gdB.loc[idx, bcol].values })
 
+    # todo 2 implement haversine for get_nearest_stop
     # # new method based on https://gis.stackexchange.com/questions/279109/calculate-distance-between-a-coordinate-and-a-county-in-geopandas
     # from math import radians, cos, sin, asin, sqrt
     #
@@ -99,7 +100,7 @@ def ckdnearest(gdA, gdB, bcol): # seems to be getting hung on on bus 5800 for so
 #@CommonTools.timeit
 def get_nearest_stop(system_map,  buses, route):
 
-    routedata, coordinates_bundle = system_map.get_single_route_paths_and_coordinatebundle(route) # todo 0 debug this - evaulate this with '65'
+    routedata, coordinates_bundle = system_map.get_single_route_paths_and_coordinatebundle(route)
     # routedata, coordinates_bundle = BusAPI.parse_xml_getRoutePoints(route_map_xml['xml'])
 
     # sort bus data into directions
@@ -112,21 +113,7 @@ def get_nearest_stop(system_map,  buses, route):
         bus_positions = []
         return bus_positions
 
-    #
-    # # acquire and sort stop data in directions (ignoring services)
-    # # routedata, coordinates_bundle = BusAPI.parse_xml_getRoutePoints(get_route_xml(route))
-    # if route_map_xml is None:
-    #     route_map_xml=dict()
-    #     route_map_xml['xml'] = RouteConfig.get_route_geometry(route)
-
-    # # todo 2 test this one-liner replacement
-    # stoplist = [[[
-    #                 {'stop_id': p.identity, 'st': p.st, 'd': p.d, 'lat': p.lat, 'lon': p.lon}
-    #                 for p in path.points if p.__class__.__name__ == 'Stop']
-    #                 for path in rt.paths]
-    #                 for rt in routedata]
-
-    stoplist = [] # todo 0 faster to load this from system_map?
+    stoplist = [] # todo 0 point this to system_map.get_single_route_stoplist
     for rt in routedata:
         for path in rt.paths:
             for p in path.points:
@@ -135,7 +122,7 @@ def get_nearest_stop(system_map,  buses, route):
                         {'stop_id': p.identity, 'st': p.st, 'd': p.d, 'lat': p.lat, 'lon': p.lon})
 
     result = collections.defaultdict(list)
-    for d in stoplist: # todo 2 debug here what was produced by the above one-liner
+    for d in stoplist:
         result[d['d']].append(d)
     stops_by_direction = list(result.values())
 
