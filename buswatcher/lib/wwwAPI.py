@@ -10,7 +10,38 @@ from buswatcher.lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, 
 
 from buswatcher.lib.CommonTools import timeit
 
-class RouteReport:
+
+class GenericReport:
+
+    def __init__(self):
+        pass
+
+    def query_factory(self, db, query, **kwargs):
+
+        # todo 0 improve __query_factory
+        # possible solution https://stackoverflow.com/questions/7075828/make-sqlalchemy-use-date-in-filter-using-postgresql
+
+        # my_data = session.query(MyObject). \
+        #    filter(cast(MyObject.date_time, Date) == date.today()).all()
+
+        todays_date = datetime.date.today()
+        yesterdays_date = datetime.date.today() - datetime.timedelta(1)
+        one_hour_ago = datetime.datetime.now() - datetime.timedelta(hours=1)
+
+        # todo 1 working on this period to find a solution
+        if kwargs['period'] == 'now':
+            query = query.filter(ScheduledStop.arrival_timestamp != None).filter(func.date(ScheduledStop.arrival_timestamp) > one_hour_ago) # todo 1 fix one_hour_ago period query filter. right now we just use same as 'today'
+            # query = query.filter(ScheduledStop.arrival_timestamp != None).filter(func.date(ScheduledStop.arrival_timestamp) == todays_date)
+        elif kwargs['period'] == 'today':
+            query = query.filter(ScheduledStop.arrival_timestamp != None).filter(func.date(ScheduledStop.arrival_timestamp) == todays_date)
+        elif kwargs['period'] == 'yesterday':
+            query = query.filter(ScheduledStop.arrival_timestamp != None).filter(func.date(ScheduledStop.arrival_timestamp) == yesterdays_date)
+        elif kwargs['period'] == 'history':
+            query = query.filter(ScheduledStop.arrival_timestamp != None)
+
+        return query
+
+class RouteReport(GenericReport):
 
     class Path():
         def __init__(self):
@@ -136,30 +167,30 @@ class RouteReport:
         # return route_stop_list[0]  # transpose a single copy since the others are all repeats (can be verified by path ids)
 
 
-    def __query_factory(self, db, query, **kwargs):
-
-        # todo 0 improve __query_factory
-        # possible solution https://stackoverflow.com/questions/7075828/make-sqlalchemy-use-date-in-filter-using-postgresql
-
-        # my_data = session.query(MyObject). \
-        #    filter(cast(MyObject.date_time, Date) == date.today()).all()
-
-        todays_date = datetime.date.today()
-        yesterdays_date = datetime.date.today() - datetime.timedelta(1)
-        one_hour_ago = datetime.datetime.now() - datetime.timedelta(hours=1)
-
-        # todo 1 working on this period to find a solution
-        if kwargs['period'] == 'now':
-            # query = query.filter(ScheduledStop.arrival_timestamp != None).filter(func.date(ScheduledStop.arrival_timestamp) > one_hour_ago) # todo 1 fix one_hour_ago period query filter. right now we just use same as 'today'
-            query = query.filter(ScheduledStop.arrival_timestamp != None).filter(func.date(ScheduledStop.arrival_timestamp) == todays_date)
-        elif kwargs['period'] == 'today':
-            query = query.filter(ScheduledStop.arrival_timestamp != None).filter(func.date(ScheduledStop.arrival_timestamp) == todays_date)
-        elif kwargs['period'] == 'yesterday':
-            query = query.filter(ScheduledStop.arrival_timestamp != None).filter(func.date(ScheduledStop.arrival_timestamp) == yesterdays_date)
-        elif kwargs['period'] == 'history':
-            query = query.filter(ScheduledStop.arrival_timestamp != None)
-
-        return query
+    # def __query_factory(self, db, query, **kwargs): # moved to parent class ReportBase
+    #
+    #     # todo 0 improve __query_factory
+    #     # possible solution https://stackoverflow.com/questions/7075828/make-sqlalchemy-use-date-in-filter-using-postgresql
+    #
+    #     # my_data = session.query(MyObject). \
+    #     #    filter(cast(MyObject.date_time, Date) == date.today()).all()
+    #
+    #     todays_date = datetime.date.today()
+    #     yesterdays_date = datetime.date.today() - datetime.timedelta(1)
+    #     one_hour_ago = datetime.datetime.now() - datetime.timedelta(hours=1)
+    #
+    #     # todo 1 working on this period to find a solution
+    #     if kwargs['period'] == 'now':
+    #         # query = query.filter(ScheduledStop.arrival_timestamp != None).filter(func.date(ScheduledStop.arrival_timestamp) > one_hour_ago) # todo 1 fix one_hour_ago period query filter. right now we just use same as 'today'
+    #         query = query.filter(ScheduledStop.arrival_timestamp != None).filter(func.date(ScheduledStop.arrival_timestamp) == todays_date)
+    #     elif kwargs['period'] == 'today':
+    #         query = query.filter(ScheduledStop.arrival_timestamp != None).filter(func.date(ScheduledStop.arrival_timestamp) == todays_date)
+    #     elif kwargs['period'] == 'yesterday':
+    #         query = query.filter(ScheduledStop.arrival_timestamp != None).filter(func.date(ScheduledStop.arrival_timestamp) == yesterdays_date)
+    #     elif kwargs['period'] == 'history':
+    #         query = query.filter(ScheduledStop.arrival_timestamp != None)
+    #
+    #     return query
 
     def get_tripdash(self):  #todo 0 debug get_tripdash, more missing buses than before
         # gets all arrivals (see limit) for all runs on current route
@@ -197,7 +228,7 @@ class RouteReport:
         return tripdash
 
 
-class StopReport:
+class StopReport(GenericReport):
 
     def __init__(self, system_map, route, stop, period):
 
@@ -210,17 +241,80 @@ class StopReport:
         # constants
         self.bunching_interval = datetime.timedelta(minutes=3)
         self.bigbang = datetime.timedelta(seconds=0)
+        self.stop_name =self.get_stop_name()
 
         # populate data for webpage
-        self.arrivals_list_final_df, self.stop_name = self.get_arrivals(self.route, self.stop, self.period)
+        # self.arrivals_list_final_df, self.stop_name = self.get_arrivals()
+        self.arrivals_list_final_df, self.stop_name = self.get_arrivals(self.route,self.stop,self.period)
         self.hourly_frequency = self.get_hourly_frequency()
 
+    def get_stop_name(self): # todo 0 fetch this from system_map using a function
 
-    #
-    #
-    # WORKING HERE!!!!!!!!!!1
-    #
-    #
+            return 'Stop name TK'
+
+    def get_arrivals_new(self): #todo 0 debug get_arrivals_new using__query_factory inherited from parent class
+        with SQLAlchemyDBConnection() as db:
+
+            # build query and load into df
+            query=db.session.query(Trip.rt, # base query
+                                        Trip.v,
+                                        Trip.pid,
+                                        Trip.trip_id,
+                                        ScheduledStop.trip_id,
+                                        ScheduledStop.stop_id,
+                                        ScheduledStop.stop_name,
+                                        ScheduledStop.arrival_timestamp) \
+                                        .join(ScheduledStop) \
+                                        .filter(Trip.rt == self.route) \
+                                        .filter(ScheduledStop.stop_id == self.stop) \
+                                        .filter(ScheduledStop.arrival_timestamp != None)
+
+            query=self.query_factory(db, query,period=self.period) # add the period
+            query=query.statement
+            try:
+                arrivals_here=pd.read_sql(query, db.session.bind)
+            except ValueError:
+                pass
+
+            # if the database didn't have results, return an empty dataframe
+            if len(arrivals_here.index) == 0:
+                arrivals_list_final_df = pd.DataFrame(
+                    columns=['rt', 'v', 'pid', 'trip_trip_id', 'stop_trip_id', 'stop_name', 'arrival_timestamp'],
+                    data=['0', '0000', '0', '0000_000_00000000', '0000_000_00000000', 'N/A', datetime.time(0, 1)]
+                )
+                stop_name = 'N/A'
+
+                self.arrivals_table_time_created = datetime.datetime.now() # log creation time and return
+
+                return arrivals_list_final_df, stop_name
+
+            else:
+
+                # Otherwise, cleanup the query results -- split by vehicle and calculate arrival intervals
+
+                    # alex r says:
+                    # for group in df['col'].unique():
+                    #     slice = df[df['col'] == group]
+                    #
+                    # is like 10x faster than
+                    # df.groupby('col').apply( < stuffhere >)
+
+                final_approach_dfs = [g for i, g in arrivals_here.groupby(arrivals_here['v'].ne(arrivals_here[
+                                                                                                    'v'].shift()).cumsum())]  # split final approach history (sorted by timestamp) at each change in vehicle_id outputs a list of dfs per https://stackoverflow.com/questions/41144231/python-how-to-split-pandas-dataframe-into-subsets-based-on-the-value-in-the-fir
+                arrivals_list_final_df = pd.DataFrame()  # take the last V(ehicle) approach in each df and add it to final list of arrivals
+                for final_approach in final_approach_dfs:  # iterate over every final approach
+                    arrival_insert_df = final_approach.tail(1)  # take the last observation
+                    arrivals_list_final_df = arrivals_list_final_df.append(arrival_insert_df)  # insert into df
+                arrivals_list_final_df['delta'] = (
+                            arrivals_list_final_df['arrival_timestamp'] - arrivals_list_final_df['arrival_timestamp'].shift(
+                        1)).fillna(0)  # calc interval between last bus for each row, fill NaNs
+
+                stop_name = arrivals_list_final_df['stop_name'].iloc[0]
+
+                self.arrivals_table_time_created = datetime.datetime.now() # log creation time and return
+
+                return arrivals_list_final_df, stop_name
+
 
 
     # fetch arrivals into a df

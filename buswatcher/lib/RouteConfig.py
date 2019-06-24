@@ -124,7 +124,9 @@ class TransitSystem:
                 stop_coordinates = [float(stop_query[1]), float(stop_query[2])]
                 stop_geojson = geojson.Point(stop_coordinates)
                 # return stop_lnglatlike, stop_geojson
-                return stop_geojson
+                stop_featurecollection = geojson.FeatureCollection(stop_geojson)
+
+                return stop_featurecollection
 
         # otherwise continue to get waypoints/stops for all routes, one route
         elif 'rt' in args.keys():
@@ -172,7 +174,7 @@ class TransitSystem:
         return
 
 
-        
+
 ##################################################################
 # Class TransitSystem bootstrapper
 ##################################################################
