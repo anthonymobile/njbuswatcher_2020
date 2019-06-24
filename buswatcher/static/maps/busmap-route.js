@@ -7,8 +7,8 @@ var map = new mapboxgl.Map({
 });
 
 // new endpoints
-var url_waypoints = ("/api/v1/maps/api/v1/maps/waypoints?rt="+passed_route);
-var url_vehicles = ("/api/v1/maps/api/v1/maps/vehicles?rt="+passed_route);
+var url_waypoints = ("/api/v1/maps/waypoints?rt="+passed_route);
+var url_vehicles = ("/api/v1/maps/vehicles?rt="+passed_route);
 
 
 // old endpoints
@@ -40,7 +40,7 @@ map.on('load', function() {
 
     });
 
-        $.getJSON(url_waypoints, (geojson) => {
+    $.getJSON(url_waypoints, (geojson) => {
         map.addSource('waypoints_source', {
             type: 'geojson',
             data: geojson
@@ -59,12 +59,50 @@ map.on('load', function() {
         });
     });
 
-        window.setInterval(function() {
+    window.setInterval(function() {
         map.getSource('vehicles_source').setData(url_vehicles);
-        }, 5000)
+        }, 2000)
+
+
+    // HOVER TOOLTIPS
+    var popup = new mapboxgl.Popup({
+        closeButton: false,
+        closeOnClick: false
+    });
+
+    map.on('mouseenter', 'vehicles', function(e) {
+        // Change the cursor style as a UI indicator.
+        map.getCanvas().style.cursor = 'pointer';
+
+        var coordinates = e.features[0].geometry.coordinates.slice();
+        var description = (e.features[0].properties.fs + ", Bus " + e.features[0].properties.id + ", Driver " + e.features[0].properties.op + ", Run " + e.features[0].properties.run);
+
+        // Ensure that if the map is zoomed out such that multiple
+        // copies of the feature are visible, the popup appears
+        // over the copy being pointed to.
+        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+        }
+
+        // Populate the popup and set its coordinates
+        // based on the feature found.
+        popup.setLngLat(coordinates)
+            .setHTML(description)
+            .addTo(map);
+    });
+
+    map.on('mouseleave', 'vehicles', function() {
+        map.getCanvas().style.cursor = '';
+        popup.remove();
+    });
+
+
+
 
 });
 
+
+// todo restore tooltips to busmap-route.js
 
 map.addControl(new mapboxgl.NavigationControl());
 
