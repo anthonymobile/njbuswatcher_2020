@@ -7,7 +7,8 @@ import pickle
 import sys
 
 import buswatcher.lib.BusAPI as BusAPI
-from buswatcher.lib.DataBases import SQLAlchemyDBConnection, Trip, ScheduledStop, BusPosition
+# from buswatcher.lib.DataBases import SQLAlchemyDBConnection
+import buswatcher.lib.DataBases as DataBases
 
 class TransitSystem:
 
@@ -29,100 +30,71 @@ class TransitSystem:
 
     def get_route_geometries(self):
         route_geometries={}
-        for r in self.route_descriptions['routedata']:
-            route_geometries[r]={
-                'route':r,
-                'xml':self.get_single_route_xml(r),
-                'paths': self.get_single_route_Paths(r)
+        for routedata in self.route_descriptions['routedata']:
+            route_geometries[routedata['route']]={
+                'route':routedata['route'],
+                'xml':self.get_single_route_xml(routedata['route']),
+                'paths': self.get_single_route_Paths(routedata['route'])[0],
+                'coordinate_bundle': self.get_single_route_Paths(routedata['route'])[1]
             }
         return route_geometries
 
-    def get_single_route_xml(self,r):
+    def get_single_route_xml(self,route):
 
         try:# load locally
-            infile = ('config/route_geometry/' + r +'.xml')
+            infile = ('config/route_geometry/' + route +'.xml')
             with open(infile,'rb') as f:
                 return f.read()
         except: #  if missing download and load
-            route_xml = BusAPI.get_xml_data('nj', 'routes', route=r)
-            outfile = ('config/route_geometry/' + r + '.xml')
-            with open(outfile, 'wb') as f:  # overwrite existing fille
+            route_xml = BusAPI.get_xml_data('nj', 'routes', route=route)
+            outfile = ('config/route_geometry/' + route + '.xml')
+            with open(outfile, 'wb') as f:  # overwrite existing file
                 f.write(route_xml)
-            infile = ('config/route_geometry/' + r + '.xml')
+            infile = ('config/route_geometry/' + route + '.xml')
             with open(infile, 'rb') as f:
                 return f.read()
 
-    def get_single_route_Paths(self, r):
+    def get_single_route_Paths(self, route):
         try:
-            infile = ('config/route_geometry/' + r + '.xml')
+            infile = ('config/route_geometry/' + route + '.xml')
             with open(infile, 'rb') as f:
-                BusAPI.parse_xml_getRoutePoints(f.read())
+                return BusAPI.parse_xml_getRoutePoints(f.read())
         except:
             pass
 
-    def fetch_layers_json(self, r):
-        routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(self.route_geometries[r]['xml'])
-        waypoints_feature = json.loads(coordinate_bundle['waypoints_geojson'])
-        waypoints_feature = geojson.Feature(geometry=waypoints_feature)
-        stops_feature = json.loads(coordinate_bundle['stops_geojson'])
-        stops_feature = geojson.Feature(geometry=stops_feature)
+    def get_single_route_paths_and_coordinatebundle(self, route):
+        routes = self.route_geometries[route]['paths'] # todo this is dying because route 65 isnt in route descriptions, but
+        coordinates_bundle = self.route_geometries[route]['coordinate_bundle']
+        return routes, coordinates_bundle
+
+
+    def extract_geojson_features_from_system_map(self, route):
+        waypoints_feature = geojson.Feature(geometry=json.loads(self.route_geometries[route]['coordinate_bundle']['waypoints_geojson']))
+        stops_feature = geojson.Feature(geometry=json.loads(self.route_geometries[route]['coordinate_bundle']['stops_geojson']))
+        # deleted line to BusAPI.parse_xml
+        # stops_feature = json.loads(coordinate_bundle['waypoints_geojson'])
+        # stops_feature = geojson.Feature(geometry=waypoints_feature)
+        # stops_feature = json.loads(coordinate_bundle['stops_geojson'])
+        # stops_feature = geojson.Feature(geometry=stops_feature)
         return waypoints_feature, stops_feature
 
-    # # fetch the route geometries from NJT API
-    # print ('fetching route geometry XML from NJTransit')
-    # self.route_geometries_remote={}
-    # for r in self.route_descriptions['routedata']:
-    #     try:
-    #         self.route_geometries.append(BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data('nj','routes',route=r['route'])))
-    #     except:
-    #         pass
-    # def get_route_xml(self, r):
-    #     try:
-    #         [x['xml'] for x in self.route_geometries if x['route'] == r]
-    #
-    #         # infile = ('config/route_geometry/' + r +'.xml')
-    #         # with open(infile,'rb') as f:
-    #         #     return f.read()
-    #     # except: # if the xml for route r is missing, let's grab it (duplicated code here, but it works so...)
-    #     except:  # if its not in the system_map, fetch the XML and return that instead
-    #
-    #         route_xml = BusAPI.get_xml_data('nj', 'routes', route=r)
-    #
-    #         outfile = ('config/route_geometry/' + r + '.xml')
-    #         with open(outfile, 'wb') as f:  # overwrite existing fille
-    #             f.write(route_xml)
-    #
-    #         infile = ('config/route_geometry/' + r + '.xml')
-    #         with open(infile, 'rb') as f:
-    #             return f.read()
 
-    # def reset(self):
-    #     # if its after 2am, before 4am, and reset hasn't been run, run it
-    #     # n.b. this will only update if the trigger is fired (e.g. a page load)
-    #     if ((self.reset_occurred == False) and ((is_time_between(time(2,00), time(4,00))==True))):
-    #         # reset some values
-    #         pass
-    #     else:
-    #         pass
-
-
-
-    #method to return geojson -- stops, waypoints -- for a specific route
-    def render_geojson(self,args):
+    #return geojson -- stops, waypoints -- for a specific route
+    def render_geojson(self, args): # todo 1 separate the waypoints, vehicles, stops into different routes in www.py so that we can cache the waypoints layers
 
         # if we only want a single stop geojson
         if 'stop_id' in args.keys():
             # query the db and grab the lat lon for the first record that stop_id matches this one
-            with SQLAlchemyDBConnection() as db:
+            with DataBases.SQLAlchemyDBConnection() as db:
                 stop_query = db.session.query(
-                    ScheduledStop.stop_id,
-                    ScheduledStop.lat,
-                    ScheduledStop.lon) \
-                    .filter(ScheduledStop.stop_id == args['stop_id']) \
+                    DataBases.ScheduledStop.stop_id,
+                    DataBases.ScheduledStop.lat,
+                    DataBases.ScheduledStop.lon) \
+                    .filter(DataBases.ScheduledStop.stop_id == args['stop_id']) \
                     .first()
                 # format for geojson
                 stop_coordinates = [float(stop_query[1]), float(stop_query[2])]
-                stop_geojson = geojson.Point(stop_coordinates) #todo 0 debug
+                stop_geojson = geojson.Point(stop_coordinates)
                 # return stop_lnglatlike, stop_geojson
                 return stop_geojson
 
@@ -132,11 +104,11 @@ class TransitSystem:
             stops = []
             if args['rt'] == 'all':
                 for r in self.route_descriptions['routedata']:
-                    waypoints_item, stops_item = system_map.fetch_layers_json(r['route'])
+                    waypoints_item, stops_item = self.extract_geojson_features_from_system_map(r['route'])
                     waypoints.append(waypoints_item)
                     stops.append(stops_item)
             else:
-                waypoints_item, stops_item = system_map.fetch_layers_json(args['rt'])
+                waypoints_item, stops_item = self.extract_geojson_features_from_system_map(args['rt'])
                 waypoints.append(waypoints_item)
                 stops.append(stops_item)
 
@@ -145,12 +117,18 @@ class TransitSystem:
             waypoints = []
             stops = []
             # pick the right collection
-            for c in self.collection_descriptions:
-                if c['collection_url'] == args['collection']:  # todo 0 error
-                    for r in c['routelist']:
-                        waypoints_item, stops_item = system_map.fetch_layers_json(r)
-                        waypoints.append(waypoints_item)
-                        stops.append(stops_item)
+
+            for route in self.collection_descriptions[args['collection']]['routelist']:
+                waypoints_item, stops_item = self.extract_geojson_features_from_system_map(route)
+                waypoints.append(waypoints_item)
+                stops.append(stops_item)
+            # for c in self.collection_descriptions:
+            #     if c['collection_url'] == args['collection']:
+            #         for r in c['routelist']:
+            #             waypoints_item, stops_item = self.extract_geojson_features_from_system_map(r)
+            #             waypoints.append(waypoints_item)
+            #             stops.append(stops_item)
+
 
         # now render the layers as geojson
         if args['layer'] == 'waypoints':
@@ -172,7 +150,7 @@ def load_system_map():
 
     system_map_pickle_file = Path("config/system_map.pickle")
 
-    try:
+    try: #todo 0 this is dying when file isn't there
         my_abs_path = system_map_pickle_file.resolve(strict=True)
     except FileNotFoundError:
         system_map = TransitSystem()
@@ -186,15 +164,45 @@ def load_system_map():
 
 
 ##################################################################
-# OTHER FUNCTIONS NOT RELATED TO Class TransitSystem
+# OTHER HELPER FUNCTIONS RELATED TO Class TransitSystem
 ##################################################################
+
+
+def get_route_xml(r): # create a system_map and then pulls a single route from it
+    try:
+        # load the system_map
+        system_map = load_system_map()
+        # fetch the right system_map['route_geomtries']['xml']
+        return
+        [x['xml'] for x in system_map.route_geometries if x['route'] == r]
+
+        # infile = ('config/route_geometry/' + r +'.xml')
+        # with open(infile,'rb') as f:
+        #     return f.read()
+
+    except: # if its not in the system_map, fetch the XML and return that instead
+
+        route_xml = BusAPI.get_xml_data('nj', 'routes', route=r)
+
+        outfile = ('config/route_geometry/' + r +'.xml')
+        with open(outfile,'wb') as f: # overwrite existing fille
+            f.write(route_xml)
+
+        infile = ('config/route_geometry/' + r + '.xml')
+        with open(infile, 'rb') as f:
+            return f.read()
+
+##################################################################
+# MISC FUNCTIONS
+##################################################################
+
 
 def maintenance_check(system_map): #todo 0 move to Generators / generator.py
 
     now=datetime.now()
 
     try:
-        route_descriptions_last_updated = parser.parse(system_map.route_descriptions.last_updated)
+        route_descriptions_last_updated = parser.parse(system_map.route_descriptions['last_updated'])
     except:
         route_descriptions_last_updated = parser.parse('2000-01-01 01:01:01')
     route_descriptions_ttl = timedelta(seconds=int(system_map.route_descriptions['ttl']))
@@ -202,7 +210,7 @@ def maintenance_check(system_map): #todo 0 move to Generators / generator.py
     # if TTL expired, update route geometry local XMLs
     if (now - route_descriptions_last_updated) > route_descriptions_ttl:
         update_route_descriptions_file(system_map)
-        fetch_update_route_geometry()
+        fetch_update_route_geometry(system_map)
 
 
 
@@ -287,7 +295,7 @@ def update_route_descriptions_file(system_map):
 
     return
 
-def fetch_update_route_geometry(): # todo 0 can be deprecated with TransitSystem now
+def fetch_update_route_geometry(system_map): # todo 0 can be deprecated with TransitSystem now
 
     for r in system_map.route_descriptions['routedata']:
         try:
@@ -301,26 +309,6 @@ def fetch_update_route_geometry(): # todo 0 can be deprecated with TransitSystem
             f.write(route_xml)
         # print ('dumped '+r['route'] +'.xml')
     return
-
-def get_route_geometry(r,system_map):
-    try:
-        [x['xml'] for x in system_map.route_geometries if x['route'] == r]
-
-        # infile = ('config/route_geometry/' + r +'.xml')
-        # with open(infile,'rb') as f:
-        #     return f.read()
-    # except: # if the xml for route r is missing, let's grab it (duplicated code here, but it works so...)
-    except: # if its not in the system_map, fetch the XML and return that instead
-
-        route_xml = BusAPI.get_xml_data('nj', 'routes', route=r)
-
-        outfile = ('config/route_geometry/' + r +'.xml')
-        with open(outfile,'wb') as f: # overwrite existing fille
-            f.write(route_xml)
-
-        infile = ('config/route_geometry/' + r + '.xml')
-        with open(infile, 'rb') as f:
-            return f.read()
 
 
 
@@ -337,3 +325,44 @@ def is_time_between(begin_time, end_time, check_time=None):
 if __name__ == "__main__":
 
     system_map = load_system_map()
+
+
+
+
+    # # fetch the route geometries from NJT API
+    # print ('fetching route geometry XML from NJTransit')
+    # self.route_geometries_remote={}
+    # for r in self.route_descriptions['routedata']:
+    #     try:
+    #         self.route_geometries.append(BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data('nj','routes',route=r['route'])))
+    #     except:
+    #         pass
+    # def get_route_xml(self, r):
+    #     try:
+    #         [x['xml'] for x in self.route_geometries if x['route'] == r]
+    #
+    #         # infile = ('config/route_geometry/' + r +'.xml')
+    #         # with open(infile,'rb') as f:
+    #         #     return f.read()
+    #     # except: # if the xml for route r is missing, let's grab it (duplicated code here, but it works so...)
+    #     except:  # if its not in the system_map, fetch the XML and return that instead
+    #
+    #         route_xml = BusAPI.get_xml_data('nj', 'routes', route=r)
+    #
+    #         outfile = ('config/route_geometry/' + r + '.xml')
+    #         with open(outfile, 'wb') as f:  # overwrite existing fille
+    #             f.write(route_xml)
+    #
+    #         infile = ('config/route_geometry/' + r + '.xml')
+    #         with open(infile, 'rb') as f:
+    #             return f.read()
+
+    # def reset(self):
+    #     # if its after 2am, before 4am, and reset hasn't been run, run it
+    #     # n.b. this will only update if the trigger is fired (e.g. a page load)
+    #     if ((self.reset_occurred == False) and ((is_time_between(time(2,00), time(4,00))==True))):
+    #         # reset some values
+    #         pass
+    #     else:
+    #         pass
+

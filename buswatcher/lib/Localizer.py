@@ -97,7 +97,10 @@ def ckdnearest(gdA, gdB, bcol): # seems to be getting hung on on bus 5800 for so
 ###########################################################################
 
 #@CommonTools.timeit
-def get_nearest_stop(route_map_xml,buses,route):
+def get_nearest_stop(system_map,  buses, route):
+
+    routedata, coordinates_bundle = system_map.get_single_route_paths_and_coordinatebundle(route) # todo 0 debug this - evaulate this with '65'
+    # routedata, coordinates_bundle = BusAPI.parse_xml_getRoutePoints(route_map_xml['xml'])
 
     # sort bus data into directions
     buses_as_dicts = [b.to_dict() for b in buses]
@@ -109,14 +112,12 @@ def get_nearest_stop(route_map_xml,buses,route):
         bus_positions = []
         return bus_positions
 
-
-    # acquire and sort stop data in directions (ignoring services)
-    # routedata, coordinates_bundle = BusAPI.parse_xml_getRoutePoints(get_route_xml(route))
-    if route_map_xml is None:
-        route_map_xml=dict()
-        route_map_xml['xml'] = RouteConfig.get_route_geometry(route)
-
-    routedata, coordinates_bundle = BusAPI.parse_xml_getRoutePoints(route_map_xml['xml'])
+    #
+    # # acquire and sort stop data in directions (ignoring services)
+    # # routedata, coordinates_bundle = BusAPI.parse_xml_getRoutePoints(get_route_xml(route))
+    # if route_map_xml is None:
+    #     route_map_xml=dict()
+    #     route_map_xml['xml'] = RouteConfig.get_route_geometry(route)
 
     # # todo 2 test this one-liner replacement
     # stoplist = [[[
