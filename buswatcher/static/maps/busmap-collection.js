@@ -7,8 +7,13 @@ var map = new mapboxgl.Map({
 });
 
 
-var url_waypoints = ("/api/v1/maps?layer=waypoints&collection="+collection_description.collection_url);
-var url_vehicles = ("/api/v1/maps?layer=vehicles&collection="+collection_description.collection_url);
+//new endpoints
+var url_waypoints = ("/api/v1/maps/waypoints?collection="+collection_description.collection_url);
+var url_vehicles = ("/api/v1/maps/vehicles?collection="+collection_description.collection_url);
+
+//old endpoints
+//var url_waypoints = ("/api/v1/maps?layer=waypoints&collection="+collection_description.collection_url);
+//var url_vehicles = ("/api/v1/maps?layer=vehicles&collection="+collection_description.collection_url);
 
 map.on('load', function() {
 
@@ -35,7 +40,6 @@ map.on('load', function() {
 
     });
 
-    /* todo 0 fix route display on collections map
 
         $.getJSON(url_waypoints, (geojson) => {
         map.addSource('waypoints_source', {
@@ -55,16 +59,13 @@ map.on('load', function() {
             }
         });
     });
-*/
+
+
         window.setInterval(function() {
         map.getSource('vehicles_source').setData(url_vehicles);
         }, 5000)
 
 });
-
-
-// map.moveLayer("stops","waypoints");
-// map.moveLayer("vehicles","stops");
 
 map.addControl(new mapboxgl.NavigationControl());
 

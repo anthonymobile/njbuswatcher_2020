@@ -5,8 +5,8 @@ from sqlalchemy import func
 
 import buswatcher.lib.BusAPI as BusAPI
 import buswatcher.lib.Generators as Generators
-import buswatcher.lib.RouteConfig as RouteConfig
 from buswatcher.lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
+# from buswatcher.lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
 
 from buswatcher.lib.CommonTools import timeit
 

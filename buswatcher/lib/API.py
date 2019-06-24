@@ -20,8 +20,7 @@ def fc_concat(fc_list):
     return fc
 
 # on-the-fly-GEOJSON-encoder
-@timeit
-def __positions2geojson(df): # todo 2 optimization, less pandas?
+def __positions2geojson(df): # todo 2 optimization, less pandas, 0.2 seconds per run
     features = []
     df.apply(lambda X: features.append(
             geojson.Feature(geometry=geojson.Point((X["lon"],
@@ -39,8 +38,8 @@ def __positions2geojson(df): # todo 2 optimization, less pandas?
                 , axis = 1)
     return geojson.FeatureCollection(features)
 
-@timeit
-def _fetch_positions_df(route): # todo 2 optimization, less pandas?
+# @timeit
+def _fetch_positions_df(route): # todo 2 optimization, less pandas? (each route takes 0.1 to 0.2 seconds, kills the statewide map... maybe process that with its own process on a single buses_all df)
     positions = BusAPI.parse_xml_getBusesForRoute(BusAPI.get_xml_data('nj', 'buses_for_route', route=route))
     labels = ['bid', 'lon', 'lat', 'run', 'op', 'dn', 'pid', 'dip', 'id', 'fs', 'pd']
     positions_log=pd.DataFrame(columns=labels)
