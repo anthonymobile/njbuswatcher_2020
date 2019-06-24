@@ -135,7 +135,7 @@ def displayCollection(collection_url):
 
 #-------------------------------------------------------------Route
 
-@app.route('/<collection_url>/<route>/<period>')
+@app.route('/<collection_url>/route/<route>/<period>')
 def genRouteReport(collection_url,route, period):
     route_report = wwwAPI.RouteReport(system_map, route, period)
 
@@ -246,7 +246,8 @@ def _jinja2_filter_datetime(timestamp, format='%I:%M %p'):
 
 @app.template_filter('strftime_period')
 def _jinja2_filter_datetime_by_period(timestamp, period):
-    if period == "daily":
+
+    if period == "today":
         format = '%I:%M %p'
     elif period == "yesterday":
         format = '%a %I:%M %p'

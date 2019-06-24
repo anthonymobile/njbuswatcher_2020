@@ -161,7 +161,8 @@ class RouteReport:
 
         return query
 
-    def get_tripdash(self): # gets all arrivals (see limit) for all runs on current route
+    def get_tripdash(self):  #todo 0 debug get_tripdash, more missing buses than before
+        # gets all arrivals (see limit) for all runs on current route
 
         with SQLAlchemyDBConnection() as db:
 
@@ -330,40 +331,40 @@ class StopReport:
                 except ValueError:
                         pass
 
-                # if the database didn't have results, return an empty dataframe
-                if len(arrivals_here.index) == 0:
+            # if the database didn't have results, return an empty dataframe
+            if len(arrivals_here.index) == 0:
 
-                    arrivals_list_final_df = pd.DataFrame(
-                        columns=['rt', 'v', 'pid', 'trip_trip_id', 'stop_trip_id', 'stop_name', 'arrival_timestamp'],
-                        data=['0', '0000', '0', '0000_000_00000000', '0000_000_00000000', 'N/A', datetime.time(0, 1)]
-                        )
-                    stop_name = 'N/A'
-                    self.arrivals_table_time_created = datetime.datetime.now()
-
-                    return arrivals_list_final_df, stop_name
-
-                # Otherwise, cleanup the query results
-                # split by vehicle and calculate arrival intervals
-
-                # todo 0 optimize the groupby here
-                # alex r says:
-                # for group in df['col'].unique():
-                #     slice = df[df['col'] == group]
-                #
-                # is like 10x faster than
-                # df.groupby('col').apply( < stuffhere >)
-
-
-                final_approach_dfs = [g for i, g in arrivals_here.groupby(arrivals_here['v'].ne(arrivals_here['v'].shift()).cumsum())] # split final approach history (sorted by timestamp) at each change in vehicle_id outputs a list of dfs per https://stackoverflow.com/questions/41144231/python-how-to-split-pandas-dataframe-into-subsets-based-on-the-value-in-the-fir
-                arrivals_list_final_df = pd.DataFrame() # take the last V(ehicle) approach in each df and add it to final list of arrivals
-                for final_approach in final_approach_dfs:  # iterate over every final approach
-                    arrival_insert_df = final_approach.tail(1)  # take the last observation
-                    arrivals_list_final_df = arrivals_list_final_df.append(arrival_insert_df)  # insert into df
-                arrivals_list_final_df['delta']=(arrivals_list_final_df['arrival_timestamp'] - arrivals_list_final_df['arrival_timestamp'].shift(1)).fillna(0) # calc interval between last bus for each row, fill NaNs
-
-                stop_name = arrivals_list_final_df['stop_name'].iloc[0]
+                arrivals_list_final_df = pd.DataFrame(
+                    columns=['rt', 'v', 'pid', 'trip_trip_id', 'stop_trip_id', 'stop_name', 'arrival_timestamp'],
+                    data=['0', '0000', '0', '0000_000_00000000', '0000_000_00000000', 'N/A', datetime.time(0, 1)]
+                    )
+                stop_name = 'N/A'
+                self.arrivals_table_time_created = datetime.datetime.now()
 
                 return arrivals_list_final_df, stop_name
+
+            # Otherwise, cleanup the query results
+            # split by vehicle and calculate arrival intervals
+
+            # todo 0 optimize the groupby here
+            # alex r says:
+            # for group in df['col'].unique():
+            #     slice = df[df['col'] == group]
+            #
+            # is like 10x faster than
+            # df.groupby('col').apply( < stuffhere >)
+
+
+            final_approach_dfs = [g for i, g in arrivals_here.groupby(arrivals_here['v'].ne(arrivals_here['v'].shift()).cumsum())] # split final approach history (sorted by timestamp) at each change in vehicle_id outputs a list of dfs per https://stackoverflow.com/questions/41144231/python-how-to-split-pandas-dataframe-into-subsets-based-on-the-value-in-the-fir
+            arrivals_list_final_df = pd.DataFrame() # take the last V(ehicle) approach in each df and add it to final list of arrivals
+            for final_approach in final_approach_dfs:  # iterate over every final approach
+                arrival_insert_df = final_approach.tail(1)  # take the last observation
+                arrivals_list_final_df = arrivals_list_final_df.append(arrival_insert_df)  # insert into df
+            arrivals_list_final_df['delta']=(arrivals_list_final_df['arrival_timestamp'] - arrivals_list_final_df['arrival_timestamp'].shift(1)).fillna(0) # calc interval between last bus for each row, fill NaNs
+
+            stop_name = arrivals_list_final_df['stop_name'].iloc[0]
+
+            return arrivals_list_final_df, stop_name
 
     def get_hourly_frequency(self):
         results = pd.DataFrame()
