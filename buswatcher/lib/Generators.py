@@ -1,4 +1,4 @@
-# todo 0 refactor all the CPU-intensive tasks for wwwAPI.RouteReport and StopReport in here
+# todo 2 refactor all the CPU-intensive tasks for wwwAPI.RouteReport and StopReport in here
 
 
 def generate_bunching_report(RouteReport):
@@ -11,7 +11,7 @@ def generate_bunching_report(RouteReport):
     bunching_report['stops'].append('Martin Luther King Jr Dr + Bidwell Ave')
     bunching_report['stops'].append('Palisade Ave + Hutton St')
 
-    # todo 1 rewrite bunching_report to push a JSON table to the db
+    # todo 3 rewrite bunching_report to push a JSON table to the db
 
     #
     # check if bunching leaderboard is current
@@ -72,7 +72,7 @@ def generate_bunching_report(RouteReport):
 
 
 def fetch_bunching_report(RouteReport):
-    # todo 0 write this to query and return a JSON table from the db
+    # todo 3 write this to query and return a JSON table from the db
     return
 
 
@@ -170,7 +170,7 @@ def generate_headway_report(RouteReport):
 
 
 def fetch_headway_report(RouteReport):
-    # todo 0 write this to query and return a JSON table from the db
+    # todo 3 write this to query and return a JSON table from the db
     return
 
 
@@ -271,7 +271,7 @@ def fetch_traveltime_report(RouteReport):
 
 def generate_grade_report(RouteReport):
     return
-    # todo 0 -- based on # of bunching incidents
+    # todo 2 -- based on # of bunching incidents
     # and B. number of bunching incidents
 
 

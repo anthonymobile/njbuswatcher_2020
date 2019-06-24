@@ -318,7 +318,7 @@ def main_loop(system_map):
             for r in collection_description['routelist']:
                 RouteScan(system_map, r, args.statewide) # todo 2 was dying on 65 here down the stack in system_map.get_single_route_paths_and_coordinatebundle, because it is listed in the Newark collection definition, but isnt in route_descriptions, and presumably we have never run the updater when it is active? hardcoding for now but need to address later
     elif args.statewide is True:
-        RouteScan(system_map, 0, args.statewide)
+        RouteScan(system_map, 0, args.statewide) # todo 2 test and debug and optimize tripwatcher in statewide mode
     return
 
 if __name__ == "__main__":

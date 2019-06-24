@@ -63,7 +63,7 @@ class RouteReport:
         self.grade,self.grade_description = Generators.fetch_grade_report(self)
 
 
-    def __get_period_labels(self): # todo 1 get this from a configuration file, that also has the SQL filters for wwwAPI.Query_factory
+    def __get_period_labels(self): # todo 3 get this from a configuration file, that also has the SQL filters for wwwAPI.Query_factory
         if self.period == 'now':
             period_label = "current"
         elif self.period == 'today':
@@ -130,7 +130,8 @@ class RouteReport:
 
     def __query_factory(self, db, query, **kwargs):
 
-        # todo 0 possible solution https://stackoverflow.com/questions/7075828/make-sqlalchemy-use-date-in-filter-using-postgresql
+        # todo 0 improve __query_factory
+        # possible solution https://stackoverflow.com/questions/7075828/make-sqlalchemy-use-date-in-filter-using-postgresql
 
         # my_data = session.query(MyObject). \
         #    filter(cast(MyObject.date_time, Date) == date.today()).all()
@@ -139,9 +140,9 @@ class RouteReport:
         yesterdays_date = datetime.date.today() - datetime.timedelta(1)
         one_hour_ago = datetime.datetime.now() - datetime.timedelta(hours=1)
 
-        # todo 0 working on this period to find a solution
+        # todo 1 working on this period to find a solution
         if kwargs['period'] == 'now':
-            # query = query.filter(ScheduledStop.arrival_timestamp != None).filter(func.date(ScheduledStop.arrival_timestamp) > one_hour_ago) # todo 2 fix one_hour_ago period query filter. right now we just use same as 'today'
+            # query = query.filter(ScheduledStop.arrival_timestamp != None).filter(func.date(ScheduledStop.arrival_timestamp) > one_hour_ago) # todo 1 fix one_hour_ago period query filter. right now we just use same as 'today'
             query = query.filter(ScheduledStop.arrival_timestamp != None).filter(func.date(ScheduledStop.arrival_timestamp) == todays_date)
         elif kwargs['period'] == 'today':
             query = query.filter(ScheduledStop.arrival_timestamp != None).filter(func.date(ScheduledStop.arrival_timestamp) == todays_date)
@@ -152,7 +153,7 @@ class RouteReport:
 
         return query
 
-    def get_tripdash(self): # gets all arrivals (see limit) for all runs on current route # todo 0 debug this
+    def get_tripdash(self): # gets all arrivals (see limit) for all runs on current route
 
         with SQLAlchemyDBConnection() as db:
 
@@ -336,7 +337,7 @@ class StopReport:
                 # Otherwise, cleanup the query results
                 # split by vehicle and calculate arrival intervals
 
-                # todo 1 optimize the groupby here
+                # todo 0 optimize the groupby here
                 # alex r says:
                 # for group in df['col'].unique():
                 #     slice = df[df['col'] == group]

@@ -1,4 +1,4 @@
-# todo 1 merge statewide branch back into new_localizer
+# todo 4 merge statewide branch back into new_localizer
 
 # bus buswatcher v2.0
 # june 2019 - by anthony@bitsandatoms.net
@@ -104,7 +104,7 @@ assets.register(bundles)
 def displayIndex():
 
     # # todo 2 better to find a less latency way to do this (with a db query?) or cache this
-    vehicle_data = BusAPI.parse_xml_getBusesForRouteAll(BusAPI.get_xml_data('nj','all_buses'))
+    vehicle_data = BusAPI.parse_xml_getBusesForRouteAll(BusAPI.get_xml_data('nj','all_buses')) # todo 3 speedup by using a database query (with tripwatcher running in statewide mode)
     vehicle_count = len(vehicle_data)
     # for v in vehicle_count:
     #     print (route)
