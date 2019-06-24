@@ -205,6 +205,25 @@ def api_map_layer():
         return jsonify(API.get_map_layers(system_map,args,route_descriptions,collection_descriptions))
 
 
+# todo 0 new API endpoints to test, need to find usages in templates and map JS and update
+
+@app.route('/api/v1/maps/vehicles')
+@cross_origin()
+def api_vehicles():
+    args=request.args
+    return system_map.render_geojson(args)
+
+@app.route('/api/v1/maps/waypoints')
+@cross_origin()
+def api_waypoints():
+    args=request.args
+    return system_map.render_geojson(args)
+
+@app.route('/api/v1/maps/stops')
+@cross_origin()
+def api_stops():
+    args=request.args
+    return system_map.render_geojson(args)
 
 ################################################
 # ERROR HANDLER
