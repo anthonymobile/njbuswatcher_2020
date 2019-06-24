@@ -91,25 +91,32 @@ class RouteReport:
 
         return trip_list, trip_list_trip_id_only
 
-    def __get_stoplist(self,system_map):
-        route_stop_list = []
+    def __get_stoplist(self,system_map): #todo 0 test and if it works, replace calls to this wrapper function with the get_single_route_stoplist_for_wwwAPI(route) one below
 
-        for direction in system_map.get_single_route_Paths(self.route)[0]: # for route in system_map.route_geometries_remote[self.route][0]:
-            path_list = []
-            for path in direction.paths:
-                stops_points = RouteReport.Path()
-                for point in path.points:
-                    if isinstance(point, BusAPI.Route.Stop):
-                        stops_points.stops.append(point)
-                stops_points.id = path.id
-                stops_points.d = path.d
-                stops_points.dd = path.dd
-                path_list.append(
-                    stops_points)  # path_list is now a couple of Path instances, plus the metadata id,d,dd fields
-            route_stop_list.append(path_list)
-            return route_stop_list[0]  # transpose a single copy since the others are all repeats (can be verified by path ids)
+        return system_map.get_single_route_stoplist_for_wwwAPI(self.route)
 
 
+        # OLD
+        #
+        # route_stop_list = []
+        #
+        # for direction in system_map.get_single_route_Paths(self.route)[0]: # for route in system_map.route_geometries_remote[self.route][0]:
+        #     path_list = []
+        #     for path in direction.paths:
+        #         stops_points = RouteReport.Path()
+        #         for point in path.points:
+        #             if isinstance(point, BusAPI.Route.Stop):
+        #                 stops_points.stops.append(point)
+        #         stops_points.id = path.id
+        #         stops_points.d = path.d
+        #         stops_points.dd = path.dd
+        #         path_list.append(
+        #             stops_points)  # path_list is now a couple of Path instances, plus the metadata id,d,dd fields
+        #     route_stop_list.append(path_list)
+        #     return route_stop_list[0]  # transpose a single copy since the others are all repeats (can be verified by path ids)
+
+        # EVEN OLDER
+        #
         # routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(self.route_geometry)
         # # routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=self.route))
         # route_stop_list = []
@@ -127,6 +134,7 @@ class RouteReport:
         #             stops_points)  # path_list is now a couple of Path instances, plus the metadata id,d,dd fields
         #     route_stop_list.append(path_list)
         # return route_stop_list[0]  # transpose a single copy since the others are all repeats (can be verified by path ids)
+
 
     def __query_factory(self, db, query, **kwargs):
 
