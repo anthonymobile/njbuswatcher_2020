@@ -21,7 +21,6 @@ def hourly_loop():
 
     if args.statewide is False:
         print ('run stuff from buswatcher.lib.Generators')
-        # todo 1 delete and rebuild the system_map picklefile (build it first and swap, so it doesn't start looping.)
 
     elif args.statewide is True:
         print ('run stuff from buswatcher.lib.Generators')
@@ -47,7 +46,7 @@ if __name__ == "__main__":
     elif args.statewide is True:
         print('running in statewide mode (watch all routes in NJ)')
 
-    # todo 1 come up a cron-like scheme
+    # todo 3 come up a cron-like scheme
     #
     # 1 https://stackoverflow.com/questions/2398661/schedule-a-repeating-event-in-python-3#2399145
     # 2 https://apscheduler.readthedocs.io/en/3.0/

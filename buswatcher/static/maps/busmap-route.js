@@ -102,7 +102,6 @@ map.on('load', function() {
 });
 
 
-// todo restore tooltips to busmap-route.js
 
 map.addControl(new mapboxgl.NavigationControl());
 
