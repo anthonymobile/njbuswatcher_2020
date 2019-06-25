@@ -2,6 +2,7 @@ import datetime
 import pandas as pd
 
 from sqlalchemy import func
+import datetime_periods
 
 import buswatcher.lib.BusAPI as BusAPI
 import buswatcher.lib.Generators as Generators
@@ -18,24 +19,28 @@ class GenericReport:
 
     def query_factory(self, db, query, **kwargs):
 
-        # todo 0 improve __query_factory
-        # possible solution https://stackoverflow.com/questions/7075828/make-sqlalchemy-use-date-in-filter-using-postgresql
-        # my_data = session.query(MyObject). \
-        #    filter(cast(MyObject.date_time, Date) == date.today()).all()
+        now = datetime.datetime.now()
+        # todays_date = datetime.date.today()
+        # yesterdays_date = datetime.date.today() - datetime.timedelta(1)
+        # one_hour_ago = datetime.datetime.now() - datetime.timedelta(hours=1)
 
-        todays_date = datetime.date.today()
-        yesterdays_date = datetime.date.today() - datetime.timedelta(1)
-        one_hour_ago = datetime.datetime.now() - datetime.timedelta(hours=1)
+        period_start = datetime_periods.period_beginning(now, self.period['name'])
+        period_end = now # todo 99 this can also be passed in
 
-        if kwargs['period'] == 'now': # presently, 'now' is the same view as 'today'
-            # query = query.filter(ScheduledStop.arrival_timestamp != None).filter(func.date(ScheduledStop.arrival_timestamp) > one_hour_ago) # todo 1 fix one_hour_ago period query filter. right now we just use same as 'today'
-            query = query.filter(ScheduledStop.arrival_timestamp != None).filter(func.date(ScheduledStop.arrival_timestamp) == todays_date)
-        elif kwargs['period'] == 'today':
-            query = query.filter(ScheduledStop.arrival_timestamp != None).filter(func.date(ScheduledStop.arrival_timestamp) == todays_date)
-        elif kwargs['period'] == 'yesterday':
-            query = query.filter(ScheduledStop.arrival_timestamp != None).filter(func.date(ScheduledStop.arrival_timestamp) == yesterdays_date)
-        elif kwargs['period'] == 'history':
-            query = query.filter(ScheduledStop.arrival_timestamp != None)
+        query = query.filter(ScheduledStop.arrival_timestamp != None).\
+            filter(func.date(ScheduledStop.arrival_timestamp) >= period_start). \
+            filter(func.date(ScheduledStop.arrival_timestamp) < period_end)
+
+        #
+        # if kwargs['period'] == 'now': # presently, 'now' is the same view as 'today'
+        #     # query = query.filter(ScheduledStop.arrival_timestamp != None).filter(func.date(ScheduledStop.arrival_timestamp) > one_hour_ago)
+        #     query = query.filter(ScheduledStop.arrival_timestamp != None).filter(func.date(ScheduledStop.arrival_timestamp) == todays_date)
+        # elif kwargs['period'] == 'today':
+        #     query = query.filter(ScheduledStop.arrival_timestamp != None).filter(func.date(ScheduledStop.arrival_timestamp) == todays_date)
+        # elif kwargs['period'] == 'yesterday':
+        #     query = query.filter(ScheduledStop.arrival_timestamp != None).filter(func.date(ScheduledStop.arrival_timestamp) == yesterdays_date)
+        # elif kwargs['period'] == 'history':
+        #     query = query.filter(ScheduledStop.arrival_timestamp != None)
 
         return query
 
@@ -58,7 +63,7 @@ class RouteReport(GenericReport):
         self.period = period
 
         # load static stuff
-        self.period_labels = self.__get_period_labels()
+        self.period_args = system_map.period_descriptions[self.period]
 
         # perishability
         self.time_created=datetime.datetime.now()
@@ -92,18 +97,18 @@ class RouteReport(GenericReport):
         self.grade,self.grade_description = Generators.fetch_grade_report(self)
 
 
-    def __get_period_labels(self): # todo 3 get this from a configuration file, that also has the SQL filters for wwwAPI.Query_factory
-        if self.period == 'now':
-            period_label = "current"
-        elif self.period == 'today':
-            period_label = "today's"
-        elif self.period == 'yesterday':
-            period_label = "yesterday's"
-        elif self.period == 'history':
-            period_label = "forever's"
-        else:
-            period_label = '-no period label assigned-'
-        return period_label
+    # def __get_period_labels(self):
+    #     if self.period == 'now':
+    #         period_label = "current"
+    #     elif self.period == 'today':
+    #         period_label = "today's"
+    #     elif self.period == 'yesterday':
+    #         period_label = "yesterday's"
+    #     elif self.period == 'history':
+    #         period_label = "forever's"
+    #     else:
+    #         period_label = '-no period label assigned-'
+    #     return period_label
 
     def __get_current_trips(self):
         # get a list of trips current running the route
@@ -165,7 +170,7 @@ class RouteReport(GenericReport):
         # return route_stop_list[0]  # transpose a single copy since the others are all repeats (can be verified by path ids)
 
 
-    def get_tripdash(self):  #todo 0 debug get_tripdash, more missing buses than before
+    def get_tripdash(self):
         # gets all arrivals (see limit) for all runs on current route
 
         with SQLAlchemyDBConnection() as db:

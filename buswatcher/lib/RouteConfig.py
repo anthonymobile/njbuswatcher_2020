@@ -4,7 +4,7 @@ from pathlib import Path
 import json
 import geojson
 import pickle
-import sys
+import os, errno
 
 import buswatcher.lib.BusAPI as BusAPI
 # from buswatcher.lib.DataBases import SQLAlchemyDBConnection
@@ -23,6 +23,8 @@ class TransitSystem:
                 self.route_descriptions = json.load(f)
             with open('config/collection_descriptions.json') as f:
                 self.collection_descriptions = json.load(f)
+            with open('config/period_descriptions.json') as f:
+                self.period_descriptions = json.load(f)
         except:
             print('cant find the files')
 
@@ -108,7 +110,7 @@ class TransitSystem:
         # stops_feature = geojson.Feature(geometry=stops_feature)
         return waypoints_feature, stops_feature
 
-    def render_geojson(self, args): # todo 1 separate the waypoints, stops into different routes in www.py so that we can cache the waypoints layers
+    def render_geojson(self, args): # todo 4 separate the waypoints, stops into different functions and update routesi n www.py so that we can cache these functions, esp the waypoints layers and the 'all' responses
 
         # if we only want a single stop geojson
         if 'stop_id' in args.keys():
@@ -122,7 +124,7 @@ class TransitSystem:
                     .first()
                 # format for geojson
                 stop_coordinates = [float(stop_query[2]), float(stop_query[1])]
-                stop_geojson = geojson.Point(stop_coordinates) #todo 0 swap the lat and lot #s
+                stop_geojson = geojson.Point(stop_coordinates)
                 # stop_featurecollection = geojson.FeatureCollection(stop_geojson)
                 stop_featurecollection = geojson.Feature(stop_geojson)
 
@@ -170,18 +172,25 @@ class TransitSystem:
 
         return
 
-    def get_positions_byargs(self, args): #todo 0 move API.get_positions_byargs here
-        return
-
-
 
 ##################################################################
-# Class TransitSystem bootstrapper
+# Class TransitSystem bootstrappers
 ##################################################################
+
+def flush_system_map():
+    system_map_pickle_file = Path("config/system_map.pickle")  # todo 99 find a way to definte this in one place
+
+    try:
+        os.remove(system_map_pickle_file)
+    except OSError as e:
+        if e.errno != errno.ENOENT:  # errno.ENOENT = no such file or directory
+            raise  # re-raise exception if a different error occurred
+
+    return
 
 def load_system_map():
 
-    system_map_pickle_file = Path("config/system_map.pickle")
+    system_map_pickle_file = Path("config/system_map.pickle") #todo 99 find a way to definte this in one place
 
     try:
         my_abs_path = system_map_pickle_file.resolve(strict=True)
@@ -195,41 +204,30 @@ def load_system_map():
 
     return system_map
 
-def flush_system_map():
-
-    # todo 0 delete the system map file every time we run tripwatcher
-
-    return
 
 
-
-##################################################################
-# OTHER HELPER FUNCTIONS RELATED TO Class TransitSystem
-##################################################################
-
-
-def get_route_xml(r): # create a system_map and then pulls a single route from it # todo 0 look for usages and deprecate?
-    try:
-        # load the system_map
-        system_map = load_system_map()
-        # fetch the right system_map['route_geomtries']['xml']
-        return [x['xml'] for x in system_map.route_geometries if x['route'] == r]
-
-        # infile = ('config/route_geometry/' + r +'.xml')
-        # with open(infile,'rb') as f:
-        #     return f.read()
-
-    except: # if its not in the system_map, fetch the XML and return that instead
-
-        route_xml = BusAPI.get_xml_data('nj', 'routes', route=r)
-
-        outfile = ('config/route_geometry/' + r +'.xml')
-        with open(outfile,'wb') as f: # overwrite existing fille
-            f.write(route_xml)
-
-        infile = ('config/route_geometry/' + r + '.xml')
-        with open(infile, 'rb') as f:
-            return f.read()
+# def get_route_xml(r): # create a system_map and then pulls a single route from it
+#     try:
+#         # load the system_map
+#         system_map = load_system_map()
+#         # fetch the right system_map['route_geomtries']['xml']
+#         return [x['xml'] for x in system_map.route_geometries if x['route'] == r]
+#
+#         # infile = ('config/route_geometry/' + r +'.xml')
+#         # with open(infile,'rb') as f:
+#         #     return f.read()
+#
+#     except: # if its not in the system_map, fetch the XML and return that instead
+#
+#         route_xml = BusAPI.get_xml_data('nj', 'routes', route=r)
+#
+#         outfile = ('config/route_geometry/' + r +'.xml')
+#         with open(outfile,'wb') as f: # overwrite existing fille
+#             f.write(route_xml)
+#
+#         infile = ('config/route_geometry/' + r + '.xml')
+#         with open(infile, 'rb') as f:
+#             return f.read()
 
 ##################################################################
 # MISC FUNCTIONS

@@ -83,7 +83,7 @@ def get_positions_byargs(system_map, args, route_descriptions, collection_descri
                 return __positions2geojson(positions_list)
 
 
-# get geoJSON
-def get_map_layers(system_map, args, route_descriptions, collection_descriptions): # todo 1 deprecate this and turn off the old endpoint
-    return system_map.render_geojson(args)
+# # get geoJSON # deprecated
+# def get_map_layers(system_map, args, route_descriptions, collection_descriptions):
+#     return system_map.render_geojson(args)
 

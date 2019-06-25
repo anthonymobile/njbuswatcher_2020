@@ -103,7 +103,7 @@ assets.register(bundles)
 @app.route('/')
 def displayIndex():
 
-    # # todo 2 better to find a less latency way to do this (with a db query?) or cache this
+    # # todo 3 better to find a less latency way to do this (with a db query?) or cache this
     vehicle_data = BusAPI.parse_xml_getBusesForRouteAll(BusAPI.get_xml_data('nj','all_buses')) # todo 3 speedup by using a database query (with tripwatcher running in statewide mode)
     vehicle_count = len(vehicle_data)
     # for v in vehicle_count:
@@ -121,7 +121,7 @@ def displayIndex():
 @app.route('/<collection_url>')
 def displayCollection(collection_url):
 
-    # todo 2 better to find a less latency way to do this (with a db query)
+    # todo 3 better to find a less latency way to do this (with a db query)
     vehicles_now = API.get_positions_byargs(system_map, {'collection': collection_url, 'layer': 'vehicles'}, route_descriptions,
                              collection_descriptions)
 
@@ -193,16 +193,16 @@ def displayAPI():
 #   TK document url for stop map vehicles
 
 
-
-@app.route('/api/v1/maps')
-@cross_origin()
-def api_map_layer():
-    args=request.args
-
-    if args['layer'] == 'vehicles':
-        return jsonify(API.get_positions_byargs(system_map,args,route_descriptions,collection_descriptions))
-    else:
-        return jsonify(API.get_map_layers(system_map,args,route_descriptions,collection_descriptions))
+# deprecated
+# @app.route('/api/v1/maps')
+# @cross_origin()
+# def api_map_layer():
+#     args=request.args
+#
+#     if args['layer'] == 'vehicles':
+#         return jsonify(API.get_positions_byargs(system_map,args,route_descriptions,collection_descriptions))
+#     else:
+#         return jsonify(API.get_map_layers(system_map,args,route_descriptions,collection_descriptions))
 
 
 
@@ -211,7 +211,7 @@ def api_map_layer():
 def api_vehicles():
     args=dict(request.args)
     args['layer'] = 'vehicles'
-    return jsonify(API.get_positions_byargs(system_map,args,system_map.route_descriptions, system_map.collection_descriptions)) # todo 0 fold this into RouteConfig.render_geojson
+    return jsonify(API.get_positions_byargs(system_map,args,system_map.route_descriptions, system_map.collection_descriptions)) # todo 1 fold this into RouteConfig.render_geojson
 
 @app.route('/api/v1/maps/waypoints')
 @cross_origin()
@@ -313,6 +313,7 @@ def splitpart (value, index, char = '_'):
 if __name__ == "__main__":
 
     system_map=load_system_map() # n.b. this will be a separate instance
+    period_descriptions = system_map.period_descriptions
     route_descriptions = system_map.route_descriptions
     grade_descriptions = system_map.grade_descriptions
     collection_descriptions = system_map.collection_descriptions
