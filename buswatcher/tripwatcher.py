@@ -12,7 +12,7 @@ from buswatcher.lib.RouteScan import RouteScan
 from buswatcher.lib.RouteConfig import load_system_map, flush_system_map,maintenance_check
 from buswatcher.lib.CommonTools import timeit
 #
-# class RouteScan: # moved to RouteScan.py
+# class RouteScan: # moved to RouteScan.py # todo 1 remove this large block
 #
 #     # @timeit
 #     def __init__(self, system_map, route, statewide):
@@ -311,11 +311,11 @@ def main_loop(system_map):
         for collection,collection_description in system_map.collection_descriptions.items():
             for r in collection_description['routelist']:
                 try:
-                    RouteScan(system_map, r, args.statewide) # todo 99 this dies down the stack in system_map.get_single_route_paths_and_coordinatebundle if it tries to call a route that isn't in  route_descriptions which can happen in certain undetermined situations
+                    RouteScan(system_map, r, args.statewide)
                 except:
                     pass
     elif args.statewide is True:
-        RouteScan(system_map, 0, args.statewide) # todo 99 test and debug and optimize tripwatcher in statewide mode
+        RouteScan(system_map, 0, args.statewide)
     return
 
 if __name__ == "__main__":

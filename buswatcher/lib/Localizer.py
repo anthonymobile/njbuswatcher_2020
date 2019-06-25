@@ -97,11 +97,10 @@ def ckdnearest(gdA, gdB, bcol): # seems to be getting hung on on bus 5800 for so
 #
 ###########################################################################
 
-#@CommonTools.timeit
+@CommonTools.timeit
 def get_nearest_stop(system_map,  buses, route):
 
-    routedata, coordinates_bundle = system_map.get_single_route_paths_and_coordinatebundle(route)
-    # routedata, coordinates_bundle = BusAPI.parse_xml_getRoutePoints(route_map_xml['xml'])
+    # routedata, coordinates_bundle = system_map.get_single_route_paths_and_coordinatebundle(route)
 
     # sort bus data into directions
     buses_as_dicts = [b.to_dict() for b in buses]
@@ -113,14 +112,13 @@ def get_nearest_stop(system_map,  buses, route):
         bus_positions = []
         return bus_positions
 
-    stoplist = system_map.get_single_route_stoplist_for_localizer(route)
-    # stoplist = []
-    # for rt in routedata:
-    #     for path in rt.paths:
-    #         for p in path.points:
-    #             if p.__class__.__name__ == 'Stop':
-    #                 stoplist.append(
-    #                     {'stop_id': p.identity, 'st': p.st, 'd': p.d, 'lat': p.lat, 'lon': p.lon})
+    try:
+        stoplist = system_map.get_single_route_stoplist_for_localizer(route)
+    except:
+        # future automatically add unknown routes to route_descriptions.json
+        print("couldn't find route in route_descriptions.json, please add it. route " + str(route))
+        return
+
 
     result = collections.defaultdict(list)
     for d in stoplist:
@@ -129,9 +127,8 @@ def get_nearest_stop(system_map,  buses, route):
 
     # loop over the directions in buses_by_direction
     bus_positions = []
-    for bus_direction in buses_by_direction: #
+    for bus_direction in buses_by_direction:
         # create bus geodataframe
-        #df1 = pd.DataFrame.from_records([b.to_dict() for b in buses])
         df1 = pd.DataFrame.from_records(bus_direction)
         df1['lat'] = pd.to_numeric(df1['lat'])
         df1['lon'] = pd.to_numeric(df1['lon'])
@@ -140,9 +137,6 @@ def get_nearest_stop(system_map,  buses, route):
         gdf1 = geopandas.GeoDataFrame(df1, geometry='coordinates')
 
         # create stop geodataframe
-
-        # turn stops_by_direction into a dict with:
-        # pandas.DataFrame.from_records([s.to_dict() for s in signals])
 
         for stop_direction in stops_by_direction:
             if bus_direction[0]['dd'] == stop_direction[0]['d']:

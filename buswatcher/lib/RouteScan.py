@@ -1,5 +1,5 @@
 import datetime
-
+import sys
 import itertools
 import numpy as np
 
@@ -9,18 +9,26 @@ from buswatcher.lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, 
 from buswatcher.lib import BusAPI, Localizer
 from buswatcher.lib.RouteConfig import load_system_map
 
-class RouteScan: # todo 0 move this to its own file
+from buswatcher.lib.CommonTools import timeit
 
-    # @timeit
+class RouteScan:
+
     def __init__(self, system_map, route, statewide):
 
         # apply passed parameters to instance
         self.route = route
         self.statewide = statewide
-        try:
-            self.route_map_xml=system_map.single_route_xml(self.route)
-        except:
-            self.route_map_xml={'xml':''}
+
+        if self.statewide is True:
+            self.routes_map_xml=dict()
+            for r in system_map.route_descriptions['routedata']:
+                self.routes_map_xml[r['route']] = system_map.get_single_route_xml(r['route'])
+
+        elif self.statewide is False:
+            try:
+                self.route_map_xml=system_map.get_single_route_xml(self.route)
+            except:
+                self.route_map_xml={'xml':''}
 
         # create database connection
         self.db = SQLAlchemyDBConnection()
@@ -54,8 +62,8 @@ class RouteScan: # todo 0 move this to its own file
         elif self.statewide is True:
 
             self.buses = BusAPI.parse_xml_getBusesForRouteAll(BusAPI.get_xml_data('nj', 'all_buses'))
-            print('\rfetched ' + str(len(self.buses)) + ' buses...')
-
+            route_count = len(list(set([v.rt for v in self.buses])))
+            print('\rfetched ' + str(len(self.buses)) + ' buses on ' + str(route_count) + ' routes...' )
             self.clean_buses()
 
         return
@@ -80,17 +88,20 @@ class RouteScan: # todo 0 move this to its own file
         with self.db as db:
 
             # PARSE trips, create missing trip records first, to honor foreign key constraints
-            # sys.stdout.write('parsing...')
             for bus in self.buses:
                 bus.trip_id = ('{id}_{run}_{dt}').format(id=bus.id, run=bus.run,dt=datetime.datetime.today().strftime('%Y%m%d'))
                 self.trip_list.append(bus.trip_id)
                 result = db.session.query(Trip).filter(Trip.trip_id == bus.trip_id).first()
 
-                if result is None:
-                    trip_id = Trip('nj', system_map, bus.rt, bus.id, bus.run, bus.pid)
-                    db.session.add(trip_id)
-                else:
-                    continue
+                try:
+                    if result is None:
+                        trip_id = Trip('nj', system_map, bus.rt, bus.id, bus.run, bus.pid)
+                        db.session.add(trip_id)
+                    else:
+                        continue
+                except:
+                    print("couldn't find route in route_descriptions.json, please add it. route " + str(bus.rt)) # future automatically add unknown routes to route_descriptions.json
+
                 db.__relax__()  # disable foreign key checks before...
                 db.session.commit()  # we save the position_log.
             return
@@ -112,17 +123,23 @@ class RouteScan: # todo 0 move this to its own file
                         db.session.commit()
 
                     elif self.statewide is True:
-                        # find all the routes
-                        statewide_route_list = [bus.rt for bus in self.buses]
-                        # loop over each route
-                        for r in statewide_route_list:
-                            # print('localizing routes %a').format(a=r)
-                            bus_positions = Localizer.get_nearest_stop(system_map, self.buses, r)
-                            for group in bus_positions:
-                                for bus in group:
-                                    db.session.add(bus)
-                            db.__relax__()  # disable foreign key checks before commit
-                            db.session.commit()
+                        statewide_route_list = sorted(list(set([bus.rt for bus in self.buses])))  # find all the routes unique
+                        for r in statewide_route_list: # loop over each route
+
+
+                            try:
+                                sys.stdout.write("localizing route "+ r + ' ')
+                                buses_for_this_route=[b for b in self.buses if b.rt==r]
+                                bus_positions = Localizer.get_nearest_stop(system_map, buses_for_this_route, r)
+
+
+                                for group in bus_positions:
+                                    for bus in group:
+                                        db.session.add(bus)
+                                db.__relax__()  # disable foreign key checks before commit
+                                db.session.commit()
+                            except:
+                                pass
 
 
 

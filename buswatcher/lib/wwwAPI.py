@@ -17,7 +17,7 @@ class GenericReport:
     # def __init__(self):
     #     pass
 
-    def query_factory(self, db, query, **kwargs): # todo 0 test and debug query_builder
+    def query_factory(self, db, query, **kwargs): # bug test and debug query_builder
 
         now = datetime.datetime.now()
         # todays_date = datetime.date.today()
@@ -194,6 +194,7 @@ class StopReport(GenericReport):
             query=query.statement
             try:
                 arrivals_here=pd.read_sql(query, db.session.bind)
+                return self.cleanup_arrivals(arrivals_here)
             except ValueError:
                 pass
 
@@ -205,9 +206,7 @@ class StopReport(GenericReport):
                 )
                 stop_name = 'N/A'
                 self.arrivals_table_time_created = datetime.datetime.now() # log creation time and return
-                return arrivals_list_final_df, stop_name, arrivals_table_time_created
-
-             return self.cleanup_arrivals(arrivals_here)
+                return arrivals_list_final_df, stop_name, self.arrivals_table_time_created
 
 
 

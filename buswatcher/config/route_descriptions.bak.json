@@ -1,5 +1,5 @@
 {
-    "last_updated": "2019-06-23 21:07:48",
+    "last_updated": "2019-06-20 15:54:09",
     "ttl": "86400",
     "routedata": [
         {
@@ -53,7 +53,8 @@
             "frequency": "low",
             "prettyname": "Heights-Exchange Place",
             "route": "82",
-            "schedule_url": "https://www.njtransit.com/pdf/bus/T0082.pdf"
+            "schedule_url": "https://www.njtransit.com/pdf/bus/T0082.pdf",
+            "nm": "Union City-Jersy City-Exch Pl"
         },
         {
             "description_long": "The 83 links Journal Square and downtown Hackensack along JFK Boulevard in The Heights, making it one of the few inter-county routes served from Jersey City.",
@@ -1914,7 +1915,8 @@
             "frequency": "low",
             "prettyname": "18th Street Crosstown",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
-        },        {
+        },
+        {
             "route": "65",
             "nm": "Newark - Somerville",
             "ttl": "1d",
@@ -1922,6 +1924,256 @@
             "description_short": "",
             "frequency": "low",
             "prettyname": "Newark - Somerville",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "316",
+            "nm": "Cape May-Wildwood-Phila Exp",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Cape May-Wildwood-Phila Exp",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "378",
+            "nm": "Newark - Secaucus Express",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Newark - Secaucus Express",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "130",
+            "nm": "Lakewood-NY-Union Hill Exp",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Lakewood-NY-Union Hill Exp",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "133",
+            "nm": "Old Bridge-Aberdeen-New York",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Old Bridge-Aberdeen-New York",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "136",
+            "nm": "Lakewood-NY-Freehold Mall Ex",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Lakewood-NY-Freehold Mall Ex",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "144",
+            "nm": "Elmwood Park-Hackensack-NY",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Elmwood Park-Hackensack-NY",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "196",
+            "nm": "Warwick-Ringwood-New York",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Warwick-Ringwood-New York",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "324",
+            "nm": "Wayne Rt 23 Transit Ctr-NY X",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Wayne Rt 23 Transit Ctr-NY X",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "510",
+            "nm": "Cape May - Wildwood Shuttle",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Cape May - Wildwood Shuttle",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "64",
+            "nm": "Lakewood-Jersey City-Weehawke",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Lakewood-Jersey City-Weehawke",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "722",
+            "nm": "Paterson - Paramus Park",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Paterson - Paramus Park",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "872",
+            "nm": "Morristown-Rt.10-Livingston",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Morristown-Rt.10-Livingston",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "97",
+            "nm": "East Orange - Montclair",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "East Orange - Montclair",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "120",
+            "nm": "Bayonne - New York Downtown",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Bayonne - New York Downtown",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "121",
+            "nm": "North Bergen - New York",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "North Bergen - New York",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "124",
+            "nm": "Secaucus - New York",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Secaucus - New York",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "132",
+            "nm": "Lakewood-NY-GordonsCornerExp",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Lakewood-NY-GordonsCornerExp",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "177",
+            "nm": "HarringtonPk-NewMilford-NY X",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "HarringtonPk-NewMilford-NY X",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "250",
+            "nm": "Go Bus (Springfield Ave BR)",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Go Bus (Springfield Ave BR)",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "329",
+            "nm": "Harmon Cove-SecaucusJunction",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Harmon Cove-SecaucusJunction",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "361",
+            "nm": "Newark Express",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Newark Express",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "63",
+            "nm": "Lakewood-JrsyCity-Weehawken X",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Lakewood-JrsyCity-Weehawken X",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "68",
+            "nm": "OldBridge-EBrunswick-JerseyC",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "OldBridge-EBrunswick-JerseyC",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "329",
+            "nm": "Harmon Cove-SecaucusJunction",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Harmon Cove-SecaucusJunction",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+                {
+            "route": "151",
+            "nm": "",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
         }
     ]
