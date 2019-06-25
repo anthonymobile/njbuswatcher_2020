@@ -294,7 +294,7 @@ def generate_grade_report(RouteReport):
     # grade_description = "This isn't working."
     # return grade, grade_description
     #
-    # # FUTURE -- based on average headway standard deviation
+    #  future: based on average headway standard deviation
 
     # We can also report variability using standard deviation and that can be converted to a letter
     # (e.g.A is < 1 s.d., B is 1 to 1.5, etc.)
