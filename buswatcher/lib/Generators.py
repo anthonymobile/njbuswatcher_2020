@@ -1,7 +1,7 @@
 # todo 4 refactor all the CPU-intensive tasks for wwwAPI.RouteReport and StopReport in here
 
 
-def generate_bunching_report(RouteReport):
+def generate_bunching_report(routereport):
     
     bunching_report = dict()
     bunching_report['flag'] = True
@@ -11,7 +11,7 @@ def generate_bunching_report(RouteReport):
     bunching_report['stops'].append('Martin Luther King Jr Dr + Bidwell Ave')
     bunching_report['stops'].append('Palisade Ave + Hutton St')
 
-    # todo 3 rewrite bunching_report to push a JSON table to the db
+    # todo 3 rewrite bunching_report using routereport.query_builder to push a JSON table to the db
 
     #
     # check if bunching leaderboard is current

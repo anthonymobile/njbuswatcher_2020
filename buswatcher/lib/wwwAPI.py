@@ -17,7 +17,7 @@ class GenericReport:
     # def __init__(self):
     #     pass
 
-    def query_factory(self, db, query, **kwargs): # todo 1 test and debug query_builder
+    def query_factory(self, db, query, **kwargs): # todo 0 test and debug query_builder
 
         now = datetime.datetime.now()
         # todays_date = datetime.date.today()
@@ -173,7 +173,7 @@ class StopReport(GenericReport):
 
             return 'Stop name TK'
 
-    def get_arrivals_new(self): #todo 1 debug get_arrivals_new
+    def get_arrivals_new(self): #todo 0 debug get_arrivals or just do get_arrivals_new?
         with SQLAlchemyDBConnection() as db:
 
             # build query and load into df
@@ -204,49 +204,44 @@ class StopReport(GenericReport):
                     data=['0', '0000', '0', '0000_000_00000000', '0000_000_00000000', 'N/A', datetime.time(0, 1)]
                 )
                 stop_name = 'N/A'
-
                 self.arrivals_table_time_created = datetime.datetime.now() # log creation time and return
+                return arrivals_list_final_df, stop_name, arrivals_table_time_created
 
-                return arrivals_list_final_df, stop_name
+             return self.cleanup_arrivals(arrivals_here)
 
-            else:
 
-                # Otherwise, cleanup the query results -- split by vehicle and calculate arrival intervals
 
-                    # alex r says:
-                    # for group in df['col'].unique():
-                    #     slice = df[df['col'] == group]
-                    #
-                    # is like 10x faster than
-                    # df.groupby('col').apply( < stuffhere >)
+    def cleanup_arrivals(self,arrivals_here):
+        # Otherwise, cleanup the query results -- split by vehicle and calculate arrival intervals
 
-                final_approach_dfs = [g for i, g in arrivals_here.groupby(arrivals_here['v'].ne(arrivals_here[
-                                                                                                    'v'].shift()).cumsum())]  # split final approach history (sorted by timestamp) at each change in vehicle_id outputs a list of dfs per https://stackoverflow.com/questions/41144231/python-how-to-split-pandas-dataframe-into-subsets-based-on-the-value-in-the-fir
-                arrivals_list_final_df = pd.DataFrame()  # take the last V(ehicle) approach in each df and add it to final list of arrivals
-                for final_approach in final_approach_dfs:  # iterate over every final approach
-                    arrival_insert_df = final_approach.tail(1)  # take the last observation
-                    arrivals_list_final_df = arrivals_list_final_df.append(arrival_insert_df)  # insert into df
-                arrivals_list_final_df['delta'] = (
-                            arrivals_list_final_df['arrival_timestamp'] - arrivals_list_final_df['arrival_timestamp'].shift(
-                        1)).fillna(0)  # calc interval between last bus for each row, fill NaNs
+        # alex r says:
+        # for group in df['col'].unique():
+        #     slice = df[df['col'] == group]
+        # # is like 10x faster than
+        # df.groupby('col').apply( < stuffhere >)
 
-                stop_name = arrivals_list_final_df['stop_name'].iloc[0]
+        final_approach_dfs = [g for i, g in arrivals_here.groupby(arrivals_here['v'].ne(arrivals_here['v'].shift()).cumsum())]  # split final approach history (sorted by timestamp) at each change in vehicle_id outputs a list of dfs per https://stackoverflow.com/questions/41144231/python-how-to-split-pandas-dataframe-into-subsets-based-on-the-value-in-the-fir
+        arrivals_list_final_df = pd.DataFrame()  # take the last V(ehicle) approach in each df and add it to final list of arrivals
+        for final_approach in final_approach_dfs:  # iterate over every final approach
+            arrival_insert_df = final_approach.tail(1)  # take the last observation
+            arrivals_list_final_df = arrivals_list_final_df.append(arrival_insert_df)  # insert into df
+        arrivals_list_final_df['delta'] = (arrivals_list_final_df['arrival_timestamp'] - arrivals_list_final_df['arrival_timestamp'].shift(1)).fillna(0)  # calc interval between last bus for each row, fill NaNs
+        stop_name = arrivals_list_final_df['stop_name'].iloc[0]
+        arrivals_table_time_created = datetime.datetime.now()  # log creation time and return
 
-                self.arrivals_table_time_created = datetime.datetime.now() # log creation time and return
-
-                return arrivals_list_final_df, stop_name
+        return arrivals_list_final_df, stop_name, arrivals_table_time_created
 
 
 
     # fetch arrivals into a df
-    def get_arrivals(self,route,stop,period): #todo 0 debug get_arrivals
+    def get_arrivals(self,route,stop,period): #todo 0 debug get_arrivals or just do get_arrivals_new?
 
         with SQLAlchemyDBConnection() as db:
             today_date = datetime.date.today()
             yesterday = datetime.date.today() - datetime.timedelta(1)
             one_hour_ago = datetime.datetime.now() - datetime.timedelta(hours=1)
 
-            if period == "now":
+            if period == "hour":
                 arrivals_here = pd.read_sql(
                                 db.session.query(
                                      Trip.rt,
@@ -263,9 +258,7 @@ class StopReport(GenericReport):
                                 .filter(func.date(ScheduledStop.arrival_timestamp) > one_hour_ago)
                                 .statement
                                 ,db.session.bind)
-
-
-            elif period == "today":
+            elif period == "day":
                 arrivals_here = pd.read_sql(
                                 db.session.query(
                                      Trip.rt,
@@ -282,9 +275,7 @@ class StopReport(GenericReport):
                                 .filter(func.date(ScheduledStop.arrival_timestamp) == today_date)
                                 .statement
                                 ,db.session.bind)
-
-
-            elif period == "yesterday":
+            elif period == "week":
                 arrivals_here = pd.read_sql(
                                 db.session.query(
                                     Trip.rt,
@@ -302,8 +293,7 @@ class StopReport(GenericReport):
                                 .filter(func.date(ScheduledStop.arrival_timestamp) == yesterday)
                                 .statement
                                  ,db.session.bind)
-
-            elif period == "history":
+            elif period == "month":
                 arrivals_here = pd.read_sql(
                                 db.session.query(
                                     Trip.rt,
@@ -320,12 +310,8 @@ class StopReport(GenericReport):
                                 .filter(ScheduledStop.arrival_timestamp != None)
                                 .statement
                                 ,db.session.bind)
-
-            elif period is True:
-                try:
-                    int(period)  # check if it digits (e.g. period=20180810)
-                    request_date = datetime.datetime.strptime(period, '%Y%m%d')  # make a datetime object
-                    arrivals_here = pd.read_sql(
+            elif period == "year":
+                arrivals_here = pd.read_sql(
                                 db.session.query(
                                     Trip.rt,
                                     Trip.v,
@@ -339,47 +325,64 @@ class StopReport(GenericReport):
                                 .filter(Trip.rt == route)
                                 .filter(ScheduledStop.stop_id == stop)
                                 .filter(ScheduledStop.arrival_timestamp != None)
-                                .filter(func.date(ScheduledStop.arrival_timestamp) == request_date)
                                 .statement
-                                , db.session.bind)
-
-                except ValueError:
-                        pass
+                                ,db.session.bind)
+            # elif period is True:
+            #     try:
+            #         int(period)  # check if it digits (e.g. period=20180810)
+            #         request_date = datetime.datetime.strptime(period, '%Y%m%d')  # make a datetime object
+            #         arrivals_here = pd.read_sql(
+            #                     db.session.query(
+            #                         Trip.rt,
+            #                         Trip.v,
+            #                         Trip.pid,
+            #                         Trip.trip_id,
+            #                         ScheduledStop.trip_id,
+            #                         ScheduledStop.stop_id,
+            #                         ScheduledStop.stop_name,
+            #                         ScheduledStop.arrival_timestamp)
+            #                     .join(ScheduledStop)
+            #                     .filter(Trip.rt == route)
+            #                     .filter(ScheduledStop.stop_id == stop)
+            #                     .filter(ScheduledStop.arrival_timestamp != None)
+            #                     .filter(func.date(ScheduledStop.arrival_timestamp) == request_date)
+            #                     .statement
+            #                     , db.session.bind)
+            #
+            #     except ValueError:
+            #             pass
 
             # if the database didn't have results, return an empty dataframe
             if len(arrivals_here.index) == 0:
-
-                arrivals_list_final_df = pd.DataFrame(
+                arrivals_list_final_df= pd.DataFrame(
                     columns=['rt', 'v', 'pid', 'trip_trip_id', 'stop_trip_id', 'stop_name', 'arrival_timestamp'],
                     data=['0', '0000', '0', '0000_000_00000000', '0000_000_00000000', 'N/A', datetime.time(0, 1)]
                     )
                 stop_name = 'N/A'
-                self.arrivals_table_time_created = datetime.datetime.now()
+                arrivals_table_time_created = datetime.datetime.now()
+                return arrivals_list_final_df, stop_name, arrivals_table_time_created
 
-                return arrivals_list_final_df, stop_name
+            return self.cleanup_arrivals(arrivals_here)
 
-            # Otherwise, cleanup the query results
-            # split by vehicle and calculate arrival intervals
 
-            # todo 0 optimize the groupby here
-            # alex r says:
-            # for group in df['col'].unique():
-            #     slice = df[df['col'] == group]
+
+            # #
+            # # alex r says:
+            # # for group in df['col'].unique():
+            # #     slice = df[df['col'] == group]
+            # #
+            # # is like 10x faster than
+            # # df.groupby('col').apply( < stuffhere >)
+            # final_approach_dfs = [g for i, g in arrivals_here.groupby(arrivals_here['v'].ne(arrivals_here['v'].shift()).cumsum())] # split final approach history (sorted by timestamp) at each change in vehicle_id outputs a list of dfs per https://stackoverflow.com/questions/41144231/python-how-to-split-pandas-dataframe-into-subsets-based-on-the-value-in-the-fir
+            # arrivals_list_final_df = pd.DataFrame() # take the last V(ehicle) approach in each df and add it to final list of arrivals
+            # for final_approach in final_approach_dfs:  # iterate over every final approach
+            #     arrival_insert_df = final_approach.tail(1)  # take the last observation
+            #     arrivals_list_final_df = arrivals_list_final_df.append(arrival_insert_df)  # insert into df
+            # arrivals_list_final_df['delta']=(arrivals_list_final_df['arrival_timestamp'] - arrivals_list_final_df['arrival_timestamp'].shift(1)).fillna(0) # calc interval between last bus for each row, fill NaNs
             #
-            # is like 10x faster than
-            # df.groupby('col').apply( < stuffhere >)
-
-
-            final_approach_dfs = [g for i, g in arrivals_here.groupby(arrivals_here['v'].ne(arrivals_here['v'].shift()).cumsum())] # split final approach history (sorted by timestamp) at each change in vehicle_id outputs a list of dfs per https://stackoverflow.com/questions/41144231/python-how-to-split-pandas-dataframe-into-subsets-based-on-the-value-in-the-fir
-            arrivals_list_final_df = pd.DataFrame() # take the last V(ehicle) approach in each df and add it to final list of arrivals
-            for final_approach in final_approach_dfs:  # iterate over every final approach
-                arrival_insert_df = final_approach.tail(1)  # take the last observation
-                arrivals_list_final_df = arrivals_list_final_df.append(arrival_insert_df)  # insert into df
-            arrivals_list_final_df['delta']=(arrivals_list_final_df['arrival_timestamp'] - arrivals_list_final_df['arrival_timestamp'].shift(1)).fillna(0) # calc interval between last bus for each row, fill NaNs
-
-            stop_name = arrivals_list_final_df['stop_name'].iloc[0]
-
-            return arrivals_list_final_df, stop_name
+            # stop_name = arrivals_list_final_df['stop_name'].iloc[0]
+            #
+            # return arrivals_list_final_df, stop_name
 
     def get_hourly_frequency(self):
         results = pd.DataFrame()
