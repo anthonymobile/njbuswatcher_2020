@@ -7,6 +7,7 @@ from pymysql import IntegrityError
 
 from buswatcher.lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
 from buswatcher.lib import BusAPI, Localizer
+from buswatcher.lib.RouteConfig import load_system_map
 
 class RouteScan: # todo 0 move this to its own file
 
