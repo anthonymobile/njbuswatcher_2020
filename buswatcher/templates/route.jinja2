@@ -309,8 +309,11 @@
                                 <div id="buses" class="row mt-2">
 
                                     {% for stop in path.stops %}
-                                    <a href = {{url_for('genStopReport',collection_url=collection_url, source=routereport.source,route=routereport.route,stop=stop.identity,period='today') }} id="{{stop.st}}"><span class="label">{{stop.st|title}}-</span>
-                                    </a>
+                                    <!-- <p class="mb-4"><a href = {{url_for('genStopReport',collection_url=collection_url, source=routereport.source,route=routereport.route,stop=stop.identity,period='today') }} id="{{stop.st}}"><span class="label">{{stop.st|title}}</span>
+                                    </a></p> -->
+
+                                                                            <p class="mb-0"><a href = {{url_for('genStopReport',collection_url=collection_url, source=routereport.source,route=routereport.route,stop=stop.identity,period='today') }} id="{{stop.st}}"><span class="label">{{stop.st|title}}</span>
+                                    </a></p>
                                     {% endfor %}
 
                                 </div>
