@@ -1,27 +1,37 @@
 {
     "hour": {
         "name": "hour",
-        "label": "right now",
-        "description": "The last hour."
+        "label": "now",
+        "possessive_label": "the last hour's",
+        "adverb_label": "hourly",
+        "descriptive_label": "since the top of the hourTK"
     },
     "day": {
         "name": "day",
-        "label": "right now",
-        "description": "Since midnight."
+        "label": "today",
+        "possessive_label": "today's",
+        "adverb_label": "daily",
+        "descriptive_label": "since midnight"
     },
     "week": {
         "name": "week",
-        "label": "right now",
-        "description": "Since Sunday."
+        "label": "this week",
+        "possessive_label": "this week's",
+        "adverb_label": "weekly",
+        "descriptive_label": "since Sunday"
     },
     "month": {
         "name": "month",
-        "label": "right now",
-        "description": "Since the first of the month."
+        "label": "this month",
+        "possessive_label": "this month's",
+        "adverb_label": "monthly",
+        "descriptive_label": "since the first of the month"
     },
     "year": {
         "name": "year",
-        "label": "right now",
-        "description": "Since January 1."
+        "label": "this year",
+        "possessive_label": "this year's",
+        "adverb_label": "yearly",
+        "descriptive_label": "since January 1"
     }
 }

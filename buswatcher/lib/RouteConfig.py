@@ -26,7 +26,7 @@ class TransitSystem:
             with open('config/period_descriptions.json') as f:
                 self.period_descriptions = json.load(f)
         except:
-            print('cant find the files')
+            print("One or more of the config files isn't loading properly")
 
         # load the route geometries
         self.route_geometries = self.get_route_geometries()
@@ -110,7 +110,7 @@ class TransitSystem:
         # stops_feature = geojson.Feature(geometry=stops_feature)
         return waypoints_feature, stops_feature
 
-    def render_geojson(self, args): # todo 4 separate the waypoints, stops into different functions and update routesi n www.py so that we can cache these functions, esp the waypoints layers and the 'all' responses
+    def render_geojson(self, args): # todo 4 separate the waypoints, stops into different functions and update routes in www.py so that we can cache these functions, esp the waypoints layers and the 'all' responses
 
         # if we only want a single stop geojson
         if 'stop_id' in args.keys():
@@ -178,7 +178,7 @@ class TransitSystem:
 ##################################################################
 
 def flush_system_map():
-    system_map_pickle_file = Path("config/system_map.pickle")  # todo 99 find a way to definte this in one place
+    system_map_pickle_file = Path("config/system_map.pickle")
 
     try:
         os.remove(system_map_pickle_file)
@@ -190,8 +190,7 @@ def flush_system_map():
 
 def load_system_map():
 
-    system_map_pickle_file = Path("config/system_map.pickle") #todo 99 find a way to definte this in one place
-
+    system_map_pickle_file = Path("config/system_map.pickle")
     try:
         my_abs_path = system_map_pickle_file.resolve(strict=True)
     except FileNotFoundError:
@@ -234,7 +233,7 @@ def load_system_map():
 ##################################################################
 
 
-def maintenance_check(system_map): #todo 2 move to Generators / generator.py
+def maintenance_check(system_map): #todo 4 move to Generators / generator.py
 
     now=datetime.now()
 
@@ -284,7 +283,7 @@ def update_route_descriptions_file(system_map):
     for r in routes_active:
 
         try:
-            route_metadata = BusAPI.parse_xml_getRoutePoints(get_route_geometry(r)) # todo 0 fix this reference
+            route_metadata = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data('nj','routes',route=r)) # todo test
             route_entry = {'route': route_metadata[0][0].identity,'nm': route_metadata[0][0].nm}
             api_response.append(route_entry)
         except:
@@ -331,13 +330,6 @@ def update_route_descriptions_file(system_map):
         json.dump(outdata, f, indent=4)
 
     return
-
-
-#
-# if __name__ == "__main__":
-#
-#     system_map = load_system_map()
-
 
 
 
