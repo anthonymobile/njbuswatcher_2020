@@ -13,14 +13,13 @@ from buswatcher.lib.CommonTools import timeit
 
 class GenericReport:
 
-    def __init__(self):
-        pass
+    # def __init__(self):
+    #     pass
 
     def query_factory(self, db, query, **kwargs):
 
         # todo 0 improve __query_factory
         # possible solution https://stackoverflow.com/questions/7075828/make-sqlalchemy-use-date-in-filter-using-postgresql
-
         # my_data = session.query(MyObject). \
         #    filter(cast(MyObject.date_time, Date) == date.today()).all()
 
@@ -28,10 +27,9 @@ class GenericReport:
         yesterdays_date = datetime.date.today() - datetime.timedelta(1)
         one_hour_ago = datetime.datetime.now() - datetime.timedelta(hours=1)
 
-        # todo 1 working on this period to find a solution
-        if kwargs['period'] == 'now':
-            query = query.filter(ScheduledStop.arrival_timestamp != None).filter(func.date(ScheduledStop.arrival_timestamp) > one_hour_ago) # todo 1 fix one_hour_ago period query filter. right now we just use same as 'today'
-            # query = query.filter(ScheduledStop.arrival_timestamp != None).filter(func.date(ScheduledStop.arrival_timestamp) == todays_date)
+        if kwargs['period'] == 'now': # presently, 'now' is the same view as 'today'
+            # query = query.filter(ScheduledStop.arrival_timestamp != None).filter(func.date(ScheduledStop.arrival_timestamp) > one_hour_ago) # todo 1 fix one_hour_ago period query filter. right now we just use same as 'today'
+            query = query.filter(ScheduledStop.arrival_timestamp != None).filter(func.date(ScheduledStop.arrival_timestamp) == todays_date)
         elif kwargs['period'] == 'today':
             query = query.filter(ScheduledStop.arrival_timestamp != None).filter(func.date(ScheduledStop.arrival_timestamp) == todays_date)
         elif kwargs['period'] == 'yesterday':
@@ -51,7 +49,7 @@ class RouteReport(GenericReport):
             self.d = ''
             self.dd = ''
 
-    @timeit
+    # @timeit -- 0.2 seconds on the thinkcentre
     def __init__(self, system_map, route, period):
 
         # apply passed parameters to instance
@@ -167,31 +165,6 @@ class RouteReport(GenericReport):
         # return route_stop_list[0]  # transpose a single copy since the others are all repeats (can be verified by path ids)
 
 
-    # def __query_factory(self, db, query, **kwargs): # moved to parent class ReportBase
-    #
-    #     # todo 0 improve __query_factory
-    #     # possible solution https://stackoverflow.com/questions/7075828/make-sqlalchemy-use-date-in-filter-using-postgresql
-    #
-    #     # my_data = session.query(MyObject). \
-    #     #    filter(cast(MyObject.date_time, Date) == date.today()).all()
-    #
-    #     todays_date = datetime.date.today()
-    #     yesterdays_date = datetime.date.today() - datetime.timedelta(1)
-    #     one_hour_ago = datetime.datetime.now() - datetime.timedelta(hours=1)
-    #
-    #     # todo 1 working on this period to find a solution
-    #     if kwargs['period'] == 'now':
-    #         # query = query.filter(ScheduledStop.arrival_timestamp != None).filter(func.date(ScheduledStop.arrival_timestamp) > one_hour_ago) # todo 1 fix one_hour_ago period query filter. right now we just use same as 'today'
-    #         query = query.filter(ScheduledStop.arrival_timestamp != None).filter(func.date(ScheduledStop.arrival_timestamp) == todays_date)
-    #     elif kwargs['period'] == 'today':
-    #         query = query.filter(ScheduledStop.arrival_timestamp != None).filter(func.date(ScheduledStop.arrival_timestamp) == todays_date)
-    #     elif kwargs['period'] == 'yesterday':
-    #         query = query.filter(ScheduledStop.arrival_timestamp != None).filter(func.date(ScheduledStop.arrival_timestamp) == yesterdays_date)
-    #     elif kwargs['period'] == 'history':
-    #         query = query.filter(ScheduledStop.arrival_timestamp != None)
-    #
-    #     return query
-
     def get_tripdash(self):  #todo 0 debug get_tripdash, more missing buses than before
         # gets all arrivals (see limit) for all runs on current route
 
@@ -230,6 +203,7 @@ class RouteReport(GenericReport):
 
 class StopReport(GenericReport):
 
+    @timeit
     def __init__(self, system_map, route, stop, period):
 
         # apply passed parameters to instance

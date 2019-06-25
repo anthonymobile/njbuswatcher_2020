@@ -12,7 +12,7 @@
         "453",
         "457"
       ],
-      "citygov_url": "https://camden.com",
+      "citygov_url": "http://ci.camden.nj.us/",
       "description_short": "A short city description for titles and taglines.",
       "description_long": "A longer city description that says something about the city and the system that serves it. Can contain a link to a petition or other local organizing effort. A longer city description that says something about the city and the system that serves it. Can contain a link to a petition or other local organizing effort."
     },
@@ -73,6 +73,24 @@
         "96"
       ],
       "citygov_url": "https://newark.gov",
+      "description_short": "A short city description for titles and taglines.",
+      "description_long": "A longer city description that says something about the city and the system that serves it. Can contain a link to a petition or other local organizing effort. A longer city description that says something about the city and the system that serves it. Can contain a link to a petition or other local organizing effort."
+    },
+  "paterson": {
+      "collection": "paterson",
+      "collection_url": "paterson",
+      "city_name": "paterson",
+      "prettyname": "Silk City",
+      "routelist": [
+        "72",
+        "74",
+        "703",
+        "704",
+        "712",
+        "770"
+
+      ],
+      "citygov_url": "https://www.patersonnj.gov/",
       "description_short": "A short city description for titles and taglines.",
       "description_long": "A longer city description that says something about the city and the system that serves it. Can contain a link to a petition or other local organizing effort. A longer city description that says something about the city and the system that serves it. Can contain a link to a petition or other local organizing effort."
     }

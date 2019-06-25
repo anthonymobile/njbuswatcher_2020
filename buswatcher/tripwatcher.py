@@ -15,7 +15,7 @@ from pymysql import IntegrityError
 from buswatcher.lib import BusAPI, Localizer
 from buswatcher.lib.RouteConfig import TransitSystem
 from buswatcher.lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
-from buswatcher.lib.RouteConfig import load_system_map, maintenance_check
+from buswatcher.lib.RouteConfig import load_system_map, flush_system_map,maintenance_check
 from buswatcher.lib.CommonTools import timeit
 
 class RouteScan:
@@ -326,6 +326,8 @@ def main_loop(system_map):
 
 if __name__ == "__main__":
 
+
+    flush_system_map()
     system_map=load_system_map()
     # route_definitions, grade_descriptions, collection_descriptions = load_config()
     # route_definitions = route_definitions['route_definitions'] # ignore the ttl, last_updated key:value pairs

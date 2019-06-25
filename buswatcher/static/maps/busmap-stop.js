@@ -7,12 +7,13 @@ var map = new mapboxgl.Map({
 });
 
 // new endpoints
-var url_stops =  ("/api/v1/maps/stops?rt="+passed_route+"&stop_id="+passed_stop_id  );
+//var url_stops =  ("/api/v1/maps/stops?rt="+passed_route+"&stop_id="+passed_stop_id  );
 var url_waypoints = ("/api/v1/maps/waypoints?rt="+passed_route);
 var url_vehicles = ("/api/v1/maps/vehicles?rt="+passed_route);
 
 
 // old endpoints
+var url_stops =  ("/api/v1/maps?layer=stops&rt="+passed_route+"&stop_id="+passed_stop_id);
 // var url_waypoints = ("/api/v1/maps?layer=waypoints&rt="+passed_route);
 // var url_vehicles = ("/api/v1/maps?layer=vehicles&rt="+passed_route);
 
