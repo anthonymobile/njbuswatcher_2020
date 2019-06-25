@@ -129,8 +129,8 @@ def displayCollection(collection_url):
     collection_description['number_of_active_vehicles'] = len(vehicles_now['features'])
     collection_description['number_of_active_routes'] = len(collection_descriptions[collection_url]['routelist'])
 
-    routereport = Dummy()  # setup a dummy routereport for the navbar
-    return render_template('collection.jinja2',collection_url=collection_url,collection_description=collection_description, route_descriptions=route_descriptions, routereport=routereport)
+    route_report = Dummy()  # setup a dummy routereport for the navbar
+    return render_template('collection.jinja2',collection_url=collection_url,collection_description=collection_description, route_descriptions=route_descriptions, period_descriptions=period_descriptions,routereport=route_report)
 
 
 #-------------------------------------------------------------Route
@@ -139,7 +139,7 @@ def displayCollection(collection_url):
 def genRouteReport(collection_url,route, period):
     route_report = wwwAPI.RouteReport(system_map, route, period)
 
-    return render_template('route.jinja2', collection_url=collection_url, collection_descriptions=collection_descriptions, route=route, period=period, routereport=route_report)
+    return render_template('route.jinja2', collection_url=collection_url, collection_descriptions=collection_descriptions, route=route, period=period, period_descriptions=period_descriptions,routereport=route_report)
 
 #------------------------------------------------------------Stop
 @app.route('/<collection_url>/route/<route>/stop/<stop>/<period>')
@@ -149,7 +149,7 @@ def genStopReport(collection_url, route, stop, period):
     route_report = wwwAPI.RouteReport(system_map, route, period)
     predictions = BusAPI.parse_xml_getStopPredictions(BusAPI.get_xml_data('nj', 'stop_predictions', stop=stop, route='all'))
 
-    return render_template('stop.jinja2',collection_url=collection_url, collection_descriptions=collection_descriptions, stop=stop, period=period, stopreport=stop_report, reportcard_routes=route_descriptions,predictions=predictions, routereport=route_report)
+    return render_template('stop.jinja2',collection_url=collection_url, collection_descriptions=collection_descriptions, period_descriptions=period_descriptions, stop=stop, period=period, stopreport=stop_report, reportcard_routes=route_descriptions,predictions=predictions, routereport=route_report)
 
 #-------------------------------------------------------------FAQ
 @app.route('/faq')

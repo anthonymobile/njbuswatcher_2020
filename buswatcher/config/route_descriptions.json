@@ -1,5 +1,5 @@
 {
-    "last_updated": "2019-06-24 21:10:15",
+    "last_updated": "2019-06-24 22:50:00",
     "ttl": "86400",
     "routedata": [
         {
@@ -1923,6 +1923,26 @@
             "description_short": "",
             "frequency": "low",
             "prettyname": "Newark - Somerville",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "316",
+            "nm": "Cape May-Wildwood-Phila Exp",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Cape May-Wildwood-Phila Exp",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "378",
+            "nm": "Newark - Secaucus Express",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Newark - Secaucus Express",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
         }
     ]

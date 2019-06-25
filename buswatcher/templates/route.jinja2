@@ -22,7 +22,7 @@
 
 
 {% block breadcrumb %}
-<li class="breadcrumb-item"><a href={{ url_for('genRouteReport', collection_url=collection_descriptions.collection_url,route=routereport.route, period='now') }}>{{routereport.route}} {{routereport.prettyname}}</a></li>
+<li class="breadcrumb-item"><a href={{ url_for('genRouteReport', collection_url=collection_descriptions.collection_url,route=routereport.route, period='day') }}>{{routereport.route}} {{routereport.prettyname}}</a></li>
 
 {% endblock %}}
 
@@ -66,10 +66,11 @@
              </ul>
             <ul class="navbar-nav ml-auto">
 
-                <li class="breadcrumb-item "><a href = {{url_for('genRouteReport',collection_url=collection_descriptions.collection_url,route=routereport.route,period='now')}}>now</a></li>
-                <li class="breadcrumb-item "><a href = {{url_for('genRouteReport',collection_url=collection_descriptions.collection_url,route=routereport.route,period='today')}}>today</a></li>
-                <li class="breadcrumb-item "><a href = {{url_for('genRouteReport',collection_url=collection_descriptions.collection_url,route=routereport.route,period='yesterday')}}>yesterday</a></li>
-                <li class="breadcrumb-item "><a href = {{url_for('genRouteReport',collection_url=collection_descriptions.collection_url,route=routereport.route,period='history')}}>history</a></li>
+                <li class="breadcrumb-item "><a href = {{url_for('genRouteReport',collection_url=collection_descriptions.collection_url,route=routereport.route,period='hour')}}>{{ period_descriptions['hour'].label }}</a></li> {#  todo 0figure out where these URLs are wrong#}
+                <li class="breadcrumb-item "><a href = {{url_for('genRouteReport',collection_url=collection_descriptions.collection_url,route=routereport.route,period='day')}}>{{ period_descriptions['day'].label }}</a></li>
+                <li class="breadcrumb-item "><a href = {{url_for('genRouteReport',collection_url=collection_descriptions.collection_url,route=routereport.route,period='week')}}>{{ period_descriptions['week'].label }}</a></li>
+                <li class="breadcrumb-item "><a href = {{url_for('genRouteReport',collection_url=collection_descriptions.collection_url,route=routereport.route,period='month')}}>{{ period_descriptions['month'].label }}</a></li>
+                <li class="breadcrumb-item "><a href = {{url_for('genRouteReport',collection_url=collection_descriptions.collection_url,route=routereport.route,period='year')}}>{{ period_descriptions['year'].label }}</a></li>
 
             </ul>
         </div>
@@ -161,7 +162,7 @@
                                                      {% if stop.arrival_timestamp is not none %}
                                                          <td class="table-primary">{{stop.arrival_timestamp|strftime_today}}</td>
                                                          <td class="table-secondary">
-                                                             <a href = {{url_for('genStopReport',collection_url=collection_url, route=routereport.route,stop=stop.stop_id,period='today') }} id="{{stop.st}}">
+                                                             <a href = {{url_for('genStopReport',collection_url=collection_url, route=routereport.route,stop=stop.stop_id,period='day') }} id="{{stop.st}}">
                                                              {{stop.stop_name|title}}
                                                          </a></td>
                                                      {% else %}

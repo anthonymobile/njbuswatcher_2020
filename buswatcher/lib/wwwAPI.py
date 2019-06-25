@@ -17,7 +17,7 @@ class GenericReport:
     # def __init__(self):
     #     pass
 
-    def query_factory(self, db, query, **kwargs):
+    def query_factory(self, db, query, **kwargs): # todo 1 test and debug query_builder
 
         now = datetime.datetime.now()
         # todays_date = datetime.date.today()
@@ -81,7 +81,7 @@ class RouteReport(GenericReport):
         self.routename, self.waypoints_coordinates, self.stops_coordinates, self.waypoints_geojson, self.stops_geojson = \
             self.routes[0].nm, self.coordinate_bundle['waypoints_coordinates'], self.coordinate_bundle['stops_coordinates'], \
             self.coordinate_bundle['waypoints_geojson'], self.coordinate_bundle['stops_geojson']
-        self.route_stop_list = self.__get_stoplist(system_map)
+        self.route_stop_list = system_map.get_single_route_stoplist_for_wwwAPI(self.route)
 
         # query dynamic stuff
         self.trip_list, self.trip_list_trip_id_only = self.__get_current_trips()
@@ -95,20 +95,6 @@ class RouteReport(GenericReport):
         self.headway_report = Generators.fetch_headway_report(self)
         self.traveltime_report = Generators.fetch_traveltime_report(self)
         self.grade,self.grade_description = Generators.fetch_grade_report(self)
-
-
-    # def __get_period_labels(self):
-    #     if self.period == 'now':
-    #         period_label = "current"
-    #     elif self.period == 'today':
-    #         period_label = "today's"
-    #     elif self.period == 'yesterday':
-    #         period_label = "yesterday's"
-    #     elif self.period == 'history':
-    #         period_label = "forever's"
-    #     else:
-    #         period_label = '-no period label assigned-'
-    #     return period_label
 
     def __get_current_trips(self):
         # get a list of trips current running the route
@@ -124,50 +110,6 @@ class RouteReport(GenericReport):
             trip_list_trip_id_only.append(trip_id)
 
         return trip_list, trip_list_trip_id_only
-
-    def __get_stoplist(self,system_map): #todo 0 test and if it works, replace calls to this wrapper function with the get_single_route_stoplist_for_wwwAPI(route) one below
-
-        return system_map.get_single_route_stoplist_for_wwwAPI(self.route)
-
-
-        # OLD
-        #
-        # route_stop_list = []
-        #
-        # for direction in system_map.get_single_route_Paths(self.route)[0]: # for route in system_map.route_geometries_remote[self.route][0]:
-        #     path_list = []
-        #     for path in direction.paths:
-        #         stops_points = RouteReport.Path()
-        #         for point in path.points:
-        #             if isinstance(point, BusAPI.Route.Stop):
-        #                 stops_points.stops.append(point)
-        #         stops_points.id = path.id
-        #         stops_points.d = path.d
-        #         stops_points.dd = path.dd
-        #         path_list.append(
-        #             stops_points)  # path_list is now a couple of Path instances, plus the metadata id,d,dd fields
-        #     route_stop_list.append(path_list)
-        #     return route_stop_list[0]  # transpose a single copy since the others are all repeats (can be verified by path ids)
-
-        # EVEN OLDER
-        #
-        # routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(self.route_geometry)
-        # # routes, coordinate_bundle = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data(self.source, 'routes', route=self.route))
-        # route_stop_list = []
-        # for r in routes:
-        #     path_list = []
-        #     for path in r.paths:
-        #         stops_points = RouteReport.Path()
-        #         for point in path.points:
-        #             if isinstance(point, BusAPI.Route.Stop):
-        #                 stops_points.stops.append(point)
-        #         stops_points.id = path.id
-        #         stops_points.d = path.d
-        #         stops_points.dd = path.dd
-        #         path_list.append(
-        #             stops_points)  # path_list is now a couple of Path instances, plus the metadata id,d,dd fields
-        #     route_stop_list.append(path_list)
-        # return route_stop_list[0]  # transpose a single copy since the others are all repeats (can be verified by path ids)
 
 
     def get_tripdash(self):
@@ -231,7 +173,7 @@ class StopReport(GenericReport):
 
             return 'Stop name TK'
 
-    def get_arrivals_new(self): #todo 0 debug get_arrivals_new using__query_factory inherited from parent class
+    def get_arrivals_new(self): #todo 1 debug get_arrivals_new
         with SQLAlchemyDBConnection() as db:
 
             # build query and load into df
@@ -297,7 +239,7 @@ class StopReport(GenericReport):
 
 
     # fetch arrivals into a df
-    def get_arrivals(self,route,stop,period):
+    def get_arrivals(self,route,stop,period): #todo 0 debug get_arrivals
 
         with SQLAlchemyDBConnection() as db:
             today_date = datetime.date.today()
