@@ -9,7 +9,6 @@ from buswatcher.lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, 
 from buswatcher.lib import BusAPI, Localizer
 from buswatcher.lib.RouteConfig import load_system_map
 
-from buswatcher.lib.CommonTools import timeit
 
 class RouteScan:
 
@@ -128,7 +127,7 @@ class RouteScan:
 
 
                             try:
-                                sys.stdout.write("localizing route "+ r + ' ')
+                                # sys.stdout.write("localizing route "+ r + ' ')
                                 buses_for_this_route=[b for b in self.buses if b.rt==r]
                                 bus_positions = Localizer.get_nearest_stop(system_map, buses_for_this_route, r)
 

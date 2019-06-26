@@ -20,7 +20,7 @@ map.on('load', function() {
 
         window.setInterval(function() {
             map.getSource('vehicles_source').setData(url_vehicles);
-            }, 5000);
+            }, 60000);
 
 
         map.addSource('vehicles_source', {

@@ -6,6 +6,8 @@ import pandas as pd
 import buswatcher.lib.BusAPI as BusAPI
 from buswatcher.lib.CommonTools import timeit
 from buswatcher.lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
+from sqlalchemy import func, text
+
 
 # concatenate a list of geojson featurecollections into 1 -- per https://github.com/batpad/merge-geojson
 def fc_concat(fc_list):
@@ -58,17 +60,60 @@ def _fetch_positions_df(route): # future: optimization, less pandas? (each route
     return positions_log # returns a dataframe
 
 
+def current_buspositions_from_db_for_index():
+
+    with SQLAlchemyDBConnection() as db:
+        query = db.session.query(BusPosition).filter(BusPosition.timestamp >= func.ADDDATE(func.CURRENT_TIMESTAMP(), text('interval -1 minute'))).all()
+        positions = query
+        positions_list=[]
+        for bus in positions:
+            positions_list.append(
+                {
+                    'lon':bus.lon,
+                    'lat':bus.lat,
+                    'run':bus.run,
+                    'op':bus.op,
+                    'dn':bus.dn,
+                    'pid':bus.pid,
+                    'id': bus.id,
+                    'fs': bus.fs,
+                    'pd': bus.pd,
+                    'rt': bus.rt
+                }
+
+            )
+        positions_features = []
+
+        f = lambda X: geojson.Feature(geometry=geojson.Point((float(X["lon"]),float(X["lat"])),
+                            properties=dict(
+                                run=X["run"],
+                                op=X["op"],
+                                dn=X["dn"],
+                                pid=X["pid"],
+                                id=X["id"],
+                                fs=str(X["fs"]),
+                                pd=str(X["pd"]))
+        ))
+
+        positions_features = [f(X) for X in positions_list]
+
+        route_count = len(list(set([v['rt'] for v in positions_list])))
+
+        return geojson.FeatureCollection(positions_features),len(positions_list), route_count
+
+
 # positions
 
 def get_positions_byargs(system_map, args, route_descriptions, collection_descriptions):
 
     if 'rt' in args.keys():
-        if args['rt'] == 'all':
-            positions_list = pd.DataFrame()
-            for r in route_descriptions['routedata']:
-                positions_list = positions_list.append(_fetch_positions_df(r['route']))
-
-            return __positions2geojson(positions_list)
+        if args['rt'] == 'all': #todo 0 test the geojson that comes from these 2 versions and compare, and fix the current_buspositions one
+            # positions_list = pd.DataFrame()
+            # for r in route_descriptions['routedata']:
+            #     positions_list = positions_list.append(_fetch_positions_df(r['route']))
+            #
+            # return __positions2geojson(positions_list)
+            return current_buspositions_from_db_for_index()[0] # just send the feature collection back
         else:
             return __positions2geojson(_fetch_positions_df(args['rt']))
 
@@ -83,7 +128,5 @@ def get_positions_byargs(system_map, args, route_descriptions, collection_descri
                 return __positions2geojson(positions_list)
 
 
-# # get geoJSON # deprecated
-# def get_map_layers(system_map, args, route_descriptions, collection_descriptions):
-#     return system_map.render_geojson(args)
+
 

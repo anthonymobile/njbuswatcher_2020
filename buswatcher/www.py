@@ -100,17 +100,22 @@ assets.register(bundles)
 ################################################
 
 #-------------------------------------------------------------Statewide Index
+
+
+def get_current_positions_db():
+    # get list of all routes from system_map.routelist
+    routelist=system_map.get_routelist()
+
+    return
+
 @app.route('/')
 def displayIndex():
 
-    # # todo 3 better to find a less latency way to do this (with a db query?) or cache this
-    vehicle_data = BusAPI.parse_xml_getBusesForRouteAll(BusAPI.get_xml_data('nj','all_buses')) # todo 3 speedup by using a database query (with tripwatcher running in statewide mode)
-    vehicle_count = len(vehicle_data)
-    # for v in vehicle_count:
-    #     print (route)
-    # raw_routelist = [v.route for v in vehicle_count]
-    # unique_routelist = list(set(raw_routelist))
-    route_count = len(list(set([v.rt for v in vehicle_data])))
+    # vehicle_data = BusAPI.parse_xml_getBusesForRouteAll(BusAPI.get_xml_data('nj','all_buses'))
+    # vehicle_count = len(vehicle_data)
+    # route_count = len(list(set([v.rt for v in vehicle_data])))
+
+    vehicle_data, vehicle_count, route_count = API.current_buspositions_from_db_for_index()
 
     dummy= collection_descriptions
     routereport = Dummy() # setup a dummy routereport for the navbar
