@@ -36,17 +36,13 @@
         </button>
         <div class="collapse navbar-collapse" id="navbar1">
             <ul class="navbar-nav">
-                <li class="breadcrumb-item active"><a href = {{url_for('displayIndex')}}>home</a></li>
+                                <li class="breadcrumb-item active"><a href = {{url_for('displayIndex')}}>home</a></li>
              </ul>
             <ul class="navbar-nav ml-auto">
-                <li class="breadcrumb-item "><a href = {{url_for('genStopReport',collection_url=collection_url,route=routereport.route,stop=stopreport.stop,period='now')}}>now</a></li>
-                <li class="breadcrumb-item "><a href = {{url_for('genStopReport',collection_url=collection_url,route=routereport.route,stop=stopreport.stop,period='today')}}>today</a></li>
-                <li class="breadcrumb-item "><a href = {{url_for('genStopReport',collection_url=collection_url,route=routereport.route,stop=stopreport.stop,period='yesterday')}}>yesterday</a></li>
-                <li class="breadcrumb-item "><a href = {{url_for('genStopReport',collection_url=collection_url,route=routereport.route,stop=stopreport.stop,period='history')}}>history</a></li>
+                  {% for p,v in period_descriptions.items() %}
 
-		        <!--<li class="breadcrumb-item "><a href = {{url_for('genStopReport',collection_url=collection_url,route=routereport.route,stop=stopreport.stop,period='yesterday')}}>yesterday</a></li>-->
-                <!--<li class="breadcrumb-item "><a href = {{url_for('genStopReport',collection_url=collection_url,route=routereport.route,stop=stopreport.stop,period='history')}}>history</a></li>-->
-
+                <li class="breadcrumb-item "><a href = {{url_for('genStopReport',collection_url=collection_url,route=routereport.route,stop=stopreport.stop,period=v['name'])}}>{{ v['label'] }}</a></li>
+                {%  endfor %}
             </ul>
         </div>
     </div>
