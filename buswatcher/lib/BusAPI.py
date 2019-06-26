@@ -260,8 +260,8 @@ def get_xml_data(source, function, **kwargs):
     try:
         data = urllib.request.urlopen(_gen_command(source, function, **kwargs)).read()
     except:
-        from flask import abort
-        abort(404)
+        # from flask import abort # future smarter way to handle this? keep retrying?
+        # abort(404)
         pass
 
     return data
