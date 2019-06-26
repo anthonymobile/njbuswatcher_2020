@@ -16,7 +16,7 @@ class BrowseCollections(TaskSet):
     def index_page(self):
         r = self.client.get("/")
         pq = PyQuery(r.content)
-        # link_elements = pq(".toctree-wrapper a.internal") #todo pick a different element to extract
+        # link_elements = pq(".toctree-wrapper a.internal")
         link_elements = pq(".btn")
         self.toc_urls = [
             l.attrib["href"] for l in link_elements

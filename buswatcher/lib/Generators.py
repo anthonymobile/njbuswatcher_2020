@@ -1,83 +1,101 @@
-# todo 4 refactor all the CPU-intensive tasks for wwwAPI.RouteReport and StopReport in here
+from buswatcher.lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop, RouteReportCache
+from sqlalchemy import func, text
+
+import datetime
+
+def bunching_report(routereport,request):
+
+    # todo 1 rewrite bunching_report
+
+    if request =='get':
+        try:
+            pass
+        except:
+            bunching_report = dict()
+            bunching_report['flag'] = True
+            bunching_report['label'] = 'a lot'
+            bunching_report['stops'] = list()
+            bunching_report['stops'].append('Central Ave + Beacon Ave')
+            bunching_report['stops'].append('Martin Luther King Jr Dr + Bidwell Ave')
+            bunching_report['stops'].append('Palisade Ave + Hutton St')
 
 
-def generate_bunching_report(routereport):
-    
-    bunching_report = dict()
-    bunching_report['flag'] = True
-    bunching_report['label'] = 'a lot'
-    bunching_report['stops'] = list()
-    bunching_report['stops'].append('Central Ave + Beacon Ave')
-    bunching_report['stops'].append('Martin Luther King Jr Dr + Bidwell Ave')
-    bunching_report['stops'].append('Palisade Ave + Hutton St')
+    elif request == 'refresh':
+        try:
+            with SQLAlchemyDBConnection() as db:
+                # get all the reports for ths route in the last day
 
-    # todo 3 rewrite bunching_report using routereport.query_builder to push a JSON table to the db
+                # check if bunching leaderboard is current
+                #
+                #     # if no - create it
+                #     # if yes load it
 
-    #
-    # check if bunching leaderboard is current
-    #
-    #     # if no - create it
-    #     # if yes load it
-    #
-    #
-    # with SQLAlchemyDBConnection() as db:
-    #     # generates top 10 list of stops on the route by # of bunching incidents for period
-    #     bunching_leaderboard = []
-    #     cum_arrival_total = 0
-    #     cum_bunch_total = 0
-    #     for service in self.route_stop_list:
-    #
-    #
-    #         for stop in service.stops: # first query to make sure there are ScheduledStop instances
-    #             bunch_total = 0
-    #             arrival_total = 0
-    #             report = StopReport(self.source, self.route, stop.identity, period)
-    #             for (index, row) in report.arrivals_list_final_df.iterrows():
-    #                 arrival_total += 1
-    #                 if (row.delta > report.bigbang) and (row.delta <= report.bunching_interval):
-    #                     bunch_total += 1
-    #             cum_bunch_total = cum_bunch_total+bunch_total
-    #             cum_arrival_total = cum_arrival_total + arrival_total
-    #             bunching_leaderboard.append((stop.st, bunch_total,stop.identity))
-    #     bunching_leaderboard.sort(key=itemgetter(1), reverse=True)
-    #     bunching_leaderboard = bunching_leaderboard[:10]
-    #
-    #     # # compute grade
-    #     # # based on pct of all stops on route during period that were bunched
-    #     # try:
-    #     #     grade_numeric = (cum_bunch_total / cum_arrival_total) * 100
-    #     #     for g in self.grade_descriptions:
-    #     #         if g['bounds'][0] < grade_numeric <= g['bounds'][1]:
-    #     #             self.grade = g['grade']
-    #     #             self.grade_description = g['description']
-    #     # except:
-    #     #     self.grade = 'N/A'
-    #     #     self.grade_description = 'Unable to determine grade.'
-    #     #     pass
-    #     #
-    #     # time_created = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    #     # bunching_leaderboard_pickle = dict(bunching_leaderboard=bunching_leaderboard, grade=self.grade,
-    #     #                                    grade_numeric=grade_numeric, grade_description=self.grade_description, time_created=time_created)
-    #     # outfile = ('data/bunching_leaderboard_'+route+'.pickle')
-    #     # with open(outfile, 'wb') as handle:
-    #     #     pickle.dump(bunching_leaderboard_pickle, handle, protocol=pickle.HIGHEST_PROTOCOL)
-    #
-    #     # def load_bunching_leaderboard(self,route):
-    #     #         infile = ('data/bunching_leaderboard_'+route+'.pickle')
-    #     #         with open(infile, 'rb') as handle:
-    #     #             b = pickle.load(handle)
-    #     #         return b['bunching_leaderboard'], b['grade'], b['grade_numeric'], b['grade_description'], b['time_created']
+                reports_daily = db.session.query(RouteReportCache) \
+                    .filter(RouteReportCache.rt == routereport.route) \
+                    .filter(RouteReportCache.timestamp >= func.ADDDATE(func.CURRENT_TIMESTAMP(), text('interval -1 day'))).all()
 
-    return bunching_report
+                #
+                # with SQLAlchemyDBConnection() as db:
+                #     # generates top 10 list of stops on the route by # of bunching incidents for period
+                #     bunching_leaderboard = []
+                #     cum_arrival_total = 0
+                #     cum_bunch_total = 0
+                #     for service in self.route_stop_list:
+                #
+                #
+                #         for stop in service.stops: # first query to make sure there are ScheduledStop instances
+                #             bunch_total = 0
+                #             arrival_total = 0
+                #             report = StopReport(self.source, self.route, stop.identity, period)
+                #             for (index, row) in report.arrivals_list_final_df.iterrows():
+                #                 arrival_total += 1
+                #                 if (row.delta > report.bigbang) and (row.delta <= report.bunching_interval):
+                #                     bunch_total += 1
+                #             cum_bunch_total = cum_bunch_total+bunch_total
+                #             cum_arrival_total = cum_arrival_total + arrival_total
+                #             bunching_leaderboard.append((stop.st, bunch_total,stop.identity))
+                #     bunching_leaderboard.sort(key=itemgetter(1), reverse=True)
+                #     bunching_leaderboard = bunching_leaderboard[:10]
+                #
+                #     # # compute grade
+                #     # # based on pct of all stops on route during period that were bunched
+                #     # try:
+                #     #     grade_numeric = (cum_bunch_total / cum_arrival_total) * 100
+                #     #     for g in self.grade_descriptions:
+                #     #         if g['bounds'][0] < grade_numeric <= g['bounds'][1]:
+                #     #             self.grade = g['grade']
+                #     #             self.grade_description = g['description']
+                #     # except:
+                #     #     self.grade = 'N/A'
+                #     #     self.grade_description = 'Unable to determine grade.'
+                #     #     pass
+                #     #
+                #     # time_created = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                #     # bunching_leaderboard_pickle = dict(bunching_leaderboard=bunching_leaderboard, grade=self.grade,
+                #     #                                    grade_numeric=grade_numeric, grade_description=self.grade_description, time_created=time_created)
+                #     # outfile = ('data/bunching_leaderboard_'+route+'.pickle')
+                #     # with open(outfile, 'wb') as handle:
+                #     #     pickle.dump(bunching_leaderboard_pickle, handle, protocol=pickle.HIGHEST_PROTOCOL)
+                #
+                #     # def load_bunching_leaderboard(self,route):
+                #     #         infile = ('data/bunching_leaderboard_'+route+'.pickle')
+                #     #         with open(infile, 'rb') as handle:
+                #     #             b = pickle.load(handle)
+                #     #         return b['bunching_leaderboard'], b['grade'], b['grade_numeric'], b['grade_description'], b['time_created']
+                bunching_report = 'whatever'
 
+                report={'rt':routereport.route,'bunching':bunching_report,'timestamp':(datetime.datetime.now)}
 
-def fetch_bunching_report(RouteReport):
-    # todo 4 write this to query and return a JSON table from the db
-    return
+                # export it to the db
+                db.session.add(report)
+                db.session.commit()
+        except:
+            pass
 
 
-def generate_headway_report(RouteReport):
-    return
+
+def headway_report(RouteReport): # future rewrite headway report
+
     # def f_timing(self, stop_df):
     #     stop_df['delta'] = (stop_df['arrival_timestamp'] - stop_df['arrival_timestamp'].shift(1)).fillna(
     #         0)  # calc interval between last bus for each row, fill NaNs
@@ -167,14 +185,9 @@ def generate_headway_report(RouteReport):
     #         # to do average headway -- by hour, by stop
     #
     #         return headway
-
-
-def fetch_headway_report(RouteReport):
-    # todo 4 write this to query and return a JSON table from the db
     return
 
-
-def generate_traveltime_report(RouteReport):
+def generate_traveltime_report(RouteReport): # future write traveltime report
     return
 
     # def get_traveltime(self, period):
@@ -191,21 +204,7 @@ def generate_traveltime_report(RouteReport):
     #         # x, trips_on_road_now = self.__get_current_trips()
     #         #
     #         #
-    #         # if self.period == 'now':
-    #         #     arrivals_in_completed_trips = pd.read_sql(
-    #         #         db.session.query(ScheduledStop.trip_id,
-    #         #                          ScheduledStop.stop_id,
-    #         #                          ScheduledStop.stop_name,
-    #         #                          ScheduledStop.arrival_timestamp)
-    #         #             .filter(ScheduledStop.arrival_timestamp != None)
-    #         #             # to dolast hour doesnt work
-    #         #             .filter(func.date(ScheduledStop.arrival_timestamp) > one_hour_ago)
-    #         #             .filter(ScheduledStop.trip_id.notin_(trips_on_road_now))
-    #         #             .order_by(ScheduledStop.trip_id.asc())
-    #         #             .order_by(ScheduledStop.arrival_timestamp.asc())
-    #         #             .statement,
-    #         #         db.session.bind)
-    #         #
+
     #         # elif self.period == 'today':
     #         #     arrivals_in_completed_trips = pd.read_sql(
     #         #         db.session.query(ScheduledStop.trip_id,
@@ -221,32 +220,6 @@ def generate_traveltime_report(RouteReport):
     #         #         db.session.bind)
     #         #
     #         #
-    #         # elif self.period == 'yesterday':
-    #         #     arrivals_in_completed_trips = pd.read_sql(
-    #         #         db.session.query(ScheduledStop.trip_id,
-    #         #                          ScheduledStop.stop_id,
-    #         #                          ScheduledStop.stop_name,
-    #         #                          ScheduledStop.arrival_timestamp)
-    #         #             .filter(ScheduledStop.arrival_timestamp != None)
-    #         #             .filter(func.date(ScheduledStop.arrival_timestamp) == yesterdays_date)
-    #         #             .filter(ScheduledStop.trip_id.notin_(trips_on_road_now))
-    #         #             .order_by(ScheduledStop.trip_id.asc())
-    #         #             .order_by(ScheduledStop.arrival_timestamp.asc())
-    #         #             .statement,
-    #         #         db.session.bind)
-    #         #
-    #         # elif self.period == 'history':
-    #         #     arrivals_in_completed_trips = pd.read_sql(
-    #         #         db.session.query(ScheduledStop.trip_id,
-    #         #                          ScheduledStop.stop_id,
-    #         #                          ScheduledStop.stop_name,
-    #         #                          ScheduledStop.arrival_timestamp)
-    #         #             .filter(ScheduledStop.arrival_timestamp != None)
-    #         #             .filter(ScheduledStop.trip_id.notin_(trips_on_road_now))
-    #         #             .order_by(ScheduledStop.trip_id.asc())
-    #         #             .order_by(ScheduledStop.arrival_timestamp.asc())
-    #         #             .statement,
-    #         #         db.session.bind)
     #         #
     #         #
     #         # # now, using pandas, find the difference in arrival_timestamp between first and last row of each group
@@ -265,93 +238,50 @@ def generate_traveltime_report(RouteReport):
     #
     #         return traveltime
 
-def fetch_traveltime_report(RouteReport):
-    return
+
+def grade_report(RouteReport): # todo 1 based on # of bunching incidents
+
+    try:
+        x = 2
+        y = 1
+        y > x
+
+        # and B. number of bunching incidents
 
 
-def generate_grade_report(RouteReport):
-    return
-    # todo 4 -- based on # of bunching incidents
-    # and B. number of bunching incidents
+        # LOAD THE GRADE DESCRIPTION
 
+        # method1
+        # grade_description = next((item for item in self.grade_descriptions if item["grade"] == grade), None)
 
-    # LOAD THE GRADE DESCRIPTION
+        # method2
+        # grade_description2 = list(filter(lambda letter: letter['grade'] == grade, self.grade_descriptions))
 
-    # method1
-    # grade_description = next((item for item in self.grade_descriptions if item["grade"] == grade), None)
+        # method3
+        # for letter in self.grade_descriptions:
+        #     try letter['grade'] == grade:
+        #         grade_description = letter['description']
+        #     else:
+        #         grade_description = 'No grade description available.'
 
-    # method2
-    # grade_description2 = list(filter(lambda letter: letter['grade'] == grade, self.grade_descriptions))
+        # grade = 'B'
+        # grade_description = "This isn't working."
+        # return grade, grade_description
+        #
+        #  future: based on average headway standard deviation
 
-    # method3
-    # for letter in self.grade_descriptions:
-    #     try letter['grade'] == grade:
-    #         grade_description = letter['description']
-    #     else:
-    #         grade_description = 'No grade description available.'
+        # We can also report variability using standard deviation and that can be converted to a letter
+        # (e.g.A is < 1 s.d., B is 1 to 1.5, etc.)
+        # Example: For a headway of 20 minutes, a service dependability grade of B means 80 percent of the time the bus will come every 10 to 30 minutes.
+        # for each (completed trip) in (period)
+        #   for each (stop) on (trip)
+        #       if period = now
+        #           what is the average time between the last 2-3 arrivals
+        #       elif period = anything else
+        #           what is the average time between all the arrivals in the period
 
-    # grade = 'B'
-    # grade_description = "This isn't working."
-    # return grade, grade_description
-    #
-    #  future: based on average headway standard deviation
-
-    # We can also report variability using standard deviation and that can be converted to a letter
-    # (e.g.A is < 1 s.d., B is 1 to 1.5, etc.)
-    # Example: For a headway of 20 minutes, a service dependability grade of B means 80 percent of the time the bus will come every 10 to 30 minutes.
-    # for each (completed trip) in (period)
-    #   for each (stop) on (trip)
-    #       if period = now
-    #           what is the average time between the last 2-3 arrivals
-    #       elif period = anything else
-    #           what is the average time between all the arrivals in the period
-
-def fetch_grade_report(RouteReport):
-    grade = 'B'
-    grade_description = "This isn't working."
-    return grade, grade_description
-
-
-###############################SCRAPS
-# class RouteScan:
-#
-#     # @timeit
-#     def __init__(self, route, statewide,system_map_xml):
-#
-#         # apply passed parameters to instance
-#         self.route = route
-#         self.statewide = statewide
-#         self.system_map_xml = system_map_xml
-#         self.route_map_xml = self.filter_system_map_xml()
-#
-#         # create database connectio
-#         self.db = SQLAlchemyDBConnection()
-#
-#         # initialize instance variables
-#         self.buses = []
-#         self.trip_list = []
-#
-#         #  populate route basics from config
-#         self.route_definitions, self.grade_descriptions, self.collection_descriptions = load_config()
-#
-#         # generate scan data and results
-#         with SQLAlchemyDBConnection() as self.db:
-#             self.fetch_positions()
-#             self.parse_positions()
-#             self.localize_positions()
-#             self.interpolate_missed_stops()
-#             self.assign_positions()
-#self.route_map_xml = self.filter_system_map_xml()
-#     def filter_system_map_xml(self):
-#         for route in self.system_map_xml.route_geometries:
-#             if route['route'] == self.route:
-#                 return route
-#             else:
-#                 continue
-#
-#     def function_called_by_init(self):
-#         return
-#
-#     def class_method(self):
-#         return
+    except:
+        grade = 'B'
+        grade_description = "This isn't working."
+        return grade, grade_description
 

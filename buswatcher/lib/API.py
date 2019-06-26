@@ -82,7 +82,7 @@ def current_buspositions_from_db_for_index():
                 }
 
             )
-        positions_features = []
+        # positions_features = []
 
         f = lambda X: geojson.Feature(geometry=geojson.Point((float(X["lon"]),float(X["lat"])),
                             properties=dict(
@@ -107,12 +107,8 @@ def current_buspositions_from_db_for_index():
 def get_positions_byargs(system_map, args, route_descriptions, collection_descriptions):
 
     if 'rt' in args.keys():
-        if args['rt'] == 'all': #todo 0 test the geojson that comes from these 2 versions and compare, and fix the current_buspositions one
-            # positions_list = pd.DataFrame()
-            # for r in route_descriptions['routedata']:
-            #     positions_list = positions_list.append(_fetch_positions_df(r['route']))
-            #
-            # return __positions2geojson(positions_list)
+        if args['rt'] == 'all':
+
             return current_buspositions_from_db_for_index()[0] # just send the feature collection back
         else:
             return __positions2geojson(_fetch_positions_df(args['rt']))
