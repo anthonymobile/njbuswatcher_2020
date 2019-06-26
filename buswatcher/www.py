@@ -1,4 +1,4 @@
-# todo 4 merge statewide branch back into new_localizer
+# todo 2 merge statewide branch back into new_localizer
 
 # bus buswatcher v2.0
 # june 2019 - by anthony@bitsandatoms.net
@@ -126,7 +126,6 @@ def displayIndex():
 @app.route('/<collection_url>')
 def displayCollection(collection_url):
 
-    # todo 3 better to find a less latency way to do this (with a db query)
     vehicles_now = API.get_positions_byargs(system_map, {'collection': collection_url, 'layer': 'vehicles'}, route_descriptions,
                              collection_descriptions)
 

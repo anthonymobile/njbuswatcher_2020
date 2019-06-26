@@ -116,7 +116,7 @@ class TransitSystem:
         # stops_feature = geojson.Feature(geometry=stops_feature)
         return waypoints_feature, stops_feature
 
-    def render_geojson(self, args): # todo 4 separate the waypoints, stops into different functions and update routes in www.py so that we can cache these functions, esp the waypoints layers and the 'all' responses
+    def render_geojson(self, args):
 
         # if we only want a single stop geojson
         if 'stop_id' in args.keys():
@@ -289,7 +289,7 @@ def update_route_descriptions_file(system_map):
     for r in routes_active:
 
         try:
-            route_metadata = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data('nj','routes',route=r)) # todo test
+            route_metadata = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data('nj','routes',route=r))
             route_entry = {'route': route_metadata[0][0].identity,'nm': route_metadata[0][0].nm}
             api_response.append(route_entry)
         except:

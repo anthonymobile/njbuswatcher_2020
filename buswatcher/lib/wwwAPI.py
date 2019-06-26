@@ -13,12 +13,9 @@ from buswatcher.lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, 
 from buswatcher.lib.CommonTools import timeit
 
 
-class GenericReport:
+class GenericReport: # all Report classes inherit query_factory
 
-    # def __init__(self):
-    #     pass
-
-    def query_factory(self, db, query, **kwargs): # bug test and debug query_builder
+    def query_factory(self, db, query, **kwargs):
 
         now = datetime.datetime.now()
         # todays_date = datetime.date.today()
@@ -26,22 +23,11 @@ class GenericReport:
         # one_hour_ago = datetime.datetime.now() - datetime.timedelta(hours=1)
 
         period_start = datetime_periods.period_beginning(now, self.period['name'])
-        period_end = now # todo 99 this can also be passed in
+        period_end = now # n.b this could also be passed in
 
         query = query.filter(ScheduledStop.arrival_timestamp != None).\
             filter(func.date(ScheduledStop.arrival_timestamp) >= period_start). \
             filter(func.date(ScheduledStop.arrival_timestamp) < period_end)
-
-        #
-        # if kwargs['period'] == 'now': # presently, 'now' is the same view as 'today'
-        #     # query = query.filter(ScheduledStop.arrival_timestamp != None).filter(func.date(ScheduledStop.arrival_timestamp) > one_hour_ago)
-        #     query = query.filter(ScheduledStop.arrival_timestamp != None).filter(func.date(ScheduledStop.arrival_timestamp) == todays_date)
-        # elif kwargs['period'] == 'today':
-        #     query = query.filter(ScheduledStop.arrival_timestamp != None).filter(func.date(ScheduledStop.arrival_timestamp) == todays_date)
-        # elif kwargs['period'] == 'yesterday':
-        #     query = query.filter(ScheduledStop.arrival_timestamp != None).filter(func.date(ScheduledStop.arrival_timestamp) == yesterdays_date)
-        # elif kwargs['period'] == 'history':
-        #     query = query.filter(ScheduledStop.arrival_timestamp != None)
 
         return query
 
