@@ -162,7 +162,7 @@
                                                      {% if stop.arrival_timestamp is not none %}
                                                          <td class="table-primary">{{stop.arrival_timestamp|strftime_today}}</td>
                                                          <td class="table-secondary">
-                                                             <a href = {{url_for('genStopReport',collection_url=collection_url, route=routereport.route,stop=stop.stop_id,period='day') }} id="{{stop.st}}">
+                                                             <a href = {{url_for('genStopReport',collection_url=collection_url, route=routereport.route,stop=stop.stop_id,period='hour') }} id="{{stop.st}}">
                                                              {{stop.stop_name|title}}
                                                          </a></td>
                                                      {% else %}
@@ -310,10 +310,10 @@
                                 <div id="buses" class="row mt-2">
 
                                     {% for stop in path.stops %}
-                                    <!-- <p class="mb-4"><a href = {{url_for('genStopReport',collection_url=collection_url, source=routereport.source,route=routereport.route,stop=stop.identity,period='today') }} id="{{stop.st}}"><span class="label">{{stop.st|title}}</span>
+                                    <!-- <p class="mb-4"><a href = {{url_for('genStopReport',collection_url=collection_url, source=routereport.source,route=routereport.route,stop=stop.identity,period='hour') }} id="{{stop.st}}"><span class="label">{{stop.st|title}}</span>
                                     </a></p> -->
 
-                                                                            <p class="mb-0"><a href = {{url_for('genStopReport',collection_url=collection_url, source=routereport.source,route=routereport.route,stop=stop.identity,period='today') }} id="{{stop.st}}"><span class="label">{{stop.st|title}}</span>
+                                                                            <p class="mb-0"><a href = {{url_for('genStopReport',collection_url=collection_url, source=routereport.source,route=routereport.route,stop=stop.identity,period='hour') }} id="{{stop.st}}"><span class="label">{{stop.st|title}}</span>
                                     </a></p>
                                     {% endfor %}
 

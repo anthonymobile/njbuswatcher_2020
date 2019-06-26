@@ -250,18 +250,7 @@ def _jinja2_filter_datetime(timestamp, format='%I:%M %p'):
 
 @app.template_filter('strftime_period')
 def _jinja2_filter_datetime_by_period(timestamp, period):
-
-    if period == "today":
-        format = '%I:%M %p'
-    elif period == "yesterday":
-        format = '%a %I:%M %p'
-    elif period == "weekly":
-        format = '%a %I:%M %p'
-    elif period == "history":
-        format = '%Y-%m-%d %I:%M %p'
-
-    return timestamp.strftime(format)
-
+    return timestamp.strftime(system_map.period_descriptions[period]['strftime_format'])
 
 @app.template_filter('hour_as_int')
 def _jinja2_filter_hour_as_int(hour):

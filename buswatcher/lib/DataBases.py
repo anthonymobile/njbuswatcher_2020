@@ -179,10 +179,11 @@ class RouteReportCache(Base):
 
     __tablename__ ='route_report_cache'
 
+    pkey = Column(Integer(), primary_key=True)
     rt = Column(String(20))
     bunching = Column(JSON)
     headways = Column(JSON)
     travel_time = Column(JSON)
     timestamp = Column(DateTime())
 
-    __table_args__ = (Index('rt'),{'extend_existing': True})
+    # __table_args__ = (Index('rt'),{'extend_existing': True})
