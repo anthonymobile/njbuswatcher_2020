@@ -20,7 +20,7 @@ map.on('load', function() {
 
         window.setInterval(function() {
             map.getSource('vehicles_source').setData(url_vehicles);
-            }, 60000);
+            }, 30000);
 
 
         map.addSource('vehicles_source', {
@@ -34,9 +34,9 @@ map.on('load', function() {
             "type": "circle",
             "source": "vehicles_source",
             "paint": {
-                "circle-radius": 4,
+                "circle-radius": 3,
                 "circle-opacity": 1,
-                "circle-stroke-width": 3,
+                "circle-stroke-width": 2,
                 "circle-stroke-color": "#f6c"
             }
          },"stops") // layer to add before
