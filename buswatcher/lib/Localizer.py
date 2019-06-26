@@ -97,7 +97,7 @@ def ckdnearest(gdA, gdB, bcol): # seems to be getting hung on on bus 5800 for so
 #
 ###########################################################################
 
-@CommonTools.timeit
+
 def get_nearest_stop(system_map,  buses, route):
 
     # routedata, coordinates_bundle = system_map.get_single_route_paths_and_coordinatebundle(route)

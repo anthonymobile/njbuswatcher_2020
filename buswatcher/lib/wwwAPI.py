@@ -1,13 +1,14 @@
 import datetime
 import pandas as pd
 
-from sqlalchemy import func
+
+from sqlalchemy import func, text
+
 import datetime_periods
 
 import buswatcher.lib.BusAPI as BusAPI
 import buswatcher.lib.Generators as Generators
 from buswatcher.lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
-# from buswatcher.lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
 
 from buswatcher.lib.CommonTools import timeit
 
@@ -146,7 +147,6 @@ class RouteReport(GenericReport):
                 tripdash[trip_id] = trip_dict
 
         return tripdash
-
 
 class StopReport(GenericReport):
 
