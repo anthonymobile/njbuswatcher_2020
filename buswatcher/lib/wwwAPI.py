@@ -35,7 +35,6 @@ class RouteReport(GenericReport):
             self.d = ''
             self.dd = ''
 
-    # @timeit -- 0.2 seconds on the thinkcentre
     def __init__(self, system_map, route, period):
 
         # apply passed parameters to instance
@@ -140,23 +139,30 @@ class StopReport(GenericReport):
         # apply passed parameters to instance
         self.source = 'nj'
         self.route = route
-        self.stop = stop
+        self.stop_id = stop
         self.period = period
         self.period_descriptions = system_map.period_descriptions
 
         # constants
         self.bunching_interval = datetime.timedelta(minutes=3)
         self.bigbang = datetime.timedelta(seconds=0)
-        self.stop_name =self.get_stop_name()
+        # self.stop_name =self.get_stop_name()
 
         # populate data for webpage
-        # self.arrivals_list_final_df, self.stop_name = self.get_arrivals()
         self.arrivals_list_final_df, self.stop_name, self.arrivals_table_time_created = self.get_arrivals()
         self.hourly_frequency = self.get_hourly_frequency()
+        self.arrivals_here_all = self.get_arrivals_here_all()
 
-    def get_stop_name(self): # todo 0 fetch this from system_map using a function
-
-            return 'Stop name TK'
+    # def get_stop_name(self,system_map):
+    #
+    #         for routes in system_map.route_geometries[self.route]:
+    #             for path in routes:
+    #                 for stop in path:
+    #                     if isinstance(stop,BusAPI.Route.Stop) is True:
+    #                         if stop.identity == self.stop_id:
+    #                             self.stop_name = stop.identity
+    #
+    #         return
 
     def get_arrivals(self):
         with SQLAlchemyDBConnection() as db:
@@ -172,14 +178,14 @@ class StopReport(GenericReport):
                                         ScheduledStop.arrival_timestamp) \
                                         .join(ScheduledStop) \
                                         .filter(Trip.rt == self.route) \
-                                        .filter(ScheduledStop.stop_id == self.stop) \
+                                        .filter(ScheduledStop.stop_id == self.stop_id) \
                                         .filter(ScheduledStop.arrival_timestamp != None)
 
             query=self.query_factory(db, query,period=self.period) # add the period
             query=query.statement
             try:
                 arrivals_here=pd.read_sql(query, db.session.bind)
-                return self.cleanup_arrivals(arrivals_here)
+                return self.filter_arrivals(arrivals_here)
             except ValueError:
                 pass
 
@@ -193,26 +199,46 @@ class StopReport(GenericReport):
                 self.arrivals_table_time_created = datetime.datetime.now() # log creation time and return
                 return arrivals_list_final_df, stop_name, self.arrivals_table_time_created
 
+    def get_arrivals_here_all(self):
+        with SQLAlchemyDBConnection() as db:
+            query = db.session.query(Trip.rt,  # base query
+                                     Trip.v,
+                                     Trip.pd,
+                                     ScheduledStop.stop_id,
+                                     ScheduledStop.stop_name,
+                                     ScheduledStop.arrival_timestamp) \
+                .join(ScheduledStop) \
+                .filter(ScheduledStop.stop_id == self.stop_id) \
+                .filter(ScheduledStop.arrival_timestamp != None)
 
-    def cleanup_arrivals(self,arrivals_here):
-        # Otherwise, cleanup the query results -- split by vehicle and calculate arrival intervals
+            query = self.query_factory(db, query, period=self.period)  # add the period
+            query = query.statement
+            try:
+                get_arrivals_here_all = pd.read_sql(query, db.session.bind) # future faster here to load it into a dict directly?
+                return self.filter_arrivals(get_arrivals_here_all)[0] # only return the dataframe
+            except ValueError:
+                pass
 
-        # alex r says:
-        # for group in df['col'].unique():
-        #     slice = df[df['col'] == group]
-        # # is like 10x faster than
-        # df.groupby('col').apply( < stuffhere >)
+    def filter_arrivals(self, arrivals_here):
+            # Otherwise, cleanup the query results -- split by vehicle and calculate arrival intervals
 
-        final_approach_dfs = [g for i, g in arrivals_here.groupby(arrivals_here['v'].ne(arrivals_here['v'].shift()).cumsum())]  # split final approach history (sorted by timestamp) at each change in vehicle_id outputs a list of dfs per https://stackoverflow.com/questions/41144231/python-how-to-split-pandas-dataframe-into-subsets-based-on-the-value-in-the-fir
-        arrivals_list_final_df = pd.DataFrame()  # take the last V(ehicle) approach in each df and add it to final list of arrivals
-        for final_approach in final_approach_dfs:  # iterate over every final approach
-            arrival_insert_df = final_approach.tail(1)  # take the last observation
-            arrivals_list_final_df = arrivals_list_final_df.append(arrival_insert_df)  # insert into df
-        arrivals_list_final_df['delta'] = (arrivals_list_final_df['arrival_timestamp'] - arrivals_list_final_df['arrival_timestamp'].shift(1)).fillna(0)  # calc interval between last bus for each row, fill NaNs # bug fails for stops with the dummy arrival data
-        stop_name = arrivals_list_final_df['stop_name'].iloc[0]
-        arrivals_table_time_created = datetime.datetime.now()  # log creation time and return
+            # alex r says:
+            # for group in df['col'].unique():
+            #     slice = df[df['col'] == group]
+            # # is like 10x faster than
+            # df.groupby('col').apply( < stuffhere >)
 
-        return arrivals_list_final_df, stop_name, arrivals_table_time_created
+            final_approach_dfs = [g for i, g in arrivals_here.groupby(arrivals_here['v'].ne(arrivals_here['v'].shift()).cumsum())]  # split final approach history (sorted by timestamp) at each change in vehicle_id outputs a list of dfs per https://stackoverflow.com/questions/41144231/python-how-to-split-pandas-dataframe-into-subsets-based-on-the-value-in-the-fir
+            arrivals_list_final_df = pd.DataFrame()  # take the last V(ehicle) approach in each df and add it to final list of arrivals
+            for final_approach in final_approach_dfs:  # iterate over every final approach
+                arrival_insert_df = final_approach.tail(1)  # take the last observation
+                arrivals_list_final_df = arrivals_list_final_df.append(arrival_insert_df)  # insert into df
+            arrivals_list_final_df['delta'] = (arrivals_list_final_df['arrival_timestamp'] - arrivals_list_final_df['arrival_timestamp'].shift(1)).fillna(0)  # calc interval between last bus for each row, fill NaNs # bug fails -- when and why? KeyError: 'arrival_timestamp'. maybe because there are no results in the last hour(e.g. current period)? or none at all? --- its weird, its like the app gets itself into a state. not sure what fixes it
+
+            stop_name = arrivals_list_final_df['stop_name'].iloc[0]
+            arrivals_table_time_created = datetime.datetime.now()  # log creation time and return
+
+            return arrivals_list_final_df, stop_name, arrivals_table_time_created
 
 
     def get_hourly_frequency(self):

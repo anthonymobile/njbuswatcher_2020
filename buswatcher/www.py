@@ -185,22 +185,22 @@ def displayAPI():
 # /api/v1/maps?
 
 # for index map
-#   layer=waypoints&rt=all              waypoints for ALL routes
-#   layer=stops&rt=all              waypoints for ALL routes
-#   layer=vehicles&rt=all               vehicles for ALL routes
+#   /waypoints&rt=all              waypoints for ALL routes
+#   /stops&rt=all              waypoints for ALL routes
+#   /vehicles&rt=all               vehicles for ALL routes
 
 # for collection map
-#   layer=waypoints&collection=camden   waypoints for camden routes
-#   layer=stops&collection=camden       stops for camden routes
-#   layer=stops&collection=camden       vehicles for camden routes
+#   /waypoints&collection=camden   waypoints for camden routes
+#   /stops&collection=camden       stops for camden routes
+#   /stops&collection=camden       vehicles for camden routes
 
 # for route map
-#   layer=waypoints&rt=87               waypoints for single route
-#   layer=stops&rt=87                   stops for single route
-#   layer=vehicles&rt=87                vehicles for single route
+#   /waypoints&rt=87               waypoints for single route
+#   /stops&rt=87                   stops for single route
+#   /vehicles&rt=87                vehicles for single route
 
 # for stop map
-#   layer=stops&rt=87&stop_id=30189     stop for single stop
+#   /stops&rt=87&stop_id=30189     stop for single stop
 #   TK url for stop map waypoints
 #   TK document url for stop map vehicles
 

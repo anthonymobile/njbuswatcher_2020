@@ -94,7 +94,7 @@ class RouteScan:
 
                 try:
                     if result is None:
-                        trip_id = Trip('nj', system_map, bus.rt, bus.id, bus.run, bus.pid)
+                        trip_id = Trip('nj', system_map, bus.rt, bus.id, bus.run, bus.pd, bus.pid)
                         db.session.add(trip_id)
                     else:
                         continue

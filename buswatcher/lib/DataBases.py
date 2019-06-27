@@ -47,11 +47,12 @@ class SQLAlchemyDBConnection(object):
 
 class Trip(Base):
 
-    def __init__(self, source, system_map, route, v, run, pid):
+    def __init__(self, source, system_map, route, v, run, pd, pid):
         self.source = source
         self.rt = route
         self.v = v
         self.run = run
+        self.pd = pd
         self.pid = pid
         self.date = datetime.datetime.today().strftime('%Y%m%d')
         self.trip_id=('{v}_{run}_{date}').format(v=v,run=run,date=self.date)
@@ -88,6 +89,7 @@ class Trip(Base):
     rt = Column(Integer())
     v = Column(Integer())
     run = Column(String(8))
+    pd = Column(String(127))
     pid = Column(Integer())
     date = Column(Date())
     coordinate_bundle = Column(Text())
