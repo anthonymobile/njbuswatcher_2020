@@ -153,16 +153,14 @@ class StopReport(GenericReport):
         self.hourly_frequency = self.get_hourly_frequency()
         self.arrivals_here_all = self.get_arrivals_here_all()
 
-    # def get_stop_name(self,system_map):
-    #
-    #         for routes in system_map.route_geometries[self.route]:
-    #             for path in routes:
-    #                 for stop in path:
-    #                     if isinstance(stop,BusAPI.Route.Stop) is True:
-    #                         if stop.identity == self.stop_id:
-    #                             self.stop_name = stop.identity
-    #
-    #         return
+    def return_dummy_arrivals_df(self):
+        arrivals_list_final_df = pd.DataFrame(
+            columns=['rt', 'v', 'pid', 'trip_id', 'stop_name', 'arrival_timestamp'],
+            data=['0', '0000', '0', '0000_000_00000000', 'N/A', datetime.time(0, 1)]
+        )
+        stop_name = 'N/A'
+        self.arrivals_table_time_created = datetime.datetime.now()  # log creation time and return
+        return arrivals_list_final_df, stop_name, self.arrivals_table_time_created
 
     def get_arrivals(self):
         with SQLAlchemyDBConnection() as db:
@@ -172,7 +170,6 @@ class StopReport(GenericReport):
                                         Trip.v,
                                         Trip.pid,
                                         Trip.trip_id,
-                                        ScheduledStop.trip_id,
                                         ScheduledStop.stop_id,
                                         ScheduledStop.stop_name,
                                         ScheduledStop.arrival_timestamp) \
@@ -185,19 +182,12 @@ class StopReport(GenericReport):
             query=query.statement
             try:
                 arrivals_here=pd.read_sql(query, db.session.bind)
-                return self.filter_arrivals(arrivals_here)
-            except ValueError:
-                pass
-
-            # if the database didn't have results, return an empty dataframe
-            if len(arrivals_here.index) == 0:
-                arrivals_list_final_df = pd.DataFrame(
-                    columns=['rt', 'v', 'pid', 'trip_trip_id', 'stop_trip_id', 'stop_name', 'arrival_timestamp'],
-                    data=['0', '0000', '0', '0000_000_00000000', '0000_000_00000000', 'N/A', datetime.time(0, 1)]
-                )
-                stop_name = 'N/A'
-                self.arrivals_table_time_created = datetime.datetime.now() # log creation time and return
-                return arrivals_list_final_df, stop_name, self.arrivals_table_time_created
+                if len(arrivals_here.index) == 0: # no results return dummy df
+                    return self.return_dummy_arrivals_df()
+                else:
+                    return self.filter_arrivals(arrivals_here)
+            except ValueError: # any error return a dummy df
+                return self.return_dummy_arrivals_df()
 
     def get_arrivals_here_all(self):
         with SQLAlchemyDBConnection() as db:
@@ -233,7 +223,13 @@ class StopReport(GenericReport):
             for final_approach in final_approach_dfs:  # iterate over every final approach
                 arrival_insert_df = final_approach.tail(1)  # take the last observation
                 arrivals_list_final_df = arrivals_list_final_df.append(arrival_insert_df)  # insert into df
-            arrivals_list_final_df['delta'] = (arrivals_list_final_df['arrival_timestamp'] - arrivals_list_final_df['arrival_timestamp'].shift(1)).fillna(0)  # calc interval between last bus for each row, fill NaNs # bug fails -- when and why? KeyError: 'arrival_timestamp'. maybe because there are no results in the last hour(e.g. current period)? or none at all? --- its weird, its like the app gets itself into a state. not sure what fixes it
+
+            # todo 0 this crashes when there are no arrivals yet logged for that stop, or in that period on an empty database -- need to fix the .
+            # fails -- when and why? KeyError: 'arrival_timestamp'. maybe because there are no results in the last hour(e.g. current period)? or none at all? --- its weird, its like the app gets itself into a state. not sure what fixes it
+
+            arrivals_list_final_df['delta'] = (arrivals_list_final_df['arrival_timestamp'] - arrivals_list_final_df['arrival_timestamp'].shift(1)).fillna(0)  # calc interval between last bus for each row, fill NaNs #
+
+
 
             stop_name = arrivals_list_final_df['stop_name'].iloc[0]
             arrivals_table_time_created = datetime.datetime.now()  # log creation time and return
