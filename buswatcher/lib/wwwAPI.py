@@ -150,14 +150,20 @@ class StopReport(GenericReport):
 
         # populate data for webpage
         self.arrivals_list_final_df, self.stop_name, self.arrivals_table_time_created = self.get_arrivals()
-        self.hourly_frequency = self.get_hourly_frequency()
         self.arrivals_here_all_others = self.get_arrivals_here_all_others()
+        self.hourly_frequency = self.get_hourly_frequency()
+
 
     def return_dummy_arrivals_df(self):
-        arrivals_list_final_df = pd.DataFrame(
-            columns=['rt', 'v', 'pid', 'trip_id', 'stop_name', 'arrival_timestamp'],
-            data=['0', '0000', '0', '0000_000_00000000', 'N/A', datetime.time(0, 1)]
-        )
+        # to add more than one , simply add to the lists
+        dummydata = {'rt': ['0','0'],
+                     'v': ['0000','0000'],
+                     'pid': ['0','0'],
+                     'trip_id': ['0000_000_00000000','0000_000_00000000'],
+                     'stop_name': ['N/A','N/A'],
+                     'arrival_timestamp': [datetime.time(0, 1),datetime.time(0, 1)]
+                    }
+        arrivals_list_final_df = pd.DataFrame(dummydata, columns=['rt','v','pid','trip_id','stop_name','arrival_timestamp'])
         stop_name = 'N/A'
         self.arrivals_table_time_created = datetime.datetime.now()  # log creation time and return
         return arrivals_list_final_df, stop_name, self.arrivals_table_time_created
@@ -205,8 +211,8 @@ class StopReport(GenericReport):
             query = query.filter(Trip.rt != self.route) # exclude the current route
             query = query.statement
             try:
-                get_arrivals_here_all_others = pd.read_sql(query, db.session.bind) # future faster here to load it into a dict directly?
-                return self.filter_arrivals(get_arrivals_here_all_others)[0] # only return the dataframe
+                get_arrivals_here_all_others = pd.read_sql(query, db.session.bind)
+                return self.filter_arrivals(get_arrivals_here_all_others)[0] # [0] only return the dataframe from the self.filter_arrivals tuple
             except ValueError:
                 pass
 
@@ -225,14 +231,27 @@ class StopReport(GenericReport):
                 arrival_insert_df = final_approach.tail(1)  # take the last observation
                 arrivals_list_final_df = arrivals_list_final_df.append(arrival_insert_df)  # insert into df
 
-            # todo 0 this crashes when there are no arrivals yet logged for that stop, or in that period on an empty database -- need to fix the .
-            # fails -- when and why? KeyError: 'arrival_timestamp'. maybe because there are no results in the last hour(e.g. current period)? or none at all? --- its weird, its like the app gets itself into a state. not sure what fixes it
+            # # make sure there are two rows so delta doesnt fail
+            # # any time i get a df with 0 or 1 row, add another dummy row
+            # if (len(arrivals_list_final_df) > 1) is False:
+            #     arrivals_list_final_df=arrivals_list_final_df({'rt': ['0'],
+            #          'v': ['0000'],
+            #          'pid': ['0'],
+            #          'trip_id': ['0000_000_00000000'],
+            #          'stop_name': ['N/A'],
+            #          'arrival_timestamp': datetime.time(0, 1)
+            #         })
 
-            arrivals_list_final_df['delta'] = (arrivals_list_final_df['arrival_timestamp'] - arrivals_list_final_df['arrival_timestamp'].shift(1)).fillna(0)  # calc interval between last bus for each row, fill NaNs #
+            try:
+                arrivals_list_final_df['delta'] = (arrivals_list_final_df['arrival_timestamp'] - arrivals_list_final_df['arrival_timestamp'].shift(1)).fillna(0)  # calc interval between last bus for each row, fill NaNs #
+            except:
+                arrivals_list_final_df['delta'] = float('nan')
 
+            try:
+                stop_name = arrivals_list_final_df['stop_name'].iloc[0]
+            except:
+                stop_name = 'N/A'
 
-
-            stop_name = arrivals_list_final_df['stop_name'].iloc[0]
             arrivals_table_time_created = datetime.datetime.now()  # log creation time and return
 
             return arrivals_list_final_df, stop_name, arrivals_table_time_created
