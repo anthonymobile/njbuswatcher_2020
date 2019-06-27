@@ -20,7 +20,7 @@
 
 
 {% block breadcrumb %}
-<li class="breadcrumb-item"><a href={{ url_for('genRouteReport' ,route=routereport.route, period='now') }}>{{routereport.route}} {{routereport.prettyname}}</a></li>
+<li class="breadcrumb-item"><a href={{ url_for('genRouteReport' ,route=routereport.route, period=period) }}>{{routereport.route}} {{routereport.prettyname}}</a></li>
 
 <li class="breadcrumb-item active"><a href={{url_for('genStopReport',collection_url=collection_url,route=routereport.route,stop=stop.stop_id,period='daily') }}>{{stopreport.stop_name|title}}</a></li>
 
@@ -73,7 +73,7 @@
         var passed_stop_id  = {{ stopreport.stop|safe }}
     </script>
 
-    </script>
+
     <script type="text/javascript" src="{{ url_for('static', filename='maps/busmap_stop.js')}}"></script>
 
     <!-- zoom to extent stuff -->
@@ -121,124 +121,6 @@
                                         -->
 
                                       <p class="card-title">Understanding how well bus service is operating at your stop depends on several factors that measure the variety, frequency, and reliability of arrivals.</p>
-
-
-
-              <!--Grid row-->
-                <div class="row mb-4 wow fadeIn">
-                    <div id="frequency" class="col-lg-12 col-md-12 mb-4">
-                        <h3 class="mb-4 mt-4">
-                            <strong>Recent Arrivals</strong>
-                        </h3>
-                        <p class="head">
-                            The arrivals here in the <mark>last 30 minutes</mark>.
-                        </p>
-
-                             <table class="table table-sm table-hover">
-                                <thead class="thread-dark">
-                                  <tr>
-                                    <th>route</th>
-                                    <th>time</th>
-                                    <th>destination</th>
-                                    <th>bus no.</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-
-                                {% for (index,row) in stopreport.arrivals_here_all.iterrows() %}
-                                    <tr class='table'>
-                                        <td>{{row.rt}}</td>
-                                        <td>{{row.arrival_timestamp|strftime_period(period)}}</td>
-                                        <td>{{row.pd}}</td>
-                                        <td>{{row.v}}</td>
-                                    </tr>
-                                {% endfor %}
-
-                                </tbody>
-                              </table>
-
-                    </div>
-                </div>
-                <!--Grid row-->
-
-
-
-
-                 <!--Grid row-->
-                <div class="row mb-4 wow fadeIn">
-
-
-                    <!--Grid column-->
-                    <div id="frequency" class="col-lg-12 col-md-12 mb-4">
-
-                        <h3 class="mb-4 mt-4">
-                            <strong>How Often Do Buses Come?</strong>
-                        </h3>
-
-                        <p class="head">
-                        <mark>Service Frequency</mark> is one important measure of how good bus service is at your corner.
-                        </p>
-                        <p>
-                            Below, see how often {{routereport.route}} buses serve {{stopreport.stop_name|title}}. This average is calculated over the following period: <strong>{{period}}</strong>.
-
-                        </p>
-
-                        <!--Card-->
-                        <div class="card">
-
-                            <!--Card content-->
-                            <div class="card-body">
-                                <!--Title
-                                <h4 class="card-title">some title here - stop?</h4>
-                                -->
-                                <!--Text-->
-                                <div id="buses" class="row mt-2">
-
-
-
-                                             <table class="table table-sm table-hover">
-                                                <thead class="thread-dark">
-                                                  <tr>
-                                                    <th>hour</th>
-                                                    <th>bus every</th>
-                                                  </tr>
-                                                </thead>
-                                                <tbody>
-
-                                                {% for (index,row) in stopreport.hourly_frequency.iterrows() %}
-                                                    <tr class='table'>
-                                                        <td>{{row.hour|hour_as_int}}</td>
-                                                        {% if row.frequency != row.frequency %}
-                                                            <td>- - -</td>
-                                                        {% else %}
-                                                            <td>{{row.frequency|int}} mins</td>
-                                                        {% endif %}
-                                                    </tr>
-                                                {% endfor %}
-
-                                                </tbody>
-                                              </table>
-
-
-                                </div>
-
-
-
-
-                            </div>
-
-                        </div>
-                        <!--/.Card-->
-
-
-                    </div>
-                    <!--Grid column-->
-
-
-
-                </div>
-                <!--Grid row-->
-
 
                  <!--Grid row-->
                 <div class="row mb-4 wow fadeIn">
@@ -321,191 +203,126 @@
                     <!--Grid column-->
 
 
+              <!--Grid row-->
+                <div class="row mb-4 wow fadeIn">
+                    <div id="frequency" class="col-lg-12 col-md-12 mb-4">
+                        <h3 class="mb-4 mt-4">
+                            <strong>What Else Stops Here?</strong>
+                        </h3>
+                        <p class="head">
+                            The {{routereport.route}} stops at {{stopreport.stop_name|title}}. Other routes may stop here too. Here are the arrivals in the <mark>last hour</mark> for all routes serving this stop--and keep in mind, buses in the opposite direction are often operating at a different stop across the street. {#  todo verify the query is for last 60 minutes #}
+
+                        </p>
+
+                             <table class="table table-sm table-hover">
+                                <thead class="thread-dark">
+                                  <tr>
+                                    <th>route</th>
+                                    <th>time</th>
+                                    <th>destination</th>
+                                    <th>bus no.</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+
+                                {% for (index,row) in stopreport.arrivals_here_all_others.iterrows() %}
+                                    <tr class='table'>
+                                        <td>{{row.rt}}</td>
+                                        <td>{{row.arrival_timestamp|strftime_period(period)}}</td>
+                                        <td>{{row.pd}}</td>
+                                        <td>{{row.v}}</td>
+                                    </tr>
+                                {% endfor %}
+
+                                </tbody>
+                              </table>
+
+                    </div>
+                </div>
+                <!--Grid row-->
+
+
+
+
+                 <!--Grid row-->
+                <div class="row mb-4 wow fadeIn">
+                    <div id="frequency" class="col-lg-12 col-md-12 mb-4">
+                        <h3 class="mb-4 mt-4">
+                            <strong>How Often Do Buses Come?</strong>
+                        </h3>
+
+                        <p class="head">
+                        <mark>Service Frequency</mark> is one important measure of how good bus service is at your corner.
+                        </p>
+                        <p>
+                            Below, we calculate, on average how often {{routereport.route}} buses serve {{stopreport.stop_name|title}} at any given time of day. This average is calculated over the following period: <strong>{{period}}</strong>.
+
+                        </p>
+
+                        <!--Card-->
+                        <div class="card">
+
+                            <!--Card content-->
+                            <div class="card-body">
+                                <!--Title
+                                <h4 class="card-title">some title here - stop?</h4>
+                                -->
+                                <!--Text-->
+                                <div id="buses" class="row mt-2">
+
+
+
+                                             <table class="table table-sm table-hover">
+                                                <thead class="thread-dark">
+                                                  <tr>
+                                                    <th>hour</th>
+                                                    <th>bus every</th>
+                                                  </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                {% for (index,row) in stopreport.hourly_frequency.iterrows() %}
+                                                    <tr class='table'>
+                                                        <td>{{row.hour|hour_as_int}}</td>
+                                                        {% if row.frequency != row.frequency %}
+                                                            <td>- - -</td>
+                                                        {% else %}
+                                                            <td>{{row.frequency|int}} mins</td>
+                                                        {% endif %}
+                                                    </tr>
+                                                {% endfor %}
+
+                                                </tbody>
+                                              </table>
+
+
+                                </div>
+
+
+
+
+                            </div>
+
+                        </div>
+                        <!--/.Card-->
+
+
+                    </div>
+                    <!--Grid column-->
+
+
+
+                </div>
+                <!--Grid row-->
+
+
+
+
+
                  </div>
                 <!--Grid row-->
 {# bug missing a div? or have an extra? #}
-                                  <!--Grid row-->
-                <div class="row mb-4 wow fadeIn">
 
-                    <h3 class="mb-4 mt-4">
-                        <strong>What Else Stops Here?</strong>
-                    </h3>
-
-                        <p>
-                            The {{routereport.route}} stops at {{stopreport.stop_name|title}} but so do other routes. Here are all the arrivals we saw during the following period: <strong>{{period}}</strong>.
-
-                     </p>
-                </div>
-
-                <!--Grid row-->
-                <div class="row mb-4 wow fadeIn">
-
-                    <!--Grid column-->
-                    <div class="col-lg-4 col-md-12 mb-4">
-
-
-
-                        <!--Card-->
-                        <div class="card">
-
-                            <!--Card content-->
-                            <div class="card-body">
-                                <!--Title-->
-                                <h4 class="card-title">84 New York</h4>
-
-                                <!--Text-->
-                                <div id="buses" class="row mt-2">
-
-
-
-                                             <table class="table table-sm table-hover">
-                                                <thead class="thread-dark">
-                                                  <tr>
-                                                    <th>hour</th>
-                                                    <th>bus every</th>
-                                                  </tr>
-                                                </thead>
-                                                <tbody>
-
-                                                {% for (index,row) in stopreport.hourly_frequency.iterrows() %}
-                                                    <tr class='table'>
-                                                        <td>{{row.hour|hour_as_int}}</td>
-                                                        {% if row.frequency != row.frequency %}
-                                                            <td>- - -</td>
-                                                        {% else %}
-                                                            <td>{{row.frequency|int}} mins</td>
-                                                        {% endif %}
-                                                    </tr>
-                                                {% endfor %}
-
-                                                </tbody>
-                                              </table>
-
-
-                                </div>
-
-
-
-
-                            </div>
-
-                        </div>
-                        <!--/.Card-->
-
-
-                    </div>
-                    <!--Grid column-->
-
-                    <!--Grid column-->
-                    <div class="col-lg-4 col-md-12 mb-4">
-
-                        <!--Card-->
-                        <div class="card">
-
-                            <!--Card content-->
-                            <div class="card-body">
-                                <!--Title-->
-                                <h4 class="card-title">86 North Bergen</h4>
-
-                                <!--Text-->
-                                <div id="buses" class="row mt-2">
-
-
-
-                                             <table class="table table-sm table-hover">
-                                                <thead class="thread-dark">
-                                                  <tr>
-                                                    <th>hour</th>
-                                                    <th>bus every</th>
-                                                  </tr>
-                                                </thead>
-                                                <tbody>
-
-                                                {% for (index,row) in stopreport.hourly_frequency.iterrows() %}
-                                                    <tr class='table'>
-                                                        <td>{{row.hour|hour_as_int}}</td>
-                                                        {% if row.frequency != row.frequency %}
-                                                            <td>- - -</td>
-                                                        {% else %}
-                                                            <td>{{row.frequency|int}} mins</td>
-                                                        {% endif %}
-                                                    </tr>
-                                                {% endfor %}
-
-                                                </tbody>
-                                              </table>
-
-
-                                </div>
-
-
-
-
-                            </div>
-
-                        </div>
-                        <!--/.Card-->
-
-
-                    </div>
-                    <!--Grid column-->
-
-                    <!--Grid column-->
-                    <div class="col-lg-4 col-md-12 mb-4">
-
-                        <!--Card-->
-                        <div class="card">
-
-                            <!--Card content-->
-                            <div class="card-body">
-                                <!--Title-->
-                                <h4 class="card-title">87 Hoboken</h4>
-
-                                <!--Text-->
-                                <div id="buses" class="row mt-2">
-
-
-
-                                             <table class="table table-sm table-hover">
-                                                <thead class="thread-dark">
-                                                  <tr>
-                                                    <th>hour</th>
-                                                    <th>bus every</th>
-                                                  </tr>
-                                                </thead>
-                                                <tbody>
-
-                                                {% for (index,row) in stopreport.hourly_frequency.iterrows() %}
-                                                    <tr class='table'>
-                                                        <td>{{row.hour|hour_as_int}}</td>
-                                                        {% if row.frequency != row.frequency %}
-                                                            <td>- - -</td>
-                                                        {% else %}
-                                                            <td>{{row.frequency|int}} mins</td>
-                                                        {% endif %}
-                                                    </tr>
-                                                {% endfor %}
-
-                                                </tbody>
-                                              </table>
-
-
-                                </div>
-
-
-
-
-                            </div>
-
-                        </div>
-                        <!--/.Card-->
-
-
-                    </div>
-                    <!--Grid column-->
-
-
-                </div>
                 <!--Grid row-->
 
 
