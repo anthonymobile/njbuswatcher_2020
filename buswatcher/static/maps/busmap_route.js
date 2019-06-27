@@ -61,7 +61,7 @@ map.on('load', function() {
 
     window.setInterval(function() {
         map.getSource('vehicles_source').setData(url_vehicles);
-        }, 2000)
+        }, 5000)
 
 
     // HOVER TOOLTIPS

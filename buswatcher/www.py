@@ -16,7 +16,8 @@ class Dummy():
 # IMPORTS
 ################################################
 import logging
-
+import os
+from flask import send_from_directory
 
 from flask import Flask, render_template, request
 from flask_bootstrap import Bootstrap
@@ -98,6 +99,13 @@ assets.register(bundles)
 ################################################
 # URLS
 ################################################
+
+
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static/images'),
+                          'favicon.ico',mimetype='image/vnd.microsoft.icon')
 
 #-------------------------------------------------------------Statewide Index
 

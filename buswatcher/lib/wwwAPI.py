@@ -158,7 +158,7 @@ class StopReport(GenericReport):
 
             return 'Stop name TK'
 
-    def get_arrivals(self): #todo 0 debug get_arrivals or just do get_arrivals_new?
+    def get_arrivals(self):
         with SQLAlchemyDBConnection() as db:
 
             # build query and load into df
@@ -194,7 +194,6 @@ class StopReport(GenericReport):
                 return arrivals_list_final_df, stop_name, self.arrivals_table_time_created
 
 
-
     def cleanup_arrivals(self,arrivals_here):
         # Otherwise, cleanup the query results -- split by vehicle and calculate arrival intervals
 
@@ -209,19 +208,18 @@ class StopReport(GenericReport):
         for final_approach in final_approach_dfs:  # iterate over every final approach
             arrival_insert_df = final_approach.tail(1)  # take the last observation
             arrivals_list_final_df = arrivals_list_final_df.append(arrival_insert_df)  # insert into df
-        arrivals_list_final_df['delta'] = (arrivals_list_final_df['arrival_timestamp'] - arrivals_list_final_df['arrival_timestamp'].shift(1)).fillna(0)  # calc interval between last bus for each row, fill NaNs
+        arrivals_list_final_df['delta'] = (arrivals_list_final_df['arrival_timestamp'] - arrivals_list_final_df['arrival_timestamp'].shift(1)).fillna(0)  # calc interval between last bus for each row, fill NaNs # bug fails for stops with the dummy arrival data
         stop_name = arrivals_list_final_df['stop_name'].iloc[0]
         arrivals_table_time_created = datetime.datetime.now()  # log creation time and return
 
         return arrivals_list_final_df, stop_name, arrivals_table_time_created
 
 
-    def get_hourly_frequency(self): #todo 0 test get_hourly_frequency
+    def get_hourly_frequency(self):
         results = pd.DataFrame()
         self.arrivals_list_final_df['delta_int'] = self.arrivals_list_final_df['delta'].dt.seconds
 
         try:
-
             # results['frequency']= (self.arrivals_list_final_df.delta_int.resample('H').mean())//60
             results = (self.arrivals_list_final_df.groupby(self.arrivals_list_final_df.index.hour).mean())//60
             results = results.rename(columns={'delta_int': 'frequency'})

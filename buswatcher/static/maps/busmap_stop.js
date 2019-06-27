@@ -10,22 +10,24 @@ var map = new mapboxgl.Map({
 //var url_stops =  ("/api/v1/maps/stops?rt="+passed_route+"&stop_id="+passed_stop_id  );
 var url_waypoints = ("/api/v1/maps/waypoints?rt="+passed_route);
 var url_vehicles = ("/api/v1/maps/vehicles?rt="+passed_route);
+var url_stops = ("/api/v1/maps/stops?rt="+passed_route+"&stop_id="+passed_stop_id);
 
 
 // old endpoints
-var url_stops =  ("/api/v1/maps?layer=stops&rt="+passed_route+"&stop_id="+passed_stop_id);
+// var url_stops =  ("/api/v1/maps?layer=stops&rt="+passed_route+"&stop_id="+passed_stop_id);
 // var url_waypoints = ("/api/v1/maps?layer=waypoints&rt="+passed_route);
 // var url_vehicles = ("/api/v1/maps?layer=vehicles&rt="+passed_route);
 
 map.on('load', function() {
 
 
+/*
     $.getJSON(url_vehicles, (geojson) => {
         map.addSource('vehicles_source', {
             type: 'geojson',
             data: geojson
         });
-        /* map.fitBounds(turf.bbox(geojson), {padding: 20}); */
+        /!* map.fitBounds(turf.bbox(geojson), {padding: 20}); *!/
 
         map.addLayer({
             "id": "vehicles",
@@ -41,13 +43,14 @@ map.on('load', function() {
         ;
 
     });
+*/
 
     $.getJSON(url_stops, (geojson) => {
         map.addSource('stops_source', {
             type: 'geojson',
             data: geojson
         });
-        map.fitBounds(turf.bbox(geojson), {padding: 20});
+        // map.fitBounds(turf.bbox(geojson), {padding: 20});
 
         map.addLayer({
             "id": "route",
@@ -63,12 +66,12 @@ map.on('load', function() {
     });
 
 
-/*    $.getJSON(url_waypoints, (geojson) => {
+    $.getJSON(url_waypoints, (geojson) => {
         map.addSource('waypoints_source', {
             type: 'geojson',
             data: geojson
         });
-        // map.fitBounds(turf.bbox(geojson), {padding: 50});
+        map.fitBounds(turf.bbox(geojson), {padding: 50});
 
         map.addLayer({
             "id": "route",
@@ -81,11 +84,11 @@ map.on('load', function() {
             }
         });
     });
-    */
+
 
     window.setInterval(function() {
         map.getSource('vehicles_source').setData(url_vehicles);
-        }, 2000)
+        }, 5000)
 
 
     // HOVER TOOLTIPS
