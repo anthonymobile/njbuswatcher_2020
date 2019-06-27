@@ -108,14 +108,14 @@
 
                                         <tr class='table text-left'>
                                             <td class="table-primary text-center">
-                                                <a href = {{ url_for('genRouteReport',collection_url=collection_description['collection_url'],route=route, period='hour') }} id="{{route}}">
+                                                <a href = {{ url_for('genRouteReport',collection_url=collection_description['collection_url'],route=route, period='day') }} id="{{route}}">
                                                              {{route}}
                                                 </a>
                                             </td>
                                             <td class="table text-left">
                                                 {% for route_2_match in route_descriptions.routedata %}
                                                     {% if route==route_2_match.route %}
-                                                                                                        <a href = {{ url_for('genRouteReport',collection_url=collection_description['collection_url'],route=route, period='hour') }} id="{{route}}">
+                                                                                                        <a href = {{ url_for('genRouteReport',collection_url=collection_description['collection_url'],route=route, period='day') }} id="{{route}}">
                                                             <strong>{{route_2_match.prettyname |title}}</strong>
                                                 </a>
 

@@ -151,7 +151,7 @@ class StopReport(GenericReport):
         # populate data for webpage
         self.arrivals_list_final_df, self.stop_name, self.arrivals_table_time_created = self.get_arrivals()
         self.hourly_frequency = self.get_hourly_frequency()
-        self.arrivals_here_all = self.get_arrivals_here_all()
+        self.arrivals_here_all_others = self.get_arrivals_here_all_others()
 
     def return_dummy_arrivals_df(self):
         arrivals_list_final_df = pd.DataFrame(
@@ -189,7 +189,7 @@ class StopReport(GenericReport):
             except ValueError: # any error return a dummy df
                 return self.return_dummy_arrivals_df()
 
-    def get_arrivals_here_all(self):
+    def get_arrivals_here_all_others(self):
         with SQLAlchemyDBConnection() as db:
             query = db.session.query(Trip.rt,  # base query
                                      Trip.v,
@@ -202,10 +202,11 @@ class StopReport(GenericReport):
                 .filter(ScheduledStop.arrival_timestamp != None)
 
             query = self.query_factory(db, query, period=self.period)  # add the period
+            query = query.filter(Trip.rt != self.route) # exclude the current route
             query = query.statement
             try:
-                get_arrivals_here_all = pd.read_sql(query, db.session.bind) # future faster here to load it into a dict directly?
-                return self.filter_arrivals(get_arrivals_here_all)[0] # only return the dataframe
+                get_arrivals_here_all_others = pd.read_sql(query, db.session.bind) # future faster here to load it into a dict directly?
+                return self.filter_arrivals(get_arrivals_here_all_others)[0] # only return the dataframe
             except ValueError:
                 pass
 
@@ -235,7 +236,6 @@ class StopReport(GenericReport):
             arrivals_table_time_created = datetime.datetime.now()  # log creation time and return
 
             return arrivals_list_final_df, stop_name, arrivals_table_time_created
-
 
     def get_hourly_frequency(self):
         results = pd.DataFrame()

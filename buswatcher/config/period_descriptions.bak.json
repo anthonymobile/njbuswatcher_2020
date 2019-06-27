@@ -1,4 +1,13 @@
 {
+    "hour": {
+        "name": "hour",
+        "label": "now",
+        "possessive_label": "the last hour's",
+        "adverb_label": "hourly",
+        "descriptive_label": "last 60 minutes",
+        "sql":"INTERVAL -1 HOUR",
+        "strftime_format":"%I:%M %p"
+    },
     "day": {
         "name": "day",
         "label": "today",

@@ -160,8 +160,7 @@ def genStopReport(collection_url, route, stop, period):
     stop_report = wwwAPI.StopReport(system_map, route, stop, period)
     route_report = wwwAPI.RouteReport(system_map, route, period)
     predictions = BusAPI.parse_xml_getStopPredictions(BusAPI.get_xml_data('nj', 'stop_predictions', stop=stop, route='all'))
-
-    return render_template('stop.jinja2',collection_url=collection_url, collection_descriptions=collection_descriptions, period_descriptions=period_descriptions, stop=stop, period=period, stopreport=stop_report, reportcard_routes=route_descriptions,predictions=predictions, routereport=route_report)
+    return render_template('stop.jinja2',collection_url=collection_url, collection_descriptions=collection_descriptions, period_descriptions=period_descriptions, stop=stop, period=period, stopreport=stop_report, reportcard_routes=route_descriptions, predictions=predictions, routereport=route_report)
 
 #-------------------------------------------------------------FAQ
 @app.route('/faq')
@@ -205,25 +204,12 @@ def displayAPI():
 #   TK document url for stop map vehicles
 
 
-# deprecated
-# @app.route('/api/v1/maps')
-# @cross_origin()
-# def api_map_layer():
-#     args=request.args
-#
-#     if args['layer'] == 'vehicles':
-#         return jsonify(API.get_positions_byargs(system_map,args,route_descriptions,collection_descriptions))
-#     else:
-#         return jsonify(API.get_map_layers(system_map,args,route_descriptions,collection_descriptions))
-
-
-
 @app.route('/api/v1/maps/vehicles')
 @cross_origin()
 def api_vehicles():
     args=dict(request.args)
     args['layer'] = 'vehicles'
-    return jsonify(API.get_positions_byargs(system_map,args,system_map.route_descriptions, system_map.collection_descriptions)) # todo 1 fold this into RouteConfig.render_geojson
+    return jsonify(API.get_positions_byargs(system_map,args,system_map.route_descriptions, system_map.collection_descriptions))
 
 @app.route('/api/v1/maps/waypoints')
 @cross_origin()

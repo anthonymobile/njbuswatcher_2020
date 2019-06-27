@@ -6,6 +6,9 @@ var map = new mapboxgl.Map({
     zoom: 7 // starting zoom
 });
 
+// bug why aren't the passed variables coming in -- check stop.jinja and upstream StopReport
+// var passed_route="119"
+// var passed_stop_id="30189"
 // new endpoints
 var url_waypoints = ("/api/v1/maps/waypoints?rt="+passed_route);
 var url_vehicles = ("/api/v1/maps/vehicles?rt="+passed_route);
@@ -14,12 +17,6 @@ var url_stops = ("/api/v1/maps/stops?rt="+passed_route+"&stop_id="+passed_stop_i
 
 
 map.on('load', function() {
-
-
-    map.loadImage('/static/maps/stop-icon.png', function(error, image) {
-        if (error) throw error;
-        map.addImage('stop', image);
-
 
         $.getJSON(url_vehicles, (geojson) => {
             map.addSource('vehicles_source', {
@@ -38,7 +35,7 @@ map.on('load', function() {
                     "circle-stroke-width": 3,
                     "circle-stroke-color": "#f6c"
                 }
-            });
+            })
 
         });
 
@@ -61,94 +58,57 @@ map.on('load', function() {
             });
         });
 
+        // this version works
         $.getJSON(url_stops, (geojson) => {
-            map.addSource('stops_source', {
-                type: 'geojson',
-                data: geojson
-            });
-            // map.fitBounds(turf.bbox(geojson), {padding: 50});
+        map.addSource('stops_source', {
+            type: 'geojson',
+            data: geojson
+        });
+        // map.fitBounds(turf.bbox(geojson), {padding: 50});
 
-            map.addLayer({
-                "id": "stops",
-                "type": "icon",
-                "source": "stops_source",
-                "layout": {
-                    "icon-image": "stop", // todo fix display of single stop icon
-                    "icon-size": 0.25
+        map.addLayer({
+            "id": "stops",
+            "type": "circle",
+            "source": "stops_source",
+            "paint": {
+                "circle-radius": 8,
+                "circle-opacity": 1,
+                "circle-stroke-width": 2,
+                "circle-stroke-color": "#fff"
                 }
             });
         });
-    })
-
-    // this version works
-    //     $.getJSON(url_stops, (geojson) => {
-    //     map.addSource('stops_source', {
-    //         type: 'geojson',
-    //         data: geojson
-    //     });
-    //     // map.fitBounds(turf.bbox(geojson), {padding: 50});
-    //
-    //     map.addLayer({
-    //         "id": "stops",
-    //         "type": "circle",
-    //         "source": "stops_source",
-    //         "paint": {
-    //             "circle-radius": 8,
-    //             "circle-opacity": 1,
-    //             "circle-stroke-width": 2,
-    //             "circle-stroke-color": "#fff"
-    //         }
-    //     });
-    // });
 
 
 
+        // map.loadImage('/static/maps/stop-icon.png', function(error, image) {
+        //     if (error) throw error;
+        //     map.addImage('stop', image);
+        //
+        // $.getJSON(url_stops, (geojson) => {
+        //     map.addSource('stops_source', {
+        //         type: 'geojson',
+        //         data: geojson
+        //     });
+        //     // map.fitBounds(turf.bbox(geojson), {padding: 50});
+        //
+        //     map.addLayer({
+        //         "id": "stops",
+        //         "type": "icon",
+        //         "source": "stops_source",
+        //         "layout": {
+        //             "icon-image": "stop", // todo fix display of single stop icon
+        //             "icon-size": 0.25
+        //         }
+        //     });
+        // });
 
 
     window.setInterval(function() {
         map.getSource('vehicles_source').setData(url_vehicles);
         }, 5000)
 
-/*
-
-    // HOVER TOOLTIPS
-    var popup = new mapboxgl.Popup({
-        closeButton: false,
-        closeOnClick: false
-    });
-
-    map.on('mouseenter', 'vehicles', function(e) {
-        // Change the cursor style as a UI indicator.
-        map.getCanvas().style.cursor = 'pointer';
-
-        var coordinates = e.features[0].geometry.coordinates.slice();
-        var description = (e.features[0].properties.fs + ", Bus " + e.features[0].properties.id + ", Driver " + e.features[0].properties.op + ", Run " + e.features[0].properties.run);
-
-        // Ensure that if the map is zoomed out such that multiple
-        // copies of the feature are visible, the popup appears
-        // over the copy being pointed to.
-        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-        }
-
-        // Populate the popup and set its coordinates
-        // based on the feature found.
-        popup.setLngLat(coordinates)
-            .setHTML(description)
-            .addTo(map);
-    });
-
-    map.on('mouseleave', 'vehicles', function() {
-        map.getCanvas().style.cursor = '';
-        popup.remove();
-    });
-*/
-
-
-
-
 });
-
 
 map.addControl(new mapboxgl.NavigationControl());
 
