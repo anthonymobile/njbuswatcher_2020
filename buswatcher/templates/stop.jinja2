@@ -74,7 +74,7 @@
     </script>
 
     </script>
-    <script type="text/javascript" src="{{ url_for('static', filename='maps/busmap-stop.js')}}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='maps/busmap_stop.js')}}"></script>
 
     <!-- zoom to extent stuff -->
     <script src='https://api.mapbox.com/mapbox.js/plugins/turf/v3.0.11/turf.min.js'></script>
@@ -91,152 +91,208 @@
     <main class="mt-2 pt-5">
         <div class="container">
 
-
-            <!--Section: Menu-->
-            <section id="menu" class="text-center">
-
-                <!-- Content -->
-                <div class="card-body text-black text-center mt-4 ">
-
-                    <h3 class="mb-4">
-                       {{routereport.route}} {{routereport.prettyname}} <strong>{{stopreport.stop_name|title}}</strong>
-                    </h3>
-
-                </div>
-                <!-- Content -->
-
-            </section>
-            <!--Section: Menu-->
-
-
-
-
-            <!--Section: Stop Performance-->
+            <!--Section: Main Box-->
             <section  class="text-left">
-
 
                 <!--Grid row-->
                 <div class="row mb-4 wow fadeIn">
 
                     <!--Grid column-->
-                    <div class="col-lg-4 col-md-12 mb-4">
+                    <div class="col-lg-12 col-md-12 mb-4">
 
                         <!--Card-->
-                        <div class="card mb-4">
+                        <div class="card">
 
-                            <!--Card image-->
-                            <!--
-                            <div class="view overlay">
-                                <div class="embed-responsive embed-responsive-16by9 rounded-top">
-                                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/cXTThxoywNQ" allowfullscreen></iframe>
-                                </div>
-                            </div>
-                            -->
-
-                            <!--Card content-->
                             <div class="card-body">
-                                <!--Title-->
-                                <h4 class="card-title">Buses are running every x minutes.</h4>
-                                That's x.
 
-                            </div>
+                                <div class="row mb-4 wow fadeIn">
+                                     <div class="col-lg-12 col-md-12 mb-4 text-left">
+                                        <!--Title-->
+                                        <h1 class="card-title">{{stopreport.stop_name|title}}</h1>
 
-                        </div>
-                        <!--/.Card-->
+                                         <a href = {{ url_for('genRouteReport',collection_url=collection_url,route=routereport.route, period=period) }} id="{{routereport.route}}">
+                                                           <h4 class="card-title">{{routereport.route}} {{routereport.prettyname}}</h4></strong>
+                                                </a>
 
-                        <!--Card-->
-                        <div class="card mb-4">
 
-                            <!--Card image-->
-                            <!--
-                            <div class="view overlay">
-                                <div class="embed-responsive embed-responsive-16by9 rounded-top">
-                                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/cXTThxoywNQ" allowfullscreen></iframe>
+
+                                    </div>
                                 </div>
-                            </div>
-                            -->
+                                 <div class="row mb-4 wow fadeIn">
 
-                            <!--Card content-->
-                            <div class="card-body">
-                                <!--Title-->
-                                <h4 class="card-title">Buses are running every x minutes.</h4>
-                                That's x.
+                                  <div class="col-lg-8 col-md-12 mb-4">
 
-                            </div>
 
-                        </div>
-                        <!--/.Card-->
-                    </div>
+                                      <!--  <h1 class="card-title">Title goes here.</h1>
+                                        <h4 class="card-title">Subtitle else goes here.</h4>
+                                        -->
 
-                    <!--Grid column-->
-                    <div class="col-lg-4 col-md-12 mb-4">
+                                      <p class="card-title">Understanding how well bus service is operating at your stop depends on several factors that measure the variety, frequency, and reliability of arrivals.</p>
 
-                        <!--Card-->
-                        <div class="card mb-4">
-
-                            <!--Card image-->
-                            <!--
-                            <div class="view overlay">
-                                <div class="embed-responsive embed-responsive-16by9 rounded-top">
-                                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/cXTThxoywNQ" allowfullscreen></iframe>
-                                </div>
-                            </div>
-                            -->
-
-                            <!--Card content-->
-                            <div class="card-body">
-                                <!--Title-->
-                                <h4 class="card-title">Buses are running every x minutes.</h4>
-                                That's x.
-
-                            </div>
-
-                        </div>
-                        <!--/.Card-->
-
-                        <!--Card-->
-                        <div class="card mb-4">
-
-                            <!--Card image-->
-                            <!--
-                            <div class="view overlay">
-                                <div class="embed-responsive embed-responsive-16by9 rounded-top">
-                                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/cXTThxoywNQ" allowfullscreen></iframe>
-                                </div>
-                            </div>
-                            -->
-
-                            <!--Card content-->
-                            <div class="card-body">
-                                <!--Title-->
-                                <h4 class="card-title">Buses are running every x minutes.</h4>
-                                That's x.
-
-                            </div>
-
-                        </div>
-                        <!--/.Card-->
-                    </div>
+                                      <!--Grid row-->
+                <div class="row mb-4 wow fadeIn">
 
 
                     <!--Grid column-->
-                    <div class="col-lg-4 col-md-12 mb-4">
-                        <div id="map" class="container">
+                    <div id="frequency" class="col-lg-12 col-md-12 mb-4">
+
+                        <h3 class="mb-4 mt-4">
+                            <strong>How Often Do Buses Come?</strong>
+                        </h3>
+
+                        <p class="head">
+                        <mark>Service Frequency</mark> is one important measure of how good bus service is at your corner.
+                        </p>
+                        <p>
+                            Below, see how often {{routereport.route}} buses serve {{stopreport.stop_name|title}}. This average is calculated over the following period: <strong>{{period}}</strong>.
+
+                        </p>
+
+                        <!--Card-->
+                        <div class="card">
+
+                            <!--Card content-->
+                            <div class="card-body">
+                                <!--Title
+                                <h4 class="card-title">some title here - stop?</h4>
+                                -->
+                                <!--Text-->
+                                <div id="buses" class="row mt-2">
+
+
+
+                                             <table class="table table-sm table-hover">
+                                                <thead class="thread-dark">
+                                                  <tr>
+                                                    <th>hour</th>
+                                                    <th>bus every</th>
+                                                  </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                {% for (index,row) in stopreport.hourly_frequency.iterrows() %}
+                                                    <tr class='table'>
+                                                        <td>{{row.hour|hour_as_int}}</td>
+                                                        {% if row.frequency != row.frequency %}
+                                                            <td>- - -</td>
+                                                        {% else %}
+                                                            <td>{{row.frequency|int}} mins</td>
+                                                        {% endif %}
+                                                    </tr>
+                                                {% endfor %}
+
+                                                </tbody>
+                                              </table>
+
+
+                                </div>
+
+
+
+
+                            </div>
+
                         </div>
+                        <!--/.Card-->
+
+
                     </div>
+                    <!--Grid column-->
+
 
 
                 </div>
-            </section>
-
-
-
-            <hr id="arrivals" class="my-5">
-
-            <!--Section: Arrivals-->
-            <section id="one">
-
                 <!--Grid row-->
+
+
+                <hr id="bunching" class="my-5">
+
+
+                 <!--Grid row-->
+                <div class="row mb-4 wow fadeIn">
+
+                    <!--Grid column-->
+                    <div id="bunching" class="col-lg-12 col-md-12 mb-4">
+
+                        <h1 class="mb-4 mt-4">
+                            <strong>How Much Bunching Is Going On?</strong>
+                        </h1>
+
+                        <p class="head">
+                         <mark>Bunching</mark> occurs when a bus arrives at a stop within 3 minutes or less of the previous bus, and leads to more irregular service, with some buses overcrowded and others virtually empty. Bunching has many causes-some of which can't be controlled-but more can be done. Red arrival times indicate a bus that bunched too close to the one ahead.
+                        </p>
+
+                        <!--Card-->
+                        <div class="card">
+
+                            <!--Card image-->
+                            <!--
+                            <div class="view overlay">
+                                <div class="embed-responsive embed-responsive-16by9 rounded-top">
+                                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/cXTThxoywNQ" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                            -->
+
+                            <!--Card content-->
+                            <div class="card-body">
+                                <!--Title
+                                <h4 class="card-title">title something</h4>
+                                -->
+                                <!--Text-->
+                                <div id="buses" class="row mt-2">
+
+
+
+                                             <table class="table table-sm table-hover">
+                                                <thead>
+                                                  <tr>
+                                                    <th>time</th>
+                                                    <th>interval</th>
+                                                      <th>bus</th>
+                                                  </tr>
+                                                </thead>
+                                                <tbody>
+                                                {% for (index,row) in stopreport.arrivals_list_final_df.iterrows() %}
+                                                    {% if (row.delta > stopreport.bigbang) and (row.delta <= stopreport.bunching_interval) %}
+                                                        <tr class='table-danger'>
+                                                            <td>{{row.arrival_timestamp|strftime_period(period)}}</td>
+                                                            <td>{{row.delta|strftime_timedelta}}</td>
+                                                                                    <td>{{row.v}}</td>
+                                                        </tr>
+                                                    {% else %}
+                                                        <tr>
+                                                            <td>{{row.arrival_timestamp|strftime_period(period)}}</td>
+
+                                                            <td>{{row.delta|strftime_timedelta}}</td>
+                                                            <td>{{row.v}}</td>
+                                                        </tr>
+                                                    {% endif %}
+                                                {% endfor %}
+                                                </tbody>
+                                              </table>
+
+
+
+                                </div>
+
+
+
+
+                            </div>
+
+                        </div>
+                        <!--/.Card-->
+
+
+                    </div>
+                    <!--Grid column-->
+
+
+                 </div>
+                <!--Grid row-->
+{# bug missing a div? or have an extra? #}
+                                  <!--Grid row-->
                 <div class="row mb-4 wow fadeIn">
 
                     <h1 class="mb-4 mt-4">
@@ -421,186 +477,22 @@
                 <!--Grid row-->
 
 
+                                      <p class="text-left">  There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.</p>
+                                  </div>
 
-                <hr id="frequency" class="my-5">
-
-                <!--Grid row-->
-                <div class="row mb-4 wow fadeIn">
-
-
-                    <!--Grid column-->
-                    <div id="frequency" class="col-lg-12 col-md-12 mb-4">
-
-                         <h1 class="mb-4 mt-4">
-                            <strong>How Often Do Buses Come?</strong>
-                        </h1>
-
-                        <p class="head">
-                        <mark>Service Frequency</mark> is one important measure of how good bus service is at your corner.
-                        </p>
-                        <p>
-                            Below, see how often {{routereport.route}} buses serve {{stopreport.stop_name|title}}. This average is calculated over the following period: <strong>{{period}}</strong>.
-
-                        </p>
-
-                        <!--Card-->
-                        <div class="card">
-
-                            <!--Card image-->
-                            <!--
-                            <div class="view overlay">
-                                <div class="embed-responsive embed-responsive-16by9 rounded-top">
-                                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/cXTThxoywNQ" allowfullscreen></iframe>
-                                </div>
-                            </div>
-                            -->
-
-                            <!--Card content-->
-                            <div class="card-body">
-                                <!--Title-->
-                                <h4 class="card-title">some title here - stop?</h4>
-
-                                <!--Text-->
-                                <div id="buses" class="row mt-2">
-
-
-
-                                             <table class="table table-sm table-hover">
-                                                <thead class="thread-dark">
-                                                  <tr>
-                                                    <th>hour</th>
-                                                    <th>bus every</th>
-                                                  </tr>
-                                                </thead>
-                                                <tbody>
-
-                                                {% for (index,row) in stopreport.hourly_frequency.iterrows() %}
-                                                    <tr class='table'>
-                                                        <td>{{row.hour|hour_as_int}}</td>
-                                                        {% if row.frequency != row.frequency %}
-                                                            <td>- - -</td>
-                                                        {% else %}
-                                                            <td>{{row.frequency|int}} mins</td>
-                                                        {% endif %}
-                                                    </tr>
-                                                {% endfor %}
-
-                                                </tbody>
-                                              </table>
-
-
+                                <div class="col-lg-4 col-md-12 mb-4">
+                                    <div id="map" class="container">
+                                    </div>
                                 </div>
 
-
-
-
-                            </div>
-
-                        </div>
-                        <!--/.Card-->
-
+                               </div>
+                         </div>
 
                     </div>
-                    <!--Grid column-->
-
-
-
                 </div>
-                <!--Grid row-->
-
-
-                <hr id="bunching" class="my-5">
-
-
-                 <!--Grid row-->
-                <div class="row mb-4 wow fadeIn">
-
-                    <!--Grid column-->
-                    <div id="bunching" class="col-lg-12 col-md-12 mb-4">
-
-                        <h1 class="mb-4 mt-4">
-                            <strong>How Much Bunching Is Going On?</strong>
-                        </h1>
-
-                        <p class="head">
-                         <mark>Bunching</mark> occurs when a bus arrives at a stop within 3 minutes or less of the previous bus, and leads to more irregular service, with some buses overcrowded and others virtually empty. Bunching has many causes-some of which can't be controlled-but more can be done. Red arrival times indicate a bus that bunched too close to the one ahead.
-                        </p>
-
-                        <!--Card-->
-                        <div class="card">
-
-                            <!--Card image-->
-                            <!--
-                            <div class="view overlay">
-                                <div class="embed-responsive embed-responsive-16by9 rounded-top">
-                                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/cXTThxoywNQ" allowfullscreen></iframe>
-                                </div>
-                            </div>
-                            -->
-
-                            <!--Card content-->
-                            <div class="card-body">
-                                <!--Title-->
-                                <h4 class="card-title">title something</h4>
-
-                                <!--Text-->
-                                <div id="buses" class="row mt-2">
-
-
-
-                                             <table class="table table-sm table-hover">
-                                                <thead>
-                                                  <tr>
-                                                    <th>time</th>
-                                                    <th>interval</th>
-                                                      <th>bus</th>
-                                                  </tr>
-                                                </thead>
-                                                <tbody>
-                                                {% for (index,row) in stopreport.arrivals_list_final_df.iterrows() %}
-                                                    {% if (row.delta > stopreport.bigbang) and (row.delta <= stopreport.bunching_interval) %}
-                                                        <tr class='table-danger'>
-                                                            <td>{{row.arrival_timestamp|strftime_period(period)}}</td>
-                                                            <td>{{row.delta|strftime_timedelta}}</td>
-                                                                                    <td>{{row.v}}</td>
-                                                        </tr>
-                                                    {% else %}
-                                                        <tr>
-                                                            <td>{{row.arrival_timestamp|strftime_period(period)}}</td>
-
-                                                            <td>{{row.delta|strftime_timedelta}}</td>
-                                                            <td>{{row.v}}</td>
-                                                        </tr>
-                                                    {% endif %}
-                                                {% endfor %}
-                                                </tbody>
-                                              </table>
-
-
-
-                                </div>
-
-
-
-
-                            </div>
-
-                        </div>
-                        <!--/.Card-->
-
-
-                    </div>
-                    <!--Grid column-->
-
-
-                 </div>
-                <!--Grid row-->
-
-
-
 
             </section>
-            <!--Section: Arrivals-->
+
 
 
         </div>

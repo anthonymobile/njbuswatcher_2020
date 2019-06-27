@@ -304,7 +304,7 @@ from buswatcher.lib.CommonTools import timeit
 #
 #         return
 
-@timeit
+#@timeit
 def main_loop(system_map):
 
     if args.statewide is False:
@@ -343,7 +343,7 @@ if __name__ == "__main__":
 
     while True:
         scan = main_loop(system_map)
-        print('***sleeping***')
+        # print('***sleeping***')
         time.sleep(run_frequency - ((time.monotonic() - time_start) % 60.0))  # sleep remainder of the 60 second loop
 
 
