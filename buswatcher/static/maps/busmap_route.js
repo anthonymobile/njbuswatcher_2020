@@ -54,7 +54,7 @@ map.on('load', function() {
             "paint": {
                 "line-color": "blue",
                 "line-opacity": 0.75,
-                "line-width": 3
+                "line-width": 2
             }
         });
     });

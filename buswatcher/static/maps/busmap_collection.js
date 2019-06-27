@@ -41,7 +41,7 @@ map.on('load', function() {
     });
 
 
-        $.getJSON(url_waypoints, (geojson) => {
+    $.getJSON(url_waypoints, (geojson) => {
         map.addSource('waypoints_source', {
             type: 'geojson',
             data: geojson
@@ -55,7 +55,7 @@ map.on('load', function() {
             "paint": {
                 "line-color": "blue",
                 "line-opacity": 0.75,
-                "line-width": 3
+                "line-width": 2
             }
         });
     });

@@ -7,89 +7,109 @@ var map = new mapboxgl.Map({
 });
 
 // new endpoints
-//var url_stops =  ("/api/v1/maps/stops?rt="+passed_route+"&stop_id="+passed_stop_id  );
 var url_waypoints = ("/api/v1/maps/waypoints?rt="+passed_route);
 var url_vehicles = ("/api/v1/maps/vehicles?rt="+passed_route);
 var url_stops = ("/api/v1/maps/stops?rt="+passed_route+"&stop_id="+passed_stop_id);
 
 
-// old endpoints
-// var url_stops =  ("/api/v1/maps?layer=stops&rt="+passed_route+"&stop_id="+passed_stop_id);
-// var url_waypoints = ("/api/v1/maps?layer=waypoints&rt="+passed_route);
-// var url_vehicles = ("/api/v1/maps?layer=vehicles&rt="+passed_route);
 
 map.on('load', function() {
 
 
-/*
-    $.getJSON(url_vehicles, (geojson) => {
-        map.addSource('vehicles_source', {
-            type: 'geojson',
-            data: geojson
+    map.loadImage('/static/maps/stop-icon.png', function(error, image) {
+        if (error) throw error;
+        map.addImage('stop', image);
+
+
+        $.getJSON(url_vehicles, (geojson) => {
+            map.addSource('vehicles_source', {
+                type: 'geojson',
+                data: geojson
+            });
+            map.fitBounds(turf.bbox(geojson), {padding: 20});
+
+            map.addLayer({
+                "id": "vehicles",
+                "type": "circle",
+                "source": "vehicles_source",
+                "paint": {
+                    "circle-radius": 4,
+                    "circle-opacity": 1,
+                    "circle-stroke-width": 3,
+                    "circle-stroke-color": "#f6c"
+                }
+            });
+
         });
-        /!* map.fitBounds(turf.bbox(geojson), {padding: 20}); *!/
 
-        map.addLayer({
-            "id": "vehicles",
-            "type": "circle",
-            "source": "vehicles_source",
-            "paint": {
-                "circle-radius": 4,
-                "circle-opacity": 1,
-                "circle-stroke-width": 3,
-                "circle-stroke-color": "#f6c"
-            }
-         })
-        ;
+        $.getJSON(url_waypoints, (geojson) => {
+            map.addSource('waypoints_source', {
+                type: 'geojson',
+                data: geojson
+            });
+            map.fitBounds(turf.bbox(geojson), {padding: 50});
 
-    });
-*/
-
-    $.getJSON(url_stops, (geojson) => {
-        map.addSource('stops_source', {
-            type: 'geojson',
-            data: geojson
+            map.addLayer({
+                "id": "route",
+                "type": "line",
+                "source": "waypoints_source",
+                "paint": {
+                    "line-color": "blue",
+                    "line-opacity": 0.75,
+                    "line-width": 2
+                }
+            });
         });
-        // map.fitBounds(turf.bbox(geojson), {padding: 20});
 
-        map.addLayer({
-            "id": "route",
-            "type": "circle",
-            "source": "stops_source",
-            "paint": {
-                "circle-radius": 2,
-                "circle-opacity": 1,
-                "circle-stroke-width": 2,
-                "circle-stroke-color": "#fff"
-            }
+        $.getJSON(url_stops, (geojson) => {
+            map.addSource('stops_source', {
+                type: 'geojson',
+                data: geojson
+            });
+            // map.fitBounds(turf.bbox(geojson), {padding: 50});
+
+            map.addLayer({
+                "id": "stops",
+                "type": "icon",
+                "source": "stops_source",
+                "layout": {
+                    "icon-image": "stop", // todo fix display of single stop icon
+                    "icon-size": 0.25
+                }
+            });
         });
-    });
+    })
+
+    // this version works
+    //     $.getJSON(url_stops, (geojson) => {
+    //     map.addSource('stops_source', {
+    //         type: 'geojson',
+    //         data: geojson
+    //     });
+    //     // map.fitBounds(turf.bbox(geojson), {padding: 50});
+    //
+    //     map.addLayer({
+    //         "id": "stops",
+    //         "type": "circle",
+    //         "source": "stops_source",
+    //         "paint": {
+    //             "circle-radius": 8,
+    //             "circle-opacity": 1,
+    //             "circle-stroke-width": 2,
+    //             "circle-stroke-color": "#fff"
+    //         }
+    //     });
+    // });
 
 
-    $.getJSON(url_waypoints, (geojson) => {
-        map.addSource('waypoints_source', {
-            type: 'geojson',
-            data: geojson
-        });
-        map.fitBounds(turf.bbox(geojson), {padding: 50});
 
-        map.addLayer({
-            "id": "route",
-            "type": "line",
-            "source": "waypoints_source",
-            "paint": {
-                "line-color": "blue",
-                "line-opacity": 0.75,
-                "line-width": 3
-            }
-        });
-    });
 
 
     window.setInterval(function() {
         map.getSource('vehicles_source').setData(url_vehicles);
         }, 5000)
 
+/*
 
     // HOVER TOOLTIPS
     var popup = new mapboxgl.Popup({
@@ -122,6 +142,7 @@ map.on('load', function() {
         map.getCanvas().style.cursor = '';
         popup.remove();
     });
+*/
 
 
 
