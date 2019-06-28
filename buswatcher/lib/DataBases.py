@@ -1,7 +1,8 @@
-import datetime
+import datetime, time
 from sqlalchemy import create_engine, ForeignKeyConstraint, Index, Date, Column, Integer, DateTime, Float, String, Text, Boolean, ForeignKey, JSON
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.exc import OperationalError
 
 from lib import BusAPI, DBconfig
 
@@ -27,7 +28,16 @@ class SQLAlchemyDBConnection(object):
         Session = sessionmaker()
 
         self.session = Session(bind=engine)
-        Base.metadata.create_all(bind=engine)
+
+        while True:
+            try:
+                Base.metadata.create_all(bind=engine)
+            except OperationalError:
+                print ('Cant connect to db, waiting 5s then retrying...')
+                time.sleep(5)
+                continue
+            break
+
         return self
 
     def __relax__(self):
