@@ -4,9 +4,9 @@ import numpy as np
 
 from pymysql import IntegrityError
 
-from DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
-import BusAPI, Localizer
-from RouteConfig import load_system_map
+from lib. DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
+from lib import BusAPI, Localizer
+from lib.RouteConfig import load_system_map
 
 
 class RouteScan:

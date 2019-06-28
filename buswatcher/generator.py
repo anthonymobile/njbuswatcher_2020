@@ -10,10 +10,10 @@
 #
 import argparse, time
 
-import Generators
-from DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
-from RouteConfig import load_system_map
-from CommonTools import timeit
+from lib import Generators
+from lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
+from lib.RouteConfig import load_system_map
+from lib.CommonTools import timeit
 
 
 @timeit # only need to isolate this in a function so we can timeit

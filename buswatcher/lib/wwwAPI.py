@@ -1,16 +1,10 @@
 import datetime
 import pandas as pd
-
-
 from sqlalchemy import func, text
 
-import datetime_periods
-
-import buswatcher.lib.BusAPI as BusAPI
-import buswatcher.lib.Generators as Generators
-from buswatcher.lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
-
-from buswatcher.lib.CommonTools import timeit
+from lib import BusAPI, Generators
+from lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
+from lib.CommonTools import timeit
 
 
 class GenericReport: # all Report classes inherit query_factory
