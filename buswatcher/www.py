@@ -1,4 +1,3 @@
-# todo 1 update docker-compose.yml to put my code in a volume -- for testing volume
 # todo 2 push to heroku https://devcenter.heroku.com/articles/local-development-with-docker-compose
 # todo 3 merge statewide branch back into new_localizer
 
@@ -165,10 +164,10 @@ def genStopReport(collection_url, route, stop, period):
     return render_template('stop.jinja2',collection_url=collection_url, collection_descriptions=collection_descriptions, period_descriptions=period_descriptions, stop=stop, period=period, stopreport=stop_report, reportcard_routes=route_descriptions, predictions=predictions, routereport=route_report)
 
 #-------------------------------------------------------------FAQ
-@app.route('/faq')
+@app.route('/about')
 def displayFAQ():
     routereport = Dummy() #  setup a dummy routereport for the navbar
-    return render_template('faq.jinja2', route_definitions=route_descriptions, routereport=routereport)
+    return render_template('about.jinja2', route_definitions=route_descriptions, routereport=routereport)
 
 #-------------------------------------------------------------API docs
 @app.route('/api')
@@ -233,7 +232,7 @@ def api_stops():
 @app.errorhandler(404)
 def page_not_found(e):
     routereport = Dummy() # setup a dummy routereport for the navbar
-    return render_template('error_API_down.html', route_report=routereport), 404
+    return render_template('404.jinja2', route_report=routereport), 404
 
 
 ################################################
