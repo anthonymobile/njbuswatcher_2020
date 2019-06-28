@@ -15,14 +15,15 @@ class TransitSystem:
 
         # read the /config files -- grades, route metadata and overrides, collection metadata
         try:
-            with open('config/grade_descriptions.json') as f:
+            with open(self.get_abs_path()+ 'config/grade_descriptions.json') as f:
                 self.grade_descriptions = json.load(f)
-            with open('config/route_descriptions.json') as f:
+            with open(self.get_abs_path()+ 'config/route_descriptions.json') as f:
                 self.route_descriptions = json.load(f)
-            with open('config/collection_descriptions.json') as f:
+            with open(self.get_abs_path()+ 'config/collection_descriptions.json') as f:
                 self.collection_descriptions = json.load(f)
-            with open('config/period_descriptions.json') as f:
+            with open(self.get_abs_path()+ 'config/period_descriptions.json') as f:
                 self.period_descriptions = json.load(f)
+            print ('<BUSWATCHER>All config files loaded')
         except:
             import sys
             sys.exit("<BUSWATCHER>One or more of the config files isn't loading properly")
@@ -30,6 +31,13 @@ class TransitSystem:
         # load the route geometries
         self.route_geometries = self.get_route_geometries()
         self.routelist = self.get_routelist()
+
+    def get_abs_path(self):
+        if os.getcwd() == "/": # docker
+            prefix = "buswatcher/buswatcher/"
+        elif "Users" in os.getcwd():
+            prefix = ""
+        return prefix
 
     def get_route_geometries(self):
         route_geometries={}
@@ -49,22 +57,22 @@ class TransitSystem:
     def get_single_route_xml(self,route):
 
         try:# load locally
-            infile = ('config/route_geometry/' + route +'.xml')
+            infile = (self.get_abs_path()+'config/route_geometry/' + route +'.xml')
             with open(infile,'rb') as f:
                 data = f.read()
                 return data
         except: #  if missing download and load
             route_xml = BusAPI.get_xml_data('nj', 'routes', route=route)
-            outfile = ('config/route_geometry/' + route + '.xml')
+            outfile = (self.get_abs_path()+'config/route_geometry/' + route + '.xml')
             with open(outfile, 'wb') as f:  # overwrite existing file
                 f.write(route_xml)
-            infile = ('config/route_geometry/' + route + '.xml')
+            infile = (self.get_abs_path()+'config/route_geometry/' + route + '.xml')
             with open(infile, 'rb') as f:
                 return f.read()
 
     def get_single_route_Paths(self, route):
         try:
-            infile = ('config/route_geometry/' + route + '.xml')
+            infile = (self.get_abs_path()+'config/route_geometry/' + route + '.xml')
             with open(infile, 'rb') as f:
                 return BusAPI.parse_xml_getRoutePoints(f.read())
         except:
