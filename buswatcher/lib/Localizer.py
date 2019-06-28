@@ -11,7 +11,7 @@ import geopandas
 from scipy.spatial import cKDTree
 from shapely.geometry import Point
 
-from . import DataBases, BusAPI, RouteConfig, CommonTools
+import DataBases
 
 
 def turn_row_into_BusPosition(row):

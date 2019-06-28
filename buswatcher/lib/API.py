@@ -3,9 +3,9 @@ import json
 import geojson
 import pandas as pd
 
-import buswatcher.lib.BusAPI as BusAPI
-from buswatcher.lib.CommonTools import timeit
-from buswatcher.lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
+import BusAPI as BusAPI
+from CommonTools import timeit
+from DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
 from sqlalchemy import func, text
 
 

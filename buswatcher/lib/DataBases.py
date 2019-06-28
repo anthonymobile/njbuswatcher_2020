@@ -3,8 +3,8 @@ from sqlalchemy import create_engine, ForeignKeyConstraint, Index, Date, Column,
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-from . import BusAPI
-from . import DBconfig
+import BusAPI
+import DBconfig
 
 #####################################################
 # sqlalchemy Base metaclass

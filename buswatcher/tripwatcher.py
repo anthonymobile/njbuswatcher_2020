@@ -7,10 +7,10 @@
 import argparse
 import time
 
-from buswatcher.lib.RouteScan import RouteScan
+import RouteScan
 
-from buswatcher.lib.RouteConfig import load_system_map, flush_system_map,maintenance_check
-from buswatcher.lib.CommonTools import timeit
+from RouteConfig import load_system_map, flush_system_map,maintenance_check
+from CommonTools import timeit
 
 @timeit
 def main_loop(system_map):
