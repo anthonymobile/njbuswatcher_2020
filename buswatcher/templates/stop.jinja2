@@ -41,7 +41,7 @@
             <ul class="navbar-nav ml-auto">
                   {% for p,v in period_descriptions.items() %}
 
-                <li class="breadcrumb-item "><a href = {{url_for('genStopReport',collection_url=collection_url,route=routereport.route,stop=stopreport.stop,period=v['name'])}}>{{ v['label'] }}</a></li>
+                <li class="breadcrumb-item "><a href = {{url_for('genStopReport',collection_url=collection_url,route=routereport.route,stop=stopreport.stop_id,period=v['name'])}}>{{ v['label'] }}</a></li>
                 {%  endfor %}
             </ul>
         </div>
@@ -255,7 +255,7 @@
                         <mark>Service Frequency</mark> is one important measure of how good bus service is at your corner.
                         </p>
                         <p>
-                            Below, we calculate, on average how often {{routereport.route}} buses serve {{stopreport.stop_name|title}} at any given time of day. This average is calculated over the following period: <strong>{{period}}</strong>.
+                            The table below shows how often {{routereport.route}} buses arrived at {{stopreport.stop_name|title}} throughout the day, averaged over the <strong>{{period_descriptions[period].descriptive_label}}</strong>.
 
                         </p>
 

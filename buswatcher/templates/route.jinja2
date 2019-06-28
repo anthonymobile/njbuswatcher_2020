@@ -67,7 +67,7 @@
              </ul>
             <ul class="navbar-nav ml-auto">
                   {% for p,v in period_descriptions.items() %}
-<li class="breadcrumb-item "><a href = {{url_for('genRouteReport',collection_url=collection_descriptions.collection_url,route=routereport.route,period=v['name'])}}>{{  v['label'] }}</a></li> {#  bug why are the rest of the periods creating 404s? #}
+<li class="breadcrumb-item "><a href = {{url_for('genRouteReport',collection_url=collection_descriptions.collection_url,route=routereport.route,period=v['name'])}}>{{  v['label'] }}</a></li>
 
 
                 {%  endfor %}
@@ -143,6 +143,8 @@
                                 </div>
 
 
+
+                {# todo 1 insert bunching_badboys display here #}
 
                 <div class="row mb-4 wow fadeIn">
 
