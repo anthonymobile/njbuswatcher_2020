@@ -126,7 +126,6 @@ class RouteScan:
 
 
                             try:
-                                # sys.stdout.write("localizing route "+ r + ' ')
                                 buses_for_this_route=[b for b in self.buses if b.rt==r]
                                 bus_positions = Localizer.get_nearest_stop(system_map, buses_for_this_route, r)
 
