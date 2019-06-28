@@ -1,0 +1,72 @@
+# from https://github.com/testdrivenio/django-on-docker
+# mysql from https://medium.com/@chrischuck35/how-to-create-a-mysql-instance-with-docker-compose-1598f3cc1bee
+# install with: docker-compose up -d --build
+
+version: '3.3'
+
+services:  
+  db:
+    image: mysql:5.7
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 'root'
+      MYSQL_DATABASE: 'buses'
+      MYSQL_USER: 'buswatcher'
+      MYSQL_PASSWORD: 'njtransit'
+      TZ: 'America/New_York'
+    ports:
+      - 3306:3306
+    expose:
+      - 3306
+    volumes:
+      - database_volume:/var/lib/mysql
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+  tripwatcher:
+    build:
+      context: ./
+      dockerfile: ./tripwatcher/docker/Dockerfile.conda
+    restart: always
+    depends_on:
+      - db
+  flask_gunicorn:
+    build:
+      context: ./
+      dockerfile: buswatcher/docker/Dockerfile.conda
+    command: /opt/conda/envs/buswatcher/bin/gunicorn buswatcher:app -w 4 -b 0.0.0.0:8000
+    restart: always
+    volumes:
+      - ./buswatcher/:/buswatcher/
+      - static_volume:/buswatcher/static
+    expose:
+      - 8000
+    environment:
+      - SQL_DB=buses
+      - SQL_USER=buswatcher
+      - SQL_PASSWORD=njtransit
+      - SQL_HOST=db
+      - SQL_PORT=5432
+    depends_on:
+      - db
+  nginx:
+    build:
+      context: ./
+      dockerfile: ./nginx/docker/Dockerfile
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - flask_gunicorn
+#  dns_updater:
+#    restart: always
+#    build:
+#      context: ./
+#      dockerfile: ./dns_updater/docker/Dockerfile
+volumes:
+  database_volume:
+  static_volume:
