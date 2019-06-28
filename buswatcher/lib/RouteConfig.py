@@ -37,6 +37,7 @@ class TransitSystem:
             prefix = "buswatcher/buswatcher/"
         elif "Users" in os.getcwd():
             prefix = ""
+        # todo add a condition for linux
         return prefix
 
     def get_route_geometries(self):
@@ -198,7 +199,12 @@ def flush_system_map():
 
 def load_system_map():
 
-    system_map_pickle_file = Path("config/system_map.pickle")
+    if os.getcwd() == "/":  # docker
+        prefix = "buswatcher/buswatcher/"
+    elif "Users" in os.getcwd(): # osx
+        prefix = ""
+    # todo add a condition for linux
+    system_map_pickle_file = Path(prefix+"config/system_map.pickle")
     try:
         my_abs_path = system_map_pickle_file.resolve(strict=True)
     except FileNotFoundError:
@@ -212,29 +218,6 @@ def load_system_map():
     return system_map
 
 
-
-# def get_route_xml(r): # create a system_map and then pulls a single route from it
-#     try:
-#         # load the system_map
-#         system_map = load_system_map()
-#         # fetch the right system_map['route_geomtries']['xml']
-#         return [x['xml'] for x in system_map.route_geometries if x['route'] == r]
-#
-#         # infile = ('config/route_geometry/' + r +'.xml')
-#         # with open(infile,'rb') as f:
-#         #     return f.read()
-#
-#     except: # if its not in the system_map, fetch the XML and return that instead
-#
-#         route_xml = BusAPI.get_xml_data('nj', 'routes', route=r)
-#
-#         outfile = ('config/route_geometry/' + r +'.xml')
-#         with open(outfile,'wb') as f: # overwrite existing fille
-#             f.write(route_xml)
-#
-#         infile = ('config/route_geometry/' + r + '.xml')
-#         with open(infile, 'rb') as f:
-#             return f.read()
 
 ##################################################################
 # MISC FUNCTIONS
