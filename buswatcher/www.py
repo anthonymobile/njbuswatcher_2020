@@ -26,15 +26,15 @@ from flask_bootstrap import Bootstrap
 from flask import jsonify
 from flask_cors import CORS, cross_origin
 
-import API
-import BusAPI
-import wwwAPI
+from lib import API
+from lib import BusAPI
+from lib import wwwAPI
 
 
 ################################################
 # ROUTE + APP CONFIG
 ################################################
-from RouteConfig import load_system_map
+from lib.RouteConfig import load_system_map
 
 ################################################
 # APP

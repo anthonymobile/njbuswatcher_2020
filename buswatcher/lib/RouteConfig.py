@@ -6,8 +6,8 @@ import geojson
 import pickle
 import os, errno
 
-import BusAPI, DataBases
-from wwwAPI import RouteReport
+from lib import BusAPI, DataBases
+from lib.wwwAPI import RouteReport
 
 class TransitSystem:
 
@@ -15,15 +15,17 @@ class TransitSystem:
 
         # read the /config files -- grades, route metadata and overrides, collection metadata
         try:
-            with open('config/grade_descriptions.json') as f:
+            with open('buswatcher/config/grade_descriptions.json') as f:
                 self.grade_descriptions = json.load(f)
-            with open('config/route_descriptions.json') as f:
+            with open('buswatcher/config/route_descriptions.json') as f:
                 self.route_descriptions = json.load(f)
-            with open('config/collection_descriptions.json') as f:
+            with open('buswatcher/config/collection_descriptions.json') as f:
                 self.collection_descriptions = json.load(f)
-            with open('config/period_descriptions.json') as f:
+            with open('buswatcher/config/period_descriptions.json') as f:
                 self.period_descriptions = json.load(f)
         except:
+            import sys
+            sys.exit("broken")
             print("One or more of the config files isn't loading properly")
 
         # load the route geometries
@@ -32,12 +34,12 @@ class TransitSystem:
 
     def get_route_geometries(self):
         route_geometries={}
-        for routedata in self.route_descriptions['routedata']:
-            route_geometries[routedata['route']]={
-                'route':routedata['route'],
-                'xml':self.get_single_route_xml(routedata['route']),
-                'paths': self.get_single_route_Paths(routedata['route'])[0],
-                'coordinate_bundle': self.get_single_route_Paths(routedata['route'])[1]
+        for rd in self.route_descriptions['routedata']:
+            route_geometries[rd['route']]={
+                'route':rd['route'],
+                'xml':self.get_single_route_xml(rd['route']),
+                'paths': self.get_single_route_Paths(rd['route'])[0],
+                'coordinate_bundle': self.get_single_route_Paths(rd['route'])[1]
             }
         return route_geometries
 
@@ -48,21 +50,22 @@ class TransitSystem:
     def get_single_route_xml(self,route):
 
         try:# load locally
-            infile = ('config/route_geometry/' + route +'.xml')
+            infile = ('buswatcher/config/route_geometry/' + route +'.xml')
             with open(infile,'rb') as f:
-                return f.read()
+                data = f.read()
+                return data
         except: #  if missing download and load
             route_xml = BusAPI.get_xml_data('nj', 'routes', route=route)
-            outfile = ('config/route_geometry/' + route + '.xml')
+            outfile = ('buswatcher/config/route_geometry/' + route + '.xml')
             with open(outfile, 'wb') as f:  # overwrite existing file
                 f.write(route_xml)
-            infile = ('config/route_geometry/' + route + '.xml')
+            infile = ('buswatcher/config/route_geometry/' + route + '.xml')
             with open(infile, 'rb') as f:
                 return f.read()
 
     def get_single_route_Paths(self, route):
         try:
-            infile = ('config/route_geometry/' + route + '.xml')
+            infile = ('buswatcher/config/route_geometry/' + route + '.xml')
             with open(infile, 'rb') as f:
                 return BusAPI.parse_xml_getRoutePoints(f.read())
         except:
@@ -188,7 +191,7 @@ def flush_system_map():
 
 def load_system_map():
 
-    system_map_pickle_file = Path("config/system_map.pickle")
+    system_map_pickle_file = Path("buswatcher/config/system_map.pickle")
     try:
         my_abs_path = system_map_pickle_file.resolve(strict=True)
     except FileNotFoundError:
