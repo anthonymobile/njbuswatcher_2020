@@ -25,8 +25,7 @@ class TransitSystem:
                 self.period_descriptions = json.load(f)
         except:
             import sys
-            sys.exit("broken")
-            print("One or more of the config files isn't loading properly")
+            sys.exit("<BUSWATCHER>One or more of the config files isn't loading properly")
 
         # load the route geometries
         self.route_geometries = self.get_route_geometries()

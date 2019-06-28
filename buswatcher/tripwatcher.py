@@ -28,7 +28,8 @@ def main_loop(system_map):
 
 if __name__ == "__main__":
 
-
+    import os
+    print (os.getcwd())
     flush_system_map()
     system_map=load_system_map()
     # route_definitions, grade_descriptions, collection_descriptions = load_config()
