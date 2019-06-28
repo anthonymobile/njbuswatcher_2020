@@ -24,6 +24,6 @@ COPY ./buswatcher/docker/DBconfig.py ./buswatcher/buswatcher/lib/DBconfig.py
 # run entrypoint.sh
 # ENTRYPOINT ["/buswatcher/buswatcher/docker/entrypoint.sh"]
 
-WORKDIR /buswatcher/reportcard
+WORKDIR /buswatcher/buswatcher
 
 # CMD ["/opt/conda/envs/buswatcher/bin/gunicorn", "reportcard:app", "-w", "4", "-b", "0.0.0.0:8000"]

@@ -1,4 +1,6 @@
-# todo 2 merge statewide branch back into new_localizer
+# todo 1 update docker-compose.yml to put my code in a volume -- for testing volume
+# todo 2 push to heroku https://devcenter.heroku.com/articles/local-development-with-docker-compose
+# todo 3 merge statewide branch back into new_localizer
 
 # bus buswatcher v2.0
 # june 2019 - by anthony@bitsandatoms.net
@@ -24,15 +26,15 @@ from flask_bootstrap import Bootstrap
 from flask import jsonify
 from flask_cors import CORS, cross_origin
 
-import buswatcher.lib.API as API
-import buswatcher.lib.BusAPI as BusAPI
-import buswatcher.lib.wwwAPI as wwwAPI
+import API
+import BusAPI
+import wwwAPI
 
 
 ################################################
 # ROUTE + APP CONFIG
 ################################################
-from buswatcher.lib.RouteConfig import load_system_map
+from RouteConfig import load_system_map
 
 ################################################
 # APP

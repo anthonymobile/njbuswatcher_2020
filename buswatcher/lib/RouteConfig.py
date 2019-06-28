@@ -6,10 +6,8 @@ import geojson
 import pickle
 import os, errno
 
-import buswatcher.lib.BusAPI as BusAPI
-# from buswatcher.lib.DataBases import SQLAlchemyDBConnection
-import buswatcher.lib.DataBases as DataBases
-from buswatcher.lib.wwwAPI import RouteReport
+import BusAPI, DataBases
+from wwwAPI import RouteReport
 
 class TransitSystem:
 
@@ -42,7 +40,6 @@ class TransitSystem:
                 'coordinate_bundle': self.get_single_route_Paths(routedata['route'])[1]
             }
         return route_geometries
-
 
     def get_routelist(self):
         routelist = (list(set(r['route'] for r in self.route_descriptions['routedata'])))

@@ -6,7 +6,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN conda update -n base -c defaults conda
 
-# get environment from reportcard folder
+# get environment from buswatcher folder
 ADD ./buswatcher/docker/environment.yml /tmp/environment.yml
 RUN conda env create -f /tmp/environment.yml
 
@@ -22,5 +22,9 @@ COPY . ./buswatcher
 # copy the proper database config over for docker deployment (replaces the development version)
 COPY ./buswatcher/docker/DBconfig.py ./buswatcher/buswatcher/lib/DBconfig.py
 
-
+# todo old CMD approach, ENV PYTHONPATH doesn't work
 CMD ["/opt/conda/envs/buswatcher/bin/python", "/buswatcher/buswatcher/tripwatcher.py", "-s", "nj"]
+
+# # todo new CMD approach with PYTHONPATH
+# ENV PYTHONPATH="/buswatcher:${PYTHONPATH}"
+# CMD /opt/conda/envs/buswatcher/bin/python /buswatcher/buswatcher/tripwatcher.py -s nj

@@ -10,10 +10,10 @@
 #
 import argparse, time
 
-import buswatcher.lib.Generators as Generators
-from buswatcher.lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
-from buswatcher.lib.RouteConfig import load_system_map
-from buswatcher.lib.CommonTools import timeit
+import Generators
+from DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
+from RouteConfig import load_system_map
+from CommonTools import timeit
 
 
 @timeit # only need to isolate this in a function so we can timeit

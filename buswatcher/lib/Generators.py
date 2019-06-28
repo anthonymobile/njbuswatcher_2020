@@ -1,4 +1,4 @@
-from buswatcher.lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop, RouteReportCache
+from DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop, RouteReportCache
 from sqlalchemy import func, text
 
 import datetime
