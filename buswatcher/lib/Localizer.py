@@ -11,7 +11,7 @@ import geopandas
 from scipy.spatial import cKDTree
 from shapely.geometry import Point
 
-from lib import DataBases
+from . import DataBases
 
 
 def turn_row_into_BusPosition(row):
@@ -65,7 +65,7 @@ def ckdnearest(gdA, gdB, bcol): # seems to be getting hung on on bus 5800 for so
     # current crude method, 1 degree = 69 miles = 364,320 feet
     df = pd.DataFrame.from_dict({'distance': (dist.astype(float)*364320),bcol : gdB.loc[idx, bcol].values })
 
-    # future implement haversine for get_nearest_stop
+    # todo 1 implement haversine for get_nearest_stop
     # # new method based on https://gis.stackexchange.com/questions/279109/calculate-distance-between-a-coordinate-and-a-county-in-geopandas
     # from math import radians, cos, sin, asin, sqrt
     #

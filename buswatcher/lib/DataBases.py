@@ -4,7 +4,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.exc import OperationalError
 
-from lib import BusAPI, DBconfig
+from . import BusAPI, DBconfig
 
 #####################################################
 # sqlalchemy Base metaclass
@@ -185,16 +185,23 @@ class BusPosition(Base):
                                            [ScheduledStop.trip_id, ScheduledStop.stop_id]),
                                             {'extend_existing': True})
 
-
-class RouteReportCache(Base):
-
-    __tablename__ ='route_report_cache'
-
-    pkey = Column(Integer(), primary_key=True)
-    rt = Column(String(20))
-    bunching = Column(JSON)
-    headways = Column(JSON)
-    travel_time = Column(JSON)
-    timestamp = Column(DateTime())
-
-    # __table_args__ = (Index('rt'),{'extend_existing': True})
+#
+# class RouteReportCache(Base):
+#
+#     def __init__(self, uuid, rt, type, reportdata):
+#         self.uuid = uuid
+#         self.rt = rt
+#         self.created_timestamp = datetime.datetime.now()
+#         self.type = type # bunching,headways,traveltime,TK
+#         self.reportdata = reportdata # the json
+#
+#
+#     __tablename__ ='route_report_cache'
+#
+#     uuid = Column(Integer(), primary_key=True)
+#     rt = Column(String(20))
+#     created_timestamp = Column(DateTime())
+#     reportdata = Column(JSON)
+#
+#
+#     # __table_args__ = (Index('rt'),{'extend_existing': True})

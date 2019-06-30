@@ -6,8 +6,8 @@ import geojson
 import pickle
 import os, errno
 
-from lib import BusAPI, DataBases
-from lib.wwwAPI import RouteReport
+from . import BusAPI, DataBases
+from .wwwAPI import RouteReport
 
 class TransitSystem:
 
@@ -37,7 +37,8 @@ class TransitSystem:
             prefix = "buswatcher/buswatcher/"
         elif "Users" in os.getcwd():
             prefix = ""
-        # todo add a condition for linux
+        else:
+            prefix=""
         return prefix
 
     def get_route_geometries(self):
@@ -199,11 +200,14 @@ def flush_system_map():
 
 def load_system_map():
 
+    pwd = os.getcwd()
     if os.getcwd() == "/":  # docker
         prefix = "buswatcher/buswatcher/"
     elif "Users" in os.getcwd(): # osx
         prefix = ""
-    # todo add a condition for linux
+    else: # linux
+        prefix = ""
+
     system_map_pickle_file = Path(prefix+"config/system_map.pickle")
     try:
         my_abs_path = system_map_pickle_file.resolve(strict=True)
@@ -216,115 +220,4 @@ def load_system_map():
             system_map=pickle.load(f)
 
     return system_map
-
-
-
-##################################################################
-# MISC FUNCTIONS
-##################################################################
-
-
-def maintenance_check(system_map): #todo 4 move to Generators / generator.py
-
-    now=datetime.now()
-
-    try:
-        route_descriptions_last_updated = parser.parse(system_map.route_descriptions['last_updated'])
-    except:
-        route_descriptions_last_updated = parser.parse('2000-01-01 01:01:01')
-    route_descriptions_ttl = timedelta(seconds=int(system_map.route_descriptions['ttl']))
-
-    # if TTL expired, update route geometry local XMLs
-    if (now - route_descriptions_last_updated) > route_descriptions_ttl:
-        update_route_descriptions_file(system_map)
-        # fetch_update_route_geometry(system_map)
-
-
-
-    return
-
-def update_route_descriptions_file(system_map):
-
-    # add a try-except to catch JSON file errors here
-    # route_definitions, grade_descriptions, collection_descriptions = load_config()
-    # route_definitions = route_definitions['route_definitions'] # ignore the ttl, last_updated key:value pairs
-
-    print ('Updating route_descriptions.json')
-    # UPDATE ROUTES FROM API
-
-    # get list of active routes
-    buses = BusAPI.parse_xml_getBusesForRouteAll(BusAPI.get_xml_data('nj', 'all_buses'))
-    routes_active_tmp = [b.rt for b in buses]
-
-    # sort by freq (not needed, but useful) and remove dupes
-    routes_active_tmp_sorted_unique = sorted(set(routes_active_tmp), key=lambda ele: routes_active_tmp.count(ele))
-
-    # remove any bus not on a numeric route
-    routes_active = list()
-    for b in routes_active_tmp_sorted_unique:
-        try:
-            dummy = int(b)
-            routes_active.append(b)
-        except:
-            continue
-    routes_active.sort()
-
-    # fetch route metadata
-    api_response= list()
-    for r in routes_active:
-
-        try:
-            route_metadata = BusAPI.parse_xml_getRoutePoints(BusAPI.get_xml_data('nj','routes',route=r))
-            route_entry = {'route': route_metadata[0][0].identity,'nm': route_metadata[0][0].nm}
-            api_response.append(route_entry)
-        except:
-            pass
-
-    # merge API data into routes_definitions
-    for a in api_response: # iterate over routes fetched from API
-        for r in system_map.route_descriptions['routedata']:  # iterate over defined routes
-            if a['route'] == r['route']:  # match on route number
-                for k,v in a.items():  # then iterate over API response keys
-                    try:
-                        if r[k] != v:  # if the value from the API response is different
-                            r[k] = v.split(' ', 1)[1]  # update the defined routes value with the API response one, splitting the route number off the front
-                    except: # if the r[k] key is missing
-                        r[k] = v.split(' ', 1)[1]
-
-    # now go back and add any missing routes seen from API results to route_definitions
-    for a in api_response:
-        matched = False
-        for r in system_map.route_descriptions['routedata']:
-            if r['route'] == a['route']:
-                matched = True
-        if matched == False:
-            print ("no match for route "+a['route']+" in route_definitions")
-            update = {"route": a['route'], "nm": a['nm'].split(' ', 1)[1], "ttl": "1d","description_long": "", "description_short": "", "frequency": "low", "prettyname": "",
-                      "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"}
-            print ("<<Added route record>>"+json.dumps(update))
-            system_map.route_descriptions['routedata'].append(update) #add it to the route_definitions file so we dont scan it again until the TTL expires
-
-    # make one last scan of file --  if prettyname in file is blank, should copy nm from file to prettyname
-    for route in system_map.route_descriptions['routedata']:
-        if route['prettyname'] == "":
-            route['prettyname'] = route['nm']
-
-    # create data to dump with last_updated and ttl
-    outdata = dict()
-    now = datetime.now()
-    outdata['last_updated'] = now.strftime("%Y-%m-%d %H:%M:%S")
-    outdata['ttl'] = '86400'
-    outdata['routedata'] = system_map.route_descriptions['routedata']
-
-    # delete existing route_definition.json and dump new complete as a json
-    with open('config/route_descriptions.json','w') as f:
-        json.dump(outdata, f, indent=4)
-
-    return
-
-
-
-
-
-
 

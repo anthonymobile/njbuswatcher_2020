@@ -2,10 +2,9 @@ import datetime
 import pandas as pd
 from sqlalchemy import func, text
 
-from lib import BusAPI, Generators
-from lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
-from lib.CommonTools import timeit
-
+from . import BusAPI
+from .DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
+from .Generators import *
 
 class GenericReport: # all Report classes inherit query_factory
 
@@ -66,10 +65,11 @@ class RouteReport(GenericReport):
         self.active_bus_count = len(self.trip_list_trip_id_only)  # this is probably faster than fetching getBusesForRoute&rt=self.route from the NJT API
 
         # load Generators report
-        # self.bunching_report = Generators.fetch_bunching_report(self)
-        # self.headway_report = Generators.fetch_headway_report(self)
+        self.bunching_report = BunchingReport.fetch_report(self.route) # todo 0 this is the template for the others
+        self.grade,self.grade_description = GradeReport.fetch_report(self)
+        # self.headway_report = HeadwayReport.fetch_headway_report(self)
         # self.traveltime_report = Generators.fetch_traveltime_report(self)
-        # self.grade,self.grade_description = Generators.fetch_grade_report(self)
+
 
     def __get_current_trips(self):
         # get a list of trips current running the route
@@ -122,12 +122,12 @@ class RouteReport(GenericReport):
 
         return tripdash
 
+
 class StopReport(GenericReport):
 #################################################################################
 # STOP REPORT                                               STOP REPORT
 #################################################################################
 
-    @timeit
     def __init__(self, system_map, route, stop, period):
 
         # apply passed parameters to instance
@@ -166,7 +166,7 @@ class StopReport(GenericReport):
         with SQLAlchemyDBConnection() as db:
 
             # build query and load into df
-            query=db.session.query(Trip.rt, # base query
+            query=db.session.query(Trip.rt, # base query # todo 0 add a sort by arrival_timestamp descending here?
                                         Trip.v,
                                         Trip.pid,
                                         Trip.trip_id,
@@ -213,31 +213,24 @@ class StopReport(GenericReport):
     def filter_arrivals(self, arrivals_here):
             # Otherwise, cleanup the query results -- split by vehicle and calculate arrival intervals
 
+            # future speedup by using slice vs groupby
             # alex r says:
             # for group in df['col'].unique():
             #     slice = df[df['col'] == group]
             # # is like 10x faster than
             # df.groupby('col').apply( < stuffhere >)
 
-            final_approach_dfs = [g for i, g in arrivals_here.groupby(arrivals_here['v'].ne(arrivals_here['v'].shift()).cumsum())]  # split final approach history (sorted by timestamp) at each change in vehicle_id outputs a list of dfs per https://stackoverflow.com/questions/41144231/python-how-to-split-pandas-dataframe-into-subsets-based-on-the-value-in-the-fir
+            # split final approach history (sorted by timestamp) at each change in vehicle_id outputs a list of dfs
+            # per https://stackoverflow.com/questions/41144231/python-how-to-split-pandas-dataframe-into-subsets-based-on-the-value-in-the-fir
+            final_approach_dfs = [g for i, g in arrivals_here.groupby(arrivals_here['v'].ne(arrivals_here['v'].shift()).cumsum())]
             arrivals_list_final_df = pd.DataFrame()  # take the last V(ehicle) approach in each df and add it to final list of arrivals
             for final_approach in final_approach_dfs:  # iterate over every final approach
                 arrival_insert_df = final_approach.tail(1)  # take the last observation
                 arrivals_list_final_df = arrivals_list_final_df.append(arrival_insert_df)  # insert into df
 
-            # # make sure there are two rows so delta doesnt fail
-            # # any time i get a df with 0 or 1 row, add another dummy row
-            # if (len(arrivals_list_final_df) > 1) is False:
-            #     arrivals_list_final_df=arrivals_list_final_df({'rt': ['0'],
-            #          'v': ['0000'],
-            #          'pid': ['0'],
-            #          'trip_id': ['0000_000_00000000'],
-            #          'stop_name': ['N/A'],
-            #          'arrival_timestamp': datetime.time(0, 1)
-            #         })
-
-            try:
-                arrivals_list_final_df['delta'] = (arrivals_list_final_df['arrival_timestamp'] - arrivals_list_final_df['arrival_timestamp'].shift(1)).fillna(0)  # calc interval between last bus for each row, fill NaNs #
+            try: # bug getting -24 hour time errors here, need to resort by timestamp again? # todo 0 or sort by arrival_timestamp descending here?
+                # calc interval between last bus for each row, fill NaNs #
+                arrivals_list_final_df['delta'] = (arrivals_list_final_df['arrival_timestamp'] - arrivals_list_final_df['arrival_timestamp'].shift(1)).fillna(0)
             except:
                 arrivals_list_final_df['delta'] = float('nan')
 
@@ -250,7 +243,7 @@ class StopReport(GenericReport):
 
             return arrivals_list_final_df, stop_name, arrivals_table_time_created
 
-    def get_hourly_frequency(self):
+    def get_hourly_frequency(self):  # todo 00 get_hourly_frequency
         results = pd.DataFrame()
         self.arrivals_list_final_df['delta_int'] = self.arrivals_list_final_df['delta'].dt.seconds
 

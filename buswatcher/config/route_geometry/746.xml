@@ -1,0 +1,1385 @@
+<?xml version="1.0"?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<route>
+		<id>746</id> 
+		<rtpiFeedName></rtpiFeedName>
+		<sn>746</sn> 
+		<nm>746 Ridgewood - Paterson</nm> 
+		<displayDesignator>746</displayDesignator> 
+		<vmode>1</vmode>   
+		
+		<sbs>
+
+
+
+		</sbs>
+
+		<c>#00ffcc</c>
+
+		<pas>
+
+
+			<pa>
+				<id>1153</id>
+
+				<d>Paterson</d> 
+				<dd>Paterson</dd>  
+				<directionRtpiFeedName></directionRtpiFeedName>
+
+				<pt>
+					<lat>40.97881000000038</lat>
+			        <lon>-74.1184399999989</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>13371</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>VAN NESTE SQUARE BUS TERMINAL</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.978625</lat>
+			        <lon>-74.118477</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.978516</lat>
+			        <lon>-74.118273</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.978279</lat>
+			        <lon>-74.117281</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.97914</lat>
+			        <lon>-74.11704</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.97936</lat>
+			        <lon>-74.11692</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.97894</lat>
+			        <lon>-74.115</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.97873</lat>
+			        <lon>-74.11377</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.978646</lat>
+			        <lon>-74.113559</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.9785899999991</lat>
+			        <lon>-74.11342000000025</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>13335</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>EAST RIDGEWOOD AVE + SOUTH MAPLE AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.97826</lat>
+			        <lon>-74.11343</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.97299</lat>
+			        <lon>-74.116639</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.972899999999555</lat>
+			        <lon>-74.11669999999994</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>13370</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>SOUTH MAPLE AVE + PROSPECT ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.97238</lat>
+			        <lon>-74.11694</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.97201</lat>
+			        <lon>-74.11716</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.9703</lat>
+			        <lon>-74.11867</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.970182</lat>
+			        <lon>-74.11885</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.970069999999566</lat>
+			        <lon>-74.11902000000181</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>12057</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MAPLE AVE 212 N OF PARK AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.9698</lat>
+			        <lon>-74.11915</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.96736</lat>
+			        <lon>-74.1215</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.96644</lat>
+			        <lon>-74.12229</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.96631</lat>
+			        <lon>-74.122455</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.96622000000048</lat>
+			        <lon>-74.12256999999923</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>12058</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MAPLE AVE + ACKERMAN AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.96597</lat>
+			        <lon>-74.12274</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.96463</lat>
+			        <lon>-74.12399</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.96415</lat>
+			        <lon>-74.124535</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.96411999999889</lat>
+			        <lon>-74.1245700000003</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>12059</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MAPLE AVE + VAN ALLEN RD</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.96387</lat>
+			        <lon>-74.12473</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.96274</lat>
+			        <lon>-74.12576</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.962</lat>
+			        <lon>-74.12657</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.961174</lat>
+			        <lon>-74.127612</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.96105999999937</lat>
+			        <lon>-74.1277900000006</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>12060</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MAPLE AVE + HARDING PLAZA</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.96083</lat>
+			        <lon>-74.12799</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.958527</lat>
+			        <lon>-74.130924</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.95846000000104</lat>
+			        <lon>-74.13101999999996</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>12061</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MAPLE AVE + RODNEY ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.95744</lat>
+			        <lon>-74.13224</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.95657</lat>
+			        <lon>-74.13339</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.95625</lat>
+			        <lon>-74.13373</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.955226</lat>
+			        <lon>-74.134383</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.95512999999952</lat>
+			        <lon>-74.1344600000015</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>12062</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MAPLE AVE + SOMERSET CT</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.95487</lat>
+			        <lon>-74.13456</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.95236</lat>
+			        <lon>-74.13602</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.952212</lat>
+			        <lon>-74.136156</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.952110000001355</lat>
+			        <lon>-74.13625000000053</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>12063</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MAPLE AVE + HARRISTOWN RD</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.95183</lat>
+			        <lon>-74.13632</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.94982</lat>
+			        <lon>-74.13747</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.949559</lat>
+			        <lon>-74.137697</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.94944999999987</lat>
+			        <lon>-74.13781000000176</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>11694</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MAPLE AVE + ELM AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.94917</lat>
+			        <lon>-74.13787</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.94642</lat>
+			        <lon>-74.13951</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.946291</lat>
+			        <lon>-74.139676</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.9461799999993</lat>
+			        <lon>-74.13981999999841</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>11695</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MAPLE AVE + HEMLOCK AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.94588</lat>
+			        <lon>-74.13982</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.94563</lat>
+			        <lon>-74.13996</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.94442</lat>
+			        <lon>-74.1403</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.944256</lat>
+			        <lon>-74.140399</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.94408999999927</lat>
+			        <lon>-74.14050000000117</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>11696</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MAPLE AVE + HENDERSON BLVD</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.94381</lat>
+			        <lon>-74.14047</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.94296</lat>
+			        <lon>-74.140709</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.942809999998815</lat>
+			        <lon>-74.14078000000178</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>11697</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MAPLE AVE + FOREST ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.94253</lat>
+			        <lon>-74.14078</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.94199</lat>
+			        <lon>-74.14092</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.94174</lat>
+			        <lon>-74.14106</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.94155</lat>
+			        <lon>-74.14131</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.94115</lat>
+			        <lon>-74.14226</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.940973</lat>
+			        <lon>-74.142806</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.9409300000001</lat>
+			        <lon>-74.1429800000006</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>11698</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MAPLE AVE + WAGARAW RD</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.94075</lat>
+			        <lon>-74.14327</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.94037</lat>
+			        <lon>-74.14423</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.94023</lat>
+			        <lon>-74.14474</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.94022</lat>
+			        <lon>-74.14492</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.94036</lat>
+			        <lon>-74.145679</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.94040000000107</lat>
+			        <lon>-74.14586</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>27202</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>1ST AVE + EAST 22ND ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.94057</lat>
+			        <lon>-74.14691</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.93964</lat>
+			        <lon>-74.14722</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.939479</lat>
+			        <lon>-74.147327</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.9393699999991</lat>
+			        <lon>-74.14740000000177</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>27374</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MADISON AVE + 2ND AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.93909</lat>
+			        <lon>-74.14739</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.93748</lat>
+			        <lon>-74.14786</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.937324</lat>
+			        <lon>-74.147979</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.93722999999933</lat>
+			        <lon>-74.14804999999978</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>27375</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MADISON AVE + 3RD AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.93694</lat>
+			        <lon>-74.14803</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.935973</lat>
+			        <lon>-74.148368</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.93580000000057</lat>
+			        <lon>-74.14846000000078</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>27376</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MADISON AVE + 4TH AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.93552</lat>
+			        <lon>-74.14848</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.933893</lat>
+			        <lon>-74.149059</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.93373999999971</lat>
+			        <lon>-74.14913999999978</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>27377</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MADISON AVE + 5TH AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.93347</lat>
+			        <lon>-74.14915</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.932363</lat>
+			        <lon>-74.149509</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.93225000000085</lat>
+			        <lon>-74.14956999999869</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>27378</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MADISON AVE + 6TH AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.93197</lat>
+			        <lon>-74.14959</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.9309</lat>
+			        <lon>-74.14992</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.930604</lat>
+			        <lon>-74.150062</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.93049999999879</lat>
+			        <lon>-74.15011999999835</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>27379</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MADISON AVE + 7TH AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.93022</lat>
+			        <lon>-74.15014</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.92915</lat>
+			        <lon>-74.15046</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.928986</lat>
+			        <lon>-74.150558</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.92890000000049</lat>
+			        <lon>-74.15060999999963</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>27380</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MADISON AVE + 8TH AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.92862</lat>
+			        <lon>-74.15062</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.92729</lat>
+			        <lon>-74.15104</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.927125</lat>
+			        <lon>-74.151135</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.9269600000004</lat>
+			        <lon>-74.15122999999996</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>27381</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MADISON AVE + 9TH AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.92668</lat>
+			        <lon>-74.15123</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.92481</lat>
+			        <lon>-74.1518</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.924657</lat>
+			        <lon>-74.151926</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.92458000000008</lat>
+			        <lon>-74.1519900000013</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>27382</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MADISON AVE + 10TH AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.92429</lat>
+			        <lon>-74.15196</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.92282</lat>
+			        <lon>-74.15242</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.922491</lat>
+			        <lon>-74.152613</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.92248000000058</lat>
+			        <lon>-74.15261999999964</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>27383</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MADISON AVE + 11TH AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.9222</lat>
+			        <lon>-74.15262</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.921</lat>
+			        <lon>-74.15299</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.920663</lat>
+			        <lon>-74.153158</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.920640000000965</lat>
+			        <lon>-74.15316999999949</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>27384</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MADISON AVE + 12TH AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.92036</lat>
+			        <lon>-74.15319</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.91888</lat>
+			        <lon>-74.15363</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.918554</lat>
+			        <lon>-74.153831</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.918540000000256</lat>
+			        <lon>-74.15383999999933</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>27385</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MADISON AVE + BROADWAY</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.9184</lat>
+			        <lon>-74.15415</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.918442</lat>
+			        <lon>-74.155834</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.9184700000006</lat>
+			        <lon>-74.15604000000006</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>27263</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BROADWAY + EAST 18TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.91844</lat>
+			        <lon>-74.1564</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.91851</lat>
+			        <lon>-74.15875</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.918597</lat>
+			        <lon>-74.159578</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.91860000000075</lat>
+			        <lon>-74.15959999999897</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>27264</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BROADWAY + ROSA PARKS BLVD</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.91856</lat>
+			        <lon>-74.15997</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.9186</lat>
+			        <lon>-74.16142</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.918692</lat>
+			        <lon>-74.162246</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.918699999999525</lat>
+			        <lon>-74.1623000000007</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>27265</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BROADWAY + CARROLL ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.91865</lat>
+			        <lon>-74.16266</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.91869</lat>
+			        <lon>-74.16357</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.918754</lat>
+			        <lon>-74.164038</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.91875999999888</lat>
+			        <lon>-74.16408000000007</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>27266</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BROADWAY + SUMMER ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.91872</lat>
+			        <lon>-74.16444</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.918816</lat>
+			        <lon>-74.166113</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.91883999999972</lat>
+			        <lon>-74.16626999999833</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>27267</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BROADWAY + STRAIGHT ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.91881</lat>
+			        <lon>-74.16663</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.91885</lat>
+			        <lon>-74.16807</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.91878</lat>
+			        <lon>-74.16823</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.91866</lat>
+			        <lon>-74.16832</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.91743</lat>
+			        <lon>-74.16836</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.916809</lat>
+			        <lon>-74.168482</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.91678000000018</lat>
+			        <lon>-74.1684899999992</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>27420</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MEMORIAL DR + ELLISON ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.91651</lat>
+			        <lon>-74.16842</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.91582</lat>
+			        <lon>-74.16842</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.91575</lat>
+			        <lon>-74.16846</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.916699</lat>
+			        <lon>-74.17191</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.916749999999695</lat>
+			        <lon>-74.17206999999947</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>27408</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MARKET ST + CITY HALL</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.9163</lat>
+			        <lon>-74.17321</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.91639</lat>
+			        <lon>-74.17324</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.91817</lat>
+			        <lon>-74.17304</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.91821</lat>
+			        <lon>-74.17317</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.91826</lat>
+			        <lon>-74.17443</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.91833</lat>
+			        <lon>-74.17452</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.91847</lat>
+			        <lon>-74.17451</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.918632</lat>
+			        <lon>-74.174406</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.91877999999956</lat>
+			        <lon>-74.17430999999927</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>27270</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BROADWAY BUS TERMINAL</st> 
+					</bs>
+
+				</pt>
+
+			</pa>
+
+
+		</pas>
+	</route>

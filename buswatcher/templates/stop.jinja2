@@ -70,7 +70,7 @@
     <script type="text/javascript">
         var passed_reportcard_routes = {{ reportcard_routes|safe }}
         var passed_route = {{ routereport.route }}
-        var passed_stop_id  = {{ stopreport.stop|safe }}
+        var passed_stop_id  = {{ stopreport.stop_id|safe }}
     </script>
 
 
@@ -95,25 +95,26 @@
             <section  class="text-left">
 
                 <!--Grid row-->
-                <div class="row mb-4 wow fadeIn">
+                <div class="row mb-0 wow fadeIn">
                     <!--Grid column-->
-                    <div class="col-lg-12 col-md-12 mb-4">
+                    <div class="col-lg-12 col-md-12 mb-0">
                         <!--Card-->
                         <div class="card">
                             <div class="card-body">
-                                <div class="row mb-4 wow fadeIn">
-                                     <div class="col-lg-12 col-md-12 mb-4 text-left">
+                                <div class="row mb-0 wow fadeIn">
+                                     <div class="col-lg-12 col-md-12 mb-0 text-left">
                                         <!--Title-->
-                                        <h1 class="card-title">{{stopreport.stop_name|title}}</h1>
+
 
                                          <a href = {{ url_for('genRouteReport',collection_url=collection_url,route=routereport.route, period=period) }} id="{{routereport.route}}">
                                                            <h4 class="card-title">{{routereport.route}} {{routereport.prettyname}}</h4></strong>
                                                 </a>
+                                          <h1 class="card-title">{{stopreport.stop_name|title}}</h1>
                                     </div>
                                 </div>
-                                 <div class="row mb-4 wow fadeIn">
+                                 <div class="row mb-0 wow fadeIn">
 
-                                  <div class="col-lg-8 col-md-12 mb-4">
+                                  <div class="col-lg-8 col-md-12 mb-0">
 
 
                                       <!--  <h1 class="card-title">Title goes here.</h1>
@@ -201,8 +202,8 @@
 
                     </div>
                     <!--Grid column-->
-
-
+            {#  todo 0 fix the margin here. not sure what div goes inside above #}
+            {# todo 0 make this block conditional if there are other buses #}
               <!--Grid row-->
                 <div class="row mb-4 wow fadeIn">
                     <div id="frequency" class="col-lg-12 col-md-12 mb-4">
@@ -210,7 +211,7 @@
                             <strong>What Else Stops Here?</strong>
                         </h3>
                         <p class="head">
-                            The {{routereport.route}} stops at {{stopreport.stop_name|title}}. Other routes may stop here too. Here are the arrivals in the <mark>last hour</mark> for all routes serving this stop--and keep in mind, buses in the opposite direction are often operating at a different stop across the street. {#  todo verify the query is for last 60 minutes #}
+                            The {{routereport.route}} stops at {{stopreport.stop_name|title}}, but other routes stop here too. Here are the arrivals in the <mark>{{ period_descriptions[period]['descriptive_label']}}</mark> for all routes serving this stop--and keep in mind, buses in the opposite direction are often operating at a different stop across the street.
 
                         </p>
 
