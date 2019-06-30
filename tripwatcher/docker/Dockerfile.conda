@@ -1,5 +1,5 @@
-# todo 0 ERROR: Service 'tripwatcher' failed to build: The command '/bin/sh -c conda env create -f /tmp/environment.yml' returned a non-zero code: 1
-# https://medium.com/@chadlagore/conda-environments-with-docker-82cdc9d25754
+# generator
+
 FROM continuumio/miniconda3
 
 ENV TZ=America/New_York
@@ -25,6 +25,5 @@ COPY . ./buswatcher
 COPY ./buswatcher/docker/DBconfig.py ./buswatcher/buswatcher/lib/DBconfig.py
 
 # use one or the other
-# CMD ["/opt/conda/envs/buswatcher/bin/python", "/buswatcher/buswatcher/tripwatcher.py", "--statewide"]
-# todo 3 scale up tripwatcher testing to --statewide
-CMD ["/opt/conda/envs/buswatcher/bin/python", "/buswatcher/buswatcher/tripwatcher.py"]
+
+CMD ["/opt/conda/envs/buswatcher/bin/python", "/buswatcher/buswatcher/generator.py"]

@@ -7,10 +7,10 @@
 import argparse
 import time
 
-from lib.RouteScan import RouteScan
+from .lib.RouteScan import RouteScan
 
-from lib.RouteConfig import load_system_map, flush_system_map,maintenance_check
-from lib.CommonTools import timeit
+from .lib.RouteConfig import load_system_map, flush_system_map
+from .lib.CommonTools import timeit
 
 @timeit
 def main_loop(system_map):
@@ -35,8 +35,7 @@ if __name__ == "__main__":
     # route_definitions, grade_descriptions, collection_descriptions = load_config()
     # route_definitions = route_definitions['route_definitions'] # ignore the ttl, last_updated key:value pairs
 
-    # maintenance check
-    maintenance_check(system_map)
+
 
     parser = argparse.ArgumentParser()
     parser.add_argument('-s', '--statewide', dest='statewide', action='store_true', help='Watch all active routes in NJ. (requires lots of CPU).')

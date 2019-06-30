@@ -1,4 +1,4 @@
-{#  todo 3 write content for API page #}
+{#  todo 0 write content for API page #}
 
 {%- extends "static_page.jinja2" %}
 
@@ -19,15 +19,69 @@ API Overview
 {% endblock %}
 
 {% block section1_column1 %}
-Morbi ac mi eu enim tempus aliquam nec et mi. Etiam in odio quis nunc aliquet ultricies. Nullam tristique velit volutpat, laoreet ipsum quis, ultricies dui. Nunc mattis est nec leo sodales, et vestibulum lorem sodales lorem sodales. Morbi ac mi eu enim tempus aliquam nec et mi. Etiam in odio quis nunc aliquet ultricies. Nullam tristique velit volutpat, laoreet ipsum quis, ultricies dui. Nunc mattis est nec leo sodales, et vestibulum lorem sodales lorem sodales.
+The API is a work in progress, but we will try to keep it robust and exposing all of the internal data used in the web app.
+
+
+
+
+
+
+
 {% endblock %}
 
 {% block section1_column2 %}
-Morbi ac mi eu enim tempus aliquam nec et mi. Etiam in odio quis nunc aliquet ultricies. Nullam tristique velit volutpat, laoreet ipsum quis, ultricies dui. Nunc mattis est nec leo sodales, et vestibulum lorem sodales lorem sodales. Morbi ac mi eu enim tempus aliquam nec et mi. Etiam in odio quis nunc aliquet ultricies. Nullam tristique velit volutpat, laoreet ipsum quis, ultricies dui. Nunc mattis est nec leo sodales, et vestibulum lorem sodales lorem sodales.
+### endpoint: /api/v1/positions
+
+We have a simple API set up with one endpoint for the bus positions data -- this is currently not used by the web app but will be once the new Localizer is done.
+
+Usage with arguments
+```
+http://buswatcher.code4jc.org/api/v1/positions?rt=119&period=weekly
+```
+
+#### required arguments (one of following)
+`rt`            NJ transit route number (e.g. 119, or rt=all)
+`collection`    NJ transit route number (e.g. collection=camden)
+
+#### optional arguments
+
+`period`  How much data to grab ('daily'=today, 'yesterday', 'weekly'=week to date,'history'=all time(default)) -- n.b. soon we'll add ability to query on specific dates in 'yyyy-mm-dd' format
+
+`pd` Destination name (be careful will need an exact match)
+
+`fs` Headsign display text
+
+`dn` Compass direction of vehicle travel
+
+`bid` Vehicle (e.g. bus) id, useful if you want to track a particular journey
+
+`run` A specific scheduled trip (which ought to be but is not the GTFS trip_id which drives me bananas.) Actually better for tracking a journey, as you can compare between days and over periods even if the equipment changes.
+
+`op` Probably operator(driver) id number.
+
+`pid` Unknown purpose. But possibly a service identfier (e.g. direction or local/express or branch or some combination).
+
+`dip` Unknown purpose.
+
+`id` Unknown purpose.
+
+
+
+
+
+
 {% endblock %}
 
 {% block section1_column3 %}
-Morbi ac mi eu enim tempus aliquam nec et mi. Etiam in odio quis nunc aliquet ultricies. Nullam tristique velit volutpat, laoreet ipsum quis, ultricies dui. Nunc mattis est nec leo sodales, et vestibulum lorem sodales lorem sodales. Morbi ac mi eu enim tempus aliquam nec et mi. Etiam in odio quis nunc aliquet ultricies. Nullam tristique velit volutpat, laoreet ipsum quis, ultricies dui. Nunc mattis est nec leo sodales, et vestibulum lorem sodales lorem sodales.
+Some other data resources:
+
+    <ul>
+        <li>NJTransit API-Clever Devices API maintained by NJ Transit at http://mybusnow.njtransit.com/bustime/map/. For instance, here are all the buses on the #87, right now: [http://mybusnow.njtransit.com/bustime/map/getBusesForRoute.jsp?route=87](http://mybusnow.njtransit.com/bustime/map/getBusesForRoute.jsp?route=87)</li>
+        <li>[BusTurnaround:Scorecards - Transit Center](http://busturnaround.nyc/#bus-report-cards</li>
+        <li>[NYC Bus Profile (BusStat.nyc)](http://www.busstat.nyc/methodology)</li>
+        <li>[MBTA Back on Track](http://www.mbtabackontrack.com/performance/index.html#/detail/reliability/2018-12-01/Bus/Key%20Bus/1/)</li>
+    </ul>
+
 {% endblock %}
 
 {% block section2_title %}
@@ -39,11 +93,72 @@ Endpoints
 {% endblock %}
 
 {% block section2_column1 %}
-Morbi ac mi eu enim tempus aliquam nec et mi. Etiam in odio quis nunc aliquet ultricies. Nullam tristique velit volutpat, laoreet ipsum quis, ultricies dui. Nunc mattis est nec leo sodales, et vestibulum lorem sodales lorem sodales. Morbi ac mi eu enim tempus aliquam nec et mi. Etiam in odio quis nunc aliquet ultricies. Nullam tristique velit volutpat, laoreet ipsum quis, ultricies dui. Nunc mattis est nec leo sodales, et vestibulum lorem sodales lorem sodales.
+#### response format
+
+Reponses are geoJSON. Here's a typical record.
+```
+    {
+      "geometry": {
+        "coordinates": [
+          -74.138438,
+          40.647728
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "bid": "8272",
+        "dip": "72242",
+        "dn": "SW",
+        "fs": "119 JERSEY CITY VIA CENTRAL BAYOONNE VIA JFK BLVD",
+        "id": "6053",
+        "op": "1031",
+        "pd": "Bayonne",
+        "pid": "1860",
+        "run": "916",
+        "timestamp": "Thu, 04 Oct 2018 20:10:01 GMT"
+      },
+      "type": "Feature"
+    },
+
+```
+
 {% endblock %}
 
 {% block section2_column2 %}
-Morbi ac mi eu enim tempus aliquam nec et mi. Etiam in odio quis nunc aliquet ultricies. Nullam tristique velit volutpat, laoreet ipsum quis, ultricies dui. Nunc mattis est nec leo sodales, et vestibulum lorem sodales lorem sodales. Morbi ac mi eu enim tempus aliquam nec et mi. Etiam in odio quis nunc aliquet ultricies. Nullam tristique velit volutpat, laoreet ipsum quis, ultricies dui. Nunc mattis est nec leo sodales, et vestibulum lorem sodales lorem sodales.
+
+
+    ### endpoint: /api/v1/arrivals
+
+This endpoint exposes the predictions about when buses running on a specific route will arrive at specific stops. This data is drawn off the NJT API and is the heart of how we currently log when buses call at stops. (This will be depreceated when the Localizer is done and we do it basedon actual observed bus locations.)
+
+Usage with arguments
+```
+http://buswatcher.code4jc.org/api/v1/arrivals?rt=119&stop_id=30189&period=weekly
+```
+
+#### required arguments
+`rt`    NJ transit route number (e.g. 119)
+
+`stop_id`   NJ transit stop number (e.g. 30189)
+
+#### optional arguments
+
+Any of the fields in the JSON response below may be used as arguments. You'll get an error if you use an invalid query.
+
+#### response format
+
+Reponses are geoJSON. Here's a typical record.
+```
+    "{"pkey":28831,
+    "pt":"APPROACHING",
+    "rd":"87",
+    "stop_id":"21062",
+    "stop_name":"PALISADE AVE + SOUTH ST",
+    "v":"5737",
+    "timestamp":1540903024000,
+    "delta":599000},
+```
+
 {% endblock %}
 
 {% block section2_column3 %}

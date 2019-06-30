@@ -9,7 +9,7 @@ var map = new mapboxgl.Map({
 // new endpoints
 var url_waypoints = ("/api/v1/maps/waypoints?rt="+passed_route);
 var url_vehicles = ("/api/v1/maps/vehicles?rt="+passed_route);
-
+var url_stops = ("/api/v1/maps/stops?rt="+passed_route);
 
 
 
@@ -36,6 +36,8 @@ map.on('load', function() {
 
     });
 
+
+
     $.getJSON(url_waypoints, (geojson) => {
         map.addSource('waypoints_source', {
             type: 'geojson',
@@ -53,6 +55,27 @@ map.on('load', function() {
                 "line-width": 2
             }
         });
+    });
+
+        $.getJSON(url_stops, (geojson) => {
+        map.addSource('stops_source', {
+            type: 'geojson',
+            data: geojson
+        });
+        /* map.fitBounds(turf.bbox(geojson), {padding: 20}); */
+
+        map.addLayer({
+            "id": "stops",
+            "type": "circle",
+            "source": "stops_source",
+            "paint": {
+                "circle-radius": 1,
+                "circle-opacity": 1,
+                "circle-stroke-width": 1.5,
+                "circle-stroke-color": "#fff"
+            }
+         })
+
     });
 
     window.setInterval(function() {

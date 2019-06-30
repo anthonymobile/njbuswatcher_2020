@@ -1,7 +1,16 @@
 {
-    "last_updated": "2019-06-20 15:54:09",
+    "last_updated": "2019-06-28 00:30:02",
     "ttl": "86400",
     "routedata": [
+        {
+            "description_long": "tbd.",
+            "description_short": "",
+            "frequency": "low",
+            "nm": "Freehold-Matawan-New York",
+            "prettyname": "Freehold-Matawan-New York",
+            "route": "135",
+            "schedule_url": "https://www.njtransit.com/pdf/bus/T0002.pdf"
+        },
         {
             "description_long": "tbd.",
             "description_short": "This is a short description to be filled in later.",
@@ -554,6 +563,16 @@
             "description_short": "",
             "frequency": "low",
             "prettyname": "NY-Atlantic City-Cape",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+                {
+            "route": "346",
+            "nm": "",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
         },
         {
@@ -2166,8 +2185,238 @@
             "prettyname": "Harmon Cove-SecaucusJunction",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
         },
-                {
+        {
             "route": "151",
+            "nm": "Paterson - New York Express",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Paterson - New York Express",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "162",
+            "nm": "Maywood - New York",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Maywood - New York",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "375",
+            "nm": "Springfield Ave Line Express",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Springfield Ave Line Express",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "417",
+            "nm": "Mt. Holly-Willingboro-Phila",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Mt. Holly-Willingboro-Phila",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "555",
+            "nm": "Phila-Avandale Park&amp;Ride",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Phila-Avandale Park&amp;Ride",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "417",
+            "nm": "Mt. Holly-Willingboro-Phila",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Mt. Holly-Willingboro-Phila",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "155",
+            "nm": "Bogota-Ridgefield Park-NY",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Bogota-Ridgefield Park-NY",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "801",
+            "nm": "Metropark - JFK Hospital",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Metropark - JFK Hospital",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "138",
+            "nm": "Old Bridge-East Brunswick-NY",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Old Bridge-East Brunswick-NY",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "805",
+            "nm": "Metropark - Ford Ave.",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Metropark - Ford Ave.",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "23",
+            "nm": "N Bergen-Weehawken-Hoboken",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "N Bergen-Weehawken-Hoboken",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "414",
+            "nm": "Philadelphia - Moorestown",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Philadelphia - Moorestown",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "145",
+            "nm": "",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "148",
+            "nm": "",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "117",
+            "nm": "",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "802",
+            "nm": "",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "804",
+            "nm": "",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "153",
+            "nm": "",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "157",
+            "nm": "",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "131",
+            "nm": "",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "122",
+            "nm": "",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "612",
+            "nm": "",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "418",
+            "nm": "",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "803",
             "nm": "",
             "ttl": "1d",
             "description_long": "",

@@ -10,79 +10,67 @@
 #
 import argparse, time
 
-from lib import Generators
-from lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
-from lib.RouteConfig import load_system_map
-from lib.CommonTools import timeit
+from .lib.Generators import *
+from .lib.DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
+from .lib.RouteConfig import load_system_map
+from .lib.CommonTools import timeit
+from .lib.DBconfig import connection_string
 
 
-@timeit # only need to isolate this in a function so we can timeit
-def hourly_loop():
+####################################################################3
+#   SCHEDULER SETUP
+####################################################################3
+from apscheduler.schedulers.background import BackgroundScheduler
+from apscheduler.jobstores.sqlalchemy import SQLAlchemyJobStore
+from apscheduler.executors.pool import ThreadPoolExecutor,ProcessPoolExecutor
 
-    if args.statewide is False:
-        print ('run stuff from buswatcher.lib.Generators')
+jobstores = {'default': SQLAlchemyJobStore(url=connection_string)}
+executors = {'default': ThreadPoolExecutor(20)}
+job_defaults = {'coalesce': True, 'max_instances': 5 }
 
-    elif args.statewide is True:
-        print ('run stuff from buswatcher.lib.Generators')
+
+def minute_tasks():
+    # Generators.generate_headway_report(all) -- once per minute
+    print ('minute_tasks just ran')
     return
 
-def hello(name):
-    print
-    "Hello %s!" % name
+
+def quarter_hour_tasks():
+    # Generators.generate_traveltime_report(all)  -- once every 15 minutes
+    print ('quarter_hour_tasks just ran')
+    return
+
+
+def hourly_tasks():
+    task_trigger_1 = RouteUpdater(system_map) # refresh route descriptions
+    task_trigger_2 = GradeReport.generate_reports() # refresh letter grades
+    print ('hourly_tasks just ran')
+    return
+
+
+def daily_tasks():
+    # Generators.generate_bunching_report(all) -- once per day at 2am
+    task_trigger_1 = BunchingReport(system_map).generate_reports()
+    print ('daily_tasks just ran')
+    return
 
 
 if __name__ == "__main__":
 
+    scheduler = BackgroundScheduler(jobstores=jobstores,executors=executors,job_defaults=job_defaults)
     system_map = load_system_map()
 
-    # route_definitions = system_map.route_descriptions
+    scheduler.add_job(minute_tasks, 'interval', minutes=1, id='every minute', replace_existing=True)
+    scheduler.add_job(quarter_hour_tasks, 'interval', minutes=15,id='every 15 minutes', replace_existing=True)
+    scheduler.add_job(hourly_tasks, 'interval', minutes=60, id='every hour', replace_existing=True)
+    scheduler.add_job(daily_tasks, trigger='cron', day='*', hour='2', id='every day at 2am , replace_existing=True)
+    scheduler.start()
+    scheduler.print_jobs()
+    print ('generator will sleep now, while tasks run in the background')
 
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-s', '--statewide', dest='statewide', action='store_true', help='Watch all active routes in NJ. (requires lots of CPU).')
-    args = parser.parse_args()
-
-    if args.statewide is False:
-        print('running in collections mode (watch all routes in all collections)')
-    elif args.statewide is True:
-        print('running in statewide mode (watch all routes in NJ)')
-
-    # todo 1 come up a cron-like scheme
-    #
-    # 1 https://stackoverflow.com/questions/2398661/schedule-a-repeating-event-in-python-3#2399145
-    # 2 https://apscheduler.readthedocs.io/en/3.0/
-
-
-    # tasks that need to be run on a certain schedules
-    # Generators.generate_headway_report(all) -- once per minute
-    # Generators.generate_traveltime_report(all)  -- once every 15 minutes
-    # Generators.generate_bunching_report(all) -- once per day
-
-
-    run_frequency = 3600  # seconds, runs once per hour
-    time_start = time.monotonic()
-
-    while True:
-        hourly_loop()
-        print('***sleeping***')
-        time.sleep(run_frequency - ((time.monotonic() - time_start) % run_frequency))  # sleep remainder of the 60 second loop
-
-
-
- # def is_time_between(begin_time, end_time, check_time=None):
-#     # If check time is not given, default to current UTC time
-#     check_time = check_time or datetime.utcnow().time()
-#     if begin_time < end_time:
-#         return check_time >= begin_time and check_time <= end_time
-#     else: # crosses midnight
-#         return check_time >= begin_time or check_time <= end_time
-#
-
-# def reset(self):
-#     # if its after 2am, before 4am, and reset hasn't been run, run it
-#     # n.b. this will only update if the trigger is fired (e.g. a page load)
-#     if ((self.reset_occurred == False) and ((is_time_between(time(2,00), time(4,00))==True))):
-#         # reset some values
-#         pass
-#     else:
-#         pass
+    try:
+        while True:
+            time.sleep(2)
+    except (KeyboardInterrupt, SystemExit):
+        scheduler.shutdown()
 

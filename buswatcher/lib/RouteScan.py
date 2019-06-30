@@ -4,9 +4,9 @@ import numpy as np
 
 from pymysql import IntegrityError
 
-from lib. DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
-from lib import BusAPI, Localizer
-from lib.RouteConfig import load_system_map
+from . DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
+from . import BusAPI, Localizer
+from .RouteConfig import load_system_map
 
 
 class RouteScan:
@@ -40,13 +40,12 @@ class RouteScan:
 
 
         # generate scan data and results
-        with SQLAlchemyDBConnection() as self.db:
-            self.fetch_positions()
-            self.parse_positions(system_map)
-            self.localize_positions(system_map)
-            self.interpolate_missed_stops()
-            self.assign_positions()
 
+        self.fetch_positions()
+        self.parse_positions(system_map)
+        self.localize_positions(system_map)
+        self.interpolate_missed_stops()
+        self.assign_positions()
 
     def fetch_positions(self):
 
@@ -66,7 +65,6 @@ class RouteScan:
 
         return
 
-
     def clean_buses(self):
         # CLEAN buses not actively running routes (e.g. letter route codes)
         buses_cleaned=[]
@@ -79,7 +77,6 @@ class RouteScan:
         self.buses = buses_cleaned
 
         return
-
 
     def parse_positions(self,system_map):
 
@@ -103,7 +100,6 @@ class RouteScan:
                 db.__relax__()  # disable foreign key checks before...
                 db.session.commit()  # we save the position_log.
             return
-
 
     def localize_positions(self,system_map):
 
@@ -145,7 +141,6 @@ class RouteScan:
                     print(e + 'mysql integrity error #' + error_count)
 
             return
-
 
     def assign_positions(self):
 
@@ -303,7 +298,6 @@ class RouteScan:
             db.session.commit()
 
             return
-
 
     def interpolate_missed_stops(self):
 

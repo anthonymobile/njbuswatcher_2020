@@ -6,9 +6,7 @@ var map = new mapboxgl.Map({
     zoom: 7 // starting zoom
 });
 
-// bug why aren't the passed variables coming in -- check stop.jinja and upstream StopReport
-// var passed_route="119"
-// var passed_stop_id="30189"
+
 // new endpoints
 var url_waypoints = ("/api/v1/maps/waypoints?rt="+passed_route);
 var url_vehicles = ("/api/v1/maps/vehicles?rt="+passed_route);
@@ -30,9 +28,10 @@ map.on('load', function() {
                 "type": "circle",
                 "source": "vehicles_source",
                 "paint": {
-                    "circle-radius": 4,
+                    "circle-radius": 2,
                     "circle-opacity": 1,
-                    "circle-stroke-width": 3,
+                    "circle-stroke-width": 4,
+                    // "circle-stroke-width": 3,
                     "circle-stroke-color": "#f6c"
                 }
             })
@@ -73,35 +72,12 @@ map.on('load', function() {
             "paint": {
                 "circle-radius": 8,
                 "circle-opacity": 1,
-                "circle-stroke-width": 2,
+                "circle-stroke-width": 0,
                 "circle-stroke-color": "#fff"
                 }
             });
         });
 
-
-
-        // map.loadImage('/static/maps/stop-icon.png', function(error, image) {
-        //     if (error) throw error;
-        //     map.addImage('stop', image);
-        //
-        // $.getJSON(url_stops, (geojson) => {
-        //     map.addSource('stops_source', {
-        //         type: 'geojson',
-        //         data: geojson
-        //     });
-        //     // map.fitBounds(turf.bbox(geojson), {padding: 50});
-        //
-        //     map.addLayer({
-        //         "id": "stops",
-        //         "type": "icon",
-        //         "source": "stops_source",
-        //         "layout": {
-        //             "icon-image": "stop", // todo fix display of single stop icon
-        //             "icon-size": 0.25
-        //         }
-        //     });
-        // });
 
 
     window.setInterval(function() {

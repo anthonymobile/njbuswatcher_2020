@@ -34,9 +34,9 @@ map.on('load', function() {
             "type": "circle",
             "source": "vehicles_source",
             "paint": {
-                "circle-radius": 3,
+                "circle-radius": 1.5,
                 "circle-opacity": 1,
-                "circle-stroke-width": 2,
+                "circle-stroke-width": 1.5,
                 "circle-stroke-color": "#f6c"
             }
          },"stops") // layer to add before
