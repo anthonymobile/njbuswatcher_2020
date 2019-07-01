@@ -82,7 +82,7 @@ map.on('load', function() {
     window.setInterval(function() {
         map.getSource('vehicles_source').setData(url_vehicles);
         }, 5000)
-    // todo Use turf.js to animate the vehicle markers along a route https://docs.mapbox.com/mapbox-gl-js/example/animate-point-along-route/
+    // future Use turf.js to animate the vehicle markers along a route https://docs.mapbox.com/mapbox-gl-js/example/animate-point-along-route/
 
 
 });
