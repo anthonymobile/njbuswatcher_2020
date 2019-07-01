@@ -150,7 +150,7 @@ class RouteUpdater():
             print ('didnt update route_descriptions.json for some reason')
             return
 
-class BunchingReport(Generator):
+class BunchingReport(Generator): #todo test BunchingReport generator full run
 
     def __init__(self):
         super(BunchingReport,self).__init__()
@@ -171,9 +171,11 @@ class BunchingReport(Generator):
                           'created_timestamp': str((datetime.datetime.now))
                         }
 
-                # make and pickle the report -- the 10 stops with the most bunching incidents -- by route, by period
+                # make and dump the report -- the 10 stops with the most bunching incidents -- by route, by period
                 with self.db as db:
 
+                    bigbang = datetime.timedelta(seconds=0)
+                    bunching_interval = datetime.timedelta(minutes=3)
                     bunching_leaderboard_raw = []
                     cum_arrival_total = 0
                     cum_bunch_total = 0
@@ -188,9 +190,9 @@ class BunchingReport(Generator):
                                 bunch_total = 0
                                 arrival_total = 0
                                 stop_report = self.get_arrivals_here_this_route(system_map, route, point.identity, period)
-                                for (index, row) in stop_report.arrivals_here_this_route_df.iterrows():
+                                for (index, row) in stop_report[0].iterrows():
                                     arrival_total += 1
-                                    if (row.delta > stop_report.bigbang) and (row.delta <= stop_report.bunching_interval):
+                                    if (row.delta > bigbang) and (row.delta <= bunching_interval):
                                         bunch_total += 1
                                 cum_bunch_total = cum_bunch_total+bunch_total
                                 cum_arrival_total = cum_arrival_total + arrival_total
@@ -211,7 +213,11 @@ class BunchingReport(Generator):
                     bunching_report_template['cum_arrival_total'] = cum_arrival_total
                     self.store_json(bunching_report_template)
 
-    def get_arrivals_here_this_route(self,system_map, route, stop_id, period): # todo this is a stripped out version of wwwAPI.StopReport.get_arrivals_here_this_route
+    ####################################################################################################
+    # THIS CODE BLOCK IS AN ADAPTED DUPLICATE OF wwwAPI.StopReport.get_arrivals_here_this_route
+    ####################################################################################################
+
+    def get_arrivals_here_this_route(self,system_map, route, stop_id, period):
         with SQLAlchemyDBConnection() as db:
 
             # build query and load into df
@@ -228,7 +234,7 @@ class BunchingReport(Generator):
                                         .filter(ScheduledStop.arrival_timestamp != None) \
                                         .order_by(ScheduledStop.arrival_timestamp.desc()) # todo test this on stop page, if it helps fix the arrival interval 24 hours problem
 
-            query=self.query_factory(db, system_map, query,period=period) # add the period
+            query=self.query_factory(system_map, db, query, period=period) # add the period
             query=query.statement
             try:
                 arrivals_here_this_route=pd.read_sql(query, db.session.bind)
@@ -241,7 +247,7 @@ class BunchingReport(Generator):
 
     def query_factory(self, system_map, db, query, **kwargs):
         query = query.filter(ScheduledStop.arrival_timestamp != None). \
-            filter(ScheduledStop.arrival_timestamp >= func.ADDDATE(func.CURRENT_TIMESTAMP(), text(system_map.period_descriptions[period]['sql'])))
+            filter(ScheduledStop.arrival_timestamp >= func.ADDDATE(func.CURRENT_TIMESTAMP(), text(system_map.period_descriptions[kwargs['period']]['sql'])))
         return query
 
     def return_dummy_arrivals_df(self):
@@ -259,6 +265,44 @@ class BunchingReport(Generator):
         self.arrivals_table_time_created = datetime.datetime.now()  # log creation time and return
         return arrivals_list_final_df, stop_name, self.arrivals_table_time_created
 
+    def filter_arrivals(self, arrivals_here):
+            # Otherwise, cleanup the query results -- split by vehicle and calculate arrival intervals
+
+            # future speedup by using slice vs groupby
+            # alex r says:
+            # for group in df['col'].unique():
+            #     slice = df[df['col'] == group]
+            # # is like 10x faster than
+            # df.groupby('col').apply( < stuffhere >)
+
+            # split final approach history (sorted by timestamp) at each change in vehicle_id outputs a list of dfs
+            # per https://stackoverflow.com/questions/41144231/python-how-to-split-pandas-dataframe-into-subsets-based-on-the-value-in-the-fir
+            final_approach_dfs = [g for i, g in arrivals_here.groupby(arrivals_here['v'].ne(arrivals_here['v'].shift()).cumsum())]
+            arrivals_list_final_df = pd.DataFrame()  # take the last V(ehicle) approach in each df and add it to final list of arrivals
+            for final_approach in final_approach_dfs:  # iterate over every final approach
+                arrival_insert_df = final_approach.tail(1)  # take the last observation
+                arrivals_list_final_df = arrivals_list_final_df.append(arrival_insert_df)  # insert into df
+
+            try:
+                # calc interval between last bus for each row, fill NaNs #
+                # bug FutureWarning: Passing integers to fillna is deprecated, will raise a TypeError in a future version.  To retain the old behavior, pass pd.Timedelta(seconds=n) instead.
+                arrivals_list_final_df['delta'] = (arrivals_list_final_df['arrival_timestamp'] - arrivals_list_final_df['arrival_timestamp'].shift(1)).fillna(0) # bug getting -24 hour time errors here, need to resort by timestamp again?
+            except:
+                arrivals_list_final_df['delta'] = ''
+                print('')
+
+            try:
+                stop_name = arrivals_list_final_df['stop_name'].iloc[0]
+            except:
+                stop_name = 'N/A'
+
+            arrivals_table_time_created = datetime.datetime.now()  # log creation time and return
+
+            return arrivals_list_final_df, stop_name, arrivals_table_time_created
+
+    ####################################################################################################
+    # ^^^^^^^THIS CODE BLOCK IS AN ADAPTED DUPLICATE OF wwwAPI.StopReport.get_arrivals_here_this_route
+    ####################################################################################################
 
 # sample bunching report
 '''

@@ -152,15 +152,27 @@
                                             <h4 class="card-title">This is a bunching report.</h4>
                                     <table class="table table-sm table-hover">
                                         <tbody>
-                                        {%  for stop in routereport.bunching_report['bunching_leaderboard'] %}
 
-                                         <tr class='table text-left'>
+                                        {%  if routereport.bunching_report['dummy'] == True %}
 
-                                             <td>{{stop.stop_name|title}}</td>
-                                             <td>{{stop.bunched_arrivals_in_period}}</td>
+                                        <tr class='table text-left'>
 
-                                        </tr>
-                                        {% endfor %}
+                                                 <td>No data.</td>
+                                                 <td>No data.</td>
+
+                                            </tr>
+
+                                        {%  else %}
+                                            {%  for stop in routereport.bunching_report['bunching_leaderboard'] %}
+
+                                             <tr class='table text-left'>
+
+                                                 <td>{{stop.stop_name|title}}</td>
+                                                 <td>{{stop.bunched_arrivals_in_period}}</td>
+
+                                            </tr>
+                                            {% endfor %}
+                                        {%  endif %}
                                         </tbody>
                                     </table>
 
