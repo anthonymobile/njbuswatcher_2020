@@ -3,6 +3,7 @@ channels:
   - conda-forge
   - defaults
 dependencies:
+  - apscheduler
   - bzip2=1.0.6
   - ca-certificates=2018.11.29
   - certifi=2018.11.29
