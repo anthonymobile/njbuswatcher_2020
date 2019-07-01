@@ -168,7 +168,7 @@
                                                   </tr>
                                                 </thead>
                                                 <tbody>
-                                                {% for (index,row) in stopreport.arrivals_list_final_df.iterrows() %}
+                                                {% for (index,row) in stopreport.arrivals_here_this_route_df.iterrows() %}
                                                     {% if (row.delta > stopreport.bigbang) and (row.delta <= stopreport.bunching_interval) %}
                                                         <tr class='table-danger'>
                                                             <td>{{row.arrival_timestamp|strftime_period(period)}}</td>

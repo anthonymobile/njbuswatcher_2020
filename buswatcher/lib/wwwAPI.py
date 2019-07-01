@@ -154,26 +154,12 @@ class StopReport(GenericReport):
         # self.stop_name =self.get_stop_name()
 
         # populate data for webpage
-        self.arrivals_list_final_df, self.stop_name, self.arrivals_table_time_created = self.get_arrivals()
+        self.arrivals_here_this_route_df, self.stop_name, self.arrivals_table_time_created = self.get_arrivals_here_this_route()
         self.arrivals_here_all_others = self.get_arrivals_here_all_others()
         self.hourly_frequency = self.get_hourly_frequency()
 
 
-    def return_dummy_arrivals_df(self):
-        # to add more than one , simply add to the lists
-        dummydata = {'rt': ['0','0'],
-                     'v': ['0000','0000'],
-                     'pid': ['0','0'],
-                     'trip_id': ['0000_000_00000000','0000_000_00000000'],
-                     'stop_name': ['N/A','N/A'],
-                     'arrival_timestamp': [datetime.time(0, 1),datetime.time(0, 1)]
-                    }
-        arrivals_list_final_df = pd.DataFrame(dummydata, columns=['rt','v','pid','trip_id','stop_name','arrival_timestamp'])
-        stop_name = 'N/A'
-        self.arrivals_table_time_created = datetime.datetime.now()  # log creation time and return
-        return arrivals_list_final_df, stop_name, self.arrivals_table_time_created
-
-    def get_arrivals(self):
+    def get_arrivals_here_this_route(self):
         with SQLAlchemyDBConnection() as db:
 
             # build query and load into df
@@ -192,11 +178,11 @@ class StopReport(GenericReport):
             query=self.query_factory(db, query,period=self.period) # add the period
             query=query.statement
             try:
-                arrivals_here=pd.read_sql(query, db.session.bind)
-                if len(arrivals_here.index) == 0: # no results return dummy df
+                arrivals_here_this_route=pd.read_sql(query, db.session.bind)
+                if len(arrivals_here_this_route.index) == 0: # no results return dummy df
                     return self.return_dummy_arrivals_df()
                 else:
-                    return self.filter_arrivals(arrivals_here)
+                    return self.filter_arrivals(arrivals_here_this_route)
             except ValueError: # any error return a dummy df
                 return self.return_dummy_arrivals_df()
 
@@ -217,7 +203,7 @@ class StopReport(GenericReport):
             query = query.statement
             try:
                 get_arrivals_here_all_others = pd.read_sql(query, db.session.bind)
-                return self.filter_arrivals(get_arrivals_here_all_others)[0] # [0] only return the dataframe from the self.filter_arrivals tuple
+                return get_arrivals_here_all_others
             except ValueError:
                 pass
 
@@ -239,11 +225,12 @@ class StopReport(GenericReport):
                 arrival_insert_df = final_approach.tail(1)  # take the last observation
                 arrivals_list_final_df = arrivals_list_final_df.append(arrival_insert_df)  # insert into df
 
-            try: # bug getting -24 hour time errors here, need to resort by timestamp again?
+            try:
                 # calc interval between last bus for each row, fill NaNs #
-                arrivals_list_final_df['delta'] = (arrivals_list_final_df['arrival_timestamp'] - arrivals_list_final_df['arrival_timestamp'].shift(1)).fillna(0)
+                arrivals_list_final_df['delta'] = (arrivals_list_final_df['arrival_timestamp'] - arrivals_list_final_df['arrival_timestamp'].shift(1)).fillna(0) # bug getting -24 hour time errors here, need to resort by timestamp again?
             except:
-                arrivals_list_final_df['delta'] = float('nan')
+                arrivals_list_final_df['delta'] = ''
+                print('')
 
             try:
                 stop_name = arrivals_list_final_df['stop_name'].iloc[0]
@@ -254,13 +241,29 @@ class StopReport(GenericReport):
 
             return arrivals_list_final_df, stop_name, arrivals_table_time_created
 
+    def return_dummy_arrivals_df(self):
+        # to add more than one , simply add to the lists
+        dummydata = {'rt': ['0','0'],
+                     'v': ['0000','0000'],
+                     'pid': ['0','0'],
+                     'trip_id': ['0000_000_00000000','0000_000_00000000'],
+                     'stop_name': ['N/A','N/A'],
+                     'arrival_timestamp': [datetime.time(0, 1),datetime.time(0, 1)],
+                     'delta': datetime.timedelta(seconds=0)
+                    }
+        arrivals_list_final_df = pd.DataFrame(dummydata, columns=['rt','v','pid','trip_id','stop_name','arrival_timestamp','delta'])
+        stop_name = 'N/A'
+        self.arrivals_table_time_created = datetime.datetime.now()  # log creation time and return
+        return arrivals_list_final_df, stop_name, self.arrivals_table_time_created
+
+
     def get_hourly_frequency(self):
         results = pd.DataFrame()
-        self.arrivals_list_final_df['delta_int'] = self.arrivals_list_final_df['delta'].dt.seconds # bug need to have a null value here or throws an error
+        self.arrivals_here_this_route_df['delta_int'] = self.arrivals_here_this_route_df['delta'].dt.seconds # bug need to have a null value here or throws an error
 
         try:
-            # results['frequency']= (self.arrivals_list_final_df.delta_int.resample('H').mean())//60
-            results = (self.arrivals_list_final_df.groupby(self.arrivals_list_final_df.index.hour).mean())//60
+            # results['frequency']= (self.arrivals_here_this_route_df.delta_int.resample('H').mean())//60
+            results = (self.arrivals_here_this_route_df.groupby(self.arrivals_here_this_route_df.index.hour).mean()) // 60
             results = results.rename(columns={'delta_int': 'frequency'})
             results = results.drop(['pkey'], axis=1)
             results['hour'] = results.index
