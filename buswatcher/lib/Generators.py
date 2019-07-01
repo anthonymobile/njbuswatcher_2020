@@ -4,12 +4,13 @@ from operator import itemgetter
 import json
 from dateutil import parser
 from datetime import timedelta
+from sqlalchemy import func, text
 
 import pandas as pd
 
 from lib.wwwAPI import StopReport
 from lib.BusAPI import *
-from lib.DataBases import SQLAlchemyDBConnection, ScheduledStop
+from lib.DataBases import SQLAlchemyDBConnection, ScheduledStop, Trip
 from lib.CommonTools import timeit
 
 class Generator():
@@ -170,7 +171,6 @@ class BunchingReport(Generator):
                           'created_timestamp': str((datetime.datetime.now))
                         }
 
-
                 # make and pickle the report -- the 10 stops with the most bunching incidents -- by route, by period
                 with self.db as db:
 
@@ -187,7 +187,7 @@ class BunchingReport(Generator):
                                 # first query to make sure there are ScheduledStop instances
                                 bunch_total = 0
                                 arrival_total = 0
-                                stop_report = StopReport(system_map, route, point.identity, period)
+                                stop_report = self.get_arrivals_here_this_route(system_map, route, point.identity, period)
                                 for (index, row) in stop_report.arrivals_here_this_route_df.iterrows():
                                     arrival_total += 1
                                     if (row.delta > stop_report.bigbang) and (row.delta <= stop_report.bunching_interval):
@@ -210,6 +210,55 @@ class BunchingReport(Generator):
                     bunching_report_template['cum_bunch_total'] = cum_bunch_total
                     bunching_report_template['cum_arrival_total'] = cum_arrival_total
                     self.store_json(bunching_report_template)
+
+    def get_arrivals_here_this_route(self,system_map, route, stop_id, period): # todo this is a stripped out version of wwwAPI.StopReport.get_arrivals_here_this_route
+        with SQLAlchemyDBConnection() as db:
+
+            # build query and load into df
+            query=db.session.query(Trip.rt, # base query
+                                        Trip.v,
+                                        Trip.pid,
+                                        Trip.trip_id,
+                                        ScheduledStop.stop_id,
+                                        ScheduledStop.stop_name,
+                                        ScheduledStop.arrival_timestamp) \
+                                        .join(ScheduledStop) \
+                                        .filter(Trip.rt == route) \
+                                        .filter(ScheduledStop.stop_id == stop_id) \
+                                        .filter(ScheduledStop.arrival_timestamp != None) \
+                                        .order_by(ScheduledStop.arrival_timestamp.desc()) # todo test this on stop page, if it helps fix the arrival interval 24 hours problem
+
+            query=self.query_factory(db, system_map, query,period=period) # add the period
+            query=query.statement
+            try:
+                arrivals_here_this_route=pd.read_sql(query, db.session.bind)
+                if len(arrivals_here_this_route.index) == 0: # no results return dummy df
+                    return self.return_dummy_arrivals_df()
+                else:
+                    return self.filter_arrivals(arrivals_here_this_route) # todo
+            except ValueError: # any error return a dummy df
+                return self.return_dummy_arrivals_df()
+
+    def query_factory(self, system_map, db, query, **kwargs):
+        query = query.filter(ScheduledStop.arrival_timestamp != None). \
+            filter(ScheduledStop.arrival_timestamp >= func.ADDDATE(func.CURRENT_TIMESTAMP(), text(system_map.period_descriptions[period]['sql'])))
+        return query
+
+    def return_dummy_arrivals_df(self):
+        # to add more than one , simply add to the lists
+        dummydata = {'rt': ['0','0'],
+                     'v': ['0000','0000'],
+                     'pid': ['0','0'],
+                     'trip_id': ['0000_000_00000000','0000_000_00000000'],
+                     'stop_name': ['N/A','N/A'],
+                     'arrival_timestamp': [datetime.time(0, 1),datetime.time(0, 1)],
+                     'delta': datetime.timedelta(seconds=0)
+                    }
+        arrivals_list_final_df = pd.DataFrame(dummydata, columns=['rt','v','pid','trip_id','stop_name','arrival_timestamp','delta'])
+        stop_name = 'N/A'
+        self.arrivals_table_time_created = datetime.datetime.now()  # log creation time and return
+        return arrivals_list_final_df, stop_name, self.arrivals_table_time_created
+
 
 # sample bunching report
 '''
