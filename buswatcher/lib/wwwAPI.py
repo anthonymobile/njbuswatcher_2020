@@ -1,10 +1,14 @@
 import datetime
+import pickle
+import os
+from pathlib import Path
+
 import pandas as pd
 from sqlalchemy import func, text
 
 from . import BusAPI
 from .DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
-from .Generators import *
+
 
 class GenericReport: # all Report classes inherit query_factory
 
@@ -65,10 +69,11 @@ class RouteReport(GenericReport):
         self.active_bus_count = len(self.trip_list_trip_id_only)  # this is probably faster than fetching getBusesForRoute&rt=self.route from the NJT API
 
         # load Generators report
-        self.bunching_report = BunchingReport.fetch_report(self.route) # todo 0 this is the template for the others
-        self.grade,self.grade_description = GradeReport.fetch_report(self)
-        # self.headway_report = HeadwayReport.fetch_headway_report(self)
-        # self.traveltime_report = Generators.fetch_traveltime_report(self)
+        self.bunching_report = self.retrieve_pickle('bunching')
+        self.grade, self.grade_description = self.retrieve_pickle('grade')
+        #
+        # self.headway_report = self.retrieve_json('headay')
+        # self.traveltime_report = self.retrieve_json('traveltime')
 
 
     def __get_current_trips(self):
@@ -121,6 +126,13 @@ class RouteReport(GenericReport):
                 tripdash[trip_id] = trip_dict
 
         return tripdash
+
+    def retrieve_pickle(self, type):
+        pickle_prefix = Path(os.getcwd() + "config/reports/")
+        filename = ('%a/%b_%c_%d').format(a=pickle_prefix,b=self.route,c=type,d=self.period)
+        with open(filename, "rb") as f:
+            report_retrieved = pickle.load(f)
+        return report_retrieved
 
 
 class StopReport(GenericReport):
@@ -245,7 +257,7 @@ class StopReport(GenericReport):
 
     def get_hourly_frequency(self):  # todo 00 get_hourly_frequency
         results = pd.DataFrame()
-        self.arrivals_list_final_df['delta_int'] = self.arrivals_list_final_df['delta'].dt.seconds
+        self.arrivals_list_final_df['delta_int'] = self.arrivals_list_final_df['delta'].dt.seconds # bug need to have a null value here or throws an error
 
         try:
             # results['frequency']= (self.arrivals_list_final_df.delta_int.resample('H').mean())//60

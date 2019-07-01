@@ -22,9 +22,9 @@ from flask_bootstrap import Bootstrap
 from flask import jsonify
 from flask_cors import CORS, cross_origin
 
-from .lib import API
-from .lib import BusAPI
-from .lib import wwwAPI
+from lib import API
+from lib import BusAPI
+from lib import wwwAPI
 
 
 ################################################
