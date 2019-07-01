@@ -185,7 +185,7 @@ class BunchingReport(Generator):
                                 bunch_total = 0
                                 arrival_total = 0
                                 report = StopReport(system_map, route, point.identity, period)
-                                for (index, row) in report.arrivals_list_final_df.iterrows():
+                                for (index, row) in report.arrivals_here_this_route_df.iterrows():
                                     arrival_total += 1
                                     if (row.delta > report.bigbang) and (row.delta <= report.bunching_interval):
                                         bunch_total += 1
