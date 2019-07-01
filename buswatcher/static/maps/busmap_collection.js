@@ -6,14 +6,10 @@ var map = new mapboxgl.Map({
     zoom: 7 // starting zoom
 });
 
-
 //new endpoints
 var url_waypoints = ("/api/v1/maps/waypoints?collection="+collection_description.collection_url);
 var url_vehicles = ("/api/v1/maps/vehicles?collection="+collection_description.collection_url);
 
-//old endpoints
-//var url_waypoints = ("/api/v1/maps?layer=waypoints&collection="+collection_description.collection_url);
-//var url_vehicles = ("/api/v1/maps?layer=vehicles&collection="+collection_description.collection_url);
 
 map.on('load', function() {
 

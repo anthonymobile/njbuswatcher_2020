@@ -45,6 +45,7 @@ map.on('load', function() {
         });
         map.fitBounds(turf.bbox(geojson), {padding: 50});
 
+
         map.addLayer({
             "id": "route",
             "type": "line",
@@ -81,41 +82,7 @@ map.on('load', function() {
     window.setInterval(function() {
         map.getSource('vehicles_source').setData(url_vehicles);
         }, 5000)
-
-    //
-    // // HOVER TOOLTIPS
-    // var popup = new mapboxgl.Popup({
-    //     closeButton: false,
-    //     closeOnClick: false
-    // });
-    //
-    // map.on('mouseenter', 'vehicles', function(e) {
-    //     // Change the cursor style as a UI indicator.
-    //     map.getCanvas().style.cursor = 'pointer';
-    //
-    //     var coordinates = e.features[0].geometry.coordinates.slice();
-    //     var description = (e.features[0].properties.fs + ", Bus " + e.features[0].properties.id + ", Driver " + e.features[0].properties.op + ", Run " + e.features[0].properties.run);
-    //
-    //     // Ensure that if the map is zoomed out such that multiple
-    //     // copies of the feature are visible, the popup appears
-    //     // over the copy being pointed to.
-    //     while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-    //         coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-    //     }
-    //
-    //     // Populate the popup and set its coordinates
-    //     // based on the feature found.
-    //     popup.setLngLat(coordinates)
-    //         .setHTML(description)
-    //         .addTo(map);
-    // });
-    //
-    // map.on('mouseleave', 'vehicles', function() {
-    //     map.getCanvas().style.cursor = '';
-    //     popup.remove();
-    // });
-
-
+    // todo Use turf.js to animate the vehicle markers along a route https://docs.mapbox.com/mapbox-gl-js/example/animate-point-along-route/
 
 
 });

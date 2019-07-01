@@ -1,33 +1,36 @@
 from pathlib import Path
-import os
 import pickle
 from operator import itemgetter
-import datetime
 import json
 from dateutil import parser
 from datetime import timedelta
 
-from .BusAPI import *
-from .DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop  # , RouteReportCache
-from .wwwAPI import StopReport
-from sqlalchemy import func, text
+import pandas as pd
 
+from lib.wwwAPI import StopReport
+from lib.BusAPI import *
+from lib.DataBases import SQLAlchemyDBConnection, ScheduledStop
+from lib.CommonTools import timeit
 
 class Generator():
 
-    def __init__(self,system_map):
+    def __init__(self):
         self.cwd = os.getcwd()
         self.pickle_prefix = Path(self.cwd + "config/reports/")
         self.db =  SQLAlchemyDBConnection()
 
-    def store_pickle(self, report_to_store):
-        with open(self.pickle_prefix+report_to_store['route']+'_'+report_to_store['report']['type'],"wb") as f:
-            pickle.dump(report_to_store, f, protocol=pickle.HIGHEST_PROTOCOL)
+    # future store the results as json since they could be inspected that way
+
+    def store_json(self, report_to_store): # filename format route_type_period
+        filename = ('%a/%b_%c_%d.json').format(a=self.pickle_prefix,b=report_to_store['route'],c=report_to_store['report']['type'],d=report_to_store['period'])
+        with open(filename,"wb") as f:
+            json.dump(report_to_store, f, protocol=pickle.HIGHEST_PROTOCOL)
         return
 
-    def retrieve_pickle(self,route,type):
-        with open(self.pickle_prefix+route+'_'+type,"rb") as f:
-            report_retrieved = pickle.load(f)
+    def retrieve_json(self, route, type, period):
+        filename = ('%a/%b_%c_%d.json').format(a=self.pickle_prefix, b=route,c=type, d=period)
+        with open(filename,"rb") as f:
+            report_retrieved = json.load(f)
         return report_retrieved
 
 class RouteUpdater(): # todo 0 test route updater
@@ -40,14 +43,18 @@ class RouteUpdater(): # todo 0 test route updater
 
         # even though this now runs on a daily schedule
         # load existing reports and check ttl anyways
-        try:
+        try: # bug this over reads the pickle file, so need to check the route_descriptions file itself
             route_descriptions_last_updated = parser.parse(system_map.route_descriptions['last_updated'])
         except:
             route_descriptions_last_updated = parser.parse('2000-01-01 01:01:01')
         route_descriptions_ttl = timedelta(seconds=int(system_map.route_descriptions['ttl']))
 
+        expired = False
+
         # if TTL expired, update route geometry local XMLs
         if (now - route_descriptions_last_updated) > route_descriptions_ttl:
+
+            expired = True
             print ('Updating XML route definitions from remote source (NJTransit API getRoutePoints.jsp)')
 
             # UPDATE ROUTES FROM API
@@ -88,8 +95,20 @@ class RouteUpdater(): # todo 0 test route updater
             api_response = list()
             for r in merged_routelist:
                 try:
-                    route_xml = parse_xml_getRoutePoints(get_xml_data('nj', 'routes', route=r))
-                    route_entry = {'route': route_xml[0][0].id, 'nm': route_xml[0][0].nm}  # .id should NOT be .identity
+
+                    # fetch data
+                    xml_data = get_xml_data('nj', 'routes', route=r)
+
+                    #dump it to disk
+                    if expired == True: # but only if the files are older than the ttl
+                        print (r)
+                        outfile = ('config/route_geometry/' + r + '.xml')
+                        with open(outfile, 'wb') as f:  # overwrite existing file
+                            f.write(xml_data)
+
+                    #parse it
+                    parsed_route_xml = parse_xml_getRoutePoints(xml_data)
+                    route_entry = {'route': parsed_route_xml[0][0].id, 'nm': parsed_route_xml[0][0].nm}  # .id should NOT be .identity
                     api_response.append(route_entry)
                 except:
                     continue
@@ -97,7 +116,7 @@ class RouteUpdater(): # todo 0 test route updater
             # 5. merge API data into system_map.route_descriptions
             for a in api_response: # iterate over routes fetched from API
                 for r in system_map.route_descriptions['routedata']:  # iterate over defined routes
-                    if a['route'] == r['route']:  # match on route number
+                    if a['route'] == r['route']:  # match on route number #bug not working
                         new_nm = a['nm'].split(' ', 1)[1]
                         system_map.route_descriptions['routedata'][r]['nm'] = new_nm # update nm in system_map
 
@@ -110,7 +129,7 @@ class RouteUpdater(): # todo 0 test route updater
 
 
             # 6. make one last scan of system_map.route_descriptions -- if prettyname is blank, should copy nm to prettyname
-            for route in system_map.route_descriptions['routedata']:
+            for route in system_map.route_descriptions['routedata']: #bug not working
                 if route['prettyname'] == "":
                     route['prettyname'] = route['nm']
 
@@ -119,7 +138,7 @@ class RouteUpdater(): # todo 0 test route updater
             now = datetime.datetime.now()
             outdata['last_updated'] = now.strftime("%Y-%m-%d %H:%M:%S")
             outdata['ttl'] = '86400'
-            outdata['routedata'] = system_map.route_descriptions['routedata']
+            outdata['routedata'] = system_map.route_descriptions['routedata'] # todo sort the stuff inside here https://www.pythoncentral.io/how-to-sort-python-dictionaries-by-key-or-value/
             # delete existing route_definition.json and dump new complete as a json
             with open('config/route_descriptions.json','w') as f:
                 json.dump(outdata, f, indent=4)
@@ -130,126 +149,159 @@ class RouteUpdater(): # todo 0 test route updater
             print ('didnt update route_descriptions.json for some reason')
             return
 
-class BunchingReport(Generator): # todo 0 test bunching_report
+class BunchingReport(Generator):
+
+    def __init__(self):
+        super(BunchingReport,self).__init__()
+        self.type='bunching'
 
     def generate_reports(self, system_map):
 
-        for r in system_map.route_descriptions['routedata']:
+        for r in system_map.route_descriptions['routedata']: # loop over all routes
             route = r['route']
 
-            report = {'rt':route, 'report':
-                        {'type':'bunching',
-                         'created_timestamp':(datetime.datetime.now)
-                         }
-                      }
+            for period in system_map.period_descriptions:  # loop over all periods
 
-            with self.db as db:
-                # generates top 10 list of stops on the route by # of bunching incidents for period
-                bunching_leaderboard = []
-                cum_arrival_total = 0
-                cum_bunch_total = 0
+                report = {'rt': route, 'report':
+                    {'type': 'bunching',
+                     'period': period,
+                     'created_timestamp': (datetime.datetime.now)
+                     }
+                          }
 
-                for service in system_map.get_single_route_Paths(self, route):
-                    for stop in service.stops: # bug this is probably wrong property to subscript
-                        # first query to make sure there are ScheduledStop instances
-                        bunch_total = 0
-                        arrival_total = 0
-                        report = StopReport(system_map, route, stop.identity, 'day')
-                        for (index, row) in report.arrivals_list_final_df.iterrows():
-                            arrival_total += 1
-                            if (row.delta > report.bigbang) and (row.delta <= report.bunching_interval):
-                                bunch_total += 1
-                        cum_bunch_total = cum_bunch_total+bunch_total
-                        cum_arrival_total = cum_arrival_total + arrival_total
-                        bunching_leaderboard.append((stop.st, bunch_total,stop.identity))
-                bunching_leaderboard.sort(key=itemgetter(1), reverse=True)
-                report['report']['data'] = bunching_leaderboard[:10]
+                # make and pickle the report -- the 10 stops with the most bunching incidents -- by route, by period
+                with self.db as db:
 
-                self.store_pickle(report)
+                    bunching_leaderboard = []
+                    cum_arrival_total = 0
+                    cum_bunch_total = 0
 
-    def fetch_report(self, route):
-        return self.retrieve_pickle(route,'bunching')
+                    paths = system_map.get_single_route_Paths(route)[0][0].paths
 
-class GradeReport(Generator): # todo 1 write GradeReport generator
+                    for path in paths:
+                        for point in path.points:
+                            if isinstance(point,Route.Stop) is True:
+                                # first query to make sure there are ScheduledStop instances
+                                bunch_total = 0
+                                arrival_total = 0
+                                report = StopReport(system_map, route, point.identity, period)
+                                for (index, row) in report.arrivals_list_final_df.iterrows():
+                                    arrival_total += 1
+                                    if (row.delta > report.bigbang) and (row.delta <= report.bunching_interval):
+                                        bunch_total += 1
+                                cum_bunch_total = cum_bunch_total+bunch_total
+                                cum_arrival_total = cum_arrival_total + arrival_total
+                                bunching_leaderboard.append((point.st, bunch_total,point.identity))
+                        bunching_leaderboard.sort(key=itemgetter(1), reverse=True)
+                        report['report']['data'] = \
+                            {'bunching_leaderboard':bunching_leaderboard[:10],
+                             'cum_bunch_total':cum_bunch_total,
+                             'cum_arrival_total':cum_arrival_total
 
-    def __init__(self, system_map):
+                             }
+
+                    self.store_json(report)
+
+# sample bunching report
+'''
+{
+    "rt": "119",
+    "report": {
+        "type": "bunching",
+        "period": "day",
+        "created_timestamp": "2019-06-34 02:23:22",
+        "report": {
+            "bunching_leaderboard": ["34343", "34343", "34343", "34343", "34343", "34343"],
+            "cum_bunch_total": "45",
+            "cum_arrival_total": "450"
+        }
+    }
+}
+
+'''
+
+
+class GradeReport(Generator):
+
+    def __init__(self):
         super(GradeReport,self).__init__()
-        pass
+        self.type='grade'
 
-    def generate_reports(self, period):
-        return
+    def generate_reports(self):
 
-        # # compute grade
-        # # based on pct of all stops on route during period that were bunched
-        # try:
-        #     grade_numeric = (cum_bunch_total / cum_arrival_total) * 100
-        #     for g in self.grade_descriptions:
-        #         if g['bounds'][0] < grade_numeric <= g['bounds'][1]:
-        #             self.grade = g['grade']
-        #             self.grade_description = g['description']
-        # except:
-        #     self.grade = 'N/A'
-        #     self.grade_description = 'Unable to determine grade.'
-        #     pass
-        #
-        # time_created = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        # bunching_leaderboard_pickle = dict(bunching_leaderboard=bunching_leaderboard, grade=self.grade,
-        #                                    grade_numeric=grade_numeric, grade_description=self.grade_description, time_created=time_created)
-        # outfile = ('data/bunching_leaderboard_'+route+'.pickle')
-        # with open(outfile, 'wb') as handle:
-        #     pickle.dump(bunching_leaderboard_pickle, handle, protocol=pickle.HIGHEST_PROTOCOL)
+        def generate_reports(self, system_map):
 
-    def fetch_report(self, period):
-        try:
-            x = 2
-            y = 1
-            y > x
+            for r in system_map.route_descriptions['routedata']:  # loop over all routes
+                route = r['route']
+
+                for period in system_map.period_descriptions:  # loop over all periods
+
+                    report = {'rt': route, 'report':
+                        {'type': 'grade',
+                         'period': period,
+                         'created_timestamp': (datetime.datetime.now)
+                         }
+                              }
+
+                    # make and pickle the report
+
+                    # 1. load the bunching report and compute the absolute number of arrivals, number bunched, percent, and assign a letter grade based on grade_descriptions
+
+                    try:
+                        bunching_report_fetched = self.retrieve_json(route, 'bunching', period)
+                    except FileNotFoundError: # if the file doesn't exist quit this report and try next period
+                        continue
+
+                    # compute grade based on pct of all stops on route during period that were bunched
+                    try:
+                        grade_numeric = (bunching_report_fetched['cum_bunch_total'] / bunching_report_fetched['cum_arrival_total']) * 100
+                        for g in self.grade_descriptions:
+                            if g['bounds'][0] < grade_numeric <= g['bounds'][1]:
+                                grade = g['grade']
+                                grade_description = g['description']
+                    except:
+                        grade = 'N/A'
+                        grade_description = 'Unable to determine grade.'
+                        pass
+
+                    # 2. set the report results
+                    report['report'] = {
+                        "grade": grade,
+                        "grade_description": grade_description,
+                        "pct_bunched": grade_numeric
+                    }
+
+                    # 3. pickle it
+
+                    self.store_json(report)
+
             return
 
-            # and B. number of bunching incidents
+# sample grade report
+'''
+{
+    "rt": "119",
+    "report": {
+        "type": "grade",
+        "period": "day",
+        "created_timestamp": "2019-06-34 02:23:22",
+        "report": {
+            "grade": ["34343", "34343", "34343", "34343", "34343", "34343"],
+            "grade_description": "45",
+            "pct_bunched": "10.0"
+        }
+    }
+}
+
+'''
 
 
-            # LOAD THE GRADE DESCRIPTION
-
-            # method1
-            # grade_description = next((item for item in self.grade_descriptions if item["grade"] == grade), None)
-
-            # method2
-            # grade_description2 = list(filter(lambda letter: letter['grade'] == grade, self.grade_descriptions))
-
-            # method3
-            # for letter in self.grade_descriptions:
-            #     try letter['grade'] == grade:
-            #         grade_description = letter['description']
-            #     else:
-            #         grade_description = 'No grade description available.'
-
-            # grade = 'B'
-            # grade_description = "This isn't working."
-            # return grade, grade_description
-            #
-            #  future: based on average headway standard deviation
-
-            # We can also report variability using standard deviation and that can be converted to a letter
-            # (e.g.A is < 1 s.d., B is 1 to 1.5, etc.)
-            # Example: For a headway of 20 minutes, a service dependability grade of B means 80 percent of the time the bus will come every 10 to 30 minutes.
-            # for each (completed trip) in (period)
-            #   for each (stop) on (trip)
-            #       if period = now
-            #           what is the average time between the last 2-3 arrivals
-            #       elif period = anything else
-            #           what is the average time between all the arrivals in the period
-
-        except:
-            grade = 'F'
-            grade_description = "This isn't working."
-            return grade, grade_description
 
 class HeadwayReport(Generator): # future rewrite headway report
 
-    def __init__(self, system_map):
+    def __init__(self):
         super(HeadwayReport,self).__init__()
-        pass
+        self.type='headway'
 
     def f_timing(self, stop_df):
         stop_df['delta'] = (stop_df['arrival_timestamp'] - stop_df['arrival_timestamp'].shift(1)).fillna(
@@ -257,7 +309,7 @@ class HeadwayReport(Generator): # future rewrite headway report
         stop_df = stop_df.dropna()  # drop the NaN (probably just the first one)
         return stop_df
 
-    def generate_headway_report(self, system_map):
+    def generate_reports(self, system_map):
 
         with SQLAlchemyDBConnection() as db:
 
@@ -345,9 +397,9 @@ class TraveltimeReport(Generator): # future write traveltime reportt
 
     def __init__(self, system_map):
         super(TraveltimeReport,self).__init__()
-        pass
+        self.type='traveltime'
 
-    def get_traveltime(self, period):
+    def generate_reports(self, period):
 
         with SQLAlchemyDBConnection() as db:
             traveltime = dict()

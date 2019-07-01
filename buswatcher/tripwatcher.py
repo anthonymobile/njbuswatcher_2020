@@ -7,10 +7,10 @@
 import argparse
 import time
 
-from .lib.RouteScan import RouteScan
+from lib.RouteScan import RouteScan
 
-from .lib.RouteConfig import load_system_map, flush_system_map
-from .lib.CommonTools import timeit
+from lib.RouteConfig import load_system_map, flush_system_map
+from lib.CommonTools import timeit
 
 @timeit
 def main_loop(system_map):
