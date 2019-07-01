@@ -1,5 +1,5 @@
 
-# todo 3 debug buswatcher image with shell
+# todo 2 debug buswatcher image with shell
 # docker run -it --entrypoint /bin/bash $IMAGE_NAME -s
 #
 # buswatcher (gunicorn,flask)
@@ -31,7 +31,7 @@ COPY ./buswatcher/docker/DBconfig.py ./buswatcher/buswatcher/lib/DBconfig.py
 # run entrypoint.sh
 # ENTRYPOINT ["/buswatcher/buswatcher/docker/entrypoint.sh"]
 
-# todo 3 test various workdir permutations
+# various workdir permutations to test
 WORKDIR /buswatcher/buswatcher
 # WORKDIR /buswatcher
 # WORKDIR /

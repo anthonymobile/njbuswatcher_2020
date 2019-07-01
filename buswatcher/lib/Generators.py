@@ -150,7 +150,7 @@ class RouteUpdater():
             print ('didnt update route_descriptions.json for some reason')
             return
 
-class BunchingReport(Generator): #todo test BunchingReport generator full run
+class BunchingReport(Generator): #todo 1 test BunchingReport generator full run
 
     def __init__(self):
         super(BunchingReport,self).__init__()
@@ -232,7 +232,7 @@ class BunchingReport(Generator): #todo test BunchingReport generator full run
                                         .filter(Trip.rt == route) \
                                         .filter(ScheduledStop.stop_id == stop_id) \
                                         .filter(ScheduledStop.arrival_timestamp != None) \
-                                        .order_by(ScheduledStop.arrival_timestamp.desc()) # todo test this on stop page, if it helps fix the arrival interval 24 hours problem
+                                        .order_by(ScheduledStop.arrival_timestamp.desc()) # todo 1 test this on stop page for arrival interval 24 hours problem
 
             query=self.query_factory(system_map, db, query, period=period) # add the period
             query=query.statement
@@ -241,7 +241,7 @@ class BunchingReport(Generator): #todo test BunchingReport generator full run
                 if len(arrivals_here_this_route.index) == 0: # no results return dummy df
                     return self.return_dummy_arrivals_df()
                 else:
-                    return self.filter_arrivals(arrivals_here_this_route) # todo
+                    return self.filter_arrivals(arrivals_here_this_route)
             except ValueError: # any error return a dummy df
                 return self.return_dummy_arrivals_df()
 

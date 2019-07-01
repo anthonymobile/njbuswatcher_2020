@@ -193,7 +193,7 @@ class StopReport(GenericReport):
                                         .filter(Trip.rt == self.route) \
                                         .filter(ScheduledStop.stop_id == self.stop_id) \
                                         .filter(ScheduledStop.arrival_timestamp != None) \
-                                        .order_by(ScheduledStop.arrival_timestamp.desc()) # todo test this on stop page, if it helps fix the arrival interval 24 hours problem
+                                        .order_by(ScheduledStop.arrival_timestamp.desc())
 
             query=self.query_factory(db, query,period=self.period) # add the period
             query=query.statement
