@@ -1,5 +1,5 @@
 import datetime
-import pickle
+import json
 import os
 from pathlib import Path
 
@@ -53,30 +53,29 @@ class RouteReport(GenericReport):
         self.prettyname = [x['prettyname'] for x in system_map.route_descriptions['routedata'] if x['route'] == self.route][0]
         self.schedule_url = [x['schedule_url'] for x in system_map.route_descriptions['routedata'] if x['route'] == self.route][0]
 
-        self.route_geometry = system_map.route_geometries[self.route] # RouteConfig.get_route_geometry(system_map,route)
+        self.route_geometry = system_map.route_geometries[self.route]
 
-        self.routes, self.coordinate_bundle = system_map.get_single_route_paths_and_coordinatebundle(self.route) # BusAPI.parse_xml_getRoutePoints(RouteConfig.get_route_geometry(self.route))
+        self.routes, self.coordinate_bundle = system_map.get_single_route_paths_and_coordinatebundle(self.route)
         self.routename, self.waypoints_coordinates, self.stops_coordinates, self.waypoints_geojson, self.stops_geojson = \
             self.routes[0].nm, self.coordinate_bundle['waypoints_coordinates'], self.coordinate_bundle['stops_coordinates'], \
             self.coordinate_bundle['waypoints_geojson'], self.coordinate_bundle['stops_geojson']
         self.route_stop_list = system_map.get_single_route_stoplist_for_wwwAPI(self.route)
 
         # query dynamic stuff
-        self.trip_list, self.trip_list_trip_id_only = self.__get_current_trips()
+        self.trip_list, self.trip_list_trip_id_only = self.get_current_trips()
         self.tripdash = self.get_tripdash()
 
         # and compute summary statistics
-        self.active_bus_count = len(self.trip_list_trip_id_only)  # this is probably faster than fetching getBusesForRoute&rt=self.route from the NJT API
+        self.active_bus_count = len(self.trip_list_trip_id_only)
 
         # load Generators report
-        self.bunching_report = self.retrieve_pickle('bunching')
-        self.grade, self.grade_description = self.retrieve_pickle('grade')
-        #
+        self.bunching_report = self.retrieve_json('bunching')
+        self.grade, self.grade_description = self.retrieve_json('grade')
         # self.headway_report = self.retrieve_json('headay')
         # self.traveltime_report = self.retrieve_json('traveltime')
 
 
-    def __get_current_trips(self):
+    def get_current_trips(self):
         # get a list of trips current running the route
         v_on_route = BusAPI.parse_xml_getBusesForRoute(
             BusAPI.get_xml_data(self.source, 'buses_for_route', route=self.route))
@@ -97,7 +96,7 @@ class RouteReport(GenericReport):
 
         with SQLAlchemyDBConnection() as db:
 
-            trip_list, x = self.__get_current_trips()
+            trip_list, x = self.get_current_trips()
 
             tripdash = dict()
             for trip_id,pd,bid,run in trip_list:
@@ -127,11 +126,11 @@ class RouteReport(GenericReport):
 
         return tripdash
 
-    def retrieve_pickle(self, type):
-        pickle_prefix = Path(os.getcwd() + "config/reports/")
-        filename = ('%a/%b_%c_%d').format(a=pickle_prefix,b=self.route,c=type,d=self.period)
+    def retrieve_json(self, type):
+        file_prefix = Path(os.getcwd() + "config/reports/")
+        filename = ('%a/%b_%c_%d.json').format(a=file_prefix,b=self.route,c=type,d=self.period)
         with open(filename, "rb") as f:
-            report_retrieved = pickle.load(f)
+            report_retrieved = json.load(f)
         return report_retrieved
 
 
@@ -178,7 +177,7 @@ class StopReport(GenericReport):
         with SQLAlchemyDBConnection() as db:
 
             # build query and load into df
-            query=db.session.query(Trip.rt, # base query # todo 0 add a sort by arrival_timestamp descending here?
+            query=db.session.query(Trip.rt, # base query # bug add a sort by arrival_timestamp descending here?
                                         Trip.v,
                                         Trip.pid,
                                         Trip.trip_id,
@@ -240,7 +239,7 @@ class StopReport(GenericReport):
                 arrival_insert_df = final_approach.tail(1)  # take the last observation
                 arrivals_list_final_df = arrivals_list_final_df.append(arrival_insert_df)  # insert into df
 
-            try: # bug getting -24 hour time errors here, need to resort by timestamp again? # todo 0 or sort by arrival_timestamp descending here?
+            try: # bug getting -24 hour time errors here, need to resort by timestamp again?
                 # calc interval between last bus for each row, fill NaNs #
                 arrivals_list_final_df['delta'] = (arrivals_list_final_df['arrival_timestamp'] - arrivals_list_final_df['arrival_timestamp'].shift(1)).fillna(0)
             except:
@@ -255,7 +254,7 @@ class StopReport(GenericReport):
 
             return arrivals_list_final_df, stop_name, arrivals_table_time_created
 
-    def get_hourly_frequency(self):  # todo 00 get_hourly_frequency
+    def get_hourly_frequency(self):
         results = pd.DataFrame()
         self.arrivals_list_final_df['delta_int'] = self.arrivals_list_final_df['delta'].dt.seconds # bug need to have a null value here or throws an error
 

@@ -33,7 +33,7 @@ class Generator():
             report_retrieved = json.load(f)
         return report_retrieved
 
-class RouteUpdater(): # todo 0 test route updater
+class RouteUpdater():
 
     def __init__(self,system_map):
         self.refresh_routedata(system_map)
@@ -138,7 +138,7 @@ class RouteUpdater(): # todo 0 test route updater
             now = datetime.datetime.now()
             outdata['last_updated'] = now.strftime("%Y-%m-%d %H:%M:%S")
             outdata['ttl'] = '86400'
-            outdata['routedata'] = system_map.route_descriptions['routedata'] # todo sort the stuff inside here https://www.pythoncentral.io/how-to-sort-python-dictionaries-by-key-or-value/
+            outdata['routedata'] = system_map.route_descriptions['routedata'] # bug sort the routes inside this dict -->  https://www.pythoncentral.io/how-to-sort-python-dictionaries-by-key-or-value/
             # delete existing route_definition.json and dump new complete as a json
             with open('config/route_descriptions.json','w') as f:
                 json.dump(outdata, f, indent=4)
@@ -162,12 +162,12 @@ class BunchingReport(Generator):
 
             for period in system_map.period_descriptions:  # loop over all periods
 
-                report = {'rt': route, 'report':
-                    {'type': 'bunching',
-                     'period': period,
-                     'created_timestamp': (datetime.datetime.now)
-                     }
-                          }
+                report = {'rt': route,
+                          'type': 'bunching',
+                          'period': period,
+                          'created_timestamp': (datetime.datetime.now)
+                        }
+
 
                 # make and pickle the report -- the 10 stops with the most bunching incidents -- by route, by period
                 with self.db as db:
@@ -191,32 +191,51 @@ class BunchingReport(Generator):
                                         bunch_total += 1
                                 cum_bunch_total = cum_bunch_total+bunch_total
                                 cum_arrival_total = cum_arrival_total + arrival_total
-                                bunching_leaderboard.append((point.st, bunch_total,point.identity))
+                                leaderboard_entry = {
+                                                        'stop_name':point.st,
+                                                        'stop_id':point.identity,
+                                                        'bunched_arrivals_in_period':bunch_total
+                                                     }
+
+                                bunching_leaderboard.append(leaderboard_entry)
                         bunching_leaderboard.sort(key=itemgetter(1), reverse=True)
-                        report['report']['data'] = \
-                            {'bunching_leaderboard':bunching_leaderboard[:10],
-                             'cum_bunch_total':cum_bunch_total,
-                             'cum_arrival_total':cum_arrival_total
 
-                             }
-
+                    # log the results and dump
+                    report['bunching_leaderboard'] = bunching_leaderboard[:10]
+                    report['cum_bunch_total'] = cum_bunch_total
+                    report['cum_arrival_total'] = cum_arrival_total
                     self.store_json(report)
 
 # sample bunching report
 '''
 {
     "rt": "119",
-    "report": {
-        "type": "bunching",
-        "period": "day",
-        "created_timestamp": "2019-06-34 02:23:22",
-        "report": {
-            "bunching_leaderboard": ["34343", "34343", "34343", "34343", "34343", "34343"],
-            "cum_bunch_total": "45",
-            "cum_arrival_total": "450"
-        }
-    }
+    "type": "bunching",
+    "period": "day",
+    "created_timestamp": "2019-06-34 02:23:22",
+    "bunching_leaderboard": [
+        {
+         'stop_name':'STREET AND STREET',
+          'stop_id':'31822',
+          'bunched_arrivals_in_period':'54'
+          },
+        {
+         'stop_name':'STREET AND STREET',
+          'stop_id':'31822',
+          'bunched_arrivals_in_period':'54'
+          },
+          {
+         'stop_name':'STREET AND STREET',
+          'stop_id':'31822',
+          'bunched_arrivals_in_period':'54'
+          }
+          ],
+    "cum_bunch_total": "45",
+    "cum_arrival_total": "450"
 }
+
+        
+
 
 '''
 
@@ -265,13 +284,12 @@ class GradeReport(Generator):
                         pass
 
                     # 2. set the report results
-                    report['report'] = {
-                        "grade": grade,
-                        "grade_description": grade_description,
-                        "pct_bunched": grade_numeric
-                    }
+                    report['grade'] = grade
+                    report['grade_description'] =  grade_description,
+                    report['pct_bunched'] = grade_numeric
 
-                    # 3. pickle it
+
+                    # 3. dump it
 
                     self.store_json(report)
 
@@ -281,16 +299,12 @@ class GradeReport(Generator):
 '''
 {
     "rt": "119",
-    "report": {
-        "type": "grade",
-        "period": "day",
-        "created_timestamp": "2019-06-34 02:23:22",
-        "report": {
-            "grade": ["34343", "34343", "34343", "34343", "34343", "34343"],
-            "grade_description": "45",
-            "pct_bunched": "10.0"
-        }
-    }
+    "type": "grade",
+    "period": "day",
+    "created_timestamp": "2019-06-34 02:23:22",
+    "grade": "B",
+    "grade_description": "Something loaded from grade_descriptons.json",
+    "pct_bunched": "10.0"
 }
 
 '''
@@ -410,7 +424,7 @@ class TraveltimeReport(Generator): # future write traveltime reportt
             # yesterdays_date = datetime.date.today() - datetime.timedelta(1)
             # one_hour_ago = datetime.datetime.now() - datetime.timedelta(hours=1)
             #
-            # x, trips_on_road_now = self.__get_current_trips()
+            # x, trips_on_road_now = self.get_current_trips()
             #
             #
 
