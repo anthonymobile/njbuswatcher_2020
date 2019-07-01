@@ -26,4 +26,4 @@ COPY ./buswatcher/docker/DBconfig.py ./buswatcher/buswatcher/lib/DBconfig.py
 
 # use one or the other
 
-CMD ["/opt/conda/envs/buswatcher/bin/python", "/buswatcher/buswatcher/generator.py"]
+CMD ["/opt/conda/envs/buswatcher/bin/python", "/buswatcher/buswatcher/tripwatcher.py"]
