@@ -28,26 +28,26 @@ jobstores = {'default': SQLAlchemyJobStore(url=connection_string)}
 executors = {'default': ThreadPoolExecutor(20)}
 job_defaults = {'coalesce': True, 'max_instances': 5 }
 
-
+@timeit
 def minute_tasks(system_map):
     # task_trigger_1 = HeadwayReport(system_map)
     print ('minute_tasks just ran')
     return
 
-
+@timeit
 def quarter_hour_tasks(system_map):
     # task_trigger_1 = TravelTimeReport(system_map)
     print ('quarter_hour_tasks just ran')
     return
 
-
+@timeit
 def hourly_tasks(system_map):
     task_trigger_1 = RouteUpdater(system_map) # refresh route descriptions
     task_trigger_2 = GradeReport().generate_reports() # refresh letter grades
     print ('hourly_tasks just ran')
     return
 
-
+@timeit
 def daily_tasks(system_map):
     # Generators.generate_bunching_report(all) -- once per day at 2am
     task_trigger_1 = BunchingReport().generate_reports(system_map)

@@ -163,7 +163,7 @@ class StopReport(GenericReport):
         with SQLAlchemyDBConnection() as db:
 
             # build query and load into df
-            query=db.session.query(Trip.rt, # base query # bug add a sort by arrival_timestamp descending here?
+            query=db.session.query(Trip.rt, # base query
                                         Trip.v,
                                         Trip.pid,
                                         Trip.trip_id,
@@ -173,7 +173,8 @@ class StopReport(GenericReport):
                                         .join(ScheduledStop) \
                                         .filter(Trip.rt == self.route) \
                                         .filter(ScheduledStop.stop_id == self.stop_id) \
-                                        .filter(ScheduledStop.arrival_timestamp != None)
+                                        .filter(ScheduledStop.arrival_timestamp != None) \
+                                        .order_by(ScheduledStop.arrival_timestamp.desc()) # todo test this on stop page, if it helps fix the arrival interval 24 hours problem
 
             query=self.query_factory(db, query,period=self.period) # add the period
             query=query.statement
@@ -259,7 +260,7 @@ class StopReport(GenericReport):
 
     def get_hourly_frequency(self):
         results = pd.DataFrame()
-        self.arrivals_here_this_route_df['delta_int'] = self.arrivals_here_this_route_df['delta'].dt.seconds # bug need to have a null value here or throws an error
+        self.arrivals_here_this_route_df['delta_int'] = self.arrivals_here_this_route_df['delta'].dt.seconds
 
         try:
             # results['frequency']= (self.arrivals_here_this_route_df.delta_int.resample('H').mean())//60
