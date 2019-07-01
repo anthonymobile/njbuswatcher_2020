@@ -16,20 +16,20 @@ class Generator():
 
     def __init__(self):
         self.cwd = os.getcwd()
-        self.pickle_prefix = Path(self.cwd + "config/reports/")
+        self.pickle_prefix = Path(self.cwd + "/config/reports/")
         self.db =  SQLAlchemyDBConnection()
 
     # future store the results as json since they could be inspected that way
 
     def store_json(self, report_to_store): # filename format route_type_period
-        filename = ('%a/%b_%c_%d.json').format(a=self.pickle_prefix,b=report_to_store['route'],c=report_to_store['report']['type'],d=report_to_store['period'])
-        with open(filename,"wb") as f:
-            json.dump(report_to_store, f, protocol=pickle.HIGHEST_PROTOCOL)
+        filename = ('{a}/{b}_{c}_{d}.json').format(a=self.pickle_prefix,b=report_to_store['route'],c=report_to_store['type'],d=report_to_store['period'])
+        with open(filename, 'w') as f:
+            json.dump(report_to_store, f, sort_keys=True,indent=4)
         return
 
     def retrieve_json(self, route, type, period):
-        filename = ('%a/%b_%c_%d.json').format(a=self.pickle_prefix, b=route,c=type, d=period)
-        with open(filename,"rb") as f:
+        filename = ('{a}/{b}{c}_{d}.json').format(a=self.pickle_prefix, b=route,c=type, d=period)
+        with open(filename,"r") as f:
             report_retrieved = json.load(f)
         return report_retrieved
 
@@ -43,7 +43,7 @@ class RouteUpdater():
 
         # even though this now runs on a daily schedule
         # load existing reports and check ttl anyways
-        try: # bug this over reads the pickle file, so need to check the route_descriptions file itself
+        try: # bug this often reads the pickle file, so need to check the route_descriptions file itself
             route_descriptions_last_updated = parser.parse(system_map.route_descriptions['last_updated'])
         except:
             route_descriptions_last_updated = parser.parse('2000-01-01 01:01:01')
@@ -159,20 +159,22 @@ class BunchingReport(Generator):
 
         for r in system_map.route_descriptions['routedata']: # loop over all routes
             route = r['route']
+            print ('route {a}'.format(a=route))
 
             for period in system_map.period_descriptions:  # loop over all periods
+                print('\tperiod {a}'.format(a=period))
 
-                report = {'rt': route,
+                bunching_report_template = {'route': route,
                           'type': 'bunching',
                           'period': period,
-                          'created_timestamp': (datetime.datetime.now)
+                          'created_timestamp': str((datetime.datetime.now))
                         }
 
 
                 # make and pickle the report -- the 10 stops with the most bunching incidents -- by route, by period
                 with self.db as db:
 
-                    bunching_leaderboard = []
+                    bunching_leaderboard_raw = []
                     cum_arrival_total = 0
                     cum_bunch_total = 0
 
@@ -181,13 +183,14 @@ class BunchingReport(Generator):
                     for path in paths:
                         for point in path.points:
                             if isinstance(point,Route.Stop) is True:
+                                print('\t\tstop {a}'.format(a=point.identity))
                                 # first query to make sure there are ScheduledStop instances
                                 bunch_total = 0
                                 arrival_total = 0
-                                report = StopReport(system_map, route, point.identity, period)
-                                for (index, row) in report.arrivals_here_this_route_df.iterrows():
+                                stop_report = StopReport(system_map, route, point.identity, period)
+                                for (index, row) in stop_report.arrivals_here_this_route_df.iterrows():
                                     arrival_total += 1
-                                    if (row.delta > report.bigbang) and (row.delta <= report.bunching_interval):
+                                    if (row.delta > stop_report.bigbang) and (row.delta <= stop_report.bunching_interval):
                                         bunch_total += 1
                                 cum_bunch_total = cum_bunch_total+bunch_total
                                 cum_arrival_total = cum_arrival_total + arrival_total
@@ -197,14 +200,16 @@ class BunchingReport(Generator):
                                                         'bunched_arrivals_in_period':bunch_total
                                                      }
 
-                                bunching_leaderboard.append(leaderboard_entry)
-                        bunching_leaderboard.sort(key=itemgetter(1), reverse=True)
+                                bunching_leaderboard_raw.append(leaderboard_entry)
+                    # bunching_leaderboard.sort(key=itemgetter(1), reverse=True)
+                    # https://stackoverflow.com/questions/72899/how-do-i-sort-a-list-of-dictionaries-by-a-value-of-the-dictionary
+                    bunching_leaderboard = sorted(bunching_leaderboard_raw, key=lambda k: k['bunched_arrivals_in_period'])
 
                     # log the results and dump
-                    report['bunching_leaderboard'] = bunching_leaderboard[:10]
-                    report['cum_bunch_total'] = cum_bunch_total
-                    report['cum_arrival_total'] = cum_arrival_total
-                    self.store_json(report)
+                    bunching_report_template['bunching_leaderboard'] = bunching_leaderboard[:10]
+                    bunching_report_template['cum_bunch_total'] = cum_bunch_total
+                    bunching_report_template['cum_arrival_total'] = cum_arrival_total
+                    self.store_json(bunching_report_template)
 
 # sample bunching report
 '''
