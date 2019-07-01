@@ -27,11 +27,17 @@ map.on('load', function() {
             "type": "circle",
             "source": "vehicles_source",
             "paint": {
-                "circle-radius": 4,
+                "circle-radius": 2,
                 "circle-opacity": 1,
-                "circle-stroke-width": 3,
+                "circle-stroke-width": 2,
                 "circle-stroke-color": "#f6c"
             }
+            // "paint": {
+            //     "circle-radius": 4,
+            //     "circle-opacity": 1,
+            //     "circle-stroke-width": 3,
+            //     "circle-stroke-color": "#f6c"
+            // }
          })
 
     });

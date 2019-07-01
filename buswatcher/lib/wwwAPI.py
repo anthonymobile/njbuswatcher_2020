@@ -70,7 +70,7 @@ class RouteReport(GenericReport):
 
         # load Generators report
         self.bunching_report = self.retrieve_json('bunching')
-        self.grade, self.grade_description = self.retrieve_json('grade')
+        self.grade_report = self.retrieve_json('grade') # bug too many values to unpack
         # self.headway_report = self.retrieve_json('headay')
         # self.traveltime_report = self.retrieve_json('traveltime')
 
@@ -128,9 +128,28 @@ class RouteReport(GenericReport):
 
     def retrieve_json(self, type):
         file_prefix = Path(os.getcwd() + "config/reports/")
-        filename = ('%a/%b_%c_%d.json').format(a=file_prefix,b=self.route,c=type,d=self.period)
-        with open(filename, "rb") as f:
-            report_retrieved = json.load(f)
+        filename = ('{a}/{b}_{c}_{d}.json').format(a=file_prefix,b=self.route,c=type,d=self.period)
+
+        try:
+            with open(filename, "rb") as f:
+                report_retrieved = json.load(f)
+        except FileNotFoundError:
+            report_retrieved = {
+                "rt": self.route,
+                "type": type,
+                "period": self.period,
+                "created_timestamp": datetime.datetime.now(),
+                "dummy": "True"
+            }
+
+
+
+
+
+
+
+
+
         return report_retrieved
 
 

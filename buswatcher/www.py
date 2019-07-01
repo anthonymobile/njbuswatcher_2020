@@ -30,7 +30,7 @@ from lib import wwwAPI
 ################################################
 # ROUTE + APP CONFIG
 ################################################
-from .lib.RouteConfig import load_system_map
+from lib.RouteConfig import load_system_map
 
 ################################################
 # APP
