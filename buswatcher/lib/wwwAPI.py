@@ -70,7 +70,7 @@ class RouteReport(GenericReport):
 
         # load Generators report
         self.bunching_report = self.retrieve_json('bunching')
-        self.grade_report = self.retrieve_json('grade') # bug too many values to unpack
+        self.grade_report = self.retrieve_json('grade')
         # self.headway_report = self.retrieve_json('headay')
         # self.traveltime_report = self.retrieve_json('traveltime')
 
