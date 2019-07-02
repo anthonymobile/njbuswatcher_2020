@@ -77,49 +77,22 @@ bundles = {
 assets = Environment(app)
 assets.register(bundles)
 
-################################################
-# HELPERS + DECORATORS
-################################################
-
-# def load_collection_routes(collection_url):
-# # get list of routes in collection from route_config
-#     d1, d2, collection_descriptions = load_config()
-#     collection_metadata=dict()
-#     for collection in collection_descriptions:
-#         if collection['collection_url'] == collection_url:
-#             collection_metadata = collection
-#             break
-#         else:
-#             continue
-#     return collection_metadata
 
 
 ################################################
 # URLS
 ################################################
 
+# def get_current_positions_db():
+#     # get list of all routes from system_map.routelist
+#     routelist=system_map.get_routelist()
+#
+#     return
 
-
-@app.route('/favicon.ico')
-def favicon():
-    return send_from_directory(os.path.join(app.root_path, 'static/images'),
-                          'favicon.ico',mimetype='image/vnd.microsoft.icon')
 
 #-------------------------------------------------------------Statewide Index
-
-
-def get_current_positions_db():
-    # get list of all routes from system_map.routelist
-    routelist=system_map.get_routelist()
-
-    return
-
 @app.route('/')
 def displayIndex():
-
-    # vehicle_data = BusAPI.parse_xml_getBusesForRouteAll(BusAPI.get_xml_data('nj','all_buses'))
-    # vehicle_count = len(vehicle_data)
-    # route_count = len(list(set([v.rt for v in vehicle_data])))
 
     vehicle_data, vehicle_count, route_count = API.current_buspositions_from_db_for_index()
 
@@ -172,6 +145,12 @@ def displayAPI():
     routereport = Dummy() #  setup a dummy routereport for the navbar
     return render_template('api.jinja2', reportcard_routes=route_descriptions, routereport=routereport)
 
+#-------------------------------------------------------------Favorite Icon
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static/images'),
+                          'favicon.ico',mimetype='image/vnd.microsoft.icon')
+
 
 ################################################
 # API
@@ -179,7 +158,7 @@ def displayAPI():
 
 # map layer geojson generator
 #
-# /api/v1/maps?
+# /api/v1/maps/....
 
 # for index map
 #   /waypoints&rt=all              waypoints for ALL routes

@@ -27,9 +27,9 @@ map.on('load', function() {
             "type": "circle",
             "source": "vehicles_source",
             "paint": {
-                "circle-radius": 2,
+                "circle-radius": 3,
                 "circle-opacity": 1,
-                "circle-stroke-width": 2,
+                "circle-stroke-width": 3,
                 "circle-stroke-color": "#f6c"
             }
             // "paint": {
@@ -59,7 +59,7 @@ map.on('load', function() {
             "paint": {
                 "line-color": "blue",
                 "line-opacity": 0.75,
-                "line-width": 2
+                "line-width": 4
             }
         });
     });
@@ -76,7 +76,7 @@ map.on('load', function() {
             "type": "circle",
             "source": "stops_source",
             "paint": {
-                "circle-radius": 1,
+                "circle-radius": 1.5,
                 "circle-opacity": 1,
                 "circle-stroke-width": 1.5,
                 "circle-stroke-color": "#fff"

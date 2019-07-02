@@ -127,7 +127,7 @@ class RouteReport(GenericReport):
         return tripdash
 
     def retrieve_json(self, type):
-        file_prefix = Path(os.getcwd() + "config/reports/")
+        file_prefix = Path(os.getcwd() + "/config/reports/")
         filename = ('{a}/{b}_{c}_{d}.json').format(a=file_prefix,b=self.route,c=type,d=self.period)
 
         try:
@@ -141,13 +141,6 @@ class RouteReport(GenericReport):
                 "created_timestamp": datetime.datetime.now(),
                 "dummy": "True"
             }
-
-
-
-
-
-
-
 
 
         return report_retrieved

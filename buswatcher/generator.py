@@ -26,23 +26,23 @@ jobstores = {'default': SQLAlchemyJobStore(url=connection_string)}
 executors = {'default': ThreadPoolExecutor(20)}
 job_defaults = {'coalesce': True, 'max_instances': 5 }
 
-def minute_tasks(system_map):
+def minute(system_map):
     # task_trigger_1 = HeadwayReport(system_map)
     print ('minute_tasks just ran')
     return
 
-def quarter_hour_tasks(system_map):
+def quarter_hourly(system_map):
     # task_trigger_1 = TravelTimeReport(system_map)
     print ('quarter_hour_tasks just ran')
     return
 
-def hourly_tasks(system_map):
+def hourly(system_map):
     task_trigger_1 = RouteUpdater(system_map) # refresh route descriptions
-    task_trigger_2 = GradeReport().generate_reports() # refresh letter grades
+    task_trigger_2 = GradeReport().generate_reports(system_map) # refresh letter grades
     print ('hourly_tasks just ran')
     return
 
-def daily_tasks(system_map):
+def daily(system_map):
     # Generators.generate_bunching_report(all) -- once per day at 2am
     task_trigger_1 = BunchingReport().generate_reports(system_map)
     print ('daily_tasks just ran')
@@ -53,24 +53,25 @@ if __name__ == "__main__":
 
     system_map=load_system_map()
     parser = argparse.ArgumentParser()
-    parser.add_argument('-t', '--testmode', dest='test', action='store_true', help='Test mode, run the scheduled tasks in succession, bypassing apscheduler.')
+    parser.add_argument('--testmode', dest='test', action='store_true', help='Test mode, run the scheduled tasks in succession, bypassing apscheduler.')
+    parser.add_argument("--tasks", nargs='*', help="List of tasks you want to run")
+
     args = parser.parse_args()
 
     if args.test is True:
-        minute_tasks(system_map)
-        quarter_hour_tasks(system_map)
-        hourly_tasks(system_map)
-        daily_tasks(system_map)
+        for arg in args.tasks:
+            func = locals()[arg](system_map)
+            func
 
     else:
         scheduler = BackgroundScheduler(jobstores=jobstores,executors=executors,job_defaults=job_defaults)
         system_map = load_system_map()
 
-        scheduler.add_job(minute_tasks, 'interval', minutes=1, id='every minute', replace_existing=True, args=[system_map])
-        scheduler.add_job(quarter_hour_tasks, 'interval', minutes=15, id='every 15 minutes', replace_existing=True, args=[system_map])
-        scheduler.add_job(hourly_tasks, 'interval', minutes=60, id='every hour', replace_existing=True, args=[system_map])
-        scheduler.add_job(daily_tasks, 'cron', day='*', hour='2', id='every day at 2am', replace_existing=True, args=[system_map])
-        scheduler.start()
+        scheduler.add_job(minute, 'interval', minutes=1, id='every minute', replace_existing=True, args=[system_map])
+        scheduler.add_job(quarter_hourly, 'interval', minutes=15, id='every 15 minutes', replace_existing=True, args=[system_map])
+        scheduler.add_job(hourly, 'interval', minutes=60, id='every hour', replace_existing=True, args=[system_map])
+        scheduler.add_job(daily, 'cron', day='*', hour='2', id='every day at 2am', replace_existing=True, args=[system_map])
+        scheduler.start() # todo 0 debug database connection errors https://stackoverflow.com/questions/14207708/ioerror-errno-32-broken-pipe-python
         scheduler.print_jobs()
         print ('generator will sleep now, while tasks run in the background')
 
