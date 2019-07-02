@@ -5,7 +5,7 @@
                 "0",
                 "2.5"
             ],
-            "description": "Service is provided in line with rider expectations of reliability, capacity, and quality."
+            "description": "service was in line with rider expectations of reliability, capacity, and quality."
         },
     "B":
         {
@@ -14,7 +14,7 @@
                 "2.5",
                 "5.0"
             ],
-            "description": "Service is usually good but occasionally falls short of rider expectations."
+            "description": "service was usually good but occasionally fell short of rider expectations."
         },
     "C":
         {
@@ -23,7 +23,7 @@
                 "5",
                 "10"
             ],
-            "description": "Service meets the needs of riders some of the time, but suffers from serious shortcomings and gaps. Focused action is required to improve service in the near-term."
+            "description": "service met the needs of riders some of the time, but suffered from serious shortcomings and gaps. Focused action is required to improve service in the near-term."
         },
     "D":
         {
@@ -32,7 +32,7 @@
                 "10",
                 "15"
             ],
-            "description": "Service frequently fails to meet the needs of riders, and requires substantial effort at improvement."
+            "description": "service frequently failed to meet the needs of riders, and requires substantial effort at improvement."
         },
     "F":
         {
@@ -41,7 +41,7 @@
                 "15",
                 "100"
             ],
-            "description": "Service frequently fails to meeting rider needs and expectations. Immediate action required to achieve minimum level of service."
+            "description": "service frequently failed to meet rider needs and expectations. Immediate action required to achieve minimum level of service."
         },
     "N/A":
         {
@@ -50,6 +50,6 @@
                 "-1",
                 "0"
             ],
-            "description": "No grade available. Insufficient data to calculate a score for this period"
+            "description": "no grade was available due to insufficient data on stop arrivals."
         }
 }
