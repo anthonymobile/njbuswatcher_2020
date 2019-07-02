@@ -29,7 +29,7 @@ class Generator():
         return
 
     def retrieve_json(self, route, type, period):
-        filename = ('{a}/{b}{c}_{d}.json').format(a=self.pickle_prefix, b=route,c=type, d=period)
+        filename = ('{a}/{b}_{c}_{d}.json').format(a=self.pickle_prefix, b=route,c=type, d=period)
         with open(filename,"r") as f:
             report_retrieved = json.load(f)
         return report_retrieved
@@ -147,10 +147,10 @@ class RouteUpdater():
             return
 
         else:
-            print ('didnt update route_descriptions.json for some reason')
+            print ('didnt update route_descriptions.json because ttl not expired')
             return
 
-class BunchingReport(Generator): #todo 1 test BunchingReport generator full run
+class BunchingReport(Generator):
 
     def __init__(self):
         super(BunchingReport,self).__init__()
@@ -185,8 +185,7 @@ class BunchingReport(Generator): #todo 1 test BunchingReport generator full run
                     for path in paths:
                         for point in path.points:
                             if isinstance(point,Route.Stop) is True:
-                                print('\t\tstop {a}'.format(a=point.identity))
-                                # first query to make sure there are ScheduledStop instances
+                                 # first query to make sure there are ScheduledStop instances
                                 bunch_total = 0
                                 arrival_total = 0
                                 stop_report = self.get_arrivals_here_this_route(system_map, route, point.identity, period)
@@ -232,7 +231,7 @@ class BunchingReport(Generator): #todo 1 test BunchingReport generator full run
                                         .filter(Trip.rt == route) \
                                         .filter(ScheduledStop.stop_id == stop_id) \
                                         .filter(ScheduledStop.arrival_timestamp != None) \
-                                        .order_by(ScheduledStop.arrival_timestamp.desc()) # todo 1 test this on stop page for arrival interval 24 hours problem
+                                        .order_by(ScheduledStop.arrival_timestamp.desc()) # todo 1 debug test this on stop page for arrival interval 24 hours problem
 
             query=self.query_factory(system_map, db, query, period=period) # add the period
             query=query.statement
@@ -338,60 +337,60 @@ class BunchingReport(Generator): #todo 1 test BunchingReport generator full run
 '''
 
 
-class GradeReport(Generator):
+class GradeReport(Generator): #todo 0 debug and test with generator.py --testmode --tasks hourly
 
     def __init__(self):
         super(GradeReport,self).__init__()
         self.type='grade'
 
-    def generate_reports(self):
+    def generate_reports(self, system_map):
 
-        def generate_reports(self, system_map):
+        for r in system_map.route_descriptions['routedata']:  # loop over all routes
+            route = r['route']
 
-            for r in system_map.route_descriptions['routedata']:  # loop over all routes
-                route = r['route']
+            for period in system_map.period_descriptions:  # loop over all periods
 
-                for period in system_map.period_descriptions:  # loop over all periods
-
-                    report = {'rt': route, 'report':
-                        {'type': 'grade',
-                         'period': period,
-                         'created_timestamp': (datetime.datetime.now)
-                         }
-                              }
-
-                    # make and pickle the report
-
-                    # 1. load the bunching report and compute the absolute number of arrivals, number bunched, percent, and assign a letter grade based on grade_descriptions
-
-                    try:
-                        bunching_report_fetched = self.retrieve_json(route, 'bunching', period)
-                    except FileNotFoundError: # if the file doesn't exist quit this report and try next period
-                        continue
-
-                    # compute grade based on pct of all stops on route during period that were bunched
-                    try:
-                        grade_numeric = (bunching_report_fetched['cum_bunch_total'] / bunching_report_fetched['cum_arrival_total']) * 100
-                        for g in self.grade_descriptions:
-                            if g['bounds'][0] < grade_numeric <= g['bounds'][1]:
-                                grade = g['grade']
-                                grade_description = g['description']
-                    except:
-                        grade = 'N/A'
-                        grade_description = 'Unable to determine grade.'
-                        pass
-
-                    # 2. set the report results
-                    report['grade'] = grade
-                    report['grade_description'] =  grade_description,
-                    report['pct_bunched'] = grade_numeric
+                report = {'route': route,
+                          'type': 'grade',
+                          'period': period,
+                          'created_timestamp': str((datetime.datetime.now))
+                     }
 
 
-                    # 3. dump it
+                # make and pickle the report
 
-                    self.store_json(report)
+                # 1. load the bunching report and compute the absolute number of arrivals, number bunched, percent, and assign a letter grade based on grade_descriptions
 
-            return
+                try:
+                    bunching_report_fetched = self.retrieve_json(route, 'bunching', period)
+                except FileNotFoundError: # if the file doesn't exist quit this report and try next period
+                    continue
+
+                # compute grade based on pct of all stops on route during period that were bunched
+                try:
+                    grade_numeric = (bunching_report_fetched['cum_bunch_total'] / bunching_report_fetched['cum_arrival_total']) * 100
+                    for g,g_desc in system_map.grade_descriptions.items():
+                        if (grade_numeric >= float(g_desc['bounds'][0])) and (grade_numeric < float(g_desc['bounds'][1])):
+                                grade = g_desc['grade']
+                                grade_description = g_desc['description']
+                                break
+
+                except:
+                    grade = 'N/A'
+                    grade_description = 'Unable to determine grade.'
+                    pass
+
+                # 2. set the report results
+                report['grade'] = grade
+                report['grade_description'] =  grade_description,
+                report['pct_bunched'] = grade_numeric
+
+
+                # 3. dump it
+
+                self.store_json(report)
+
+        return
 
 # sample grade report
 '''

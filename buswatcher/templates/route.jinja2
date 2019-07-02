@@ -132,25 +132,50 @@
                                     <!--Title-->
 
                                     <h1 class="card-title">There are {{ routereport.active_bus_count }} buses operating on the {{routereport.route}} {{routereport.prettyname}} right now.</h1>
-
-                                            <h4 class="card-title">The timetables below show recent arrivals. Click on the stop name, or browse the full list of stops below for more detail.</h4>
-
-                                    <<h4 class="card-title ">{{routereport.period_label}}Current Grade</h4>
-                                    <h1 class="card-title ">{{routereport.grade_report['grade']}}</h1>
-                                    <h4 class="card-title ">{{routereport.period_label}}{{routereport.grade_report['grade_description']}}</h4>
-
                                 </div>
                                 </div>
 
+                                <div class="row mb-4 wow fadeIn">
+                                <div class="col-lg-4 col-md-12 mb-4">
 
+                                    <div class="card" style="">
+                                      <div class="card-body"> {# todo add conditional card color formatting based on grade #}
+                                        <h5 class="card-title">{{routereport.period_descriptions[period]['possessive_label']|title}} Grade</h5>
+                                        <h6 class="card-subtitle mb-2 text-muted">{{routereport.grade_report['grade']}}</h6>
+                                        <p class="card-text">{{routereport.grade_report['grade_description'][0]}}</p>
+                                      </div>
+                                    </div>
 
-
-
-                            <div class="row mb-4 wow fadeIn">
+                                </div>
 
                                 <div class="col-lg-8 col-md-12 mb-4">
-                                            <h4 class="card-title">This is a bunching report.</h4>
-                                    <table class="table table-sm table-hover">
+
+                                    <div class="card" style="">
+                                      <div class="card-body">
+                                        <h5 class="card-title">Card title</h5>
+                                        <h6 class="card-subtitle mb-2 ">Card subtitle</h6>
+                                        <p class="card-text">You can get lots more information in the reports below, which summarize all the trips on the {{ route }} route {{ routereport.period_descriptions[period]['descriptive_label'] }}. Click on the stop name, or browse the full list of stops below for more detail.
+                              </p>
+                                        <a href="#" class="card-link">Card link</a>
+                                        <a href="#" class="card-link">Another link</a>
+                                      </div>
+                                    </div>
+
+                                </div>
+                                </div>
+
+                        <div class="row mb-4 wow fadeIn">
+
+                             <div class="col-lg-8 col-md-12 mb-4">
+
+                                    <div class="card" style="">
+                                      <div class="card-body">
+                                        <h5 class="card-title">Bunching report</h5>
+                                        <h6 class="card-subtitle mb-2 ">Bunching badboys</h6>
+                                        <p class="card-text">You can get lots more information in the reports below, which summarize all the trips on the {{ route }} route {{ routereport.period_descriptions[period]['descriptive_label'] }}. Click on the stop name, or browse the full list of stops below for more detail.
+                              </p>
+
+                                           <table class="table table-sm table-hover">
                                         <tbody>
 
                                         {%  if routereport.bunching_report['dummy'] == True %}
@@ -168,7 +193,7 @@
                                              <tr class='table text-left'>
 
                                                  <td>{{stop.stop_name|title}}</td>
-                                                 <td>{{stop.bunched_arrivals_in_period}}</td>
+                                                 <td>{{stop.bunched_arrivals_in_period}}</td> {#  todo add url_for the genStopReport #}
 
                                             </tr>
                                             {% endfor %}
@@ -176,11 +201,19 @@
                                         </tbody>
                                     </table>
 
+
+
+
+                                        <a href="#" class="card-link">Card link</a>
+                                        <a href="#" class="card-link">Another link</a>
+                                      </div>
+                                    </div>
+
                                 </div>
 
-                            </div>
 
 
+                        </div>
 
 
 
@@ -228,55 +261,6 @@
                 </div>
 
 
-
-
-                                <!-- BUNCHING REPORT -->
-                                    <!--Card
-                                    <div class="card mt-4">
-                                        <div class="card-body table-danger">
-                                                <h4 class="card-title">We haven't seen any bunching {{routereport.period_label}}.</h4>
-                                        </div>
-                                    </div>
-                                    Card-->
-
-                                    {#   <!--Card-->
-                                    <div class="card mt-4">
-
-                                        <!--Card image-->
-                                        <!--
-                                        <div class="view overlay">
-                                            <div class="embed-responsive embed-responsive-16by9 rounded-top">
-                                                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/cXTThxoywNQ" allowfullscreen></iframe>
-                                            </div>
-                                        </div>
-                                        -->
-
-                                        <!--Card content-->
-
-                                        <div class="card-body table-danger">
-
-                                            {% if routereport.bunching_badboys['flag'] == True %}
-
-                                                <!--Title-->
-                                                <h4 class="card-title">There's {{routereport.bunching_badboys['label']}} of bunching.</h4>
-
-                                                <P>The biggest trouble spots in the last hour are <strong>{{routereport.bunching_badboys['stops'][0]}}, {{routereport.bunching_badboys['stops'][1]}}, </strong> and <strong>{{routereport.bunching_badboys['stops'][2]}}.</strong></P>
-                                            {% else %}
-                                                <h4 class="card-title">We haven't seen any bunching during this period.</h4>
-
-                                            {% endif %}
-
-                                        </div>
-
-                                    </div>
-                                    <!--/.Card-->
-                                    #}
-
-
-
-
-
-
                                 </div>
 
 
@@ -288,10 +272,8 @@
                     </div>
 
 
-
-
             </section>
-            <!--Section: Grade Card-->
+
 
 
             <!--Section: Map-->
