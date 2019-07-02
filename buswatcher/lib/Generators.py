@@ -337,7 +337,7 @@ class BunchingReport(Generator):
 '''
 
 
-class GradeReport(Generator): #todo 0 debug and test with generator.py --testmode --tasks hourly
+class GradeReport(Generator):
 
     def __init__(self):
         super(GradeReport,self).__init__()

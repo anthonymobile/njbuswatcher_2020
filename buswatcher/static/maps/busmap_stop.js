@@ -21,7 +21,7 @@ map.on('load', function() {
                 type: 'geojson',
                 data: geojson
             });
-            map.fitBounds(turf.bbox(geojson), {padding: 20});
+            // map.fitBounds(turf.bbox(geojson), {padding: 20});
 
             map.addLayer({
                 "id": "vehicles",
@@ -70,7 +70,7 @@ map.on('load', function() {
             "type": "circle",
             "source": "stops_source",
             "paint": {
-                "circle-radius": 8,
+                "circle-radius": 6,
                 "circle-opacity": 1,
                 "circle-stroke-width": 0,
                 "circle-stroke-color": "#fff"

@@ -112,10 +112,10 @@
                     <!--Grid column-->
                     <div class="col-lg-12 col-md-12 mb-4">
                         <!--Card-->
-                        <div class="card">
+                      <!--  <div class="card">
 
 
-                        <div class="card-body table">
+                        <div class="card-body table"> -->
 
 
                                 <div class="row mb-4 wow fadeIn">
@@ -130,7 +130,7 @@
 
                                                                 <div class="col-lg-8 col-md-12 mb-4">
 
-                                    <div class="card" style="">
+                                    <!-- <div class="card" style=""> -->
                                       <div class="card-body">
                                         <!-- <h1 class="card-title">Route Report Card</h1> -->
                                         <h3 class="card-subtitle mb-2 ">This report card summarizes how well the {{ route }} is doing {{ routereport.period_descriptions[period]['label'] }}.</h3>
@@ -140,11 +140,11 @@
                                       </div>
                                     </div>
 
-                                </div>
+                               <!--  </div> -->
 
                                 <div class="col-lg-4 col-md-12 mb-4">
 
-                                    <div class="card" style="">
+                                      <!-- <div class="card" style="">-->
                                       <!-- <div class="card-body"> -->
 
                                             {% if (routereport.grade_report['grade']=='A' or routereport.grade_report['grade']=='B') %}
@@ -179,7 +179,7 @@
                                       </div>
                                     </div>
 
-                                </div>
+                               <!-- </div> -->
 
 
 
@@ -190,7 +190,7 @@
 
                              <div class="col-lg-8 col-md-12 mb-4">
 
-                                    <div class="card" style="">
+                                    <!-- <div class="card" style=""> -->
                                       <div class="card-body">
                                         <h4 class="card-title">How Much Bunching Is Going On?</h4>
                                         <h6 class="card-subtitle mb-2 ">Bunching is when a bus arrives less than 3 minutes after the previous bus.</h6>
@@ -226,7 +226,7 @@
 
                                          <tr class='table'>
 
-                                                     <td class="text-left"><a href = {{url_for('genStopReport',collection_url=collection_url, route=routereport.route,stop=stop.identity,period=period) }} id="{{stop.st}}">
+                                                     <td class="text-left"><a href = {{url_for('genStopReport',collection_url=collection_url, route=routereport.route,stop=stop.stop_id,period=period) }} id="{{stop.st}}">
 
                                                          {{stop.stop_name|title}} </a>
                                                      </td>
@@ -247,7 +247,7 @@
                                       </div>
                                     </div>
 
-                                </div>
+                                <!--</div>-->
 
                     <div class="col-lg-4 col-md-12 mb-4">
                         <div id="map" class="container">
@@ -255,6 +255,9 @@
                     </div>
                 </div>
 
+  <div class="row mb-4 wow fadeIn">
+
+                             <div class="col-lg-8 col-md-12 mb-4">
 
 
                 <!-- <h1 class="card-title">Route Report Card</h1> -->
@@ -302,8 +305,9 @@
                     {% endfor %}
                 </div>
 
-
-
+                             </div>
+  </div>
+                                    </div>
 
 
 
@@ -392,8 +396,8 @@
             </div>
 
             </div>
-            </div>
-             </div>
+          <!--  </div>
+             </div> -->
 
             </section>
 

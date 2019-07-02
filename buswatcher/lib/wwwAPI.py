@@ -271,7 +271,7 @@ class StopReport(GenericReport):
         return arrivals_list_final_df, stop_name, self.arrivals_table_time_created
 
 
-    def get_hourly_frequency(self):
+    def get_hourly_frequency(self): # todo 0 debug and test with a days of data
         results = pd.DataFrame()
         self.arrivals_here_this_route_df['delta_int'] = self.arrivals_here_this_route_df['delta'].dt.seconds
 
