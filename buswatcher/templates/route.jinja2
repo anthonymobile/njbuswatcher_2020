@@ -67,7 +67,8 @@
              </ul>
             <ul class="navbar-nav ml-auto">
                   {% for p,v in period_descriptions.items() %}
-<li class="breadcrumb-item "><a href = {{url_for('genRouteReport',collection_url=collection_descriptions.collection_url,route=routereport.route,period=v['name'])}}>{{  v['label'] }}</a></li>
+<li class="breadcrumb-item "><a href = {{url_for('genRouteReport',collection_url=collection_url,route=routereport.route,period=v['name'])}}>{{  v['label'] }}</a></li>
+
 
 
                 {%  endfor %}
@@ -126,6 +127,22 @@
                                 </div>
 
                                 <div class="row mb-4 wow fadeIn">
+
+                                                                <div class="col-lg-8 col-md-12 mb-4">
+
+                                    <div class="card" style="">
+                                      <div class="card-body">
+                                        <h5 class="card-title">Card title</h5>
+                                        <h6 class="card-subtitle mb-2 ">Card subtitle</h6>
+                                        <p class="card-text">You can get lots more information in the reports below, which summarize all the trips on the {{ route }} route {{ routereport.period_descriptions[period]['descriptive_label'] }}. Click on the stop name, or browse the full list of stops below for more detail.
+                              </p>
+                                        <a href="#" class="card-link">Card link</a>
+                                        <a href="#" class="card-link">Another link</a>
+                                      </div>
+                                    </div>
+
+                                </div>
+
                                 <div class="col-lg-4 col-md-12 mb-4">
 
                                     <div class="card" style="">
@@ -168,21 +185,10 @@
 
                                 </div>
 
-                                <div class="col-lg-8 col-md-12 mb-4">
 
-                                    <div class="card" style="">
-                                      <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <h6 class="card-subtitle mb-2 ">Card subtitle</h6>
-                                        <p class="card-text">You can get lots more information in the reports below, which summarize all the trips on the {{ route }} route {{ routereport.period_descriptions[period]['descriptive_label'] }}. Click on the stop name, or browse the full list of stops below for more detail.
-                              </p>
-                                        <a href="#" class="card-link">Card link</a>
-                                        <a href="#" class="card-link">Another link</a>
-                                      </div>
-                                    </div>
 
-                                </div>
-                                </div>
+
+                                        </div>
 
                         <div class="row mb-4 wow fadeIn">
 
@@ -231,98 +237,67 @@
 
                                 </div>
 
-
-
-                        </div>
-
-
-
-
-
-                <div class="row mb-4 wow fadeIn">
-
-                    <div class="col-lg-8 col-md-12 mb-4">
-                        {% for trip_id,trip_dict in routereport.tripdash.items() %}
-                            <!--Card-->
-                            <div class="card">
-                                <div class="card-body">
-                                    <p class="card-title"><strong>To {{ trip_dict['pd'] }}</strong> <span class="small">{{ trip_id | split_(0) }}</span></p>
-                                    <div class="row mt-2">
-                                        <table class="table table-sm table-hover">
-                                                    <tbody>
-                                                    {% for stop in trip_dict['stoplist'] %}
-                                                     <tr class='table text-left'>
-
-                                                     {% if stop.arrival_timestamp is not none %}
-                                                         <td class="table-primary">{{stop.arrival_timestamp|strftime_today}}</td>
-                                                         <td class="table-secondary">
-                                                             <a href = {{url_for('genStopReport',collection_url=collection_url, route=routereport.route,stop=stop.stop_id,period=period) }} id="{{stop.st}}">
-                                                             {{stop.stop_name|title}}
-                                                         </a></td>
-                                                     {% else %}
-                                                         <td>--</td>
-                                                         <td><{{stop.stop_name|title}}</td>
-                                                     {% endif %}
-                                                    </tr>
-                                                    {% endfor %}
-                                                    </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                          {% endfor %}
-                    </div>
-
                     <div class="col-lg-4 col-md-12 mb-4">
                         <div id="map" class="container">
                         </div>
                     </div>
-                    <!--Grid column-->
                 </div>
+
+
+                <div class="row mb-4 wow fadeIn">
+                    {% for trip_id,trip_dict in routereport.tripdash.items() %}
+                        <div class="col-lg-6 col-md-12 mb-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <p class="card-title"><strong>To {{ trip_dict['pd'] }}</strong> <span class="small">{{ trip_id | split_(0) }}</span></p>
+
+
+                                            <table class="table table-sm table-hover">
+                                                <tbody>
+                                                {% for stop in trip_dict['stoplist'] %}
+                                                 <tr class='table text-left'>
+
+                                                 {% if stop.arrival_timestamp is not none %}
+                                                     <td class="table-primary">{{stop.arrival_timestamp|strftime_today}}</td>
+                                                     <td class="table-secondary">
+                                                         <a href = {{url_for('genStopReport',collection_url=collection_url, route=routereport.route,stop=stop.stop_id,period=period) }} id="{{stop.st}}">
+                                                         {{stop.stop_name|title}}
+                                                     </a></td>
+                                                 {% else %}
+                                                     <td>--</td>
+                                                     <td><{{stop.stop_name|title}}</td>
+                                                 {% endif %}
+                                                </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
 
 
                                 </div>
 
-
                             </div>
-
-
                         </div>
-
-                    </div>
-
-
-            </section>
-
-
-
-            <!--Section: Map-->
-            <section id="map_box">
-
-                <!--Grid row-->
-                <div class="row mb-4 wow fadeIn">
-
-
-                     <!--&lt;!&ndash;Map column&ndash;&gt;-->
-                     <!--<div  class="col-lg-12 col-md-12">-->
-
-                        <!--<div id="map" class="container">-->
-                        <!--</div>-->
-
-                     <!--</div>-->
+                    {% endfor %}
                 </div>
-            </section>
 
 
-            <!--Section: Stops-->
-            <hr id="stops" class="my-5">
 
-            <section class="text-left">
-                     <h1 class="mb-4">
-                        <strong>Stops</strong>
-                    </h1>
+
+
+
+
+
+
+
+
+            <div class="row mb-4 wow fadeIn">
+                 <div class="col-lg-12 col-md-12 mb-4">
+
+
+                     <h2 class="card-title">Stops</h2>
+
                     <p class="mb-4">
-                        <strong>The following is complete list of stops on the {{routereport.route}}, grouped by direction and service. Click on a stop for a detailed report of current and past service at that location.</strong>
+                        The following is complete list of stops on the {{routereport.route}}, grouped by direction and service. Click on a stop for a detailed report of current and past service at that location.
                     </p>
 
                 <!--Grid row-->
@@ -331,7 +306,7 @@
 
                     {% for path in routereport.route_stop_list %}
                     <!--Grid column-->
-                    <div class="col-lg-4 col-md-12 mb-4">
+                    <div class="col-lg-6 col-md-12 mb-4">
 
                         <!--Card-->
                         <div class="card">
@@ -378,92 +353,21 @@
                 <!--Grid row-->
 
 
-            </section>
-            <!--Section: Stops-->
 
-
-
-
-
-            <!--Section: Current Service-->
-            <section id="current_service">
-
-
-                <!--Grid row-->
-                <div class="row mb-4 wow fadeIn">
-
-
-                    {% for trip in routereport.active_trips %}
-
-                    <!--Grid column-->
-                    <div class="col-lg-4 col-md-12 mb-4">
-
-                        <!--Card-->
-                        <div class="card">
-
-                            <!--Card content-->
-                            <div class="card-body">
-                                <!--Title-->
-                                <h4 class="card-title">Bus {{ trip.trip_id | split_(0) }}</h4>
-                                <!--
-                                <h4 class="card-title">{{trip.trip_id}}</h4>
-                                -->
-                                <!--Text-->
-                                <div id="buses" class="row mt-2">
-
-
-                                    <table class="table table-sm table-hover">
-                                                <thead class="thread-dark">
-                                                <tr>
-                                                    <th>Arrival</th>
-                                                    <th>Stop</th>
-                                                </tr>
-                                                </thead>
-
-                                                <tbody>
-                                                {% for stop in trip.trip_card %}
-                                                {%if stop.arrival_timestamp != none %}
-
-
-                                                    <tr class='table-success'>
-
-                                                <tr class='table text-left'>
-
-                                                    <td>{{stop.arrival_timestamp|strftime_today}}</td>
-                                                    <td>{{stop.stop_name|title}}</td>
-                                                </tr>
-                                                {% endif %}
-
-                                                {% endfor %}
-
-                                                </tbody>
-                                    </table>
-
-                                </div>
-
-
-
+                 </div>
+            </div>
 
                             </div>
-
-                        </div>
-                        <!--/.Card-->
-
-
-                    </div>
-                    <!--Grid column-->
-
-
-                    {% endfor %}
-
-
-
-                </div>
-                <!--Grid row-->
-
+                                        </div>
+                                  </div>
 
             </section>
-            <!--Section: Current Service-->
+
+
+
+
+
+
 
 
 
