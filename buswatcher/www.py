@@ -115,7 +115,6 @@ def displayCollection(collection_url):
     route_report = Dummy()  # setup a dummy routereport for the navbar
     return render_template('collection.jinja2',collection_url=collection_url,collection_description=collection_description, route_descriptions=route_descriptions, period_descriptions=period_descriptions,routereport=route_report)
 
-
 #-------------------------------------------------------------Route
 
 @app.route('/<collection_url>/route/<route>/<period>')
