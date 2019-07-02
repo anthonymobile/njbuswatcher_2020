@@ -115,17 +115,7 @@
 
 
                         <div class="card-body table">
-                        <!--
-                            {% if (routereport.grade=='A' or routereport.grade=='B') %}
-                                <div class="card-body table-success">
-                            {% elif routereport.grade=='C' %}
-                                <div class="card-body table-warning">
-                            {% elif (routereport.grade=='D' or routereport.grade=='F') %}
-                                <div class="card-body table-danger">
-                            {% elif (routereport.grade=='N/A') %}
-                                <div class="card-body table-secondary">
-                            {% endif %}
-                            -->
+
 
                                 <div class="row mb-4 wow fadeIn">
                                 <div class="col-lg-12 col-md-12 mb-4 text-left">
@@ -139,10 +129,40 @@
                                 <div class="col-lg-4 col-md-12 mb-4">
 
                                     <div class="card" style="">
-                                      <div class="card-body"> {# todo add conditional card color formatting based on grade #}
-                                        <h5 class="card-title">{{routereport.period_descriptions[period]['possessive_label']|title}} Grade</h5>
-                                        <h6 class="card-subtitle mb-2 text-muted">{{routereport.grade_report['grade']}}</h6>
-                                        <p class="card-text">{{routereport.grade_report['grade_description'][0]}}</p>
+                                      <!-- <div class="card-body"> -->
+
+                                            {% if (routereport.grade_report['grade']=='A' or routereport.grade_report['grade']=='B') %}
+                                                    <div class="card-body table-success">
+                                                {% elif routereport.grade_report['grade']=='C' %}
+                                                    <div class="card-body table-warning">
+                                                {% elif (routereport.grade_report['grade']=='D' or routereport.grade_report['grade']=='F') %}
+                                                    <div class="card-body table-danger">
+                                                {% elif (rroutereport.grade_report['grade']=='N/A') %}
+                                                    <div class="card-body table-secondary">
+                                                {% endif %}
+
+
+                                        <h5 class="card-title">{{routereport.period_descriptions[period]['possessive_label']|capitalize}} Grade</h5>
+
+
+                                         <div class="row mb-4 wow fadeIn">
+
+                                         <div class="col-lg-4 col-md-12 mb-4 ">
+
+
+
+                                                <h1 class="card-subtitle mb-2">{{routereport.grade_report['grade']}}</h1>
+
+                                            </div>
+                                            <div class="col-lg-8 col-md-12 mb-4">
+                                                <h6 class="card-subtitle mb-2 ">{{routereport.grade_report['grade_description'][0]}}</h6>
+
+                                        <p class="card-text">This grade is based on {{ routereport.bunching_report['cum_arrival_total'] }} stop arrivals in the {{ routereport.period_descriptions[period]['descriptive_label'] }}, of which {{ routereport.grade_report['pct_bunched'] }} percent arrived within 3 minutes of the previous bus.</p>
+
+                                            </div>
+                                          </div>
+
+
                                       </div>
                                     </div>
 
