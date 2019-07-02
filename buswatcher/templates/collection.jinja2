@@ -98,25 +98,28 @@
                               <a href={{ url_for('genRouteReport',collection_url=collection_description['collection_url'],route=route, period='day') }} class="list-group-item list-group-item-action flex-column align-items-start">
 
                                 <div class="d-flex w-100 justify-content-between">
-                                  <h5 class="mb-1">{{route}} {% for route_2_match in route_descriptions.routedata %}
+                                  <h5 class="mb-1">{{route}} <strong>
+                                                                {% for route_2_match in route_descriptions.routedata %}
                                                                  {% if route==route_2_match.route %}
                                                                   {{route_2_match.prettyname |title}}
                                                                   {%  endif %}
                                                                 {%  endfor %}
-
+                                                             </strong>
                                   </h5>
                                   <small>3 days ago</small>
                                 </div>
-                                <p class="mb-1">
+                                <p class="mb-1 fa-text-height">
+                              <small>
+                                    {% for route_2_match in route_descriptions.routedata %}
+                                     {% if route==route_2_match.route %}
+                                      {{route_2_match.description_short}}
+                                      {%  endif %}
+                                    {%  endfor %}
+                                </small>
 
-                                {% for route_2_match in route_descriptions.routedata %}
-                                                                 {% if route==route_2_match.route %}
-                                                                  {{route_2_match.description_short}}
-                                                                  {%  endif %}
-                                                                {%  endfor %}
 
                                 </p>
-                                <small>Donec id elit non mi porta.</small>
+
                               </a>
                             {% endfor %}
 
@@ -125,78 +128,15 @@
 
 
 
-
-
-                    <!--
-                    <div class="col-lg-6 col-md-12 mb-4 ">
-
-
-
-                            {#  todo redo the styling on this table using "Custom Content" at https://getbootstrap.com/docs/4.0/components/list-group/ with grades in the small text#}
-
-                            <div class="card">
-
-                                        <table class="table table-sm table-hover">
-                                        <tbody>
-
-                                        {% for route in collection_description['routelist'] %}
-
-
-                                        <tr class='table text-left'>
-                                            <td class="table-primary text-center">
-                                                <a href = {{ url_for('genRouteReport',collection_url=collection_description['collection_url'],route=route, period='day') }} id="{{route}}">
-                                                             {{route}}
-                                                </a>
-                                            </td>
-                                            <td class="table text-left">
-                                                {% for route_2_match in route_descriptions.routedata %}
-                                                    {% if route==route_2_match.route %}
-                                                                                                        <a href = {{ url_for('genRouteReport',collection_url=collection_description['collection_url'],route=route, period='day') }} id="{{route}}">
-                                                            <strong>{{route_2_match.prettyname |title}}</strong>
-                                                </a>
-
-                                                        {#{{route_2_match.description_short }}#}
-                                                    {%  endif %}
-                                                {%  endfor %}
-
-                                            </td>
-                                        </tr>
-
-                                        {% endfor %}
-
-                                        </tbody>
-
-
-                                        </table>
-{#                                    </div>#}
-{#                                </div>#}
-                            </div>
-
-
-
-
-
-
-
-
-                </div>
-                -->
-
-                            <!--Grid column-->
+            <!--Map column-->
             <div class="col-lg-6 col-md-12 mb-4">
                 <div id="map" class="container">
                 </div>
             </div>
-                <!-- Content -->
+
+
             </div>
-
-
-
-
-        <!--Grid row-->
         </div>
-
-
     </div>
 
 

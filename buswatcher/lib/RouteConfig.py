@@ -64,21 +64,28 @@ class TransitSystem:
                 data = f.read()
                 return data
         except: #  if missing download and load
-            route_xml = BusAPI.get_xml_data('nj', 'routes', route=route)
-            outfile = (self.get_abs_path()+'config/route_geometry/' + route + '.xml')
-            with open(outfile, 'wb') as f:  # overwrite existing file
-                f.write(route_xml)
+
+            while True:
+                try:
+                    route_xml = BusAPI.get_xml_data('nj', 'routes', route=route)
+                    outfile = (self.get_abs_path()+'config/route_geometry/' + route + '.xml')
+                    with open(outfile, 'wb') as f:  # overwrite existing file
+                        f.write(route_xml)
+                except:
+                    pass
+
             infile = (self.get_abs_path()+'config/route_geometry/' + route + '.xml')
             with open(infile, 'rb') as f:
                 return f.read()
 
     def get_single_route_Paths(self, route):
-        try:
-            infile = (self.get_abs_path()+'config/route_geometry/' + route + '.xml')
-            with open(infile, 'rb') as f:
-                return BusAPI.parse_xml_getRoutePoints(f.read())
-        except:
-            pass
+        while True:
+            try:
+                infile = (self.get_abs_path()+'config/route_geometry/' + route + '.xml')
+                with open(infile, 'rb') as f:
+                    return BusAPI.parse_xml_getRoutePoints(f.read())
+            except:
+                pass
 
     def get_single_route_paths_and_coordinatebundle(self, route):
         routes = self.route_geometries[route]['paths']

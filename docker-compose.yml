@@ -1,6 +1,6 @@
 # todo 2 docker db_1                            aborted connection 2 to db: 'buses' user: 'buswatcher' host: '172.24.0.1' (Got an error reading communication packets)
 # todo 2 docker buswatcher_flask_gunicorn_1     probably dying because it can't connect to the database?
-# todo 2 docker generator_1                     code bug, system_map not passed?
+# todo 2 docker generator_1                     system_map not passed?
 # todo 2 docker dns_updater_1                   python: can't open file '/buswatcher/buswatcher/dns_updater/gandi-live-dns.py': [Errno 2] No such file or directory
 
 # some tips https://serverfault.com/questions/596994/how-can-i-debug-a-docker-container-initialization

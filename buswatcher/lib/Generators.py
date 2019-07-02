@@ -44,10 +44,20 @@ class RouteUpdater():
 
         # even though this now runs on a daily schedule
         # load existing reports and check ttl anyways
-        try: # bug this often reads the pickle file, so need to check the route_descriptions file itself
-            route_descriptions_last_updated = parser.parse(system_map.route_descriptions['last_updated'])
+        try:
+            if os.getcwd() == "/":  # docker
+                prefix = "buswatcher/buswatcher/"
+            elif "Users" in os.getcwd():
+                prefix = ""
+            else:
+                prefix = ""
+            with open(prefix+'config/route_descriptions.json') as f:
+                route_descriptions_file = json.load(f)
+            route_descriptions_last_updated = parser.parse(route_descriptions_file['last_updated'])
+
         except:
             route_descriptions_last_updated = parser.parse('2000-01-01 01:01:01')
+
         route_descriptions_ttl = timedelta(seconds=int(system_map.route_descriptions['ttl']))
 
         expired = False
@@ -61,29 +71,31 @@ class RouteUpdater():
             # UPDATE ROUTES FROM API
 
             # 1. list all routes from current definitions file and sort it by route number
-            routelist = sorted([r['route'] for r in system_map.route_descriptions['routedata']])
+            routelist_from_file = sorted([r['route'] for r in route_descriptions_file['routedata']])
 
             # 2. grab current buses list and see if there's any route #s we don't know yet
+
             # get list of active routes
             buses = parse_xml_getBusesForRouteAll(get_xml_data('nj', 'all_buses'))
-            routes_active_tmp = [b.rt for b in buses]
-            # sort by freq (not needed, but useful) and remove dupes
-            routelist_sorted_unique = sorted(set(routelist), key=lambda ele: routelist.count(ele))
+            routelist_from_api_active = [b.rt for b in buses]
             # remove any bus not on a numeric route
             routes_active = list()
-            for b in routelist_sorted_unique:
+            for b in routelist_from_api_active:
                 try:
                     dummy = int(b)
                     routes_active.append(b)
                 except:
                     continue
-            routes_active.sort()
-            # merge the two
-            merged_routelist = routelist
-            merged_routelist.extend(x for x in routes_active if x not in merged_routelist)
+            routes_active=list(set(routes_active))
+            routes_active=sorted(routes_active)
+
+            # merge the two and remove duplicates
+            merged_routelist =sorted(list(set(routelist_from_file + routes_active)))
 
             # 3. create blank system_map.route_descriptions entries for any newly seen routes
-            new_routes = [x for x in routes_active if x not in routelist]
+
+            new_routes = [x for x in routes_active if x not in routelist_from_file]
+
             for new_route in new_routes:
                 update = {"route": new_route, "nm": '', "ttl": "1d",
                           "description_long": "", "description_short": "", "frequency": "low",
@@ -109,15 +121,15 @@ class RouteUpdater():
 
                     #parse it
                     parsed_route_xml = parse_xml_getRoutePoints(xml_data)
-                    route_entry = {'route': parsed_route_xml[0][0].id, 'nm': parsed_route_xml[0][0].nm}  # .id should NOT be .identity
+                    route_entry = {'route': parsed_route_xml[0][0].identity, 'nm': parsed_route_xml[0][0].nm}
                     api_response.append(route_entry)
                 except:
                     continue
 
-            # 5. merge API data into system_map.route_descriptions
+            # 5. merge API data into system_map.route_descriptions # bug continue debugging here, making sure that route_descriptions is totally updated
             for a in api_response: # iterate over routes fetched from API
                 for r in system_map.route_descriptions['routedata']:  # iterate over defined routes
-                    if a['route'] == r['route']:  # match on route number #bug not working
+                    if a['route'] == r['route']:  # match on route number
                         new_nm = a['nm'].split(' ', 1)[1]
                         system_map.route_descriptions['routedata'][r]['nm'] = new_nm # update nm in system_map
 
@@ -130,7 +142,7 @@ class RouteUpdater():
 
 
             # 6. make one last scan of system_map.route_descriptions -- if prettyname is blank, should copy nm to prettyname
-            for route in system_map.route_descriptions['routedata']: #bug not working
+            for route in system_map.route_descriptions['routedata']:
                 if route['prettyname'] == "":
                     route['prettyname'] = route['nm']
 
@@ -139,7 +151,7 @@ class RouteUpdater():
             now = datetime.datetime.now()
             outdata['last_updated'] = now.strftime("%Y-%m-%d %H:%M:%S")
             outdata['ttl'] = '86400'
-            outdata['routedata'] = system_map.route_descriptions['routedata'] # bug sort the routes inside this dict -->  https://www.pythoncentral.io/how-to-sort-python-dictionaries-by-key-or-value/
+            outdata['routedata'] = system_map.route_descriptions['routedata'] # ? sort the routes inside this dict -->  https://www.pythoncentral.io/how-to-sort-python-dictionaries-by-key-or-value/
             # delete existing route_definition.json and dump new complete as a json
             with open('config/route_descriptions.json','w') as f:
                 json.dump(outdata, f, indent=4)
@@ -191,7 +203,7 @@ class BunchingReport(Generator):
                                 stop_report = self.get_arrivals_here_this_route(system_map, route, point.identity, period)
                                 for (index, row) in stop_report[0].iterrows():
                                     arrival_total += 1
-                                    if (row.delta > bigbang) and (row.delta <= bunching_interval):
+                                    if (row.delta > bigbang) and (row.delta <= bunching_interval): #bug this doesnt seem to ever find a bunching, look at existing code
                                         bunch_total += 1
                                 cum_bunch_total = cum_bunch_total+bunch_total
                                 cum_arrival_total = cum_arrival_total + arrival_total

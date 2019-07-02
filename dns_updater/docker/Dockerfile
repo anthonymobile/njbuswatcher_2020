@@ -9,5 +9,5 @@ COPY --from=builder /install /usr/local
 WORKDIR /
 COPY . .
 
-# bug cant find this file
+
 CMD ["python", "/buswatcher/buswatcher/dns_updater/gandi-live-dns.py"]
