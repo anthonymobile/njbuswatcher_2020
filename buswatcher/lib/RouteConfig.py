@@ -202,7 +202,7 @@ def flush_system_map():
 
     return
 
-def load_system_map():
+def load_system_map(**kwargs):
 
     pwd = os.getcwd()
     if os.getcwd() == "/":  # docker
@@ -211,6 +211,9 @@ def load_system_map():
         prefix = ""
     else: # linux
         prefix = ""
+
+    # todo 0 add some kind of check to periodically reload the system map (or pass a kwarg
+    # if kwargs['force_regenerate'] == True then TK
 
     system_map_pickle_file = Path(prefix+"config/system_map.pickle")
     try:

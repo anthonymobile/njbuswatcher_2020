@@ -40,6 +40,8 @@ def hourly(system_map):
     task_trigger_1 = RouteUpdater(system_map) # refresh route descriptions
     task_trigger_2 = GradeReport().generate_reports(system_map) # refresh letter grades
     print ('hourly_tasks just ran')
+    # todo 0 add a delete or rebuild of the system_map.pickle and force tripwatcher.py to reload it
+    # e.g. load_system_map(force_regenerate=True)
     return
 
 def daily(system_map):
@@ -55,6 +57,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--testmode', dest='test', action='store_true', help='Test mode, run the scheduled tasks in succession, bypassing apscheduler.')
     parser.add_argument("--tasks", nargs='*', help="List of tasks you want to run")
+    # todo all some kind of --setup switch per README that runs all the reports
 
     args = parser.parse_args()
 

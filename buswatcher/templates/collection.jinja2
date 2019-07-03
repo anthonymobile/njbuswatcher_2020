@@ -98,34 +98,29 @@
                               <a href={{ url_for('genRouteReport',collection_url=collection_description['collection_url'],route=route, period='day') }} class="list-group-item list-group-item-action flex-column align-items-start">
 
                                 <div class="d-flex w-100 justify-content-between">
-                                  <h5 class="mb-1">{{route}} <strong>
-                                                                {% for route_2_match in route_descriptions.routedata %}
-                                                                 {% if route==route_2_match.route %}
-                                                                  {{route_2_match.prettyname |title}}
-                                                                  {%  endif %}
-                                                                {%  endfor %}
-                                                             </strong>
+                                  <h5 class="mb-1">{{route}}
+                                      <strong>
+                                            {% for route_2_match in route_descriptions.routedata %}
+                                             {% if route==route_2_match.route %}
+                                              {{route_2_match.prettyname |title}}
+                                              {% endif %}
+                                            {% endfor %}
+                                      </strong>
                                   </h5>
-                                  <small>3 days ago</small>
+                                  <!-- <small>grade</small> -->
                                 </div>
-                                <p class="mb-1 fa-text-height">
-                              <small>
+                                <p class="mb-1"><small>
                                     {% for route_2_match in route_descriptions.routedata %}
-                                     {% if route==route_2_match.route %}
-                                      {{route_2_match.description_short}}
-                                      {%  endif %}
-                                    {%  endfor %}
-                                </small>
-
-
-                                </p>
+                                        {% if route == route_2_match.route %}
+                                            {{route_2_match.description_short}}
+                                        {% endif %}{%  endfor %}
+                                </small></p>
 
                               </a>
                             {% endfor %}
 
                         </div>
                     </div>
-
 
 
             <!--Map column-->
