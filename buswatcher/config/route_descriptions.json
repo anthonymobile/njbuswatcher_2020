@@ -1,5 +1,5 @@
 {
-    "last_updated": "2019-06-25 22:11:56",
+    "last_updated": "2019-07-02 22:01:18",
     "ttl": "86400",
     "routedata": [
         {
@@ -155,7 +155,6 @@
             "route": "125",
             "schedule_url": "https://www.njtransit.com/pdf/bus/T0125.pdf"
         },
-
         {
             "route": "107",
             "nm": "Irvington - New York",
@@ -558,12 +557,12 @@
         },
         {
             "route": "346",
-            "nm": "",
+            "nm": "Princeton Rail Shuttle Servi",
             "ttl": "1d",
             "description_long": "",
             "description_short": "",
             "frequency": "low",
-            "prettyname": "",
+            "prettyname": "Princeton Rail Shuttle Servi",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
         },
         {
@@ -2298,122 +2297,132 @@
         },
         {
             "route": "145",
-            "nm": "",
+            "nm": "Fair Lawn - New York",
             "ttl": "1d",
             "description_long": "",
             "description_short": "",
             "frequency": "low",
-            "prettyname": "",
+            "prettyname": "Fair Lawn - New York",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
         },
         {
             "route": "148",
-            "nm": "",
+            "nm": "Midland Park - New York",
             "ttl": "1d",
             "description_long": "",
             "description_short": "",
             "frequency": "low",
-            "prettyname": "",
+            "prettyname": "Midland Park - New York",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
         },
         {
             "route": "117",
-            "nm": "",
+            "nm": "Somerville - New York Exp",
             "ttl": "1d",
             "description_long": "",
             "description_short": "",
             "frequency": "low",
-            "prettyname": "",
+            "prettyname": "Somerville - New York Exp",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
         },
         {
             "route": "802",
-            "nm": "",
+            "nm": "Metropark - Rt. 1/Green St.",
             "ttl": "1d",
             "description_long": "",
             "description_short": "",
             "frequency": "low",
-            "prettyname": "",
+            "prettyname": "Metropark - Rt. 1/Green St.",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
         },
         {
             "route": "804",
-            "nm": "",
+            "nm": "Metropark - Wood Ave.",
             "ttl": "1d",
             "description_long": "",
             "description_short": "",
             "frequency": "low",
-            "prettyname": "",
+            "prettyname": "Metropark - Wood Ave.",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
         },
         {
             "route": "153",
-            "nm": "",
+            "nm": "Fairview - Fort Lee - NY",
             "ttl": "1d",
             "description_long": "",
             "description_short": "",
             "frequency": "low",
-            "prettyname": "",
+            "prettyname": "Fairview - Fort Lee - NY",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
         },
         {
             "route": "157",
-            "nm": "",
+            "nm": "Teaneck-Ridgefield Park-NY",
             "ttl": "1d",
             "description_long": "",
             "description_short": "",
             "frequency": "low",
-            "prettyname": "",
+            "prettyname": "Teaneck-Ridgefield Park-NY",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
         },
         {
             "route": "131",
-            "nm": "",
+            "nm": "Sayreville - New York",
             "ttl": "1d",
             "description_long": "",
             "description_short": "",
             "frequency": "low",
-            "prettyname": "",
+            "prettyname": "Sayreville - New York",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
         },
         {
             "route": "122",
-            "nm": "",
+            "nm": "Secaucus - New York",
             "ttl": "1d",
             "description_long": "",
             "description_short": "",
             "frequency": "low",
-            "prettyname": "",
+            "prettyname": "Secaucus - New York",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
         },
         {
             "route": "612",
-            "nm": "",
+            "nm": "Lwrnce-WWindsor-Prnceton Jct",
             "ttl": "1d",
             "description_long": "",
             "description_short": "",
             "frequency": "low",
-            "prettyname": "",
+            "prettyname": "Lwrnce-WWindsor-Prnceton Jct",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
         },
         {
             "route": "418",
-            "nm": "",
+            "nm": "Trenton Express",
             "ttl": "1d",
             "description_long": "",
             "description_short": "",
             "frequency": "low",
-            "prettyname": "",
+            "prettyname": "Trenton Express",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
         },
         {
             "route": "803",
-            "nm": "",
+            "nm": "Metropark - Woodbridge Cente",
             "ttl": "1d",
             "description_long": "",
             "description_short": "",
             "frequency": "low",
-            "prettyname": "",
+            "prettyname": "Metropark - Woodbridge Cente",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "1",
+            "nm": "Newark",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "Newark",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
         }
     ]

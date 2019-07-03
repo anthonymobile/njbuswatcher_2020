@@ -126,13 +126,14 @@ class RouteUpdater():
                 except:
                     continue
 
-            # 5. merge API data into system_map.route_descriptions # bug continue debugging here, making sure that route_descriptions is totally updated
+            # 5. merge API data into system_map.route_descriptions
             for a in api_response: # iterate over routes fetched from API
-                for r in system_map.route_descriptions['routedata']:  # iterate over defined routes
+                for index,r in enumerate(system_map.route_descriptions['routedata']):  # iterate over defined routes
                     if a['route'] == r['route']:  # match on route number
                         new_nm = a['nm'].split(' ', 1)[1]
-                        system_map.route_descriptions['routedata'][r]['nm'] = new_nm # update nm in system_map
+                        system_map.route_descriptions['routedata'][index]['nm'] = new_nm
 
+                        # future more comprehensive mapping of API response to route_descriptions.json
                         # for k,v in a.items():  # then iterate over API response keys
                         #     try:
                         #         if r[k] != v:  # if the value from the API response is different
@@ -142,9 +143,9 @@ class RouteUpdater():
 
 
             # 6. make one last scan of system_map.route_descriptions -- if prettyname is blank, should copy nm to prettyname
-            for route in system_map.route_descriptions['routedata']:
-                if route['prettyname'] == "":
-                    route['prettyname'] = route['nm']
+            for index, r in enumerate(system_map.route_descriptions['routedata']):
+                if r['prettyname'] == "":
+                    system_map.route_descriptions['routedata'][r]['prettyname'] = r['nm']
 
             # 7. create data to dump with last_updated and ttl
             outdata = dict()
@@ -228,7 +229,7 @@ class BunchingReport(Generator):
     # THIS CODE BLOCK IS AN ADAPTED DUPLICATE OF wwwAPI.StopReport.get_arrivals_here_this_route
     ####################################################################################################
 
-    def get_arrivals_here_this_route(self,system_map, route, stop_id, period):
+    def get_arrivals_here_this_route(self,system_map, route, stop_id, period): # future this can probably be refactored out into CommonTools along with wwwAPI.StopReport.get_arrivals_here
         with SQLAlchemyDBConnection() as db:
 
             # build query and load into df
@@ -243,7 +244,7 @@ class BunchingReport(Generator):
                                         .filter(Trip.rt == route) \
                                         .filter(ScheduledStop.stop_id == stop_id) \
                                         .filter(ScheduledStop.arrival_timestamp != None) \
-                                        .order_by(ScheduledStop.arrival_timestamp.desc()) # todo 1 debug test this on stop page for arrival interval 24 hours problem
+                                        .order_by(ScheduledStop.arrival_timestamp.asc())
 
             query=self.query_factory(system_map, db, query, period=period) # add the period
             query=query.statement
@@ -279,25 +280,18 @@ class BunchingReport(Generator):
     def filter_arrivals(self, arrivals_here):
             # Otherwise, cleanup the query results -- split by vehicle and calculate arrival intervals
 
-            # future speedup by using slice vs groupby
-            # alex r says:
-            # for group in df['col'].unique():
-            #     slice = df[df['col'] == group]
-            # # is like 10x faster than
-            # df.groupby('col').apply( < stuffhere >)
-
-            # split final approach history (sorted by timestamp) at each change in vehicle_id outputs a list of dfs
-            # per https://stackoverflow.com/questions/41144231/python-how-to-split-pandas-dataframe-into-subsets-based-on-the-value-in-the-fir
+            # split final approach history (sorted by timestamp) at each change in vehicle_id into a list of dfs - per https://stackoverflow.com/questions/41144231/python-how-to-split-pandas-dataframe-into-subsets-based-on-the-value-in-the-fir
             final_approach_dfs = [g for i, g in arrivals_here.groupby(arrivals_here['v'].ne(arrivals_here['v'].shift()).cumsum())]
-            arrivals_list_final_df = pd.DataFrame()  # take the last V(ehicle) approach in each df and add it to final list of arrivals
+
+            # take the last V(ehicle) approach in each df and add it to final list of arrivals
+            arrivals_list_final_df = pd.DataFrame()
             for final_approach in final_approach_dfs:  # iterate over every final approach
                 arrival_insert_df = final_approach.tail(1)  # take the last observation
                 arrivals_list_final_df = arrivals_list_final_df.append(arrival_insert_df)  # insert into df
 
             try:
                 # calc interval between last bus for each row, fill NaNs #
-                # bug FutureWarning: Passing integers to fillna is deprecated, will raise a TypeError in a future version.  To retain the old behavior, pass pd.Timedelta(seconds=n) instead.
-                arrivals_list_final_df['delta'] = (arrivals_list_final_df['arrival_timestamp'] - arrivals_list_final_df['arrival_timestamp'].shift(1)).fillna(0) # bug getting -24 hour time errors here, need to resort by timestamp again?
+                arrivals_list_final_df['delta'] = (arrivals_list_final_df['arrival_timestamp'] - arrivals_list_final_df['arrival_timestamp'].shift(1)).fillna(pd.Timedelta(seconds=0)) # bug 0000 getting -24 hour time errors here, need to resort by timestamp again? look at existing code in main branch
             except:
                 arrivals_list_final_df['delta'] = ''
                 print('')

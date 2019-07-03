@@ -44,6 +44,7 @@ class TransitSystem:
     def get_route_geometries(self):
         route_geometries={}
         for rd in self.route_descriptions['routedata']:
+            # print('getting route geometry for '+rd['route'])
             route_geometries[rd['route']]={
                 'route':rd['route'],
                 'xml':self.get_single_route_xml(rd['route']),
@@ -63,20 +64,16 @@ class TransitSystem:
             with open(infile,'rb') as f:
                 data = f.read()
                 return data
+
         except: #  if missing download and load
-
-            while True:
-                try:
-                    route_xml = BusAPI.get_xml_data('nj', 'routes', route=route)
-                    outfile = (self.get_abs_path()+'config/route_geometry/' + route + '.xml')
-                    with open(outfile, 'wb') as f:  # overwrite existing file
-                        f.write(route_xml)
-                except:
-                    pass
-
-            infile = (self.get_abs_path()+'config/route_geometry/' + route + '.xml')
-            with open(infile, 'rb') as f:
-                return f.read()
+                # print ('fetching xmldata for '+route)
+                route_xml = BusAPI.get_xml_data('nj', 'routes', route=route)
+                outfile = (self.get_abs_path()+'config/route_geometry/' + route + '.xml')
+                with open(outfile, 'wb') as f:  # overwrite existing file
+                    f.write(route_xml)
+                infile = (self.get_abs_path()+'config/route_geometry/' + route + '.xml')
+                with open(infile, 'rb') as f:
+                    return f.read()
 
     def get_single_route_Paths(self, route):
         while True:
