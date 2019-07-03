@@ -1,4 +1,5 @@
 import os
+import time
 import datetime
 import xml.etree.ElementTree
 import geojson
@@ -257,12 +258,14 @@ def parse_xml_getRoutePoints(data):
 def get_xml_data(source, function, **kwargs):
     import urllib.request
 
-    try:
+    while True:
         data = urllib.request.urlopen(_gen_command(source, function, **kwargs)).read()
-    except:
-        # from flask import abort # future smarter way to handle this? keep retrying?
-        # abort(404)
-        pass
+        if data:
+            break
+        else:
+            print ('cant connect to NJT API... waiting 5s and retry')
+            time.sleep(5)
+
 
     return data
 
