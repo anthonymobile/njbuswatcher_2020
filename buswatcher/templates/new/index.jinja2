@@ -1,8 +1,4 @@
-{# future statewide kepler bus position map as a background layer on the front page of buswatcher #}
-
-{# future add a ranking somewhere of all the routes?
-if you want to use this as an advocacy tool it may be useful to expose a ranking like that. #}
-
+{# NEW JULY 2019 TEMPLATE #}
 
 {%- extends "base.jinja2" %}
 
@@ -27,99 +23,55 @@ if you want to use this as an advocacy tool it may be useful to expose a ranking
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
     <!-- Bootstrap core CSS -->
     <link href="{{ url_for('static', filename='mdb/css/bootstrap.min.css')}}" rel="stylesheet">
-    <!-- Material Design Bootstrap -->
+    <!-- Material Design Bootstrap CSS -->
     <link href="{{ url_for('static', filename='mdb/css/mdb.min.css')}}" rel="stylesheet">
-    <!-- Your custom styles (optional) -->
+    <!-- Your custom styles (optional) CSS -->
     <link href="{{ url_for('static', filename='mdb/css/style.min.css')}}" rel="stylesheet">
 
-
-    <!-- <script type="text/javascript">
-        var passed_v_geojson = {{ v_geojson|safe }}
-    </script>
-    -->
+    <!-- index bus map -->
     <script type="text/javascript" src="{{ url_for('static', filename='maps/busmap_index.js')}}"></script>
-
-    <!-- zoom to extent stuff -->
     <script src='https://api.mapbox.com/mapbox.js/plugins/turf/v3.0.11/turf.min.js'></script>
 
 
 {% endblock %}
 
-
 {% block content_main %}
 
+  <!-- Full Page Intro -->
+  <div class="view" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/images/93.jpg'); background-repeat: no-repeat; background-size: cover;">
 
-    <!--Main layout-->
-    <main class="mt-2 pt-5">
-        <div class="container">
+    <!-- Mask & flexbox options-->
+    <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
 
-            <!--Section: Jumbotron-->
-{#            <section class="card wow fadeIn" style="background-image: url(https://mdbootstrap.com/img/Photos/Others/gradient1.jpg);">#}
+      <!-- Content -->
+      <div class="text-center white-text mx-5 wow fadeIn">
+        <h1 class="mb-4">
+          <strong>Learn Bootstrap 4 with MDB</strong>
+        </h1>
 
-                <!--Grid row-->
-                <div class="row mb-4 wow fadeIn">
+        <p>
+          <strong>Best & free guide of responsive web design</strong>
+        </p>
 
-                    <!--Grid column-->
-                    <div class="col-lg-6 col-md-12 mb-4">
+        <p class="mb-4 d-none d-md-block">
+          <strong>The most comprehensive tutorial for the Bootstrap 4. Loved by over 500 000 users. Video and written
+            versions available.
+            Create your own, stunning website.</strong>
+        </p>
 
-                    <!-- Content -->
-                    <div class="card-body text-black text-center py-5 px-5 my-5">
-                    {# <div class="card-body text-white col-lg-4 col-md-12 mb-4"> #}
+        <a target="_blank" href="https://mdbootstrap.com/education/bootstrap/" class="btn btn-outline-white btn-lg">Start
+          free tutorial
+          <i class="fas fa-graduation-cap ml-2"></i>
+        </a>
+      </div>
+      <!-- Content -->
 
+    </div>
+    <!-- Mask & flexbox options-->
 
-                        <h1 class="mb-4">
-                            <strong>How are New Jersey's buses doing today?</strong>
-                        </h1>
-                        <h4 class="mb-4">
-                            <strong>We're tracking {{  vehicle_count }} buses serving {{  route_count }} routes across the state, right now.</strong>
-                        </h4>
-                        <p class="mb-4 text-left">
-                            <strong>Residents and businesses depend on NJTransit buses every day. But its hard to evaluate the quality of bus service.</strong>
-                        </p>
-                    <p class="mb-4 text-left">That's why we built this site to provide a one-stop shop for bus performance information. Here you can see data on past performance and view maps of current service.</p>
-    {#                    <a target="_self" href="#reportcards" class="btn btn-outline-white btn-lg">Pick A Route
-                            <i class="fas fa-graduation-cap ml-2"></i>
-                        </a>
-    #}
+  </div>
+  <!-- Full Page Intro -->
 
-
-                        {% for city, citydata in collection_descriptions.items() %}
-
-                        <a target="_self" href="/{{ citydata.collection_url }}" class="btn btn-outline-black btn-lg">{{ citydata.city_name }}
-                            <i class="fas fa-map ml-2"></i>
-                        </a>
-                        {%  endfor %}
-
-                    </div>
-                    <!-- Content -->
-
-                </div>
-                <!--Grid column-->
-
-                <!--Grid column-->
-                <div id="map" class="container col-lg-6 col-md-12 mt-0 mb-0">
-{#                <p class="mb-4 text-right">
-                            <em>Bus positions updated every 30 seconds.</em>
-                        </p>#}
-                </div>
-
-            </div>
-            <!--Grid row-->
-
-
-
-            </section>
-            <!--Section: Jumbotron-->
-
-
-
-        </div>
-
-
-
-
-    </main>
-    <!--Main layout-->
 
 
 {% endblock %}
