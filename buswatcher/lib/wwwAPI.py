@@ -186,7 +186,7 @@ class StopReport(GenericReport):
                                         .filter(Trip.rt == self.route) \
                                         .filter(ScheduledStop.stop_id == self.stop_id) \
                                         .filter(ScheduledStop.arrival_timestamp != None) \
-                                        .order_by(ScheduledStop.arrival_timestamp.desc())
+                                        .order_by(ScheduledStop.arrival_timestamp.asc())
 
             query=self.query_factory(db, query,period=self.period) # add the period
             query=query.statement
@@ -230,8 +230,7 @@ class StopReport(GenericReport):
             # # is like 10x faster than
             # df.groupby('col').apply( < stuffhere >)
 
-            # split final approach history (sorted by timestamp) at each change in vehicle_id outputs a list of dfs
-            # per https://stackoverflow.com/questions/41144231/python-how-to-split-pandas-dataframe-into-subsets-based-on-the-value-in-the-fir
+            # split final approach history (sorted by timestamp) at each change in vehicle_id outputs a list of dfs - per https://stackoverflow.com/questions/41144231/python-how-to-split-pandas-dataframe-into-subsets-based-on-the-value-in-the-fir
             final_approach_dfs = [g for i, g in arrivals_here.groupby(arrivals_here['v'].ne(arrivals_here['v'].shift()).cumsum())]
             arrivals_list_final_df = pd.DataFrame()  # take the last V(ehicle) approach in each df and add it to final list of arrivals
             for final_approach in final_approach_dfs:  # iterate over every final approach
@@ -240,8 +239,8 @@ class StopReport(GenericReport):
 
             try:
                 # calc interval between last bus for each row, fill NaNs #
-                # bug FutureWarning: Passing integers to fillna is deprecated, will raise a TypeError in a future version.  To retain the old behavior, pass pd.Timedelta(seconds=n) instead.
-                arrivals_list_final_df['delta'] = (arrivals_list_final_df['arrival_timestamp'] - arrivals_list_final_df['arrival_timestamp'].shift(1)).fillna(0) # bug getting -24 hour time errors here, need to resort by timestamp again?
+
+                arrivals_list_final_df['delta'] = (arrivals_list_final_df['arrival_timestamp'] - arrivals_list_final_df['arrival_timestamp'].shift(1)).fillna(pd.Timedelta(seconds=0)) # bug getting -24 hour time errors here, need to resort by timestamp again?
             except:
                 arrivals_list_final_df['delta'] = ''
                 print('')

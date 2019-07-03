@@ -26,7 +26,7 @@ jobstores = {'default': SQLAlchemyJobStore(url=connection_string)}
 executors = {'default': ThreadPoolExecutor(20)}
 job_defaults = {'coalesce': True, 'max_instances': 5 }
 
-def minute(system_map):
+def minutely(system_map):
     # task_trigger_1 = HeadwayReport(system_map)
     print ('minute_tasks just ran')
     return
@@ -67,7 +67,7 @@ if __name__ == "__main__":
         scheduler = BackgroundScheduler(jobstores=jobstores,executors=executors,job_defaults=job_defaults)
         system_map = load_system_map()
 
-        scheduler.add_job(minute, 'interval', minutes=1, id='every minute', replace_existing=True, args=[system_map])
+        scheduler.add_job(minutely, 'interval', minutes=1, id='every minute', replace_existing=True, args=[system_map])
         scheduler.add_job(quarter_hourly, 'interval', minutes=15, id='every 15 minutes', replace_existing=True, args=[system_map])
         scheduler.add_job(hourly, 'interval', minutes=60, id='every hour', replace_existing=True, args=[system_map])
         scheduler.add_job(daily, 'cron', day='*', hour='2', id='every day at 2am', replace_existing=True, args=[system_map])
