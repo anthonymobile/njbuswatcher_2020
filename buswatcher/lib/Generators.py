@@ -204,7 +204,7 @@ class BunchingReport(Generator):
                                 stop_report = self.get_arrivals_here_this_route(system_map, route, point.identity, period)
                                 for (index, row) in stop_report[0].iterrows():
                                     arrival_total += 1
-                                    if (row.delta > bigbang) and (row.delta <= bunching_interval): #bug this doesnt seem to ever find a bunching, look at existing code
+                                    if (row.delta > bigbang) and (row.delta <= bunching_interval):
                                         bunch_total += 1
                                 cum_bunch_total = cum_bunch_total+bunch_total
                                 cum_arrival_total = cum_arrival_total + arrival_total
@@ -217,10 +217,11 @@ class BunchingReport(Generator):
                                 bunching_leaderboard_raw.append(leaderboard_entry)
                     # bunching_leaderboard.sort(key=itemgetter(1), reverse=True)
                     # https://stackoverflow.com/questions/72899/how-do-i-sort-a-list-of-dictionaries-by-a-value-of-the-dictionary
-                    bunching_leaderboard = sorted(bunching_leaderboard_raw, key=lambda k: k['bunched_arrivals_in_period'])
+                    bunching_leaderboard = sorted(bunching_leaderboard_raw, key=lambda k: k['bunched_arrivals_in_period']) # todo sort in the other direction?
 
                     # log the results and dump
-                    bunching_report_template['bunching_leaderboard'] = bunching_leaderboard[:10]
+                    # bunching_report_template['bunching_leaderboard'] = bunching_leaderboard[:10] # todo take the other end?
+                    bunching_report_template['bunching_leaderboard'] = bunching_leaderboard[10:]
                     bunching_report_template['cum_bunch_total'] = cum_bunch_total
                     bunching_report_template['cum_arrival_total'] = cum_arrival_total
                     self.store_json(bunching_report_template)

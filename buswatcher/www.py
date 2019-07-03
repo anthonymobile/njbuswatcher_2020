@@ -138,11 +138,11 @@ def displayFAQ():
     routereport = Dummy() #  setup a dummy routereport for the navbar
     return render_template('about.jinja2', route_definitions=route_descriptions, routereport=routereport)
 
-#-------------------------------------------------------------API docs
-@app.route('/api')
-def displayAPI():
-    routereport = Dummy() #  setup a dummy routereport for the navbar
-    return render_template('api.jinja2', reportcard_routes=route_descriptions, routereport=routereport)
+# #-------------------------------------------------------------future activate API docs page
+# @app.route('/api')
+# def displayAPI():
+#     routereport = Dummy() #  setup a dummy routereport for the navbar
+#     return render_template('api.jinja2', reportcard_routes=route_descriptions, routereport=routereport)
 
 #-------------------------------------------------------------Favorite Icon
 @app.route('/favicon.ico')

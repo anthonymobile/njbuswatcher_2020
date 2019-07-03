@@ -142,7 +142,18 @@ class RouteReport(GenericReport):
                 "dummy": "True"
             }
 
-
+            if type=='grade':
+                report_retrieved['grade'] = 'N'
+                report_retrieved['grade_description'] = 'No description available.'
+                report_retrieved["pct_bunched"] = "10.0"
+            elif type=='bunching':
+                report_retrieved['bunching_leaderboard'] = {
+                        'stop_name': 'STREET AND STREET',
+                        'stop_id': '31822',
+                        'bunched_arrivals_in_period': '666'
+                    }
+                report_retrieved['cum_bunch_total'] = '45'
+                report_retrieved['cum_arrival_total'] = '450'
         return report_retrieved
 
 
