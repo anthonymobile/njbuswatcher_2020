@@ -10,7 +10,7 @@
   text-transform: uppercase;
   white-space: normal;
   word-wrap: break-word;
-  color: $btn-color-basic;
+  color: inherit;
   &:hover,
   &:active,
   &:focus {
@@ -155,15 +155,13 @@
   @include make-button($btn_name, $color_value);
   @include make-outline-button($btn_name, $color_value);
 }
+.btn-warning:not(:disabled):not(.disabled).active, 
+.btn-warning:not(:disabled):not(.disabled):active, 
+.show>.btn-warning.dropdown-toggle {
+  color: $white-base;
+}
 
-// button,
-// html [type="file"] {
-//   -webkit-appearance: button;
-//   appearance: button;
-// }
-
-// button::-moz-focus-inner,
-// [type="file"]::-moz-focus-inner {
-//   padding: 0;
-//   border-style: none;
-// }
+// Gradient buttons
+@each $name, $val in $gradients {
+  @include make-gradient-button($name, $val);
+}
