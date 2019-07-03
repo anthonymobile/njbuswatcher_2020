@@ -101,7 +101,7 @@ def displayIndex():
     return render_template('index.jinja2', collection_descriptions=collection_descriptions,  routereport=routereport, vehicle_count=vehicle_count, route_count=route_count)
 
 
-#-------------------------------------------------------------City Index
+#-------------------------------------------------------------Collection
 @app.route('/<collection_url>')
 def displayCollection(collection_url):
 
@@ -149,6 +149,57 @@ def displayFAQ():
 def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static/images'),
                           'favicon.ico',mimetype='image/vnd.microsoft.icon')
+
+
+
+################################################
+# NEW THEME TESTING
+################################################
+
+#-------------------------------------------------------------Statewide Index
+@app.route('/new')
+def displayNewIndex():
+
+    vehicle_data, vehicle_count, route_count = API.current_buspositions_from_db_for_index()
+
+    dummy= collection_descriptions
+    routereport = Dummy() # setup a dummy routereport for the navbar
+    return render_template('new/index.jinja2', collection_descriptions=collection_descriptions,  routereport=routereport, vehicle_count=vehicle_count, route_count=route_count)
+
+
+#-------------------------------------------------------------City Index
+@app.route('/new/<collection_url>')
+def displayNewCollection(collection_url):
+
+    vehicles_now = API.get_positions_byargs(system_map, {'collection': collection_url, 'layer': 'vehicles'}, route_descriptions,
+                             collection_descriptions)
+
+    collection_description=collection_descriptions[collection_url]
+    collection_description['number_of_active_vehicles'] = len(vehicles_now['features'])
+    collection_description['number_of_active_routes'] = len(collection_descriptions[collection_url]['routelist'])
+
+    route_report = Dummy()  # setup a dummy routereport for the navbar
+    return render_template('new/collection.jinja2',collection_url=collection_url,collection_description=collection_description, route_descriptions=route_descriptions, period_descriptions=period_descriptions,routereport=route_report)
+
+#-------------------------------------------------------------Route
+
+@app.route('/new/<collection_url>/route/<route>/<period>')
+def genNewRouteReport(collection_url,route, period):
+    route_report = wwwAPI.RouteReport(system_map, route, period)
+
+    return render_template('new/route.jinja2', collection_url=collection_url, collection_descriptions=collection_descriptions, route=route, period=period, period_descriptions=period_descriptions,routereport=route_report)
+
+#------------------------------------------------------------Stop
+@app.route('/new/<collection_url>/route/<route>/stop/<stop>/<period>')
+def genNewStopReport(collection_url, route, stop, period):
+
+    stop_report = wwwAPI.StopReport(system_map, route, stop, period)
+    route_report = wwwAPI.RouteReport(system_map, route, period)
+    predictions = BusAPI.parse_xml_getStopPredictions(BusAPI.get_xml_data('nj', 'stop_predictions', stop=stop, route='all'))
+    return render_template('new/stop.jinja2',collection_url=collection_url, collection_descriptions=collection_descriptions, period_descriptions=period_descriptions, stop=stop, period=period, stopreport=stop_report, reportcard_routes=route_descriptions, predictions=predictions, routereport=route_report)
+
+
+
 
 
 ################################################
