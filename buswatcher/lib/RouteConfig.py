@@ -8,6 +8,7 @@ import os, errno
 
 from . import BusAPI, DataBases, Generators
 from .wwwAPI import RouteReport
+from .CommonTools import get_config_path
 
 class TransitSystem:
 
@@ -15,13 +16,13 @@ class TransitSystem:
 
         # read the /config files -- grades, route metadata and overrides, collection metadata
         try:
-            with open(self.get_abs_path()+ 'config/grade_descriptions.json') as f:
+            with open(get_config_path() + 'grade_descriptions.json') as f:
                 self.grade_descriptions = json.load(f)
-            with open(self.get_abs_path()+ 'config/route_descriptions.json') as f:
+            with open(get_config_path() + 'route_descriptions.json') as f:
                 self.route_descriptions = json.load(f)
-            with open(self.get_abs_path()+ 'config/collection_descriptions.json') as f:
+            with open(get_config_path() + 'collection_descriptions.json') as f:
                 self.collection_descriptions = json.load(f)
-            with open(self.get_abs_path()+ 'config/period_descriptions.json') as f:
+            with open(get_config_path() + 'period_descriptions.json') as f:
                 self.period_descriptions = json.load(f)
             print ('<BUSWATCHER>All config files loaded')
         except:
@@ -33,14 +34,14 @@ class TransitSystem:
         self.routelist = self.get_routelist()
         self.grade_roster = self.get_grade_roster()
 
-    def get_abs_path(self):
-        if os.getcwd() == "/": # docker
-            prefix = "buswatcher/buswatcher/"
-        elif "Users" in os.getcwd():
-            prefix = ""
-        else:
-            prefix=""
-        return prefix
+    # def get_abs_path(self):
+    #     if os.getcwd() == "/": # docker
+    #         prefix = "buswatcher/buswatcher/"
+    #     elif "Users" in os.getcwd():
+    #         prefix = ""
+    #     else:
+    #         prefix=""
+    #     return prefix
 
     def get_route_geometries(self):
         route_geometries={}
@@ -61,7 +62,7 @@ class TransitSystem:
     def get_single_route_xml(self,route):
 
         try:# load locally
-            infile = (self.get_abs_path()+'config/route_geometry/' + route +'.xml')
+            infile = (get_config_path() + 'config/route_geometry/' + route +'.xml')
             with open(infile,'rb') as f:
                 data = f.read()
                 return data
@@ -69,17 +70,17 @@ class TransitSystem:
         except: #  if missing download and load
                 # print ('fetching xmldata for '+route)
                 route_xml = BusAPI.get_xml_data('nj', 'routes', route=route)
-                outfile = (self.get_abs_path()+'config/route_geometry/' + route + '.xml')
+                outfile = (get_config_path() + 'config/route_geometry/' + route + '.xml')
                 with open(outfile, 'wb') as f:  # overwrite existing file
                     f.write(route_xml)
-                infile = (self.get_abs_path()+'config/route_geometry/' + route + '.xml')
+                infile = (get_config_path() + 'config/route_geometry/' + route + '.xml')
                 with open(infile, 'rb') as f:
                     return f.read()
 
     def get_single_route_Paths(self, route):
         while True:
             try:
-                infile = (self.get_abs_path()+'config/route_geometry/' + route + '.xml')
+                infile = (get_config_path() + 'route_geometry/' + route + '.xml')
                 with open(infile, 'rb') as f:
                     return BusAPI.parse_xml_getRoutePoints(f.read())
             except:
@@ -217,26 +218,33 @@ def flush_system_map():
 def load_system_map(**kwargs):
 
     pwd = os.getcwd()
+    print ('pwd says' + pwd)
     if os.getcwd() == "/":  # docker
-        prefix = "buswatcher/buswatcher/"
+        prefix = "/buswatcher/buswatcher/"
     elif "Users" in os.getcwd(): # osx
         prefix = ""
-    else: # linux
+    else: # linux & default
         prefix = ""
+    print ('using path prefix ' + prefix)
 
-    # todo 0 add some kind of check to periodically reload the system map (or pass a kwarg
+    # todo 0 add some kind of check to periodically reload the system map (or pass a kwarg)
     # if kwargs['force_regenerate'] == True then TK
 
     system_map_pickle_file = Path(prefix+"config/system_map.pickle")
+    print (system_map_pickle_file)
+
+    # is there a pickle file?
     try:
         my_abs_path = system_map_pickle_file.resolve(strict=True)
+        with open(system_map_pickle_file, "rb") as f:
+            system_map=pickle.load(f)
+
+    # if not create it
     except FileNotFoundError:
         system_map = TransitSystem()
         with open(system_map_pickle_file, "wb") as f:
             pickle.dump(system_map,f)
-    else:
-        with open(system_map_pickle_file, "rb") as f:
-            system_map=pickle.load(f)
+
 
     return system_map
 

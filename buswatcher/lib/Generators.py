@@ -11,25 +11,23 @@ import pandas as pd
 from lib.wwwAPI import StopReport
 from lib.BusAPI import *
 from lib.DataBases import SQLAlchemyDBConnection, ScheduledStop, Trip
-from lib.CommonTools import timeit
+from lib.CommonTools import get_config_path
 
 class Generator():
 
     def __init__(self):
-        self.cwd = os.getcwd()
-        self.pickle_prefix = Path(self.cwd + "/config/reports/")
+        # self.pickle_prefix = Path(self.cwd + "/config/reports/")
+        self.config_prefix = get_config_path()+"/reports"
         self.db =  SQLAlchemyDBConnection()
 
-    # future store the results as json since they could be inspected that way
-
     def store_json(self, report_to_store): # filename format route_type_period
-        filename = ('{a}/{b}_{c}_{d}.json').format(a=self.pickle_prefix,b=report_to_store['route'],c=report_to_store['type'],d=report_to_store['period'])
+        filename = ('{a}/{b}_{c}_{d}.json').format(a=self.config_prefix,b=report_to_store['route'],c=report_to_store['type'],d=report_to_store['period'])
         with open(filename, 'w') as f:
             json.dump(report_to_store, f, sort_keys=True,indent=4)
         return
 
     def retrieve_json(self, route, type, period):
-        filename = ('{a}/{b}_{c}_{d}.json').format(a=self.pickle_prefix, b=route,c=type, d=period)
+        filename = ('{a}/{b}_{c}_{d}.json').format(a=self.config_prefix, b=route,c=type, d=period)
         with open(filename,"r") as f:
             report_retrieved = json.load(f)
         return report_retrieved
@@ -45,13 +43,14 @@ class RouteUpdater():
         # even though this now runs on a daily schedule
         # load existing reports and check ttl anyways
         try:
-            if os.getcwd() == "/":  # docker
-                prefix = "buswatcher/buswatcher/"
-            elif "Users" in os.getcwd():
-                prefix = ""
-            else:
-                prefix = ""
-            with open(prefix+'config/route_descriptions.json') as f:
+            # if os.getcwd() == "/":  # docker
+            #     prefix = "/buswatcher/buswatcher/"
+            # elif "Users" in os.getcwd():
+            #     prefix = ""
+            # else:
+            #     prefix = ""
+            prefix=get_config_path()
+            with open(prefix+'route_descriptions.json') as f:
                 route_descriptions_file = json.load(f)
             route_descriptions_last_updated = parser.parse(route_descriptions_file['last_updated'])
 

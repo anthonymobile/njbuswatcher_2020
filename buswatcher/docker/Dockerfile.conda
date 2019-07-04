@@ -29,12 +29,10 @@ COPY . ./buswatcher
 COPY ./buswatcher/docker/DBconfig.py ./buswatcher/buswatcher/lib/DBconfig.py
 
 # run entrypoint.sh
-# ENTRYPOINT ["/buswatcher/buswatcher/docker/entrypoint.sh"]
+# ENTRYPOINT ["/buswatcher/docker/entrypoint.sh"] # bug uncomment this?
 
 # various workdir permutations to test
 WORKDIR /buswatcher/buswatcher
-# WORKDIR /buswatcher
-# WORKDIR /
 
 
 # CMD ["/opt/conda/envs/buswatcher/bin/gunicorn", "www:app", "-w", "4", "-b", "0.0.0.0:8000"]

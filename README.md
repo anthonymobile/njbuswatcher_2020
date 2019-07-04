@@ -21,11 +21,12 @@ Buswatcher is a Python web app to collect bus position and stop arrival predicti
 
 It's all dockerized now. Use `docker-compose` and build from the project root.
 
+1. create shared data volume for /buswatcher/buswatcher/config [howto](https://www.digitalocean.com/community/tutorials/how-to-share-data-between-docker-containers). not yet possible to do this at build time?
 1. Deploy docker (see debugging crashing docker containers below)
-2. Run generator --testmode --tasks minutely quarter_hourly hourly daily
-Seed the reports folder. Otherwise things will probably break for up to 24 hours.
-3. Setup DNS forwarding (Gandi control panel)
-4. Setup a backup scheme for the database.
+2. (FIXED BY STEP 1? Run generator --testmode --tasks minutely quarter_hourly hourly daily
+Seed the reports folder. Otherwise things will probably break for up to 24 hours.)
+3. Copy Gandi DNS API key in dns_updater gandi_config.py
+4. Deploy a backup scheme for the database.
 
 #### Debugging Crashing Docker Containers
 

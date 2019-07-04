@@ -14,7 +14,7 @@ http://doc.livedns.gandi.net/#api-endpoint -> https://dns.gandi.net/api/v5/
 
 import time
 import json
-import requests, gandi_config
+import requests, config
 import argparse
 
 
@@ -33,8 +33,8 @@ def get_uuid():
     GET /domains/<DOMAIN>:
         
     '''
-    url = gandi_config.api_endpoint + '/domains/' + gandi_config.domain
-    u = requests.get(url, headers={"X-Api-Key":gandi_config.api_secret})
+    url = config.api_endpoint + '/domains/' + config.domain
+    u = requests.get(url, headers={"X-Api-Key":config.api_secret})
     json_object = json.loads(u._content)
     if u.status_code == 200:
         return json_object['zone_uuid']
@@ -52,15 +52,15 @@ def get_dnsip(uuid):
     the actual DNS Record IP
     '''
 
-    url = gandi_config.api_endpoint + '/zones/' + uuid + '/records/' + gandi_config.subdomains[0] + '/A'
-    headers = {"X-Api-Key":gandi_config.api_secret}
+    url = config.api_endpoint + '/zones/' + uuid + '/records/' + config.subdomains[0] + '/A'
+    headers = {"X-Api-Key":config.api_secret}
     u = requests.get(url, headers=headers)
     if u.status_code == 200:
         json_object = json.loads(u._content)
-        print('Checking IP from DNS Record', gandi_config.subdomains[0], ':', json_object['rrset_values'][0])
+        print('Checking IP from DNS Record', config.subdomains[0], ':', json_object['rrset_values'][0])
         return json_object['rrset_values'][0]
     else:
-        print('Error: HTTP Status Code ', u.status_code, 'when trying to get IP from subdomain', gandi_config.subdomains[0])
+        print('Error: HTTP Status Code ', u.status_code, 'when trying to get IP from subdomain', config.subdomains[0])
         print(json_object['message'])
         exit()
 
@@ -74,9 +74,9 @@ def update_records(uuid, dynIP, subdomain):
                          "rrset_values": ["<VALUE>"]}' \
                     https://dns.gandi.net/api/v5/zones/<UUID>/records/<NAME>/<TYPE>
     '''
-    url = gandi_config.api_endpoint + '/zones/' + uuid + '/records/' + subdomain + '/A'
-    payload = {"rrset_ttl": gandi_config.ttl, "rrset_values": [dynIP]}
-    headers = {"Content-Type": "application/json", "X-Api-Key":gandi_config.api_secret}
+    url = config.api_endpoint + '/zones/' + uuid + '/records/' + subdomain + '/A'
+    payload = {"rrset_ttl": config.ttl, "rrset_values": [dynIP]}
+    headers = {"Content-Type": "application/json", "X-Api-Key":config.api_secret}
     u = requests.put(url, data=json.dumps(payload), headers=headers)
     json_object = json.loads(u._content)
 
@@ -100,19 +100,19 @@ def main(force_update, verbosity):
     uuid = get_uuid()
    
     #compare dynIP and DNS IP 
-    dynIP = get_dynip(gandi_config.ifconfig)
+    dynIP = get_dynip(config.ifconfig)
     dnsIP = get_dnsip(uuid)
     
     if force_update:
         print("Going to update/create the DNS Records for the subdomains")
-        for sub in gandi_config.subdomains:
+        for sub in config.subdomains:
             update_records(uuid, dynIP, sub)
     else:
         if dynIP == dnsIP:
             print("IP Address Match - no further action")
         else:
             print("IP Address Mismatch - going to update the DNS Records for the subdomains with new IP", dynIP)
-            for sub in gandi_config.subdomains:
+            for sub in config.subdomains:
                 update_records(uuid, dynIP, sub)
 
 if __name__ == "__main__":
