@@ -13,7 +13,7 @@ import argparse, time
 from lib.Generators import RouteUpdater, GradeReport, BunchingReport, TraveltimeReport, HeadwayReport
 from lib.RouteConfig import load_system_map
 from lib.DBconfig import connection_string
-
+from lib.CommonTools import get_config_path
 
 ####################################################################3
 #   SCHEDULER SETUP
@@ -22,7 +22,12 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.jobstores.sqlalchemy import SQLAlchemyJobStore
 from apscheduler.executors.pool import ThreadPoolExecutor,ProcessPoolExecutor
 
-jobstores = {'default': SQLAlchemyJobStore(url='sqlite:///config/generator_jobs.sqlite')}
+
+# figure out context
+
+db_url = get_config_path() # bug need to construct the proper path here, which is probably the path from os.getcwd minus the result of get_config_path
+
+jobstores = {'default': SQLAlchemyJobStore(url='sqlite:///'+db_url)}
 # jobstores = {'default': SQLAlchemyJobStore(url=connection_string))} # future move jobstore to mysql db
 
 

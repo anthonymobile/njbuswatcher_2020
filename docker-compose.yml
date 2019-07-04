@@ -56,21 +56,21 @@ services:
       - buswatcher_config:/buswatcher/buswatcher/config
     depends_on:
       - db
-#  generator:
-#    build:
-#      context: ./
-#      dockerfile: ./generator/docker/Dockerfile.conda
-#    restart: always
-#    volumes:
-#      - buswatcher_config:/buswatcher/buswatcher/config
-#    depends_on:
-#      - db
+  generator:
+    build:
+      context: ./
+      dockerfile: ./generator/docker/Dockerfile.conda
+    restart: always
+    volumes:
+      - buswatcher_config:/buswatcher/buswatcher/config
+    depends_on:
+      - db
   flask_gunicorn:
     build:
       context: ./
       dockerfile: buswatcher/docker/Dockerfile.conda
 
-    # command: /opt/conda/envs/buswatcher/bin/gunicorn buswatcher:app -w 4 -b 0.0.0.0:8000
+    command: /opt/conda/envs/buswatcher/bin/gunicorn www:app -w 4 -b 0.0.0.0:8000
     restart: always
     volumes:
         - ./buswatcher/:/buswatcher

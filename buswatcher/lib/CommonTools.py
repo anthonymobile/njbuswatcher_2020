@@ -1,4 +1,6 @@
 import time
+import os
+from pathlib import Path
 
 def timeit(f):
 
@@ -17,4 +19,21 @@ def timeit(f):
     return timed
 
 
+# returns the Path to the config directory
+def get_config_path():
 
+    # docker
+    if os.getcwd() == "/":  # docker
+        prefix = "/buswatcher/buswatcher/"
+
+    # osx
+    elif "Users" in os.getcwd():
+        prefix = ""
+
+    # others
+    else:
+        prefix = ""
+
+    path = Path(prefix + "config/")
+
+    return path
