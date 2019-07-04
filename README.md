@@ -21,12 +21,32 @@ Buswatcher is a Python web app to collect bus position and stop arrival predicti
 
 It's all dockerized now. Use `docker-compose` and build from the project root.
 
-##### 1. Deploy docker
-##### 2. Setup DNS forwarding (Gandi control panel)
-##### 3. Run generator --testmode --tasks minutely quarter_hourly hourly daily
+1. Deploy docker (see debugging crashing docker containers below)
+2. Run generator --testmode --tasks minutely quarter_hourly hourly daily
+Seed the reports folder. Otherwise things will probably break for up to 24 hours.
+3. Setup DNS forwarding (Gandi control panel)
+4. Setup a backup scheme for the database.
+
+#### Debugging Crashing Docker Containers
+
+Shell on running container
+
+```
+docker exec -it <container_id> /bin/bash
+```
+"Can’t start your container at all? If you’ve got a initial command or entrypoint that immediately crashes, Docker will immediately shut it back down for you. This can make your container unstartable, so you can’t shell in any more, which really gets in the way.
+
+Fortunately, there’s a workaround: save the current state of the shut-down container as a new image, and start that with a different command to avoid your existing failures.
+
+```
+docker commit <container_id> my-broken-container &&
+docker run -it my-broken-container /bin/bash
+```
+Have a failing entrypoint instead? There’s an entrypoint override command-line flag too." ([source](https://medium.com/@pimterry/5-ways-to-debug-an-exploding-docker-container-4f729e2c0aa8))
 
 
-### Manual MySQL Database Creation
+
+#### Manual MySQL Database Creation
 
 (for testing)
 

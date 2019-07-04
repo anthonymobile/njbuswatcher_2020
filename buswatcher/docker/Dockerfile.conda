@@ -37,4 +37,4 @@ WORKDIR /buswatcher/buswatcher
 # WORKDIR /
 
 
-# CMD ["/opt/conda/envs/buswatcher/bin/gunicorn", "buswatcher:app", "-w", "4", "-b", "0.0.0.0:8000"]
+# CMD ["/opt/conda/envs/buswatcher/bin/gunicorn", "www:app", "-w", "4", "-b", "0.0.0.0:8000"]
