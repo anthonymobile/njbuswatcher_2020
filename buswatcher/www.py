@@ -179,7 +179,7 @@ def displayNewCollection(collection_url):
     collection_description['number_of_active_routes'] = len(collection_descriptions[collection_url]['routelist'])
 
     route_report = Dummy()  # setup a dummy routereport for the navbar
-    return render_template('new/collection.jinja2',collection_url=collection_url,collection_description=collection_description, route_descriptions=route_descriptions, period_descriptions=period_descriptions,routereport=route_report)
+    return render_template('new/collection.jinja2',collection_url=collection_url,grade_roster=system_map.grade_roster, collection_description=collection_description, route_descriptions=route_descriptions, period_descriptions=period_descriptions,routereport=route_report)
 
 #-------------------------------------------------------------Route
 
@@ -331,6 +331,7 @@ if __name__ == "__main__":
     route_descriptions = system_map.route_descriptions
     grade_descriptions = system_map.grade_descriptions
     collection_descriptions = system_map.collection_descriptions
+
 
     app.run(host='0.0.0.0', debug=True)
 
