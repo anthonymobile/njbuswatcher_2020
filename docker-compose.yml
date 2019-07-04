@@ -52,15 +52,19 @@ services:
       context: ./
       dockerfile: ./tripwatcher/docker/Dockerfile.conda
     restart: always
+    volumes:
+      - buswatcher_config:/buswatcher/buswatcher/config
     depends_on:
       - db
-  generator:
-    build:
-      context: ./
-      dockerfile: ./generator/docker/Dockerfile.conda
-    restart: always
-    depends_on:
-      - db
+#  generator:
+#    build:
+#      context: ./
+#      dockerfile: ./generator/docker/Dockerfile.conda
+#    restart: always
+#    volumes:
+#      - buswatcher_config:/buswatcher/buswatcher/config
+#    depends_on:
+#      - db
   flask_gunicorn:
     build:
       context: ./
@@ -71,6 +75,7 @@ services:
     volumes:
         - ./buswatcher/:/buswatcher
         - static_volume:/buswatcher/static
+        - buswatcher_config:/buswatcher/buswatcher/config
     expose:
       - 8000
     environment:
@@ -99,3 +104,4 @@ services:
 volumes:
   database_volume:
   static_volume:
+  buswatcher_config:
