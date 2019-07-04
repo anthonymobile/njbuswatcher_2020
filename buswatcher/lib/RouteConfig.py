@@ -6,7 +6,7 @@ import geojson
 import pickle
 import os, errno
 
-from . import BusAPI, DataBases
+from . import BusAPI, DataBases, Generators
 from .wwwAPI import RouteReport
 
 class TransitSystem:
@@ -31,6 +31,7 @@ class TransitSystem:
         # load the route geometries
         self.route_geometries = self.get_route_geometries()
         self.routelist = self.get_routelist()
+        self.grade_roster = self.get_grade_roster()
 
     def get_abs_path(self):
         if os.getcwd() == "/": # docker
@@ -185,6 +186,17 @@ class TransitSystem:
             from flask import abort
             abort(404)
             pass
+
+    def get_grade_roster(self):
+        grade_roster=dict()
+        for rt in self.routelist:
+            report_fetcher = Generators.Generator()
+            try:
+                grade_report = report_fetcher.retrieve_json(rt, 'grade', 'year')
+            except:
+                pass
+            grade_roster[rt]=grade_report['grade']
+        return grade_roster
 
 
 ##################################################################

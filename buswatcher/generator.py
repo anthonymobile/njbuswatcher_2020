@@ -22,7 +22,10 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.jobstores.sqlalchemy import SQLAlchemyJobStore
 from apscheduler.executors.pool import ThreadPoolExecutor,ProcessPoolExecutor
 
-jobstores = {'default': SQLAlchemyJobStore(url=connection_string)}
+jobstores = {'default': SQLAlchemyJobStore(url='sqlite:///config/generator_jobs.sqlite')}
+# jobstores = {'default': SQLAlchemyJobStore(url=connection_string))} # future move jobstore to mysql db
+
+
 executors = {'default': ThreadPoolExecutor(20)}
 job_defaults = {'coalesce': True, 'max_instances': 5 }
 
@@ -67,9 +70,10 @@ if __name__ == "__main__":
             func
 
     else:
-        scheduler = BackgroundScheduler(jobstores=jobstores,executors=executors,job_defaults=job_defaults)
+
         system_map = load_system_map()
 
+        scheduler = BackgroundScheduler(jobstores=jobstores, executors=executors, job_defaults=job_defaults)
         scheduler.add_job(minutely, 'interval', minutes=1, id='every minute', replace_existing=True, args=[system_map])
         scheduler.add_job(quarter_hourly, 'interval', minutes=15, id='every 15 minutes', replace_existing=True, args=[system_map])
         scheduler.add_job(hourly, 'interval', minutes=60, id='every hour', replace_existing=True, args=[system_map])

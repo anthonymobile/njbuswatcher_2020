@@ -397,6 +397,7 @@ class GradeReport(Generator):
 
                 self.store_json(report)
 
+
         return
 
 # sample grade report

@@ -1,53 +1,27 @@
 {%- extends "base.jinja2" %}
-
-
-{# Loads some of the macros included with Flask-Bootstrap. We are using the
-   utils module here to automatically render Flask's flashed messages in a
-   bootstrap friendly manner #}
 {% import "bootstrap/utils.html" as utils %}
 
-
-{# Inside the ``content`` is where you should place most of your own stuff.
-   This will keep scripts at the page end and a navbar you add on later
-   intact. #}
 {% block head %}
-
     <style>
         #map { width:100%; }
     </style>
-
-
-
 {{ super() }}
 {% endblock %}
 
 {% block scripts %}
-
-    <!-- Font Awesome -->
+    <!-- fontawesome, bootstrap, mdb -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
-    <!-- Bootstrap core CSS -->
     <link href="{{ url_for('static', filename='mdb/css/bootstrap.min.css')}}" rel="stylesheet">
-    <!-- Material Design Bootstrap -->
     <link href="{{ url_for('static', filename='mdb/css/mdb.min.css')}}" rel="stylesheet">
     <!-- Your custom styles (optional) -->
     <link href="{{ url_for('static', filename='mdb/css/style.min.css')}}" rel="stylesheet">
-
-
-    <script type="text/javascript">
-        var collection_description = {{ collection_description|safe }}
-
-    </script>
+    <!-- mapboxjs -->
     <script type="text/javascript" src="{{ url_for('static', filename='maps/busmap_collection.js')}}"></script>
-
-    <!-- zoom to extent stuff -->
     <script src='https://api.mapbox.com/mapbox.js/plugins/turf/v3.0.11/turf.min.js'></script>
-
-
 {% endblock %}
 
 
 {% block sticky_nav %}
-
 <nav class="navbar navbar-expand-sm sticky-top navbar-light bg-white">
     <div class="container">
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar1">
@@ -61,21 +35,19 @@
         </div>
     </div>
 </nav>
-
-
 {% endblock %}
 
 
 {% block content_main %}
 
-
     <!--Main layout-->
     <main class="mt-2 pt-5 ">
         <div class="container">
 
-
+            <!--ROW 1-->
+                <!--BANNER START-->
                 <div class="row mb-4 wow fadeIn">
-                    <!--Grid column-->
+
                     <div class="col-lg-12 col-md-12 mb-4 ">
                         <h1 class="mb-4"><strong>{{ collection_description['city_name']}} has {{ collection_description.number_of_active_vehicles}} buses serving {{ collection_description.number_of_active_routes}} routes right now.</strong></h1>
                         <h4 class="mb-4 text-left">
@@ -86,9 +58,10 @@
                         </p>
                     </div>
                 </div>
+                <!--BANNER END-->
 
-
-            <!--Routes Display-->
+            <!--ROW 2-->
+                <!--ROUTELIST START-->
                 <div class="row mb-4 wow fadeIn">
 
                     <div class="col-lg-6 col-md-12 mb-4 ">
@@ -107,7 +80,27 @@
                                             {% endfor %}
                                       </strong>
                                   </h5>
-                                  <!-- <small>grade</small> -->
+
+                                 {% for route_2_match in route_descriptions.routedata %}
+                                     {% if route==route_2_match.route %}
+
+                                         {%  if grade_roster[route_2_match.route]=='A' or grade_roster[route_2_match.route]=='B' %}
+                                             <small class="text-success">Grade:{{grade_roster[route_2_match.route]}}</small>
+                                         {% endif %}
+
+                                         {%  if grade_roster[route_2_match.route]=='C' or grade_roster[route_2_match.route]=='D' %}
+                                             <small class="text-alert">Grade:{{grade_roster[route_2_match.route]}}</small>
+                                         {% endif %}
+
+                                         {%  if grade_roster[route_2_match.route]=='F' %}
+                                             <small class="text-danger">Grade:{{grade_roster[route_2_match.route]}}</small>
+                                         {% endif %}
+
+                                     {% endif %}
+                                 {% endfor %}
+
+
+
                                 </div>
                                 <p class="mb-1"><small>
                                     {% for route_2_match in route_descriptions.routedata %}
@@ -121,24 +114,18 @@
 
                         </div>
                     </div>
+                <!--ROUTELIST END-->
 
-
-            <!--Map column-->
-            <div class="col-lg-6 col-md-12 mb-4">
-                <div id="map" class="container">
+                <!--MAP COLUMN-->
+                <div class="col-lg-6 col-md-12 mb-4">
+                    <div id="map" class="container">
+                    </div>
                 </div>
-            </div>
 
 
-            </div>
-        </div>
-    </div>
-
-
-
-
-    </main>
-    <!--Main layout-->
+            </div> <!--ROW 2 END-->
+        </div> <!--CONTAINER END-->
+    </main> <!--MAIN END-->
 
 
 {% endblock %}
