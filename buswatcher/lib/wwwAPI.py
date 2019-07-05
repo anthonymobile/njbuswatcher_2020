@@ -90,7 +90,6 @@ class RouteReport(GenericReport):
 
         return trip_list, trip_list_trip_id_only
 
-
     def get_tripdash(self):
         # gets all arrivals (see limit) for all runs on current route
 
@@ -125,6 +124,11 @@ class RouteReport(GenericReport):
                 tripdash[trip_id] = trip_dict
 
         return tripdash
+
+    # def get_bunching_report(self):
+    #     full_report=self.retrieve_json('bunching')
+    #     bunching_badboys=full_report['bunching_leaderboard'][10:] # only take the top 10 of the bunching_leaderboard
+    #     return bunching_badboys
 
     def retrieve_json(self, type):
         file_prefix = Path(os.getcwd() + "/config/reports/")
@@ -180,6 +184,7 @@ class StopReport(GenericReport):
         self.arrivals_here_this_route_df, self.stop_name, self.arrivals_table_time_created = self.get_arrivals_here_this_route()
         self.arrivals_here_all_others = self.get_arrivals_here_all_others()
         self.hourly_frequency = self.get_hourly_frequency()
+        print ('the end of the road!?')
 
 
     def get_arrivals_here_this_route(self):
@@ -197,7 +202,7 @@ class StopReport(GenericReport):
                                         .filter(Trip.rt == self.route) \
                                         .filter(ScheduledStop.stop_id == self.stop_id) \
                                         .filter(ScheduledStop.arrival_timestamp != None) \
-                                        .order_by(ScheduledStop.arrival_timestamp.asc())
+                                        .order_by(ScheduledStop.arrival_timestamp.asc()) # todo 2 add limit=50 rows
 
             query=self.query_factory(db, query,period=self.period) # add the period
             query=query.statement
@@ -227,7 +232,7 @@ class StopReport(GenericReport):
             query = query.statement
             try:
                 get_arrivals_here_all_others = pd.read_sql(query, db.session.bind)
-                return get_arrivals_here_all_others
+                return get_arrivals_here_all_others.head(20)
             except ValueError:
                 pass
 
@@ -263,7 +268,10 @@ class StopReport(GenericReport):
 
             arrivals_table_time_created = datetime.datetime.now()  # log creation time and return
 
-            return arrivals_list_final_df, stop_name, arrivals_table_time_created
+            # one last sort to make the table most recent at top
+            arrivals_list_final_df = arrivals_list_final_df.sort_values('arrival_timestamp', ascending=False)
+
+            return arrivals_list_final_df.head(50), stop_name, arrivals_table_time_created
 
     def return_dummy_arrivals_df(self):
         # to add more than one , simply add to the lists
@@ -280,16 +288,20 @@ class StopReport(GenericReport):
         self.arrivals_table_time_created = datetime.datetime.now()  # log creation time and return
         return arrivals_list_final_df, stop_name, self.arrivals_table_time_created
 
-
-    def get_hourly_frequency(self): # todo 0 debug and test with a days of data
+    def get_hourly_frequency(self): # bug test/debug with a morning's worth of data
         results = pd.DataFrame()
-        self.arrivals_here_this_route_df['delta_int'] = self.arrivals_here_this_route_df['delta'].dt.seconds
+        self.arrivals_here_this_route_df['delta_interval_seconds'] = self.arrivals_here_this_route_df['delta'].dt.seconds
 
         try:
             # results['frequency']= (self.arrivals_here_this_route_df.delta_int.resample('H').mean())//60
-            results = (self.arrivals_here_this_route_df.groupby(self.arrivals_here_this_route_df.index.hour).mean()) // 60
-            results = results.rename(columns={'delta_int': 'frequency'})
-            results = results.drop(['pkey'], axis=1)
+
+            df_tmp=self.arrivals_here_this_route_df.set_index('arrival_timestamp')
+            results = (df_tmp.groupby(df_tmp.index.hour).mean()) // 60
+
+            # arrivals_here_this_route_df = self.arrivals_here_this_route_df.set_index('arrival_timestamp')
+            # results = (self.arrivals_here_this_route_df.groupby(self.arrivals_here_this_route_df.index.hour).mean()) // 60 # bug typeerror
+            results = results.rename(columns={'delta_interval_seconds': 'frequency'})
+            # results = results.drop(['pkey'], axis=1)
             results['hour'] = results.index
 
         except TypeError:

@@ -215,11 +215,12 @@ class BunchingReport(Generator):
                                 bunching_leaderboard_raw.append(leaderboard_entry)
                     # bunching_leaderboard.sort(key=itemgetter(1), reverse=True)
                     # https://stackoverflow.com/questions/72899/how-do-i-sort-a-list-of-dictionaries-by-a-value-of-the-dictionary
-                    bunching_leaderboard = sorted(bunching_leaderboard_raw, key=lambda k: k['bunched_arrivals_in_period']) # bug sort in the other direction?
+                    bunching_leaderboard = sorted(bunching_leaderboard_raw, key=lambda k: k['bunched_arrivals_in_period'],reverse=True)[:10]
+
 
                     # log the results and dump
-                    # bunching_report_template['bunching_leaderboard'] = bunching_leaderboard[:10] # bug take the other end?
-                    bunching_report_template['bunching_leaderboard'] = bunching_leaderboard[10:]
+                    # bunching_report_template['bunching_leaderboard'] = bunching_leaderboard[:10]
+                    bunching_report_template['bunching_leaderboard'] = bunching_leaderboard
                     bunching_report_template['cum_bunch_total'] = cum_bunch_total
                     bunching_report_template['cum_arrival_total'] = cum_arrival_total
                     self.store_json(bunching_report_template)

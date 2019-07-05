@@ -35,6 +35,6 @@ def get_config_path():
     else:
         prefix = ""
 
-    path = (prefix + "config/") # todo 1 be careful here, that things that use this don't precede it with a '/path' to append but a 'path' to append
+    path = (prefix + "config/")
 
     return path

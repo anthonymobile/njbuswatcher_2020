@@ -1,5 +1,3 @@
-# todo 1 test me with a sudden disconnection
-# todo test running hourly first before daily has run
 # generator.py
 #
 # description:
@@ -50,8 +48,7 @@ def hourly(system_map):
     task_trigger_1 = RouteUpdater(system_map) # refresh route descriptions
     task_trigger_2 = GradeReport().generate_reports(system_map) # refresh letter grades
     print ('hourly_tasks just ran')
-    # bug add a delete or rebuild of the system_map.pickle and force tripwatcher.py and www.py to reload it
-    # e.g. load_system_map(force_regenerate=True)
+    # todo 2 every hour, call TransitSystem.flush_systemmap to delete system_map and force www/tripwatcher to rebuild it
     return
 
 def daily(system_map):
@@ -60,21 +57,43 @@ def daily(system_map):
     print ('daily_tasks just ran')
     return
 
+def first_run_flag(**kwargs):
+    if kwargs['f'] == 'set':
+        pass # todo 1 set a first run flag in a lockfile? or in the apscheduler db
+        return
+    if kwargs['f']=='get':
+        # if file exists
+            return False
+        # if file doesn't exist
+            return True
+
 
 if __name__ == "__main__":
 
-    system_map=load_system_map()
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--testmode', dest='test', action='store_true', help='Test mode, run the scheduled tasks in succession, bypassing apscheduler.')
-    parser.add_argument("--tasks", nargs='*', help="List of tasks you want to run")
-    # todo all some kind of --setup switch per README that runs all the reports
+    system_map = load_system_map()
 
+    # todo 1 make --test and --setup mutually exclusive, and require --tasks if --test is set
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--setup', dest='setup', action='store_true',help='Setup mode, run all tasks, reverse chrono order, bypassing schedule.') #todo 1 test this
+    parser.add_argument('--test', dest='test', action='store_true', help='Test mode, run the scheduled tasks in succession, bypassing schedule.')
+    parser.add_argument("--tasks", nargs='*', help="List of tasks you want to run")
     args = parser.parse_args()
 
-    if args.test is True:
+    # check if this is first run
+    if (args.setup is True) or (first_run_flag(f='get') == True):
+        # if true,
+        tasks=['daily','hourly','quarter_hourly','minutely']
+        for task in tasks:
+            func = locals()[task](system_map)
+            func
+
+    # or if we are testing
+    elif args.test is True:
         for arg in args.tasks:
             func = locals()[arg](system_map)
             func
+            # reset the flag since we are just testing
+            first_run_flag(f='set', value='True')
 
     else:
 
@@ -85,7 +104,7 @@ if __name__ == "__main__":
         scheduler.add_job(quarter_hourly, 'interval', minutes=15, id='every 15 minutes', replace_existing=True, args=[system_map])
         scheduler.add_job(hourly, 'interval', minutes=60, id='every hour', replace_existing=True, args=[system_map])
         scheduler.add_job(daily, 'cron', day='*', hour='2', id='every day at 2am', replace_existing=True, args=[system_map])
-        scheduler.start() # todo 0 debug database connection errors https://stackoverflow.com/questions/14207708/ioerror-errno-32-broken-pipe-python
+        scheduler.start()
         scheduler.print_jobs()
         print ('generator will sleep now, while tasks run in the background')
 
