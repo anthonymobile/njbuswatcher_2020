@@ -4,7 +4,7 @@ import geojson
 import pickle
 import os
 
-from . import BusAPI, DataBases, Generators
+from . import NJTransitAPI, DataBases, Generators
 from .wwwAPI import RouteReport
 from .CommonTools import get_config_path
 
@@ -58,7 +58,7 @@ class TransitSystem:
 
         except: #  if missing download and load
                 print ('fetching xmldata for '+route)
-                route_xml = BusAPI.get_xml_data('nj', 'routes', route=route)
+                route_xml = NJTransitAPI.get_xml_data('nj', 'routes', route=route)
                 outfile = (get_config_path() + 'route_geometry/' + route + '.xml')
                 with open(outfile, 'wb') as f:  # overwrite existing file
                     f.write(route_xml)
@@ -71,7 +71,7 @@ class TransitSystem:
             try:
                 infile = (get_config_path() + 'route_geometry/' + route + '.xml')
                 with open(infile, 'rb') as f:
-                    return BusAPI.parse_xml_getRoutePoints(f.read())
+                    return NJTransitAPI.parse_xml_getRoutePoints(f.read())
             except:
                 pass
 
@@ -100,7 +100,7 @@ class TransitSystem:
             for path in direction.paths:
                 stops_points = RouteReport.Path()
                 for point in path.points:
-                    if isinstance(point, BusAPI.Route.Stop):
+                    if isinstance(point, NJTransitAPI.Route.Stop):
                         stops_points.stops.append(point)
                 stops_points.id = path.id
                 stops_points.d = path.d

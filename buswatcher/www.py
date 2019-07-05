@@ -23,14 +23,14 @@ from flask import jsonify
 from flask_cors import CORS, cross_origin
 
 from lib import API
-from lib import BusAPI
+from lib import NJTransitAPI
 from lib import wwwAPI
 
 
 ################################################
 # ROUTE + APP CONFIG
 ################################################
-from lib.RouteConfig import load_system_map
+from lib.TransitSystem import load_system_map
 
 ################################################
 # APP
@@ -118,7 +118,7 @@ def genRouteReport(collection_url,route, period):
 def genStopReport(collection_url, route, stop, period):
     stop_report = wwwAPI.StopReport(system_map, route, stop, period)
     route_report = wwwAPI.RouteReport(system_map, route, period)
-    predictions = BusAPI.parse_xml_getStopPredictions(BusAPI.get_xml_data('nj', 'stop_predictions', stop=stop, route='all'))
+    predictions = NJTransitAPI.parse_xml_getStopPredictions(NJTransitAPI.get_xml_data('nj', 'stop_predictions', stop=stop, route='all'))
     return render_template('stop.jinja2',collection_url=collection_url, collection_descriptions=collection_descriptions, \
                            period_descriptions=period_descriptions, stop=stop, period=period, stopreport=stop_report, \
                            reportcard_routes=route_descriptions, predictions=predictions, routereport=route_report)

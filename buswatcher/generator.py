@@ -13,7 +13,7 @@
 import argparse, time
 
 from lib.Generators import RouteUpdater, GradeReport, BunchingReport, TraveltimeReport, HeadwayReport
-from lib.RouteConfig import load_system_map
+from lib.TransitSystem import load_system_map
 from lib.DBconfig import connection_string
 from lib.CommonTools import get_config_path
 
