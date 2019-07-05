@@ -1,5 +1,5 @@
 # todo 1 test me with a sudden disconnection
-
+# todo test running hourly first before daily has run
 # generator.py
 #
 # description:
@@ -50,7 +50,7 @@ def hourly(system_map):
     task_trigger_1 = RouteUpdater(system_map) # refresh route descriptions
     task_trigger_2 = GradeReport().generate_reports(system_map) # refresh letter grades
     print ('hourly_tasks just ran')
-    # todo 0 add a delete or rebuild of the system_map.pickle and force tripwatcher.py to reload it
+    # bug add a delete or rebuild of the system_map.pickle and force tripwatcher.py and www.py to reload it
     # e.g. load_system_map(force_regenerate=True)
     return
 

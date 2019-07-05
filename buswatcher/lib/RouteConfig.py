@@ -22,7 +22,7 @@ class TransitSystem:
                 self.collection_descriptions = json.load(f)
             with open(get_config_path() + 'period_descriptions.json') as f:
                 self.period_descriptions = json.load(f)
-            print ('<BUSWATCHER>All config files loaded')
+
         except:
             import sys
             sys.exit("<BUSWATCHER>One or more of the config files isn't loading properly")
@@ -31,15 +31,6 @@ class TransitSystem:
         self.route_geometries = self.get_route_geometries()
         self.routelist = self.get_routelist()
         self.grade_roster = self.get_grade_roster()
-
-    # def get_abs_path(self):
-    #     if os.getcwd() == "/": # docker
-    #         prefix = "buswatcher/buswatcher/"
-    #     elif "Users" in os.getcwd():
-    #         prefix = ""
-    #     else:
-    #         prefix=""
-    #     return prefix
 
     def get_route_geometries(self):
         route_geometries={}
@@ -60,13 +51,13 @@ class TransitSystem:
     def get_single_route_xml(self,route):
 
         try:# load locally
-            infile = (get_config_path() + 'config/route_geometry/' + route +'.xml')
+            infile = (get_config_path() + 'route_geometry/' + route +'.xml')
             with open(infile,'rb') as f:
                 data = f.read()
                 return data
 
         except: #  if missing download and load
-                # print ('fetching xmldata for '+route)
+                print ('fetching xmldata for '+route)
                 route_xml = BusAPI.get_xml_data('nj', 'routes', route=route)
                 outfile = (get_config_path() + 'route_geometry/' + route + '.xml')
                 with open(outfile, 'wb') as f:  # overwrite existing file
@@ -122,11 +113,6 @@ class TransitSystem:
     def extract_geojson_features_from_system_map(self, route):
         waypoints_feature = geojson.Feature(geometry=json.loads(self.route_geometries[route]['coordinate_bundle']['waypoints_geojson']))
         stops_feature = geojson.Feature(geometry=json.loads(self.route_geometries[route]['coordinate_bundle']['stops_geojson']))
-        # deleted line to BusAPI.parse_xml
-        # stops_feature = json.loads(coordinate_bundle['waypoints_geojson'])
-        # stops_feature = geojson.Feature(geometry=waypoints_feature)
-        # stops_feature = json.loads(coordinate_bundle['stops_geojson'])
-        # stops_feature = geojson.Feature(geometry=stops_feature)
         return waypoints_feature, stops_feature
 
     def render_geojson(self, args):
@@ -165,8 +151,8 @@ class TransitSystem:
             elif 'collection' in args.keys():
                 waypoints = []
                 stops = []
-                # pick the right collection
 
+                # pick the right collection
                 for route in self.collection_descriptions[args['collection']]['routelist']:
                     waypoints_item, stops_item = self.extract_geojson_features_from_system_map(route)
                     waypoints.append(waypoints_item)
@@ -181,7 +167,7 @@ class TransitSystem:
                 return stops_featurecollection
 
             return
-        except:
+        except: # todo 1 this may need to change
             from flask import abort
             abort(404)
             pass
@@ -225,16 +211,18 @@ def load_system_map(**kwargs):
     # if kwargs['force_regenerate'] == True then TK
 
     system_map_pickle_file = Path(prefix+"config/system_map.pickle")
-    print (system_map_pickle_file)
 
     # is there a pickle file?
     try:
         my_abs_path = system_map_pickle_file.resolve(strict=True)
         with open(system_map_pickle_file, "rb") as f:
             system_map=pickle.load(f)
+        print(str(system_map_pickle_file) + " pickle file loaded.") # bug why is this looping to here
+
 
     # if not create it
     except FileNotFoundError:
+        print (str(system_map_pickle_file)+" pickle file not found. Rebuilding, may take a minute or so..")
         system_map = TransitSystem()
         with open(system_map_pickle_file, "wb") as f:
             pickle.dump(system_map,f)

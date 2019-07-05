@@ -28,11 +28,9 @@ COPY . ./buswatcher
 # copy the proper database config over for docker deployment (replaces the development version)
 COPY ./buswatcher/docker/DBconfig.py ./buswatcher/buswatcher/lib/DBconfig.py
 
-# run entrypoint.sh
-# ENTRYPOINT ["/buswatcher/docker/entrypoint.sh"] # bug uncomment this?
 
 # various workdir permutations to test
 WORKDIR /buswatcher/buswatcher
 
-
+# not sure if better to run it here in docker-compose.yml
 # CMD ["/opt/conda/envs/buswatcher/bin/gunicorn", "www:app", "-w", "4", "-b", "0.0.0.0:8000"]
