@@ -1,3 +1,5 @@
+# todo 1 test me with a sudden disconnection
+
 # generator.py
 #
 # description:
@@ -25,7 +27,7 @@ from apscheduler.executors.pool import ThreadPoolExecutor,ProcessPoolExecutor
 
 # figure out context
 
-db_url = get_config_path() # bug need to construct the proper path here, which is probably the path from os.getcwd minus the result of get_config_path
+db_url = get_config_path()
 
 jobstores = {'default': SQLAlchemyJobStore(url='sqlite:///'+db_url)}
 # jobstores = {'default': SQLAlchemyJobStore(url=connection_string))} # future move jobstore to mysql db
