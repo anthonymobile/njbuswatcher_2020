@@ -1,6 +1,5 @@
 import time
 import os
-from pathlib import Path
 
 def timeit(f):
 
@@ -34,6 +33,6 @@ def get_config_path():
     else:
         prefix = ""
 
-    path = Path(prefix + "config/")
+    path = (prefix + "config/")
 
     return path

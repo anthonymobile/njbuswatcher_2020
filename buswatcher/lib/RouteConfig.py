@@ -1,10 +1,8 @@
-from datetime import datetime, time, timedelta
-from dateutil import parser
 from pathlib import Path
 import json
 import geojson
 import pickle
-import os, errno
+import os
 
 from . import BusAPI, DataBases, Generators
 from .wwwAPI import RouteReport
@@ -70,10 +68,10 @@ class TransitSystem:
         except: #  if missing download and load
                 # print ('fetching xmldata for '+route)
                 route_xml = BusAPI.get_xml_data('nj', 'routes', route=route)
-                outfile = (get_config_path() + 'config/route_geometry/' + route + '.xml')
+                outfile = (get_config_path() + 'route_geometry/' + route + '.xml')
                 with open(outfile, 'wb') as f:  # overwrite existing file
                     f.write(route_xml)
-                infile = (get_config_path() + 'config/route_geometry/' + route + '.xml')
+                infile = (get_config_path() + 'route_geometry/' + route + '.xml')
                 with open(infile, 'rb') as f:
                     return f.read()
 
@@ -195,7 +193,7 @@ class TransitSystem:
             try:
                 grade_report = report_fetcher.retrieve_json(rt, 'grade', 'year')
             except:
-                pass
+                grade_report = {'grade':'N/A'}
             grade_roster[rt]=grade_report['grade']
         return grade_roster
 
@@ -209,23 +207,19 @@ def flush_system_map():
 
     try:
         os.remove(system_map_pickle_file)
-    except OSError as e:
-        if e.errno != errno.ENOENT:  # errno.ENOENT = no such file or directory
-            raise  # re-raise exception if a different error occurred
+    except:
+        pass
 
     return
 
 def load_system_map(**kwargs):
 
-    pwd = os.getcwd()
-    print ('pwd says' + pwd)
     if os.getcwd() == "/":  # docker
         prefix = "/buswatcher/buswatcher/"
     elif "Users" in os.getcwd(): # osx
         prefix = ""
     else: # linux & default
         prefix = ""
-    print ('using path prefix ' + prefix)
 
     # todo 0 add some kind of check to periodically reload the system map (or pass a kwarg)
     # if kwargs['force_regenerate'] == True then TK

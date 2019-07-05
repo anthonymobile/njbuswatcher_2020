@@ -1,3 +1,5 @@
+# todo 1 test me with a sudden disconnection
+
 #
 # usage:
 # (statewide)                                           tripwatcher.py --statewide
