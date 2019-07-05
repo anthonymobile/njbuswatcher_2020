@@ -1,5 +1,6 @@
 # todo 1 test me with a sudden disconnection
-
+# bug fix the bug that dies after a long time
+# future 1 graceful scale back to collections only if time to run main_loop is  > 1 min?
 #
 # usage:
 # (statewide)                                           tripwatcher.py --statewide

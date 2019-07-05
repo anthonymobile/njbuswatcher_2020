@@ -251,7 +251,7 @@ class StopReport(GenericReport):
             try:
                 # calc interval between last bus for each row, fill NaNs #
 
-                arrivals_list_final_df['delta'] = (arrivals_list_final_df['arrival_timestamp'] - arrivals_list_final_df['arrival_timestamp'].shift(1)).fillna(pd.Timedelta(seconds=0)) # bug getting -24 hour time errors here, need to resort by timestamp again?
+                arrivals_list_final_df['delta'] = (arrivals_list_final_df['arrival_timestamp'] - arrivals_list_final_df['arrival_timestamp'].shift(1)).fillna(pd.Timedelta(seconds=0))
             except:
                 arrivals_list_final_df['delta'] = ''
                 print('')

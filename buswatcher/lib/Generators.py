@@ -16,8 +16,7 @@ from lib.CommonTools import get_config_path
 class Generator():
 
     def __init__(self):
-        # self.pickle_prefix = Path(self.cwd + "/config/reports/")
-        self.config_prefix = get_config_path()+"/reports"
+        self.config_prefix = get_config_path()+"reports"
         self.db =  SQLAlchemyDBConnection()
 
     def store_json(self, report_to_store): # filename format route_type_period
@@ -216,10 +215,10 @@ class BunchingReport(Generator):
                                 bunching_leaderboard_raw.append(leaderboard_entry)
                     # bunching_leaderboard.sort(key=itemgetter(1), reverse=True)
                     # https://stackoverflow.com/questions/72899/how-do-i-sort-a-list-of-dictionaries-by-a-value-of-the-dictionary
-                    bunching_leaderboard = sorted(bunching_leaderboard_raw, key=lambda k: k['bunched_arrivals_in_period']) # todo sort in the other direction?
+                    bunching_leaderboard = sorted(bunching_leaderboard_raw, key=lambda k: k['bunched_arrivals_in_period']) # bug sort in the other direction?
 
                     # log the results and dump
-                    # bunching_report_template['bunching_leaderboard'] = bunching_leaderboard[:10] # todo take the other end?
+                    # bunching_report_template['bunching_leaderboard'] = bunching_leaderboard[:10] # bug take the other end?
                     bunching_report_template['bunching_leaderboard'] = bunching_leaderboard[10:]
                     bunching_report_template['cum_bunch_total'] = cum_bunch_total
                     bunching_report_template['cum_arrival_total'] = cum_arrival_total
@@ -227,9 +226,10 @@ class BunchingReport(Generator):
 
     ####################################################################################################
     # THIS CODE BLOCK IS AN ADAPTED DUPLICATE OF wwwAPI.StopReport.get_arrivals_here_this_route
+    # future refactor to remove duplication
     ####################################################################################################
 
-    def get_arrivals_here_this_route(self,system_map, route, stop_id, period): # future this can probably be refactored out into CommonTools along with wwwAPI.StopReport.get_arrivals_here
+    def get_arrivals_here_this_route(self,system_map, route, stop_id, period):
         with SQLAlchemyDBConnection() as db:
 
             # build query and load into df
@@ -291,7 +291,7 @@ class BunchingReport(Generator):
 
             try:
                 # calc interval between last bus for each row, fill NaNs #
-                arrivals_list_final_df['delta'] = (arrivals_list_final_df['arrival_timestamp'] - arrivals_list_final_df['arrival_timestamp'].shift(1)).fillna(pd.Timedelta(seconds=0)) # bug 0000 getting -24 hour time errors here, need to resort by timestamp again? look at existing code in main branch
+                arrivals_list_final_df['delta'] = (arrivals_list_final_df['arrival_timestamp'] - arrivals_list_final_df['arrival_timestamp'].shift(1)).fillna(pd.Timedelta(seconds=0))
             except:
                 arrivals_list_final_df['delta'] = ''
                 print('')

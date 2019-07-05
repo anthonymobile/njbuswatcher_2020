@@ -1,3 +1,5 @@
+{#  bug fix collection map passed vars #}
+
 {%- extends "base.jinja2" %}
 {% import "bootstrap/utils.html" as utils %}
 
@@ -18,6 +20,11 @@
     <!-- mapboxjs -->
     <script type="text/javascript" src="{{ url_for('static', filename='maps/busmap_collection.js')}}"></script>
     <script src='https://api.mapbox.com/mapbox.js/plugins/turf/v3.0.11/turf.min.js'></script>
+
+    <script type="text/javascript">
+        var collection_description = {{ collection_description | safe}}
+    </script>
+
 {% endblock %}
 
 
@@ -54,7 +61,7 @@
                             <strong>{{ collection_description['description_short'] }}</strong>
                         </h4>
                         <p class="mb-4 text-left">
-                            <strong>{{ collection_description['description_long'] }}</strong>
+                            <strong>{{ collection_description['description_long'] }}</strong> (Grades reflect average performance over the last year, where data is available.)
                         </p>
                     </div>
                 </div>
@@ -84,18 +91,25 @@
                                  {% for route_2_match in route_descriptions.routedata %}
                                      {% if route==route_2_match.route %}
 
-                                         {%  if grade_roster[route_2_match.route]=='A' or grade_roster[route_2_match.route]=='B' %}
-                                             <small class="text-success">Grade:{{grade_roster[route_2_match.route]}}</small>
-                                         {% endif %}
 
-                                         {%  if grade_roster[route_2_match.route]=='C' or grade_roster[route_2_match.route]=='D' %}
-                                             <small class="text-alert">Grade:{{grade_roster[route_2_match.route]}}</small>
-                                         {% endif %}
 
-                                         {%  if grade_roster[route_2_match.route]=='F' %}
-                                             <small class="text-danger">Grade:{{grade_roster[route_2_match.route]}}</small>
-                                         {% endif %}
+                                          {%  if grade_roster[route_2_match.route] is defined  %}
+                                              {%  if grade_roster[route_2_match.route]=='A' or grade_roster[route_2_match.route]=='B' %}
+                                                 <small class="text-success">Grade:{{grade_roster[route_2_match.route]}}</small>
+                                              {% endif %}
 
+                                             {%  if grade_roster[route_2_match.route]=='C' or grade_roster[route_2_match.route]=='D' %}
+                                                 <small class="text-alert">Grade:{{grade_roster[route_2_match.route]}}</small>
+                                             {% endif %}
+
+                                             {%  if grade_roster[route_2_match.route]=='F' %}
+                                                 <small class="text-danger">Grade:{{grade_roster[route_2_match.route]}}</small>
+                                             {%  endif %}
+
+                                              {%  if grade_roster[route_2_match.route]=='N/A' %}
+                                                 <small class="text-danger">Grade:Pending</small>
+                                             {%  endif %}
+                                        {% endif %}
                                      {% endif %}
                                  {% endfor %}
 
