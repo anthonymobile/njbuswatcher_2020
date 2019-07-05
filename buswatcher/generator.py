@@ -27,7 +27,7 @@ from apscheduler.executors.pool import ThreadPoolExecutor,ProcessPoolExecutor
 
 # figure out context
 
-db_url = get_config_path()
+db_url = (get_config_path()+'apscheduler.sqlite')
 
 jobstores = {'default': SQLAlchemyJobStore(url='sqlite:///'+db_url)}
 # jobstores = {'default': SQLAlchemyJobStore(url=connection_string))} # future move jobstore to mysql db
