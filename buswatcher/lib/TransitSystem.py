@@ -167,7 +167,7 @@ class SystemMap:
                 return stops_featurecollection
 
             return
-        except: # todo 1 this may need to change
+        except: # todo 1 this 404 handler may need to change, test disconnected operation
             from flask import abort
             abort(404)
             pass
@@ -189,6 +189,8 @@ class SystemMap:
 ##################################################################
 
 def flush_system_map():
+    # todo 2 possible to put the expiration check in here? or in the class itself? e.g. every time anything in the class is called, it checks to see if the pickle is missing and it needs to be rebuilt and reloaded?
+
     system_map_pickle_file = Path("config/system_map.pickle")
 
     try:
@@ -209,7 +211,7 @@ def load_system_map(**kwargs):
     else: # linux & default
         prefix = ""
 
-    # todo 0 add some kind of check to periodically reload the system map (or pass a kwarg)
+    # todo 2 add some kind of check to periodically reload the system map (or pass a kwarg)
     # if kwargs['force_regenerate'] == True then TK
 
     pickle_filename = (prefix+"config/system_map.pickle")

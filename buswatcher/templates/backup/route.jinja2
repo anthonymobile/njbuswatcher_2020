@@ -1,57 +1,33 @@
-
-
 {%- extends "base.jinja2" %}
-
-
-{# Loads some of the macros included with Flask-Bootstrap. We are using the
-   utils module here to automatically render Flask's flashed messages in a
-   bootstrap friendly manner #}
 {% import "bootstrap/utils.html" as utils %}
 
-
-{# Inside the ``content`` is where you should place most of your own stuff.
-   This will keep scripts at the page end and a navbar you add on later
-   intact. #}
 {% block head %}
 <META HTTP-EQUIV="refresh" CONTENT="60">
-
-    <!-- seems to have no effect --> <style> #map { width:100%; } </style>
-
+    <style>
+        #map { width:100%; }
+    </style>
 {{ super() }}
 {% endblock %}
 
-
-{% block breadcrumb %}
-<li class="breadcrumb-item"><a href={{ url_for('genRouteReport', collection_url=collection_descriptions.collection_url,route=routereport.route, period=period) }}>{{routereport.route}} {{routereport.prettyname}}</a></li>
-
-{% endblock %}}
-
 {% block scripts %}
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
-    <!-- Bootstrap core CSS -->
-    <link href="{{ url_for('static', filename='mdb/css/bootstrap.min.css')}}" rel="stylesheet">
-    <!-- Material Design Bootstrap -->
-    <link href="{{ url_for('static', filename='mdb/css/mdb.min.css')}}" rel="stylesheet">
-    <!-- Your custom styles (optional) -->
-    <link href="{{ url_for('static', filename='mdb/css/style.min.css')}}" rel="stylesheet">
-
 
     <script type="text/javascript">
         var passed_route = {{ route | safe}}
-        <!-- var passed_reportcard_routes = {{ route_definitions|safe }} -->
     </script>
 
+    <!-- fontawesome, bootstrap, mdb -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+    <link href="{{ url_for('static', filename='mdb/css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='mdb/css/mdb.min.css')}}" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="{{ url_for('static', filename='mdb/css/style.min.css')}}" rel="stylesheet">
+    <!-- mapboxjs -->
     <script type="text/javascript" src="{{ url_for('static', filename='maps/busmap_route.js')}}"></script>
-
-   <!-- zoom to extent stuff -->
     <script src='https://api.mapbox.com/mapbox.js/plugins/turf/v3.0.11/turf.min.js'></script>
 
 
 
 {% endblock %}
-
 
 
 {% block sticky_nav %}
@@ -63,20 +39,16 @@
         </button>
         <div class="collapse navbar-collapse" id="navbar1">
             <ul class="navbar-nav">
-                                <li class="breadcrumb-item active"><a href = {{url_for('displayIndex')}}>home</a></li>
-             </ul>
+              <li class="breadcrumb-item active"><a href = {{url_for('displayIndex')}}>home</a></li>
+            </ul>
             <ul class="navbar-nav ml-auto">
-                  {% for p,v in period_descriptions.items() %}
-<li class="breadcrumb-item "><a href = {{url_for('genRouteReport',collection_url=collection_url,route=routereport.route,period=v['name'])}}>{{  v['label'] }}</a></li>
-
-
-
+                {% for p,v in period_descriptions.items() %}
+                    <li class="breadcrumb-item "><a href = {{url_for('genRouteReport',collection_url=collection_url,route=routereport.route,period=v['name'])}}>{{  v['label'] }}</a></li>
                 {%  endfor %}
             </ul>
         </div>
     </div>
 </nav>
-
 
 {% endblock %}
 
@@ -84,277 +56,170 @@
 
 {% block content_main %}
 
-
-
-
-
-
     <!--Main layout-->
     <main class="mt-2 pt-5">
         <div class="container">
 
 
-            <!--Section: Title
-            <section id="menu" class="text-center">
-
-                <div class="card-body text-black text-center">
-                    <h1 class="mb-4">
-                        <strong>{{routereport.route}} {{routereport.prettyname}}</strong></h1>
+            <!--ROW 1-->
+                <div class="row mb-4 wow fadeIn">
+                    <!--BANNER START-->
+                    <div class="col-lg-12 col-md-12 mb-4 ">
+                        <h1 class="mb-4">There are {{ routereport.active_bus_count }} buses operating on the {{routereport.route}} {{routereport.prettyname}} right now.</h1>
+                    </div>
+                    <!--BANNER END-->
                 </div>
 
-            </section>
-            -->
 
-            <!--Section: Title, Arrivals, and Map -->
-            <section  class="text-left">
-                <!--Grid row-->
+            <!--ROW 2-->
                 <div class="row mb-4 wow fadeIn">
-                    <!--Grid column-->
-                    <div class="col-lg-12 col-md-12 mb-4">
-                        <!--Card-->
-                      <!--  <div class="card">
+                    <!--ABOUT BLOCK START -->
+                    <div class="col-lg-8 col-md-12 mb-4">
+                        <h3 class="card-subtitle mb-2 ">Click on any stop name in the reports below for more detail.</h3>
+{#                      <h3 class="card-subtitle mb-2 ">This report card summarizes how well the {{ route }} is doing {{ routereport.period_descriptions[period]['label'] }}.</h3>
+                        <p class="card-text">Currently our letter grades measure service quality based on the amount of bunching, for each route and stop, for the last 24 hours, the last week, the last month, or the last year. We hope to add additional metrics on headway, end-to-end travel time, and schedule adherence.</p>
+                        <p class="card-text">The reports below detail our findings using a variety of measurements. Click on any stop name for a detailed report on service at that stop.</p>
+#}
+                     </div>
+                    <!--ABOUT BLOCK END -->
 
-
-                        <div class="card-body table"> -->
-
-
-                                <div class="row mb-4 wow fadeIn">
-                                <div class="col-lg-12 col-md-12 mb-4 text-left">
-                                    <!--Title-->
-
-                                    <h1 class="card-title">There are {{ routereport.active_bus_count }} buses operating on the {{routereport.route}} {{routereport.prettyname}} right now.</h1>
+                    <!--GRADE BLOCK START -->
+                    <div class="col-lg-4 col-md-12 mb-4">
+                        {% if (routereport.grade_report['grade']=='A' or routereport.grade_report['grade']=='B') %}
+                        <div class="card-body table-success">
+                        {% elif routereport.grade_report['grade']=='C' %}
+                        <div class="card-body table-warning">
+                        {% elif (routereport.grade_report['grade']=='D' or routereport.grade_report['grade']=='F') %}
+                        <div class="card-body table-danger">
+                        {% elif (routereport.grade_report['grade']=='N/A') %}
+                        <div class="card-body table-secondary">
+                        {% endif %}
+                            <div class="row mb-4 wow fadeIn">
+                                <div class="col-lg-2 col-md-12 mb-4 ">
+                                    <h1 class="card-subtitle mb-2">{{routereport.grade_report['grade']}}</h1>
                                 </div>
-                                </div>
+                                 <div class="col-lg-10 col-md-12 mb-4">
+                                     <p class="card-text">{{ routereport.period_descriptions[period]['narrative_label'] |capitalize}} {{routereport.grade_report['grade_description'][0]}}</p>
+                                     <p class="card-text">Of {{ routereport.bunching_report['cum_arrival_total'] }} stop calls the {{ routereport.period_descriptions[period]['descriptive_label'] }}, {{ routereport.grade_report['pct_bunched'] }} percent were within 3 minutes of the bus ahead.</p>
+                                 </div>
+                            </div>
 
-                                <div class="row mb-4 wow fadeIn">
+                        </div>
 
-                                                                <div class="col-lg-8 col-md-12 mb-4">
-
-                                    <!-- <div class="card" style=""> -->
-                                      <div class="card-body">
-                                        <!-- <h1 class="card-title">Route Report Card</h1> -->
-                                        <h3 class="card-subtitle mb-2 ">This report card summarizes how well the {{ route }} is doing {{ routereport.period_descriptions[period]['label'] }}.</h3>
-                                      <p class="card-text">Currently our letter grades measure service quality based on the amount of bunching, for each route and stop, for the last 24 hours, the last week, the last month, or the last year. {#  future build this dynamically from period_descriptions #} We hope to add additional metrics on headway, end-to-end travel time, and schedule adherence.
-                                        <p class="card-text">The reports below detail our findings using a variety of measurements. Click on any stop name for a detailed report on service at that stop.
-                              </p>
-                                      </div>
-                                    </div>
-
-                               <!--  </div> -->
-
-                                <div class="col-lg-4 col-md-12 mb-4">
-
-                                      <!-- <div class="card" style="">-->
-                                      <!-- <div class="card-body"> -->
-
-                                            {% if (routereport.grade_report['grade']=='A' or routereport.grade_report['grade']=='B') %}
-                                                    <div class="card-body table-success">
-                                                {% elif routereport.grade_report['grade']=='C' %}
-                                                    <div class="card-body table-warning">
-                                                {% elif (routereport.grade_report['grade']=='D' or routereport.grade_report['grade']=='F') %}
-                                                    <div class="card-body table-danger">
-                                                {% elif (routereport.grade_report['grade']=='N/A') %}
-                                                    <div class="card-body table-secondary">
-                                                {% endif %}
+                    </div>
+                    <!--GRADE BLOCK END -->
+                </div>
 
 
-                                         <div class="row mb-4 wow fadeIn">
-
-                                         <div class="col-lg-2 col-md-12 mb-4 ">
-
-
-
-                                                <h1 class="card-subtitle mb-2">{{routereport.grade_report['grade']}}</h1>
-
-                                            </div>
-                                            <div class="col-lg-10 col-md-12 mb-4">
-                                                <h6 class="card-subtitle mb-2 ">{{ routereport.period_descriptions[period]['descriptive_label'] |capitalize}} {{routereport.grade_report['grade_description'][0]}}</h6>
-
-                                        <p class="card-text">We tracked {{ routereport.bunching_report['cum_arrival_total'] }}  arrivals at stops along this route in the {{ routereport.period_descriptions[period]['descriptive_label'] }}, and {{ routereport.grade_report['pct_bunched'] }} percent were too close to the bus ahead.</p>
-
-                                            </div>
-                                          </div>
-
-
-                                      </div>
-                                    </div>
-
-                               <!-- </div> -->
-
-
-
-
-                                        </div>
-
-                        <div class="row mb-4 wow fadeIn">
-
-                             <div class="col-lg-8 col-md-12 mb-4">
-
-                                    <!-- <div class="card" style=""> -->
-                                      <div class="card-body">
-                                        <h4 class="card-title">How Much Bunching Is Going On?</h4>
-                                        <h6 class="card-subtitle mb-2 ">Bunching is when a bus arrives less than 3 minutes after the previous bus.</h6>
-                                        <p class="card-text">Bunching has many causes, such as traffic, and so isn't always under the control of NJTransit. But it reduces the regularity service and results in standing-room-only buses even while others are empty. The chokepoints below had the worst bunching, and may require dedicated turning lanes, bus priority signaling, or other more extensive measures.
-
-                                            You can get lots more information in the reports below, which summarize all the trips on the {{ route }} route . Click on the stop name, or browse the full list of stops below for more detail.
-                              </p>
-
-                                           <table class="table table-sm table-hover">
-
-                                                    <thead class="thread-dark text-center">
-                                                  <tr>
-                                                    <th>stop</th>
-                                                    <th text="center">bunched arrivals in {{ routereport.period_descriptions[period]['descriptive_label'] }}</th>
-                                                  </tr>
-                                                </thead>
-                                        <tbody>
-
-
-
-                                        {%  if routereport.bunching_report['dummy'] == True %}
-
+            <!--ROW 3-->
+                <div class="row mb-4 wow fadeIn">
+                    <!--BUNCHING BLOCK START -->
+                    <div class="col-lg-8 col-md-12 mb-4">
+                        <h4 class="card-title">How Much Bunching Is Going On?</h4>
+                        <h6 class="card-subtitle mb-2 ">Bunching is when a bus arrives less than 3 minutes after the previous bus.</h6>
+{#                        <p class="card-text">Bunching has many causes, such as traffic, and so isn't always under the control of NJTransit. But it reduces the regularity service and results in standing-room-only buses even while others are empty. The chokepoints below had the worst bunching, and may require dedicated turning lanes, bus priority signaling, or other more extensive measures.</p>#}
+{#                        <p class="card-text">You can get lots more information in the reports below, which summarize all the trips on the {{ route }} route . Click on the stop name, or browse the full list of stops below for more detail.</p>#}
+                         <table class="table table-sm table-hover">
+                             <thead class="thread-dark text-center">
+                                <tr>
+                                    <th>stop</th>
+                                    <th text="center">bunched arrivals in {{ routereport.period_descriptions[period]['descriptive_label'] }}</th>
+                                </tr>
+                             </thead>
+                             <tbody>
+                                {%  if routereport.bunching_report['dummy'] == True %}
                                         <tr class='table text-left'>
-
                                                  <td>No data.</td>
                                                  <td>No data.</td>
-
                                             </tr>
-
                                         {%  else %}
                                             {%  for stop in routereport.bunching_report['bunching_leaderboard'] %}
-
-
-                                         <tr class='table'>
-
+                                                <tr class='table'>
                                                      <td class="text-left"><a href = {{url_for('genStopReport',collection_url=collection_url, route=routereport.route,stop=stop.stop_id,period=period) }} id="{{stop.st}}">
-
                                                          {{stop.stop_name|title}} </a>
                                                      </td>
                                                      <td  class="text-center" >
                                                         {{stop.bunched_arrivals_in_period}}
                                                      </td>
-
-
                                             </tr>
-
                                             {% endfor %}
                                         {%  endif %}
-                                        </tbody>
-                                    </table>
+                            </tbody>
+                         </table>
 
 
-                                   <a href="#" class="card-link">Link TK</a>
-                                      </div>
-                                    </div>
+                     </div>
+                    <!--BUNCHING BLOCK END -->
 
-                                <!--</div>-->
-
+                    <!--MAP BLOCK START -->
                     <div class="col-lg-4 col-md-12 mb-4">
                         <div id="map" class="container">
                         </div>
                     </div>
-                </div>
-
-  <div class="row mb-4 wow fadeIn">
-
-                             <div class="col-lg-8 col-md-12 mb-4">
+                    <!--MAP BLOCK END -->
+                 </div>
 
 
-                <!-- <h1 class="card-title">Route Report Card</h1> -->
-                <h4 class="card-subtitle mb-2 ">Recent arrivals along the {{ route }}.</h4>
-                <p class="card-text">The last three arrivals for each bus currently in service are listed below. As some buses may be waiting at depots, not all buses are shown. Click on any stop name for a detailed report on service at that stop.
-                  </p>
-
-
-                <div class="row mb-4 wow fadeIn">
-                    {% for trip_id,trip_dict in routereport.tripdash.items() %}
-                         {%  if trip_dict.stoplist|length > 0 %}
-                        <div class="col-lg-6 col-md-12 mb-4">
-
-
-                            <!--<div class="card">
-                                <div class="card-body">-->
-                                    <p class="card-title"><strong>To {{ trip_dict['pd'] }}</strong> <span class="small">{{ trip_id | split_(0) }}</span></p>
-
-
-                                            <table class="table table-sm table-hover">
-                                                <tbody>
-                                                {% for stop in trip_dict['stoplist'] %}
-                                                 <tr class='table text-left'>
-
-                                                 {% if stop.arrival_timestamp is not none %}
-                                                     <td class="table-primary">{{stop.arrival_timestamp|strftime_today}}</td>
-                                                     <td class="table-secondary">
-                                                         <a href = {{url_for('genStopReport',collection_url=collection_url, route=routereport.route,stop=stop.stop_id,period=period) }} id="{{stop.st}}">
-                                                         {{stop.stop_name|title}}
-                                                     </a></td>
-                                                 {% else %}
-                                                     <td>--</td>
-                                                     <td><{{stop.stop_name|title}}</td>
-                                                 {% endif %}
-                                                </tr>
-                                                {% endfor %}
-                                                </tbody>
-                                            </table>
-
-
-                                <!-- </div>
-                            </div> -->
-                        </div>
-                              {%  endif %}
-                    {% endfor %}
-                </div>
-
-                             </div>
-  </div>
-                                    </div>
-
-
-
-
-
-
-
-
-            <div class="row mb-4 wow fadeIn">
-                 <div class="col-lg-12 col-md-12 mb-4">
-
-
-                     <h2 class="card-title">Stops</h2>
-
-                    <p class="mb-4">
-                        The following is complete list of stops on the {{routereport.route}}, grouped by direction and service. Click on a stop for a detailed report of current and past service at that location.
-                    </p>
-
-                <!--Grid row-->
+            <!--ROW 4-->
                 <div class="row mb-4 wow fadeIn">
 
-
-                    {% for path in routereport.route_stop_list %}
-                    <!--Grid column-->
-                    <div class="col-lg-6 col-md-12 mb-4">
-
-                        <!--Card-->
-                        <div class="card">
-
-                            <!--Card image-->
-                            <!--
-                            <div class="view overlay">
-                                <div class="embed-responsive embed-responsive-16by9 rounded-top">
-                                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/cXTThxoywNQ" allowfullscreen></iframe>
-                                </div>
+                    <!--RECENT ARRIVALS BLOCK START -->
+                    <div class="col-lg-12 col-md-12 mb-4">
+                        <h4 class="card-subtitle mb-2 ">Recent arrivals along the {{ route }}.</h4>
+                        <p class="card-text">The last three arrivals for each bus currently in service are listed below. As some buses may be waiting at depots, not all buses are shown. Click on any stop name for a detailed report on service at that stop.</p>
+                        <div class="row mb-4 wow fadeIn">
+                            {% for trip_id,trip_dict in routereport.tripdash.items() %}
+                            {%  if trip_dict.stoplist|length > 0 %}
+                            <div class="col-lg-4 col-md-12 mb-4">
+                                <p class="card-title">
+                                    <strong>To {{ trip_dict['pd'] }}</strong>
+                                    <span class="small">{{ trip_id | split_(0) }}</span>
+                                </p>
+                                <table class="table table-sm table-hover">
+                                    <tbody>
+                                        {% for stop in trip_dict['stoplist'] %}
+                                        <tr class='table text-left'>
+                                           {% if stop.arrival_timestamp is not none %}
+                                           <td class="table-primary">
+                                               {{stop.arrival_timestamp|strftime_today}}
+                                           </td>
+                                           <td class="table-secondary">
+                                               <a href = {{url_for('genStopReport',collection_url=collection_url, route=routereport.route,stop=stop.stop_id,period=period) }} id="{{stop.st}}">
+                                                   {{stop.stop_name|title}}
+                                               </a>
+                                           </td>
+                                           {% else %}
+                                           <td>--</td>
+                                           <td><{{stop.stop_name|title}}</td>
+                                           {% endif %}
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
                             </div>
-                            -->
+                            {%  endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <!--RECENT ARRIVALS BLOCK END -->
+                </div>
 
 
-                                <div id="buses" >
 
-
+            <!--ROW 5-->
+                <div class="row mb-4 wow fadeIn">
+                    <!--STOP MENU BLOCK START -->
+                    <div class="col-lg-12 col-md-12 mb-4">
+                        <h2 class="card-title">Stops</h2>
+                        <p class="mb-4">
+                            The following is complete list of stops on the {{routereport.route}}, grouped by direction and service. Click on a stop for a detailed report of current and past service at that location.
+                        </p>
+                    <div class="row mb-4 wow fadeIn">
+                        {% for path in routereport.route_stop_list %}
+                        <div class="col-lg-6 col-md-12 mb-4">
                                  <div class="dropdown">
-                          <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">To {{path.dd}}
-                          <span class="caret"></span></button>
-
-
+                                      <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">To {{path.dd}}
+                                      <span class="caret"></span></button>
                                           <ul class="dropdown-menu">
                                             {% for stop in path.stops %}
                                             <li>
@@ -362,53 +227,16 @@
                                             </li>
                                             {% endfor %}
                                           </ul>
-
-                        </div>
-
-
-                                    <!--
-                                    {% for stop in path.stops %}
-                                        <p><a href = {{url_for('genStopReport',collection_url=collection_url, route=routereport.route,stop=stop.identity,period=period) }} id="{{stop.st}}">{{stop.st|title}}
-                                    </a></p>
-                                {% endfor %}
-                                -->
-
                                 </div>
-
-
-
-
                         </div>
-
-
-
+                        {% endfor %}
                     </div>
-
-                    {% endfor %}
-
-
+                    <!--STOP MENU BLOCK END -->
                 </div>
-                <!--Grid row-->
-
-
-
-                 </div>
-            </div>
-
-            </div>
-          <!--  </div>
-             </div> -->
-
-            </section>
-
-
-
 
         </div>
 
-
     </main>
-    <!--Main layout-->
 
 
 {% endblock %}

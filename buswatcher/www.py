@@ -79,9 +79,10 @@ assets.register(bundles)
 
 
 ################################################
-# SYSTEM MAP CHANGE RELOADER #todo 0 write and test decorator to rebuild/reload the system map
+# SYSTEM MAP CHANGE RELOADER # todo 2 add a check for system_map has been flushed, reload it -- not sure this is right but could work
 ################################################
-def system_map_reloader(func):
+def _reload_system_map(func):
+    # check if the system map is missing/changed, if so reload the global var system_map
     return func
 
 ################################################
@@ -89,7 +90,7 @@ def system_map_reloader(func):
 ################################################
 
 @app.route('/')
-@system_map_reloader
+@_reload_system_map #todo 2 if this works, add to all urls
 def displayIndex():
     vehicle_data, vehicle_count, route_count = API.current_buspositions_from_db_for_index()
     routereport = Dummy() # setup a dummy routereport for the navbar
