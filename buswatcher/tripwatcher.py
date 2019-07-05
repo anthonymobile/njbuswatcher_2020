@@ -12,7 +12,7 @@ import time
 
 from lib.RouteScan import RouteScan
 
-from lib.RouteConfig import load_system_map, flush_system_map
+from lib.TransitSystem import load_system_map, flush_system_map
 from lib.CommonTools import timeit
 
 @timeit

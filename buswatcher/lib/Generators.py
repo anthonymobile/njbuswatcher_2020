@@ -9,7 +9,7 @@ from sqlalchemy import func, text
 import pandas as pd
 
 from lib.wwwAPI import StopReport
-from lib.BusAPI import *
+from lib.NJTransitAPI import *
 from lib.DataBases import SQLAlchemyDBConnection, ScheduledStop, Trip
 from lib.CommonTools import get_config_path
 

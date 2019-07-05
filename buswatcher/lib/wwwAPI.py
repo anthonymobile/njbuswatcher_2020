@@ -6,7 +6,7 @@ from pathlib import Path
 import pandas as pd
 from sqlalchemy import func, text
 
-from . import BusAPI
+from . import NJTransitAPI
 from .DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
 
 
@@ -77,8 +77,8 @@ class RouteReport(GenericReport):
 
     def get_current_trips(self):
         # get a list of trips current running the route
-        v_on_route = BusAPI.parse_xml_getBusesForRoute(
-            BusAPI.get_xml_data(self.source, 'buses_for_route', route=self.route))
+        v_on_route = NJTransitAPI.parse_xml_getBusesForRoute(
+            NJTransitAPI.get_xml_data(self.source, 'buses_for_route', route=self.route))
         todays_date = datetime.datetime.today().strftime('%Y%m%d')
         trip_list = list()
         trip_list_trip_id_only = list()

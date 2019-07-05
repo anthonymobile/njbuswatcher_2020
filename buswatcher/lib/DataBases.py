@@ -4,7 +4,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.exc import OperationalError
 
-from . import BusAPI, DBconfig
+from . import NJTransitAPI, DBconfig
 
 #####################################################
 # sqlalchemy Base metaclass
@@ -79,7 +79,7 @@ class Trip(Base):
             for path in routes[0].paths:
                 if path.id == self.pid:
                     for point in path.points:
-                        if isinstance(point, BusAPI.Route.Stop):
+                        if isinstance(point, NJTransitAPI.Route.Stop):
                             this_stop = ScheduledStop(self.trip_id, self.v, self.run, self.date, point.identity,
                                                       point.st, point.lat, point.lon)
                             self.stop_list.append((point.identity, point.st))
