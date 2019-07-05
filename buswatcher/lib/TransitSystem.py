@@ -8,7 +8,7 @@ from . import NJTransitAPI, DataBases, Generators
 from .wwwAPI import RouteReport
 from .CommonTools import get_config_path
 
-class TransitSystem:
+class SystemMap:
 
     def __init__(self):
 
@@ -193,7 +193,9 @@ def flush_system_map():
 
     try:
         os.remove(system_map_pickle_file)
+        print ('deleted system_map.pickle file')
     except:
+        print ('error. could NOT delete system_map.pickle file')
         pass
 
     return
@@ -210,21 +212,20 @@ def load_system_map(**kwargs):
     # todo 0 add some kind of check to periodically reload the system map (or pass a kwarg)
     # if kwargs['force_regenerate'] == True then TK
 
-    system_map_pickle_file = Path(prefix+"config/system_map.pickle")
+    pickle_filename = (prefix+"config/system_map.pickle")
 
     # is there a pickle file?
     try:
-        my_abs_path = system_map_pickle_file.resolve(strict=True)
-        with open(system_map_pickle_file, "rb") as f:
+        # my_abs_path = system_map_pickle_file.resolve(strict=True)
+        with open(pickle_filename, "rb") as f:
             system_map=pickle.load(f)
-        print(str(system_map_pickle_file) + " pickle file loaded.") # bug why is this looping to here
 
 
     # if not create it
     except FileNotFoundError:
-        print (str(system_map_pickle_file)+" pickle file not found. Rebuilding, may take a minute or so..")
-        system_map = TransitSystem()
-        with open(system_map_pickle_file, "wb") as f:
+        print (str(pickle_filename)+" pickle file not found. Rebuilding, may take a minute or so..")
+        system_map = SystemMap()
+        with open(pickle_filename, "wb") as f:
             pickle.dump(system_map,f)
 
 

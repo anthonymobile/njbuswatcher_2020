@@ -1,6 +1,6 @@
+# bug fix this dies randomly after working for a while. why?
 # todo 1 test me with a sudden disconnection
-# bug fix the bug that dies after a long time
-# future 1 graceful scale back to collections only if time to run main_loop is  > 1 min?
+# future 1 graceful fall back to collections only if time to run main_loop is  > 1 min?
 #
 # usage:
 # (statewide)                                           tripwatcher.py --statewide
@@ -30,7 +30,6 @@ def main_loop(system_map):
     return
 
 if __name__ == "__main__":
-
 
     flush_system_map()
     system_map=load_system_map()
