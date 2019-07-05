@@ -150,7 +150,7 @@ class RouteReport(GenericReport):
                 report_retrieved['grade'] = 'N'
                 report_retrieved['grade_description'] = 'No description available.'
                 report_retrieved["pct_bunched"] = "10.0"
-            elif type=='bunching':
+            elif type=='bunching': # bug empty result dict not formatted properly
                 report_retrieved['bunching_leaderboard'] = {
                         'stop_name': 'STREET AND STREET',
                         'stop_id': '31822',
@@ -202,7 +202,7 @@ class StopReport(GenericReport):
                                         .filter(Trip.rt == self.route) \
                                         .filter(ScheduledStop.stop_id == self.stop_id) \
                                         .filter(ScheduledStop.arrival_timestamp != None) \
-                                        .order_by(ScheduledStop.arrival_timestamp.asc()) # todo 2 add limit=50 rows
+                                        .order_by(ScheduledStop.arrival_timestamp.asc())
 
             query=self.query_factory(db, query,period=self.period) # add the period
             query=query.statement
@@ -288,28 +288,16 @@ class StopReport(GenericReport):
         self.arrivals_table_time_created = datetime.datetime.now()  # log creation time and return
         return arrivals_list_final_df, stop_name, self.arrivals_table_time_created
 
-    def get_hourly_frequency(self): # bug test/debug with a morning's worth of data
+    def get_hourly_frequency(self):
         results = pd.DataFrame()
         self.arrivals_here_this_route_df['delta_interval_seconds'] = self.arrivals_here_this_route_df['delta'].dt.seconds
-
         try:
-            # results['frequency']= (self.arrivals_here_this_route_df.delta_int.resample('H').mean())//60
-
             df_tmp=self.arrivals_here_this_route_df.set_index('arrival_timestamp')
             results = (df_tmp.groupby(df_tmp.index.hour).mean()) // 60
-
-            # arrivals_here_this_route_df = self.arrivals_here_this_route_df.set_index('arrival_timestamp')
-            # results = (self.arrivals_here_this_route_df.groupby(self.arrivals_here_this_route_df.index.hour).mean()) // 60 # bug typeerror
             results = results.rename(columns={'delta_interval_seconds': 'frequency'})
-            # results = results.drop(['pkey'], axis=1)
             results['hour'] = results.index
-
-        except TypeError:
-            pass
-
         except AttributeError:
             results = pd.DataFrame()
-
         return results
 
 

@@ -1,5 +1,5 @@
 
-# todo 3 debug buswatcher image with shell
+# todo DEPLOY debug buswatcher image with shell
 # docker run -it --entrypoint /bin/bash $IMAGE_NAME -s
 #
 # buswatcher (gunicorn,flask)

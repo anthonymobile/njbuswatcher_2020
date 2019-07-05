@@ -30,7 +30,7 @@
 {% endblock %}
 
 
-{% block sticky_nav %} {#  todo 3 highlight the current period with <mark></mark> #}
+{% block sticky_nav %} {#  future highlight the current period with <mark></mark> #}
 
 <nav class="navbar navbar-expand-sm sticky-top navbar-light bg-white">
     <div class="container">
@@ -91,10 +91,12 @@
                         <div class="card-body table-warning">
                         {% elif (routereport.grade_report['grade']=='D' or routereport.grade_report['grade']=='F') %}
                         <div class="card-body table-danger">
-                        {% elif (routereport.grade_report['grade']=='N/A') %}
+{#                        {% elif (routereport.grade_report['grade']=='N/A') %}
+                        <div class="card-body table-secondary">#}
+                        {%  else  %}
                         <div class="card-body table-secondary">
                         {% endif %}
-                            <div class="row mb-4 wow fadeIn">
+                            <div class="row mb-4 wow fadeIn"> {#  bug fix display for N/A grade, might have to fix the dummy set in wwwAPI.RouteReport.fetch_report #}
                                 <div class="col-lg-2 col-md-12 mb-4 ">
                                     <h1 class="card-subtitle mb-2">{{routereport.grade_report['grade']}}</h1>
                                 </div>
@@ -136,7 +138,7 @@
                                             {%  for stop in routereport.bunching_report['bunching_leaderboard'] %}
                                                 <tr class='table'>
                                                      <td class="text-left"><a href = {{url_for('genStopReport',collection_url=collection_url, route=routereport.route,stop=stop.stop_id,period=period) }} id="{{stop.st}}">
-                                                         {{stop.stop_name|title}} </a>
+                                                         {{stop.stop_name|title}} </a> {#  bug empty result dict not formatted properly #}
                                                      </td>
                                                      <td  class="text-center" >
                                                         {{stop.bunched_arrivals_in_period}}
@@ -148,7 +150,7 @@
                          </table>
 
 
-                     </div>
+                    </div>
                     <!--BUNCHING BLOCK END -->
 
                     <!--MAP BLOCK START -->

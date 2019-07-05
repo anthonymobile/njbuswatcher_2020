@@ -1,6 +1,4 @@
-# todo 3 fix this dies randomly after working for a while. why?
-# todo 2 add a check for system_map has been flushed, reload it
-# future 1 graceful fall back to collections only if time to run main_loop is  > 1 min?
+# future graceful fall back to collections only if time to run main_loop is  > 1 min?
 #
 # usage:
 # (statewide)                                           tripwatcher.py --statewide
