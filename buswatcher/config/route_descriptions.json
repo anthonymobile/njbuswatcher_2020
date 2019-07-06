@@ -1,5 +1,5 @@
 {
-    "last_updated": "2019-07-04 17:33:50",
+    "last_updated": "2019-07-06 10:00:40",
     "ttl": "86400",
     "routedata": [
         {
@@ -15,7 +15,7 @@
             "description_long": "tbd.",
             "description_short": "This is a short description to be filled in later.",
             "frequency": "low",
-            "nm": "Jersey City-Secaucus",
+            "nm": "Jersey City-JournalSq-Secaucus",
             "prettyname": "Journal Sq-Secaucus Jct",
             "route": "2",
             "schedule_url": "https://www.njtransit.com/pdf/bus/T0002.pdf"
@@ -42,7 +42,7 @@
             "description_long": "tbd.",
             "description_short": "This is a short description to be filled in later.",
             "frequency": "low",
-            "nm": "Greenville-Exchange Place",
+            "nm": "Greenville-JournalSq-Exchange",
             "prettyname": "Greenville - Journal Sq - Exchange Pl",
             "route": "80",
             "schedule_url": "https://www.njtransit.com/pdf/bus/T0080.pdf"
@@ -69,7 +69,7 @@
             "description_long": "The 83 links Journal Square and downtown Hackensack along JFK Boulevard in The Heights, making it one of the few inter-county routes served from Jersey City.",
             "description_short": "A long, local, infrequent service linking Journal Square and downtown Hackensack via The Heights.",
             "frequency": "low",
-            "nm": "Hackensack-Jersey City",
+            "nm": "Hackensack-Jersy City-JournSQ",
             "prettyname": "Journal Square-Hackensack",
             "route": "83",
             "schedule_url": "https://www.njtransit.com/pdf/bus/T0083.pdf"
@@ -78,7 +78,7 @@
             "description_long": "One of the most frequent buses operating along the Palisade Ave corridor, the 84 provides a vital connector between the eastern side of The Heights and Journal Square, as well as points further north along the Palisades in Hudson County.",
             "description_short": "The Palisade Avenue local links the Journal Square, the Heights, Union City, and North Bergen.",
             "frequency": "high",
-            "nm": "North Bergen-Jersey City",
+            "nm": "N Bergen-Jersey City-JournSq",
             "prettyname": "Journal Square-N. Bergen (via Palisade)",
             "route": "84",
             "schedule_url": "https://www.njtransit.com/pdf/bus/T0084.pdf"
@@ -87,7 +87,7 @@
             "description_long": "The 85 provides infrequent service every 30-60 minutes providing a vital link to shopping and employment in the Secaucus area.",
             "description_short": "An infrequent but vital link to shopping and jobs in the Secaucus Meadowlands.",
             "frequency": "low",
-            "nm": "",
+            "nm": "Mill Crk-HarmonMeadow-Hbken",
             "prettyname": "Mill Creek/Secaucus-Hoboken",
             "route": "85",
             "schedule_url": "https://www.njtransit.com/pdf/bus/T0085.pdf"
@@ -96,7 +96,7 @@
             "description_long": "Running along the Palisade Corridor, the 86(and 86P) link into downtown Jersey City where the bustling Grove Street area and Newport Mall feature lots of dining and entertainment options.",
             "description_short": "Connects the Heights and Downtown Jersey City.",
             "frequency": "low",
-            "nm": "Union City-Newport ",
+            "nm": "Union City-JersyCity-NwprtMal",
             "prettyname": "Union City-The Heights-Grove Street-Newport Mall",
             "route": "86",
             "schedule_url": "https://www.njtransit.com/pdf/bus/T0086.pdf"
