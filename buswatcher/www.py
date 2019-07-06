@@ -27,7 +27,7 @@ from lib import API
 from lib import NJTransitAPI
 from lib import wwwAPI
 from lib.CommonTools import timeit
-from lib.TransitSystem import check_system_map_pickle_time_created, load_system_map
+from lib.TransitSystem import load_system_map, check_reload_flag, set_reload_flag, clear_reload_flag
 
 ################################################
 # ROUTE + APP CONFIG
@@ -81,27 +81,24 @@ assets.register(bundles)
 
 
 ################################################
-# SYSTEM MAP CHANGE RELOADER
+# SYSTEM MAP CHECKER
 ################################################
-
-@timeit
-def check_system_map_fresh(system_map):
-
-    if map_last_load_time < check_system_map_pickle_time_created():
-        system_map = load_system_map('force_regen'=True)
-        ('system_map is stale. regenerating.')
-
-    else:
-        print ('system_map is fresh. no change.')
-        return system_map
+def check_system_map(map):
+    if check_reload_flag() == True:
+        new_map = load_system_map()
+        clear_reload_flag()
+        return new_map
+    else if check_reload_flag() == False:
+        return map
 
 ################################################
 # URLS
 ################################################
 
 @app.route('/')
-def displayIndex():
-    check_system_map_fresh(system_map,map_last_load_time)
+def displayIndex(**kwargs):
+    system_map = check_system_map(map)
+
     vehicle_data, vehicle_count, route_count = API.current_buspositions_from_db_for_index()
     routereport = Dummy() # setup a dummy routereport for the navbar
     return render_template('index.jinja2',
@@ -112,7 +109,6 @@ def displayIndex():
 
 @app.route('/<collection_url>')
 def displayCollection(collection_url):
-    check_system_map_fresh(system_map,map_last_load_time)
     vehicles_now = API.get_positions_byargs(system_map,
                                             {'collection': collection_url, 'layer': 'vehicles'},
                                             system_map.route_descriptions,
@@ -131,7 +127,6 @@ def displayCollection(collection_url):
 
 @app.route('/<collection_url>/route/<route>/<period>')
 def genRouteReport(collection_url,route, period):
-    check_system_map_fresh(system_map,map_last_load_time)
     route_report = wwwAPI.RouteReport(system_map, route, period)
     return render_template('route.jinja2',
                            collection_url=collection_url,
@@ -143,7 +138,6 @@ def genRouteReport(collection_url,route, period):
 
 @app.route('/<collection_url>/route/<route>/stop/<stop>/<period>')
 def genStopReport(collection_url, route, stop, period):
-    check_system_map_fresh(system_map,map_last_load_time)
     stop_report = wwwAPI.StopReport(system_map, route, stop, period)
     route_report = wwwAPI.RouteReport(system_map, route, period)
     predictions = NJTransitAPI.parse_xml_getStopPredictions(NJTransitAPI.get_xml_data('nj', 'stop_predictions', stop=stop, route='all'))
@@ -248,6 +242,7 @@ def _jinja2_filter_datetime(timestamp, format='%I:%M %p'):
 
 @app.template_filter('strftime_period')
 def _jinja2_filter_datetime_by_period(timestamp, period):
+    system_map = load_system_map()
     return timestamp.strftime(system_map.period_descriptions[period]['strftime_format'])
 
 @app.template_filter('hour_as_int')
@@ -304,7 +299,7 @@ def splitpart (value, index, char = '_'):
 if __name__ == "__main__":
 
     map_last_load_time = datetime.datetime.now()
-    system_map=load_system_map() # n.b. this will be a separate instance
+    map=load_system_map() # n.b. this will be a separate instance
 
     app.run(host='0.0.0.0', debug=True)
 

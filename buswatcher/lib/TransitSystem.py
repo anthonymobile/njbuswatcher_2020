@@ -1,5 +1,6 @@
 from pathlib import Path
 import json
+import datetime
 import geojson
 import pickle
 import os
@@ -188,55 +189,74 @@ class SystemMap:
 # Class TransitSystem bootstrappers
 ##################################################################
 
-def check_system_map_pickle_time_created():
+def check_system_map_pickle_time_modified():
     system_map_pickle_file = Path("config/system_map.pickle")
-    return os.stat(system_map_pickle_file).st_mtime
+    mod_timestamp = datetime.datetime.fromtimestamp(os.path.getmtime(system_map_pickle_file))
+    return mod_timestamp
 
 def flush_system_map():
-
     system_map_pickle_file = Path("config/system_map.pickle")
-
     try:
         os.remove(system_map_pickle_file)
         print ('deleted system_map.pickle file')
     except:
         print ('error. could NOT delete system_map.pickle file')
         pass
+    return
 
+def find_pickle_file():
+    # find the pickle file
+    if os.getcwd() == "/":  # docker
+        prefix = "/buswatcher/buswatcher/"
+    elif "Users" in os.getcwd():  # osx
+        prefix = ""
+    else:  # linux & default
+        prefix = ""
+    pickle_filename = (prefix + "config/system_map.pickle")
+    return {'prefix':prefix, 'pickle_filename':pickle_filename}
+
+def check_reload_flag():
+    prefix = find_pickle_file()['prefix']
+    reload_flag_file = Path(prefix+'system_map_reload_required_flag')
+    if reload_flag_file.is_file():
+        return True
+    else:
+        return False
+
+def set_reload_flag():
+    # create the reload flag file to tell www.py it needs to reload
+    reload_flag_file = Path(find_pickle_file()['prefix'] + 'system_map_reload_required_flag')
+    Path(reload_flag_file).touch()
+    return
+
+def clear_reload_flag():
+    # create the reload flag file to tell www.py it needs to reload
+    reload_flag_file = Path(find_pickle_file()['prefix'] + 'system_map_reload_required_flag')
+    os.remove(reload_flag_file)
     return
 
 def load_system_map(**kwargs):
+    pickle_filename = find_pickle_file()['pickle_filename']
 
-    if os.getcwd() == "/":  # docker
-        prefix = "/buswatcher/buswatcher/"
-    elif "Users" in os.getcwd(): # osx
-        prefix = ""
-    else: # linux & default
-        prefix = ""
-
-    pickle_filename = (prefix+"config/system_map.pickle")
-
-    # forcing a regen?
-    if kwargs['force_regen'] == True:
-        flush_system_map()
-        system_map = SystemMap()
-        with open(pickle_filename, "wb") as f:
-            pickle.dump(system_map, f)
+    # force regen (optional)
+    if 'force_regen' in kwargs.keys():
+        if kwargs['force_regen'] == True:
+            flush_system_map()
+            system_map = SystemMap()
+            with open(pickle_filename, "wb") as f:
+                pickle.dump(system_map, f)
 
     # is there a pickle file?
     try:
         # my_abs_path = system_map_pickle_file.resolve(strict=True)
         with open(pickle_filename, "rb") as f:
-            system_map=pickle.load(f)
-
+            system_map = pickle.load(f)
 
     # if not create it
     except FileNotFoundError:
-        print (str(pickle_filename)+" pickle file not found. Rebuilding, may take a minute or so..")
+        print(str(pickle_filename) + " pickle file not found. Rebuilding, may take a minute or so..")
         system_map = SystemMap()
         with open(pickle_filename, "wb") as f:
-            pickle.dump(system_map,f)
-
-
+            pickle.dump(system_map, f)
+        set_reload_flag() # and set the reload flag
     return system_map
-
