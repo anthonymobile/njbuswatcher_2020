@@ -188,6 +188,10 @@ class SystemMap:
 # Class TransitSystem bootstrappers
 ##################################################################
 
+def check_system_map_pickle_time_created():
+    system_map_pickle_file = Path("config/system_map.pickle")
+    return os.stat(system_map_pickle_file).st_mtime
+
 def flush_system_map():
 
     system_map_pickle_file = Path("config/system_map.pickle")
@@ -211,6 +215,13 @@ def load_system_map(**kwargs):
         prefix = ""
 
     pickle_filename = (prefix+"config/system_map.pickle")
+
+    # forcing a regen?
+    if kwargs['force_regen'] == True:
+        flush_system_map()
+        system_map = SystemMap()
+        with open(pickle_filename, "wb") as f:
+            pickle.dump(system_map, f)
 
     # is there a pickle file?
     try:
