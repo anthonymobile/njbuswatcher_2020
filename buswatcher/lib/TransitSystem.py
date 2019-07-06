@@ -188,6 +188,7 @@ class SystemMap:
 ##################################################################
 # Class TransitSystem bootstrappers
 ##################################################################
+# todo 1 resolve any (fatal) pickling errors, catch and pass the rest
 
 def check_system_map_pickle_time_modified():
     system_map_pickle_file = Path("config/system_map.pickle")
@@ -230,10 +231,14 @@ def set_reload_flag():
     return
 
 def clear_reload_flag():
-    # create the reload flag file to tell www.py it needs to reload
     reload_flag_file = Path(find_pickle_file()['prefix'] + 'system_map_reload_required_flag')
-    os.remove(reload_flag_file)
-    return
+    try:
+        os.remove(reload_flag_file)
+        print ('deleted reload flag file')
+        return
+    except:
+        print ('error. could NOT delete reload flag file')
+        return
 
 def load_system_map(**kwargs):
     pickle_filename = find_pickle_file()['pickle_filename']

@@ -47,7 +47,7 @@ def quarter_hourly(system_map):
 def hourly(system_map):
     task_trigger_1 = RouteUpdater(system_map) # refresh route descriptions
     task_trigger_2 = GradeReport().generate_reports(system_map) # refresh letter grades
-    task_trigger_3 = flush_system_map() # delete the system_map.pickle file. whatever process needs it will rebuilt it
+    task_trigger_3 = flush_system_map() # delete the system_map.pickle file. this will trigger one of the other processes to rebuild it and hopefully www, tripwatcher will rebuild
     print ('hourly_tasks just ran')
 
     return
@@ -74,7 +74,7 @@ def initialize_scheduler(system_map):
 
 if __name__ == "__main__":
 
-    system_map = load_system_map()
+    system_map = load_system_map() # todo 0 need a way to reload this periodically here...
 
     # future make --test and --setup mutually exclusive, and require --tasks if --test is set
     parser = argparse.ArgumentParser()
