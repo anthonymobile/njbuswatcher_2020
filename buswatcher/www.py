@@ -1,22 +1,10 @@
 # bus buswatcher v2.0
 # june 2019 - by anthony@bitsandatoms.net
 
-################################################
-# VIP INSTANCE CONFIG
-################################################
-
-source_global='nj'
-class Dummy():
-    def __init__(self):
-        self.routename = 'Jersey City'
-
-################################################
-# IMPORTS
-################################################
 import logging
 import os
-import datetime
-from pathlib import Path
+import threading
+import time
 
 from flask import send_from_directory
 from flask import Flask, render_template, request
@@ -27,8 +15,15 @@ from flask_cors import CORS, cross_origin
 from lib import API
 from lib import NJTransitAPI
 from lib import wwwAPI
-from lib.CommonTools import timeit
 from lib.TransitSystem import load_system_map
+
+################################################
+# VIP INSTANCE CONFIG
+################################################
+source_global='nj'
+class Dummy():
+    def __init__(self):
+        self.routename = 'Jersey City'
 
 ################################################
 # APP
@@ -45,11 +40,11 @@ app.config.update(
 Bootstrap(app)
 
 
-################################################
-# SETUP CACHE
-################################################
-from flask_caching import Cache
-cache = Cache(app,config={'CACHE_TYPE': 'simple'})
+# ################################################
+# # CACHE SETUP (unused)
+# ################################################
+# from flask_caching import Cache
+# cache = Cache(app,config={'CACHE_TYPE': 'simple'})
 
 
 ################################################
@@ -74,6 +69,24 @@ bundles = {
 }
 assets = Environment(app)
 assets.register(bundles)
+
+
+################################################
+# SYSTEM_MAP RELOADER
+################################################
+
+@app.before_first_request
+def activate_job():
+    def run_job():
+        while True:
+            print("www.py recurring task every 10 mins...")
+            system_map=load_system_map()
+            time.sleep(600)
+
+    thread = threading.Thread(target=run_job)
+    thread.start()
+
+
 
 
 ################################################
@@ -155,29 +168,8 @@ def favicon():
 
 ################################################
 # API
-################################################
-
 # map layer geojson generator
-#
-# /api/v1/maps/{layername}?rt=[87,all]&stop_id=30189
-
-# for index map
-#   /api/v1/maps/waypoints&rt=all              waypoints for ALL routes
-#   /api/v1/maps/stops&rt=all                  waypoints for ALL routes
-#   /api/v1/maps/vehicles&rt=all               vehicles for ALL routes
-
-# for collection map
-#   /api/v1/maps/waypoints&collection=camden   waypoints for camden routes
-#   /api/v1/maps/stops&collection=camden       stops for camden routes
-#   /api/v1/maps/stops&collection=camden       vehicles for camden routes
-
-# for route map
-#   /api/v1/maps/waypoints&rt=87               waypoints for single route
-#   /api/v1/maps/stops&rt=87                   stops for single route
-#   /api/v1/maps/vehicles&rt=87                vehicles for single route
-
-# for stop map
-#   /api/v1/maps/stops&rt=87&stop_id=30189     stop for single stop
+################################################
 
 
 @app.route('/api/v1/maps/vehicles')
@@ -225,7 +217,6 @@ def _jinja2_filter_datetime(timestamp, format='%I:%M %p'):
 
 @app.template_filter('strftime_period')
 def _jinja2_filter_datetime_by_period(timestamp, period):
-    system_map = load_system_map()
     return timestamp.strftime(system_map.period_descriptions[period]['strftime_format'])
 
 @app.template_filter('hour_as_int')
@@ -281,8 +272,7 @@ def splitpart (value, index, char = '_'):
 
 if __name__ == "__main__":
 
-    map_last_load_time = datetime.datetime.now()
-    system_map=load_system_map()
+    system_map=load_system_map() # bug need to figure out how to force flask to check if it needs to reload the pickle file, or do it periodically (possibly in generator minutely_tasks
 
     app.run(host='0.0.0.0', debug=True)
 

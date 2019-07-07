@@ -137,5 +137,27 @@
       "citygov_url": "https://www.patersonnj.gov/",
       "description_short": "Click on a route below to see a detailed report.",
       "description_long": ""
+    },
+    "trenton": {
+      "collection": "trenton",
+      "collection_url": "trenton",
+      "city_name": "trenton",
+      "prettyname": "The State Capital",
+      "routelist": [
+        "600",
+        "601",
+        "603",
+        "605",
+        "606",
+        "607",
+        "608",
+        "609",
+        "610",
+        "611"
+
+      ],
+      "citygov_url": "http://www.trentonnj.org/",
+      "description_short": "Trenton is the capital of New Jersey and the seat of Mercer County. Click on a route below to see a detailed report.",
+      "description_long": ""
     }
 }
