@@ -4,6 +4,8 @@ import datetime
 import geojson
 import pickle
 import os
+import sys
+import time
 
 from . import NJTransitAPI, DataBases, Generators
 from .wwwAPI import RouteReport
@@ -23,7 +25,6 @@ class SystemMap:
                 self.collection_descriptions = json.load(f)
             with open(get_config_path() + 'period_descriptions.json') as f:
                 self.period_descriptions = json.load(f)
-
         except:
             import sys
             sys.exit("<BUSWATCHER>One or more of the config files isn't loading properly")
@@ -32,6 +33,16 @@ class SystemMap:
         self.route_geometries = self.get_route_geometries()
         self.routelist = self.get_routelist()
         self.grade_roster = self.get_grade_roster()
+
+
+    # def watch_system_map_pickle(self):
+    #     # Call this function each time a change happens
+    #     def custom_action(text):
+    #         self.__reset__()
+    #     watch_file = find_pickle_file()
+    #     # watcher = Watcher(watch_file)  # simple
+    #     watcher = Watcher(watch_file, custom_action, text='pickle file changed, resetting system_map')  # also call custom action function
+    #     watcher.watch()  # start the watch going
 
     def get_route_geometries(self):
         route_geometries={}
@@ -168,7 +179,7 @@ class SystemMap:
                 return stops_featurecollection
 
             return
-        except: # bug API geojson renderer -- test this 404 handler doesnt halt when disconnect operation at start, or in middle
+        except:
             from flask import abort
             abort(404)
             pass
@@ -185,15 +196,11 @@ class SystemMap:
         return grade_roster
 
 
+
+
 ##################################################################
 # Class TransitSystem bootstrappers
 ##################################################################
-# todo 1 resolve any (fatal) pickling errors, catch and pass the rest
-
-def check_system_map_pickle_time_modified():
-    system_map_pickle_file = Path("config/system_map.pickle")
-    mod_timestamp = datetime.datetime.fromtimestamp(os.path.getmtime(system_map_pickle_file))
-    return mod_timestamp
 
 def flush_system_map():
     system_map_pickle_file = Path("config/system_map.pickle")
@@ -216,30 +223,6 @@ def find_pickle_file():
     pickle_filename = (prefix + "config/system_map.pickle")
     return {'prefix':prefix, 'pickle_filename':pickle_filename}
 
-def check_reload_flag():
-    prefix = find_pickle_file()['prefix']
-    reload_flag_file = Path(prefix+'system_map_reload_required_flag')
-    if reload_flag_file.is_file():
-        return True
-    else:
-        return False
-
-def set_reload_flag():
-    # create the reload flag file to tell www.py it needs to reload
-    reload_flag_file = Path(find_pickle_file()['prefix'] + 'system_map_reload_required_flag')
-    Path(reload_flag_file).touch()
-    return
-
-def clear_reload_flag():
-    reload_flag_file = Path(find_pickle_file()['prefix'] + 'system_map_reload_required_flag')
-    try:
-        os.remove(reload_flag_file)
-        print ('deleted reload flag file')
-        return
-    except:
-        print ('error. could NOT delete reload flag file')
-        return
-
 def load_system_map(**kwargs):
     pickle_filename = find_pickle_file()['pickle_filename']
 
@@ -251,17 +234,18 @@ def load_system_map(**kwargs):
             with open(pickle_filename, "wb") as f:
                 pickle.dump(system_map, f)
 
-    # is there a pickle file?
+    # if there's a pickle, load it
     try:
-        # my_abs_path = system_map_pickle_file.resolve(strict=True)
         with open(pickle_filename, "rb") as f:
             system_map = pickle.load(f)
+            mod_time = datetime.datetime.fromtimestamp(os.path.getmtime(pickle_filename)).strftime('%Y-%m-%d %H:%M:%S')
+            print("Loading existing pickle file, last modified at " + mod_time)
 
-    # if not create it
+    # otherwise regen and load it
     except FileNotFoundError:
         print(str(pickle_filename) + " pickle file not found. Rebuilding, may take a minute or so..")
         system_map = SystemMap()
         with open(pickle_filename, "wb") as f:
             pickle.dump(system_map, f)
-        set_reload_flag() # and set the reload flag
+
     return system_map

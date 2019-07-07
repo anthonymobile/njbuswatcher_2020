@@ -1,5 +1,3 @@
-# bug find what prints "the end of the road!?"
-
 # bus buswatcher v2.0
 # june 2019 - by anthony@bitsandatoms.net
 
@@ -30,11 +28,6 @@ from lib import API
 from lib import NJTransitAPI
 from lib import wwwAPI
 from lib.CommonTools import timeit
-from lib.TransitSystem import load_system_map, check_reload_flag, set_reload_flag, clear_reload_flag, find_pickle_file
-
-################################################
-# ROUTE + APP CONFIG
-################################################
 from lib.TransitSystem import load_system_map
 
 ################################################
@@ -84,33 +77,11 @@ assets.register(bundles)
 
 
 ################################################
-# SYSTEM MAP CHECKER
-################################################
-@timeit
-def check_system_map(map):
-    pickle_file_paths= find_pickle_file()
-    pickle_file_path=Path(pickle_file_paths['prefix']+pickle_file_paths['pickle_filename'])
-    # if the flag is set, load the file from disk
-    if check_reload_flag() == True:
-        new_map = load_system_map()
-        clear_reload_flag()
-        return new_map
-    # if the pickle file is missing, regen/reload and clear the flag if its there
-    elif pickle_file_path.is_file() is False:
-        new_map = load_system_map()
-        clear_reload_flag()
-        return new_map
-    # if the pickle file is there but the reload flag is false, return map passed in
-    elif check_reload_flag() == False:
-        return map
-
-################################################
 # URLS
 ################################################
 
 @app.route('/')
 def displayIndex():
-    system_map = check_system_map(map)
     vehicle_data, vehicle_count, route_count = API.current_buspositions_from_db_for_index()
     routereport = Dummy() # setup a dummy routereport for the navbar
     return render_template('index.jinja2',
@@ -121,7 +92,6 @@ def displayIndex():
 
 @app.route('/<collection_url>')
 def displayCollection(collection_url):
-    system_map = check_system_map(map)
     vehicles_now = API.get_positions_byargs(system_map,
                                             {'collection': collection_url, 'layer': 'vehicles'},
                                             system_map.route_descriptions,
@@ -140,7 +110,6 @@ def displayCollection(collection_url):
 
 @app.route('/<collection_url>/route/<route>/<period>')
 def genRouteReport(collection_url,route, period):
-    system_map = check_system_map(map)
     route_report = wwwAPI.RouteReport(system_map, route, period)
     return render_template('route.jinja2',
                            collection_url=collection_url,
@@ -152,7 +121,6 @@ def genRouteReport(collection_url,route, period):
 
 @app.route('/<collection_url>/route/<route>/stop/<stop>/<period>')
 def genStopReport(collection_url, route, stop, period):
-    system_map = check_system_map(map)
     stop_report = wwwAPI.StopReport(system_map, route, stop, period)
     route_report = wwwAPI.RouteReport(system_map, route, period)
     predictions = NJTransitAPI.parse_xml_getStopPredictions(NJTransitAPI.get_xml_data('nj', 'stop_predictions', stop=stop, route='all'))
@@ -168,7 +136,6 @@ def genStopReport(collection_url, route, stop, period):
 
 @app.route('/about')
 def displayFAQ():
-    system_map = check_system_map(map)
     routereport = Dummy() #  setup a dummy routereport for the navbar
     return render_template('about.jinja2',
                            route_definitions=system_map.route_descriptions,
@@ -216,7 +183,6 @@ def favicon():
 @app.route('/api/v1/maps/vehicles')
 @cross_origin()
 def api_vehicles():
-    system_map = check_system_map(map)
     args=dict(request.args)
     args['layer'] = 'vehicles'
     return jsonify(API.get_positions_byargs(
@@ -229,7 +195,6 @@ def api_vehicles():
 @app.route('/api/v1/maps/waypoints')
 @cross_origin()
 def api_waypoints():
-    system_map = check_system_map(map)
     args=dict(request.args)
     args['layer'] = 'waypoints'
     return jsonify(system_map.render_geojson(args))
@@ -237,7 +202,6 @@ def api_waypoints():
 @app.route('/api/v1/maps/stops')
 @cross_origin()
 def api_stops():
-    system_map = check_system_map(map)
     args=dict(request.args)
     args['layer'] = 'stops'
     return jsonify(system_map.render_geojson(args))
@@ -318,7 +282,7 @@ def splitpart (value, index, char = '_'):
 if __name__ == "__main__":
 
     map_last_load_time = datetime.datetime.now()
-    map=load_system_map() # n.b. this will be a separate instance
+    system_map=load_system_map()
 
     app.run(host='0.0.0.0', debug=True)
 
