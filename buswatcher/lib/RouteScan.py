@@ -23,6 +23,9 @@ class RouteScan:
         self.route = route
         self.statewide = statewide
 
+        #  populate route basics from config
+        # system_map=load_system_map() # future if pickle persistence problems, uncomment to make RouteScan reload the system_map_pickle for every route
+
         if self.statewide is True:
             self.routes_map_xml=dict()
             for r in system_map.route_descriptions['routedata']:
@@ -41,10 +44,6 @@ class RouteScan:
         self.buses = []
         self.trip_list = []
 
-        #  populate route basics from config
-        system_map=load_system_map()
-
-
         # generate scan data and results
 
         self.fetch_positions()
@@ -55,19 +54,19 @@ class RouteScan:
 
     def fetch_positions(self):
 
-        if self.statewide is False:
+        try:
+            if self.statewide is False:
+                self.buses = NJTransitAPI.parse_xml_getBusesForRoute(NJTransitAPI.get_xml_data('nj', 'buses_for_route', route=self.route))
+                self.clean_buses()
 
-            self.buses = NJTransitAPI.parse_xml_getBusesForRoute(NJTransitAPI.get_xml_data('nj', 'buses_for_route', route=self.route))
-            # sys.stdout.write('\rfetched route' + str(self.route) + '... ')
+            elif self.statewide is True:
 
-            self.clean_buses()
-
-        elif self.statewide is True:
-
-            self.buses = NJTransitAPI.parse_xml_getBusesForRouteAll(NJTransitAPI.get_xml_data('nj', 'all_buses'))
-            route_count = len(list(set([v.rt for v in self.buses])))
-            print('\rfetched ' + str(len(self.buses)) + ' buses on ' + str(route_count) + ' routes...' )
-            self.clean_buses()
+                self.buses = NJTransitAPI.parse_xml_getBusesForRouteAll(NJTransitAPI.get_xml_data('nj', 'all_buses'))
+                route_count = len(list(set([v.rt for v in self.buses])))
+                print('\rfetched ' + str(len(self.buses)) + ' buses on ' + str(route_count) + ' routes...' )
+                self.clean_buses()
+        except:
+            pass
 
         return
 

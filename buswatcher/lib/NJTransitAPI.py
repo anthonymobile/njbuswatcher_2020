@@ -257,15 +257,21 @@ def parse_xml_getRoutePoints(data):
 
 def get_xml_data(source, function, **kwargs):
     import urllib.request
-
+    tries = 1
     while True:
-        data = urllib.request.urlopen(_gen_command(source, function, **kwargs)).read()
-        if data:
-            break
-        else:
-            print ('cant connect to NJT API... waiting 5s and retry')
-            time.sleep(5)
+        try:
+            data = urllib.request.urlopen(_gen_command(source, function, **kwargs)).read()
+            if data:
+                break
+        except: # future more graceful failure from longer disconnects -- perhaps a timeout?
 
+            print (str(tries) + '/12 cant connect to NJT API... waiting 5s and retry')
+            if tries < 12:
+                tries = tries + 1
+                time.sleep(5)
+            else:
+                print('failed trying to connect to NJT API for 1 minute, giving up')
+                return
 
     return data
 

@@ -150,12 +150,12 @@ class RouteReport(GenericReport):
                 report_retrieved['grade'] = 'N'
                 report_retrieved['grade_description'] = 'No description available.'
                 report_retrieved["pct_bunched"] = "10.0"
-            elif type=='bunching': # bug empty result dict not formatted properly
-                report_retrieved['bunching_leaderboard'] = {
-                        'stop_name': 'STREET AND STREET',
+            elif type=='bunching':
+                report_retrieved['bunching_leaderboard'] = [
+                    {'stop_name': 'STREET AND STREET',
                         'stop_id': '31822',
                         'bunched_arrivals_in_period': '666'
-                    }
+                    }]
                 report_retrieved['cum_bunch_total'] = '45'
                 report_retrieved['cum_arrival_total'] = '450'
         return report_retrieved
@@ -184,7 +184,6 @@ class StopReport(GenericReport):
         self.arrivals_here_this_route_df, self.stop_name, self.arrivals_table_time_created = self.get_arrivals_here_this_route()
         self.arrivals_here_all_others = self.get_arrivals_here_all_others()
         self.hourly_frequency = self.get_hourly_frequency()
-        print ('the end of the road!?')
 
 
     def get_arrivals_here_this_route(self):
