@@ -1,4 +1,5 @@
-# generator
+# tripwatcher
+# https://medium.com/@chadlagore/conda-environments-with-docker-82cdc9d25754
 
 FROM continuumio/miniconda3
 
@@ -21,7 +22,7 @@ RUN mkdir buswatcher
 COPY . ./buswatcher
 
 
-# copy the proper database config over for docker deployment (replaces the development version)
+# copy the proper database config over for docker deployment (uses the docker server url 'db')
 COPY ./buswatcher/docker/DBconfig.py ./buswatcher/buswatcher/lib/DBconfig.py
 
 # use one or the other
