@@ -1,5 +1,7 @@
 # bug db connection dropping (tripwatcher?)
+# db_1              | 2019-07-08T03:53:08.525910Z 157 [Note] Aborted connection 157 to db: 'buses' user: 'buswatcher' host: '172.20.0.7' (Got an error reading communication packets)
 # bug web page not showing
+# try 0.0.0.0:8000 ?
 # bug dns-updater dying
 
 # todo figure out how to mount /buswatcher/buswatcher/config as a shared volume and intialize it with the json files
