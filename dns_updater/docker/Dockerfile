@@ -9,4 +9,6 @@ COPY --from=builder /install /usr/local
 WORKDIR /
 COPY . .
 
-CMD ["python", "/buswatcher/dns_updater/gandi-live-dns.py"]
+RUN apk add --no-cache bash
+
+CMD ["python", "/dns_updater/gandi-live-dns.py"]
