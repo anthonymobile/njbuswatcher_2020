@@ -40,7 +40,7 @@ docker exec -it <container_id> /bin/bash
 Fortunately, there’s a workaround: save the current state of the shut-down container as a new image, and start that with a different command to avoid your existing failures.
 
 ```
-docker commit <container_id> my-broken-container && docker run -it -rm my-broken-container /bin/bash
+docker commit <container_id> my-broken-container && docker run -it my-broken-container /bin/bash
 ```
 Have a failing entrypoint instead? There’s an entrypoint override command-line flag too." ([source](https://medium.com/@pimterry/5-ways-to-debug-an-exploding-docker-container-4f729e2c0aa8))
 

@@ -1,4 +1,8 @@
-# bug DEPLOY Why is docker creating and renaming files in the working dir? Bad copy command in Dockerfile?
+# bug db connection dropping (tripwatcher?)
+# bug web page not showing
+# bug dns-updater dying
+
+# todo figure out how to mount /buswatcher/buswatcher/config as a shared volume and intialize it with the json files
 
 # some tips https://serverfault.com/questions/596994/how-can-i-debug-a-docker-container-initialization
 #
@@ -49,8 +53,8 @@ services:
       context: ./
       dockerfile: ./tripwatcher/docker/Dockerfile.conda
     restart: always
-    volumes:
-      - buswatcher_config:/buswatcher/buswatcher/config
+    #volumes:
+    #  - buswatcher_config:/buswatcher/buswatcher/config
     depends_on:
       - db
   generator:
@@ -58,8 +62,8 @@ services:
       context: ./
       dockerfile: ./generator/docker/Dockerfile.conda
     restart: always
-    volumes:
-      - buswatcher_config:/buswatcher/buswatcher/config
+    #volumes:
+    #  - buswatcher_config:/buswatcher/buswatcher/config
     depends_on:
       - db
   flask_gunicorn:
@@ -72,7 +76,7 @@ services:
     volumes:
         - ./buswatcher/:/buswatcher
         - static_volume:/buswatcher/static
-        - buswatcher_config:/buswatcher/buswatcher/config
+    #    - buswatcher_config:/buswatcher/buswatcher/config
     expose:
       - 8000
     environment:
@@ -101,4 +105,4 @@ services:
 volumes:
   database_volume:
   static_volume:
-  buswatcher_config:
+  # buswatcher_config:
