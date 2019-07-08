@@ -1,6 +1,24 @@
+# bug DEPLOY Why is docker creating and renaming files in the working dir? Bad copy command in Dockerfile?
+
+# some tips https://serverfault.com/questions/596994/how-can-i-debug-a-docker-container-initialization
+#
 # from https://github.com/testdrivenio/django-on-docker
 # mysql from https://medium.com/@chrischuck35/how-to-create-a-mysql-instance-with-docker-compose-1598f3cc1bee
 # install with: docker-compose up -d --build
+
+# to get a shell on an image
+# docker run -it -p 8888:80 buswatcher_gunicorn sh
+# docker run -it buswatcher_gunicorn sh
+#
+# or to dump image contents for inspection
+# docker run -it buswatcher_gunicorn sh # ok if it fails
+# docker export $(docker ps -lq) | tar tf -
+#
+# or, safer?
+# docker create --name="tmp_$$" image:tag
+# docker export tmp_$$ | tar t
+# docker rm tmp_$$
+
 
 version: '3.3'
 
@@ -31,17 +49,30 @@ services:
       context: ./
       dockerfile: ./tripwatcher/docker/Dockerfile.conda
     restart: always
+    volumes:
+      - buswatcher_config:/buswatcher/buswatcher/config
+    depends_on:
+      - db
+  generator:
+    build:
+      context: ./
+      dockerfile: ./generator/docker/Dockerfile.conda
+    restart: always
+    volumes:
+      - buswatcher_config:/buswatcher/buswatcher/config
     depends_on:
       - db
   flask_gunicorn:
     build:
       context: ./
-      dockerfile: ./reportcard/docker/Dockerfile.conda
-    command: /opt/conda/envs/buswatcher/bin/gunicorn reportcard:app -w 4 -b 0.0.0.0:8000
+      dockerfile: buswatcher/docker/Dockerfile.conda
+
+    command: /opt/conda/envs/buswatcher/bin/gunicorn www:app -w 4 -b 0.0.0.0:8000
     restart: always
     volumes:
-      - ./reportcard/:/reportcard/
-      - static_volume:/reportcard/static
+        - ./buswatcher/:/buswatcher
+        - static_volume:/buswatcher/static
+        - buswatcher_config:/buswatcher/buswatcher/config
     expose:
       - 8000
     environment:
@@ -62,11 +93,12 @@ services:
       - 443:443
     depends_on:
       - flask_gunicorn
-#  dns_updater:
-#    restart: always
-#    build:
-#      context: ./
-#      dockerfile: ./dns_updater/docker/Dockerfile
+  dns_updater:
+    restart: always
+    build:
+      context: ./
+      dockerfile: ./dns_updater/docker/Dockerfile
 volumes:
   database_volume:
   static_volume:
+  buswatcher_config:
