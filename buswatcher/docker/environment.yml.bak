@@ -15,8 +15,7 @@ dependencies:
   - pip=19.0.2
   - python=3.7.1
   - pyproj==1.9.6
-  - pymysql
-  - psycopg2
+  - pymysqla
   - readline=7.0
   - setuptools=40.8.0
   - sqlite=3.26.0
@@ -25,7 +24,6 @@ dependencies:
   - xz=5.2.4
   - zlib=1.2.11
   - pip:
-    - attrs==18.2.0
     - click==7.0
     - click-plugins==1.0.4
     - cligj==0.5.0
@@ -50,7 +48,6 @@ dependencies:
     - pytz==2018.9
     - scipy==1.2.1
     - shapely==1.6.4.post2
-    - six==1.12.0
     - sqlalchemy==1.2.18
     - visitor==0.1.3
     - webassets==0.12.1
