@@ -17,7 +17,7 @@ class Generator():
 
     def __init__(self):
         self.config_prefix = get_config_path()+"reports"
-        self.db =  SQLAlchemyDBConnection()
+        # self.db =  SQLAlchemyDBConnection() # todo future would be nice to inherit this but for now, each report will subsequently init its own self.db=SQLalchemyconnection()e
 
     def store_json(self, report_to_store): # filename format route_type_period
         filename = ('{a}/{b}_{c}_{d}.json').format(a=self.config_prefix,b=report_to_store['route'],c=report_to_store['type'],d=report_to_store['period'])
@@ -165,6 +165,7 @@ class BunchingReport(Generator):
 
     def __init__(self):
         super(BunchingReport,self).__init__()
+        self.db = SQLAlchemyDBConnection()
         self.type='bunching'
 
     def generate_reports(self, system_map):
@@ -183,7 +184,7 @@ class BunchingReport(Generator):
                         }
 
                 # make and dump the report -- the 10 stops with the most bunching incidents -- by route, by period
-                with self.db as db:
+                with self.db as db: # bug check how we are handling the db here, causing errors in docker
 
                     bigbang = datetime.timedelta(seconds=0)
                     bunching_interval = datetime.timedelta(minutes=3)
@@ -348,6 +349,7 @@ class GradeReport(Generator):
 
     def __init__(self):
         super(GradeReport,self).__init__()
+        self.db = SQLAlchemyDBConnection()
         self.type='grade'
 
     def generate_reports(self, system_map):
@@ -420,6 +422,7 @@ class HeadwayReport(Generator): # future rewrite headway report
 
     def __init__(self):
         super(HeadwayReport,self).__init__()
+        self.db = SQLAlchemyDBConnection()
         self.type='headway'
 
     def f_timing(self, stop_df):
@@ -430,7 +433,7 @@ class HeadwayReport(Generator): # future rewrite headway report
 
     def generate_reports(self, system_map):
 
-        with SQLAlchemyDBConnection() as db:
+        with self.db as db:
 
             # build the query
             x, trips_on_road_now = self.__get_current_trips()
@@ -516,11 +519,12 @@ class TraveltimeReport(Generator): # future write traveltime reportt
 
     def __init__(self, system_map):
         super(TraveltimeReport,self).__init__()
+        self.db = SQLAlchemyDBConnection()
         self.type='traveltime'
 
     def generate_reports(self, period):
 
-        with SQLAlchemyDBConnection() as db:
+        with self.db as db:
             traveltime = dict()
 
             # # get a list of all COMPLETED trips on this route for this period
