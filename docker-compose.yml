@@ -1,33 +1,10 @@
-# bug switching mysql to 5.7 creates a lot of db connection errors
-
-# todo reenable the buswatcher/config lines
-
-# some tips https://serverfault.com/questions/596994/how-can-i-debug-a-docker-container-initialization
-#
-# from https://github.com/testdrivenio/django-on-docker
-# mysql from https://medium.com/@chrischuck35/how-to-create-a-mysql-instance-with-docker-compose-1598f3cc1bee
-# install with: docker-compose up -d --build
-
-# to get a shell on an image
-# docker run -it -p 8888:80 buswatcher_gunicorn sh
-# docker run -it buswatcher_gunicorn sh
-#
-# or to dump image contents for inspection
-# docker run -it buswatcher_gunicorn sh # ok if it fails
-# docker export $(docker ps -lq) | tar tf -
-#
-# or, safer?
-# docker create --name="tmp_$$" image:tag
-# docker export tmp_$$ | tar t
-# docker rm tmp_$$
-
-
 version: '3.3'
 
-services:  
+services:
+
   db:
-    image: mysql:5.6
-    command: --default-authentication-plugin=mysql_native_password --wait_timeout=28800
+    image: mysql:5.7
+    command: --default-authentication-plugin=mysql_native_password
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: 'root'
@@ -51,30 +28,20 @@ services:
       context: ./
       dockerfile: ./tripwatcher/docker/Dockerfile.conda
     restart: always
-    #volumes:
-    #  - buswatcher_config:/buswatcher/buswatcher/config  # todo re-enable this now that the path is corrected
+#    volumes:
+#      - buswatcher_config:/buswatcher/buswatcher/config
     depends_on:
       - db
-  generator:
-    build:
-      context: ./
-      dockerfile: ./generator/docker/Dockerfile.conda
-    restart: always
-    #volumes:
-    #  - buswatcher_config:/buswatcher/buswatcher/config  # todo re-enable this now that the path is corrected
-    depends_on:
-      - db
-  flask_gunicorn:
+  www:
     build:
       context: ./
       dockerfile: buswatcher/docker/Dockerfile.conda
-
     command: /opt/conda/envs/buswatcher/bin/gunicorn www:app -w 4 -b 0.0.0.0:8000
     restart: always
     volumes:
         - ./buswatcher/:/buswatcher
         - static_volume:/buswatcher/static
-    #    - buswatcher_config:/buswatcher/config # todo re-enable this now that the path is corrected
+#        - buswatcher_config:/buswatcher/config
     expose:
       - 8000
     environment:
@@ -82,7 +49,7 @@ services:
       - SQL_USER=buswatcher
       - SQL_PASSWORD=njtransit
       - SQL_HOST=db
-      - SQL_PORT=5432
+      - SQL_PORT=3306 # - SQL_PORT=5432 # original
     depends_on:
       - db
   nginx:
@@ -94,7 +61,16 @@ services:
       - 80:80
       - 443:443
     depends_on:
-      - flask_gunicorn
+      - www
+  generator:
+    build:
+      context: ./
+      dockerfile: ./generator/docker/Dockerfile.conda
+    restart: always
+#    volumes:
+#      - buswatcher_config:/buswatcher/buswatcher/config
+    depends_on:
+      - db
   dns_updater:
     restart: always
     build:
@@ -103,4 +79,4 @@ services:
 volumes:
   database_volume:
   static_volume:
-  # buswatcher_config:
+#  buswatcher_config:

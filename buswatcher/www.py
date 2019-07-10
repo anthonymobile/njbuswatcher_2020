@@ -1,3 +1,5 @@
+#todo audit for closing db connections properly
+
 # bus buswatcher v2.0
 # june 2019 - by anthony@bitsandatoms.net
 
