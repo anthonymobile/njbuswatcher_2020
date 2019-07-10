@@ -24,6 +24,6 @@ COPY . ./buswatcher
 # copy the proper database config over for docker deployment (uses the docker server url 'db')
 COPY ./buswatcher/docker/DBconfig.py ./buswatcher/buswatcher/lib/DBconfig.py
 
-# use one or the other
+# default is to watch entire state, add --collections to limit
 
-CMD ["/opt/conda/envs/buswatcher/bin/python", "/buswatcher/buswatcher/tripwatcher.py","--statewide"]
+CMD ["/opt/conda/envs/buswatcher/bin/python", "/buswatcher/buswatcher/tripwatcher.py"]
