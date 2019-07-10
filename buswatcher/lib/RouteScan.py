@@ -12,26 +12,25 @@ from shapely.geometry import Point
 
 from .DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
 from . import NJTransitAPI
-from .TransitSystem import load_system_map
+# from .TransitSystem import load_system_map
 
 
 class RouteScan:
 
-    def __init__(self, system_map, route, statewide):
+    def __init__(self, system_map, route, collections_only):
 
         # apply passed parameters to instance
         self.route = route
-        self.statewide = statewide
+        self.collections_only = collections_only
 
         #  populate route basics from config
-        # system_map=load_system_map() # future if pickle persistence problems, uncomment to make RouteScan reload the system_map_pickle for every route
 
-        if self.statewide is True:
+        if self.collections_only is False:
             self.routes_map_xml=dict()
             for r in system_map.route_descriptions['routedata']:
                 self.routes_map_xml[r['route']] = system_map.get_single_route_xml(r['route'])
 
-        elif self.statewide is False:
+        elif self.collections_only is not True:
             try:
                 self.route_map_xml=system_map.get_single_route_xml(self.route)
             except:
@@ -55,11 +54,11 @@ class RouteScan:
     def fetch_positions(self):
 
         try:
-            if self.statewide is False:
+            if self.collections_only is True:
                 self.buses = NJTransitAPI.parse_xml_getBusesForRoute(NJTransitAPI.get_xml_data('nj', 'buses_for_route', route=self.route))
                 self.clean_buses()
 
-            elif self.statewide is True:
+            elif self.collections_only is not True:
 
                 self.buses = NJTransitAPI.parse_xml_getBusesForRouteAll(NJTransitAPI.get_xml_data('nj', 'all_buses'))
                 route_count = len(list(set([v.rt for v in self.buses])))
@@ -112,7 +111,7 @@ class RouteScan:
 
                 try:
                     # LOCALIZE
-                    if self.statewide is False:
+                    if self.collections_only is True:
                         bus_positions = get_nearest_stop(system_map, self.buses, self.route)
                         for group in bus_positions:
                             for bus in group:
@@ -121,7 +120,7 @@ class RouteScan:
                         db.__relax__()  # disable foreign key checks before commit
                         db.session.commit()
 
-                    elif self.statewide is True:
+                    elif self.collections_only is not True:
                         statewide_route_list = sorted(list(set([bus.rt for bus in self.buses])))  # find all the routes unique
                         for r in statewide_route_list: # loop over each route
 
