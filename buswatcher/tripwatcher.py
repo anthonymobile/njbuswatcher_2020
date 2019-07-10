@@ -24,7 +24,7 @@ def main_loop(system_map):
                 except:
                     pass
     elif args.collections_only is False:
-        RouteScan(system_map, 0, args.statewide)
+        RouteScan(system_map, 0, args.collections_only)
     return
 
 if __name__ == "__main__":

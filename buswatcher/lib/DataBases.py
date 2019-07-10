@@ -33,7 +33,7 @@ class SQLAlchemyDBConnection(object):
             try:
                 Base.metadata.create_all(bind=engine)
             except OperationalError:
-                print ('Cant connect to db, waiting 5s then retrying...')
+                print ('lib.DataBases Cant connect to db, waiting 5s then retrying...')
                 time.sleep(5)
                 continue
             break

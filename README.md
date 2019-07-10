@@ -1,34 +1,20 @@
 # NJ BusWatcher
-**26 june 2019**
+**2019 july 10**
 
+# todos debugging
 
-### Overview
+### main scripts
+- test tripwatcher and verify db
+- test www and verify views
+- test generator and verify reports
 
-Buswatcher is a Python web app to collect bus position and stop arrival prediction data from several API endpoints maintained by NJTransit (via vendor Clever Devices), synthesize and summarize this information, and present to riders in a number of useful ways via a simple, interactive web application. Its implemented in Python using flask, pandas, and geopandas.
+### docker-compose
+- make sure we are using the same mysql version on both local (8) and docker-compose (?)
+- export a new, clean enviroment.yml for /buswatcher/buswatcher/docker
+```conda env export -n buswatcher > environment.yml```
+- do we need to tell the db mysql container that we are using native password auth for `buswatcher` user on buses (see [this HOWTO](https://medium.com/@crmcmullen/how-to-run-mysql-8-0-with-native-password-authentication-502de5bac661) for mysql8/docker/native auth )
 
-
-### Components
-
-- **tripwatcher.py**. Fetches bus current locations for a route from the NJT API, creates a `Trip` instance for each, and populates it with `ScheduledStop` instances for each stop on the service its running, and a `BusPosition` instance for each observed position.
-- **generator.py**. A cron-type daemon that does a bunch of batch jobs around the clock to manage the database load.
-- **buswatcher.py** The flask app for routing incoming requests.
-- **/lib** Core classes.
-    - **DataBases.py**
-        - *`Trip` Class*. The basis for all route performance metrics are Trips, represented in buswatcher by the `Trip` class. `Trip` instances are created by `tripwatcher.py` as needed to hold `BusPosition` instances (`BusPosition` is an inner class of `Trip`. `TripDB` instances handle writing to the database.
-  
-
-### Deployment
-
-It's all dockerized now. Use `docker-compose` and build from the project root.
-
-1. create shared data volume for /buswatcher/buswatcher/config [howto](https://www.digitalocean.com/community/tutorials/how-to-share-data-between-docker-containers). not yet possible to do this at build time?
-1. Deploy docker (see debugging crashing docker containers below)
-2. (FIXED BY STEP 1? Run generator --testmode --tasks minutely quarter_hourly hourly daily
-Seed the reports folder. Otherwise things will probably break for up to 24 hours.)
-3. Copy Gandi DNS API key in dns_updater gandi_config.py
-4. Deploy a backup scheme for the database.
-
-#### Debugging Crashing Docker Containers
+### debugging crashing docker containers
 
 Shell on running container
 
@@ -46,9 +32,9 @@ Have a failing entrypoint instead? There’s an entrypoint override command-line
 
 
 
-#### Manual MySQL Database Creation
+### manual mysql db setup (w/o docker)
 
-(for testing)
+(for local testing)
 
 ```
 sudo mysql -u root -p
@@ -68,6 +54,35 @@ Query OK, 0 rows affected (0.00 sec)
 mysql> flush privileges;
 Query OK, 0 rows affected (0.00 sec)
 ```
+
+
+------
+## Overview
+
+Buswatcher is a Python web app to collect bus position and stop arrival prediction data from several API endpoints maintained by NJTransit (via vendor Clever Devices), synthesize and summarize this information, and present to riders in a number of useful ways via a simple, interactive web application. Its implemented in Python using flask, pandas, and geopandas.
+
+
+
+## Components
+
+- **tripwatcher.py**. Fetches bus current locations for a route from the NJT API, creates a `Trip` instance for each, and populates it with `ScheduledStop` instances for each stop on the service its running, and a `BusPosition` instance for each observed position.
+- **generator.py**. A cron-type daemon that does a bunch of batch jobs around the clock to manage the database load.
+- **buswatcher.py** The flask app for routing incoming requests.
+- **/lib** Core classes.
+    - **DataBases.py**
+        - *`Trip` Class*. The basis for all route performance metrics are Trips, represented in buswatcher by the `Trip` class. `Trip` instances are created by `tripwatcher.py` as needed to hold `BusPosition` instances (`BusPosition` is an inner class of `Trip`. `TripDB` instances handle writing to the database.
+  
+
+## Deployment
+
+It's all dockerized now. Use `docker-compose` and build from the project root.
+
+1. create shared data volume for /buswatcher/buswatcher/config [howto](https://www.digitalocean.com/community/tutorials/how-to-share-data-between-docker-containers). not yet possible to do this at build time?
+1. Deploy docker (see debugging crashing docker containers below)
+2. (FIXED BY STEP 1? Run generator --testmode --tasks minutely quarter_hourly hourly daily
+Seed the reports folder. Otherwise things will probably break for up to 24 hours.)
+3. Copy Gandi DNS API key in dns_updater gandi_config.py
+4. Deploy a backup scheme for the database.
 
 
 ### Version 2
