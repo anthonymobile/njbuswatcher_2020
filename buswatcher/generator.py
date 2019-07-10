@@ -1,4 +1,4 @@
-# generator.py
+# generator.py#todo audit for closing db connections properly
 #
 # description:
 # does hourly, daily RouteReport,StopReport generation to db or json so they don't run on page loads

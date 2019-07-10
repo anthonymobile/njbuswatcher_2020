@@ -1,3 +1,5 @@
+#todo audit for closing db connections properly
+
 # future graceful fall back to collections only if time to run main_loop is  > 1 min?
 #
 # usage:

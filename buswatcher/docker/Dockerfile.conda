@@ -23,6 +23,9 @@ WORKDIR /
 RUN mkdir buswatcher
 COPY . ./buswatcher
 
+# todo figure out how to make this work
+# COPY ./buswatcher/config/ /buswatcher/buswatcher/config # copy the config content over to a volume for everyone to use
+
 # copy the proper database config over for docker deployment (replaces the development version)
 COPY ./buswatcher/docker/DBconfig.py ./buswatcher/buswatcher/lib/DBconfig.py
 
