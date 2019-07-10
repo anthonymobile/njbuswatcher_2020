@@ -21,7 +21,6 @@ WORKDIR /
 RUN mkdir buswatcher
 COPY . ./buswatcher
 
-
 # copy the proper database config over for docker deployment (uses the docker server url 'db')
 COPY ./buswatcher/docker/DBconfig.py ./buswatcher/buswatcher/lib/DBconfig.py
 
