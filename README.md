@@ -74,8 +74,8 @@ Buswatcher is a Python web app to collect bus position and stop arrival predicti
     sudo apt-get update
     sudo apt-get upgrade
     ```
-    likely only be a few updates.
-4. configure ufw
+
+4. install and configure ufw
     ```bash
     sudo ufw allow ssh
     sudo ufw enable
@@ -111,33 +111,30 @@ Buswatcher is a Python web app to collect bus position and stop arrival predicti
     ```bash
     sudo mysql_secure_installation
     ```
-    basically you want to answer yes to all the questions. pick the level of password annoyance you want to deal with. you'll have to hard code the buswatcher database password later so its up to you.
+    basically you want to answer no to the first (validate password plugin), and yes to the rest of the questions. pick the level of password annoyance you want to deal with. you'll have to hard code the buswatcher database password later so its up to you.
 
 8. create the database user, with native_password auth otherwise python problems
     ```bash
     sudo mysql -u root -p
     mysql> CREATE USER 'buswatcher'@'localhost' IDENTIFIED BY 'njtransit';
-    Query OK, 0 rows affected (0.00 sec)
     
     mysql> GRANT ALL PRIVILEGES ON buses . * TO 'buswatcher'@'localhost';
-    Query OK, 0 rows affected (0.00 sec)
     
     mysql> ALTER USER 'buswatcher'@'localhost' IDENTIFIED WITH mysql_native_password BY 'njtransit';
-    Query OK, 0 rows affected (0.00 sec)
+    
+    mysql> CREATE DATABASE buses;
     
     mysql> flush privileges;
-    Query OK, 0 rows affected (0.00 sec)
     
     mysql> exit
     ```
-    while the `buses` database doesn't exist yet, this will set things up so there's no problems when the buswatcher scripts do instantiate it later.
-    
+   
 9. install conda
     ```bash
     cd ~
     mkdir tmp; cd tmp
-    wget https://repo.anaconda.com/~~~~fill in yourself~~~~
-    bash ./Anaconda3~~~~fill in yourself~~~~
+    wget https://repo.anaconda.com/archive/Anaconda3-2019.03-Linux-x86_64.sh
+    bash ./Anaconda3-2019.03-Linux-x86_64.sh
     ```
 
 10. clone the buswatcher repo
@@ -164,13 +161,44 @@ Buswatcher is a Python web app to collect bus position and stop arrival predicti
 
 #### frontend
 
-this follows the instructions [here](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xvii-deployment-on-linux) 
 
 11. get the linux software
 
     ```bash
     sudo apt-get install supervisor nginx 
     ```
+
+12. install the front end config files
+
+    ```bash ./install_front_end.sh
+    ```    
+    (for full manual install, see instructions at end of this file )
+
+13. install netdata (optional)
+    use the DigitalOcean [tutorial](https://www.digitalocean.com/community/tutorials/how-to-set-up-real-time-performance-monitoring-with-netdata-on-ubuntu-16-04)
+
+16. dns_updater -- copy your API key to config.py and setup a cron job
+
+```bash
+*/5 * * * * /home/ubuntu/buswatcher/dns_updater/gandi-live-dns.py >/dev/null 2>&1
+
+```
+
+16. in the future, as the code base changes, updating your app is as easy as 1-2-3...4
+
+    ```bash
+    cd ~/buswatcher
+    git pull
+    sudo supervisorctl stop www tripwatcher generator
+    sudo supervisorctl start www tripwatcher generator
+    ```
+    
+#### manual front end install
+
+
+this follows the instructions [here](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xvii-deployment-on-linux) 
+
+
 12. configure supervisor to run the www.py flask app
 
     ```bash
@@ -241,36 +269,28 @@ this follows the instructions [here](https://blog.miguelgrinberg.com/post/the-fl
     ```
     with the following
     ```bash
-    server {
-        # listen on port 80 (http)
-        listen 80;
-        server_name www;
-    
-        location / {
-            # forward application requests to the gunicorn server
-            proxy_pass http://localhost:8000;
-            proxy_redirect off;
-            proxy_set_header Host $host;
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        }
-    
-        location /static {
-            # handle static files directly, without forwarding to the application
-            alias /home/ubuntu/buswatcher/buswatcher/static;
-            expires 30d;
-        }
+server {
+    # listen on port 80 (http)
+    listen 80;
+    server_name www;
 
-    }   
+    location / {
+        # forward application requests to the gunicorn server
+        proxy_pass http://localhost:8000;
+        proxy_redirect off;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+
+    location /static {
+        # handle static files directly, without forwarding to the application
+        alias /home/ubuntu/buswatcher/buswatcher/static;
+        expires 30d;
+    }
+
+}   
     ```
 
     then `sudo systemctl reload nginx` and open the firewall `sudo ufw allow 'Nginx HTTP'` and you should be good to go. 
 
-16. in the future, as the code base changes, updating your app is as easy as 1-2-3...4
-
-    ```bash
-    cd ~/buswatcher
-    git pull
-    sudo supervisorctl stop www tripwatcher generator
-    sudo supervisorctl start www tripwatcher generator
-    ```

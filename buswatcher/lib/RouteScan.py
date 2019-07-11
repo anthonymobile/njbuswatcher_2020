@@ -307,13 +307,13 @@ class RouteScan:
 
             return
 
-    def interpolate_missed_stops(self):
+    def interpolate_missed_stops(self): # todo 000 number one priority
 
         # INTERPOLATE ARRIVALS AT MISSED STOPS
         # to do 2 add Interpolate+log missed stops
         # interpolates arrival times for any stops in between arrivals in the trip card
         # theoretically there shouldn't be a lot though if the trip card is correct
-        # since we are grabbing positions every 30 seconds.)
+        # since we are grabbing positions every 60 seconds.)
 
         return
 

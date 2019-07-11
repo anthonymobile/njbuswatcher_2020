@@ -1,3 +1,4 @@
+# bug 000 fill in all short_descriptions in collection_definitions.json
 # future graceful fall back to collections only if time to run main_loop is  > 1 min?
 #
 # usage:
