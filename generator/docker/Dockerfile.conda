@@ -24,6 +24,4 @@ COPY . ./buswatcher
 # copy the proper database config over for docker deployment (uses the docker server url 'db')
 COPY ./buswatcher/docker/DBconfig.py ./buswatcher/buswatcher/lib/DBconfig.py
 
-
-
 CMD ["/opt/conda/envs/buswatcher/bin/python", "/buswatcher/buswatcher/generator.py","--production"]

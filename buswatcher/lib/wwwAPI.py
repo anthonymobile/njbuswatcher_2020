@@ -40,6 +40,9 @@ class RouteReport(GenericReport):
         self.period = period
         self.period_descriptions = system_map.period_descriptions
 
+        # create database connection
+        self.db = SQLAlchemyDBConnection()
+
         # load static stuff
         self.period_args = system_map.period_descriptions[self.period]
 
@@ -93,7 +96,7 @@ class RouteReport(GenericReport):
     def get_tripdash(self):
         # gets all arrivals (see limit) for all runs on current route
 
-        with SQLAlchemyDBConnection() as db:
+        with self.db as db:
 
             trip_list, x = self.get_current_trips()
 
@@ -125,10 +128,6 @@ class RouteReport(GenericReport):
 
         return tripdash
 
-    # def get_bunching_report(self):
-    #     full_report=self.retrieve_json('bunching')
-    #     bunching_badboys=full_report['bunching_leaderboard'][10:] # only take the top 10 of the bunching_leaderboard
-    #     return bunching_badboys
 
     def retrieve_json(self, type):
         file_prefix = Path(os.getcwd() + "/config/reports/")
@@ -175,6 +174,9 @@ class StopReport(GenericReport):
         self.period = period
         self.period_descriptions = system_map.period_descriptions
 
+        # create database connection
+        self.db = SQLAlchemyDBConnection()
+
         # constants
         self.bunching_interval = datetime.timedelta(minutes=3)
         self.bigbang = datetime.timedelta(seconds=0)
@@ -187,7 +189,7 @@ class StopReport(GenericReport):
 
 
     def get_arrivals_here_this_route(self):
-        with SQLAlchemyDBConnection() as db:
+        with self.db as db:
 
             # build query and load into df
             query=db.session.query(Trip.rt, # base query
@@ -215,7 +217,7 @@ class StopReport(GenericReport):
                 return self.return_dummy_arrivals_df()
 
     def get_arrivals_here_all_others(self):
-        with SQLAlchemyDBConnection() as db:
+        with self.db as db:
             query = db.session.query(Trip.rt,  # base query
                                      Trip.v,
                                      Trip.pd,

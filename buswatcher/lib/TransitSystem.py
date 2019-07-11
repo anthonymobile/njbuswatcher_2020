@@ -7,9 +7,10 @@ import os
 import sys
 import time
 
-from . import NJTransitAPI, DataBases, Generators
+from . import NJTransitAPI, Generators
 from .wwwAPI import RouteReport
 from .CommonTools import get_config_path
+from .DataBases import SQLAlchemyDBConnection, ScheduledStop
 
 class SystemMap:
 
@@ -33,6 +34,9 @@ class SystemMap:
         self.route_geometries = self.get_route_geometries()
         self.routelist = self.get_routelist()
         self.grade_roster = self.get_grade_roster()
+
+        # create database connection
+        self.db = SQLAlchemyDBConnection() # bug will this hold this open the whole time?
 
 
     # def watch_system_map_pickle(self):
@@ -133,12 +137,12 @@ class SystemMap:
             # if we only want a single stop geojson
             if 'stop_id' in args.keys():
                 # query the db and grab the lat lon for the first record that stop_id matches this one
-                with DataBases.SQLAlchemyDBConnection() as db:
+                with self.db as db:
                     stop_query = db.session.query(
-                        DataBases.ScheduledStop.stop_id,
-                        DataBases.ScheduledStop.lat,
-                        DataBases.ScheduledStop.lon) \
-                        .filter(DataBases.ScheduledStop.stop_id == args['stop_id']) \
+                        ScheduledStop.stop_id,
+                        ScheduledStop.lat,
+                        ScheduledStop.lon) \
+                        .filter(ScheduledStop.stop_id == args['stop_id']) \
                         .first()
                     # format for geojson
                     stop_point = geojson.Point((float(stop_query[2]), float(stop_query[1])))

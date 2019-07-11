@@ -1,5 +1,3 @@
-#todo audit for closing db connections properly
-
 # future graceful fall back to collections only if time to run main_loop is  > 1 min?
 #
 # usage:
@@ -18,26 +16,26 @@ from lib.CommonTools import timeit
 @timeit
 def main_loop(system_map):
 
-    if args.statewide is False:
+    if args.collections_only is True:
         for collection,collection_description in system_map.collection_descriptions.items():
             for r in collection_description['routelist']:
                 try:
                     RouteScan(system_map, r, args.statewide)
                 except:
                     pass
-    elif args.statewide is True:
-        RouteScan(system_map, 0, args.statewide)
+    elif args.collections_only is False:
+        RouteScan(system_map, 0, args.collections_only)
     return
 
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('-s', '--statewide', dest='statewide', action='store_true', help='Watch all active routes in NJ. (requires lots of CPU).')
+    parser.add_argument('-c', '--collections', dest='collections_only', action='store_true', help='Watch only defined collections, not all NJ routes.')
     args = parser.parse_args()
 
-    if args.statewide is False:
+    if args.collections_only is True:
         print('running in collections mode (watch all routes in all collections)')
-    elif args.statewide is True:
+    elif args.collections_only is False:
         print('running in statewide mode (watch all routes in NJ)')
 
     run_frequency = 60 # seconds
