@@ -102,7 +102,11 @@ class RouteScan:
                     print("couldn't find route in route_descriptions.json, please add it. route " + str(bus.rt)) # future automatically add unknown routes to route_descriptions.json
 
                 db.__relax__()  # disable foreign key checks before...
-                db.session.commit()  # we save the position_log.
+                try:
+                    db.session.commit()  # we save the position_log. 
+                except IntegrityError:
+                    print ('another integrity error writing these arrivals to the db')
+                    db.session.rollback()
             return
 
     def localize_positions(self,system_map):
