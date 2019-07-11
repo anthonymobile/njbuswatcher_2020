@@ -36,7 +36,7 @@ class SystemMap:
         self.grade_roster = self.get_grade_roster()
 
         # create database connection
-        self.db = SQLAlchemyDBConnection() # bug will this hold this open the whole time?
+        self.db = SQLAlchemyDBConnection()
 
 
     # def watch_system_map_pickle(self):
