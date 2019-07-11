@@ -37,6 +37,20 @@ if you want to use this as an advocacy tool it may be useful to expose a ranking
 
 {% endblock %}
 
+{% block sticky_nav %} {# todo remove alpha warning banner #}
+
+<nav class="navbar navbar-expand-sm sticky-top navbar-light bg-white">
+    <div class="container">
+        <div class="collapse navbar-collapse" id="navbar1">
+            <h4 class="mb-4">
+                <strong>This site is currently in a pre-launch alpha test. Please report bugs to <a href=https://twitter.com/njbuswatcher">@njbuswatcher</a>.</strong>
+            </h4>
+        </div>
+    </div>
+</nav>
+
+{% endblock %}
+
 
 {% block content_main %}
 
@@ -57,9 +71,6 @@ if you want to use this as an advocacy tool it may be useful to expose a ranking
                             <h4 class="mb-4">
                                 <strong>We're tracking {{  vehicle_count }} buses serving {{  route_count }} routes across the state, right now.</strong>
                             </h4>
-                            <h4 class="mb-4">
-                                <strong>This site is in a limited alpha test phase. <mark>It may go down, back up, or break without notice.</mark> Official launch later in summer 2019.</strong>
-                            If this page shows 0 buses, reload. We're working on that issue.</h4>
                             <p class="mb-4 text-left">
                                 <strong>Residents and businesses depend on NJTransit buses every day. But its hard to evaluate the quality of bus service.</strong>
                             </p>
