@@ -103,7 +103,7 @@ class RouteScan:
 
                 db.__relax__()  # disable foreign key checks before...
                 try:
-                    db.session.commit()  # we save the position_log. 
+                    db.session.commit()  # we save the position_log.
                 except IntegrityError:
                     print ('another integrity error writing these arrivals to the db')
                     db.session.rollback()
