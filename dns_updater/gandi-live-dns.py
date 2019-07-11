@@ -62,7 +62,7 @@ def get_dnsip(uuid):
         return json_object['rrset_values'][0]
     else:
         print('Error: HTTP Status Code ', u.status_code, 'when trying to get IP from subdomain', config.subdomains[0])
-        print(json_object['message'])
+        # print(json_object['message'])
         exit()
 
 def update_records(uuid, dynIP, subdomain):
@@ -86,7 +86,7 @@ def update_records(uuid, dynIP, subdomain):
         return True
     else:
         print('Error: HTTP Status Code ', u.status_code, 'when trying to update IP from subdomain', subdomain)   
-        print(json_object['message'])
+        # print(json_object['message'])
         exit()
 
 
@@ -121,12 +121,14 @@ if __name__ == "__main__":
     parser.add_argument('-v', '--verbose', help="increase output verbosity", action="store_true")
     parser.add_argument('-f', '--force', help="force an update/create", action="store_true")
     args = parser.parse_args()
-        
-        
-    while True:
-        time.sleep(3600) # sleep an hour (dockerized version)
-        main(args.force, args.verbose)
 
+    # # bug infinite loop here for dockerized version
+    # while True:
+    #     # time.sleep(3600) # sleep an hour (dockerized version)
+    #     main(args.force, args.verbose)
+
+    # manual version
+    main(args.force, args.verbose)
 
 
 
