@@ -121,12 +121,14 @@ if __name__ == "__main__":
     parser.add_argument('-v', '--verbose', help="increase output verbosity", action="store_true")
     parser.add_argument('-f', '--force', help="force an update/create", action="store_true")
     args = parser.parse_args()
-        
-        
-    while True:
-        # time.sleep(3600) # sleep an hour (dockerized version)
-        main(args.force, args.verbose)
 
+    # # bug infinite loop here for dockerized version
+    # while True:
+    #     # time.sleep(3600) # sleep an hour (dockerized version)
+    #     main(args.force, args.verbose)
+
+    # manual version
+    main(args.force, args.verbose)
 
 
 
