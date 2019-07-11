@@ -12,7 +12,7 @@ dependencies:
   - gunicorn
   - jinja2
   - numpy
-  - pandas # bug for some reason, this doesn't actually get installed on OSX and needs to be isntalled manually after the build
+  - pandas # todo for some reason, this doesn't actually get installed on OSX and needs to be isntalled manually after the build
   - pip
   - pymysql
   - pyquery
