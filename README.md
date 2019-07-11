@@ -156,11 +156,11 @@ Buswatcher is a Python web app to collect bus position and stop arrival predicti
     ```bash
     conda update -n base conda
     cd buswatcher/docker
-    conda create --name buswatcher -f environment.yml
-    source activate buswatcher
+    conda env create -f environment.yml
+    conda activate buswatcher
     ```
 
-    n.b. bug for some reason, in this process pandas doesn't get installed on OSX and needs to be isntalled manually after the build
+    n.b. bug for some reason, in this process pandas doesn't get installed on OSX and needs to be installed manually after the build
 
 #### frontend
 
@@ -171,7 +171,6 @@ this follows the instructions [here](https://blog.miguelgrinberg.com/post/the-fl
     ```bash
     sudo apt-get install supervisor nginx 
     ```
-
 12. configure supervisor to run the www.py flask app
 
     ```bash
@@ -180,7 +179,7 @@ this follows the instructions [here](https://blog.miguelgrinberg.com/post/the-fl
 
     and paste the following text in
     ```bash
-    [program:reportcard]
+    [program:www]
     command=/home/ubuntu/anaconda3/envs/buswatcher/bin/gunicorn -b localhost:8000 -w 4 www:app
     directory=/home/ubuntu/buswatcher/buswatcher
     user=ubuntu
@@ -189,14 +188,46 @@ this follows the instructions [here](https://blog.miguelgrinberg.com/post/the-fl
     stopasgroup=true
     killasgroup=true
     ```
-    then `sudo supervisorctl reload`
     
+13. and the tripwatcher.py app
 
-13. TK configure supervisor to run the tripwatcher.py app
+    ```bash
+    sudo nano /etc/supervisor/conf.d/tripwatcher.conf
+    ```
+    contents
 
-14. TK configure supervisor to run the buswatcher.py app
+    ```bash
+    [program:tripwatcher]
+    command=/home/ubuntu/anaconda3/envs/buswatcher/bin/python tripwatcher.py
+    directory=/home/ubuntu/buswatcher/buswatcher
+    user=ubuntu
+    autostart=true
+    autorestart=true
+    stopasgroup=true
+    killasgroup=true
+    ```
 
-    
+13. and the generator.py app
+
+    ```bash
+    sudo nano /etc/supervisor/conf.d/generator.conf
+    ```
+    contents
+
+    ```bash
+    [program:generator]
+    command=/home/ubuntu/anaconda3/envs/buswatcher/bin/python generator.py --production
+    directory=/home/ubuntu/buswatcher/buswatcher
+    user=ubuntu
+    autostart=true
+    autorestart=true
+    stopasgroup=true
+    killasgroup=true
+    ```
+
+15. reload supervisor
+    `sudo supervisorctl reload`
+
 15. config nginx as proxy server. you gotta keep the Russians away from gunicorn. unicorns are pretty.
 
     remove the default config
@@ -233,46 +264,13 @@ this follows the instructions [here](https://blog.miguelgrinberg.com/post/the-fl
     }   
     ```
 
-    then `sudo service nginx reload` and open the firewall `sudo ufw allow 'Nginx HTTP'` and you should be good to go. 
+    then `sudo systemctl reload nginx` and open the firewall `sudo ufw allow 'Nginx HTTP'` and you should be good to go. 
 
+16. in the future, as the code base changes, updating your app is as easy as 1-2-3...4
 
-
-16. updating your app is as easy as 1-2-3...4
-
-```bash
-cd ~/buswatcher
-git pull
-sudo supervisorctl stop www
-sudo supervisorctl stop tripwatcher
-sudo supervisorctl stop generator
-sudo supervisorctl start www
-sudo supervisorctl start tripwatcher
-sudo supervisorctl start generator
-```
-
-
-
-
-
-### manual mysql db setup (w/o docker)
-
-(for local testing)
-
-```
-sudo mysql -u root -p
-
-mysql> CREATE database buses;
-Query OK, 1 row affected (0.00 sec)
-
-mysql> CREATE USER 'buswatcher'@'localhost' IDENTIFIED BY 'njtransit';
-Query OK, 0 rows affected (0.00 sec)
-
-mysql> GRANT ALL PRIVILEGES ON buses . * TO 'buswatcher'@'localhost';
-Query OK, 0 rows affected (0.00 sec)
-
-mysql> ALTER USER 'buswatcher'@'localhost' IDENTIFIED WITH mysql_native_password BY 'njtransit';
-Query OK, 0 rows affected (0.00 sec)
-
-mysql> flush privileges;
-Query OK, 0 rows affected (0.00 sec)
-```
+    ```bash
+    cd ~/buswatcher
+    git pull
+    sudo supervisorctl stop www tripwatcher generator
+    sudo supervisorctl start www tripwatcher generator
+    ```
