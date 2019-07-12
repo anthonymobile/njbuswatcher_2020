@@ -60,20 +60,43 @@
     <main class="mt-2 pt-5">
         <div class="container">
 
+            <!--GRADE BANNER START -->
 
             <!--ROW 1-->
-                <div class="row mb-4 wow fadeIn">
-                    <!--BANNER START-->
-                    <div class="col-lg-12 col-md-12 mb-4 ">
-                        <h1 class="mb-4">There are {{ routereport.active_bus_count }} buses operating on the {{routereport.route}} {{routereport.prettyname}} right now.</h1>
-                    </div>
-                    <!--BANNER END-->
+            {% if (routereport.grade_report['grade']=='A' or routereport.grade_report['grade']=='B') %}
+            <div class="row mb-4 wow fadeIn table-success">
+
+            {% elif routereport.grade_report['grade']=='C' %}
+            <div class="row mb-4 wow fadeIn table-warning">
+
+            {% elif (routereport.grade_report['grade']=='D' or routereport.grade_report['grade']=='F') %}
+            <div class="row mb-4 wow fadeIn table-danger">
+
+            {%  else %}
+            <div class="row mb-4 wow fadeIn table-secondary">
+
+            {%  endif %}
+
+
+                <div class="col-lg-8 col-md-8 my-4">
+                    <h1 class="my-4">
+                        {{ routereport.period_descriptions[period]['narrative_label'] |capitalize}} on the {{routereport.route}} {{routereport.prettyname}}, {{routereport.grade_report['grade_description'][0]}}
+                    </h1>
                 </div>
 
+                <div class="col-lg-4 col-md-8 my-4"> {#  bug center grade text vert and horiz #}
+                    <h1 class="my-4">
+                        {{ routereport.grade_report['grade'] }}
+                    </h1>
+                </div>
 
-            <!--ROW 2-->
+            <!--GRADE BANNER END -->
+            </div>
+
+
+         <!--ROW 2-->
                 <div class="row mb-4 wow fadeIn">
-                    <!--ABOUT BLOCK START -->
+             {#          <!--ABOUT BLOCK START -->
                     <div class="col-lg-8 col-md-12 mb-4">
                         <h3 class="card-subtitle mb-2 ">This report card summarizes how well the {{ route }} is doing {{ routereport.period_descriptions[period]['label'] }}.</h3>
                         <mark>Click on any stop name for a detailed report </mark> on service at that stop.
@@ -91,31 +114,96 @@
                         <div class="card-body table-warning">
                         {% elif (routereport.grade_report['grade']=='D' or routereport.grade_report['grade']=='F') %}
                         <div class="card-body table-danger">
-{#                        {% elif (routereport.grade_report['grade']=='N/A') %}
-                        <div class="card-body table-secondary">#}
+#}{#                        {% elif (routereport.grade_report['grade']=='N/A') %}
+                        <div class="card-body table-secondary">#}{#
                         {%  else  %}
                         <div class="card-body table-secondary">
                         {% endif %}
                             <div class="row mb-4 wow fadeIn">
-                                <div class="col-lg-2 col-md-12 mb-4 ">
-                                    <h1 class="card-subtitle mb-2">{{routereport.grade_report['grade']}}</h1>
-                                </div>
-                                 <div class="col-lg-10 col-md-12 mb-4">
-                                     <p class="card-text">{{ routereport.period_descriptions[period]['narrative_label'] |capitalize}} {{routereport.grade_report['grade_description'][0]}}</p>
-                                       </div>
+
                             </div>
 
                         </div>
 
                     </div>
-                    <!--GRADE BLOCK END -->
-                </div>
+
+                </div>#}
 
 
             <!--ROW 3-->
                 <div class="row mb-4 wow fadeIn">
-                    <!--BUNCHING BLOCK START -->
+
+                 {# new ARRIVALS BLOCK #}
+                    <!--RECENT ARRIVALS BLOCK START -->
                     <div class="col-lg-8 col-md-12 mb-4">
+                        <h4 class="card-subtitle mb-2 ">Where are {{ route }} buses right now?</h4>
+                        <p class="card-text">The last arrival for each bus currently in service are listed below. As some buses may be waiting at depots, not all buses are shown. Click on any stop name for a detailed report on service at that stop.</p>
+                        <div class="row mb-4 wow fadeIn">
+
+                            <div class="col-lg-12 col-md-12 mb-4">
+                                <table class="table table-sm table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>bus</th>
+                                            <th>last stop</th>
+                                            <th>time</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                            {% for trip_id,trip_dict in routereport.tripdash.items() %}
+                                {%  if trip_dict.stoplist|length > 0 %}
+
+
+                                        <tr>
+                                            <th>
+                                                <a href = "{{url_for('genTripReport',collection_url=collection_url, route=routereport.route, trip_id=trip_id)}}">
+                                                    {{ trip_dict['stoplist'][0]['v'] }}
+                                                </a>
+                                            </th>
+
+                                            <th>
+                                                <a href = "{{url_for('genTripReport',collection_url=collection_url, route=routereport.route, trip_id=trip_id)}}">
+                                                    {{ trip_dict['stoplist'][0]['stop_name'] }}
+                                                </a>
+                                            </th>
+
+                                            <th>
+                                                <a href = "{{url_for('genTripReport',collection_url=collection_url, route=routereport.route, trip_id=trip_id)}}">
+                                                    {{ trip_dict['stoplist'][0]['arrival_timestamp']|strftime_period(period) }}
+                                                </a>
+                                            </th>
+                                        </tr>
+
+                                {%  endif %}
+                            {% endfor %}
+                                    </tbody>
+                                </table>
+                                <p class="small">
+                                    *TK some footnote to this table.
+                                </p>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <!--RECENT ARRIVALS BLOCK END -->
+
+                    <!--MAP BLOCK START -->
+                    <div class="col-lg-4 col-md-12 mb-4">
+                        <div id="map" class="container">
+                        </div>
+                    </div>
+                    <!--MAP BLOCK END -->
+                 </div>
+
+
+            <!--ROW 4-->
+                <div class="row mb-4 wow fadeIn">
+
+
+
+                    <!--BUNCHING BLOCK START -->
+                    <div class="col-lg-12 col-md-12 mb-4">
                         <h4 class="card-title">How Much Bunching Is Going On?</h4>
                         <h6 class="card-subtitle mb-2 ">Bunching is when a bus arrives less than 3 minutes after the previous bus.</h6>
                         <p class="card-text">In the {{routereport.period_descriptions[period]['descriptive_label'] }}, {{ '%0.1f' % routereport.grade_report['pct_bunched']|float }} percent of {{ routereport.bunching_report['cum_arrival_total'] }} observed arrivals at stops on the {{routereport.route}} were too close to the bus ahead..</p>
@@ -153,20 +241,8 @@
                     </div>
                     <!--BUNCHING BLOCK END -->
 
-                    <!--MAP BLOCK START -->
-                    <div class="col-lg-4 col-md-12 mb-4">
-                        <div id="map" class="container">
-                        </div>
-                    </div>
-                    <!--MAP BLOCK END -->
-                 </div>
 
-
-            <!--ROW 4-->
-                <div class="row mb-4 wow fadeIn">
-
-                    {#  bug 000 this isnt displaying the right trips. seems like its setting up cards based on vehicle # not trip_id #}
-                    {#
+                    {# old ARRIVALS BLOCK
                     <!--RECENT ARRIVALS BLOCK START -->
                     <div class="col-lg-12 col-md-12 mb-4">
                         <h4 class="card-subtitle mb-2 ">Recent arrivals along the {{ route }}.</h4>

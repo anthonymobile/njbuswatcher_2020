@@ -147,6 +147,23 @@ def genStopReport(collection_url, route, stop, period):
                            predictions=predictions,
                            routereport=route_report)
 
+
+@app.route('/<collection_url>/route/<route>/trip/<trip_id>')
+def genTripReport(collection_url, route, trip_id):
+    trip_report = wwwAPI.TripReport(system_map, route,trip_id)
+    route_report = wwwAPI.RouteReport(system_map, route, 'day') # todo find a better way to get the route metadata than instantiating a whole new RouteReport
+    return render_template('trip.jinja2',
+                           collection_url=collection_url,
+                           collection_descriptions=system_map.collection_descriptions,
+                           period_descriptions=system_map.period_descriptions,
+                           trip_id=trip_id,
+                           reportcard_routes=system_map.route_descriptions,
+                           routereport=route_report,
+                           trip_report=trip_report)
+
+
+
+
 @app.route('/about')
 def displayFAQ():
     routereport = Dummy() #  setup a dummy routereport for the navbar

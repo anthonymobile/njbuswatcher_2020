@@ -66,7 +66,7 @@ class RouteReport(GenericReport):
 
         # query dynamic stuff
         self.trip_list, self.trip_list_trip_id_only = self.get_current_trips()
-        self.tripdash = self.get_tripdash()
+        self.tripdash = self.get_tripdash() # future this can be deprecated as its not used by any views?
 
         # and compute summary statistics
         self.active_bus_count = len(self.trip_list_trip_id_only)
@@ -93,9 +93,11 @@ class RouteReport(GenericReport):
 
         return trip_list, trip_list_trip_id_only
 
-    def get_tripdash(self): # bug 0000 this isnt displaying correctly
-        # gets all arrivals (see limit) for all runs on current route
 
+
+    def get_tripdash(self): # future this can be deprecated as its not used by any views?
+        # gets most recent stop for all active vehicles on route
+        # can grab more by changing from .one() to .limit(10).all()
         with self.db as db:
 
             trip_list, x = self.get_current_trips()
@@ -110,13 +112,13 @@ class RouteReport(GenericReport):
                 #     .order_by(ScheduledStop.pkey.asc()) \
                 #     .all()
 
-                # load the trip card - limit 3
+                # load the trip card - limit 1
                 scheduled_stops = db.session.query(ScheduledStop) \
                     .join(Trip) \
                     .filter(Trip.trip_id == trip_id) \
                     .filter(ScheduledStop.arrival_timestamp != None) \
-                    .order_by(ScheduledStop.pkey.desc()) \
-                    .limit(3) \
+                    .order_by(ScheduledStop.arrival_timestamp.desc()) \
+                    .limit(1) \
                     .all()
 
                 trip_dict=dict()
@@ -302,3 +304,56 @@ class StopReport(GenericReport):
         return results
 
 
+class TripReport(GenericReport):
+    #################################################################################
+    # TRIP REPORT                                               TRIP REPORT
+    #################################################################################
+
+    def __init__(self, system_map, route, trip_id):
+        # apply passed parameters to instance
+        self.source = 'nj'
+        self.route = route
+        self.trip_id = trip_id
+
+        # create database connection
+        self.db = SQLAlchemyDBConnection()
+
+        # populate data for webpage
+        self.tripdash=self.get_tripdash()
+
+    def get_tripdash(self):
+        # gets most recent stop for all active vehicles on route
+        # can grab more by changing from .one() to .limit(10).all()
+        with self.db as db:
+
+            todays_date = datetime.datetime.today().strftime('%Y%m%d')
+            trip_metadata=()
+
+            # grab the latest list of buses active on this route from the NJT API
+            v_on_route = NJTransitAPI.parse_xml_getBusesForRoute(
+                NJTransitAPI.get_xml_data(self.source, 'buses_for_route', route=self.route))
+            # pluck ours out
+            for v in v_on_route:
+                trip_id = ('{a}_{b}_{c}').format(a=v.id, b=v.run, c=todays_date)
+                if trip_id == self.trip_id:
+                    trip_metadata = {'pd':v.pd,'bid':v.bid,'run':v.run}
+
+            # build the trip card
+            trip_dict=dict()
+            # all stops including missed ones
+            trip_dict['stoplist']= \
+                db.session.query(ScheduledStop) \
+                    .join(Trip) \
+                    .filter(Trip.trip_id == self.trip_id) \
+                    .order_by(ScheduledStop.arrival_timestamp.asc()) \
+                    .all()
+
+            trip_dict['pd'] = trip_metadata['pd']
+            trip_dict['v'] = trip_metadata['bid']
+            trip_dict['run'] = trip_metadata['run']
+
+            # and return
+            tripdash = dict()
+            tripdash[self.trip_id] = trip_dict
+
+        return tripdash
