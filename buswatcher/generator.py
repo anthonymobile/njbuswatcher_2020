@@ -1,5 +1,3 @@
-#todo audit for closing db connections properly
-
 # generator.py
 #
 # description:

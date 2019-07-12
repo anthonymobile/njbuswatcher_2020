@@ -23,7 +23,7 @@ WORKDIR /
 RUN mkdir buswatcher
 COPY . ./buswatcher
 
-# COPY ./buswatcher/config/ /buswatcher/buswatcher/config # todo copy the repo's contents into a shared volume that 3 containers use: generator, tripwatcher, www
+# COPY ./buswatcher/config/ /buswatcher/buswatcher/config # future copy the repo's contents into a shared volume that 3 containers use: generator, tripwatcher, www
 
 # copy the proper database config over for docker deployment (replaces the development version)
 COPY ./buswatcher/docker/DBconfig.py ./buswatcher/buswatcher/lib/DBconfig.py

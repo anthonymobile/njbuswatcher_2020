@@ -17,8 +17,7 @@ class Generator():
 
     def __init__(self):
         self.config_prefix = get_config_path()+"reports"
-        # self.db =  SQLAlchemyDBConnection() # todo future would be nice to inherit this but for now, each report will subsequently init its own self.db=SQLalchemyconnection()e
-
+        # self.db =  SQLAlchemyDBConnection() # todo this can re stored to inherit the database session from parent class
     def store_json(self, report_to_store): # filename format route_type_period
         filename = ('{a}/{b}_{c}_{d}.json').format(a=self.config_prefix,b=report_to_store['route'],c=report_to_store['type'],d=report_to_store['period'])
         with open(filename, 'w') as f:
@@ -184,7 +183,7 @@ class BunchingReport(Generator):
                         }
 
                 # make and dump the report -- the 10 stops with the most bunching incidents -- by route, by period
-                with self.db as db: # bug check how we are handling the db here, causing errors in docker
+                with self.db as db:
 
                     bigbang = datetime.timedelta(seconds=0)
                     bunching_interval = datetime.timedelta(minutes=3)

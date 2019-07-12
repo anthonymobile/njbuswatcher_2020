@@ -93,7 +93,7 @@ class RouteReport(GenericReport):
 
         return trip_list, trip_list_trip_id_only
 
-    def get_tripdash(self):
+    def get_tripdash(self): # bug 0000 this isnt displaying correctly
         # gets all arrivals (see limit) for all runs on current route
 
         with self.db as db:

@@ -111,7 +111,7 @@
                                             <td>{{row.v}}</td>
                                         </tr>
                                         {% else %}
-                                        <tr>
+                                        <tr class='table-success'>
                                             <td>{{row.arrival_timestamp|strftime_period(period)}}</td>
                                             <td>{{row.delta|strftime_timedelta}}</td>
                                             <td>{{row.v}}</td>
