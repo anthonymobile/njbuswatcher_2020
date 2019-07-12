@@ -165,6 +165,8 @@
             <!--ROW 4-->
                 <div class="row mb-4 wow fadeIn">
 
+                    {#  bug 000 this isnt displaying the right trips. seems like its setting up cards based on vehicle # not trip_id #}
+                    {#
                     <!--RECENT ARRIVALS BLOCK START -->
                     <div class="col-lg-12 col-md-12 mb-4">
                         <h4 class="card-subtitle mb-2 ">Recent arrivals along the {{ route }}.</h4>
@@ -204,6 +206,7 @@
                         </div>
                     </div>
                     <!--RECENT ARRIVALS BLOCK END -->
+                #}
                 </div>
 
 
@@ -218,14 +221,32 @@
                         </p>
                     <div class="row mb-4 wow fadeIn">
                         {% for path in routereport.route_stop_list %}
+                        <div class="dropdown show">
+                          <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            To {{path.dd}}
+                          </a>
+
+                          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                              {% for stop in path.stops %}
+                            <a class="dropdown-item" href=  "{{url_for('genStopReport',collection_url=collection_url, route=route,stop=stop.identity,period=period) }}">{{stop.st|title}}</a>
+                              {% endfor %}
+                          </div>
+                        </div>
+                        {% endfor %}
+
+{# OLD  DROPDOWN CODE
+
+                        {% for path in routereport.route_stop_list %}
                         <div class="col-lg-6 col-md-12 mb-4">
-                                 <div class="dropdown"> {#  bug dropdowns not working #}
+                                 <div class="dropdown">
                                       <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">To {{path.dd}}
                                       <span class="caret"></span></button>
                                           <ul class="dropdown-menu">
                                             {% for stop in path.stops %}
                                             <li>
-                                                <a href = {{url_for('genStopReport',collection_url=collection_url, route=routereport.route,stop=stop.identity,period=period) }} id="{{stop.st}}">{{stop.st|title}}</a>
+                                                <a href = "{{url_for('genStopReport',collection_url=collection_url, route=route,stop=stop.identity,period=period) }}">
+                                                    {{stop.st|title}}
+                                                </a>
                                             </li>
                                             {% endfor %}
                                           </ul>
@@ -233,7 +254,9 @@
                         </div>
                         {% endfor %}
                     </div>
+#}
                     <!--STOP MENU BLOCK END -->
+
                 </div>
 
         </div>
