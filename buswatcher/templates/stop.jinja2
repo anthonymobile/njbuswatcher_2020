@@ -139,6 +139,12 @@
                 </div>
 
 
+
+            {#  todo iterate over 'predictions' to show what's expected here
+            for bus in predicitions:
+                bus.rt, bus.pd, bus.eta,
+            #}
+
             <!--ROW 3--> <!--n.b. this is conditional, appears only if there is content -->
                 {% if stopreport.arrivals_here_all_others|length > 0 %}
                 <div class="row mb-4 wow fadeIn">
