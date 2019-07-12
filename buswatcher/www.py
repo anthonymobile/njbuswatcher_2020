@@ -1,5 +1,3 @@
-#todo audit for closing db connections properly
-
 # bus buswatcher v2.0
 # june 2019 - by anthony@bitsandatoms.net
 
@@ -273,7 +271,7 @@ def splitpart (value, index, char = '_'):
 ################################################
 
 if __name__ == "__main__":
-    system_map=load_system_map() # bug need to figure out how to force flask to check if it needs to reload the pickle file, or do it periodically (possibly in generator minutely_tasks
+    system_map=load_system_map() # todo need to figure out how to force flask to check if it needs to reload the pickle file, or do it periodically (possibly in generator minutely_tasks
     app.run(host='0.0.0.0', debug=True)
 
 

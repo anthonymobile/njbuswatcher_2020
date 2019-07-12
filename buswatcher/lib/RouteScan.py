@@ -307,7 +307,7 @@ class RouteScan:
 
             return
 
-    def interpolate_missed_stops(self): # todo 000 number one priority
+    def interpolate_missed_stops(self): # todo 000 write interpolator
 
         # INTERPOLATE ARRIVALS AT MISSED STOPS
         # to do 2 add Interpolate+log missed stops
