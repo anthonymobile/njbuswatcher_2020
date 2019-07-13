@@ -1,8 +1,4 @@
-# copy to home folder of instance
-
-# cp /buswatcher/install/update.sh ~/
-# chmod 755 update.sh
-# ./update.sh
+# pull new code and restart services
 
 cd ~/buswatcher
 git pull

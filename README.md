@@ -1,43 +1,15 @@
 # NJ BusWatcher
-**2019 july 10**
+**2019 july 12**
 
-# todos debugging
-
-### docker-compose
-- make sure we are using the same mysql version on both local (8) and docker-compose (?)
-- export a new, clean enviroment.yml for /buswatcher/buswatcher/docker
-```conda env export -n buswatcher > environment.yml```
-- do we need to tell the db mysql container that we are using native password auth for `buswatcher` user on buses (see [this HOWTO](https://medium.com/@crmcmullen/how-to-run-mysql-8-0-with-native-password-authentication-502de5bac661) for mysql8/docker/native auth )
-
-### debugging crashing docker containers
-
-Shell on running container
-
-```
-docker exec -it <container_id> /bin/bash
-```
-"Can’t start your container at all? If you’ve got a initial command or entrypoint that immediately crashes, Docker will immediately shut it back down for you. This can make your container unstartable, so you can’t shell in any more, which really gets in the way.
-
-Fortunately, there’s a workaround: save the current state of the shut-down container as a new image, and start that with a different command to avoid your existing failures.
-
-```
-docker commit <container_id> my-broken-container && docker run -it my-broken-container /bin/bash
-```
-Have a failing entrypoint instead? There’s an entrypoint override command-line flag too." ([source](https://medium.com/@pimterry/5-ways-to-debug-an-exploding-docker-container-4f729e2c0aa8))
-
-
------
 
 ## Overview
 
 Buswatcher is a Python web app to collect bus position and stop arrival prediction data from several API endpoints maintained by NJTransit (via vendor Clever Devices), synthesize and summarize this information, and present to riders in a number of useful ways via a simple, interactive web application. Its implemented in Python using flask, pandas, and geopandas.
 
-
 ### Version 2 Improvements
 - rewritten in Python 3
 - new localization and stop assignment algorithm is based on geographic position and stop proximity not API arrival predictions
 - full SQLalchemy database implementation for easier mix and match backend
-
 
 ## Components
 - **tripwatcher.py**. Fetches bus current locations for a route from the NJT API, creates a `Trip` instance for each, and populates it with `ScheduledStop` instances for each stop on the service its running, and a `BusPosition` instance for each observed position.
@@ -47,19 +19,11 @@ Buswatcher is a Python web app to collect bus position and stop arrival predicti
     - **DataBases.py**
         - *`Trip` Class*. The basis for all route performance metrics are Trips, represented in buswatcher by the `Trip` class. `Trip` instances are created by `tripwatcher.py` as needed to hold `BusPosition` instances (`BusPosition` is an inner class of `Trip`. `TripDB` instances handle writing to the database.
   
-
 -----
 
 # Deployment
 
-## Deploy with docker
-
-1. Add the Gandi LiveDNS API key to buswatcher/dns_updater/config.py in the repo
-1. Build from the docker-compose.yml in the project root. Voila! Container magic.
-1. Give generator about 30 minutes to seed the reports. Grades should show as pending in the interim, but some of the reports may have bugs (during alpha, we will fix)
-1. Two volumes are important -- db_volume for the database and buswatcher_config will hold the nightly/hourly reports.
-
-## Deploy manually
+Docker deployment abandoned for now. Its easier and simpler for us to spend the 15 minutes deploying manually.
 
 ### backend
 
@@ -170,7 +134,8 @@ Buswatcher is a Python web app to collect bus position and stop arrival predicti
 
 12. install the front end config files
 
-    ```bash ./install_front_end.sh
+    ```bash 
+    ./install_front_end.sh
     ```    
     (for full manual install, see instructions at end of this file )
 
@@ -179,19 +144,26 @@ Buswatcher is a Python web app to collect bus position and stop arrival predicti
 
 16. dns_updater -- copy your API key to config.py and setup a cron job
 
-```bash
-*/5 * * * * /home/ubuntu/buswatcher/dns_updater/gandi-live-dns.py >/dev/null 2>&1
+    ```bash
+    */5 * * * * /home/ubuntu/buswatcher/dns_updater/gandi-live-dns.py >/dev/null 2>&1
+    
+    ```
 
-```
-
-16. in the future, as the code base changes, updating your app is as easy as 1-2-3...4
+16. Install the update script
 
     ```bash
-    cd ~/buswatcher
-    git pull
-    sudo supervisorctl stop www tripwatcher generator
-    sudo supervisorctl start www tripwatcher generator
+    cp /buswatcher/install/update.sh ~/
+    chmod 755 update.sh
+    ./update.sh
     ```
+
+    So now, whenever you need to update the repo in the future simply 
+    ```
+    cd ~
+    ./update.sh
+    ```
+    
+    Try it now.
     
 #### manual front end install
 
@@ -269,7 +241,7 @@ this follows the instructions [here](https://blog.miguelgrinberg.com/post/the-fl
     ```
     with the following
     ```bash
-server {
+    server {
     # listen on port 80 (http)
     listen 80;
     server_name www;
@@ -288,9 +260,13 @@ server {
         alias /home/ubuntu/buswatcher/buswatcher/static;
         expires 30d;
     }
-
-}   
+    }   
     ```
-
-    then `sudo systemctl reload nginx` and open the firewall `sudo ufw allow 'Nginx HTTP'` and you should be good to go. 
+    Don't forget to reload nginx...
+    
+    ```sudo systemctl reload nginx``` 
+    
+    ...and open the firewall.
+    
+    ```sudo ufw allow 'Nginx HTTP'```
 
