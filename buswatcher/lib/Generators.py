@@ -18,6 +18,7 @@ class Generator():
     def __init__(self):
         self.config_prefix = get_config_path()+"reports"
         # self.db =  SQLAlchemyDBConnection() # todo this can re stored to inherit the database session from parent class
+
     def store_json(self, report_to_store): # filename format route_type_period
         filename = ('{a}/{b}_{c}_{d}.json').format(a=self.config_prefix,b=report_to_store['route'],c=report_to_store['type'],d=report_to_store['period'])
         with open(filename, 'w') as f:
@@ -29,6 +30,11 @@ class Generator():
         with open(filename,"r") as f:
             report_retrieved = json.load(f)
         return report_retrieved
+
+    def query_factory(self, system_map, query, **kwargs):
+        query = query.filter(ScheduledStop.arrival_timestamp != None). \
+            filter(ScheduledStop.arrival_timestamp >= func.ADDDATE(func.CURRENT_TIMESTAMP(), text(system_map.period_descriptions[kwargs['period']]['sql'])))
+        return query # bug need to verify these statements are accurate -- inspect the SQL here and run it against the db
 
 class RouteUpdater():
 
@@ -199,7 +205,7 @@ class BunchingReport(Generator):
                                  # first query to make sure there are ScheduledStop instances
                                 bunch_total = 0
                                 arrival_total = 0
-                                stop_report = self.get_arrivals_here_this_route(system_map, route, point.identity, period)
+                                stop_report, query = self.get_arrivals_here_this_route(system_map, route, point.identity, period)
                                 for (index, row) in stop_report[0].iterrows():
                                     arrival_total += 1
                                     if (row.delta > bigbang) and (row.delta <= bunching_interval):
@@ -209,7 +215,8 @@ class BunchingReport(Generator):
                                 leaderboard_entry = {
                                                         'stop_name':point.st,
                                                         'stop_id':point.identity,
-                                                        'bunched_arrivals_in_period':bunch_total
+                                                        'bunched_arrivals_in_period':bunch_total,
+                                                        'query':query
                                                      }
 
                                 bunching_leaderboard_raw.append(leaderboard_entry)
@@ -217,6 +224,8 @@ class BunchingReport(Generator):
                     # https://stackoverflow.com/questions/72899/how-do-i-sort-a-list-of-dictionaries-by-a-value-of-the-dictionary
                     bunching_leaderboard = sorted(bunching_leaderboard_raw, key=lambda k: k['bunched_arrivals_in_period'],reverse=True)[:10]
 
+
+                    # bug aggregate any rows that have identical 'stop_name', even if stop_id is different
 
                     # log the results and dump
                     # bunching_report_template['bunching_leaderboard'] = bunching_leaderboard[:10]
@@ -247,7 +256,7 @@ class BunchingReport(Generator):
                                         .filter(ScheduledStop.arrival_timestamp != None) \
                                         .order_by(ScheduledStop.arrival_timestamp.asc())
 
-            query=self.query_factory(system_map, db, query, period=period) # add the period
+            query=self.query_factory(system_map, db, query, period=period) # add the period # bug not sure if this is working, all reports seem to be workign off all rows in db
             query=query.statement
             try:
                 arrivals_here_this_route=pd.read_sql(query, db.session.bind)
@@ -256,12 +265,8 @@ class BunchingReport(Generator):
                 else:
                     return self.filter_arrivals(arrivals_here_this_route)
             except ValueError: # any error return a dummy df
-                return self.return_dummy_arrivals_df()
+                return self.return_dummy_arrivals_df(), query
 
-    def query_factory(self, system_map, db, query, **kwargs):
-        query = query.filter(ScheduledStop.arrival_timestamp != None). \
-            filter(ScheduledStop.arrival_timestamp >= func.ADDDATE(func.CURRENT_TIMESTAMP(), text(system_map.period_descriptions[kwargs['period']]['sql'])))
-        return query
 
     def return_dummy_arrivals_df(self):
         # to add more than one , simply add to the lists

@@ -79,15 +79,32 @@
 
 
                 <div class="col-lg-8 col-md-8 my-4">
-                    <h1 class="my-4">
+                    <h2 class="my-4">
                         {{ routereport.period_descriptions[period]['narrative_label'] |capitalize}} on the {{routereport.route}} {{routereport.prettyname}}, {{routereport.grade_report['grade_description'][0]}}
-                    </h1>
+                    </h2>
                 </div>
 
                 <div class="col-lg-4 col-md-8 my-4"> {#  bug center grade text vert and horiz #}
-                    <h1 class="my-4">
+
+                    <table style="width: 100%;">
+                       <tr>
+                         <td style="text-align: center; vertical-align: middle;">
+                                                  <small>
+                        {{ routereport.period_descriptions[period]['possessive_label']|capitalize }} grade:
+                    </small>
+                         </td>
+                      </tr>
+                      <tr>
+                         <td style="text-align: center; vertical-align: middle;">
+                                                  <h1 class="my-4 display-2">
                         {{ routereport.grade_report['grade'] }}
                     </h1>
+                         </td>
+                      </tr>
+                    </table>
+
+
+
                 </div>
 
             <!--GRADE BANNER END -->
@@ -155,7 +172,7 @@
                             <p class="card-text">Bunching is when a bus arrives less than 3 minutes after the previous bus. Bunching isn't <em>always</em> bad -- on a handful of busy routes buses are scheduled at short intervals. But usually it means some buses are too full and others are empty.</p>
 
 
-                        <p class="card-text">In the {{routereport.period_descriptions[period]['descriptive_label'] }}, {{ '%0.1f' % routereport.grade_report['pct_bunched']|float }} percent of {{ routereport.bunching_report['cum_arrival_total'] }} observed arrivals at stops on the {{routereport.route}} were too close to the bus ahead..</p>
+                        <p class="card-text">In the {{routereport.period_descriptions[period]['descriptive_label'] }}, {{ '%0.1f' % routereport.grade_report['pct_bunched']|float }} percent of {{ routereport.bunching_report['cum_arrival_total'] }} observed arrivals at stops on the {{routereport.route}} were too close to the bus ahead.</p>
 
                          <table class="table table-sm table-hover">
                              <thead class="thread-dark text-center">
