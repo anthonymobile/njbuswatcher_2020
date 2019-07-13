@@ -62,38 +62,53 @@
 
             <!--ROW 1-->
             <div class="row mb-4 wow fadeIn">
+<h2 class="card-title">
+                <a href = {{ url_for('genRouteReport',collection_url=collection_url,route=routereport.route, period=period) }} > {#  bug trailing slash breaks url #}
 
-                <!--TRIPDASH BLOCK START -->
+                            {{routereport.route}} {{routereport.prettyname}}
+
+                    </a>
+      </h2>
+                <h4>The log below shows each observed stop call for bus [v] on run [run] on route [87]. </h4>
+            </div>
+
+
+           <!--TRIPDASH NEW BLOCK START -->
+            <div class="row mb-4 wow fadeIn">
                 <div class="col-lg-8 col-md-12 mb-4">
 
-                    <a href = {{ url_for('genRouteReport',collection_url=collection_url,route=routereport.route, period=period) }} id="{{routereport.route}}">
-                        <h4 class="card-title">
-                            {{routereport.route}} {{routereport.prettyname}}
-                        </h4>
-                    </a>
 
-                    {% for trip_id,trip_data in trip_report.tripdash.items() %}
-                    <div class="col-sm-12">
-                        <p class="lead">trip {{ trip }} </p>
-                            {% for stop in trip_data['stoplist'] %}
-                                <button type="button" class="btn btn-light">
-                                    {{stop.stop_id}}
-                                    {% if stop.arrival_timestamp is not none %}
-                                        <span class="badge badge-primary">{{stop.arrival_timestamp|strftime_today}}</span>
-                                    {% else %}
-                                        ---
-                                    {% endif %}
-                                </button>
-                            {% endfor %}
-                    </div>
+                {% for trip_id,trip_data in trip_report.tripdash.items() %}
+                <ul class="list-group">
+                    {% for stop in trip_data['stoplist'] %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">{{stop.stop_name}}
+                        {% if stop.arrival_timestamp is not none %}
+                            <span class="badge badge-primary badge-pill">{{stop.arrival_timestamp|strftime_today}}</span>
+                        {% else %}
+                            <span class="badge badge-secondary badge-pill">---</span>
+                        {% endif %}
+                        </li>
+                    {% endfor %}
+
+                </ul>
                 {% endfor %}
 
-            <!--TRIPDASH BLOCK END -->
+
+
+
+                </div>
+                    <!--TRIPDASH NEW BLOCK END -->
+
+
+
 
                 <!--MAP BLOCK START -->
                 <div class="col-lg-4 col-md-12 mb-4">
                     <div id="map" class="container">
                     </div>
+                    <p class="small">
+                        *Trip playback map coming soon.
+                    </p>
                 </div>
                 <!--MAP BLOCK END -->
             </div>
