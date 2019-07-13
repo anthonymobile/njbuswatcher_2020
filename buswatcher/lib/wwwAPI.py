@@ -345,7 +345,7 @@ class TripReport(GenericReport):
                 db.session.query(ScheduledStop) \
                     .join(Trip) \
                     .filter(Trip.trip_id == self.trip_id) \
-                    .order_by(ScheduledStop.arrival_timestamp.asc()) \
+                    .order_by(ScheduledStop.arrival_timestamp.desc()) \
                     .all()
 
             trip_dict['pd'] = trip_metadata['pd']
