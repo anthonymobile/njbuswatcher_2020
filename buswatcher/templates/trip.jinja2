@@ -62,14 +62,17 @@
 
             <!--ROW 1-->
             <div class="row mb-4 wow fadeIn">
-<h2 class="card-title">
-                <a href = {{ url_for('genRouteReport',collection_url=collection_url,route=routereport.route, period=period) }} > {#  bug trailing slash breaks url #}
+                <h2 class="card-title">
+                <a href = "{{ url_for('genRouteReport',collection_url=collection_url,route=routereport.route, period=period) }}">
+                    {#  bug trailing slash breaks url #}
 
                             {{routereport.route}} {{routereport.prettyname}}
 
                     </a>
       </h2>
-                <h4>The log below shows each observed stop call for bus [v] on run [run] on route [87]. </h4>
+            </div>
+            <div class="row mb-4 wow fadeIn">
+                <h4>The log below shows each observed stop call for bus {{  trip_report.tripdash[trip_id]['v'] }} on run {{  trip_report.tripdash[trip_id]['run'] }} on route {{  trip_report.route }}. </h4>
             </div>
 
 
