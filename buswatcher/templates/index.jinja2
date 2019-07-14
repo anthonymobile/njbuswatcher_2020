@@ -1,0 +1,112 @@
+{# future statewide kepler bus position map as a background layer on the front page of buswatcher #}
+{# future add a ranking somewhere of all the routes?
+if you want to use this as an advocacy tool it may be useful to expose a ranking like that. #}
+
+
+{%- extends "base.jinja2" %}
+
+
+{# Loads some of the macros included with Flask-Bootstrap. We are using the
+   utils module here to automatically render Flask's flashed messages in a
+   bootstrap friendly manner #}
+{% import "bootstrap/utils.html" as utils %}
+
+
+{# Inside the ``content`` is where you should place most of your own stuff.
+   This will keep scripts at the page end and a navbar you add on later
+   intact. #}
+{% block head %}
+
+{{ super() }}
+{% endblock %}
+
+{% block scripts %}
+
+    <!-- fontawesome, bootstrap, mdb -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+    <link href="{{ url_for('static', filename='mdb/css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='mdb/css/mdb.min.css')}}" rel="stylesheet">
+
+    <!-- Your custom styles (optional) -->
+    <link href="{{ url_for('static', filename='mdb/css/style.min.css')}}" rel="stylesheet">
+
+    <!-- mapboxjs -->
+    <script type="text/javascript" src="{{ url_for('static', filename='maps/busmap_index.js')}}"></script>
+    <script src='https://api.mapbox.com/mapbox.js/plugins/turf/v3.0.11/turf.min.js'></script>
+
+
+{% endblock %}
+
+{% block sticky_nav %} {# todo remove alpha warning banner #}
+
+<nav class="navbar navbar-expand-sm sticky-top navbar-light bg-white">
+    <div class="container">
+        <div class="collapse navbar-collapse" id="navbar1">
+            <h4 class="mb-4">
+                <strong>This site is currently in a pre-launch alpha test. Please report bugs to <a href=https://twitter.com/njbuswatcher">@njbuswatcher</a>.</strong>
+            </h4>
+        </div>
+    </div>
+</nav>
+
+{% endblock %}
+
+
+{% block content_main %}
+
+    <!--Main layout-->
+    <main class="mt-2 pt-5">
+        <div class="container">
+
+                <!--Grid row-->
+                <div class="row mb-4 wow fadeIn align-self-top">
+
+                    <!--LEFT CARD START -->
+                    <div class="col-lg-6 col-md-12 mb-4 align-self-top">
+
+                        <div class="card-body text-black text-center py-5 px-5 my-5">
+                             <h1 class="mb-4">
+                                <strong>How are New Jersey's buses doing today?</strong>
+                            </h1>
+                            <h4 class="mb-4">
+                                <strong>We're tracking {{  vehicle_count }} buses serving {{  route_count }} routes across the state, right now.</strong>
+                            </h4>
+                            <p class="mb-4 text-left">
+                                <strong>Residents and businesses depend on NJTransit buses every day. But its hard to evaluate the quality of bus service.</strong>
+                            </p>
+                            <p class="mb-4 text-left">That's why we built this site to provide a one-stop shop for bus performance information. Here you can see data on past performance and view maps of current service.
+                            </p>
+
+                            {% for city, citydata in collection_descriptions.items() %}
+                                <a target="_self" href="/{{ citydata.collection_url }}" class="btn btn-outline-black btn-lg">{{ citydata.city_name }}
+                                    <i class="fas fa-map ml-2"></i>
+                                </a>
+                            {%  endfor %}
+
+                        </div>
+
+                </div>
+                 <!-- LEFT CARD END -->
+
+                 <!-- RIGHT CARD START -->
+                <div id="map" class="col-lg-6 col-md-12 mb-4 align-self-center">
+                </div>
+                <!-- RIGHT CARD END -->
+
+                </div>
+
+
+
+
+
+        </div>
+
+
+
+    </main>
+
+
+
+{% endblock %}
+
+

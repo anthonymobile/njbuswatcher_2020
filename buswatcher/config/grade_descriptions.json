@@ -1,0 +1,55 @@
+{
+    "A":  {
+            "grade": "A",
+            "bounds": [
+                "0",
+                "1.0"
+            ],
+            "description": "service was in line with rider expectations of reliability, capacity, and quality."
+        },
+    "B":
+        {
+            "grade": "B",
+            "bounds": [
+                "1.0",
+                "2.5"
+            ],
+            "description": "service was usually good but occasionally fell short of rider expectations."
+        },
+    "C":
+        {
+            "grade": "C",
+            "bounds": [
+                "2.5",
+                "5"
+            ],
+            "description": "service met the needs of riders some of the time, but suffered from serious shortcomings and gaps. Focused action is required to improve service in the near-term."
+        },
+    "D":
+        {
+            "grade": "D",
+            "bounds": [
+                "5",
+                "10"
+            ],
+            "description": "service frequently failed to meet the needs of riders, and requires substantial effort at improvement."
+        },
+    "F":
+        {
+            "grade": "F",
+            "bounds": [
+                "10",
+                "100"
+            ],
+            "description": "service frequently failed to meet rider needs and expectations. Immediate action required to achieve minimum level of service."
+        },
+    "M":
+        {
+            "grade": "M",
+            "bounds": [
+                "-1",
+                "0"
+            ],
+            "description": "no grade was available due to insufficient data on stop arrivals."
+        }
+}
