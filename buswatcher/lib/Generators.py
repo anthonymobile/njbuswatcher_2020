@@ -34,7 +34,7 @@ class Generator():
     def query_factory(self, system_map, query, **kwargs):
         query = query.filter(ScheduledStop.arrival_timestamp != None). \
             filter(ScheduledStop.arrival_timestamp >= func.ADDDATE(func.CURRENT_TIMESTAMP(), text(system_map.period_descriptions[kwargs['period']]['sql'])))
-        return query # bug need to verify these statements are accurate -- inspect the SQL here and run it against the db
+        return query
 
 class RouteUpdater():
 
@@ -256,7 +256,7 @@ class BunchingReport(Generator):
                                         .filter(ScheduledStop.arrival_timestamp != None) \
                                         .order_by(ScheduledStop.arrival_timestamp.asc())
 
-            query=self.query_factory(system_map, db, query, period=period) # add the period # bug not sure if this is working, all reports seem to be workign off all rows in db
+            query=self.query_factory(system_map, query, period=period) # add the period # bug not sure if this is working, all reports seem to be workign off all rows in db
             query=query.statement
             try:
                 arrivals_here_this_route=pd.read_sql(query, db.session.bind)
