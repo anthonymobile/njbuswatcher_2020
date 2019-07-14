@@ -181,6 +181,7 @@
                                     <thead>
                                         <tr>
                                             <th>bus</th>
+                                            <th>run*</th>
                                             <th>last stop</th>
 
                                         </tr>
@@ -192,20 +193,50 @@
 
                                         <tr>
 
-                                        {%  if trip_dict['run'] != 'MAN' %}
 
-                                            <th>
-                                                <a href = "{{url_for('genTripReport',collection_url=collection_url, route=routereport.route, trip_id=trip_id)}}">
+                                            {%  if trip_dict['run'] == 'MAN' %}
+
+                                                 <th>
                                                     {{ trip_dict['stoplist'][0]['v'] }}
-                                                </a>
-                                            </th>
+                                                </th>
 
-                                            <th>
-                                                <a href = "{{url_for('genTripReport',collection_url=collection_url, route=routereport.route, trip_id=trip_id)}}">
+                                                 <th>
+                                                    {{ trip_dict['run'] }}
+                                                </th>
+
+                                                <th>
                                                     {{ trip_dict['stoplist'][0]['stop_name'] }}
-                                                </a>
-                                            </th>
-                                        {%  endif %}
+                                                </th>
+
+                                            {%  elif trip_dict['run'] != 'MAN' %}
+
+                                                 <th>
+                                                    <a href = "{{url_for('genTripReport',collection_url=collection_url, route=routereport.route, trip_id=trip_id)}}">
+                                                        {{ trip_dict['stoplist'][0]['v'] }}
+                                                    </a>
+                                                </th>
+
+                                                 <th>
+                                                    <a href = "{{url_for('genTripReport',collection_url=collection_url, route=routereport.route, trip_id=trip_id)}}">
+                                                        {{ trip_dict['run'] }}
+                                                    </a>
+                                                </th>
+
+                                                <th>
+                                                    <a href = "{{url_for('genTripReport',collection_url=collection_url, route=routereport.route, trip_id=trip_id)}}">
+                                                        {{ trip_dict['stoplist'][0]['stop_name'] }}
+                                                    </a>
+                                                </th>
+
+
+                                            {%  endif %}
+
+
+
+
+
+
+
 
 
                                         </tr>
@@ -215,7 +246,7 @@
                                     </tbody>
                                 </table>
                                 <p class="small">
-                                    *Click on any row to see that bus's whole trip.
+                                    *Click on any row to see that bus's whole trip (except MAN buses, which are out of service).
                                 </p>
 
 
