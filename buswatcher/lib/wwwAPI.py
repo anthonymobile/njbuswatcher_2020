@@ -1,6 +1,7 @@
 import datetime
 import json
 import os
+import datetime
 from pathlib import Path
 
 import pandas as pd
@@ -96,6 +97,7 @@ class RouteReport(GenericReport):
 
 
     def get_tripdash(self): # future this can be deprecated as its not used by any views?
+        # future add last 90 minutes filter on trip_dash first query
         # gets most recent stop for all active vehicles on route
         # can grab more by changing from .one() to .limit(10).all()
         with self.db as db:
@@ -341,13 +343,22 @@ class TripReport(GenericReport):
             # build the trip card
             trip_dict=dict()
             # all stops including missed ones
+
+            # since = datetime.now() - timedelta(hours=24)
+            # q = (session.query(Product).filter(or_(
+            #     Product.last_time_parsed == None,
+            #     Product.last_time_parsed < since)))
+            #
+
+            # grab all stop arrivals in the last 90 minutes
+            ninety_mins_ago = datetime.datetime.now() - datetime.timedelta(minutes=90)
             trip_dict['stoplist']= \
                 db.session.query(ScheduledStop) \
                     .join(Trip) \
                     .filter(Trip.trip_id == self.trip_id) \
+                    .filter(ScheduledStop.arrival_timestamp < ninety_mins_ago  ) \
                     .order_by(ScheduledStop.pkey.asc()) \
                     .all()
-                    #  .order_by(ScheduledStop.arrival_timestamp.desc()) \
 
             trip_dict['pd'] = trip_metadata['pd']
             trip_dict['v'] = trip_metadata['bid']
