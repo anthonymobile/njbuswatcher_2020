@@ -19,6 +19,18 @@ Buswatcher is a Python web app to collect bus position and stop arrival predicti
     - **DataBases.py**
         - *`Trip` Class*. The basis for all route performance metrics are Trips, represented in buswatcher by the `Trip` class. `Trip` instances are created by `tripwatcher.py` as needed to hold `BusPosition` instances (`BusPosition` is an inner class of `Trip`. `TripDB` instances handle writing to the database.
   
+  
+  
+-----
+
+# Manually Generating Reports
+
+Occaisionally there will be a need to run the ```generator.py``` daily or hourly batch jobs manually. (For instance after adjusting the grade criteria.) The ```--test``` switch supports this and requires a list of ```--tasks``` as well. e.g.
+```bash
+python generator.py --test --tasks daily hourly
+```
+Note that the tasks will be run in the order you list them. It's generally recommended to run the longest interval tasks (e.g. daily) first.
+
 -----
 
 # Deployment
