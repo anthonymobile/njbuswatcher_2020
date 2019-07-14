@@ -338,7 +338,7 @@ class TripReport(GenericReport):
             for v in v_on_route:
                 trip_id = ('{a}_{b}_{c}').format(a=v.id, b=v.run, c=todays_date)
                 if trip_id == self.trip_id:
-                    trip_metadata = {'pd':v.pd,'bid':v.bid,'run':v.run}
+                    trip_metadata = {'pd':v.pd,'id':v.id,'run':v.run}
 
             # build the trip card
             trip_dict=dict()
@@ -361,7 +361,7 @@ class TripReport(GenericReport):
                     .all()
 
             trip_dict['pd'] = trip_metadata['pd']
-            trip_dict['v'] = trip_metadata['bid']
+            trip_dict['v'] = trip_metadata['id']
             trip_dict['run'] = trip_metadata['run']
 
             # and return
