@@ -6,12 +6,12 @@
 
 Buswatcher is a Python web app to collect bus position and stop arrival prediction data from several API endpoints maintained by NJTransit (via vendor Clever Devices), synthesize and summarize this information, and present to riders in a number of useful ways via a simple, interactive web application. Its implemented in Python using flask, pandas, and geopandas.
 
-### Version 2 Improvements
+#### Version 2 Improvements
 - rewritten in Python 3
 - new localization and stop assignment algorithm is based on geographic position and stop proximity not API arrival predictions
 - full SQLalchemy database implementation for easier mix and match backend
 
-## Components
+#### Components
 - **tripwatcher.py**. Fetches bus current locations for a route from the NJT API, creates a `Trip` instance for each, and populates it with `ScheduledStop` instances for each stop on the service its running, and a `BusPosition` instance for each observed position.
 - **generator.py**. A cron-type daemon that does a bunch of batch jobs around the clock to manage the database load.
 - **www.py** The flask app for routing incoming requests.
@@ -21,23 +21,26 @@ Buswatcher is a Python web app to collect bus position and stop arrival predicti
   
   
   
------
 
-# Manually Generating Reports
 
-Occaisionally there will be a need to run the ```generator.py``` daily or hourly batch jobs manually. (For instance after adjusting the grade criteria.) The ```--test``` switch supports this and requires a list of ```--tasks``` as well. e.g.
+## Manually Generating Reports
+
+Occaisionally there will be a need to run the ```generator.py``` daily or hourly batch jobs manually. (For instance after adjusting the grade criteria.) The ```--test``` switch supports this and requires a list of ```--tasks``` as well. e.g. The following commands let you start the job, disown it, send it to the background, and then logout while it continues and finishes on its own.
 ```bash
-python generator.py --test --tasks daily hourly
+$ python generator.py --test --tasks daily hourly
+$ disown -h %1
+$ bg 1
+$ logout
 ```
 Note that the tasks will be run in the order you list them. It's generally recommended to run the longest interval tasks (e.g. daily) first.
 
------
 
-# Deployment
+
+## Deployment
 
 Docker deployment abandoned for now. Its easier and simpler for us to spend the 15 minutes deploying manually.
 
-### backend
+#### backend stuff
 
 1. Assumes using EC2 Ubuntu instance. Set one up.
  
@@ -135,7 +138,7 @@ Docker deployment abandoned for now. Its easier and simpler for us to spend the 
 
     n.b. bug for some reason, in this process pandas doesn't get installed on OSX and needs to be installed manually after the build
 
-#### frontend
+#### frontend stuff
 
 
 11. get the linux software
@@ -177,7 +180,7 @@ Docker deployment abandoned for now. Its easier and simpler for us to spend the 
     
     Try it now.
     
-#### manual front end install
+#### manual frontend stuff install (if you have to)
 
 
 this follows the instructions [here](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xvii-deployment-on-linux) 
