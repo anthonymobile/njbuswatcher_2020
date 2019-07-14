@@ -84,7 +84,7 @@
                     </h2>
                 </div>
 
-                <div class="col-lg-4 col-md-8 my-4"> {#  bug center grade text vert and horiz #}
+                <div class="col-lg-4 col-md-8 my-4">
 
                     <table style="width: 100%;">
                        <tr>
@@ -116,54 +116,9 @@
 
                     <!--RECENT ARRIVALS BLOCK START -->
                     <div class="col-lg-8 col-md-12 mb-4">
-                  {#      <h4 class="card-subtitle mb-2 ">Where are {{ route }} buses right now?</h4>
-                        <p class="card-text">The last arrival for each bus currently in service are listed below. As some buses may be waiting at depots, not all buses are shown. Click on any stop name for a detailed report on service at that stop.</p>
-                       #}
 
                         <div class="row mb-4 wow fadeIn">
-                      {#      <div class="col-lg-12 col-md-12 mb-4">#}
- {#                               <table class="table table-sm table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>bus</th>
-                                            <th>last stop</th>
-                                            <th>time</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                            {% for trip_id,trip_dict in routereport.tripdash.items() %}
-                                {%  if trip_dict.stoplist|length > 0 %}
 
-
-                                        <tr>
-                                            <th>
-                                                <a href = "{{url_for('genTripReport',collection_url=collection_url, route=routereport.route, trip_id=trip_id)}}">
-                                                    {{ trip_dict['stoplist'][0]['v'] }}
-                                                </a>
-                                            </th>
-
-                                            <th>
-                                                <a href = "{{url_for('genTripReport',collection_url=collection_url, route=routereport.route, trip_id=trip_id)}}">
-                                                    {{ trip_dict['stoplist'][0]['stop_name'] }}
-                                                </a>
-                                            </th>
-
-                                            <th>
-                                                <a href = "{{url_for('genTripReport',collection_url=collection_url, route=routereport.route, trip_id=trip_id)}}">
-                                                    {{ trip_dict['stoplist'][0]['arrival_timestamp']|strftime_period(period) }}
-                                                </a>
-                                            </th>
-                                        </tr>
-
-                                {%  endif %}
-                            {% endfor %}
-                                    </tbody>
-                                </table>
-                                <p class="small">
-                                    *TK some footnote to this table.
-                                </p>#}
-
-                        {#    </div>#}
 
 
                     <!--BUNCHING BLOCK START -->
@@ -227,7 +182,7 @@
                                         <tr>
                                             <th>bus</th>
                                             <th>last stop</th>
-                                     {#       <th>time</th>#}
+
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -236,6 +191,9 @@
 
 
                                         <tr>
+
+                                        {%  if trip_dict['run'] != 'MAN' %}
+
                                             <th>
                                                 <a href = "{{url_for('genTripReport',collection_url=collection_url, route=routereport.route, trip_id=trip_id)}}">
                                                     {{ trip_dict['stoplist'][0]['v'] }}
@@ -247,12 +205,9 @@
                                                     {{ trip_dict['stoplist'][0]['stop_name'] }}
                                                 </a>
                                             </th>
+                                        {%  endif %}
 
-                                    {#        <th>
-                                                <a href = "{{url_for('genTripReport',collection_url=collection_url, route=routereport.route, trip_id=trip_id)}}">
-                                                    {{ trip_dict['stoplist'][0]['arrival_timestamp']|strftime_period(period) }}
-                                                </a>
-                                            </th>#}
+
                                         </tr>
 
                                 {%  endif %}
