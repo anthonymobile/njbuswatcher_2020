@@ -216,7 +216,7 @@ class BunchingReport(Generator):
                                                         'stop_name':point.st,
                                                         'stop_id':point.identity,
                                                         'bunched_arrivals_in_period':bunch_total,
-                                                        'query':query
+                                                        'query': str(query)
                                                      }
 
                                 bunching_leaderboard_raw.append(leaderboard_entry)
@@ -261,9 +261,9 @@ class BunchingReport(Generator):
             try:
                 arrivals_here_this_route=pd.read_sql(query, db.session.bind)
                 if len(arrivals_here_this_route.index) == 0: # no results return dummy df
-                    return self.return_dummy_arrivals_df()
+                    return self.return_dummy_arrivals_df(), query
                 else:
-                    return self.filter_arrivals(arrivals_here_this_route)
+                    return self.filter_arrivals(arrivals_here_this_route), query
             except ValueError: # any error return a dummy df
                 return self.return_dummy_arrivals_df(), query
 
