@@ -318,7 +318,7 @@ class RouteScan:
             return
 
     @timeit
-    def interpolate_missed_stops(self): #bug 1 test stop_interpolator
+    def interpolate_missed_stops(self):
 
         print ('starting interpolations...')
 
@@ -334,13 +334,18 @@ class RouteScan:
 
                 # find where the leading empties end
                 current_position = 0
+                start_position = 0
                 for stop in scheduled_stops_and_logged_arrivals:
-                    if stop.arrival_timestamp == True:
+                    if stop.arrival_timestamp is not None:
                         start_position = current_position
                         break
-                    current_position += 1
+                    else:
+                        current_position += 1
+                        continue  # only executed if the inner loop did NOT break
+                    break  # only executed if the inner loop DID break
 
-                print ('arrivals start at the {a}th stop.'.format(a=current_position))
+
+                print ('\tarrivals start at the {a}th stop.'.format(a=start_position))
 
                 # initialize flags
                 in_interval = False
@@ -348,18 +353,15 @@ class RouteScan:
                 interval_data = []
 
                 # look at each stop
-                for n in range(len(scheduled_stops_and_logged_arrivals)):
-
-                    # skip over the leading empties
-                    if n < start_position:
-                        continue
+                print('\tscanning from stop {a} to stop {b}.'.format(a=start_position,b=len(scheduled_stops_and_logged_arrivals)))
+                for n in range(start_position, len(scheduled_stops_and_logged_arrivals)):
 
                     # get the stop at position n
                     stop = scheduled_stops_and_logged_arrivals[n]
 
                     # is there an arrival_timestamp here?
-                    if stop.arrival_timestamp == True:
-
+                    if stop.arrival_timestamp is not None:
+                        print('\t\tstop {a} has an arrival_timestamp of {b}'.format(a=stop.stop_id,b=stop.arrival_timestamp))
                         # A we are on an interval --> end the current interval
                         if in_interval == True:
                             interval_data.append(stop)
@@ -369,27 +371,28 @@ class RouteScan:
                             in_interval = False
                             interval_length = 0
                             interval_data = ()
-                            print('interval end @ stop {a}\t{b}'.format(a=stop.stop_id,b=stop.arrival_timestamp))
+                            print('\t\tinterval end @ stop {a}\t{b}'.format(a=stop.stop_id,b=stop.arrival_timestamp))
                             continue
 
                         # B we are not on an interval --> start a new interval
                         elif in_interval == False:
                             interval_data.append(stop)
-                            print('interval start @ stop {a}\t{b}'.format(a=stop.stop_id,b=stop.arrival_timestamp))
+                            print('\t\tinterval start @ stop {a}\t{b}'.format(a=stop.stop_id,b=stop.arrival_timestamp))
                             continue
 
                     # is arrival_timestamp empty
-                    elif not stop.arrival_timestamp == True:
+                    elif stop.arrival_timestamp is None:
 
                         # C we are on an interval --> increment the interval_length, and continue
                         if in_interval == True:
                             interval_length += 1
-                            print ('missed stop')
+                            print ('\t\tmissed stop')
                             continue
 
                         # D we are not on an interval and it is empty --> ERROR, print a debugging alert
                         elif in_interval == False:
-                            print ('error: stop has no arrival_timestamp but we are not on an interval')
+                            print ('\t\terror: stop has no arrival_timestamp but we are not on an interval')
+                            continue
 
         print ('interpolation done.')
 
