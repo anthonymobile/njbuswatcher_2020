@@ -2,6 +2,7 @@ from pathlib import Path
 import pickle
 from operator import itemgetter
 import json
+import datetime
 from dateutil import parser
 from datetime import timedelta
 from sqlalchemy import func, text
@@ -17,7 +18,7 @@ class Generator():
 
     def __init__(self):
         self.config_prefix = get_config_path()+"reports"
-        # self.db =  SQLAlchemyDBConnection() # todo this can re stored to inherit the database session from parent class
+        # self.db =  SQLAlchemyDBConnection() # future this can re stored to inherit the database session from parent class
 
     def store_json(self, report_to_store): # filename format route_type_period
         filename = ('{a}/{b}_{c}_{d}.json').format(a=self.config_prefix,b=report_to_store['route'],c=report_to_store['type'],d=report_to_store['period'])
@@ -225,7 +226,7 @@ class BunchingReport(Generator):
                     bunching_leaderboard = sorted(bunching_leaderboard_raw, key=lambda k: k['bunched_arrivals_in_period'],reverse=True)[:10]
 
 
-                    # bug aggregate any rows that have identical 'stop_name', even if stop_id is different
+                    # bug 2 aggregate any rows that have identical 'stop_name', even if stop_id is different
 
                     # log the results and dump
                     # bunching_report_template['bunching_leaderboard'] = bunching_leaderboard[:10]
@@ -256,7 +257,7 @@ class BunchingReport(Generator):
                                         .filter(ScheduledStop.arrival_timestamp != None) \
                                         .order_by(ScheduledStop.arrival_timestamp.asc())
 
-            query=self.query_factory(system_map, query, period=period) # add the period # bug not sure if this is working, all reports seem to be workign off all rows in db
+            query=self.query_factory(system_map, query, period=period) # add the period
             query=query.statement
             try:
                 arrivals_here_this_route=pd.read_sql(query, db.session.bind)

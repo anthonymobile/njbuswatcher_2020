@@ -316,12 +316,14 @@ class TripReport(GenericReport):
         self.source = 'nj'
         self.route = route
         self.trip_id = trip_id
+        self.v = trip_id.split('_')[0]
 
         # create database connection
         self.db = SQLAlchemyDBConnection()
 
         # populate data for webpage
         self.tripdash=self.get_tripdash()
+        self.predictions = self.get_bus_predictions()
 
     def get_tripdash(self):
         # gets most recent stop for all active vehicles on route
@@ -369,3 +371,14 @@ class TripReport(GenericReport):
             tripdash[self.trip_id] = trip_dict
 
         return tripdash
+
+    def get_bus_predictions(self): # future add predicted arrivals to the trip view
+
+        bus_predictions=NJTransitAPI.get_xml_data(NJTransitAPI.parse_xml_getBusPredictions())
+
+        # https://github.com/harperreed/transitapi/wiki/Unofficial-Bustracker-API
+        # getBusPredictions
+        # Description: Returns arrival predictions for a particular bus.
+        # Request: http: // chicago.transitapi.com / bustime / map / getBusPredictions.jsp?bus = 6654
+
+        return  bus_predictions

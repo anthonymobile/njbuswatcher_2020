@@ -174,6 +174,11 @@ def parse_xml_getBusesForRoute(data):
         results.append(Bus(**fields))
     return results
 
+    # http://mybusnow.njtransit.com/bustime/map/getBusPredictions?bus=3452
+    def parse_xml_getBusPredictions(data): # future dont think this API endpoint works on NJT
+        results = ''
+        return results
+
 
 # http://mybusnow.njtransit.com/bustime/map/getRoutePoints.jsp?route=119
 def parse_xml_getRoutePoints(data):
@@ -230,6 +235,7 @@ def parse_xml_getRoutePoints(data):
                 route.paths.append(path)
                 routes.append(route)
             break
+
 
 
     # dump waypoint coordinates to geojson
