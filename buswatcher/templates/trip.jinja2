@@ -90,6 +90,9 @@
                         {% else %}
                             <span class="badge badge-secondary badge-pill">---</span>
                         {% endif %}
+                        {% if stop.interpolated_arrival_flag is True %}
+                            *interpolated time
+                        {% endif %}
                         </li>
                     {% endfor %}
 
