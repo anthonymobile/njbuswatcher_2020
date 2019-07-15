@@ -12,31 +12,33 @@ from shapely.geometry import Point
 
 from .DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
 from . import NJTransitAPI
+from .CommonTools import timeit
 # from .TransitSystem import load_system_map
 
 
 class RouteScan:
 
-    def __init__(self, system_map, route, collections_only):
+    @timeit
+    def __init__(self, system_map):
 
         self.source = 'nj'
 
         # apply passed parameters to instance
-        self.route = route
-        self.collections_only = collections_only
+        # self.route = route
+        # self.collections_only = collections_only
 
         #  populate route basics from config
 
-        if self.collections_only is False:
-            self.routes_map_xml=dict()
-            for r in system_map.route_descriptions['routedata']:
-                self.routes_map_xml[r['route']] = system_map.get_single_route_xml(r['route'])
+        # if self.collections_only is False:
+        self.routes_map_xml=dict()
+        for r in system_map.route_descriptions['routedata']:
+            self.routes_map_xml[r['route']] = system_map.get_single_route_xml(r['route'])
 
-        elif self.collections_only is not True:
-            try:
-                self.route_map_xml=system_map.get_single_route_xml(self.route)
-            except:
-                self.route_map_xml={'xml':''}
+        # elif self.collections_only is not True:
+        #     try:
+        #         self.route_map_xml=system_map.get_single_route_xml(self.route)
+        #     except:
+        #         self.route_map_xml={'xml':''}
 
         # create database connection
         self.db = SQLAlchemyDBConnection()
@@ -53,25 +55,28 @@ class RouteScan:
         self.assign_positions()
         self.interpolate_missed_stops()
 
+    @timeit
     def fetch_positions(self):
 
         try:
-            if self.collections_only is True:
-                self.buses = NJTransitAPI.parse_xml_getBusesForRoute(NJTransitAPI.get_xml_data('nj', 'buses_for_route', route=self.route))
-                self.clean_buses()
+            # if self.collections_only is True:
+            #     self.buses = NJTransitAPI.parse_xml_getBusesForRoute(NJTransitAPI.get_xml_data('nj', 'buses_for_route', route=self.route))
+            #     self.clean_buses()
+            #
+            # elif self.collections_only is not True:
 
-            elif self.collections_only is not True:
-
-                self.buses = NJTransitAPI.parse_xml_getBusesForRouteAll(NJTransitAPI.get_xml_data('nj', 'all_buses'))
-                route_count = len(list(set([v.rt for v in self.buses])))
-                print('\rfetched ' + str(len(self.buses)) + ' buses on ' + str(route_count) + ' routes...' )
-                self.clean_buses()
+            self.buses = NJTransitAPI.parse_xml_getBusesForRouteAll(NJTransitAPI.get_xml_data('nj', 'all_buses'))
+            route_count = len(list(set([v.rt for v in self.buses])))
+            print('\rfetched ' + str(len(self.buses)) + ' buses on ' + str(route_count) + ' routes...' )
+            self.clean_buses()
         except:
             pass
 
         return
 
+    @timeit
     def clean_buses(self):
+        # bug 1 should we delete buses where run = "N/A"?N
         # CLEAN buses not actively running routes (e.g. letter route codes)
         buses_cleaned=[]
         for bus in self.buses:
@@ -84,13 +89,14 @@ class RouteScan:
 
         return
 
+    @timeit
     def parse_positions(self,system_map):
 
         with self.db as db:
 
             # PARSE trips, create missing trip records first, to honor foreign key constraints
             for bus in self.buses:
-                bus.trip_id = ('{id}_{run}_{dt}').format(id=bus.id, run=bus.run,dt=datetime.datetime.today().strftime('%Y%m%d'))
+                bus.trip_id = ('{id}_{run}_{dt}').format(id=bus.id, run=bus.run,dt=datetime.datetime.today().strftime('%Y%m%d')) # bug 0 a lot of the buses have run='N/A'. is this what's behind all the erratic arrival data? is there another unique trip_id to compute or are we grabbing the run incorrectly somehow?
                 self.trip_list.append(bus.trip_id)
                 result = db.session.query(Trip).filter(Trip.trip_id == bus.trip_id).first()
 
@@ -111,38 +117,39 @@ class RouteScan:
                     db.session.rollback()
             return
 
+    @timeit
     def localize_positions(self,system_map):
 
             with self.db as db:
 
                 try:
                     # LOCALIZE
-                    if self.collections_only is True:
-                        bus_positions = get_nearest_stop(system_map, self.buses, self.route)
-                        for group in bus_positions:
-                            for bus in group:
-                                db.session.add(bus)
-
-                        db.__relax__()  # disable foreign key checks before commit
-                        db.session.commit()
-
-                    elif self.collections_only is not True:
-                        statewide_route_list = sorted(list(set([bus.rt for bus in self.buses])))  # find all the routes unique
-                        for r in statewide_route_list: # loop over each route
-
-
-                            try:
-                                buses_for_this_route=[b for b in self.buses if b.rt==r]
-                                bus_positions = get_nearest_stop(system_map, buses_for_this_route, r)
+                    # if self.collections_only is True:
+                    #     bus_positions = get_nearest_stop(system_map, self.buses, self.route)
+                    #     for group in bus_positions:
+                    #         for bus in group:
+                    #             db.session.add(bus)
+                    #
+                    #     db.__relax__()  # disable foreign key checks before commit
+                    #     db.session.commit()
+                    #
+                    # elif self.collections_only is not True:
+                    statewide_route_list = sorted(list(set([bus.rt for bus in self.buses])))  # find all the routes unique
+                    for r in statewide_route_list: # loop over each route
 
 
-                                for group in bus_positions:
-                                    for bus in group:
-                                        db.session.add(bus)
-                                db.__relax__()  # disable foreign key checks before commit
-                                db.session.commit()
-                            except:
-                                pass
+                        try:
+                            buses_for_this_route=[b for b in self.buses if b.rt==r]
+                            bus_positions = get_nearest_stop(system_map, buses_for_this_route, r)
+
+
+                            for group in bus_positions:
+                                for bus in group:
+                                    db.session.add(bus)
+                            db.__relax__()  # disable foreign key checks before commit
+                            db.session.commit()
+                        except:
+                            pass
 
 
 
@@ -152,6 +159,7 @@ class RouteScan:
 
             return
 
+    @timeit
     def assign_positions(self):
 
         with self.db as db:
@@ -309,13 +317,14 @@ class RouteScan:
 
             return
 
+    @timeit
     def interpolate_missed_stops(self): #bug 1 test stop_interpolator
 
-        # get list of trips
-        trip_list, trip_list_ids = self.get_current_trips()
+        print ('starting interpolations...')
 
         # grab a trip
-        for trip_id in trip_list_ids:
+        for trip_id in self.trip_list:
+            print ('trip {a}'.format(a=trip_id))
             with self.db as db:
                 scheduled_stops_and_logged_arrivals = db.session.query(ScheduledStop) \
                     .join(Trip) \
@@ -324,12 +333,14 @@ class RouteScan:
                     .all()
 
                 # find where the leading empties end
-                position = 0
+                current_position = 0
                 for stop in scheduled_stops_and_logged_arrivals:
-                    if stop['arrival_timestamp']:
-                        start_position = position
+                    if stop.arrival_timestamp == True:
+                        start_position = current_position
                         break
-                    start_position += 1
+                    current_position += 1
+
+                print ('arrivals start at the {a}th stop.'.format(a=current_position))
 
                 # initialize flags
                 in_interval = False
@@ -347,7 +358,7 @@ class RouteScan:
                     stop = scheduled_stops_and_logged_arrivals[n]
 
                     # is there an arrival_timestamp here?
-                    if stop['arrival_timestamp'] == True:
+                    if stop.arrival_timestamp == True:
 
                         # A we are on an interval --> end the current interval
                         if in_interval == True:
@@ -358,17 +369,17 @@ class RouteScan:
                             in_interval = False
                             interval_length = 0
                             interval_data = ()
-                            print('interval end @ stop {a}\t{b}').format(a=stop.stop_id,b=stop.arrival_timestamp)
+                            print('interval end @ stop {a}\t{b}'.format(a=stop.stop_id,b=stop.arrival_timestamp))
                             continue
 
                         # B we are not on an interval --> start a new interval
                         elif in_interval == False:
                             interval_data.append(stop)
-                            print('interval start @ stop {a}\t{b}').format(a=stop.stop_id,b=stop.arrival_timestamp)
+                            print('interval start @ stop {a}\t{b}'.format(a=stop.stop_id,b=stop.arrival_timestamp))
                             continue
 
                     # is arrival_timestamp empty
-                    elif not stop['arrival_timestamp'] == True:
+                    elif not stop.arrival_timestamp == True:
 
                         # C we are on an interval --> increment the interval_length, and continue
                         if in_interval == True:
@@ -380,13 +391,16 @@ class RouteScan:
                         elif in_interval == False:
                             print ('error: stop has no arrival_timestamp but we are not on an interval')
 
+        print ('interpolation done.')
+
+
     def analyze_interval_log(self, db, interval_log):
         if len(interval_log) >2:
             # calculate time_span between [0:] and [-1:]
             start=interval_log[-0].arrival_timestamp
             end=interval_log[-1].arrival_timestamp
             avg_interval_between_stops=(end - start)/len(interval_log-1)
-            print ('start\t{a}\tend\t{b}\tnumber of legs\t{c}\taverage interval(sec}{d}').format(a=start,b=end,c=len(interval_log),d=avg_interval_between_stops)
+            print ('start\t{a}\tend\t{b}\tnumber of legs\t{c}\taverage interval(sec}{d}'.format(a=start,b=end,c=len(interval_log),d=avg_interval_between_stops))
 
 
             # loop over the interval_log update the times and then commit the db
@@ -394,7 +408,7 @@ class RouteScan:
             for stop in interval_log:
                 adder=avg_interval_between_stops*n
                 stop.arrival_timestamp=start+adder
-                print('interval added @ stop {a}\t{b}\t{c}').format(a=stop.stop_id, b=stop.arrival_timestamp, c=adder)
+                print('interval added @ stop {a}\t{b}\t{c}'.format(a=stop.stop_id, b=stop.arrival_timestamp, c=adder))
                 n += 1
 
         elif len(interval_log) == 2:
