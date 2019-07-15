@@ -6,16 +6,7 @@ from sqlalchemy.exc import OperationalError
 
 from . import NJTransitAPI, DBconfig
 
-#####################################################
-# sqlalchemy Base metaclass
-#####################################################
-
 Base = declarative_base()
-
-#####################################################
-# database connection class
-#####################################################
-
 
 class SQLAlchemyDBConnection(object):
 
@@ -48,13 +39,10 @@ class SQLAlchemyDBConnection(object):
         self.session.execute('SET FOREIGN_KEY_CHECKS = 1;')
         self.session.close()
 
-
-
-#####################################################
-# CLASS Trip
-#####################################################
-
 class Trip(Base):
+    #####################################################
+    # CLASS Trip
+    #####################################################
 
     def __init__(self, source, system_map, route, v, run, pd, pid):
         self.source = source
@@ -107,12 +95,10 @@ class Trip(Base):
     # children_ScheduledStop = relationship("ScheduledStop", back_populates='parent_Trip')
     # children_BusPosition = relationship("BusPosition", back_populates='parent_Trip')
 
-
-################################################################
-# CLASS ScheduledStop
-################################################################
-
 class ScheduledStop(Base):
+    ################################################################
+    # CLASS ScheduledStop
+    ################################################################
 
     def __init__(self, trip_id,v,run,date,stop_id,stop_name,lat,lon):
         self.trip_id = trip_id
@@ -136,17 +122,16 @@ class ScheduledStop(Base):
     lat = Column(Float())
     lon = Column(Float())
     arrival_timestamp = Column(DateTime(), index=True)
+    interpolated_arrival_flag = Column(Boolean())
 
     # foreign keys
     trip_id = Column(String(127), ForeignKey('trip_log.trip_id'), index=True)
     __table_args__ = (Index('trip_id_stop_id',"trip_id","stop_id"),{'extend_existing': True})
 
-
-#####################################################
-# CLASS BusPosition
-#####################################################
-
 class BusPosition(Base):
+    #####################################################
+    # CLASS BusPosition
+    #####################################################
 
     __tablename__ ='position_log'
 
@@ -185,7 +170,7 @@ class BusPosition(Base):
                                            [ScheduledStop.trip_id, ScheduledStop.stop_id]),
                                             {'extend_existing': True})
 
-#
+# future a cache class?
 # class RouteReportCache(Base):
 #
 #     def __init__(self, uuid, rt, type, reportdata):

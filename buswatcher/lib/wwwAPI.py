@@ -82,7 +82,7 @@ class RouteReport(GenericReport):
     def get_current_trips(self):
         # get a list of trips current running the route
         v_on_route = NJTransitAPI.parse_xml_getBusesForRoute(
-            NJTransitAPI.get_xml_data(self.source, 'buses_for_route', route=self.route))
+            NJTransitAPI.get_xml_data(self.source, 'buses_for_route', route=self.route)) # future get this from the database, not the NJT API, or grab it once and pass it around
         todays_date = datetime.datetime.today().strftime('%Y%m%d')
         trip_list = list()
         trip_list_trip_id_only = list()
@@ -333,7 +333,7 @@ class TripReport(GenericReport):
             todays_date = datetime.datetime.today().strftime('%Y%m%d')
             trip_metadata=()
 
-            # grab the latest list of buses active on this route from the NJT API
+            # grab the latest list of buses active on this route from the NJT API # future get this from the database, but how filter... all of the positiosn for any v seen on this route in the last 10 minutes and not at the last stop?
             v_on_route = NJTransitAPI.parse_xml_getBusesForRoute(
                 NJTransitAPI.get_xml_data(self.source, 'buses_for_route', route=self.route))
             # pluck ours out
