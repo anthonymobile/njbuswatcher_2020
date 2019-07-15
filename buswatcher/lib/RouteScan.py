@@ -19,6 +19,8 @@ class RouteScan:
 
     def __init__(self, system_map, route, collections_only):
 
+        self.source = 'nj'
+
         # apply passed parameters to instance
         self.route = route
         self.collections_only = collections_only
@@ -48,8 +50,8 @@ class RouteScan:
         self.fetch_positions()
         self.parse_positions(system_map)
         self.localize_positions(system_map)
-        self.interpolate_missed_stops()
         self.assign_positions()
+        self.interpolate_missed_stops()
 
     def fetch_positions(self):
 
@@ -307,20 +309,106 @@ class RouteScan:
 
             return
 
-    def interpolate_missed_stops(self): # bug 1 write stop_interpolator
+    def interpolate_missed_stops(self): # bug 0 write stop_interpolator
 
-        # INTERPOLATE ARRIVALS AT MISSED STOPS
-        # to do 2 add Interpolate+log missed stops
-        # interpolates arrival times for any stops in between arrivals in the trip card
-        # theoretically there shouldn't be a lot though if the trip card is correct
-        # since we are grabbing positions every 60 seconds.)
+        # get list of trips
+        trip_list, trip_list_ids = self.get_current_trips()
+
+        # grab a trip
+        for trip_id in trip_list_ids:
+            with self.db as db:
+                scheduled_stops_and_logged_arrivals = db.session.query(ScheduledStop) \
+                    .join(Trip) \
+                    .filter(Trip.trip_id == trip_id) \
+                    .order_by(ScheduledStop.pkey.asc()) \
+                    .all()
+
+                # MAIN INTERPOLATION LOOP --------------------------------------------------------------------
+
+                # initialize the gap length counter
+
+                # find where the leading empties end
+                position = 0
+                for stop in scheduled_stops_and_logged_arrivals:
+                    if stop['arrival_timestamp']:
+                        start_position = position
+                        break
+                    start_position += 1
+
+
+                # initialize flags
+                on_interval = False
+                interval_length = 0
+                interval_data = ()
+
+                # look at each stop
+                for n in range(len(scheduled_stops_and_logged_arrivals)):
+
+                    # skip over the leading empties
+                    if n < start_position:
+                        continue
+
+                    # get the stop at position n
+                    stop = scheduled_stops_and_logged_arrivals[n]
+
+                    # is there an arrival_timestamp here?
+                    if stop['arrival_timestamp'] == True:
+
+                        # A we are on an interval --> end the current interval
+                        if on_interval == True:
+                            interval_data.append(stop)
+
+                            # copy to a new variable and re-init interval_data
+                            interval_log = interval_data
+                            interval_data = ()
+                            break
+
+                        # B we are not on an interval --> start a new interval
+                        elif on_interval == False:
+                            interval_data.append(stop)
+                            continue
+
+                    # is arrival_timestamp empty
+                    elif not stop['arrival_timestamp'] == True:
+
+                        # C we are on an interval --> increment the arrival counter, and contine
+                        if on_interval == True:
+                            interval_length += 1
+                            continue
+
+                        # D we are not on an interval and it is empty --> ERROR, print a debugging alert
+                        elif on_interval == False:
+                            print ('error: stop has no arrival_timestamp but we are not on an interval')
+
+                    # analyze interval_log
+
+                    # any empty stops
+                    # if so, compute the average time interval and then increment and assign for each missing stop
+
+                    # update rows
+                    row.interpolated_arrival_flag = True
+                # log interpolated arrivals
+                db.session.commit()
+
 
         return
 
+    def get_current_trips(self): # future this is duplicated from wwwAPI.RouteReport verbatim. factor it out?
+        # get a list of trips current running the route
+        v_on_route = NJTransitAPI.parse_xml_getBusesForRoute(
+            NJTransitAPI.get_xml_data(self.source, 'buses_for_route', route=self.route))
+        todays_date = datetime.datetime.today().strftime('%Y%m%d')
+        trip_list = list()
+        trip_list_trip_id_only = list()
 
-###########################################################################
-# Localizer
-###########################################################################
+        for v in v_on_route:
+            trip_id = ('{a}_{b}_{c}').format(a=v.id, b=v.run, c=todays_date)
+            trip_list.append((trip_id, v.pd, v.bid, v.run))
+            trip_list_trip_id_only.append(trip_id)
+
+        return trip_list, trip_list_trip_id_only
+
+
 
 
 def turn_row_into_BusPosition(row):
@@ -356,15 +444,16 @@ def turn_row_into_BusPosition(row):
 
     return position
 
-###########################################################################
-# CKDNEAREST
-# https://gis.stackexchange.com/questions/222315/geopandas-find-nearest-point-in-other-dataframe
-# Here is a helper function that will return the distance and 'Name'
-# of the nearest neighbor in gpd2 from each point in gpd1.
-# It assumes both gdfs have a geometry column (of points).
-###########################################################################
+def ckdnearest(gdA, gdB, bcol):
 
-def ckdnearest(gdA, gdB, bcol):  # seems to be getting hung on on bus 5800 for soem reason
+    ###########################################################################
+    # CKDNEAREST
+    # https://gis.stackexchange.com/questions/222315/geopandas-find-nearest-point-in-other-dataframe
+    # Here is a helper function that will return the distance and 'Name'
+    # of the nearest neighbor in gpd2 from each point in gpd1.
+    # It assumes both gdfs have a geometry column (of points).
+    ###########################################################################
+
     nA = np.array(list(zip(gdA.geometry.x, gdA.geometry.y)))
     nB = np.array(list(zip(gdB.geometry.x, gdB.geometry.y)))
     btree = cKDTree(nB)
@@ -398,15 +487,14 @@ def ckdnearest(gdA, gdB, bcol):  # seems to be getting hung on on bus 5800 for s
 
     return df
 
-###########################################################################
-# GET_NEAREST_STOP
-#
-# Finds the nearest stop, distance to it, from each item in a list of Bus objects.
-# Returns as a list of BusPosition objects.
-#
-###########################################################################
-
 def get_nearest_stop(system_map, buses, route):
+    ###########################################################################
+    # GET_NEAREST_STOP
+    #
+    # Finds the nearest stop, distance to it, from each item in a list of Bus objects.
+    # Returns as a list of BusPosition objects.
+    #
+    ###########################################################################
 
     # routedata, coordinates_bundle = system_map.get_single_route_paths_and_coordinatebundle(route)
 
