@@ -325,7 +325,7 @@ class TripReport(GenericReport):
         self.tripdash=self.get_tripdash()
 
 
-    def get_tripdash(self): # bug 0 njbuswatcher -- this is showing all kinds of crazy results from earlier in the day, etc. (check staging branch/commit)
+    def get_tripdash(self):
         # gets most recent stop for all active vehicles on route
         # can grab more by changing from .one() to .limit(10).all()
         with self.db as db:
