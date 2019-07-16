@@ -314,7 +314,7 @@ class RouteScan:
         for trip_id in self.trip_list:
             print ('trip {a}'.format(a=trip_id))
             with self.db as db:
-                scheduled_stops_and_logged_arrivals = db.session.query(ScheduledStop) \
+                trip_card = db.session.query(ScheduledStop) \
                     .join(Trip) \
                     .filter(Trip.trip_id == trip_id) \
                     .order_by(ScheduledStop.pkey.asc()) \
@@ -322,8 +322,8 @@ class RouteScan:
 
                 # count up the number of arrivals
                 num_arrivals=0
-                for stop in scheduled_stops_and_logged_arrivals:
-                    if stop.arrival_timestamp is not None:
+                for scheduled_stop in trip_card:
+                    if scheduled_stop.arrival_timestamp is not None:
                         num_arrivals += 1
 
                 # deal with common situations
@@ -333,101 +333,143 @@ class RouteScan:
                 elif num_arrivals == 1:
                     print('\t\ttrip has 1 arrival, so no intervals yet to interpolate')
                     break
-                elif num_arrivals == len (scheduled_stops_and_logged_arrivals):
+                elif num_arrivals == len (trip_card):
                     print('\t\ttrip log is full and doesnt have any missed stops')
                     break
                 else:
-                    # there are 2 or more arrivals logged and we need to interpolate the values between them
 
-                    # find the position of first arrival in tripcard
-                    start_position = -1
-                    for stop in scheduled_stops_and_logged_arrivals:
-                        if stop.arrival_timestamp:
-                            start_position += 1
-                            print('\tarrivals start at the {a}th stop (python list position {b}).'.format(a=start_position+1,b=start_position))
-                            print('\t\tinterval start @ stop {a}\t{b}'.format(a=stop.stop_id, b=stop.arrival_timestamp))
-                            break
-                        else:
-                            start_position += 1
-                            continue
+                    # todo better approach would be to isolate all of the intervals into a dict of lists
 
-
-                    # initialize flags, since we know we start in an interval of minimum length 1 (length always includes start and end)
-                    in_interval = True
-                    interval_length = 1
-                    interval_data = []
-                    interval_data.append(scheduled_stops_and_logged_arrivals[start_position]) # start it with the start point
-
-                    # loop over the rest of the stops at each stop after the start
-                    for n in range(start_position+1, len(scheduled_stops_and_logged_arrivals)):
-
-                        # get the stop at position n
-                        stop = scheduled_stops_and_logged_arrivals[n]
-
-                        # is there an arrival_timestamp here?
-                        if stop.arrival_timestamp:
-
-                            # A we are on an interval --> end the current interval
-                            if in_interval == True:
-                                interval_log.append(stop)
-                                self.analyze_interval_log(db, interval_log)
-
-                                # bug weave this code in here
-
-                                # if len(interval_log) > 2:
-                                #     # calculate time_span between [0:] and [-1:]
-                                #     start = interval_log[-0].arrival_timestamp
-                                #     end = interval_log[-1].arrival_timestamp
-                                #     avg_interval_between_stops = (end - start) / len(interval_log - 1)
-                                #     print('start\t{a}\tend\t{b}\tnumber of legs\t{c}\taverage interval(sec}{d}'.format(
-                                #         a=start, b=end, c=len(interval_log), d=avg_interval_between_stops))
-                                #
-                                #     # loop over the interval_log update the times and then commit the db
-                                #     n = 1
-                                #     for stop in interval_log:
-                                #         adder = avg_interval_between_stops * n
-                                #         stop.arrival_timestamp = start + adder
-                                #         print('interval added @ stop {a}\t{b}\t{c}'.format(a=stop.stop_id,
-                                #                                                            b=stop.arrival_timestamp,
-                                #                                                            c=adder))
-                                #         n += 1
-                                #
-                                # elif len(interval_log) == 2:
-                                #     return  # nothing to do, no missed stops to interpolate
-                                #
-                                #     # log interpolated arrivals
-                                # db.session.commit()
-                                #
-                                # return
+                    # go through the scheduled_stops
+                        # find an arrival
+                            # if in_interval = False
+                                # create a new list
+                                # add this stop to the list
+                                # set in_interval = True
+                                # continue
+                            # if in_interval = True
+                                # add this stop to the list
+                                # set in_interval = False
+                                # add the list to the dict of lists 'all_the_intervals
+                                # continue
+                                # clear the list
+                        # arrival_timestamp is None:
+                            # if in interval
+                                # add this stop to the list
+                                # continue
+                            # if not in interval
+                                # must either be beginning before an arrival, end after closed last arrival, or an error
+                                # print it
+                                # continue
 
 
-                                # reinit
-                                in_interval = False
-                                interval_length = 0
-                                interval_log = ()
-                                print('\t\tinterval end @ stop {a}\t{b}'.format(a=stop.stop_id, b=stop.arrival_timestamp))
-                                continue
+                    # analyze all_the_intervals
+                        # for each list
+                            # calculate the average interval time
+                            # update the arrival_timestamp
+                    # commit the db
 
-                            # B we are not on an interval --> start a new interval
-                            elif in_interval == False:
-                                interval_log.append(stop)
-                                print('\t\tinterval start @ stop {a}\t{b}'.format(a=stop.stop_id,b=stop.arrival_timestamp))
-                                interval_length += 1
-                                continue
 
-                        # is arrival_timestamp empty
-                        elif stop.arrival_timestamp is None:
 
-                                # C we are on an interval --> increment the interval_length, and continue
-                                if in_interval == True:
-                                    interval_length += 1
-                                    print('\t\tmissed stop {a}'.format(a=stop.stop_id))
-                                    continue
 
-                                # D we are not on an interval and it is empty --> ERROR, print a debugging alert
-                                elif in_interval == False:
-                                    print('\t\terror: stop has no arrival_timestamp but we are not on an interval')
-                                    continue
+
+                    #
+                    #
+                    #
+                    #
+                    #
+                    #
+                    #
+                    #
+                    #
+                    #
+                    #
+                    #
+                    #
+                    #
+                    # # there are 2 or more arrivals logged and we need to interpolate the values between them
+                    #
+                    # # find the position of first arrival in tripcard
+                    # start_position = -1
+                    # for scheduled_stop in trip_card:
+                    #     if stop.arrival_timestamp:
+                    #         start_position += 1
+                    #         print('\tarrivals start at the {a}th stop (python list position {b}).'.format(a=start_position+1,b=start_position))
+                    #         print('\t\tinterval start @ stop {a}\t{b}'.format(a=stop.stop_id, b=stop.arrival_timestamp))
+                    #         break
+                    #     else:
+                    #         start_position += 1
+                    #         continue
+                    #
+                    # # initialize flags, since we know we start in an interval of minimum length 1 (length always includes start and end)
+                    # in_interval = True
+                    # interval_length = 1
+                    # current_interval_log = []
+                    # current_interval_log.append(trip_card[start_position].pkey) # start it with the start point
+                    #
+                    # # loop over the rest of the stops at each stop after the start
+                    # for n in range(start_position+1, len(trip_card)):
+                    #
+                    #     # get the stop at position n
+                    #     stop_in_question = trip_card[n] # bug are we making a copy here or will commiting any changes to this update the db?
+                    #
+                    #     # is there an arrival_timestamp here?
+                    #     if stop_in_question.arrival_timestamp:
+                    #
+                    #         # A we are on an interval --> end the current interval
+                    #         if in_interval == True:
+                    #             current_interval_log.append(stop.pkey)
+                    #
+                    #             # and DO THE INTERPOLATION!
+                    #
+                    #             # calculate time_span between [0:] and [-1:]
+                    #             start = current_interval_log[0].arrival_timestamp
+                    #             end = current_interval_log[-1].arrival_timestamp
+                    #             avg_interval_between_stops = (end - start) / (len(current_interval_log) - 1)
+                    #             print('start\t{a}\tend\t{b}\tnumber of legs\t{c}\taverage interval(sec}{d}'.format(
+                    #                 a=start, b=end, c=len(current_interval_log), d=avg_interval_between_stops))
+                    #
+                    #             # update the arrival_timestamp
+                    #             for stop_in_interval in current_interval_log:
+                    #                 adder = avg_interval_between_stops * n
+                    #                 stop_in_interval.arrival_timestamp = start + adder
+                    #                 print('interval added @ stop {a}\t{b}\t{c}'.format(a=stop.stop_id,b=stop.arrival_timestamp,c=adder))
+                    #
+                    #             # log interpolated arrivals
+                    #         db.session.commit()
+                    #         # reset the interval log
+                    #         current_interval_log=[]
+                    #
+                    #         return
+                    #
+                    #
+                    #             # reinit
+                    #             in_interval = False
+                    #             interval_length = 0
+                    #             current_interval_log = ()
+                    #             print('\t\tinterval end @ stop {a}\t{b}'.format(a=stop.stop_id, b=stop.arrival_timestamp))
+                    #             continue
+                    #
+                    #         # B we are not on an interval --> start a new interval
+                    #         elif in_interval == False:
+                    #             current_interval_log.append(stop)
+                    #             print('\t\tinterval start @ stop {a}\t{b}'.format(a=stop.stop_id,b=stop.arrival_timestamp))
+                    #             interval_length += 1
+                    #             continue
+                    #
+                    #     # is arrival_timestamp empty
+                    #     elif stop.arrival_timestamp is None:
+                    #
+                    #             # C we are on an interval --> increment the interval_length, and continue
+                    #             if in_interval == True:
+                    #                 interval_length += 1
+                    #                 print('\t\tmissed stop {a}'.format(a=stop.stop_id))
+                    #                 continue
+                    #
+                    #             # D we are not on an interval and it is empty --> ERROR, print a debugging alert
+                    #             elif in_interval == False:
+                    #                 print('\t\terror: stop has no arrival_timestamp but we are not on an interval')
+                    #                 continue
 
             print ('interpolation done.')
 
