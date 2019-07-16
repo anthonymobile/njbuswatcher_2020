@@ -1,3 +1,4 @@
+{#  todo tweak grid settings for small devices #}
 {%- extends "base.jinja2" %}
 {% import "bootstrap/utils.html" as utils %}
 
@@ -64,7 +65,7 @@
             <div class="row mb-4 wow fadeIn">
                 <h2 class="card-title">
                 <a href = "{{ url_for('genRouteReport',collection_url=collection_url,route=routereport.route, period=period) }}">
-                    {#  bug 3 trailing slash breaks url #}
+                    {#  bug 2 trailing slash breaks url #}
 
                             {{routereport.route}} {{routereport.prettyname}}
 
