@@ -161,21 +161,12 @@ def genTripReport(collection_url, route, trip_id):
                            routereport=route_report,
                            trip_report=trip_report)
 
-
-
-
 @app.route('/about')
 def displayFAQ():
     routereport = Dummy() #  setup a dummy routereport for the navbar
     return render_template('about.jinja2',
                            route_definitions=system_map.route_descriptions,
                            routereport=routereport)
-
-# future activate API docs page
-# @app.route('/api')
-# def displayAPI():
-#     routereport = Dummy() #  setup a dummy routereport for the navbar
-#     return render_template('api.jinja2', reportcard_routes=route_descriptions, routereport=routereport)
 
 
 @app.route('/favicon.ico')
