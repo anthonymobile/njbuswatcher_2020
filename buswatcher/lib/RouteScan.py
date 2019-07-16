@@ -304,7 +304,8 @@ class RouteScan:
             return
 
     @timeit
-    def interpolate_missed_stops(self): # bug this is slow, might have to move to generator.quarterly_hour_tasks
+    def interpolate_missed_stops(self):
+        # future optimize option 1 move to generator.quarterly_hour_tasks as a batch job
 
         print ('starting interpolations for {a} trips...'.format(a=len(self.trip_list)))
 
@@ -389,6 +390,7 @@ class RouteScan:
                     for stop_to_update in interval_sequence:
                         adder = average_time_between_stops * n
                         stop_to_update.arrival_timestamp = start_time + adder
+                        stop_to_update.interpolated_arrival_flag = True
                         n += 1
                         print('arrival_timestamp added to ScheduledStop instance for stop {a}\t{b}\tincrement {c}'.format(a=stop_to_update.stop_id, b=stop_to_update.arrival_timestamp, c=adder))
 
@@ -398,7 +400,9 @@ class RouteScan:
 
         print ('interpolation done.')
 
-    def get_current_trips(self): # future this is duplicated from wwwAPI.RouteReport verbatim. factor it out?
+    # future option 2 to speedup, filter by collections routes only?
+
+    def get_current_trips(self):
         # get a list of trips current running the route
         v_on_route = NJTransitAPI.parse_xml_getBusesForRoute(
             NJTransitAPI.get_xml_data(self.source, 'buses_for_route', route=self.route))
