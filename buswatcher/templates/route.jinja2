@@ -181,9 +181,11 @@
                                 <table class="table table-sm table-hover">
                                     <thead>
                                         <tr>
+                                            <th>to</th>
                                             <th>bus</th>
                                             <th>run*</th>
                                             <th>last stop</th>
+
 
                                         </tr>
                                     </thead>
@@ -197,6 +199,10 @@
 
                                             {%  if trip_dict['run'] == 'MAN' %}
 
+                                                <th>
+                                                    ---
+                                                </th>
+
                                                  <th>
                                                     {{ trip_dict['stoplist'][0]['v'] }}
                                                 </th>
@@ -205,13 +211,17 @@
                                                     {{ trip_dict['run'] }}
                                                 </th>
 
-                                                <th>
+
+                                                 <th>
                                                     {{ trip_dict['stoplist'][0]['stop_name'] }}
                                                 </th>
 
                                             {%  elif trip_dict['run'] != 'MAN' %}
 
-                                                 <th>
+                                                <th>
+                                                    {{ trip_dict['pd'] }}
+                                                </th>
+                                                <th>
                                                     <a href = "{{url_for('genTripReport',collection_url=collection_url, route=routereport.route, trip_id=trip_id)}}">
                                                         {{ trip_dict['stoplist'][0]['v'] }}
                                                     </a>
