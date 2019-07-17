@@ -133,7 +133,7 @@ class ScheduledStop(Base):
     __table_args__ = (Index('trip_id_stop_id',"trip_id","stop_id"),{'extend_existing': True})
 
     def __repr__(self):
-        return '[ScheduledStop: \ttrip_id \tstop_id \tarrival_timestamp \tinterpolated_arrival_flag]'.format(self.trip_id, self.stop_id, self.arrival_timestamp, self.interpolated_arrival_flag)
+        return '[ScheduledStop: \ttrip_id {} \tstop_id {} \tarrival_timestamp {} \tinterpolated_arrival_flag {}]'.format(self.trip_id, self.stop_id, self.arrival_timestamp, self.interpolated_arrival_flag)
 
 class BusPosition(Base):
     #####################################################

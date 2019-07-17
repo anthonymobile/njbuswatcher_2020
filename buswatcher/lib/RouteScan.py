@@ -21,11 +21,6 @@ class RouteScan:
 
         self.source = 'nj'
 
-        # # load xml route maps from system_map
-        # self.routes_map_xml=dict()
-        # for r in system_map.route_descriptions['routedata']:
-        #     self.routes_map_xml[r['route']] = system_map.get_single_route_xml(r['route'])
-
         # create database connection
         self.db = SQLAlchemyDBConnection()
 
@@ -44,12 +39,6 @@ class RouteScan:
     def fetch_positions(self):
 
         try:
-            # if self.collections_only is True:
-            #     self.buses = NJTransitAPI.parse_xml_getBusesForRoute(NJTransitAPI.get_xml_data('nj', 'buses_for_route', route=self.route))
-            #     self.clean_buses()
-            #
-            # elif self.collections_only is not True:
-
             self.buses = NJTransitAPI.parse_xml_getBusesForRouteAll(NJTransitAPI.get_xml_data('nj', 'all_buses'))
             route_count = len(list(set([v.rt for v in self.buses])))
             print('\rfetched ' + str(len(self.buses)) + ' buses on ' + str(route_count) + ' routes...')
@@ -59,28 +48,13 @@ class RouteScan:
 
         return
 
-    # # DEPRECATED moved upstream to NJTransitAPI.
-    # def clean_buses(self):
-    #     # CLEAN buses not actively running routes (e.g. letter route codes)
-    #     buses_cleaned = []
-    #     for bus in self.buses:
-    #         try:
-    #             int(bus.rt)
-    #             buses_cleaned.append(bus)
-    #         except:
-    #             pass
-    #     self.buses = buses_cleaned
-    #
-    #     return
-
     def parse_positions(self, system_map):
 
         with self.db as db:
 
             # PARSE trips, create missing trip records first, to honor foreign key constraints
             for bus in self.buses:
-                bus.trip_id = ('{id}_{run}_{dt}').format(id=bus.id, run=bus.run,
-                                                         dt=datetime.datetime.today().strftime('%Y%m%d'))
+                bus.trip_id = ('{id}_{run}_{dt}').format(id=bus.id, run=bus.run, dt=datetime.datetime.today().strftime('%Y%m%d'))  # todo add route to trip id, so its rt_v_run_date?
                 self.trip_list.append(bus.trip_id)
                 result = db.session.query(Trip).filter(Trip.trip_id == bus.trip_id).first()
 
@@ -108,17 +82,7 @@ class RouteScan:
         with self.db as db:
 
             try:
-                # LOCALIZE
-                # if self.collections_only is True:
-                #     bus_positions = get_nearest_stop(system_map, self.buses, self.route)
-                #     for group in bus_positions:
-                #         for bus in group:
-                #             db.session.add(bus)
-                #
-                #     db.__relax__()  # disable foreign key checks before commit
-                #     db.session.commit()
-                #
-                # elif self.collections_only is not True:
+
                 statewide_route_list = sorted(
                     list(set([bus.rt for bus in self.buses])))  # find all the routes unique
                 for r in statewide_route_list:  # loop over each route
@@ -343,7 +307,7 @@ class RouteScan:
                 # go through the scheduled_stops
                 for scheduled_stop in trip_card:
                     # find an arrival
-                    if scheduled_stop.arrival_timestamp: # bug unbounded interpolations at beginning and end of trips. either not starting or ending intervals properly
+                    if scheduled_stop.arrival_timestamp:
                         if in_interval == False:
                             # print('\tstarting interval at stop {a}\t{b}'.format(a=scheduled_stop.stop_id,b=scheduled_stop.arrival_timestamp))
                             interval_stops = []
@@ -371,7 +335,7 @@ class RouteScan:
                         print ('****************** This one fell through the gap {a}'.format(a=scheduled_stop))
                         continue
 
-                # INTERPOLATION LOOP # bug ! QC on interpolation results
+                # INTERPOLATION LOOP
 
                 # analyze all_the_intervals
                 for stop_id, interval_sequence in all_this_trips_intervals.items():
