@@ -1,0 +1,479 @@
+<?xml version="1.0"?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<route>
+		<id>250</id> 
+		<rtpiFeedName></rtpiFeedName>
+		<sn>250</sn> 
+		<nm>GO25 Go Bus (Springfield Ave BR)</nm> 
+		<displayDesignator>250</displayDesignator> 
+		<vmode>1</vmode>   
+		
+		<sbs>
+
+
+
+		</sbs>
+
+		<c>#ff3366</c>
+
+		<pas>
+
+
+			<pa>
+				<id>1001</id>
+
+				<d>Newark</d> 
+				<dd>Newark</dd>  
+				<directionRtpiFeedName></directionRtpiFeedName>
+
+				<pt>
+					<lat>40.72658999999941</lat>
+			        <lon>-74.22723999999963</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>31251</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>IRVINGTON TERMINAL + BUS STOP A</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.72677</lat>
+			        <lon>-74.22697</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.72776</lat>
+			        <lon>-74.22265</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.727806</lat>
+			        <lon>-74.222244</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.72781999999974</lat>
+			        <lon>-74.22204999999883</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17871</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>SPRINGFIELD AVE + MAPLE AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.72797</lat>
+			        <lon>-74.22174</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.72824</lat>
+			        <lon>-74.22072</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.72859</lat>
+			        <lon>-74.21897</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.72985</lat>
+			        <lon>-74.21344</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.72992</lat>
+			        <lon>-74.212853</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.729930000000415</lat>
+			        <lon>-74.21262000000058</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18983</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>SPRINGFIELD AVE + SOUTH 18TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.73005</lat>
+			        <lon>-74.21228</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73104</lat>
+			        <lon>-74.20666</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73149</lat>
+			        <lon>-74.20439</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73149</lat>
+			        <lon>-74.204153</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.731489999999226</lat>
+			        <lon>-74.20403000000152</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18989</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>SPRINGFIELD AVE + S 10TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.73162</lat>
+			        <lon>-74.2037</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73306</lat>
+			        <lon>-74.19637</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.733127</lat>
+			        <lon>-74.195718</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.733130000000735</lat>
+			        <lon>-74.19567999999819</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18993</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>SPRINGFIELD AVE + BERGEN ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.73326</lat>
+			        <lon>-74.19535</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73442</lat>
+			        <lon>-74.18941</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.734468</lat>
+			        <lon>-74.18894</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73447000000048</lat>
+			        <lon>-74.18892000000079</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>30108</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>SPRINGFIELD AVE AT IRVINE TURNER BLVD</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.73459</lat>
+			        <lon>-74.1886</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7357</lat>
+			        <lon>-74.18301</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73613</lat>
+			        <lon>-74.18074</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.736188</lat>
+			        <lon>-74.180087</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73619000000097</lat>
+			        <lon>-74.18005999999848</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19001</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>SPRINGFIELD AVE AT MLK JR BLVD</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.73633</lat>
+			        <lon>-74.17975</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73687</lat>
+			        <lon>-74.17789</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73695</lat>
+			        <lon>-74.17755</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73698</lat>
+			        <lon>-74.17701</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73667</lat>
+			        <lon>-74.17601</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.736459</lat>
+			        <lon>-74.175625</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73644000000095</lat>
+			        <lon>-74.1755899999985</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18729</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MARKET ST AT WASHINGTON ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.73644</lat>
+			        <lon>-74.17521</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73578</lat>
+			        <lon>-74.17284</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.735608</lat>
+			        <lon>-74.172423</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.735590000000585</lat>
+			        <lon>-74.1723800000009</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18730</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MARKET ST AT BROAD ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.73555</lat>
+			        <lon>-74.17201</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.735</lat>
+			        <lon>-74.17016</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.734894</lat>
+			        <lon>-74.169968</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.734840000000546</lat>
+			        <lon>-74.16986999999911</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18731</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MARKET ST AT MULBERRY ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.73484</lat>
+			        <lon>-74.16949</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73428</lat>
+			        <lon>-74.16652</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7339</lat>
+			        <lon>-74.16478</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73382</lat>
+			        <lon>-74.164567</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.733779999999065</lat>
+			        <lon>-74.16445999999844</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18733</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>EASTBOUND MARKET ST UNDER BRIDGE</st> 
+					</bs>
+
+				</pt>
+
+			</pa>
+
+
+		</pas>
+	</route>

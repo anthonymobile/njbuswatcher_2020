@@ -1,0 +1,1467 @@
+<?xml version="1.0"?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<route>
+		<id>22</id> 
+		<rtpiFeedName></rtpiFeedName>
+		<sn>22</sn> 
+		<nm>22 N Bergen-Union City-Hoboken</nm> 
+		<displayDesignator>22</displayDesignator> 
+		<vmode>1</vmode>   
+		
+		<sbs>
+
+
+
+		</sbs>
+
+		<c>#006699</c>
+
+		<pas>
+
+
+			<pa>
+				<id>358</id>
+
+				<d>North Bergen</d> 
+				<dd>North Bergen</dd>  
+				<directionRtpiFeedName></directionRtpiFeedName>
+
+				<pt>
+					<lat>40.735589999998716</lat>
+			        <lon>-74.0291100000008</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20496</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>HOBOKEN TERMINAL</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.73548</lat>
+			        <lon>-74.02962</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73542</lat>
+			        <lon>-74.03033</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73559</lat>
+			        <lon>-74.03139</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7357</lat>
+			        <lon>-74.0314</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73731</lat>
+			        <lon>-74.03093</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.737649</lat>
+			        <lon>-74.03077</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73767000000011</lat>
+			        <lon>-74.03075999999896</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20508</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WASHINGTON ST + 1ST ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.73794</lat>
+			        <lon>-74.03074</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.740119</lat>
+			        <lon>-74.030041</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.74026999999875</lat>
+			        <lon>-74.02996999999844</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20509</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WASHINGTON ST + 3RD ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.74054</lat>
+			        <lon>-74.02994</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.742318</lat>
+			        <lon>-74.029376</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.74241000000009</lat>
+			        <lon>-74.02933000000102</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20510</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WASHINGTON ST + 5TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.74269</lat>
+			        <lon>-74.0293</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.74443</lat>
+			        <lon>-74.02878</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.744858</lat>
+			        <lon>-74.028604</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.74500000000121</lat>
+			        <lon>-74.02853000000088</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20511</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WASHINGTON ST + 7TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.74527</lat>
+			        <lon>-74.02852</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.747452</lat>
+			        <lon>-74.027821</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.74757999999876</lat>
+			        <lon>-74.02776999999998</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20512</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WASHINGTON ST + 9TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.74986</lat>
+			        <lon>-74.0271</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.750024</lat>
+			        <lon>-74.027002</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.750159999999234</lat>
+			        <lon>-74.02692000000175</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20513</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WASHINGTON ST + 11TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.75044</lat>
+			        <lon>-74.02693</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75218</lat>
+			        <lon>-74.0264</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.752338</lat>
+			        <lon>-74.026288</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7524900000002</lat>
+			        <lon>-74.02617999999865</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20514</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WASHINGTON ST + 13TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.752849</lat>
+			        <lon>-74.026199</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75325</lat>
+			        <lon>-74.02612</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75344</lat>
+			        <lon>-74.027039</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75350999999999</lat>
+			        <lon>-74.027259999999</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20490</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>14TH ST + BLOOMFIELD ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.75353</lat>
+			        <lon>-74.02763</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75395</lat>
+			        <lon>-74.02972</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.755</lat>
+			        <lon>-74.0357</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75249</lat>
+			        <lon>-74.0375</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7519</lat>
+			        <lon>-74.03797</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.751</lat>
+			        <lon>-74.0388</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75129</lat>
+			        <lon>-74.03959</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7529</lat>
+			        <lon>-74.03858</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.753159</lat>
+			        <lon>-74.038349</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75325000000072</lat>
+			        <lon>-74.03825000000158</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21766</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PALISADE AVE + 3RD ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.75353</lat>
+			        <lon>-74.03819</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75464</lat>
+			        <lon>-74.03748</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.754774</lat>
+			        <lon>-74.037321</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.754849999999166</lat>
+			        <lon>-74.03723000000043</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21767</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PALISADE AVE + 6TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.75513</lat>
+			        <lon>-74.03716</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75587</lat>
+			        <lon>-74.03669</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.756163</lat>
+			        <lon>-74.036415</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75620000000008</lat>
+			        <lon>-74.03638000000053</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21768</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PALISADE AVE + 8TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.75647</lat>
+			        <lon>-74.0363</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75722</lat>
+			        <lon>-74.03583</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.757359</lat>
+			        <lon>-74.03568</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75747999999977</lat>
+			        <lon>-74.03555000000101</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21769</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PALISADE AVE + 10TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.75778</lat>
+			        <lon>-74.03548</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75901</lat>
+			        <lon>-74.03468</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.759153</lat>
+			        <lon>-74.034537</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7592500000008</lat>
+			        <lon>-74.03444000000063</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21770</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PALISADE AVE + 13TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.75953</lat>
+			        <lon>-74.03436</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.761037</lat>
+			        <lon>-74.033354</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76114999999951</lat>
+			        <lon>-74.03324999999947</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21771</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PALISADE AVE + 16TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.76142</lat>
+			        <lon>-74.03315</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76464</lat>
+			        <lon>-74.03113</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.765153</lat>
+			        <lon>-74.030747</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.765249999998936</lat>
+			        <lon>-74.03065000000038</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21833</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PALISADE AVE. + HIGHPOINT AVE./22ND ST.</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.765495</lat>
+			        <lon>-74.030998</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76588</lat>
+			        <lon>-74.03199</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76598</lat>
+			        <lon>-74.03197</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.766677</lat>
+			        <lon>-74.031516</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76669999999929</lat>
+			        <lon>-74.03150000000002</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21752</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>NEW YORK AVE + 23RD ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.76835</lat>
+			        <lon>-74.03046</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76850000000004</lat>
+			        <lon>-74.03033000000083</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21753</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>NEW YORK AVE + 26TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.76876</lat>
+			        <lon>-74.03022</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77</lat>
+			        <lon>-74.02945</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.770429</lat>
+			        <lon>-74.029127</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.770450000001205</lat>
+			        <lon>-74.02911000000095</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21754</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>NEW YORK AVE + 29TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.77108</lat>
+			        <lon>-74.02877</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77132</lat>
+			        <lon>-74.02833</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.772759</lat>
+			        <lon>-74.027177</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.772879999999745</lat>
+			        <lon>-74.02707000000161</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>30205</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>NEW YORK AVE. + 35TH ST.</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.774116</lat>
+			        <lon>-74.026152</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.774249999999405</lat>
+			        <lon>-74.0260500000004</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21756</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>NEW YORK AVE. + 37TH ST.</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.775686</lat>
+			        <lon>-74.024901</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77576000000128</lat>
+			        <lon>-74.02482999999853</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21757</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>NEW YORK AVE. + 40TH ST.</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.77602</lat>
+			        <lon>-74.02468</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.777723</lat>
+			        <lon>-74.023294</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77773999999945</lat>
+			        <lon>-74.02328000000017</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21758</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>NEW YORK AVE + 43RD ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.77835</lat>
+			        <lon>-74.02285</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.778837</lat>
+			        <lon>-74.022416</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77894000000014</lat>
+			        <lon>-74.02230000000014</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21759</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>NEW YORK AVE + 45TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.77931</lat>
+			        <lon>-74.02206</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.779911</lat>
+			        <lon>-74.021523</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78000999999947</lat>
+			        <lon>-74.02141999999898</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21760</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>NEW YORK AVE + 46TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.78109</lat>
+			        <lon>-74.02064</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78166</lat>
+			        <lon>-74.02181</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78225</lat>
+			        <lon>-74.02136</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.782384</lat>
+			        <lon>-74.021201</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78251999999905</lat>
+			        <lon>-74.02104000000084</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21696</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BERGENLINE AVE + 49TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.7829</lat>
+			        <lon>-74.02086</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.784459</lat>
+			        <lon>-74.019619</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7845399999992</lat>
+			        <lon>-74.01953000000071</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21873</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BERGENLINE AVE + 53RD ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.7848</lat>
+			        <lon>-74.0194</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78529</lat>
+			        <lon>-74.01899</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.785429999999664</lat>
+			        <lon>-74.01883999999968</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21864</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BERGENLINE AVE + 55TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.7857</lat>
+			        <lon>-74.01872</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78653</lat>
+			        <lon>-74.01809</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78682</lat>
+			        <lon>-74.017809</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78682999999947</lat>
+			        <lon>-74.01780000000038</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21865</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BERGENLINE AVE + 57TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.7871</lat>
+			        <lon>-74.01767</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7881</lat>
+			        <lon>-74.016839</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78811000000015</lat>
+			        <lon>-74.0168299999992</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21866</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BERGENLINE AVE + 59TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.78837</lat>
+			        <lon>-74.01669</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.788666</lat>
+			        <lon>-74.016421</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.788700000000816</lat>
+			        <lon>-74.01638999999851</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21867</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BERGENLINE AVE. + 60TH ST.</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.78896</lat>
+			        <lon>-74.01626</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79087</lat>
+			        <lon>-74.01484</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.791007</lat>
+			        <lon>-74.014686</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79112000000103</lat>
+			        <lon>-74.01456000000117</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21869</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BERGENLINE AVE. + 62ND ST.</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.79139</lat>
+			        <lon>-74.01444</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.792241</lat>
+			        <lon>-74.013753</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.792340000000344</lat>
+			        <lon>-74.01364999999844</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21870</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BERGENLINE AVE + 64TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.79272</lat>
+			        <lon>-74.01342</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.793493</lat>
+			        <lon>-74.012785</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79351999999866</lat>
+			        <lon>-74.0127600000008</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21871</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BERGENLINE AVE + 66TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.79378</lat>
+			        <lon>-74.01262</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.794886</lat>
+			        <lon>-74.01176</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7949799999998</lat>
+			        <lon>-74.0116699999995</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20435</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BERGENLINE AVE + 68TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.79547</lat>
+			        <lon>-74.01136</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79595</lat>
+			        <lon>-74.011</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.796237</lat>
+			        <lon>-74.010713</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79625000000137</lat>
+			        <lon>-74.01070000000134</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20437</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BERGENLINE AVE + 70TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.79651</lat>
+			        <lon>-74.01057</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.797371</lat>
+			        <lon>-74.009883</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79750000000061</lat>
+			        <lon>-74.00974999999936</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21353</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BERGENLINE AVE + 72ND ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.79776</lat>
+			        <lon>-74.00962</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.798646</lat>
+			        <lon>-74.008911</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79867999999938</lat>
+			        <lon>-74.00887999999976</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21354</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BERGENLINE AVE + 74TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.79894</lat>
+			        <lon>-74.00874</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.800035</lat>
+			        <lon>-74.00788</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.800149999999874</lat>
+			        <lon>-74.00776999999954</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21355</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BERGENLINE AVE + 77TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.80041</lat>
+			        <lon>-74.00763</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.800912</lat>
+			        <lon>-74.007214</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.80106000000002</lat>
+			        <lon>-74.00705999999832</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21356</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BERGENLINE AVE + 78TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.80133</lat>
+			        <lon>-74.00693</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.80216</lat>
+			        <lon>-74.0063</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.802447</lat>
+			        <lon>-74.006013</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.80248000000087</lat>
+			        <lon>-74.00598000000089</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21357</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BERGENLINE AVE + 80TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.80274</lat>
+			        <lon>-74.00588</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.80334</lat>
+			        <lon>-74.00545</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.803623</lat>
+			        <lon>-74.005157</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.80365000000067</lat>
+			        <lon>-74.00513000000014</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21358</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BERGENLINE AVE + 82ND ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.80392</lat>
+			        <lon>-74.00503</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.80478</lat>
+			        <lon>-74.00446</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.805063</lat>
+			        <lon>-74.004167</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.80509000000088</lat>
+			        <lon>-74.00414000000012</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21359</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BERGENLINE AVE + 85TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.80537</lat>
+			        <lon>-74.00403</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.806369</lat>
+			        <lon>-74.003306</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.80652000000132</lat>
+			        <lon>-74.00316999999971</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21360</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BERGENLINE AVE + 87TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.80679</lat>
+			        <lon>-74.00306</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.809125</lat>
+			        <lon>-74.00142</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.80925000000007</lat>
+			        <lon>-74.00130000000156</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21362</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BERGENLINE AVE + JFK BLVD</st> 
+					</bs>
+
+				</pt>
+
+			</pa>
+
+
+		</pas>
+	</route>

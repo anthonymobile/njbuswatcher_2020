@@ -1,3 +1,4 @@
+# todo 1 write an alembic migration for adding the interpolated_arrival_flag column to the db
 # future graceful fall back to collections only if time to run main_loop is  > 1 min?
 #
 # usage:
