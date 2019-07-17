@@ -123,7 +123,7 @@ class RouteReport(GenericReport):
                 trip_dict['pd'] = pd
                 trip_dict['v'] = bid
                 trip_dict['run'] = run
-              tripdash[trip_id] = trip_dict
+            tripdash[trip_id] = trip_dict
 
         return tripdash
 
