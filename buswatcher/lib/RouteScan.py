@@ -62,7 +62,7 @@ class RouteScan:
 
     def clean_buses(self):
         # CLEAN buses not actively running routes (e.g. letter route codes)
-        # bug this doesnt seem to be dropping the MAN buses -- should it?
+        # future this doesnt seem to be dropping the MAN buses -- should it?
 
         buses_cleaned = []
         for bus in self.buses:
@@ -376,6 +376,8 @@ class RouteScan:
                         continue
 
                 # INTERPOLATION LOOP
+                # bug 000 QC on interpolation results.
+                # bug 000 interpolation seems to run on the unvisited stops rather than being bound by the observed
 
                 # analyze all_the_intervals
                 for stop_id, interval_sequence in all_this_trips_intervals.items():
@@ -394,14 +396,6 @@ class RouteScan:
                         interval_sequence[x].interpolated_arrival_flag = True
                         n += 1
                         print('arrival_timestamp added to ScheduledStop instance for stop {a}\t{b}\tincrement {c}'.format(a=interval_sequence[x].stop_id, b=interval_sequence[x].arrival_timestamp, c=adder))
-                    # bug 000 don't update the first and last, go from [1] to [-2]
-                    # for stop_to_update in interval_sequence:
-                    #     adder = average_time_between_stops * n
-                    #     stop_to_update.arrival_timestamp = start_time + adder
-                    #     stop_to_update.interpolated_arrival_flag = True
-                    #     n += 1
-                    #     print('arrival_timestamp added to ScheduledStop instance for stop {a}\t{b}\tincrement {c}'.format(a=stop_to_update.stop_id, b=stop_to_update.arrival_timestamp, c=adder))
-
 
                 # when we are done with this trip, write to the db
                 db.session.commit()
