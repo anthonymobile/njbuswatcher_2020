@@ -226,7 +226,7 @@ class BunchingReport(Generator):
                     bunching_leaderboard = sorted(bunching_leaderboard_raw, key=lambda k: k['bunched_arrivals_in_period'],reverse=True)[:10]
 
 
-                    # bug 1 aggregate any rows that have identical 'stop_name', even if stop_id is different
+                    # todo aggregate any rows that have identical 'stop_name', even if stop_id is different
 
                     # log the results and dump
                     # bunching_report_template['bunching_leaderboard'] = bunching_leaderboard[:10]

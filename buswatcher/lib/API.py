@@ -1,5 +1,3 @@
-# bug 1 all of these should filter out the MAN runs so maps and tables show same # of buses
-
 import json
 import geojson
 import pandas as pd

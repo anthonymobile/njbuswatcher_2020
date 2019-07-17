@@ -95,11 +95,9 @@ class RouteReport(GenericReport):
         return trip_list, trip_list_trip_id_only
 
 
-
+    # populates the undermap trip dash
     def get_tripdash(self):
-        # future add last 90 minutes filter on trip_dash first query
-        # gets most recent stop for all active vehicles on route
-        # can grab more by changing from .one() to .limit(10).all()
+        # gets most recent stop for all active vehicles on route, only if they were observed in the last 5 minutes
         with self.db as db:
 
             trip_list, x = self.get_current_trips()
@@ -107,28 +105,25 @@ class RouteReport(GenericReport):
             tripdash = dict()
             for trip_id,pd,bid,run in trip_list:
 
-                # load the trip card - full with all the missed stops
-                # scheduled_stops = db.session.query(ScheduledStop) \
-                #     .join(Trip) \
-                #     .filter(Trip.trip_id == trip_id) \
-                #     .order_by(ScheduledStop.pkey.asc()) \
-                #     .all()
+                five_mins_ago = datetime.datetime.now() - datetime.timedelta(minutes=5)
 
                 # load the trip card - limit 1
                 scheduled_stops = db.session.query(ScheduledStop) \
                     .join(Trip) \
                     .filter(Trip.trip_id == trip_id) \
                     .filter(ScheduledStop.arrival_timestamp != None) \
+                    .filter(ScheduledStop.arrival_timestamp < five_mins_ago) \
                     .order_by(ScheduledStop.arrival_timestamp.desc()) \
                     .limit(1) \
                     .all()
+
 
                 trip_dict=dict()
                 trip_dict['stoplist']=scheduled_stops
                 trip_dict['pd'] = pd
                 trip_dict['v'] = bid
                 trip_dict['run'] = run
-                tripdash[trip_id] = trip_dict
+              tripdash[trip_id] = trip_dict
 
         return tripdash
 
@@ -326,7 +321,6 @@ class TripReport(GenericReport):
 
 
     def get_tripdash(self):
-        # bug debug this -- insepct db for a trip that is showing blank on trip view eg 6340_21_20190717
         # gets most recent stop for all active vehicles on route
         # can grab more by changing from .one() to .limit(10).all()
         with self.db as db:
@@ -370,4 +364,4 @@ class TripReport(GenericReport):
             tripdash = dict()
             tripdash[self.trip_id] = trip_dict
 
-        return tripdash
+        return tripdash # bug triplog empty -- is it here or the template?

@@ -60,20 +60,21 @@ class RouteScan:
 
         return
 
-    def clean_buses(self):
-        # CLEAN buses not actively running routes (e.g. letter route codes)
-        # future this doesnt seem to be dropping the MAN buses -- should it?
-
-        buses_cleaned = []
-        for bus in self.buses:
-            try:
-                int(bus.rt)
-                buses_cleaned.append(bus)
-            except:
-                pass
-        self.buses = buses_cleaned
-
-        return
+    # DEPRECATED -- moved up data pipeline to NJTransitAPI parser
+    # def clean_buses(self):
+    #     # CLEAN buses not actively running routes (e.g. letter route codes)
+    #     # future this doesnt seem to be dropping the MAN buses -- should it?
+    #
+    #     buses_cleaned = []
+    #     for bus in self.buses:
+    #         try:
+    #             int(bus.rt)
+    #             buses_cleaned.append(bus)
+    #         except:
+    #             pass
+    #     self.buses = buses_cleaned
+    #
+    #     return
 
     def parse_positions(self, system_map):
 
