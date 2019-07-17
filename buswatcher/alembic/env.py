@@ -6,7 +6,7 @@ from sqlalchemy import pool
 
 from alembic import context
 
-from ..lib.DBconfig import connection_string
+# from ..lib.DBconfig import connection_string # future doesnt work on PyCharm
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -40,8 +40,8 @@ def run_migrations_offline():
     script output.
 
     """
-    # url = config.get_main_option("sqlalchemy.url")
-    url = connection_string
+    url = config.get_main_option("sqlalchemy.url")
+    # url = DBconfig.connection_string # future doesnt work on PyCharm
     context.configure(
         url=url, target_metadata=target_metadata, literal_binds=True
     )
