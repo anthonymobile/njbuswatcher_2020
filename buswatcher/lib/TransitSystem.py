@@ -193,7 +193,7 @@ class SystemMap:
         for rt in self.routelist:
             report_fetcher = Generators.Generator()
             try:
-                grade_report = report_fetcher.retrieve_json(rt, 'grade', 'year')
+                grade_report = report_fetcher.retrieve_json(rt, 'grade', 'day')
             except:
                 grade_report = {'grade':'N/A'}
             grade_roster[rt]=grade_report['grade']

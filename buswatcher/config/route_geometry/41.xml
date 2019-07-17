@@ -1,0 +1,884 @@
+<?xml version="1.0"?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<route>
+		<id>41</id> 
+		<rtpiFeedName></rtpiFeedName>
+		<sn>41</sn> 
+		<nm>41 Park Avenue</nm> 
+		<displayDesignator>41</displayDesignator> 
+		<vmode>1</vmode>   
+		
+		<sbs>
+
+
+
+		</sbs>
+
+		<c>#339999</c>
+
+		<pas>
+
+
+			<pa>
+				<id>373</id>
+
+				<d>Orange</d> 
+				<dd>Orange</dd>  
+				<directionRtpiFeedName></directionRtpiFeedName>
+
+				<pt>
+					<lat>40.75861000000114</lat>
+			        <lon>-74.18484000000011</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18827</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PARK AVE STATION</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.75865</lat>
+			        <lon>-74.1852</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75896</lat>
+			        <lon>-74.1862</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.759148</lat>
+			        <lon>-74.186605</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.759160000001</lat>
+			        <lon>-74.18663000000147</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18828</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PARK AVE + NORTH 6TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.7592</lat>
+			        <lon>-74.18701</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75968</lat>
+			        <lon>-74.18869</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.759794</lat>
+			        <lon>-74.188874</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75985999999988</lat>
+			        <lon>-74.18897999999872</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18829</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PARK AVE + ROSEVILLE AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.75988</lat>
+			        <lon>-74.18936</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76055</lat>
+			        <lon>-74.19153</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.760649</lat>
+			        <lon>-74.191728</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.760699999998735</lat>
+			        <lon>-74.19183000000152</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18830</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PARK AVE + NORTH 11TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.76073</lat>
+			        <lon>-74.19219</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76108</lat>
+			        <lon>-74.19337</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76125</lat>
+			        <lon>-74.19386</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.761676</lat>
+			        <lon>-74.19464</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.761750000000376</lat>
+			        <lon>-74.19474000000055</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17597</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PARK AVE + NORTH 15TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.76186</lat>
+			        <lon>-74.19508</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.762418</lat>
+			        <lon>-74.196179</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.762530000000154</lat>
+			        <lon>-74.19634999999825</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17598</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PARK AVE + NORTH 17TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.76263</lat>
+			        <lon>-74.19669</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.763193</lat>
+			        <lon>-74.197774</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76330999999957</lat>
+			        <lon>-74.19793999999989</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17599</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PARK AVE + NORTH 19TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.76341</lat>
+			        <lon>-74.19828</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76377</lat>
+			        <lon>-74.19904</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.764008</lat>
+			        <lon>-74.199397</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76403000000026</lat>
+			        <lon>-74.19943000000131</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17600</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PARK AVE + STOCKTON PL</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.76414</lat>
+			        <lon>-74.19977</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76538</lat>
+			        <lon>-74.20236</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.765508</lat>
+			        <lon>-74.202527</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76558000000049</lat>
+			        <lon>-74.20262000000103</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17601</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PARK AVE + GROVE ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.76568</lat>
+			        <lon>-74.20297</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.766093</lat>
+			        <lon>-74.203755</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76619999999945</lat>
+			        <lon>-74.20392999999969</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17602</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PARK AVE + NORTH ORATON PKWY</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.76632</lat>
+			        <lon>-74.20427</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76714</lat>
+			        <lon>-74.20594</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.767262</lat>
+			        <lon>-74.206114</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76732999999875</lat>
+			        <lon>-74.20621000000028</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17603</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PARK AVE + NORTH ARLINGTON AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.76743</lat>
+			        <lon>-74.20655</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.768437</lat>
+			        <lon>-74.208551</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76854000000024</lat>
+			        <lon>-74.20871000000173</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17604</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PARK AVE + NORTH WALNUT ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.76865</lat>
+			        <lon>-74.20905</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.770068</lat>
+			        <lon>-74.211848</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77007999999937</lat>
+			        <lon>-74.21186999999948</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17605</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PARK AVE + LINCOLN ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.7702</lat>
+			        <lon>-74.2122</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.770682</lat>
+			        <lon>-74.213146</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.770749999999694</lat>
+			        <lon>-74.21325999999974</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17606</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PARK AVE + PROSPECT ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.77154</lat>
+			        <lon>-74.21516</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77175</lat>
+			        <lon>-74.21563</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.771979</lat>
+			        <lon>-74.215996</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77199999999972</lat>
+			        <lon>-74.21602999999902</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17607</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PARK AVE + WOODLAND AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.77209</lat>
+			        <lon>-74.21638</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.772861</lat>
+			        <lon>-74.218004</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77286999999939</lat>
+			        <lon>-74.21802000000034</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17608</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PARK AVE + GLENWOOD AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.77304</lat>
+			        <lon>-74.21851</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7738</lat>
+			        <lon>-74.22023</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.774023</lat>
+			        <lon>-74.220602</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7740399999993</lat>
+			        <lon>-74.22063000000091</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17609</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PARK AVE + WASHINGTON ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.77429</lat>
+			        <lon>-74.22127</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.774845</lat>
+			        <lon>-74.222431</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77485999999948</lat>
+			        <lon>-74.22245999999974</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17610</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PARK AVE + PARK ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.77518</lat>
+			        <lon>-74.22327</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.775364</lat>
+			        <lon>-74.223604</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77547999999901</lat>
+			        <lon>-74.22379000000106</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17400</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PARK AVE + PARK PL</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.77557</lat>
+			        <lon>-74.22415</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77639</lat>
+			        <lon>-74.22603</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.776517</lat>
+			        <lon>-74.226199</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.776630000000594</lat>
+			        <lon>-74.22635000000177</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17401</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PARK AVE + NORTH DAY ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.7767</lat>
+			        <lon>-74.22672</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.777307</lat>
+			        <lon>-74.227991</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77740999999952</lat>
+			        <lon>-74.22815000000101</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17402</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PARK AVE + CLEVELAND ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.7775</lat>
+			        <lon>-74.22849</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77812</lat>
+			        <lon>-74.2299</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.778</lat>
+			        <lon>-74.230148</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77792999999988</lat>
+			        <lon>-74.2302599999998</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17368</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>HIGH ST + PARK AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.77767</lat>
+			        <lon>-74.2304</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77708</lat>
+			        <lon>-74.23087</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.776686</lat>
+			        <lon>-74.231262</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77665000000131</lat>
+			        <lon>-74.23130000000015</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17369</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>HIGH ST + WHITE ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.7764</lat>
+			        <lon>-74.23144</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77371</lat>
+			        <lon>-74.23361</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77327</lat>
+			        <lon>-74.23249</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.773145</lat>
+			        <lon>-74.232319</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.773050000001085</lat>
+			        <lon>-74.23218999999845</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17378</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MAIN ST + TONY GALENTO PLAZA</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.77302</lat>
+			        <lon>-74.2318</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77272</lat>
+			        <lon>-74.23099</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77263</lat>
+			        <lon>-74.23095</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77203</lat>
+			        <lon>-74.23139</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.771855</lat>
+			        <lon>-74.231333</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.771690000000575</lat>
+			        <lon>-74.23128000000119</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17403</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>RR PLACE + ESSEX AVE/S DAY ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.77167</lat>
+			        <lon>-74.23091</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.771505</lat>
+			        <lon>-74.230547</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77142999999892</lat>
+			        <lon>-74.23041000000057</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17404</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>RR PLACE + ESSEX AVE/S DAY ST</st> 
+					</bs>
+
+				</pt>
+
+			</pa>
+
+
+		</pas>
+	</route>

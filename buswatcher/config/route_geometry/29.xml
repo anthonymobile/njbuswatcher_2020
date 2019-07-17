@@ -1,0 +1,5411 @@
+<?xml version="1.0"?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<route>
+		<id>29</id> 
+		<rtpiFeedName></rtpiFeedName>
+		<sn>29</sn> 
+		<nm>29 Bloomfield Avenue</nm> 
+		<displayDesignator>29</displayDesignator> 
+		<vmode>1</vmode>   
+		
+		<sbs>
+
+
+
+		</sbs>
+
+		<c>#663399</c>
+
+		<pas>
+
+
+			<pa>
+				<id>983</id>
+
+				<d>West Caldwell</d> 
+				<dd>West Caldwell</dd>  
+				<directionRtpiFeedName></directionRtpiFeedName>
+
+				<pt>
+					<lat>40.73454000000016</lat>
+			        <lon>-74.16328000000125</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18835</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BUS LANES (RAYMOND BLVD SIDE)</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.73462</lat>
+			        <lon>-74.16286</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73472</lat>
+			        <lon>-74.16284</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73504</lat>
+			        <lon>-74.16317</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73513</lat>
+			        <lon>-74.16331</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73623</lat>
+			        <lon>-74.16681</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.736355</lat>
+			        <lon>-74.166981</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.736420000001225</lat>
+			        <lon>-74.16706999999937</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18858</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>RAYMOND BLVD 170&apos;W OF MCCARTER HWY</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.73644</lat>
+			        <lon>-74.16744</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73661</lat>
+			        <lon>-74.16794</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73661</lat>
+			        <lon>-74.16808</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73612</lat>
+			        <lon>-74.1684</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.735992</lat>
+			        <lon>-74.168567</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73586000000115</lat>
+			        <lon>-74.16874000000092</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18785</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MULBERRY ST + COMMERCE ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.73557</lat>
+			        <lon>-74.16879</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73483</lat>
+			        <lon>-74.16927</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73486</lat>
+			        <lon>-74.16959</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73586</lat>
+			        <lon>-74.17314</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.735961</lat>
+			        <lon>-74.173337</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.736050000000546</lat>
+			        <lon>-74.1735100000014</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18744</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MARKET ST + HALSEY ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.73608</lat>
+			        <lon>-74.17388</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73632</lat>
+			        <lon>-74.17472</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73645</lat>
+			        <lon>-74.17474</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73675</lat>
+			        <lon>-74.174631</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.736879999999246</lat>
+			        <lon>-74.17457000000118</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19072</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WASHINGTON ST + MARKET ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.738046</lat>
+			        <lon>-74.173903</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73817000000087</lat>
+			        <lon>-74.17380999999989</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19073</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WASHINGTON ST + RAYMOND BLVD</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.73845</lat>
+			        <lon>-74.17374</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.74074</lat>
+			        <lon>-74.17252</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.741276</lat>
+			        <lon>-74.172101</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.741310000001306</lat>
+			        <lon>-74.17207000000074</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19074</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WASHINGTON ST + BLEEKER ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.74158</lat>
+			        <lon>-74.172</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.742003</lat>
+			        <lon>-74.171645</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.74202999999902</lat>
+			        <lon>-74.17161999999946</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19075</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WASHINGTON ST + CENTRAL AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.7423</lat>
+			        <lon>-74.17154</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.742575</lat>
+			        <lon>-74.17133</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.742710000001054</lat>
+			        <lon>-74.17119999999882</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19076</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WASHINGTON ST + WASHINGTON PL</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.74298</lat>
+			        <lon>-74.17112</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.743491</lat>
+			        <lon>-74.170733</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.74357000000081</lat>
+			        <lon>-74.17065000000129</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19077</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WASHINGTON ST + JAMES ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.74384</lat>
+			        <lon>-74.17056</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7442</lat>
+			        <lon>-74.1703</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7444</lat>
+			        <lon>-74.17007</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.74445</lat>
+			        <lon>-74.1699</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.74454</lat>
+			        <lon>-74.16982</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.74715</lat>
+			        <lon>-74.170416</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.74729000000132</lat>
+			        <lon>-74.17041999999925</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18333</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BROAD ST ACROSS FROM NJT STATION</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.74755</lat>
+			        <lon>-74.17055</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.74782</lat>
+			        <lon>-74.17062</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.74823</lat>
+			        <lon>-74.1706</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7502</lat>
+			        <lon>-74.16983</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75088</lat>
+			        <lon>-74.16966</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.751644</lat>
+			        <lon>-74.169534</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75166000000121</lat>
+			        <lon>-74.16953000000075</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18336</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BROAD ST 275 S OF CLARK ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.75194</lat>
+			        <lon>-74.16955</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75317</lat>
+			        <lon>-74.16942</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75323</lat>
+			        <lon>-74.16953</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.753365</lat>
+			        <lon>-74.170286</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75340000000035</lat>
+			        <lon>-74.17042999999923</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18305</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD PL + BROADWAY</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.753581</lat>
+			        <lon>-74.17084</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75425</lat>
+			        <lon>-74.1715</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.754425</lat>
+			        <lon>-74.171554</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75454000000112</lat>
+			        <lon>-74.17159000000126</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18292</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + ROWLAND ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.7547</lat>
+			        <lon>-74.17191</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75526</lat>
+			        <lon>-74.17243</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.755596</lat>
+			        <lon>-74.172598</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75564000000038</lat>
+			        <lon>-74.17262000000012</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>30633</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + CRITTENDEN ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.75581</lat>
+			        <lon>-74.17292</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75715</lat>
+			        <lon>-74.17419</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.757322</lat>
+			        <lon>-74.17426</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.757469999999245</lat>
+			        <lon>-74.1743199999983</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18294</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + GARSIDE ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.75766</lat>
+			        <lon>-74.1746</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75888</lat>
+			        <lon>-74.17542</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.759227</lat>
+			        <lon>-74.175545</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.759240000000965</lat>
+			        <lon>-74.17554999999936</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18296</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + CLIFTON AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.75945</lat>
+			        <lon>-74.17581</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76104</lat>
+			        <lon>-74.17687</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.761216</lat>
+			        <lon>-74.176917</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.761380000000926</lat>
+			        <lon>-74.17696000000053</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18297</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + PARKER ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.76158</lat>
+			        <lon>-74.17724</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76207</lat>
+			        <lon>-74.17757</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.762246</lat>
+			        <lon>-74.177618</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76240000000112</lat>
+			        <lon>-74.17766000000051</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18298</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + LAKE ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.7626</lat>
+			        <lon>-74.17793</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76515</lat>
+			        <lon>-74.17968</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.765631</lat>
+			        <lon>-74.179864</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.765650000000406</lat>
+			        <lon>-74.17987000000167</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18299</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + 3RD ST (175E)</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.76585</lat>
+			        <lon>-74.18014</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76646</lat>
+			        <lon>-74.18055</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.766808</lat>
+			        <lon>-74.180672</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76682999999953</lat>
+			        <lon>-74.18068000000014</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18300</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + 4TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.76703</lat>
+			        <lon>-74.18094</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76861</lat>
+			        <lon>-74.18203</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.768789</lat>
+			        <lon>-74.182056</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7689500000001</lat>
+			        <lon>-74.18207999999875</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18301</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + NORTH 6TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.76914</lat>
+			        <lon>-74.18238</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77</lat>
+			        <lon>-74.18296</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.770177</lat>
+			        <lon>-74.183003</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.770329999998886</lat>
+			        <lon>-74.18304000000067</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18302</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + NORTH 8TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.77053</lat>
+			        <lon>-74.18333</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77175</lat>
+			        <lon>-74.18416</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.771926</lat>
+			        <lon>-74.184207</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77209000000015</lat>
+			        <lon>-74.1842500000011</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18303</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + NORTH 10TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.77229</lat>
+			        <lon>-74.18454</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77315</lat>
+			        <lon>-74.18511</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.773328</lat>
+			        <lon>-74.185143</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77342000000085</lat>
+			        <lon>-74.18515999999843</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>30635</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + NORTH 11TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.77362</lat>
+			        <lon>-74.18543</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77469</lat>
+			        <lon>-74.18624</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.775113</lat>
+			        <lon>-74.186473</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.775270000001036</lat>
+			        <lon>-74.18653000000148</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17037</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + BELMONT AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.77547</lat>
+			        <lon>-74.18678</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77717</lat>
+			        <lon>-74.18795</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77742</lat>
+			        <lon>-74.18811</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.777596</lat>
+			        <lon>-74.188157</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77772000000021</lat>
+			        <lon>-74.18819000000093</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17138</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + AMPERE PKWY</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.77793</lat>
+			        <lon>-74.18844</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77878</lat>
+			        <lon>-74.18903</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.778954</lat>
+			        <lon>-74.189092</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77905999999901</lat>
+			        <lon>-74.18912999999934</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17139</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + GROVE ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.77926</lat>
+			        <lon>-74.18937</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78219</lat>
+			        <lon>-74.19136</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.782366</lat>
+			        <lon>-74.191406</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78245999999942</lat>
+			        <lon>-74.19143000000032</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17140</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + WATSESSING AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.78267</lat>
+			        <lon>-74.19168</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78364</lat>
+			        <lon>-74.19234</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.785225</lat>
+			        <lon>-74.193127</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.785389999999985</lat>
+			        <lon>-74.19317999999981</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17141</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + BERKELEY PL</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.78563</lat>
+			        <lon>-74.19338</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.786567</lat>
+			        <lon>-74.193815</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78674000000032</lat>
+			        <lon>-74.19386000000073</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17142</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + HILL ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.78697</lat>
+			        <lon>-74.19408</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78825</lat>
+			        <lon>-74.19475</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.788427</lat>
+			        <lon>-74.194793</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78853999999925</lat>
+			        <lon>-74.19481999999984</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17143</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + NEWARK AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.78877</lat>
+			        <lon>-74.19503</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79094</lat>
+			        <lon>-74.19617</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7912</lat>
+			        <lon>-74.1963</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.791555</lat>
+			        <lon>-74.196375</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79157999999979</lat>
+			        <lon>-74.19637999999904</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17144</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + MUNICIPAL PLAZA</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.7918</lat>
+			        <lon>-74.19664</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.795494</lat>
+			        <lon>-74.199147</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.795649999999334</lat>
+			        <lon>-74.19923999999855</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17145</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + LIBERTY ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.79684</lat>
+			        <lon>-74.20015</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79733</lat>
+			        <lon>-74.20049</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.797673</lat>
+			        <lon>-74.200633</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7976899999989</lat>
+			        <lon>-74.20063999999971</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17146</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + PARK ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.79789</lat>
+			        <lon>-74.20089</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.798898</lat>
+			        <lon>-74.201594</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.799030000001224</lat>
+			        <lon>-74.20165999999953</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17759</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + PARK AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.79984</lat>
+			        <lon>-74.20264</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.799994</lat>
+			        <lon>-74.202762</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.80008000000131</lat>
+			        <lon>-74.20282999999948</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17760</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + HIGH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.80022</lat>
+			        <lon>-74.20315</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.80078</lat>
+			        <lon>-74.20393</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.800929</lat>
+			        <lon>-74.204064</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.801079999999224</lat>
+			        <lon>-74.20419999999959</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17761</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + RIDGEWOOD AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.80151</lat>
+			        <lon>-74.20463</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.80359</lat>
+			        <lon>-74.20639</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.803755</lat>
+			        <lon>-74.206483</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.803910000001125</lat>
+			        <lon>-74.20656999999915</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17762</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + HIGHLAND AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.80388</lat>
+			        <lon>-74.20663</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.80874</lat>
+			        <lon>-74.21159</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.80876999999953</lat>
+			        <lon>-74.21154000000168</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18128</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + HARTLEY ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.80894</lat>
+			        <lon>-74.21182</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.81012</lat>
+			        <lon>-74.21306</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.810842</lat>
+			        <lon>-74.213692</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.810949999999195</lat>
+			        <lon>-74.2137600000008</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18129</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + LACKAWANNA PLAZA</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.81113</lat>
+			        <lon>-74.21406</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.81194</lat>
+			        <lon>-74.21503</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.812097</lat>
+			        <lon>-74.215145</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.81219999999878</lat>
+			        <lon>-74.21521999999821</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18130</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + NORTH WILLOW ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.81232</lat>
+			        <lon>-74.21555</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.81331</lat>
+			        <lon>-74.21681</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.813462</lat>
+			        <lon>-74.216937</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.81362000000132</lat>
+			        <lon>-74.21706999999843</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18131</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + N FULLERTON AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.81376</lat>
+			        <lon>-74.21738</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.81523</lat>
+			        <lon>-74.21928</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.815633</lat>
+			        <lon>-74.219657</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.815660000001316</lat>
+			        <lon>-74.2196799999988</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18132</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + MAPLE PL</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.8158</lat>
+			        <lon>-74.22001</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.81629</lat>
+			        <lon>-74.22065</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.816593</lat>
+			        <lon>-74.220906</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.81660999999978</lat>
+			        <lon>-74.22092000000104</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18133</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + VALLEY RD</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.81675</lat>
+			        <lon>-74.22124</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.81744</lat>
+			        <lon>-74.22212</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.817594</lat>
+			        <lon>-74.222242</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.81773000000089</lat>
+			        <lon>-74.22235000000103</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18134</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + BELL ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.81787</lat>
+			        <lon>-74.22268</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.81915</lat>
+			        <lon>-74.22432</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.81926</lat>
+			        <lon>-74.22443</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.819598</lat>
+			        <lon>-74.224594</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.819609999998924</lat>
+			        <lon>-74.22460000000012</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18135</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + NORTH MOUNTAIN AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.81985</lat>
+			        <lon>-74.2248</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.82355</lat>
+			        <lon>-74.2267</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.82406</lat>
+			        <lon>-74.22699</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.8244</lat>
+			        <lon>-74.22728</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.82471</lat>
+			        <lon>-74.22764</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.82497</lat>
+			        <lon>-74.22806</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.82507</lat>
+			        <lon>-74.2284</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.82515</lat>
+			        <lon>-74.23038</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.82528</lat>
+			        <lon>-74.23108</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.825367</lat>
+			        <lon>-74.231288</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.82544000000052</lat>
+			        <lon>-74.23145999999942</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19371</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + POMPTON AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.82544</lat>
+			        <lon>-74.23183</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.8258</lat>
+			        <lon>-74.23339</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.82603</lat>
+			        <lon>-74.23424</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.826222</lat>
+			        <lon>-74.234642</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.82623999999871</lat>
+			        <lon>-74.23468000000047</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19372</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + WESTVIEW RD</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.82631</lat>
+			        <lon>-74.23503</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.82671</lat>
+			        <lon>-74.23597</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.827254</lat>
+			        <lon>-74.237084</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.827319999999624</lat>
+			        <lon>-74.23718999999824</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19373</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + HILLCREST TERRACE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.8274</lat>
+			        <lon>-74.23755</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.82855</lat>
+			        <lon>-74.24022</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.828737</lat>
+			        <lon>-74.240551</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.82884000000118</lat>
+			        <lon>-74.24071000000124</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19374</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + PARK AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.82895</lat>
+			        <lon>-74.24104</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.8301</lat>
+			        <lon>-74.24259</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.830248</lat>
+			        <lon>-74.242726</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.83035000000077</lat>
+			        <lon>-74.24281999999873</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19375</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + CUMBERLAND AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.83048</lat>
+			        <lon>-74.24315</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.83084</lat>
+			        <lon>-74.2437</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.83128</lat>
+			        <lon>-74.244455</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.83136999999965</lat>
+			        <lon>-74.24456999999887</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19376</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + PARK PL</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.83146</lat>
+			        <lon>-74.24492</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.83192</lat>
+			        <lon>-74.24603</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.832147</lat>
+			        <lon>-74.246399</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.83215999999988</lat>
+			        <lon>-74.24642000000077</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19377</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + LAKESIDE AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.83223</lat>
+			        <lon>-74.24678</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.83261</lat>
+			        <lon>-74.24774</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.832913</lat>
+			        <lon>-74.248263</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.83293000000055</lat>
+			        <lon>-74.24828999999973</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19378</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + GROVE AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.833</lat>
+			        <lon>-74.24866</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.833921</lat>
+			        <lon>-74.250517</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.834030000001285</lat>
+			        <lon>-74.25069999999988</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19379</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + FAIRVIEW AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.834195</lat>
+			        <lon>-74.25183</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.83423000000059</lat>
+			        <lon>-74.25201000000158</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19380</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + FOREST AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.83422</lat>
+			        <lon>-74.25237</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.83458</lat>
+			        <lon>-74.25668</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.834632</lat>
+			        <lon>-74.256908</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.834660000000255</lat>
+			        <lon>-74.25703000000034</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19381</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + LINN DR</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.83462</lat>
+			        <lon>-74.2574</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.83474</lat>
+			        <lon>-74.25902</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.834886</lat>
+			        <lon>-74.259635</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.834889999998666</lat>
+			        <lon>-74.25964999999836</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17288</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + ELM RD</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.83484</lat>
+			        <lon>-74.26001</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.835284</lat>
+			        <lon>-74.26437</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.835330000000866</lat>
+			        <lon>-74.26461000000175</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17286</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + MOUNTAIN AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.83531</lat>
+			        <lon>-74.26498</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.83547</lat>
+			        <lon>-74.26677</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.835523</lat>
+			        <lon>-74.266997</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.835569999998704</lat>
+			        <lon>-74.26720000000033</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17287</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + LINWOOD TERRACE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.83554</lat>
+			        <lon>-74.26757</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.83568</lat>
+			        <lon>-74.26919</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.835746</lat>
+			        <lon>-74.269411</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.8357900000005</lat>
+			        <lon>-74.2695600000016</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19224</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + ELM RD</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.83575</lat>
+			        <lon>-74.26992</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.83585</lat>
+			        <lon>-74.27063</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.83595</lat>
+			        <lon>-74.27097</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.83648</lat>
+			        <lon>-74.27179</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.836773</lat>
+			        <lon>-74.272065</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.83679999999994</lat>
+			        <lon>-74.27209000000094</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17289</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + ARLINGTON AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.83695</lat>
+			        <lon>-74.2724</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.839</lat>
+			        <lon>-74.27507</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.839155</lat>
+			        <lon>-74.27519</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.83926000000014</lat>
+			        <lon>-74.27527000000042</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>31641</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + PERSONETTE ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.83939</lat>
+			        <lon>-74.2756</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.84007</lat>
+			        <lon>-74.2765</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.840366</lat>
+			        <lon>-74.276769</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.840399999999136</lat>
+			        <lon>-74.27679999999991</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17291</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + ROSELAND AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.84046</lat>
+			        <lon>-74.27717</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.84151</lat>
+			        <lon>-74.27971</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.841655</lat>
+			        <lon>-74.27985</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.84178000000102</lat>
+			        <lon>-74.27997000000173</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17293</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + CLEVELAND ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.8419</lat>
+			        <lon>-74.28031</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.84447</lat>
+			        <lon>-74.28302</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.8448</lat>
+			        <lon>-74.28335</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.844967</lat>
+			        <lon>-74.283437</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.84507000000112</lat>
+			        <lon>-74.28348999999987</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17294</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + PROSPECT ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.84526</lat>
+			        <lon>-74.28419</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.84561</lat>
+			        <lon>-74.28631</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.845775</lat>
+			        <lon>-74.286732</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.845790000000875</lat>
+			        <lon>-74.28676999999838</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17295</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + WESTOVER AVE (214)</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.84575</lat>
+			        <lon>-74.28715</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.84589</lat>
+			        <lon>-74.28785</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.84604</lat>
+			        <lon>-74.28836</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.84624</lat>
+			        <lon>-74.28883</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.8465</lat>
+			        <lon>-74.28925</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.846662</lat>
+			        <lon>-74.289352</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.84676999999871</lat>
+			        <lon>-74.28941999999891</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19401</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + GRAY ST (130E)</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.84692</lat>
+			        <lon>-74.28975</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.84777</lat>
+			        <lon>-74.29066</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.848108</lat>
+			        <lon>-74.290824</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.84813999999975</lat>
+			        <lon>-74.29084000000125</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19402</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + DODD RD</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.8483</lat>
+			        <lon>-74.29117</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.84882</lat>
+			        <lon>-74.29175</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.84913</lat>
+			        <lon>-74.29235</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.85008</lat>
+			        <lon>-74.29496</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.850189</lat>
+			        <lon>-74.295149</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.850299999998946</lat>
+			        <lon>-74.29534000000025</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19404</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + PASSAIC AVE (204E)</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.85035</lat>
+			        <lon>-74.2957</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.85109</lat>
+			        <lon>-74.29804</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.8514</lat>
+			        <lon>-74.29884</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.852331</lat>
+			        <lon>-74.29821</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.852369999999496</lat>
+			        <lon>-74.29818000000179</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19420</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>KIRKPATRICK LANE + BLOOMFIELD AVE</st> 
+					</bs>
+
+				</pt>
+
+			</pa>
+
+			<pa>
+				<id>1424</id>
+
+				<d>Newark</d> 
+				<dd>Newark</dd>  
+				<directionRtpiFeedName></directionRtpiFeedName>
+
+				<pt>
+					<lat>40.852369999999496</lat>
+			        <lon>-74.29818000000179</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19420</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>KIRKPATRICK LANE + BLOOMFIELD AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.85263</lat>
+			        <lon>-74.29807</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.85299</lat>
+			        <lon>-74.29782</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.852931</lat>
+			        <lon>-74.297531</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.8528799999999</lat>
+			        <lon>-74.29736999999828</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19409</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>ESSEX MALL CLINTON RD STOP</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.85257</lat>
+			        <lon>-74.29599</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.85243</lat>
+			        <lon>-74.29548</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.852212</lat>
+			        <lon>-74.295177</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.852079999999106</lat>
+			        <lon>-74.29503000000085</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19410</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>CLINTON RD + PASSAIC AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.85182</lat>
+			        <lon>-74.29489</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.85052</lat>
+			        <lon>-74.29619</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.85018</lat>
+			        <lon>-74.29521</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.850054</lat>
+			        <lon>-74.29504</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.84994999999909</lat>
+			        <lon>-74.29490000000068</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19397</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + PASSAIC AVE (265E)</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.84992</lat>
+			        <lon>-74.29453</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.84921</lat>
+			        <lon>-74.29257</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.849091</lat>
+			        <lon>-74.292392</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.84896999999948</lat>
+			        <lon>-74.29220999999954</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19398</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + FAIRFIELD AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.84889</lat>
+			        <lon>-74.29186</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.8486</lat>
+			        <lon>-74.29148</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.84794</lat>
+			        <lon>-74.29081</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.84745</lat>
+			        <lon>-74.29039</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.847290000000434</lat>
+			        <lon>-74.29028000000167</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19399</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + MELROSE PL</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.84712</lat>
+			        <lon>-74.28998</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.84661</lat>
+			        <lon>-74.28938</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.84624</lat>
+			        <lon>-74.28884</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.84585</lat>
+			        <lon>-74.287824</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.845760000001114</lat>
+			        <lon>-74.2876200000002</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19400</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + LANE AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.84577</lat>
+			        <lon>-74.28724</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.84559</lat>
+			        <lon>-74.28618</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.845514</lat>
+			        <lon>-74.285964</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.84545000000054</lat>
+			        <lon>-74.28578000000176</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17276</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + MAGNOLIA LANE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.84546</lat>
+			        <lon>-74.28541</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.84529</lat>
+			        <lon>-74.28435</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.84521</lat>
+			        <lon>-74.28401</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.84507</lat>
+			        <lon>-74.28369</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.84488</lat>
+			        <lon>-74.28343</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.84434</lat>
+			        <lon>-74.28288</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.844177</lat>
+			        <lon>-74.28278</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.844029999998895</lat>
+			        <lon>-74.28269000000012</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17277</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + PROSPECT ST (379E)</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.84387</lat>
+			        <lon>-74.28238</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.84237</lat>
+			        <lon>-74.28079</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.842041</lat>
+			        <lon>-74.280598</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.842009999998815</lat>
+			        <lon>-74.28058000000095</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17278</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + ACADEMY RD</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.84186</lat>
+			        <lon>-74.28025</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.84158</lat>
+			        <lon>-74.27985</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.84059</lat>
+			        <lon>-74.27747</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.840467</lat>
+			        <lon>-74.277297</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.84036999999954</lat>
+			        <lon>-74.27715999999984</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17280</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + BROOKSIDE AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.84029</lat>
+			        <lon>-74.27681</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.83933</lat>
+			        <lon>-74.27552</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.839037</lat>
+			        <lon>-74.275245</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.83899999999866</lat>
+			        <lon>-74.2752099999987</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17281</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + ROSELAND AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.83886</lat>
+			        <lon>-74.27488</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.8373</lat>
+			        <lon>-74.27285</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.836951</lat>
+			        <lon>-74.272467</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.83682000000128</lat>
+			        <lon>-74.27234999999943</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17283</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + PROVOST SQ</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.83667</lat>
+			        <lon>-74.27204</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.83602</lat>
+			        <lon>-74.27111</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.83594</lat>
+			        <lon>-74.27097</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.83588</lat>
+			        <lon>-74.2708</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.8357</lat>
+			        <lon>-74.269692</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.83565000000134</lat>
+			        <lon>-74.26946000000049</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17284</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + ELM RD</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.83567</lat>
+			        <lon>-74.2691</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.83557</lat>
+			        <lon>-74.26784</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.83548</lat>
+			        <lon>-74.26738</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.83546999999982</lat>
+			        <lon>-74.26732999999956</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17285</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + RYERSON AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.83549</lat>
+			        <lon>-74.26697</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.83532</lat>
+			        <lon>-74.265</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.835196</lat>
+			        <lon>-74.264553</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.83519000000015</lat>
+			        <lon>-74.26453000000141</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17720</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + MOUNTAIN AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.83524</lat>
+			        <lon>-74.26415</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.83493</lat>
+			        <lon>-74.26092</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.834788</lat>
+			        <lon>-74.260104</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.83477999999979</lat>
+			        <lon>-74.26007000000048</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17721</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + WHITE ROCK RD</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.83481</lat>
+			        <lon>-74.2597</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.83461</lat>
+			        <lon>-74.25718</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.834501</lat>
+			        <lon>-74.256727</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.83448999999928</lat>
+			        <lon>-74.25667999999925</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19357</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + FELLS RD</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.83456</lat>
+			        <lon>-74.25632</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.83427</lat>
+			        <lon>-74.25291</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.834203</lat>
+			        <lon>-74.252689</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.83414000000119</lat>
+			        <lon>-74.25247999999989</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19358</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + FOREST AVENUE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.8342</lat>
+			        <lon>-74.25211</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.83417</lat>
+			        <lon>-74.25175</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.834093</lat>
+			        <lon>-74.251535</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.83402000000054</lat>
+			        <lon>-74.25132999999892</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19359</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + WEST LINCOLN ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.83405</lat>
+			        <lon>-74.25095</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.83387</lat>
+			        <lon>-74.25046</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.833747</lat>
+			        <lon>-74.250287</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.83361999999919</lat>
+			        <lon>-74.25010999999871</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19360</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + EAST LINCOLN ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.83353</lat>
+			        <lon>-74.24976</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.83323</lat>
+			        <lon>-74.24916</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.83298</lat>
+			        <lon>-74.248818</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.83296000000095</lat>
+			        <lon>-74.24878999999953</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19361</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + SOUTH PROSPECT ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.83289</lat>
+			        <lon>-74.24842</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.83231</lat>
+			        <lon>-74.24699</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.832121</lat>
+			        <lon>-74.246652</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.83204000000099</lat>
+			        <lon>-74.24653000000137</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19362</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + LAKESIDE AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.83197</lat>
+			        <lon>-74.24617</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.83138</lat>
+			        <lon>-74.24474</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.831134</lat>
+			        <lon>-74.244393</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.83111000000075</lat>
+			        <lon>-74.24435999999845</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19363</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + PARK PL</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.83101</lat>
+			        <lon>-74.24402</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.8304</lat>
+			        <lon>-74.24303</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.83022</lat>
+			        <lon>-74.24277</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.829923</lat>
+			        <lon>-74.242502</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.82990999999961</lat>
+			        <lon>-74.24248999999833</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19364</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + CUMBERLAND AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.82977</lat>
+			        <lon>-74.24215</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.8291</lat>
+			        <lon>-74.24125</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.82882</lat>
+			        <lon>-74.240951</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.828810000001084</lat>
+			        <lon>-74.24093999999883</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19365</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + PARK AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.82872</lat>
+			        <lon>-74.24058</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.82776</lat>
+			        <lon>-74.23839</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.827633</lat>
+			        <lon>-74.238221</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.827550000001246</lat>
+			        <lon>-74.23810999999952</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19366</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + MALVERN PL (15W)</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.82748</lat>
+			        <lon>-74.23775</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.82716</lat>
+			        <lon>-74.23696</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.826917</lat>
+			        <lon>-74.23661</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.82690999999966</lat>
+			        <lon>-74.23659999999933</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19367</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + BROOKDALE AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.82684</lat>
+			        <lon>-74.23624</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.82617</lat>
+			        <lon>-74.23467</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.825958</lat>
+			        <lon>-74.234285</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.82595000000051</lat>
+			        <lon>-74.23426999999943</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19368</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + WESTVIEW RD (15E)</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.82594</lat>
+			        <lon>-74.2339</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.8254</lat>
+			        <lon>-74.23166</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.825303</lat>
+			        <lon>-74.23146</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.82524999999918</lat>
+			        <lon>-74.23134999999841</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19369</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + MT PROSPECT AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.82526</lat>
+			        <lon>-74.23098</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.82518</lat>
+			        <lon>-74.23063</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.82511</lat>
+			        <lon>-74.22973</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.82509</lat>
+			        <lon>-74.22847</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.824984</lat>
+			        <lon>-74.228278</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.82489000000129</lat>
+			        <lon>-74.22811000000155</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19370</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + SUNSET AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.824728</lat>
+			        <lon>-74.227686</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.8244</lat>
+			        <lon>-74.22728</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.82406</lat>
+			        <lon>-74.22699</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.82228</lat>
+			        <lon>-74.22604</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.821843</lat>
+			        <lon>-74.22587</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.821710000000486</lat>
+			        <lon>-74.22583999999895</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18118</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + LLOYD RD</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.82148</lat>
+			        <lon>-74.22564</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.82032</lat>
+			        <lon>-74.22506</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.81956</lat>
+			        <lon>-74.22464</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.8192</lat>
+			        <lon>-74.22438</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.81861</lat>
+			        <lon>-74.223719</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.81858000000062</lat>
+			        <lon>-74.22369000000164</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18119</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + ST LUKES PL</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.81842</lat>
+			        <lon>-74.22339</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.81705</lat>
+			        <lon>-74.22162</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.816894</lat>
+			        <lon>-74.221501</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.816749999999146</lat>
+			        <lon>-74.22138999999848</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18120</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + VALLEY RD</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.81661</lat>
+			        <lon>-74.22106</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.81544</lat>
+			        <lon>-74.21953</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.815283</lat>
+			        <lon>-74.219414</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.815170000001245</lat>
+			        <lon>-74.21932999999822</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18121</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + PARK ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.81503</lat>
+			        <lon>-74.21902</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.81444</lat>
+			        <lon>-74.21826</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.814137</lat>
+			        <lon>-74.218003</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.81411000000094</lat>
+			        <lon>-74.21797999999951</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18122</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + CHURCH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.81397</lat>
+			        <lon>-74.21766</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.81172</lat>
+			        <lon>-74.21474</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.81131</lat>
+			        <lon>-74.21426</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.811145</lat>
+			        <lon>-74.214165</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.811050000001</lat>
+			        <lon>-74.21410999999821</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18124</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + GATES AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.81088</lat>
+			        <lon>-74.2138</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.80893</lat>
+			        <lon>-74.21181</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.808606</lat>
+			        <lon>-74.211603</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.808569999999094</lat>
+			        <lon>-74.2115800000016</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18125</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + HARTLEY ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.80841</lat>
+			        <lon>-74.21127</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.80754</lat>
+			        <lon>-74.21038</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.807375</lat>
+			        <lon>-74.210287</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.80722000000086</lat>
+			        <lon>-74.21019999999827</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18126</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + MAPLE AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.80707</lat>
+			        <lon>-74.20987</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.80523</lat>
+			        <lon>-74.20799</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.804904</lat>
+			        <lon>-74.207789</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.80488999999928</lat>
+			        <lon>-74.20777999999883</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17754</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + MAPLE AVE (877E)</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.80472</lat>
+			        <lon>-74.20748</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.80407</lat>
+			        <lon>-74.20681</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.803901</lat>
+			        <lon>-74.20673</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.803729999999184</lat>
+			        <lon>-74.2066500000004</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17755</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + FREEMAN PKWY</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.80355</lat>
+			        <lon>-74.20636</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.80124</lat>
+			        <lon>-74.2044</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.800914</lat>
+			        <lon>-74.2042</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.800879999998834</lat>
+			        <lon>-74.2041799999995</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17756</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + RIDGEWOOD AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.80072</lat>
+			        <lon>-74.20386</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79998</lat>
+			        <lon>-74.2028</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79968</lat>
+			        <lon>-74.20244</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.799369</lat>
+			        <lon>-74.202202</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79933999999994</lat>
+			        <lon>-74.20217999999839</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17757</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + HILLSIDE AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.79918</lat>
+			        <lon>-74.20188</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79837</lat>
+			        <lon>-74.20121</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79728</lat>
+			        <lon>-74.20045</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.796931</lat>
+			        <lon>-74.200337</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.796910000001354</lat>
+			        <lon>-74.20033000000117</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17758</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + CLARK ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.79671</lat>
+			        <lon>-74.20005</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79539</lat>
+			        <lon>-74.19909</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.795211</lat>
+			        <lon>-74.199071</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.795100000000986</lat>
+			        <lon>-74.19905999999828</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17147</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + WARD ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.7949</lat>
+			        <lon>-74.19877</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79235</lat>
+			        <lon>-74.197</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79148</lat>
+			        <lon>-74.19645</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.790794</lat>
+			        <lon>-74.196131</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.790609999999056</lat>
+			        <lon>-74.19608000000166</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17148</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + BURROUGHS PL</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.79038</lat>
+			        <lon>-74.19587</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78898</lat>
+			        <lon>-74.19513</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.788801</lat>
+			        <lon>-74.195102</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.788659999999865</lat>
+			        <lon>-74.19508000000155</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17149</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + ORANGE ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.78843</lat>
+			        <lon>-74.19485</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78664</lat>
+			        <lon>-74.19391</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.786286</lat>
+			        <lon>-74.193824</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78627000000116</lat>
+			        <lon>-74.19381999999888</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17150</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + ELLA ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.78605</lat>
+			        <lon>-74.19359</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.784</lat>
+			        <lon>-74.19254</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78314</lat>
+			        <lon>-74.19199</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.782962</lat>
+			        <lon>-74.191959</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78285000000092</lat>
+			        <lon>-74.19194000000074</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17151</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + WATSESSING AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.78264</lat>
+			        <lon>-74.19166</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78118</lat>
+			        <lon>-74.19067</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.781006</lat>
+			        <lon>-74.190612</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78085000000004</lat>
+			        <lon>-74.19055999999864</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17152</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + WATSESSING AVE (665S)</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.78065</lat>
+			        <lon>-74.1903</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77846</lat>
+			        <lon>-74.1888</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.778284</lat>
+			        <lon>-74.188751</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77814000000068</lat>
+			        <lon>-74.18870999999983</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17153</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + AMPERE PKWY</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.77794</lat>
+			        <lon>-74.18845</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77586</lat>
+			        <lon>-74.18705</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.775519</lat>
+			        <lon>-74.186898</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77550000000077</lat>
+			        <lon>-74.18689000000158</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17154</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + NORTH 15TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.77528</lat>
+			        <lon>-74.18665</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77456</lat>
+			        <lon>-74.18614</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.774384</lat>
+			        <lon>-74.186088</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77422000000114</lat>
+			        <lon>-74.18604000000065</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18279</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + NORTH 13TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.77404</lat>
+			        <lon>-74.18574</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77356</lat>
+			        <lon>-74.18539</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.773381</lat>
+			        <lon>-74.185364</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77328999999892</lat>
+			        <lon>-74.18535000000111</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18280</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + NORTH 12TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.7731</lat>
+			        <lon>-74.18507</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.772</lat>
+			        <lon>-74.18434</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.771654</lat>
+			        <lon>-74.184212</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77162000000118</lat>
+			        <lon>-74.18420000000069</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18281</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + NORTH 10TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.77142</lat>
+			        <lon>-74.18394</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77094</lat>
+			        <lon>-74.1836</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.770588</lat>
+			        <lon>-74.183501</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77055000000081</lat>
+			        <lon>-74.18348999999833</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18282</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + ROSEVILLE AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.77036</lat>
+			        <lon>-74.18321</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76926</lat>
+			        <lon>-74.18245</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.769083</lat>
+			        <lon>-74.182409</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76891000000104</lat>
+			        <lon>-74.18236999999938</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18283</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + NORTH 7TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.76871</lat>
+			        <lon>-74.18209</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76834</lat>
+			        <lon>-74.18184</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76799</lat>
+			        <lon>-74.181733</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.767979999998886</lat>
+			        <lon>-74.18173000000067</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18284</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + 1ST AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.76778</lat>
+			        <lon>-74.18145</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76559</lat>
+			        <lon>-74.17996</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.765412</lat>
+			        <lon>-74.179928</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.765310000000405</lat>
+			        <lon>-74.17991000000072</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18285</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + 3RD ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.7651</lat>
+			        <lon>-74.17964</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76303</lat>
+			        <lon>-74.17823</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.762851</lat>
+			        <lon>-74.178204</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76275999999884</lat>
+			        <lon>-74.17818999999994</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18286</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + LAKE ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.76257</lat>
+			        <lon>-74.17791</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76135</lat>
+			        <lon>-74.17708</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.761173</lat>
+			        <lon>-74.177039</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76099999999899</lat>
+			        <lon>-74.17700000000002</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18287</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + PARKER ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.7608</lat>
+			        <lon>-74.17671</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7597</lat>
+			        <lon>-74.17598</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.759525</lat>
+			        <lon>-74.175924</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75939000000112</lat>
+			        <lon>-74.17588000000126</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18288</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + CLIFTON AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.75917</lat>
+			        <lon>-74.17562</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75783</lat>
+			        <lon>-74.17472</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.757655</lat>
+			        <lon>-74.174665</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75748000000122</lat>
+			        <lon>-74.17461000000121</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18289</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + GARSIDE ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.75729</lat>
+			        <lon>-74.17432</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75595</lat>
+			        <lon>-74.17305</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.755779</lat>
+			        <lon>-74.172976</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.755649999998894</lat>
+			        <lon>-74.17292000000153</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18290</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + SUMMER AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.75547</lat>
+			        <lon>-74.17262</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75457</lat>
+			        <lon>-74.17179</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75424</lat>
+			        <lon>-74.171601</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75421999999931</lat>
+			        <lon>-74.1715900000004</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18291</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + WEBSTER ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.75404</lat>
+			        <lon>-74.17129</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7537</lat>
+			        <lon>-74.17097</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75333</lat>
+			        <lon>-74.17073</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75321</lat>
+			        <lon>-74.17067</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75293</lat>
+			        <lon>-74.17062</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75143</lat>
+			        <lon>-74.17066</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.751076</lat>
+			        <lon>-74.170744</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.751050000001236</lat>
+			        <lon>-74.17075000000064</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18389</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BROADWAY + 7TH AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.75069</lat>
+			        <lon>-74.17042</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.74997</lat>
+			        <lon>-74.16991</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.74919</lat>
+			        <lon>-74.17024</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.749044</lat>
+			        <lon>-74.170379</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.74897000000135</lat>
+			        <lon>-74.17045000000009</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18337</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BROAD ST + 8TH AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.74868</lat>
+			        <lon>-74.17045</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.74763</lat>
+			        <lon>-74.1709</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.747357</lat>
+			        <lon>-74.171085</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.74723999999976</lat>
+			        <lon>-74.17118000000018</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19046</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>UNIVERSITY AVE AT LACKAWANNA AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.74696</lat>
+			        <lon>-74.17121</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.746173</lat>
+			        <lon>-74.171686</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.746020000000996</lat>
+			        <lon>-74.17179999999826</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19047</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>UNIVERSITY AVE AT ORANGE ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.74574</lat>
+			        <lon>-74.17188</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.744524</lat>
+			        <lon>-74.172529</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.744490000000155</lat>
+			        <lon>-74.17254999999905</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19048</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>UNIVERSITY AVE AT JAMES ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.74307</lat>
+			        <lon>-74.17319</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.742913</lat>
+			        <lon>-74.173305</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.74281000000009</lat>
+			        <lon>-74.17338000000068</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19050</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>UNIVERSITY AVE AT CENTRAL AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.74254</lat>
+			        <lon>-74.17343</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7417</lat>
+			        <lon>-74.173907</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.74168000000033</lat>
+			        <lon>-74.17392</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19049</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>UNIVERSITY AVE AT BLEEKER ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.74141</lat>
+			        <lon>-74.174</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.740097</lat>
+			        <lon>-74.174672</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.739940000000225</lat>
+			        <lon>-74.17476999999943</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19051</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>UNIVERSITY AVE AT WARREN ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.73968</lat>
+			        <lon>-74.17487</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7388</lat>
+			        <lon>-74.17538</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73872</lat>
+			        <lon>-74.17531</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.738325</lat>
+			        <lon>-74.174098</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73826999999956</lat>
+			        <lon>-74.17398000000063</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18844</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>RAYMOND BLVD AT WASHINGTON ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.73822</lat>
+			        <lon>-74.17362</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73769</lat>
+			        <lon>-74.17176</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.737528</lat>
+			        <lon>-74.171336</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73751000000063</lat>
+			        <lon>-74.1712899999999</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18845</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>RAYMOND BLVD AT BROAD ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.73744</lat>
+			        <lon>-74.17074</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73685</lat>
+			        <lon>-74.16872</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.736645</lat>
+			        <lon>-74.168329</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73662999999932</lat>
+			        <lon>-74.16829999999888</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18846</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>RAYMOND BLVD AT MULBERRY ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.73661</lat>
+			        <lon>-74.16793</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73539</lat>
+			        <lon>-74.1641</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.735082</lat>
+			        <lon>-74.164028</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.734929999999565</lat>
+			        <lon>-74.16400000000002</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>31890</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>NEWARK PENN STATION</st> 
+					</bs>
+
+				</pt>
+
+			</pa>
+
+
+		</pas>
+	</route>

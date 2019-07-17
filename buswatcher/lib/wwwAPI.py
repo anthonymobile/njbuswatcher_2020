@@ -326,6 +326,7 @@ class TripReport(GenericReport):
 
 
     def get_tripdash(self):
+        # bug debug this -- insepct db for a trip that is showing blank on trip view eg 6340_21_20190717
         # gets most recent stop for all active vehicles on route
         # can grab more by changing from .one() to .limit(10).all()
         with self.db as db:

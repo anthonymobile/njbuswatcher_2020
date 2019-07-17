@@ -1,0 +1,1410 @@
+<?xml version="1.0"?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<route>
+		<id>30</id> 
+		<rtpiFeedName></rtpiFeedName>
+		<sn>30</sn> 
+		<nm>30 North Arlington-Kearny-Newark</nm> 
+		<displayDesignator>30</displayDesignator> 
+		<vmode>1</vmode>   
+		
+		<sbs>
+
+
+
+		</sbs>
+
+		<c>#3399cc</c>
+
+		<pas>
+
+
+			<pa>
+				<id>286</id>
+
+				<d>Newark</d> 
+				<dd>Newark</dd>  
+				<directionRtpiFeedName></directionRtpiFeedName>
+
+				<pt>
+					<lat>40.78376000000088</lat>
+			        <lon>-74.1373000000009</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>12811</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>GARDEN TERRACE + RIDGE RD</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.78352</lat>
+			        <lon>-74.13713</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78212</lat>
+			        <lon>-74.13827</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.782001</lat>
+			        <lon>-74.138448</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78193999999883</lat>
+			        <lon>-74.13853999999965</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>12828</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>RIDGE RD + BELLEVILLE TPKE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.78167</lat>
+			        <lon>-74.13862</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78039</lat>
+			        <lon>-74.13967</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78011</lat>
+			        <lon>-74.139969</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.780089999998886</lat>
+			        <lon>-74.1399900000017</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21284</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>KEARNY AVE + SEELEY AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.77983</lat>
+			        <lon>-74.14012</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77936</lat>
+			        <lon>-74.14049</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.779235</lat>
+			        <lon>-74.140661</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77917000000026</lat>
+			        <lon>-74.1407499999982</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21278</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>KEARNY AVE + BENNETT AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.777225</lat>
+			        <lon>-74.14182</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.777069999999455</lat>
+			        <lon>-74.14194000000079</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21245</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>KEARNY AVE + STEWART AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.7768</lat>
+			        <lon>-74.14199</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77654</lat>
+			        <lon>-74.14212</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.776231</lat>
+			        <lon>-74.142363</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.776210000000155</lat>
+			        <lon>-74.14238000000022</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21285</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>KEARNY AVE + MAGNOLIA AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.77593</lat>
+			        <lon>-74.14244</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.774883</lat>
+			        <lon>-74.143015</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77474000000017</lat>
+			        <lon>-74.14312000000004</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21287</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>KEARNY AVE + LAUREL AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.77446</lat>
+			        <lon>-74.14319</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77357</lat>
+			        <lon>-74.14365</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.773423</lat>
+			        <lon>-74.143786</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77330999999947</lat>
+			        <lon>-74.14388999999893</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21289</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>KEARNY AVE + COLUMBIA AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.77303</lat>
+			        <lon>-74.14392</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77239</lat>
+			        <lon>-74.14426</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77224</lat>
+			        <lon>-74.144391</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77215000000003</lat>
+			        <lon>-74.14446999999925</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21290</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>KEARNY AVE + LOCUST AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.77187</lat>
+			        <lon>-74.14454</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.771077</lat>
+			        <lon>-74.144994</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77097000000073</lat>
+			        <lon>-74.14508000000144</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21246</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>KEARNY AVE + MIDLAND AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.7707</lat>
+			        <lon>-74.14515</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.769905</lat>
+			        <lon>-74.14559</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76975000000085</lat>
+			        <lon>-74.14571000000088</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21291</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>KEARNY AVE + NEW LAWN TERRACE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.76947</lat>
+			        <lon>-74.14577</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76883</lat>
+			        <lon>-74.1461</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76868</lat>
+			        <lon>-74.146231</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.768589999998746</lat>
+			        <lon>-74.14631000000031</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21292</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>KEARNY AVE + OAKWOOD AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.76831</lat>
+			        <lon>-74.14637</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76767</lat>
+			        <lon>-74.1467</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76752</lat>
+			        <lon>-74.146831</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.767430000000765</lat>
+			        <lon>-74.14691000000143</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21293</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>KEARNY AVE + PAVONIA AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.76715</lat>
+			        <lon>-74.14696</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76625</lat>
+			        <lon>-74.14742</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.765984</lat>
+			        <lon>-74.147629</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.765910000000865</lat>
+			        <lon>-74.14770000000023</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21247</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>KEARNY AVE + QUINCY AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.76564</lat>
+			        <lon>-74.14774</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76512</lat>
+			        <lon>-74.14801</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76497</lat>
+			        <lon>-74.148141</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76487999999973</lat>
+			        <lon>-74.14822000000079</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21294</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>KEARNY AVE + GROVE ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.7646</lat>
+			        <lon>-74.14829</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76435</lat>
+			        <lon>-74.14843</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.764089</lat>
+			        <lon>-74.148667</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76395999999905</lat>
+			        <lon>-74.14880000000161</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21295</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>KEARNY AVE + LIBERTY ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.76368</lat>
+			        <lon>-74.14889</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76295</lat>
+			        <lon>-74.14938</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.762814</lat>
+			        <lon>-74.149535</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.762729999999024</lat>
+			        <lon>-74.14962999999841</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21296</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>KEARNY AVE + HALSTEAD ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.76245</lat>
+			        <lon>-74.14971</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76184</lat>
+			        <lon>-74.15012</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76158</lat>
+			        <lon>-74.15036</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76144999999979</lat>
+			        <lon>-74.15050000000025</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21297</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>KEARNY AVE + AFTON ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.76118</lat>
+			        <lon>-74.15058</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75982</lat>
+			        <lon>-74.15146</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.759685</lat>
+			        <lon>-74.151616</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.759560000000526</lat>
+			        <lon>-74.1517600000009</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21248</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>KEARNY AVE + BERGEN AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.75928</lat>
+			        <lon>-74.15181</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75843</lat>
+			        <lon>-74.1524</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75831</lat>
+			        <lon>-74.152577</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.758219999999625</lat>
+			        <lon>-74.15270999999917</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21298</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>KEARNY AVE + BOYD ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.75796</lat>
+			        <lon>-74.15287</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.757731</lat>
+			        <lon>-74.153158</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.757610000001144</lat>
+			        <lon>-74.15334000000078</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21299</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>KEARNY AVE + WILSON AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.75735</lat>
+			        <lon>-74.15349</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.756808</lat>
+			        <lon>-74.154114</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.756720000000286</lat>
+			        <lon>-74.15423999999948</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21300</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>KEARNY AVE + PATERSON ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.75647</lat>
+			        <lon>-74.15442</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.755278</lat>
+			        <lon>-74.155714</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75518999999876</lat>
+			        <lon>-74.15584000000037</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21301</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>KEARNY AVE + ROSE ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.754421</lat>
+			        <lon>-74.156363</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75429999999888</lat>
+			        <lon>-74.15647000000105</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21302</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>KEARNY AVE + WOODLAND AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.75402</lat>
+			        <lon>-74.15655</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75313</lat>
+			        <lon>-74.15704</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.752981</lat>
+			        <lon>-74.157174</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75282999999884</lat>
+			        <lon>-74.15730999999846</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21249</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>KEARNY AVE + JOHNSTON AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.75216</lat>
+			        <lon>-74.15754</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75189</lat>
+			        <lon>-74.15755</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7504</lat>
+			        <lon>-74.1572</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75022</lat>
+			        <lon>-74.1572</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.750129999999444</lat>
+			        <lon>-74.1571999999985</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20469</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>FRANK E RODGERS BLVD + CENTRAL AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.74987</lat>
+			        <lon>-74.15706</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.74758</lat>
+			        <lon>-74.15645</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.74709</lat>
+			        <lon>-74.15642</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.74706000000109</lat>
+			        <lon>-74.15642000000054</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20470</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>FRANK E RODGERS BLVD + CLEVELAND AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.7468</lat>
+			        <lon>-74.15625</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.74654</lat>
+			        <lon>-74.15619</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.746334</lat>
+			        <lon>-74.157847</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.74633000000009</lat>
+			        <lon>-74.15801999999914</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20471</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>HARRISON AVE. + 3RD ST.</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.74624</lat>
+			        <lon>-74.15837</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.746038</lat>
+			        <lon>-74.159847</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.746029999999074</lat>
+			        <lon>-74.16001000000041</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20472</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>HARRISON AVE + NORTH 2ND ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.74581</lat>
+			        <lon>-74.16105</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.74538</lat>
+			        <lon>-74.16406</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.74539</lat>
+			        <lon>-74.16421</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.74701</lat>
+			        <lon>-74.16461</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.74797</lat>
+			        <lon>-74.16467</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.74879</lat>
+			        <lon>-74.16461</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.74947</lat>
+			        <lon>-74.16449</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75054</lat>
+			        <lon>-74.16419</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75107</lat>
+			        <lon>-74.16398</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75107</lat>
+			        <lon>-74.16416</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75106</lat>
+			        <lon>-74.16434</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75106</lat>
+			        <lon>-74.16488</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75105</lat>
+			        <lon>-74.16506</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75105</lat>
+			        <lon>-74.16542</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75103</lat>
+			        <lon>-74.16578</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75075</lat>
+			        <lon>-74.1668</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75004</lat>
+			        <lon>-74.16875</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7499</lat>
+			        <lon>-74.16944</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.74996</lat>
+			        <lon>-74.16992</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.74773</lat>
+			        <lon>-74.17085</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.74747</lat>
+			        <lon>-74.17097</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.747322</lat>
+			        <lon>-74.171105</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.74723999999976</lat>
+			        <lon>-74.17118000000018</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19046</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>UNIVERSITY AVE AT LACKAWANNA AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.74696</lat>
+			        <lon>-74.17121</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.746173</lat>
+			        <lon>-74.171686</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.746020000000996</lat>
+			        <lon>-74.17179999999826</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19047</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>UNIVERSITY AVE AT ORANGE ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.74574</lat>
+			        <lon>-74.17188</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.744524</lat>
+			        <lon>-74.172529</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.744490000000155</lat>
+			        <lon>-74.17254999999905</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19048</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>UNIVERSITY AVE AT JAMES ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.74307</lat>
+			        <lon>-74.17319</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.742913</lat>
+			        <lon>-74.173305</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.74281000000009</lat>
+			        <lon>-74.17338000000068</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19050</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>UNIVERSITY AVE AT CENTRAL AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.74254</lat>
+			        <lon>-74.17343</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7417</lat>
+			        <lon>-74.173907</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.74168000000033</lat>
+			        <lon>-74.17392</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19049</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>UNIVERSITY AVE AT BLEEKER ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.74141</lat>
+			        <lon>-74.174</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.740097</lat>
+			        <lon>-74.174672</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.739940000000225</lat>
+			        <lon>-74.17476999999943</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19051</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>UNIVERSITY AVE AT WARREN ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.73968</lat>
+			        <lon>-74.17487</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7388</lat>
+			        <lon>-74.17538</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73872</lat>
+			        <lon>-74.17531</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.738325</lat>
+			        <lon>-74.174098</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73826999999956</lat>
+			        <lon>-74.17398000000063</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18844</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>RAYMOND BLVD AT WASHINGTON ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.73822</lat>
+			        <lon>-74.17362</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73769</lat>
+			        <lon>-74.17176</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.737528</lat>
+			        <lon>-74.171336</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73751000000063</lat>
+			        <lon>-74.1712899999999</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18845</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>RAYMOND BLVD AT BROAD ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.73744</lat>
+			        <lon>-74.17074</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73685</lat>
+			        <lon>-74.16872</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.736645</lat>
+			        <lon>-74.168329</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73662999999932</lat>
+			        <lon>-74.16829999999888</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18846</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>RAYMOND BLVD AT MULBERRY ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.73661</lat>
+			        <lon>-74.16793</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.73539</lat>
+			        <lon>-74.1641</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.735082</lat>
+			        <lon>-74.164028</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.734929999999565</lat>
+			        <lon>-74.16400000000002</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>31890</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>NEWARK PENN STATION</st> 
+					</bs>
+
+				</pt>
+
+			</pa>
+
+
+		</pas>
+	</route>
