@@ -73,7 +73,7 @@
       </h2>
             </div>
             <div class="row mb-4 wow fadeIn">
-                <h4>The log below shows each observed stop call for bus {{  trip_report.tripdash[trip_id]['v'] }} on run {{  trip_report.tripdash[trip_id]['run'] }} on route {{  trip_report.route }}. </h4>
+                <h4>The log below shows each observed stop call for bus {{  trip_report.tripdash[trip_id]['v'] }} on run {{  trip_report.tripdash[trip_id]['run'] }} on route {{  trip_report.route }}. Times indicated in blue are <span class="badge badge-primary badge-pill">observed</span> and those in purple are <span class="badge badge-secondary badge-pill">interpolated</span>.</h4>
             </div>
 
 
@@ -87,14 +87,13 @@
                     {% for stop in trip_data['stoplist'] %}
                         <li class="list-group-item d-flex justify-content-between align-items-center">{{stop.stop_name}}
                         {% if stop.arrival_timestamp is not none %}
-                            <span class="badge badge-primary badge-pill">{{stop.arrival_timestamp|strftime_today}}</span>
+                            {% if stop.interpolated_arrival_flag is sameas true %}
+                                <span class="badge badge-secondary badge-pill">{{stop.arrival_timestamp|strftime_today}}</span>
+                            {% else %}
+                                <span class="badge badge-primary badge-pill">{{stop.arrival_timestamp|strftime_today}}</span>
+                            {%  endif %}
                         {% else %}
                             <span class="badge badge-secondary badge-pill">---</span>
-                        {% endif %}
-                        {% if stop.interpolated_arrival_flag is sameas true %}
-                            !interpolated time
-                        {%  else %}
-                            *observed time
                         {% endif %}
                         </li>
                     {% endfor %}
