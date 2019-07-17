@@ -73,17 +73,17 @@
       </h2>
             </div>
             <div class="row mb-4 wow fadeIn">
-                <h4>The log below shows each observed stop call for bus {{  trip_report.tripdash[trip_id]['v'] }} on run {{  trip_report.tripdash[trip_id]['run'] }} on route {{  trip_report.route }}. Times indicated in blue are <span class="badge badge-primary badge-pill">observed</span> and those in purple are <span class="badge badge-secondary badge-pill">interpolated</span>.</h4>
+                <h4>The log below shows each observed stop call for bus {{  trip_report.triplog[trip_id]['v'] }} on run {{  trip_report.triplog[trip_id]['run'] }} on route {{  trip_report.route }}. Times indicated in blue are <span class="badge badge-primary badge-pill">observed</span> and those in purple are <span class="badge badge-secondary badge-pill">interpolated</span>.</h4>
             </div>
 
 
-           <!--TRIPDASH NEW BLOCK START --> {# bug triplog empty -- is it here or wwwAPI.TripReport.get_tripdash? #}
-            trip_report.tripdash --> {{ trip_report.tripdash }}
+           <!--TRIPLOG NEW BLOCK START --> {# bug triplog empty -- is it here or wwwAPI.TripReport.get_triplog? #}
+            trip_report.triplog --> {{ trip_report.triplog }}
             <div class="row mb-4 wow fadeIn">
                 <div class="col-lg-8 col-md-12 mb-4">
 
 
-                {% for trip_id,trip_data in trip_report.tripdash.items() %}
+                {% for trip_id,trip_data in trip_report.triplog.items() %}
                 <ul class="list-group">
                     {% for stop in trip_data['stoplist'] %}
                         <li class="list-group-item d-flex justify-content-between align-items-center">{{stop.stop_name}}
@@ -106,7 +106,7 @@
 
 
                 </div>
-                    <!--TRIPDASH NEW BLOCK END -->
+                <!--TROPLOG NEW BLOCK END -->
 
 
 

@@ -105,21 +105,38 @@ class RouteReport(GenericReport):
             tripdash = dict()
             for trip_id,pd,bid,run in trip_list:
 
-                five_mins_ago = datetime.datetime.now() - datetime.timedelta(minutes=5)
+                # five_mins_ago = datetime.datetime.now() - datetime.timedelta(minutes=5)
+                #
+                # # OLD
+                # # load the trip card - limit 1
+                # scheduled_stops = db.session.query(ScheduledStop) \
+                #     .join(Trip) \
+                #     .filter(Trip.trip_id == trip_id) \
+                #     .filter(ScheduledStop.arrival_timestamp != None) \
+                #     .filter(ScheduledStop.arrival_timestamp < five_mins_ago) \
+                #     .order_by(ScheduledStop.arrival_timestamp.desc()) \
+                #     .limit(1) \
+                #     .all()
+                # trip_dict=dict()
+                # trip_dict['stoplist']=scheduled_stops
 
-                # load the trip card - limit 1
+                # bug test this on basement
+                # NEW
+                # load the trip card
                 scheduled_stops = db.session.query(ScheduledStop) \
                     .join(Trip) \
                     .filter(Trip.trip_id == trip_id) \
                     .filter(ScheduledStop.arrival_timestamp != None) \
-                    .filter(ScheduledStop.arrival_timestamp < five_mins_ago) \
                     .order_by(ScheduledStop.arrival_timestamp.desc()) \
-                    .limit(1) \
                     .all()
 
-
                 trip_dict=dict()
-                trip_dict['stoplist']=scheduled_stops
+                try:
+                    trip_dict['stoplist']=list(scheduled_stops[0]) # take the first one of the results, e.g. most recent
+                    print(trip_dict)
+                except:
+                    trip_dict['stoplist']=[]
+
                 trip_dict['pd'] = pd
                 trip_dict['v'] = bid
                 trip_dict['run'] = run
@@ -317,10 +334,11 @@ class TripReport(GenericReport):
         self.db = SQLAlchemyDBConnection()
 
         # populate data for webpage
-        self.tripdash=self.get_tripdash()
+        self.triplog=self.get_triplog()
 
-
-    def get_tripdash(self):
+    # bug triplog empty -- something wring here
+    # bug unbounded interpolations at beginning and end of trips. either not starting or ending intervals properly
+    def get_triplog(self):
         # gets most recent stop for all active vehicles on route
         # can grab more by changing from .one() to .limit(10).all()
         with self.db as db:
@@ -361,7 +379,7 @@ class TripReport(GenericReport):
             trip_dict['run'] = trip_metadata['run']
 
             # and return
-            tripdash = dict()
-            tripdash[self.trip_id] = trip_dict
+            triplog = dict()
+            triplog[self.trip_id] = trip_dict
 
-        return tripdash # bug triplog empty -- is it here or the template?
+        return triplog
