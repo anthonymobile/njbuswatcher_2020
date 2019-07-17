@@ -106,7 +106,7 @@
                                     <tbody>
                                         {% for (index,row) in stopreport.arrivals_here_this_route_df.iterrows() %}
                                         {% if (row.delta > stopreport.bigbang) and (row.delta <= stopreport.bunching_interval) %}
-                                        <tr class='table-danger'> {#  bug 4 bunching color change inconsistenly appearing? or was it just first row #}
+                                        <tr class='table-danger'> {# bug 3 bunching color change inconsistenly appearing? or was it just first row #}
                                             <td>{{row.arrival_timestamp|strftime_period(period)}}</td>
                                             <td>{{row.delta|strftime_timedelta}}</td>
                                             <td>{{row.v}}</td>

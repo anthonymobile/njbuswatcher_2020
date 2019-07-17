@@ -219,7 +219,7 @@
                                             {%  elif trip_dict['run'] != 'MAN' %}
 
                                                 <th>
-                                                    {{ trip_dict['pd'] }} {# bug !!! this is working on local machine, but not on basement. no idea why. need some time to update? #}
+                                                    {{ trip_dict['pd'] }}
                                                 </th>
                                                 <th>
                                                     <a href = "{{url_for('genTripReport',collection_url=collection_url, route=routereport.route, trip_id=trip_id)}}">

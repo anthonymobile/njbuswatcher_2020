@@ -125,12 +125,12 @@ class RouteReport(GenericReport):
 
                 trip_dict=dict()
                 trip_dict['stoplist']=scheduled_stops
-                trip_dict['pd'] = pd # bug need to join to the Trip in above query to get Trip.pd???
+                trip_dict['pd'] = pd
                 trip_dict['v'] = bid
                 trip_dict['run'] = run
                 tripdash[trip_id] = trip_dict
 
-        return tripdash # bug this doesnt seem to display right on page
+        return tripdash
 
 
     def retrieve_json(self, type):
