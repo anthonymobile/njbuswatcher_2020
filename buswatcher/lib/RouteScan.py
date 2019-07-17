@@ -17,7 +17,6 @@ from .CommonTools import timeit
 
 class RouteScan:
 
-    @timeit
     def __init__(self, system_map):
 
         self.source = 'nj'
@@ -54,17 +53,15 @@ class RouteScan:
             self.buses = NJTransitAPI.parse_xml_getBusesForRouteAll(NJTransitAPI.get_xml_data('nj', 'all_buses'))
             route_count = len(list(set([v.rt for v in self.buses])))
             print('\rfetched ' + str(len(self.buses)) + ' buses on ' + str(route_count) + ' routes...')
-            self.clean_buses()
+            # self.clean_buses()
         except:
             pass
 
         return
 
-    # DEPRECATED -- moved up data pipeline to NJTransitAPI parser
+    # # DEPRECATED moved upstream to NJTransitAPI.
     # def clean_buses(self):
     #     # CLEAN buses not actively running routes (e.g. letter route codes)
-    #     # future this doesnt seem to be dropping the MAN buses -- should it?
-    #
     #     buses_cleaned = []
     #     for bus in self.buses:
     #         try:
@@ -106,7 +103,6 @@ class RouteScan:
             # print ('parsed {a} trips'.format(a=len(self.trip_list)))
             return
 
-    @timeit
     def localize_positions(self, system_map):
 
         with self.db as db:
@@ -147,7 +143,6 @@ class RouteScan:
 
         return
 
-    @timeit
     def assign_positions(self):
 
         with self.db as db:
@@ -313,7 +308,7 @@ class RouteScan:
 
         # grab a trip
         for trip_id in self.trip_list:
-            print ('trip {a}'.format(a=trip_id))
+
             with self.db as db:
                 trip_card = db.session.query(ScheduledStop) \
                     .join(Trip) \
@@ -348,7 +343,7 @@ class RouteScan:
                 # go through the scheduled_stops
                 for scheduled_stop in trip_card:
                     # find an arrival
-                    if scheduled_stop.arrival_timestamp:
+                    if scheduled_stop.arrival_timestamp: # bug unbounded interpolations at beginning and end of trips. either not starting or ending intervals properly
                         if in_interval == False:
                             # print('\tstarting interval at stop {a}\t{b}'.format(a=scheduled_stop.stop_id,b=scheduled_stop.arrival_timestamp))
                             interval_stops = []
@@ -373,21 +368,21 @@ class RouteScan:
                             interval_stops.append(scheduled_stop)
                             continue
                     else:
-                        print ('This one fell through the gap {a}'.format(a=scheduled_stop))
+                        print ('****************** This one fell through the gap {a}'.format(a=scheduled_stop))
                         continue
 
-                # INTERPOLATION LOOP
-                # bug 000 QC on interpolation results.
-                # bug 000 interpolation seems to run on the unvisited stops rather than being bound by the observed
+                # INTERPOLATION LOOP # bug ! QC on interpolation results
 
                 # analyze all_the_intervals
                 for stop_id, interval_sequence in all_this_trips_intervals.items():
+
+                    print('trip {a}'.format(a=trip_id))
 
                     start_time = interval_sequence[0].arrival_timestamp
                     end_time = interval_sequence[-1].arrival_timestamp
                     interval_length = (len(interval_sequence) - 1)
                     average_time_between_stops = (end_time - start_time) / interval_length
-                    print('interval starts at {a} ends at {b} has {c} gaps averaging {d} seconds'.format(a=interval_sequence[0].stop_id, b= interval_sequence[-1].stop_id, c=interval_length, d=average_time_between_stops))
+                    print('\tinterval starts at {a} ends at {b} has {c} gaps averaging {d} seconds'.format(a=interval_sequence[0].stop_id, b= interval_sequence[-1].stop_id, c=interval_length, d=average_time_between_stops))
 
                     # update the ScheduledStop objects
                     n = 1
@@ -396,12 +391,12 @@ class RouteScan:
                         interval_sequence[x].arrival_timestamp = start_time + adder
                         interval_sequence[x].interpolated_arrival_flag = True
                         n += 1
-                        print('arrival_timestamp added to ScheduledStop instance for stop {a}\t{b}\tincrement {c}'.format(a=interval_sequence[x].stop_id, b=interval_sequence[x].arrival_timestamp, c=adder))
+                        print('\t\tarrival_timestamp added to ScheduledStop instance for stop {a}\t{b}\tincrement {c}'.format(a=interval_sequence[x].stop_id, b=interval_sequence[x].arrival_timestamp, c=adder))
 
                 # when we are done with this trip, write to the db
                 db.session.commit()
 
-        print ('interpolation done.')
+        print ('****************** interpolation done ******************')
 
     # future option 2 to speedup, filter by collections routes only?
 
