@@ -94,7 +94,6 @@ class RouteReport(GenericReport):
 
         return trip_list, trip_list_trip_id_only
 
-    # bug debug this on a process that has some data
     # populates the undermap trip dash
     def get_tripdash(self):
         # gets most recent stop for all active vehicles on route, only if they were observed in the last 5 minutes
@@ -322,8 +321,6 @@ class TripReport(GenericReport):
         # populate data for webpage
         self.triplog=self.get_triplog()
 
-    # bug triplog empty -- something wring here
-    # bug unbounded interpolations at beginning and end of trips. either not starting or ending intervals properly
     def get_triplog(self):
         # gets most recent stop for all active vehicles on route
         # can grab more by changing from .one() to .limit(10).all()
@@ -351,12 +348,18 @@ class TripReport(GenericReport):
             #
 
             # grab all stop arrivals in the last 90 minutes
-            ninety_mins_ago = datetime.datetime.now() - datetime.timedelta(minutes=90)
+            # ninety_mins_ago = datetime.datetime.now() - datetime.timedelta(minutes=90)
+            # trip_dict['stoplist']= \
+            #     db.session.query(ScheduledStop) \
+            #         .join(Trip) \
+            #         .filter(Trip.trip_id == self.trip_id) \
+            #         .filter(ScheduledStop.arrival_timestamp < ninety_mins_ago  ) \
+            #         .order_by(ScheduledStop.pkey.asc()) \
+            #         .all()
             trip_dict['stoplist']= \
                 db.session.query(ScheduledStop) \
                     .join(Trip) \
                     .filter(Trip.trip_id == self.trip_id) \
-                    .filter(ScheduledStop.arrival_timestamp < ninety_mins_ago  ) \
                     .order_by(ScheduledStop.pkey.asc()) \
                     .all()
 

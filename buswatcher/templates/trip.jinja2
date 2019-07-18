@@ -77,12 +77,11 @@
             </div>
 
 
-           <!--TRIPLOG NEW BLOCK START --> {# bug triplog empty -- is it here or wwwAPI.TripReport.get_triplog? #}
+           <!--TRIPLOG NEW BLOCK START -->
 
             <div class="row mb-4 wow fadeIn">
                 <div class="col-lg-8 col-md-12 mb-4">
 
-                tripreport_triplog {{ trip_report.triplog }}
                 {% for trip_id,trip_data in trip_report.triplog.items() %}
                 <ul class="list-group">
                     {% for stop in trip_data['stoplist'] %}
@@ -94,7 +93,7 @@
                                 <span class="badge badge-primary badge-pill">{{stop.arrival_timestamp|strftime_today}}</span>
                             {%  endif %}
                         {% else %}
-                            <span class="badge badge-secondary badge-pill">---</span>
+                            <span class="badge badge-warning badge-pill">---</span>
                         {% endif %}
                         </li>
                     {% endfor %}
