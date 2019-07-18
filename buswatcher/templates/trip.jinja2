@@ -78,11 +78,11 @@
 
 
            <!--TRIPLOG NEW BLOCK START --> {# bug triplog empty -- is it here or wwwAPI.TripReport.get_triplog? #}
-            trip_report.triplog --> {{ trip_report.triplog }}
+
             <div class="row mb-4 wow fadeIn">
                 <div class="col-lg-8 col-md-12 mb-4">
 
-
+                tripreport_triplog {{ trip_report.triplog }}
                 {% for trip_id,trip_data in trip_report.triplog.items() %}
                 <ul class="list-group">
                     {% for stop in trip_data['stoplist'] %}
