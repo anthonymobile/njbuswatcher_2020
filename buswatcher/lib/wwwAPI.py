@@ -67,7 +67,7 @@ class RouteReport(GenericReport):
 
         # query dynamic stuff
         self.trip_list, self.trip_list_trip_id_only = self.get_current_trips()
-        self.tripdash = self.get_tripdash() # future this can be deprecated as its not used by any views?
+        self.tripdash = self.get_tripdash()
 
         # and compute summary statistics
         self.active_bus_count = len(self.trip_list_trip_id_only)
@@ -82,7 +82,7 @@ class RouteReport(GenericReport):
     def get_current_trips(self):
         # get a list of trips current running the route
         v_on_route = NJTransitAPI.parse_xml_getBusesForRoute(
-            NJTransitAPI.get_xml_data(self.source, 'buses_for_route', route=self.route))
+            NJTransitAPI.get_xml_data(self.source, 'buses_for_route', route=self.route)) # future get this from the database, not the NJT API, or grab it once and pass it around
         todays_date = datetime.datetime.today().strftime('%Y%m%d')
         trip_list = list()
         trip_list_trip_id_only = list()
@@ -94,12 +94,9 @@ class RouteReport(GenericReport):
 
         return trip_list, trip_list_trip_id_only
 
-
-
-    def get_tripdash(self): # future this can be deprecated as its not used by any views?
-        # future add last 90 minutes filter on trip_dash first query
-        # gets most recent stop for all active vehicles on route
-        # can grab more by changing from .one() to .limit(10).all()
+    # populates the undermap trip dash
+    def get_tripdash(self):
+        # gets most recent stop for all active vehicles on route, only if they were observed in the last 5 minutes
         with self.db as db:
 
             trip_list, x = self.get_current_trips()
@@ -107,24 +104,24 @@ class RouteReport(GenericReport):
             tripdash = dict()
             for trip_id,pd,bid,run in trip_list:
 
-                # load the trip card - full with all the missed stops
-                # scheduled_stops = db.session.query(ScheduledStop) \
-                #     .join(Trip) \
-                #     .filter(Trip.trip_id == trip_id) \
-                #     .order_by(ScheduledStop.pkey.asc()) \
-                #     .all()
+                five_mins_ago = datetime.datetime.now() - datetime.timedelta(minutes=5)
 
+                # OLD
                 # load the trip card - limit 1
-                scheduled_stops = db.session.query(ScheduledStop) \
+                most_recent_stop = db.session.query(ScheduledStop) \
                     .join(Trip) \
                     .filter(Trip.trip_id == trip_id) \
                     .filter(ScheduledStop.arrival_timestamp != None) \
+                    .filter(ScheduledStop.arrival_timestamp < five_mins_ago) \
                     .order_by(ScheduledStop.arrival_timestamp.desc()) \
                     .limit(1) \
                     .all()
-
                 trip_dict=dict()
-                trip_dict['stoplist']=scheduled_stops
+                try:
+                    trip_dict['stoplist']=[most_recent_stop[0]]
+                except:
+                    trip_dict['stoplist']=[]
+
                 trip_dict['pd'] = pd
                 trip_dict['v'] = bid
                 trip_dict['run'] = run
@@ -316,22 +313,22 @@ class TripReport(GenericReport):
         self.source = 'nj'
         self.route = route
         self.trip_id = trip_id
+        self.v = trip_id.split('_')[0]
 
         # create database connection
         self.db = SQLAlchemyDBConnection()
 
         # populate data for webpage
-        self.tripdash=self.get_tripdash()
+        self.triplog=self.get_triplog()
 
-    def get_tripdash(self):
+    def get_triplog(self):
         # gets most recent stop for all active vehicles on route
         # can grab more by changing from .one() to .limit(10).all()
         with self.db as db:
 
             todays_date = datetime.datetime.today().strftime('%Y%m%d')
-            trip_metadata=()
 
-            # grab the latest list of buses active on this route from the NJT API
+            # grab the latest list of buses active on this route from the NJT API # future get this from the database, but how filter... all of the positiosn for any v seen on this route in the last 10 minutes and not at the last stop?
             v_on_route = NJTransitAPI.parse_xml_getBusesForRoute(
                 NJTransitAPI.get_xml_data(self.source, 'buses_for_route', route=self.route))
             # pluck ours out
@@ -351,12 +348,18 @@ class TripReport(GenericReport):
             #
 
             # grab all stop arrivals in the last 90 minutes
-            ninety_mins_ago = datetime.datetime.now() - datetime.timedelta(minutes=90)
+            # ninety_mins_ago = datetime.datetime.now() - datetime.timedelta(minutes=90)
+            # trip_dict['stoplist']= \
+            #     db.session.query(ScheduledStop) \
+            #         .join(Trip) \
+            #         .filter(Trip.trip_id == self.trip_id) \
+            #         .filter(ScheduledStop.arrival_timestamp < ninety_mins_ago  ) \
+            #         .order_by(ScheduledStop.pkey.asc()) \
+            #         .all()
             trip_dict['stoplist']= \
                 db.session.query(ScheduledStop) \
                     .join(Trip) \
                     .filter(Trip.trip_id == self.trip_id) \
-                    .filter(ScheduledStop.arrival_timestamp < ninety_mins_ago  ) \
                     .order_by(ScheduledStop.pkey.asc()) \
                     .all()
 
@@ -365,7 +368,7 @@ class TripReport(GenericReport):
             trip_dict['run'] = trip_metadata['run']
 
             # and return
-            tripdash = dict()
-            tripdash[self.trip_id] = trip_dict
+            triplog = dict()
+            triplog[self.trip_id] = trip_dict
 
-        return tripdash
+        return triplog

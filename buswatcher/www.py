@@ -151,7 +151,7 @@ def genStopReport(collection_url, route, stop, period):
 @app.route('/<collection_url>/route/<route>/trip/<trip_id>')
 def genTripReport(collection_url, route, trip_id):
     trip_report = wwwAPI.TripReport(system_map, route,trip_id)
-    route_report = wwwAPI.RouteReport(system_map, route, 'day') # todo find a better way to get the route metadata than instantiating a whole new RouteReport
+    route_report = wwwAPI.RouteReport(system_map, route, 'day') # future find a better way to get the route metadata than instantiating a whole new RouteReport
     return render_template('trip.jinja2',
                            collection_url=collection_url,
                            collection_descriptions=system_map.collection_descriptions,
@@ -161,21 +161,12 @@ def genTripReport(collection_url, route, trip_id):
                            routereport=route_report,
                            trip_report=trip_report)
 
-
-
-
 @app.route('/about')
 def displayFAQ():
     routereport = Dummy() #  setup a dummy routereport for the navbar
     return render_template('about.jinja2',
                            route_definitions=system_map.route_descriptions,
                            routereport=routereport)
-
-# future activate API docs page
-# @app.route('/api')
-# def displayAPI():
-#     routereport = Dummy() #  setup a dummy routereport for the navbar
-#     return render_template('api.jinja2', reportcard_routes=route_descriptions, routereport=routereport)
 
 
 @app.route('/favicon.ico')
@@ -288,7 +279,7 @@ def splitpart (value, index, char = '_'):
 ################################################
 
 if __name__ == "__main__":
-    system_map=load_system_map() # todo need to figure out how to force flask to check if it needs to reload the pickle file, or do it periodically (possibly in generator minutely_tasks
+    system_map=load_system_map() # future need to figure out how to force flask to check if it needs to reload the pickle file, or do it periodically (possibly in generator minutely_tasks
     app.run(host='0.0.0.0', debug=True)
 
 

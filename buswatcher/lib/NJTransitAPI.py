@@ -154,7 +154,8 @@ def parse_xml_getBusesForRouteAll(data):
                 fields[field.tag] = field.text
 
         results.append(Bus(**fields))
-    return results
+
+    return clean_buses(results)
 
 
 # http://mybusnow.njtransit.com/bustime/map/getBusesForRoute.jsp?route=119
@@ -172,7 +173,24 @@ def parse_xml_getBusesForRoute(data):
                 fields[field.tag] = field.text
 
         results.append(Bus(**fields))
+    return clean_buses(results)
+
+
+def clean_buses(buses):
+    buses_clean = []
+    for bus in buses:
+        if bus.run.isdigit() is True:  # removes any buses with non-number run id, and this should populate throughout the whole project
+            if bus.rt.isdigit() is True:  # removes any buses with non-number route id, and this should populate throughout the whole project
+                buses_clean.append(bus)
+
+    return buses_clean
+
+
+# http://mybusnow.njtransit.com/bustime/map/getBusPredictions?bus=3452
+def parse_xml_getBusPredictions(data): # future dont think this API endpoint works on NJT
+    results = ''
     return results
+
 
 
 # http://mybusnow.njtransit.com/bustime/map/getRoutePoints.jsp?route=119
@@ -230,6 +248,7 @@ def parse_xml_getRoutePoints(data):
                 route.paths.append(path)
                 routes.append(route)
             break
+
 
 
     # dump waypoint coordinates to geojson

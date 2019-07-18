@@ -56,7 +56,7 @@ def daily(system_map):
     task_trigger_1 = BunchingReport().generate_reports(system_map) # rebuild bunching reports
     task_trigger_2 = GradeReport().generate_reports(system_map) # rebuild grade report
     task_trigger_3 = flush_system_map() # delete the system_map_pickle
-    task_trigger_4 = load_system_map(force_regen=True) # regenerate the new system map pickle (re-downloads XML route points and fetches new grades) # todo will this download more limited route points?
+    task_trigger_4 = load_system_map(force_regen=True) # regenerate the new system map pickle (re-downloads XML route points and fetches new grades) # future will this download more limited route points?
 
     print ('daily_tasks just ran')
     return

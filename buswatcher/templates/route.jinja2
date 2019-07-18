@@ -1,3 +1,4 @@
+{#  todo tweak grid settings for small devices #}
 {%- extends "base.jinja2" %}
 {% import "bootstrap/utils.html" as utils %}
 
@@ -180,21 +181,29 @@
                                 <table class="table table-sm table-hover">
                                     <thead>
                                         <tr>
+                                            <th>to dingo</th>
                                             <th>bus</th>
                                             <th>run*</th>
                                             <th>last stop</th>
 
+
                                         </tr>
                                     </thead>
                                     <tbody>
+
+
+                            <!--TRIPDASH UNDER MAP BLOCK START -->
                             {% for trip_id,trip_dict in routereport.tripdash.items() %}
                                 {%  if trip_dict.stoplist|length > 0 %}
-
 
                                         <tr>
 
 
                                             {%  if trip_dict['run'] == 'MAN' %}
+
+                                                <th>
+                                                    ---
+                                                </th>
 
                                                  <th>
                                                     {{ trip_dict['stoplist'][0]['v'] }}
@@ -204,13 +213,17 @@
                                                     {{ trip_dict['run'] }}
                                                 </th>
 
-                                                <th>
+
+                                                 <th>
                                                     {{ trip_dict['stoplist'][0]['stop_name'] }}
                                                 </th>
 
                                             {%  elif trip_dict['run'] != 'MAN' %}
 
-                                                 <th>
+                                                <th>
+                                                    {{ trip_dict['pd'] }}
+                                                </th>
+                                                <th>
                                                     <a href = "{{url_for('genTripReport',collection_url=collection_url, route=routereport.route, trip_id=trip_id)}}">
                                                         {{ trip_dict['stoplist'][0]['v'] }}
                                                     </a>
@@ -232,11 +245,13 @@
                                         </tr>
                                 {%  endif %}
                             {% endfor %}
+
                                     </tbody>
                                 </table>
                                 <p class="small">
                                     *Click on any row to see that bus's whole trip (except MAN buses, which are out of service).
                                 </p>
+                    <!--TRIPDASH UNDER MAP BLOCK END -->
                     </div>
                     <!--MAP BLOCK END -->
                  </div>
