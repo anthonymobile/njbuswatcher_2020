@@ -1,3 +1,4 @@
+{#  todo tweak grid settings for small devices #}
 {%- extends "base.jinja2" %}
 {% import "bootstrap/utils.html" as utils %}
 
@@ -105,7 +106,7 @@
                                     <tbody>
                                         {% for (index,row) in stopreport.arrivals_here_this_route_df.iterrows() %}
                                         {% if (row.delta > stopreport.bigbang) and (row.delta <= stopreport.bunching_interval) %}
-                                        <tr class='table-danger'> {#  bug 000 bunching color change doesn't appear to be working? double check on site first #}
+                                        <tr class='table-danger'> {# todo check bunching color change inconsistenly appearing? or was it just first row #}
                                             <td>{{row.arrival_timestamp|strftime_period(period)}}</td>
                                             <td>{{row.delta|strftime_timedelta}}</td>
                                             <td>{{row.v}}</td>
@@ -140,7 +141,7 @@
 
 
 
-            {#  todo iterate over 'predictions' to show what's expected here
+            {#  future add block to display getiterate over 'predictions' to show getStopPredictions.jsp results
             for bus in predicitions:
                 bus.rt, bus.pd, bus.eta,
             #}

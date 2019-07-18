@@ -12,29 +12,14 @@ from shapely.geometry import Point
 
 from .DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
 from . import NJTransitAPI
+from .CommonTools import timeit
 # from .TransitSystem import load_system_map
-
 
 class RouteScan:
 
-    def __init__(self, system_map, route, collections_only):
+    def __init__(self, system_map):
 
-        # apply passed parameters to instance
-        self.route = route
-        self.collections_only = collections_only
-
-        #  populate route basics from config
-
-        if self.collections_only is False:
-            self.routes_map_xml=dict()
-            for r in system_map.route_descriptions['routedata']:
-                self.routes_map_xml[r['route']] = system_map.get_single_route_xml(r['route'])
-
-        elif self.collections_only is not True:
-            try:
-                self.route_map_xml=system_map.get_single_route_xml(self.route)
-            except:
-                self.route_map_xml={'xml':''}
+        self.source = 'nj'
 
         # create database connection
         self.db = SQLAlchemyDBConnection()
@@ -48,47 +33,28 @@ class RouteScan:
         self.fetch_positions()
         self.parse_positions(system_map)
         self.localize_positions(system_map)
-        self.interpolate_missed_stops()
         self.assign_positions()
+        self.interpolate_missed_stops()
 
     def fetch_positions(self):
 
         try:
-            if self.collections_only is True:
-                self.buses = NJTransitAPI.parse_xml_getBusesForRoute(NJTransitAPI.get_xml_data('nj', 'buses_for_route', route=self.route))
-                self.clean_buses()
-
-            elif self.collections_only is not True:
-
-                self.buses = NJTransitAPI.parse_xml_getBusesForRouteAll(NJTransitAPI.get_xml_data('nj', 'all_buses'))
-                route_count = len(list(set([v.rt for v in self.buses])))
-                print('\rfetched ' + str(len(self.buses)) + ' buses on ' + str(route_count) + ' routes...' )
-                self.clean_buses()
+            self.buses = NJTransitAPI.parse_xml_getBusesForRouteAll(NJTransitAPI.get_xml_data('nj', 'all_buses'))
+            route_count = len(list(set([v.rt for v in self.buses])))
+            print('\rfetched ' + str(len(self.buses)) + ' buses on ' + str(route_count) + ' routes...')
+            # self.clean_buses()
         except:
             pass
 
         return
 
-    def clean_buses(self):
-        # CLEAN buses not actively running routes (e.g. letter route codes)
-        buses_cleaned=[]
-        for bus in self.buses:
-            try:
-                int(bus.rt)
-                buses_cleaned.append(bus)
-            except:
-                pass
-        self.buses = buses_cleaned
-
-        return
-
-    def parse_positions(self,system_map):
+    def parse_positions(self, system_map):
 
         with self.db as db:
 
             # PARSE trips, create missing trip records first, to honor foreign key constraints
             for bus in self.buses:
-                bus.trip_id = ('{id}_{run}_{dt}').format(id=bus.id, run=bus.run,dt=datetime.datetime.today().strftime('%Y%m%d'))
+                bus.trip_id = ('{id}_{run}_{dt}').format(id=bus.id, run=bus.run, dt=datetime.datetime.today().strftime('%Y%m%d'))  # todo add route to trip id, so its rt_v_run_date?
                 self.trip_list.append(bus.trip_id)
                 result = db.session.query(Trip).filter(Trip.trip_id == bus.trip_id).first()
 
@@ -99,56 +65,47 @@ class RouteScan:
                     else:
                         continue
                 except:
-                    print("couldn't find route in route_descriptions.json, please add it. route " + str(bus.rt)) # future automatically add unknown routes to route_descriptions.json
+                    print("couldn't find route in route_descriptions.json, please add it. route " + str(
+                        bus.rt))  # future automatically add unknown routes to route_descriptions.json
 
                 db.__relax__()  # disable foreign key checks before...
                 try:
                     db.session.commit()  # we save the position_log.
                 except IntegrityError:
-                    print ('another integrity error writing these arrivals to the db')
+                    print('another integrity error writing these arrivals to the db')
                     db.session.rollback()
+            # print ('parsed {a} trips'.format(a=len(self.trip_list)))
             return
 
-    def localize_positions(self,system_map):
+    def localize_positions(self, system_map):
 
-            with self.db as db:
+        with self.db as db:
 
-                try:
-                    # LOCALIZE
-                    if self.collections_only is True:
-                        bus_positions = get_nearest_stop(system_map, self.buses, self.route)
+            try:
+
+                statewide_route_list = sorted(
+                    list(set([bus.rt for bus in self.buses])))  # find all the routes unique
+                for r in statewide_route_list:  # loop over each route
+
+                    try:
+                        buses_for_this_route = [b for b in self.buses if b.rt == r]
+                        bus_positions = get_nearest_stop(system_map, buses_for_this_route, r)
+
                         for group in bus_positions:
                             for bus in group:
                                 db.session.add(bus)
-
                         db.__relax__()  # disable foreign key checks before commit
                         db.session.commit()
-
-                    elif self.collections_only is not True:
-                        statewide_route_list = sorted(list(set([bus.rt for bus in self.buses])))  # find all the routes unique
-                        for r in statewide_route_list: # loop over each route
-
-
-                            try:
-                                buses_for_this_route=[b for b in self.buses if b.rt==r]
-                                bus_positions = get_nearest_stop(system_map, buses_for_this_route, r)
-
-
-                                for group in bus_positions:
-                                    for bus in group:
-                                        db.session.add(bus)
-                                db.__relax__()  # disable foreign key checks before commit
-                                db.session.commit()
-                            except:
-                                pass
+                    except:
+                        pass
 
 
 
-                except (IntegrityError) as e:
-                    error_count = + 1
-                    print(e + 'mysql integrity error #' + error_count)
+            except (IntegrityError) as e:
+                error_count = + 1
+                print(e + 'mysql integrity error #' + error_count)
 
-            return
+        return
 
     def assign_positions(self):
 
@@ -307,20 +264,120 @@ class RouteScan:
 
             return
 
-    def interpolate_missed_stops(self): # todo 000 write interpolator
+    @timeit
+    def interpolate_missed_stops(self):
+        # future optimize option 1 move to generator.quarterly_hour_tasks as a batch job
 
-        # INTERPOLATE ARRIVALS AT MISSED STOPS
-        # to do 2 add Interpolate+log missed stops
-        # interpolates arrival times for any stops in between arrivals in the trip card
-        # theoretically there shouldn't be a lot though if the trip card is correct
-        # since we are grabbing positions every 60 seconds.)
+        print ('starting interpolations for {a} trips...'.format(a=len(self.trip_list)))
 
-        return
+        # grab a trip
+        for trip_id in self.trip_list:
 
+            with self.db as db:
+                trip_card = db.session.query(ScheduledStop) \
+                    .join(Trip) \
+                    .filter(Trip.trip_id == trip_id) \
+                    .order_by(ScheduledStop.pkey.asc()) \
+                    .all()
 
-###########################################################################
-# Localizer
-###########################################################################
+                # count up the number of arrivals
+                num_arrivals=0
+                for scheduled_stop in trip_card:
+                    if scheduled_stop.arrival_timestamp is not None:
+                        num_arrivals += 1
+
+                # deal with common situations to skip the CPU intensive stuff
+                if num_arrivals == 0:
+                    # print('\t\tdoesnt have any arrivals logged yet')
+                    continue # back to loop start
+                elif num_arrivals == 1:
+                    # print('\t\thas 1 arrival, so no intervals yet to interpolate')
+                    continue # back to loop start
+                elif num_arrivals == len (trip_card):
+                    # print('\t\tdoesnt have any missed stops')
+                    continue # back to loop start
+
+                # MAIN SCAN LOOP
+
+                # initialize
+                in_interval=False
+                all_this_trips_intervals = {}
+                # dict_insert ={}
+
+                # go through the scheduled_stops
+                for scheduled_stop in trip_card:
+                    # find an arrival
+                    if scheduled_stop.arrival_timestamp:
+                        if in_interval == False:
+                            # print('\tstarting interval at stop {a}\t{b}'.format(a=scheduled_stop.stop_id,b=scheduled_stop.arrival_timestamp))
+                            interval_stops = []
+                            interval_stops.append(scheduled_stop) # these should be pointers to the object, not copies
+                            in_interval = True
+                            continue
+                        elif in_interval == True:
+                            # print('\tending interval at stop {a}\t{b}'.format(a=scheduled_stop.stop_id,b=scheduled_stop.arrival_timestamp))
+                            interval_stops.append(scheduled_stop)
+                            # dict_insert[interval_stops[0].stop_id]=interval_stops
+                            all_this_trips_intervals[interval_stops[0].stop_id] = interval_stops # create a dict entry with k of first stop_id, v of list of stop instances
+                            # reinit
+                            interval_stops = []
+                            in_interval = False
+                            # dict_insert={}
+                            continue
+                    elif scheduled_stop.arrival_timestamp is None:
+                        if in_interval == False:
+                            continue
+                        elif in_interval == True:
+                            # print('\t\tno timestamp for stop {a}'.format(a=scheduled_stop.stop_id))
+                            interval_stops.append(scheduled_stop)
+                            continue
+                    else:
+                        print ('****************** This one fell through the gap {a}'.format(a=scheduled_stop))
+                        continue
+
+                # INTERPOLATION LOOP
+
+                # analyze all_the_intervals
+                for stop_id, interval_sequence in all_this_trips_intervals.items():
+
+                    print('trip {a}'.format(a=trip_id))
+
+                    start_time = interval_sequence[0].arrival_timestamp
+                    end_time = interval_sequence[-1].arrival_timestamp
+                    interval_length = (len(interval_sequence) - 1)
+                    average_time_between_stops = (end_time - start_time) / interval_length
+                    print('\tinterval starts at {a} ends at {b} has {c} gaps averaging {d} seconds'.format(a=interval_sequence[0].stop_id, b= interval_sequence[-1].stop_id, c=interval_length, d=average_time_between_stops))
+
+                    # update the ScheduledStop objects
+                    n = 1
+                    for x in range(1,(len(interval_sequence)-1)):
+                        adder = average_time_between_stops * n
+                        interval_sequence[x].arrival_timestamp = start_time + adder
+                        interval_sequence[x].interpolated_arrival_flag = True
+                        n += 1
+                        print('\t\tarrival_timestamp added to ScheduledStop instance for stop {a}\t{b}\tincrement {c}'.format(a=interval_sequence[x].stop_id, b=interval_sequence[x].arrival_timestamp, c=adder))
+
+                # when we are done with this trip, write to the db
+                db.session.commit()
+
+        print ('****************** interpolation done ******************')
+
+    # future option 2 to speedup, filter by collections routes only?
+
+    def get_current_trips(self):
+        # get a list of trips current running the route
+        v_on_route = NJTransitAPI.parse_xml_getBusesForRoute(
+            NJTransitAPI.get_xml_data(self.source, 'buses_for_route', route=self.route))
+        todays_date = datetime.datetime.today().strftime('%Y%m%d')
+        trip_list = list()
+        trip_list_trip_id_only = list()
+
+        for v in v_on_route:
+            trip_id = ('{a}_{b}_{c}').format(a=v.id, b=v.run, c=todays_date)
+            trip_list.append((trip_id, v.pd, v.bid, v.run))
+            trip_list_trip_id_only.append(trip_id)
+
+        return trip_list, trip_list_trip_id_only
 
 
 def turn_row_into_BusPosition(row):
@@ -356,15 +413,16 @@ def turn_row_into_BusPosition(row):
 
     return position
 
-###########################################################################
-# CKDNEAREST
-# https://gis.stackexchange.com/questions/222315/geopandas-find-nearest-point-in-other-dataframe
-# Here is a helper function that will return the distance and 'Name'
-# of the nearest neighbor in gpd2 from each point in gpd1.
-# It assumes both gdfs have a geometry column (of points).
-###########################################################################
+def ckdnearest(gdA, gdB, bcol):
 
-def ckdnearest(gdA, gdB, bcol):  # seems to be getting hung on on bus 5800 for soem reason
+    ###########################################################################
+    # CKDNEAREST
+    # https://gis.stackexchange.com/questions/222315/geopandas-find-nearest-point-in-other-dataframe
+    # Here is a helper function that will return the distance and 'Name'
+    # of the nearest neighbor in gpd2 from each point in gpd1.
+    # It assumes both gdfs have a geometry column (of points).
+    ###########################################################################
+
     nA = np.array(list(zip(gdA.geometry.x, gdA.geometry.y)))
     nB = np.array(list(zip(gdB.geometry.x, gdB.geometry.y)))
     btree = cKDTree(nB)
@@ -398,15 +456,14 @@ def ckdnearest(gdA, gdB, bcol):  # seems to be getting hung on on bus 5800 for s
 
     return df
 
-###########################################################################
-# GET_NEAREST_STOP
-#
-# Finds the nearest stop, distance to it, from each item in a list of Bus objects.
-# Returns as a list of BusPosition objects.
-#
-###########################################################################
-
 def get_nearest_stop(system_map, buses, route):
+    ###########################################################################
+    # GET_NEAREST_STOP
+    #
+    # Finds the nearest stop, distance to it, from each item in a list of Bus objects.
+    # Returns as a list of BusPosition objects.
+    #
+    ###########################################################################
 
     # routedata, coordinates_bundle = system_map.get_single_route_paths_and_coordinatebundle(route)
 

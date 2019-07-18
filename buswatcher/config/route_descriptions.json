@@ -13,7 +13,7 @@
         },
         {
             "description_long": "tbd.",
-            "description_short": "This is a short description to be filled in later.",
+            "description_short": "JFK Boulevard service between Journal Square Path Station and Secaucus Plaza.",
             "frequency": "low",
             "nm": "Jersey City-JournalSq-Secaucus",
             "prettyname": "Journal Sq-Secaucus Jct",
@@ -22,7 +22,7 @@
         },
         {
             "description_long": "tbd.",
-            "description_short": "This is a short description to be filled in later.",
+            "description_short": "Ocean Avenue local service to Greenville.",
             "frequency": "low",
             "nm": "Ocean Avenue - Journal Square",
             "prettyname": "Ocean Avenue - Journal Square",
@@ -31,7 +31,7 @@
         },
         {
             "description_long": "tbd.",
-            "description_short": "This is a short description to be filled in later.",
+            "description_short": "JFK Boulevard service between Bergen Point and Journal Square.",
             "frequency": "low",
             "nm": "Bayonne - Jersey City",
             "prettyname": "Bayonne - Jersey City",
@@ -40,7 +40,7 @@
         },
         {
             "description_long": "tbd.",
-            "description_short": "This is a short description to be filled in later.",
+            "description_short": "Greenville to Exchange Place via Journal Square.",
             "frequency": "low",
             "nm": "Greenville-JournalSq-Exchange",
             "prettyname": "Greenville - Journal Sq - Exchange Pl",
@@ -49,7 +49,7 @@
         },
         {
             "description_long": "tbd.",
-            "description_short": "This is a short description to be filled in later.",
+            "description_short": "Avenue C service to Exchange Place.",
             "frequency": "low",
             "nm": "Bayonne - Jersey City",
             "prettyname": "Bayonne - Jersey City",
@@ -103,7 +103,7 @@
         },
         {
             "description_long": "The 87 snakes through The Heights, linking to important rail stations at Journal Square, the 9th Street Light Rail Station, and Hoboken Terminal. It has the worst bunching problems of all NJTransit routes in the area due to heavy traffic, railroad grade crossings, and more.",
-            "description_short": "The Heights\" backbone service, offering rail connections at Journal Square and Hoboken Terminal.",
+            "description_short": "A backbone service for Jersey City Heights, offering rail connections at Journal Square and Hoboken Terminal.",
             "frequency": "high",
             "nm": "Jersey City - Hoboken",
             "prettyname": "Hoboken-Journal Square",
@@ -112,7 +112,7 @@
         },
         {
             "description_long": "The 88 provides service throughout the day along JFK Boulevard providing a north-south connection along the western portion of Hudson County.",
-            "description_short": "The JFK local links the Journal Square, the Heights, Union City, and North Bergen.",
+            "description_short": "The JFK local links Journal Square, the Heights, Union City, and North Bergen.",
             "frequency": "high",
             "nm": "N Bergen-Jersey City-JournSq",
             "prettyname": "Journal Square-North Bergen (via JFK)",
@@ -121,7 +121,7 @@
         },
         {
             "description_long": "TK 88 provides service throughout the day along JFK Boulevard providing a north-south connection along the western portion of Hudson County.",
-            "description_short": "TK long, local, infrequent service linking Journal Square and downtown Hackensack via The Heights.",
+            "description_short": "The long, local, infrequent service linking Journal Square and downtown Hackensack via The Heights.",
             "frequency": "low",
             "nm": "North Bergen - Hoboken",
             "prettyname": "North Bergen - Hoboken",
@@ -130,7 +130,7 @@
         },
         {
             "description_long": "The 119 does triple-duty: as a Hudson County north-south connector, a Central Avenue local, and main express commuter line to midtown Manhattan, and fails at all three missions. The 119 is too long, infrequent, and overcrowded.",
-            "description_short": "The Height\"s Manhattan commuter service faces severe overcrowding, despite recent service increases.",
+            "description_short": "The Height's Manhattan commuter service faces severe overcrowding, despite recent service increases.",
             "frequency": "high",
             "nm": "Bayonne-Jersey City-NY",
             "prettyname": "Journal Square-NYC (via Central Ave)",
@@ -180,7 +180,7 @@
             "nm": "Clark - New York",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "Clark to New York Port Authority Bus Terminal.",
             "frequency": "low",
             "prettyname": "Clark - New York",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -450,7 +450,7 @@
             "nm": "Main Street",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "Newark Penn Station to West Orange via Main St.",
             "frequency": "low",
             "prettyname": "Main Street",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -460,7 +460,7 @@
             "nm": "Springfield Avenue",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "Newark to Springfield Avenue Business District via Irvington.",
             "frequency": "low",
             "prettyname": "Springfield Avenue",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -490,7 +490,7 @@
             "nm": "Nwk-MontclairUniv-Willowbrook",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "Bus service between Newark Central Business District and Willowbrook via Montclair.",
             "frequency": "low",
             "prettyname": "Nwk-MontclairUniv-Willowbrook",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -500,7 +500,7 @@
             "nm": "Bloomfield Avenue",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "Daily bus service on Bloomfield avenue from Parsippany-Troy Hills to Newark Broad St. Station.",
             "frequency": "low",
             "prettyname": "Bloomfield Avenue",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -510,7 +510,7 @@
             "nm": "North Arlington-Kearny-Newark",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "Kearny Avenue service to North Arlington.",
             "frequency": "low",
             "prettyname": "North Arlington-Kearny-Newark",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -550,7 +550,7 @@
             "nm": "NY-Atlantic City-Cape",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "A seasonal summer line between New York City and Cape May via Atlantic City.",
             "frequency": "low",
             "prettyname": "NY-Atlantic City-Cape",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -580,7 +580,7 @@
             "nm": "Market Street",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "Montclair to Newark Downtown Business District.",
             "frequency": "low",
             "prettyname": "Market Street",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -590,7 +590,7 @@
             "nm": "Lyons Avenue",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "Newark Liberty International Airport to Ivy Hill.",
             "frequency": "low",
             "prettyname": "Lyons Avenue",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -600,7 +600,7 @@
             "nm": "Irvington - Newark",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "A local line connecting locals to Irvington from Newark Penn Station.",
             "frequency": "low",
             "prettyname": "Irvington - Newark",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -680,7 +680,7 @@
             "nm": "Park Avenue",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "Service from Orange and East Orange into Newark Downtown Business District.",
             "frequency": "low",
             "prettyname": "Park Avenue",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -720,7 +720,7 @@
             "nm": "CherryHillMal-Audubon-Camden",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "Camden County service connecting residents of Cherry Hill, Audubon, and Camden.",
             "frequency": "low",
             "prettyname": "CherryHillMal-Audubon-Camden",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -730,7 +730,7 @@
             "nm": "Camden - 36th St. Station",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "A last-mile connector from River Line 36th Street Station to Camden County.",
             "frequency": "low",
             "prettyname": "Camden - 36th St. Station",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -740,7 +740,7 @@
             "nm": "AtlanticCity-Brigantine Beac",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "Local bus with stops at Atlantic City Casinos.",
             "frequency": "low",
             "prettyname": "AtlanticCity-Brigantine Beac",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -750,7 +750,7 @@
             "nm": "Atl City-Margate-Longport",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "Absecon Island local bus between Longport and Atlantic City.",
             "frequency": "low",
             "prettyname": "Atl City-Margate-Longport",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -760,7 +760,7 @@
             "nm": "Atlantic City - Ocean City",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "Intercity bus line connecting Jersey Shore resort towns.",
             "frequency": "low",
             "prettyname": "Atlantic City - Ocean City",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -770,7 +770,7 @@
             "nm": "Atl City-StocktonColl-HamMal",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "Connecting locals from Atlantic City to Hamilton Mall and making stops at Stockton University in Galloway.",
             "frequency": "low",
             "prettyname": "Atl City-StocktonColl-HamMal",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -780,7 +780,7 @@
             "nm": "Atl City-SomersPt-Ocean City",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "Bus connecting residents to the oldest settlement in Atlantic County, Somers Point. Limited service available to Ocean City.",
             "frequency": "low",
             "prettyname": "Atl City-SomersPt-Ocean City",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -790,7 +790,7 @@
             "nm": "Philadelphia - Atlantic City",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "Daily express line to Philadelphia's 30th St station.",
             "frequency": "low",
             "prettyname": "Philadelphia - Atlantic City",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -800,7 +800,7 @@
             "nm": "Cape May - Atlantic City",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "Local bus line beginning to Cape May with an extension route 510 providing additional service between Wildwood Bus Terminal and Rio Grande Shopping Corridor.",
             "frequency": "low",
             "prettyname": "Cape May - Atlantic City",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -810,7 +810,7 @@
             "nm": "Upper Deerfield-Atl City",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "Southwest bus to Bridgeton via Millville and Buena Vista Township.",
             "frequency": "low",
             "prettyname": "Upper Deerfield-Atl City",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -820,7 +820,7 @@
             "nm": "Lindenwold-PATCO-Atl City",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "Service connecting Camden County to Atlantic City Bus Terminal.",
             "frequency": "low",
             "prettyname": "Lindenwold-PATCO-Atl City",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -830,7 +830,7 @@
             "nm": "Lakewood - Atlantic City",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "A daily service connecting Ocean county to Atlantic City.",
             "frequency": "low",
             "prettyname": "Lakewood - Atlantic City",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -840,7 +840,7 @@
             "nm": "Princeton-Mrcrville-HamMktPl",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "Daily bus between Princeton and Hamilton Township via Mercerville",
             "frequency": "low",
             "prettyname": "Princeton-Mrcrville-HamMktPl",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -850,7 +850,7 @@
             "nm": "Ewing-Trenton-Indep Plz",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "Connecting residents of Ewing to Trenton's Independence Plaza",
             "frequency": "low",
             "prettyname": "Ewing-Trenton-Indep Plz",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -870,7 +870,7 @@
             "nm": "Newark-Nwk Airport-Elizabeth",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "Express bus line into Newark International Airport and Train Station from Elizabeth.",
             "frequency": "low",
             "prettyname": "Newark-Nwk Airport-Elizabeth",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -900,7 +900,7 @@
             "nm": "Newark - Livingston Mall",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "Daily service from Newark Penn Station to Florham Park.",
             "frequency": "low",
             "prettyname": "Newark - Livingston Mall",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -910,7 +910,7 @@
             "nm": "Newark-West Caldwell",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "Daily service via East Orange, West Orange, and Livingston.",
             "frequency": "low",
             "prettyname": "Newark-West Caldwell",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -920,7 +920,7 @@
             "nm": "Paterson-Bloomfield-Newark",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "Connecting Paterson to Newark Penn Station via Bloomfield.",
             "frequency": "low",
             "prettyname": "Paterson-Bloomfield-Newark",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -930,7 +930,7 @@
             "nm": "Newark - Orange - Livingston",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "Newark Penn Station to Livingston Mall via Orange.",
             "frequency": "low",
             "prettyname": "Newark - Orange - Livingston",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -940,7 +940,7 @@
             "nm": "Paterson - Nutley - Newark",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "Daily service between Branch Brook Park Light Rail Station and Paterson's Broadway Bus Terminal.",
             "frequency": "low",
             "prettyname": "Paterson - Nutley - Newark",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -1000,7 +1000,7 @@
             "nm": "Elizabeth-Woodbridge-Perth Am",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "A local bus service between Elizabeth's Central Business District and Perth Amboy.",
             "frequency": "low",
             "prettyname": "Elizabeth-Woodbridge-Perth Am",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -1010,7 +1010,7 @@
             "nm": "Newark - Willowbrook",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "Newark Penn Station to Wayne Town Center in Willowbrook.",
             "frequency": "low",
             "prettyname": "Newark - Willowbrook",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -1160,7 +1160,7 @@
             "nm": "Irvington - Elizabeth",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "Service to Irvington from Elizabeth Rail Station via Hillside.",
             "frequency": "low",
             "prettyname": "Irvington - Elizabeth",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -1220,7 +1220,7 @@
             "nm": "Moorestown Mall - Camden",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "Local bus service to Moorestown Mall with stops in Gloucester City and Cherry Hill.",
             "frequency": "low",
             "prettyname": "Moorestown Mall - Camden",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -1240,7 +1240,7 @@
             "nm": "Kinney",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "Newark Penn Station to East Orange on 30-minute intervals.",
             "frequency": "low",
             "prettyname": "Kinney",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -1250,7 +1250,7 @@
             "nm": "Atl City-HamiltonMall-Atl/CC",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "Local bus from Atlantic City to Hamilton Shopping Centers and Atlantic Cape Community College",
             "frequency": "low",
             "prettyname": "Atl City-HamiltonMall-Atl/CC",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -1260,7 +1260,7 @@
             "nm": "BngalwPk-ChlseaHgts-VntrPlz",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "In the shadows of America's Playground, this bus serves residents of Bungalow Park to Ventnor Heights daily.",
             "frequency": "low",
             "prettyname": "BngalwPk-ChlseaHgts-VntrPlz",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -1270,7 +1270,7 @@
             "nm": "Tremley",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "Linden county local to Elizabeth.  Service Weekdays and Saturdays only.",
             "frequency": "low",
             "prettyname": "Tremley",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -1280,7 +1280,7 @@
             "nm": "Plainfield - Newark",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "Dunellen to Newark's Central Business District.",
             "frequency": "low",
             "prettyname": "Plainfield - Newark",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -1290,7 +1290,7 @@
             "nm": "Coll of NJ-Trenton-Ham MktPl",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "Ewing to Hamilton Township via Trenton.",
             "frequency": "low",
             "prettyname": "Coll of NJ-Trenton-Ham MktPl",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -1300,7 +1300,7 @@
             "nm": "Montgomery-Princeton-QBMall",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "Connects residents of Montgomery, Princeton, and Lawrence.",
             "frequency": "low",
             "prettyname": "Montgomery-Princeton-QBMall",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -1310,7 +1310,7 @@
             "nm": "Hamilton - West Trenton",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "Daily service between Hamilton and West Trenton Rail Station.",
             "frequency": "low",
             "prettyname": "Hamilton - West Trenton",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -1320,7 +1320,7 @@
             "nm": "Ewing - Quaker Bridge Mall",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "Service between NJ DOT in Ewing to Mercer County College in Lawrence.",
             "frequency": "low",
             "prettyname": "Ewing - Quaker Bridge Mall",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -1350,7 +1350,7 @@
             "nm": "Haledon-Paterson-East Ruther",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "Service to Meadowland Sport Complex and Racetrack in East Rutherford.",
             "frequency": "low",
             "prettyname": "Haledon-Paterson-East Ruther",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -1360,7 +1360,7 @@
             "nm": "Paterson - Willowbrook Mall",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "Bus to Willowbrook Mall with stops in Woodland Park and Berkeley College.",
             "frequency": "low",
             "prettyname": "Paterson - Willowbrook Mall",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -1390,7 +1390,7 @@
             "nm": "Hackensack-Paterson-Willowbr",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "Hackensack Bus Terminal to Willowbrook Mall via Paterson and Totowa.",
             "frequency": "low",
             "prettyname": "Hackensack-Paterson-Willowbr",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -1450,7 +1450,7 @@
             "nm": "Newark - Hackensack",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "Daily service connecting residents to Hackensack Bus Terminal.",
             "frequency": "low",
             "prettyname": "Newark - Hackensack",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -1460,7 +1460,7 @@
             "nm": "Paterson - Hackensack",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "Broadway service between Hackensack and Paterson bus terminals.",
             "frequency": "low",
             "prettyname": "Paterson - Hackensack",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -1480,7 +1480,7 @@
             "nm": "Newark - Parsippany Express",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "Weekdays only. Parsippany-Troy Hills to Newark Penn Station.",
             "frequency": "low",
             "prettyname": "Newark - Parsippany Express",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -1590,7 +1590,7 @@
             "nm": "Camden-Voorhees Town Center",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "A weekday only service between Camden and Voorhees Town Center.",
             "frequency": "low",
             "prettyname": "Camden-Voorhees Town Center",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -1600,7 +1600,7 @@
             "nm": "Ferry Avenue PATCO - Camden",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "Woodlyne to Camden local bus line stopping at Ferry Avenue PATCO and Antioch Manor.",
             "frequency": "low",
             "prettyname": "Ferry Avenue PATCO - Camden",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -1650,7 +1650,7 @@
             "nm": "Elizabeth - Kenilworth",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "Connecting residents in Union County to Elizabeth via Roselle Park. Service Weekdays and Saturdays only.",
             "frequency": "low",
             "prettyname": "Elizabeth - Kenilworth",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -1660,7 +1660,7 @@
             "nm": "Trenton - Plainsboro",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "Service between Trenton Transit Center and Plainsboro via West Windsor Township",
             "frequency": "low",
             "prettyname": "Trenton - Plainsboro",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -1670,7 +1670,7 @@
             "nm": "Mercer Mall-Ham Sq-Ham MktPl",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "Connecting Lawrence Township to Hamilton Township with buses traversing Trenton, White Horse, and Yardville.",
             "frequency": "low",
             "prettyname": "Mercer Mall-Ham Sq-Ham MktPl",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -1680,7 +1680,7 @@
             "nm": "Trenton-RiverViewPlz-Circ",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "Circulator between Transit Center and River View Plaza.",
             "frequency": "low",
             "prettyname": "Trenton-RiverViewPlz-Circ",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -1770,7 +1770,7 @@
             "nm": "Newark - Secaucus",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "Weekdays only Secaucus Meadowlands to Newark Penn Station.",
             "frequency": "low",
             "prettyname": "Newark - Secaucus",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -1920,7 +1920,7 @@
             "nm": "18th Street Crosstown",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "Weekday and Saturday cross-town service between Bloomfield avenue and Chancellor Avenue.",
             "frequency": "low",
             "prettyname": "18th Street Crosstown",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -1930,7 +1930,7 @@
             "nm": "Newark - Somerville",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "Weekday and Saturday service between Somerville and Newark Penn Station.",
             "frequency": "low",
             "prettyname": "Newark - Somerville",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
@@ -2420,7 +2420,7 @@
             "nm": "Newark",
             "ttl": "1d",
             "description_long": "",
-            "description_short": "",
+            "description_short": "Daily service between Newark Penn Station and Jersey City Exchange Place.",
             "frequency": "low",
             "prettyname": "Newark",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
