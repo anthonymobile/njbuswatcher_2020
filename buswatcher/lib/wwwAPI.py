@@ -94,7 +94,7 @@ class RouteReport(GenericReport):
 
         return trip_list, trip_list_trip_id_only
 
-
+    # bug debug this on a process that has some data
     # populates the undermap trip dash
     def get_tripdash(self):
         # gets most recent stop for all active vehicles on route, only if they were observed in the last 5 minutes
@@ -105,42 +105,28 @@ class RouteReport(GenericReport):
             tripdash = dict()
             for trip_id,pd,bid,run in trip_list:
 
-                # five_mins_ago = datetime.datetime.now() - datetime.timedelta(minutes=5)
-                #
-                # # OLD
-                # # load the trip card - limit 1
-                # scheduled_stops = db.session.query(ScheduledStop) \
-                #     .join(Trip) \
-                #     .filter(Trip.trip_id == trip_id) \
-                #     .filter(ScheduledStop.arrival_timestamp != None) \
-                #     .filter(ScheduledStop.arrival_timestamp < five_mins_ago) \
-                #     .order_by(ScheduledStop.arrival_timestamp.desc()) \
-                #     .limit(1) \
-                #     .all()
-                # trip_dict=dict()
-                # trip_dict['stoplist']=scheduled_stops
+                five_mins_ago = datetime.datetime.now() - datetime.timedelta(minutes=5)
 
-                # bug test this on basement
-                # NEW
-                # load the trip card
-                scheduled_stops = db.session.query(ScheduledStop) \
+                # OLD
+                # load the trip card - limit 1
+                most_recent_stop = db.session.query(ScheduledStop) \
                     .join(Trip) \
                     .filter(Trip.trip_id == trip_id) \
                     .filter(ScheduledStop.arrival_timestamp != None) \
+                    .filter(ScheduledStop.arrival_timestamp < five_mins_ago) \
                     .order_by(ScheduledStop.arrival_timestamp.desc()) \
+                    .limit(1) \
                     .all()
-
                 trip_dict=dict()
                 try:
-                    trip_dict['stoplist']=list(scheduled_stops[0]) # take the first one of the results, e.g. most recent
-                    print(trip_dict)
+                    trip_dict['stoplist']=[most_recent_stop[0]]
                 except:
                     trip_dict['stoplist']=[]
 
                 trip_dict['pd'] = pd
                 trip_dict['v'] = bid
                 trip_dict['run'] = run
-            tripdash[trip_id] = trip_dict
+                tripdash[trip_id] = trip_dict
 
         return tripdash
 
