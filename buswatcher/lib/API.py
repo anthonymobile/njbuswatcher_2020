@@ -6,7 +6,7 @@ from . import NJTransitAPI
 from .DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
 from sqlalchemy import func, text
 
-def current_buspositions_from_db_for_index():
+def current_buspositions_from_db_for_index(): # bug this is killing the server
     with SQLAlchemyDBConnection() as db:
         query = db.session.query(BusPosition).filter(BusPosition.timestamp >= func.ADDDATE(func.CURRENT_TIMESTAMP(), text('interval -1 minute'))).all()
         positions = query
