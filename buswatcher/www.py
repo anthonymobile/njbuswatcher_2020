@@ -95,7 +95,14 @@ def activate_job():
 
 @app.route('/')
 def displayIndex():
-    vehicle_data, vehicle_count, route_count = API.current_buspositions_from_db_for_index()
+
+    vehicle_data = NJTransitAPI.parse_xml_getBusesForRouteAll(NJTransitAPI.get_xml_data('nj','all_buses'))
+    vehicle_count = len(vehicle_data)
+    route_count = len(list(set([v.rt for v in vehicle_data])))
+
+    # future optimize and restore
+    # vehicle_data, vehicle_count, route_count = API.current_buspositions_from_db_for_index()
+
     routereport = Dummy() # setup a dummy routereport for the navbar
     return render_template('index.jinja2',
                            collection_descriptions=system_map.collection_descriptions,
