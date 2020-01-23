@@ -131,7 +131,7 @@ Docker deployment abandoned for now. Its easier and simpler for us to spend the 
 
     ```bash
     conda update -n base conda
-    cd buswatcher/docker
+    cd buswatcher/install
     conda env create -f environment.yml
     conda activate buswatcher
     ```
