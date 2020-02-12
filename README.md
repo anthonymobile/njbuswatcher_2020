@@ -4,12 +4,7 @@
 
 ## Overview
 
-Buswatcher is a Python web app to collect bus position and stop arrival prediction data from several API endpoints maintained by NJTransit (via vendor Clever Devices), synthesize and summarize this information, and present to riders in a number of useful ways via a simple, interactive web application. Its implemented in Python using flask, pandas, and geopandas.
-
-#### Version 2 Improvements
-- rewritten in Python 3
-- new localization and stop assignment algorithm is based on geographic position and stop proximity not API arrival predictions
-- full SQLalchemy database implementation for easier mix and match backend
+Buswatcher is a Python web app to collect bus position and stop arrival prediction data from several API endpoints maintained by NJTransit (via vendor Clever Devices), synthesize and summarize this information, and present to riders in a number of useful ways via a simple, interactive web application. Its implemented in Python 3 using flask, SQLalchemy, pandas, and geopandas.
 
 
 ## Known Issues and TODOs
@@ -318,21 +313,19 @@ Libraries and config files.
 **/dns_updater** Updates domain IP at Gandi.net to host current
 **/install** Setup helpers, env config, etc.
 
-   
+  
 
 ## API
 
-The JS maps all use the external API. It is available for general use also. Stem for all is `https://www.njbuswatcher.com/api/v1/maps/{endpoint}?rt={route}`
+The maps API is used by the JavaScript maps on the site, and is available for others to use too. Returns current route geometry and vehicle positions as geoJSON. 
 
-#### /vehicles
-`rt=` Positions of buses currently on the route.
+URL is `https://www.njbuswatcher.com/api/v1/maps`
 
-#### waypoints
-`/api/v1/maps/waypoints` Route geometry as a series of points.
+`/vehicles?rt=87` Positions of buses currently on the route.
 
-#### stops
-`/api/v1/maps/waypoints` Stop locations.
+`/waypoints?rt=87` Route geometry as a series of points.
 
+`/stops?rt=87` Stop locations.
 
 ## Maintenance
  
