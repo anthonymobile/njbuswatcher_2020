@@ -98,7 +98,6 @@ class Trip(Base):
     def __repr__(self):
         return '[Trip: \trt {} \ttrip_id {}]'.format(self.rt, self.trip_id)
 
-
 class ScheduledStop(Base):
     ################################################################
     # CLASS ScheduledStop
