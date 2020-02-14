@@ -28,8 +28,7 @@ Docker deployment abandoned for now. Its easier and simpler for us to spend the 
 #### backend stuff
 
 1. Assumes using EC2 Ubuntu instance. Set one up. Dont forget to assign a security group that lets ssh, http, https, and 19999 (netdata if you want it) through.
- 
-2. set the instance timezone
+2. set the instance timezone 
     ```bash
     sudo dpkg-reconfigure tzdata
     ```
@@ -57,6 +56,7 @@ Docker deployment abandoned for now. Its easier and simpler for us to spend the 
     22                         ALLOW       Anywhere
     22 (v6)                    ALLOW       Anywhere (v6)
     ```
+    
 5. change ssh port (optional). its often a good idea to move your ssh server over to a non-standard port. i usually pick a ZIP code i know and use the last 4 digits. i'll leave this one to you. just for godssake - dont forget to open the new port in the firewall with ufw before you restart the ssh server or you've bricked your new server. 
 
 6. change the hostname (also optional). i like to, if only because i hate anonymous AWS hostnames
@@ -96,19 +96,14 @@ Docker deployment abandoned for now. Its easier and simpler for us to spend the 
     mysql> exit
     ```
    
-9. install conda (n.b. version numbers change), accepting all the defaults
+9. install the latest miniconda (n.b. version numbers change)
     ```bash
     cd ~
     mkdir tmp; cd tmp
-    wget https://repo.anaconda.com/archive/Anaconda3-2019.10-Linux-x86_64.sh
-    bash ./Anaconda3-2019.10-Linux-x86_64.sh
-    ```
-    
-    on an EC2 micro (free tier) instance, you should install miniconda instead, make sure to change the default install directory to `/home/ubuntu/anaconda3`
-    ```bash
     wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
     bash ./Miniconda3-latest-Linux-x86_64.sh
     ```
+    Make sure to change the default installation path to `/home/ubuntu/anaconda3`
 
 10. clone the buswatcher repo
     ```bash
@@ -131,7 +126,7 @@ Docker deployment abandoned for now. Its easier and simpler for us to spend the 
     ```
 
     - n.b. on OSX development environments, pandas doesn't get installed here and needs to be installed manually after the build
-    - n.b. on an EC2 micro this currently fails (due to insufficent memory?)
+    - n.b. may have to install gcc first `sudo apt-get install gcc`
 
 #### frontend
 
@@ -144,7 +139,8 @@ Docker deployment abandoned for now. Its easier and simpler for us to spend the 
 12. install the front end config files
 
     ```bash 
-    ./install_front_end.sh
+    cd /home/ubuntu/buswatcher
+    install/install_front_end.sh
     ```
     
     - what this script does (if you need to do it manually)
@@ -241,7 +237,7 @@ Docker deployment abandoned for now. Its easier and simpler for us to spend the 
             
 13. install netdata (optional) according to the DigitalOcean [tutorial](https://www.digitalocean.com/community/tutorials/how-to-set-up-real-time-performance-monitoring-with-netdata-on-ubuntu-16-04)
 
-16. dns_updater -- copy your API key to config.py and setup a cron job
+16. dns_updater -- copy your API key to `dns_updater/config.py` and setup a cron job with `crontab -e` and paste the following into it.
 
     ```bash
     */5 * * * * /home/ubuntu/buswatcher/dns_updater/gandi-live-dns.py >/dev/null 2>&1
@@ -251,7 +247,8 @@ Docker deployment abandoned for now. Its easier and simpler for us to spend the 
 16. Install the update script
 
     ```bash
-    cp /buswatcher/install/update.sh ~/
+    cp ~/buswatcher/install/update.sh ~/
+    cd ~
     chmod 755 update.sh
     ./update.sh
     ```
