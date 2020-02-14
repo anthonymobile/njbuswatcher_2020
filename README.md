@@ -96,14 +96,14 @@ Docker deployment abandoned for now. Its easier and simpler for us to spend the 
     mysql> exit
     ```
    
-9. install the latest miniconda (n.b. version numbers change)
+9. install the latest version of Anaconda (n.b. version numbers change)
     ```bash
     cd ~
     mkdir tmp; cd tmp
-    wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-    bash ./Miniconda3-latest-Linux-x86_64.sh
+    wget https://repo.anaconda.com/archive/Anaconda3-2019.03-Linux-x86_64.sh
+    bash ./Anaconda3-2019.03-Linux-x86_64.sh
     ```
-    Make sure to change the default installation path to `/home/ubuntu/anaconda3`
+    Make sure to use the default installation path `/home/ubuntu/anaconda3`
 
 10. clone the buswatcher repo
     ```bash
@@ -240,8 +240,7 @@ Docker deployment abandoned for now. Its easier and simpler for us to spend the 
 16. dns_updater -- copy your API key to `dns_updater/config.py` and setup a cron job with `crontab -e` and paste the following into it.
 
     ```bash
-    */5 * * * * /home/ubuntu/buswatcher/dns_updater/gandi-live-dns.py >/dev/null 2>&1
-    
+    */5 * * * * /usr/bin/python3 /home/ubuntu/buswatcher/dns_updater/gandi-live-dns.py >/dev/null 2>&1
     ```
 
 16. Install the update script
