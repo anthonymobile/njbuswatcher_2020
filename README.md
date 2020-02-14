@@ -28,10 +28,10 @@ Docker deployment abandoned for now. Its easier and simpler for us to spend the 
 #### backend stuff
 
 1. Assumes using EC2 Ubuntu instance. Set one up. Dont forget to assign a security group that lets ssh, http, https, and 19999 (netdata if you want it) through.
- 
-2. set the instance timezone
+2. set the instance timezone 
     ```bash
-    sudo dpkg-reconfigure tzdata```
+    sudo dpkg-reconfigure tzdata
+    ```
     
 3. make sure you're up to date
     ```bash
@@ -56,16 +56,19 @@ Docker deployment abandoned for now. Its easier and simpler for us to spend the 
     22                         ALLOW       Anywhere
     22 (v6)                    ALLOW       Anywhere (v6)
     ```
+    
 5. change ssh port (optional). its often a good idea to move your ssh server over to a non-standard port. i usually pick a ZIP code i know and use the last 4 digits. i'll leave this one to you. just for godssake - dont forget to open the new port in the firewall with ufw before you restart the ssh server or you've bricked your new server. 
 
-6. change the hostname (also optional). i like to, jsut because i hate anonymous AWS hostnames
+6. change the hostname (also optional). i like to, if only because i hate anonymous AWS hostnames
     ```bash
     sudo nano /etc/hostname
     ```
-    you'll need to reboot the instance and log back in
+    you'll need to reboot the instance
     ```bash 
     sudo shutdown -r now
     ```
+    
+    And log back in.
 
 7. install and configure mysql (make sure its 5.7)
     ```bash
@@ -75,7 +78,7 @@ Docker deployment abandoned for now. Its easier and simpler for us to spend the 
     ```bash
     sudo mysql_secure_installation
     ```
-    basically you want to answer no to the first (validate password plugin), and yes to the rest of the questions. pick the level of password annoyance you want to deal with. you'll have to hard code the buswatcher database password later so its up to you.
+    basically you want to answer no to the first (validate password plugin), and yes to the rest of the questions. pick the level of password annoyance you want to deal with. this is only for root access, you'll create a used for the buswatcher separately in the next step.
 
 8. create the database user, with native_password auth otherwise python problems
     ```bash
@@ -93,13 +96,14 @@ Docker deployment abandoned for now. Its easier and simpler for us to spend the 
     mysql> exit
     ```
    
-9. install conda (n.b. version numbers change)
+9. install the latest version of Anaconda (n.b. version numbers change)
     ```bash
     cd ~
     mkdir tmp; cd tmp
     wget https://repo.anaconda.com/archive/Anaconda3-2019.03-Linux-x86_64.sh
     bash ./Anaconda3-2019.03-Linux-x86_64.sh
     ```
+    Make sure to use the default installation path `/home/ubuntu/anaconda3`
 
 10. clone the buswatcher repo
     ```bash
@@ -107,7 +111,7 @@ Docker deployment abandoned for now. Its easier and simpler for us to spend the 
     git clone https://github.com/code4jc/buswatcher.git
     ```
 
-11. if needed, checkout the proper branck
+11. if testing instance, checkout the `development` branch
     ```bash
     cd buswatcher
     git checkout development
@@ -121,7 +125,8 @@ Docker deployment abandoned for now. Its easier and simpler for us to spend the 
     conda activate buswatcher
     ```
 
-    n.b. on OSX development environments, pandas doesn't get installed here and needs to be installed manually after the build
+    - n.b. on OSX development environments, pandas doesn't get installed here and needs to be installed manually after the build
+    - n.b. may have to install gcc first `sudo apt-get install gcc`
 
 #### frontend
 
@@ -134,7 +139,8 @@ Docker deployment abandoned for now. Its easier and simpler for us to spend the 
 12. install the front end config files
 
     ```bash 
-    ./install_front_end.sh
+    cd /home/ubuntu/buswatcher
+    install/install_front_end.sh
     ```
     
     - what this script does (if you need to do it manually)
@@ -231,17 +237,17 @@ Docker deployment abandoned for now. Its easier and simpler for us to spend the 
             
 13. install netdata (optional) according to the DigitalOcean [tutorial](https://www.digitalocean.com/community/tutorials/how-to-set-up-real-time-performance-monitoring-with-netdata-on-ubuntu-16-04)
 
-16. dns_updater -- copy your API key to config.py and setup a cron job
+16. dns_updater -- copy your API key to `dns_updater/config.py` and setup a cron job with `crontab -e` and paste the following into it.
 
     ```bash
-    */5 * * * * /home/ubuntu/buswatcher/dns_updater/gandi-live-dns.py >/dev/null 2>&1
-    
+    */5 * * * * /usr/bin/python3 /home/ubuntu/buswatcher/dns_updater/gandi-live-dns.py >/dev/null 2>&1
     ```
 
 16. Install the update script
 
     ```bash
-    cp /buswatcher/install/update.sh ~/
+    cp ~/buswatcher/install/update.sh ~/
+    cd ~
     chmod 755 update.sh
     ./update.sh
     ```
