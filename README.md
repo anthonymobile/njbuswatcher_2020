@@ -7,7 +7,11 @@
 Buswatcher is a Python web app to collect bus position and stop arrival prediction data from several API endpoints maintained by NJTransit (via vendor Clever Devices), synthesize and summarize this information, and present to riders in a number of useful ways via a simple, interactive web application. Its implemented in Python 3 using flask, SQLalchemy, pandas, and geopandas.
 
 
-## Known Issues and TODOs
+## Known Issues 
+
+- fresh installation is unable to complete initial generation of system_map.pickle. copying an existing file doesnt work. am i forgetting an important initialization step?
+
+## and TODOs
 
 - various `#todo` items are tagged in the source comments. these need to be extracted, cataloged, prioritized
 - There are a number of issues with how we are modeling some of the route geometry and schedule anomalies, that are documented [here](https://github.com/code4jc/buswatcher/issues/19), [here](https://github.com/code4jc/buswatcher/issues/18), and [here](https://github.com/code4jc/buswatcher/issues/17).
@@ -260,7 +264,6 @@ Docker deployment abandoned for now. Its easier and simpler for us to spend the 
     
     Try it now.
     
-
 
 
 
