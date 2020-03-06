@@ -1,6 +1,8 @@
 # NJ BusWatcher
-**updated 2020 feb 12**
+**updated 2020 mar 6**
 
+## WIP
+- docker deployment
 
 ## Overview
 
