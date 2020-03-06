@@ -87,7 +87,8 @@ class SystemMap:
             try:
                 infile = (get_config_path() + 'route_geometry/' + route + '.xml')
                 with open(infile, 'rb') as f:
-                    return NJTransitAPI.parse_xml_getRoutePoints(f.read())
+                    print('parsing Paths for route ' + route)
+                    return NJTransitAPI.parse_xml_getRoutePoints(f.read()) # bug trap error here if the XML file is bad (for instance, because the route is inactive like the seasonal 308 route to Great Adventure, 316)
             except:
                 pass
 

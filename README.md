@@ -39,6 +39,7 @@ Buswatcher is a Python web app to collect bus position and stop arrival predicti
     - `TraveltimeReport`
 
 #### optimization
+would help to do some profiling on `tripwatcher.py` and cythonize particularly slow parts?
 - `lib/API.py`
     - `current_buspositions_from_db_for_index()`
     - `__positions2geojson` current is 0.2 seconds per execution on t3a.large

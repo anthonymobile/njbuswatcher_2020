@@ -54,7 +54,7 @@ class RouteScan:
 
             # PARSE trips, create missing trip records first, to honor foreign key constraints
             for bus in self.buses:
-                bus.trip_id = ('{id}_{run}_{dt}').format(id=bus.id, run=bus.run, dt=datetime.datetime.today().strftime('%Y%m%d'))  # todo add route to trip id, so its rt_v_run_date?
+                bus.trip_id = ('{id}_{run}_{dt}').format(id=bus.id, run=bus.run, dt=datetime.datetime.today().strftime('%Y%m%d'))
                 self.trip_list.append(bus.trip_id)
                 result = db.session.query(Trip).filter(Trip.trip_id == bus.trip_id).first()
 
@@ -66,7 +66,7 @@ class RouteScan:
                         continue
                 except:
                     print("couldn't find route in route_descriptions.json, please add it. route " + str(
-                        bus.rt))  # future automatically add unknown routes to route_descriptions.json
+                        bus.rt))
 
                 db.__relax__()  # disable foreign key checks before...
                 try:
@@ -266,7 +266,7 @@ class RouteScan:
 
     @timeit
     def interpolate_missed_stops(self):
-        # future optimize option 1 move to generator.quarterly_hour_tasks as a batch job
+
 
         print ('starting interpolations for {a} trips...'.format(a=len(self.trip_list)))
 
@@ -362,7 +362,6 @@ class RouteScan:
 
         print ('****************** interpolation done ******************')
 
-    # future option 2 to speedup, filter by collections routes only?
 
     def get_current_trips(self):
         # get a list of trips current running the route
@@ -433,7 +432,7 @@ def ckdnearest(gdA, gdB, bcol):
     # current crude method, 1 degree = 69 miles = 364,320 feet
     df = pd.DataFrame.from_dict({'distance': (dist.astype(float) * 364320), bcol: gdB.loc[idx, bcol].values})
 
-    # future implement haversine for get_nearest_stop
+
     # # new method based on https://gis.stackexchange.com/questions/279109/calculate-distance-between-a-coordinate-and-a-county-in-geopandas
     # from math import radians, cos, sin, asin, sqrt
     #
@@ -480,7 +479,7 @@ def get_nearest_stop(system_map, buses, route):
     try:
         stoplist = system_map.get_single_route_stoplist_for_localizer(route)
     except:
-        # future automatically add unknown routes to route_descriptions.json
+
         print("couldn't find route in route_descriptions.json, please add it. route " + str(route))
         return
 
