@@ -28,7 +28,7 @@ from apscheduler.executors.pool import ThreadPoolExecutor,ProcessPoolExecutor
 db_url = (get_config_path()+'apscheduler.sqlite')
 
 jobstores = {'default': SQLAlchemyJobStore(url='sqlite:///'+db_url)}
-# jobstores = {'default': SQLAlchemyJobStore(url=connection_string))} # future move jobstore to mysql db
+# jobstores = {'default': SQLAlchemyJobStore(url=connection_string))}
 
 
 executors = {'default': ThreadPoolExecutor(20)}
@@ -56,7 +56,7 @@ def daily(system_map):
     task_trigger_1 = BunchingReport().generate_reports(system_map) # rebuild bunching reports
     task_trigger_2 = GradeReport().generate_reports(system_map) # rebuild grade report
     task_trigger_3 = flush_system_map() # delete the system_map_pickle
-    task_trigger_4 = load_system_map(force_regen=True) # regenerate the new system map pickle (re-downloads XML route points and fetches new grades) # future will this download more limited route points?
+    task_trigger_4 = load_system_map(force_regen=True) # regenerate the new system map pickle (re-downloads XML route points and fetches new grades)
 
     print ('daily_tasks just ran')
     return
@@ -79,7 +79,6 @@ if __name__ == "__main__":
 
     system_map = load_system_map()
 
-    # future make --test and --setup mutually exclusive, and require --tasks if --test is set
     parser = argparse.ArgumentParser()
     parser.add_argument('--production', dest='production', action='store_true',help='Production mode, run all tasks, reverse chrono order, then start schedule.')
     parser.add_argument('--test', dest='test', action='store_true', help='Test mode, run the scheduled tasks in succession, bypassing schedule.')

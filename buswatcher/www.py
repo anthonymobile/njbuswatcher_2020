@@ -100,7 +100,6 @@ def displayIndex():
     vehicle_count = len(vehicle_data)
     route_count = len(list(set([v.rt for v in vehicle_data])))
 
-    # future optimize and restore
     # vehicle_data, vehicle_count, route_count = API.current_buspositions_from_db_for_index()
 
     routereport = Dummy() # setup a dummy routereport for the navbar
@@ -158,7 +157,7 @@ def genStopReport(collection_url, route, stop, period):
 @app.route('/<collection_url>/route/<route>/trip/<trip_id>')
 def genTripReport(collection_url, route, trip_id):
     trip_report = wwwAPI.TripReport(system_map, route,trip_id)
-    route_report = wwwAPI.RouteReport(system_map, route, 'day') # future find a better way to get the route metadata than instantiating a whole new RouteReport
+    route_report = wwwAPI.RouteReport(system_map, route, 'day')
     return render_template('trip.jinja2',
                            collection_url=collection_url,
                            collection_descriptions=system_map.collection_descriptions,
@@ -286,7 +285,7 @@ def splitpart (value, index, char = '_'):
 ################################################
 
 if __name__ == "__main__":
-    system_map=load_system_map() # future need to figure out how to force flask to check if it needs to reload the pickle file, or do it periodically (possibly in generator minutely_tasks
+    system_map=load_system_map()
     app.run(host='0.0.0.0', debug=True)
 
 
