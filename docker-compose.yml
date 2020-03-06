@@ -27,7 +27,7 @@ services:
       - 8080:8080
 
 #############################################################################
-  nginx:
+  www:
     build:
       context: ./
       dockerfile: ./docker/nginx/Dockerfile
