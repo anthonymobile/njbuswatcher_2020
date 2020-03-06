@@ -1,0 +1,2381 @@
+<?xml version="1.0"?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<route>
+		<id>52</id> 
+		<rtpiFeedName></rtpiFeedName>
+		<sn>52</sn> 
+		<nm>52 Morris Avenue</nm> 
+		<displayDesignator>52</displayDesignator> 
+		<vmode>1</vmode>   
+		
+		<sbs>
+
+
+
+		</sbs>
+
+		<c>#3399cc</c>
+
+		<pas>
+
+
+			<pa>
+				<id>1754</id>
+
+				<d>Elizabeth</d> 
+				<dd>Elizabeth</dd>  
+				<directionRtpiFeedName></directionRtpiFeedName>
+
+				<pt>
+					<lat>40.71075999999866</lat>
+			        <lon>-74.31127000000042</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29607</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MOUNTAIN AVE + MORRIS AVE(120S)</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.71107</lat>
+			        <lon>-74.31099</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.71061</lat>
+			        <lon>-74.30854</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.710509</lat>
+			        <lon>-74.308343</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.710410000001005</lat>
+			        <lon>-74.3081499999997</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29640</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MORRIS AVE + MEISEL AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.71036</lat>
+			        <lon>-74.30777</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.70975</lat>
+			        <lon>-74.30636</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.709486</lat>
+			        <lon>-74.305877</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.70937000000072</lat>
+			        <lon>-74.30568999999939</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29641</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MORRIS AVE + SOUTH MAPLE AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.70929</lat>
+			        <lon>-74.30533</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.70867</lat>
+			        <lon>-74.30372</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.708552</lat>
+			        <lon>-74.303541</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.70845999999937</lat>
+			        <lon>-74.30339999999931</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29642</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MORRIS AVE + BATTLEHILL AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.7084</lat>
+			        <lon>-74.30304</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.70789</lat>
+			        <lon>-74.30176</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.70598</lat>
+			        <lon>-74.2978</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.705706</lat>
+			        <lon>-74.297328</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7055999999997</lat>
+			        <lon>-74.2971800000001</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29762</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MORRIS AVE + ALVIN PL</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.7055</lat>
+			        <lon>-74.29683</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.70421</lat>
+			        <lon>-74.29406</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.703934</lat>
+			        <lon>-74.293581</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.70385000000094</lat>
+			        <lon>-74.29347000000175</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29763</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MORRIS AVE + CREGER AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.7038</lat>
+			        <lon>-74.2931</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.70279</lat>
+			        <lon>-74.29054</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.702497</lat>
+			        <lon>-74.290008</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.70248000000102</lat>
+			        <lon>-74.28997999999876</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>30780</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MORRIS AVE + SPRUCE ST (2ND ON ROUTE 52)</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.70243</lat>
+			        <lon>-74.28962</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.70172</lat>
+			        <lon>-74.28767</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.701136</lat>
+			        <lon>-74.286377</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.70102000000103</lat>
+			        <lon>-74.28618999999975</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29765</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MORRIS AVE + APGAR CT(110W)</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.70092</lat>
+			        <lon>-74.28584</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.70019</lat>
+			        <lon>-74.28432</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69956</lat>
+			        <lon>-74.28314</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69936</lat>
+			        <lon>-74.28267</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.699093</lat>
+			        <lon>-74.281772</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69903000000117</lat>
+			        <lon>-74.28162000000172</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29766</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MORRIS AVE + COMMERCE AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.69901</lat>
+			        <lon>-74.28125</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69845</lat>
+			        <lon>-74.27884</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.698291</lat>
+			        <lon>-74.278415</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69826999999886</lat>
+			        <lon>-74.27835999999861</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29767</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MORRIS AVE + WOOLLEY AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.69827</lat>
+			        <lon>-74.27799</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69792</lat>
+			        <lon>-74.27643</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.697749</lat>
+			        <lon>-74.276012</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69773999999884</lat>
+			        <lon>-74.27598999999941</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29768</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MORRIS AVE + CALDWELL AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.69775</lat>
+			        <lon>-74.27561</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.697188</lat>
+			        <lon>-74.273323</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69712999999876</lat>
+			        <lon>-74.27315000000048</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29769</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MORRIS AVE + JOHNSON PL</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.6971</lat>
+			        <lon>-74.27278</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69656</lat>
+			        <lon>-74.27036</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69625</lat>
+			        <lon>-74.26916</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.696138</lat>
+			        <lon>-74.268975</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69604999999916</lat>
+			        <lon>-74.26882999999845</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29770</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MORRIS AVE + STUYVESANT AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.69608</lat>
+			        <lon>-74.26843</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.6955</lat>
+			        <lon>-74.26584</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.695383</lat>
+			        <lon>-74.265659</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69530000000129</lat>
+			        <lon>-74.26552999999839</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29771</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MORRIS AVE + ADAMS AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.69534</lat>
+			        <lon>-74.26513</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69439</lat>
+			        <lon>-74.26099</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69436</lat>
+			        <lon>-74.26063</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69383</lat>
+			        <lon>-74.25858</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69368</lat>
+			        <lon>-74.25808</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69274</lat>
+			        <lon>-74.25587</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.692537</lat>
+			        <lon>-74.25556</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69241999999892</lat>
+			        <lon>-74.25542000000078</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29912</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MORRIS AVE + LOWES (JUG HANDLE)(0)</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.69238</lat>
+			        <lon>-74.25505</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69183</lat>
+			        <lon>-74.2538</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.6904</lat>
+			        <lon>-74.2499</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.690277</lat>
+			        <lon>-74.249727</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69020000000027</lat>
+			        <lon>-74.24962000000113</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29773</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MORRIS AVE + GREENWOOD RD</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.69017</lat>
+			        <lon>-74.24924</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.68962</lat>
+			        <lon>-74.24779</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.689439</lat>
+			        <lon>-74.247443</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.68933000000033</lat>
+			        <lon>-74.24726000000055</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29774</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MORRIS AVE + COLONIAL AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.68927</lat>
+			        <lon>-74.24689</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.68824</lat>
+			        <lon>-74.24456</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.687959</lat>
+			        <lon>-74.244087</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.68788999999976</lat>
+			        <lon>-74.24400000000061</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29775</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MORRIS AVE + TOWNLEY AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.68782</lat>
+			        <lon>-74.24363</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.68739</lat>
+			        <lon>-74.2427</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.687267</lat>
+			        <lon>-74.242527</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.687170000000016</lat>
+			        <lon>-74.24239000000074</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29776</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MORRIS AVE + SALEM RD</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.68709</lat>
+			        <lon>-74.24203</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.68631</lat>
+			        <lon>-74.24033</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.686091</lat>
+			        <lon>-74.24003</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.68597999999915</lat>
+			        <lon>-74.23991000000157</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29777</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MORRIS AVE + LEHIGH AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.68589</lat>
+			        <lon>-74.23955</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.68533</lat>
+			        <lon>-74.23877</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.68274</lat>
+			        <lon>-74.23553</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.682382</lat>
+			        <lon>-74.235177</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.6822599999996</lat>
+			        <lon>-74.23508999999994</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29778</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MORRIS AVE + GREEN LN</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.68211</lat>
+			        <lon>-74.23477</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.68101</lat>
+			        <lon>-74.23342</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.680851</lat>
+			        <lon>-74.23331</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.68072000000091</lat>
+			        <lon>-74.23321999999959</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29779</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MORRIS AVE + KEAN DR(800E)</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.68057</lat>
+			        <lon>-74.2329</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.67813</lat>
+			        <lon>-74.22999</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.67661</lat>
+			        <lon>-74.22791</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.676443</lat>
+			        <lon>-74.22782</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.676350000000475</lat>
+			        <lon>-74.22777000000166</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29913</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MORRIS AVE + NORTH AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.67623</lat>
+			        <lon>-74.22741</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.67461</lat>
+			        <lon>-74.22521</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.674358</lat>
+			        <lon>-74.224954</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.674279999999484</lat>
+			        <lon>-74.22489000000115</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>28697</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MORRIS AVE + CHERRY ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.67413</lat>
+			        <lon>-74.22457</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.67259</lat>
+			        <lon>-74.22252</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.672297</lat>
+			        <lon>-74.222245</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.67226999999991</lat>
+			        <lon>-74.22222000000103</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>28698</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MORRIS AVE + STILES ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.67212</lat>
+			        <lon>-74.2219</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.67106</lat>
+			        <lon>-74.22049</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.670713</lat>
+			        <lon>-74.220103</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.67057000000023</lat>
+			        <lon>-74.21996999999826</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>28699</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MORRIS AVE + ORCHARD ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.67043</lat>
+			        <lon>-74.21966</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.66888</lat>
+			        <lon>-74.21761</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.66878</lat>
+			        <lon>-74.21749</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.668451</lat>
+			        <lon>-74.217297</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.66843999999898</lat>
+			        <lon>-74.21728999999831</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>28700</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MORRIS AVE AT WESTFIELD AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.66834</lat>
+			        <lon>-74.2169</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.66757</lat>
+			        <lon>-74.2159</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.66761</lat>
+			        <lon>-74.21572</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.66776</lat>
+			        <lon>-74.21542</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.66774</lat>
+			        <lon>-74.21528</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.66765</lat>
+			        <lon>-74.21515</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.66738</lat>
+			        <lon>-74.21521</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.666932</lat>
+			        <lon>-74.215212</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.666829999999294</lat>
+			        <lon>-74.2152299999984</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>28547</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>ELIZABETH ARCH</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.66658</lat>
+			        <lon>-74.21505</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.66564</lat>
+			        <lon>-74.2148</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.66523</lat>
+			        <lon>-74.21477</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.665063</lat>
+			        <lon>-74.21486</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.6649699999995</lat>
+			        <lon>-74.21491000000088</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>28549</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BROAD ST AT JERSEY ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.66469</lat>
+			        <lon>-74.2148</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.66359</lat>
+			        <lon>-74.2149</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.663425</lat>
+			        <lon>-74.214994</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.66328999999965</lat>
+			        <lon>-74.21507000000008</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>28550</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BROAD ST AT DICKINSON ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.66301</lat>
+			        <lon>-74.21497</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.66205</lat>
+			        <lon>-74.21507</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.66196</lat>
+			        <lon>-74.21516</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.66193</lat>
+			        <lon>-74.215394</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.66190999999896</lat>
+			        <lon>-74.21555000000154</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>28753</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>RAHWAY AVE + BROAD ST</st> 
+					</bs>
+
+				</pt>
+
+			</pa>
+
+			<pa>
+				<id>219</id>
+
+				<d>Springfield</d> 
+				<dd>Springfield</dd>  
+				<directionRtpiFeedName></directionRtpiFeedName>
+
+				<pt>
+					<lat>40.66001999999935</lat>
+			        <lon>-74.21509000000155</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>28780</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>S BROAD ST + PEARL ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.66037</lat>
+			        <lon>-74.215197</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.66189</lat>
+			        <lon>-74.21509</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.662332</lat>
+			        <lon>-74.214992</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.66249000000099</lat>
+			        <lon>-74.21493000000056</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>28542</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BROAD ST + ELIZABETH AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.66277</lat>
+			        <lon>-74.21499</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.663904</lat>
+			        <lon>-74.214832</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.66406000000012</lat>
+			        <lon>-74.21477999999911</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>28543</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BROAD ST + CALDWELL PL</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.66434</lat>
+			        <lon>-74.21482</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.6653</lat>
+			        <lon>-74.21476</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.666209</lat>
+			        <lon>-74.214879</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.666219999998745</lat>
+			        <lon>-74.2148799999995</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>28544</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BROAD ST + JERSEY ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.6664</lat>
+			        <lon>-74.214887</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.66658</lat>
+			        <lon>-74.214894</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.666719999999906</lat>
+			        <lon>-74.2149000000002</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>28545</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BROAD ST + EAST GRAND ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.66697</lat>
+			        <lon>-74.21515</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.66724</lat>
+			        <lon>-74.21522</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.66764</lat>
+			        <lon>-74.21517</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.66786</lat>
+			        <lon>-74.21538</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.66812</lat>
+			        <lon>-74.2155</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.6692</lat>
+			        <lon>-74.21577</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.66926</lat>
+			        <lon>-74.21585</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.668866</lat>
+			        <lon>-74.217066</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.668810000000356</lat>
+			        <lon>-74.21729999999931</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>28825</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WESTFIELD AVE + MORRIS AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.66893</lat>
+			        <lon>-74.21768</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.669306</lat>
+			        <lon>-74.218104</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.6693299999998</lat>
+			        <lon>-74.21813000000137</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>28693</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MORRIS AVE + UNION AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.6695</lat>
+			        <lon>-74.21843</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.67046</lat>
+			        <lon>-74.21971</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.670612</lat>
+			        <lon>-74.219836</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.670689999998636</lat>
+			        <lon>-74.21989999999963</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>28694</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MORRIS AVE + IRVINGTON AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.67084</lat>
+			        <lon>-74.22021</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.67258</lat>
+			        <lon>-74.22252</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.672726</lat>
+			        <lon>-74.222659</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.67281000000098</lat>
+			        <lon>-74.2227400000012</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>28695</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MORRIS AVE + STILES ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.67298</lat>
+			        <lon>-74.22304</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.674181</lat>
+			        <lon>-74.224597</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.674300000000365</lat>
+			        <lon>-74.22471999999854</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>28696</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MORRIS AVE + CHERRY ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.67456</lat>
+			        <lon>-74.22514</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.67618</lat>
+			        <lon>-74.22735</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.676534</lat>
+			        <lon>-74.227723</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.67662999999979</lat>
+			        <lon>-74.22779999999975</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29780</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MORRIS AVE + NORTH AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.67677</lat>
+			        <lon>-74.22813</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.6781</lat>
+			        <lon>-74.22994</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.68104</lat>
+			        <lon>-74.23347</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.681201</lat>
+			        <lon>-74.233575</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.68130000000093</lat>
+			        <lon>-74.23363999999899</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29781</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MORRIS AVE + GREEN LN (800E)</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.68144</lat>
+			        <lon>-74.23396</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.685675</lat>
+			        <lon>-74.23918</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.68580000000077</lat>
+			        <lon>-74.2392999999994</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29783</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MORRIS AVE + LEHIGH AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.68732</lat>
+			        <lon>-74.24254</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.687442</lat>
+			        <lon>-74.242715</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.68755000000052</lat>
+			        <lon>-74.24286999999853</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29784</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MORRIS AVE + SALEM RD</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.68763</lat>
+			        <lon>-74.24323</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.68819</lat>
+			        <lon>-74.24447</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.688386</lat>
+			        <lon>-74.244801</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.688499999999344</lat>
+			        <lon>-74.2449799999984</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29785</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MORRIS AVE + STERLING RD</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.68859</lat>
+			        <lon>-74.24534</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.689182</lat>
+			        <lon>-74.246615</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.68929999999963</lat>
+			        <lon>-74.2468100000015</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29786</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MORRIS AVE + COLONIAL AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.68937</lat>
+			        <lon>-74.24716</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.690331</lat>
+			        <lon>-74.249616</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69043000000007</lat>
+			        <lon>-74.24981000000008</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29787</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MORRIS AVE + SAYRE RD SOUTH</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.69049</lat>
+			        <lon>-74.25017</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69174</lat>
+			        <lon>-74.25358</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69249</lat>
+			        <lon>-74.25531</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.692626</lat>
+			        <lon>-74.255465</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69270000000075</lat>
+			        <lon>-74.2555500000003</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29788</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MORRIS AVE + LOWES SHOP CENTER</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.69276</lat>
+			        <lon>-74.25591</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69332</lat>
+			        <lon>-74.25716</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69369</lat>
+			        <lon>-74.25812</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69433</lat>
+			        <lon>-74.2605</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.6944</lat>
+			        <lon>-74.26103</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69476</lat>
+			        <lon>-74.26258</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.694865</lat>
+			        <lon>-74.262772</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69493000000038</lat>
+			        <lon>-74.26288999999908</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>32491</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MORRIS AVE + WARREN AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.69492</lat>
+			        <lon>-74.26326</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69562</lat>
+			        <lon>-74.26637</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.695725</lat>
+			        <lon>-74.266562</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69579000000071</lat>
+			        <lon>-74.26668000000143</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29790</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MORRIS AVE + GRANDVIEW AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.69577</lat>
+			        <lon>-74.26706</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.696289</lat>
+			        <lon>-74.269173</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.6963700000002</lat>
+			        <lon>-74.26939000000061</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29791</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MORRIS AVE + STUYVESANT AVE(104E)</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.69639</lat>
+			        <lon>-74.26976</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69654</lat>
+			        <lon>-74.27027</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.697238</lat>
+			        <lon>-74.273244</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69730999999884</lat>
+			        <lon>-74.27343999999827</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29792</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MORRIS AVE + JOHNSON PL</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.69732</lat>
+			        <lon>-74.2738</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69788</lat>
+			        <lon>-74.27622</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.698027</lat>
+			        <lon>-74.276653</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.698039999999935</lat>
+			        <lon>-74.27668999999881</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29793</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MORRIS AVE + CALDWELL AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.69806</lat>
+			        <lon>-74.27705</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69832</lat>
+			        <lon>-74.27826</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.698491</lat>
+			        <lon>-74.278678</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69850000000009</lat>
+			        <lon>-74.27870000000127</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29794</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MORRIS AVE + WOOLLEY AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.69851</lat>
+			        <lon>-74.27908</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69915</lat>
+			        <lon>-74.28184</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.6993</lat>
+			        <lon>-74.282271</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.6993099999991</lat>
+			        <lon>-74.28230000000018</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29795</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MORRIS AVE + COMMERCE AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.69936</lat>
+			        <lon>-74.28266</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.69956</lat>
+			        <lon>-74.28313</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.700599</lat>
+			        <lon>-74.285108</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.70070000000107</lat>
+			        <lon>-74.28525999999995</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29796</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MORRIS AVE + LOUSONS RD</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.70081</lat>
+			        <lon>-74.2856</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.70151</lat>
+			        <lon>-74.28715</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.702399</lat>
+			        <lon>-74.289448</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.702479999999674</lat>
+			        <lon>-74.28960999999882</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29797</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MORRIS AVE + BURNET AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.70256</lat>
+			        <lon>-74.28996</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.70357</lat>
+			        <lon>-74.29252</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.703679</lat>
+			        <lon>-74.292709</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.70376000000068</lat>
+			        <lon>-74.29285000000075</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29798</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MORRIS AVE + SCHNEIDER AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.70384</lat>
+			        <lon>-74.2932</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.70417</lat>
+			        <lon>-74.29399</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.704581</lat>
+			        <lon>-74.294776</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.70466000000018</lat>
+			        <lon>-74.29489000000117</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29799</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MORRIS AVE + LIBERTY AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.70475</lat>
+			        <lon>-74.29524</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.70584</lat>
+			        <lon>-74.29753</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.706409</lat>
+			        <lon>-74.298618</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.70648999999893</lat>
+			        <lon>-74.29874</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29800</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MORRIS AVE + LARCHMONT RD</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.7066</lat>
+			        <lon>-74.29908</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.70778</lat>
+			        <lon>-74.30152</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.708278</lat>
+			        <lon>-74.302659</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.708370000000286</lat>
+			        <lon>-74.30282000000041</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29643</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MORRIS AVE + MARION AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.70846</lat>
+			        <lon>-74.30317</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.70913</lat>
+			        <lon>-74.30494</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7096</lat>
+			        <lon>-74.30605</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.709784</lat>
+			        <lon>-74.306383</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.70990000000128</lat>
+			        <lon>-74.30657000000177</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29644</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MORRIS AVE + MAPLE AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.70999</lat>
+			        <lon>-74.30691</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7104</lat>
+			        <lon>-74.30785</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.71052</lat>
+			        <lon>-74.30818</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.71102</lat>
+			        <lon>-74.31061</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.71109</lat>
+			        <lon>-74.31115</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.711174</lat>
+			        <lon>-74.31136</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.71123000000006</lat>
+			        <lon>-74.31149999999963</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29645</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MORRIS AVE + MOUNTAIN AVE</st> 
+					</bs>
+
+				</pt>
+
+			</pa>
+
+
+		</pas>
+	</route>
