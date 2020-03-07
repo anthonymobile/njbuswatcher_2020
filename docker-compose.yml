@@ -42,12 +42,12 @@ services:
 #  flask_gunicorn:
 #    build:
 #      context: ./
-#      dockerfile: buswatcher/docker/Dockerfile
+#      dockerfile: ./docker/www/Dockerfile
 #
 #    command: /opt/conda/envs/buswatcher/bin/gunicorn www:app -w 4 -b 0.0.0.0:8000
 #    restart: always
 #    volumes:
-#        # - ./buswatcher/:/buswatcher # what is this for?
+#        - ./buswatcher/:/buswatcher # what is this for?
 #        - static_volume:/buswatcher/static
 #        - buswatcher_config:/buswatcher/buswatcher/config
 #    expose:
@@ -60,7 +60,7 @@ services:
 #      - SQL_PORT=5432
 #    depends_on:
 #      - db
-#
+
 ##############################################################################
 #  tripwatcher:
 #    build:
