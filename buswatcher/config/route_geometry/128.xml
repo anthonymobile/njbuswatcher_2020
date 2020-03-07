@@ -1,0 +1,1636 @@
+<?xml version="1.0"?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<route>
+		<id>128</id> 
+		<rtpiFeedName></rtpiFeedName>
+		<sn>128</sn> 
+		<nm>128 North Bergen-Blvd East-NY</nm> 
+		<displayDesignator>128</displayDesignator> 
+		<vmode>1</vmode>   
+		
+		<sbs>
+
+
+
+		</sbs>
+
+		<c>#cc66cc</c>
+
+		<pas>
+
+
+			<pa>
+				<id>1468</id>
+
+				<d>New York</d> 
+				<dd>New York</dd>  
+				<directionRtpiFeedName></directionRtpiFeedName>
+
+				<pt>
+					<lat>40.80486000000121</lat>
+			        <lon>-73.99851000000062</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>30551</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BOULEVARD EAST + PALISADE AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.80473</lat>
+			        <lon>-73.99811</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.80416</lat>
+			        <lon>-73.99687</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.804033</lat>
+			        <lon>-73.996701</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.80394999999872</lat>
+			        <lon>-73.99658999999934</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21381</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BOULEVARD EAST + PALISADE AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.8038</lat>
+			        <lon>-73.99628</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.80343</lat>
+			        <lon>-73.99606</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.80329</lat>
+			        <lon>-73.99602</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.80275</lat>
+			        <lon>-73.99607</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.80221</lat>
+			        <lon>-73.99619</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.801879</lat>
+			        <lon>-73.996375</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.80186999999879</lat>
+			        <lon>-73.99638000000104</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21382</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BOULEVARD EAST + RIVERVIEW DR. N.</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.80159</lat>
+			        <lon>-73.99637</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.80025</lat>
+			        <lon>-73.99674</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.799522</lat>
+			        <lon>-73.996835</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.799340000001116</lat>
+			        <lon>-73.99687000000148</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21383</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BOULEVARD EAST + RIVERVIEW DR. N.</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.79908</lat>
+			        <lon>-73.99677</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79868</lat>
+			        <lon>-73.99689</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7982</lat>
+			        <lon>-73.99725</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79776</lat>
+			        <lon>-73.99768</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.797649</lat>
+			        <lon>-73.997867</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.797540000000026</lat>
+			        <lon>-73.99804999999978</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21384</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BOULEVARD EAST + 79TH ST.</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.79702</lat>
+			        <lon>-73.99831</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79675</lat>
+			        <lon>-73.99841</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79576</lat>
+			        <lon>-73.9985</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79575999999888</lat>
+			        <lon>-73.99859</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21385</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BOULEVARD EAST + 77TH ST.</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.79576</lat>
+			        <lon>-73.9985</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79459</lat>
+			        <lon>-73.99853</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79458999999937</lat>
+			        <lon>-73.99862999999839</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21386</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BOULEVARD EAST + 76TH ST.</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.79459</lat>
+			        <lon>-73.99853</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79402</lat>
+			        <lon>-73.99855</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7939</lat>
+			        <lon>-73.99861</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79382</lat>
+			        <lon>-73.99879</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79383</lat>
+			        <lon>-73.99891</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79425</lat>
+			        <lon>-73.99978</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79433</lat>
+			        <lon>-74.00005</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79433</lat>
+			        <lon>-74.0002</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79441000000025</lat>
+			        <lon>-74.00021000000088</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21387</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BOULEVARD EAST + 74TH ST.</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.79433</lat>
+			        <lon>-74.0002</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79432</lat>
+			        <lon>-74.00033</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79422</lat>
+			        <lon>-74.00054</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7942</lat>
+			        <lon>-74.00053</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79388</lat>
+			        <lon>-74.00087</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7934</lat>
+			        <lon>-74.00123</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.793157</lat>
+			        <lon>-74.00149</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.793089999999914</lat>
+			        <lon>-74.00157000000135</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21388</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BOULEVARD EAST + 72ND ST.</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.7928</lat>
+			        <lon>-74.00153</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79267</lat>
+			        <lon>-74.00147</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79236</lat>
+			        <lon>-74.00112</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.792076</lat>
+			        <lon>-74.000968</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.791970000000454</lat>
+			        <lon>-74.00093000000084</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20455</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BOULEVARD EAST + 71ST ST.</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.79181</lat>
+			        <lon>-74.00063</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79169</lat>
+			        <lon>-74.00055</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79142</lat>
+			        <lon>-74.00052</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79104</lat>
+			        <lon>-74.00073</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.790904</lat>
+			        <lon>-74.000885</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79082000000001</lat>
+			        <lon>-74.00097999999913</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>20456</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BOULEVARD EAST + 69TH ST.</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.79055</lat>
+			        <lon>-74.00106</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7903</lat>
+			        <lon>-74.00122</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79008</lat>
+			        <lon>-74.00143</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.789667</lat>
+			        <lon>-74.00199</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78955000000047</lat>
+			        <lon>-74.00213000000166</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21889</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BOULEVARD EAST + 67TH ST.</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.78927</lat>
+			        <lon>-74.00219</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78902</lat>
+			        <lon>-74.00232</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.788763</lat>
+			        <lon>-74.002564</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78867000000067</lat>
+			        <lon>-74.00267000000063</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21890</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BOULEVARD EAST + 66TH ST.</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.788362</lat>
+			        <lon>-74.002915</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78817</lat>
+			        <lon>-74.00323</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.787927</lat>
+			        <lon>-74.003503</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7878099999999</lat>
+			        <lon>-74.00362000000169</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21891</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BOULEVARD EAST + 64TH ST.</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.78753</lat>
+			        <lon>-74.0036</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78739</lat>
+			        <lon>-74.00364</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78692</lat>
+			        <lon>-74.004</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7866</lat>
+			        <lon>-74.00434</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.786523</lat>
+			        <lon>-74.004555</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78645000000046</lat>
+			        <lon>-74.00475999999982</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21892</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BOULEVARD EAST + 62ND ST.</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.78543</lat>
+			        <lon>-74.00573</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78527</lat>
+			        <lon>-74.00604</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78528</lat>
+			        <lon>-74.00627</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78555</lat>
+			        <lon>-74.00686</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7856199999995</lat>
+			        <lon>-74.00681000000124</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21894</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BOULEVARD EAST + HIGHLAND PL.</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.78555</lat>
+			        <lon>-74.00686</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78579</lat>
+			        <lon>-74.00741</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78583</lat>
+			        <lon>-74.00776</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7858</lat>
+			        <lon>-74.00791</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78566</lat>
+			        <lon>-74.00809</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78484</lat>
+			        <lon>-74.00884</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78487999999991</lat>
+			        <lon>-74.00890999999991</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21893</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BOULEVARD EAST + 60TH ST.</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.78484</lat>
+			        <lon>-74.00884</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78317</lat>
+			        <lon>-74.01048</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7832199999989</lat>
+			        <lon>-74.01055999999957</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21895</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BOULEVARD EAST + 60TH ST. (PARK PAVILION)</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.78317</lat>
+			        <lon>-74.01048</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78273</lat>
+			        <lon>-74.01091</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78248</lat>
+			        <lon>-74.01108</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78222</lat>
+			        <lon>-74.01115</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78167</lat>
+			        <lon>-74.01115</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.781527</lat>
+			        <lon>-74.011293</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78143000000047</lat>
+			        <lon>-74.01138999999978</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21896</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BOULEVARD EAST + 54TH ST.</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.78078</lat>
+			        <lon>-74.01169</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7801</lat>
+			        <lon>-74.01176</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77956</lat>
+			        <lon>-74.01191</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.779299</lat>
+			        <lon>-74.012127</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77919999999881</lat>
+			        <lon>-74.01222999999924</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21820</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BOULEVARD EAST + 51ST ST.</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.77893</lat>
+			        <lon>-74.01235</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77851</lat>
+			        <lon>-74.01286</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77855999999933</lat>
+			        <lon>-74.01291000000147</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21821</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BOULEVARD EAST + 49TH ST.</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.77802</lat>
+			        <lon>-74.0135</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.777311</lat>
+			        <lon>-74.013883</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77729999999928</lat>
+			        <lon>-74.01389000000097</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21822</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BOULEVARD EAST + 47TH ST.</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.77702</lat>
+			        <lon>-74.01387</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77625</lat>
+			        <lon>-74.01426</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77534</lat>
+			        <lon>-74.01439</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77533999999944</lat>
+			        <lon>-74.01447000000063</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21823</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BOULEVARD EAST + FULTON ST.</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.77534</lat>
+			        <lon>-74.01439</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77502</lat>
+			        <lon>-74.01445</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77467</lat>
+			        <lon>-74.01464</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77431</lat>
+			        <lon>-74.01495</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77433000000123</lat>
+			        <lon>-74.01500000000146</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21824</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BOULEVARD EAST + COLUMBIA TERR.</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.77431</lat>
+			        <lon>-74.01495</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77403</lat>
+			        <lon>-74.01516</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77191</lat>
+			        <lon>-74.01614</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77193000000124</lat>
+			        <lon>-74.01621999999902</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21825</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BOULEVARD EAST + HUDSON PL.</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.77191</lat>
+			        <lon>-74.01614</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77151</lat>
+			        <lon>-74.01631</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77114</lat>
+			        <lon>-74.01652</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77091</lat>
+			        <lon>-74.01673</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77073</lat>
+			        <lon>-74.017</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77069</lat>
+			        <lon>-74.01717</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7707</lat>
+			        <lon>-74.01735</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77088</lat>
+			        <lon>-74.01783</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.771114</lat>
+			        <lon>-74.018191</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77111999999996</lat>
+			        <lon>-74.01819999999829</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21826</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BOULEVARD EAST + BONN PL.</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.7712</lat>
+			        <lon>-74.01856</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.771454</lat>
+			        <lon>-74.019118</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77146000000059</lat>
+			        <lon>-74.01912999999904</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21827</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BOULEVARD EAST + HIGHWOOD AVE.</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.77132</lat>
+			        <lon>-74.01966</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77097</lat>
+			        <lon>-74.02043</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77077</lat>
+			        <lon>-74.02068</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.770352</lat>
+			        <lon>-74.020924</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77024000000027</lat>
+			        <lon>-74.02098000000153</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21828</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BOULEVARD EAST + JEFFERSON ST. STEPS</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.76997</lat>
+			        <lon>-74.02098</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76812</lat>
+			        <lon>-74.02134</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76813000000077</lat>
+			        <lon>-74.02144000000067</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>21829</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BOULEVARD EAST + NORTH MARGINAL RD.</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.76785</lat>
+			        <lon>-74.0214</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76625</lat>
+			        <lon>-74.02195</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76586</lat>
+			        <lon>-74.02211</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76536</lat>
+			        <lon>-74.02241</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76455</lat>
+			        <lon>-74.02309</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76379</lat>
+			        <lon>-74.02386</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76285</lat>
+			        <lon>-74.02491</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76276</lat>
+			        <lon>-74.02504</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76275</lat>
+			        <lon>-74.02522</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76282</lat>
+			        <lon>-74.02536</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76295</lat>
+			        <lon>-74.02536</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76306</lat>
+			        <lon>-74.02527</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76339</lat>
+			        <lon>-74.02469</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76423</lat>
+			        <lon>-74.02376</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7645</lat>
+			        <lon>-74.02377</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76539</lat>
+			        <lon>-74.0233</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76551</lat>
+			        <lon>-74.02322</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7657</lat>
+			        <lon>-74.02297</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76627</lat>
+			        <lon>-74.02246</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76649</lat>
+			        <lon>-74.02223</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76674</lat>
+			        <lon>-74.02181</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76685</lat>
+			        <lon>-74.02148</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76692</lat>
+			        <lon>-74.02077</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76688</lat>
+			        <lon>-74.02023</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7667</lat>
+			        <lon>-74.01955</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76</lat>
+			        <lon>-74.004</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75827</lat>
+			        <lon>-73.9999</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75744</lat>
+			        <lon>-73.99782</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7572</lat>
+			        <lon>-73.99718</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75698</lat>
+			        <lon>-73.99632</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75685</lat>
+			        <lon>-73.996</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7568</lat>
+			        <lon>-73.99565</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75683</lat>
+			        <lon>-73.99547</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75692</lat>
+			        <lon>-73.99535</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75765</lat>
+			        <lon>-73.99485</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75755</lat>
+			        <lon>-73.99455</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75744</lat>
+			        <lon>-73.99445</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75731</lat>
+			        <lon>-73.99446</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75707</lat>
+			        <lon>-73.99464</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75705</lat>
+			        <lon>-73.99481</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75706</lat>
+			        <lon>-73.99499</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7572</lat>
+			        <lon>-73.99529</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75733</lat>
+			        <lon>-73.99536</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75757</lat>
+			        <lon>-73.99522</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75773</lat>
+			        <lon>-73.99493</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75779</lat>
+			        <lon>-73.99476</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7578</lat>
+			        <lon>-73.99441</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75773</lat>
+			        <lon>-73.99406</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75753</lat>
+			        <lon>-73.99359</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.757317</lat>
+			        <lon>-73.993277</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75721999999899</lat>
+			        <lon>-73.99313999999826</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.756774</lat>
+			        <lon>-73.992256</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75671000000002</lat>
+			        <lon>-73.99212999999996</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.756273</lat>
+			        <lon>-73.991141</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.756209999999676</lat>
+			        <lon>-73.99100000000061</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>31858</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PORT AUTHORITY BUS TERMINAL</st> 
+					</bs>
+
+				</pt>
+
+			</pa>
+
+
+		</pas>
+	</route>

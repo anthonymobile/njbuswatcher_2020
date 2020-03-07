@@ -185,11 +185,11 @@ def clean_buses(buses):
 
     return buses_clean
 
-
-# http://mybusnow.njtransit.com/bustime/map/getBusPredictions?bus=3452
-def parse_xml_getBusPredictions(data): # future dont think this API endpoint works on NJT
-    results = ''
-    return results
+#
+# # http://mybusnow.njtransit.com/bustime/map/getBusPredictions?bus=3452
+# def parse_xml_getBusPredictions(data): # dont think this API endpoint works on NJT
+#     results = ''
+#     return results
 
 
 
@@ -282,7 +282,7 @@ def get_xml_data(source, function, **kwargs):
             data = urllib.request.urlopen(_gen_command(source, function, **kwargs)).read()
             if data:
                 break
-        except: # future more graceful failure from longer disconnects -- perhaps a timeout?
+        except:
 
             print (str(tries) + '/12 cant connect to NJT API... waiting 5s and retry')
             if tries < 12:

@@ -1,5 +1,3 @@
-# future what other repeated pieces of code can get moved here?
-
 import time
 import os
 

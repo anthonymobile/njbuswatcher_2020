@@ -6,7 +6,7 @@ from . import NJTransitAPI
 from .DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
 from sqlalchemy import func, text
 
-def current_buspositions_from_db_for_index(): # bug this is killing the server
+def current_buspositions_from_db_for_index():
     with SQLAlchemyDBConnection() as db:
         query = db.session.query(BusPosition).filter(BusPosition.timestamp >= func.ADDDATE(func.CURRENT_TIMESTAMP(), text('interval -1 minute'))).all()
         positions = query
@@ -72,7 +72,7 @@ def fc_concat(fc_list):
     return fc
 
 # on-the-fly-GEOJSON-encoder
-def __positions2geojson(df): # future: optimization, less pandas, 0.2 seconds per run
+def __positions2geojson(df):
     features = []
     df.apply(lambda X: features.append(
             geojson.Feature(geometry=geojson.Point((X["lon"],
@@ -91,7 +91,7 @@ def __positions2geojson(df): # future: optimization, less pandas, 0.2 seconds pe
     return geojson.FeatureCollection(features)
 
 
-def _fetch_positions_df(route): # future: optimization, less pandas? (each route takes 0.1 to 0.2 seconds, kills the statewide map... maybe process that with its own process on a single buses_all df)
+def _fetch_positions_df(route):
     positions = NJTransitAPI.parse_xml_getBusesForRoute(NJTransitAPI.get_xml_data('nj', 'buses_for_route', route=route))
     labels = ['bid', 'lon', 'lat', 'run', 'op', 'dn', 'pid', 'dip', 'id', 'fs', 'pd']
     positions_log=pd.DataFrame(columns=labels)

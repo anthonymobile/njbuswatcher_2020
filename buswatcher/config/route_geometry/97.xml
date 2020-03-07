@@ -1,0 +1,1306 @@
+<?xml version="1.0"?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<route>
+		<id>97</id> 
+		<rtpiFeedName></rtpiFeedName>
+		<sn>97</sn> 
+		<nm>97 East Orange - Montclair</nm> 
+		<displayDesignator>97</displayDesignator> 
+		<vmode>1</vmode>   
+		
+		<sbs>
+
+
+
+		</sbs>
+
+		<c>#336633</c>
+
+		<pas>
+
+
+			<pa>
+				<id>1584</id>
+
+				<d>East Orange</d> 
+				<dd>East Orange</dd>  
+				<directionRtpiFeedName></directionRtpiFeedName>
+
+				<pt>
+					<lat>40.815780000000494</lat>
+			        <lon>-74.21834000000048</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18138</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PARK ST + BLOOMFIELD AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.81613</lat>
+			        <lon>-74.21806</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.81712</lat>
+			        <lon>-74.2171</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.81768</lat>
+			        <lon>-74.21664</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.81844</lat>
+			        <lon>-74.21792</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.81846</lat>
+			        <lon>-74.21805</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.81731</lat>
+			        <lon>-74.21903</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.81631</lat>
+			        <lon>-74.21997</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.81609</lat>
+			        <lon>-74.22019</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.81604</lat>
+			        <lon>-74.2203</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.81657</lat>
+			        <lon>-74.22098</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.81660999999978</lat>
+			        <lon>-74.22092000000104</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18133</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>BLOOMFIELD AVE + VALLEY RD</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.81676</lat>
+			        <lon>-74.22125</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.81784</lat>
+			        <lon>-74.22263</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.816827</lat>
+			        <lon>-74.222791</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.816790000000054</lat>
+			        <lon>-74.22279999999989</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18227</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>ORANGE RD + BLOOMFIELD AVE (420S)</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.81651</lat>
+			        <lon>-74.22274</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.81528</lat>
+			        <lon>-74.22283</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.815106</lat>
+			        <lon>-74.222888</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.81495000000006</lat>
+			        <lon>-74.22294000000026</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18228</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>ORANGE RD + HILLSIDE AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.81467</lat>
+			        <lon>-74.22288</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.81344</lat>
+			        <lon>-74.22298</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.8129</lat>
+			        <lon>-74.22288</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.81254</lat>
+			        <lon>-74.22288</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.81251999999991</lat>
+			        <lon>-74.22287999999894</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18229</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>ORANGE RD + PLYMOUTH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.81228</lat>
+			        <lon>-74.22268</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.81132</lat>
+			        <lon>-74.22266</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.81092</lat>
+			        <lon>-74.22275</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.80986</lat>
+			        <lon>-74.22314</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.809534</lat>
+			        <lon>-74.223341</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.80952000000085</lat>
+			        <lon>-74.22334999999892</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18230</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>HARRISON AVE + PORTER PL</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.80924</lat>
+			        <lon>-74.22337</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.807309</lat>
+			        <lon>-74.224082</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.807270000000265</lat>
+			        <lon>-74.22410000000048</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18231</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>HARRISON AVE + GATES AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.80699</lat>
+			        <lon>-74.22412</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.80551</lat>
+			        <lon>-74.22447</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.805167</lat>
+			        <lon>-74.224614</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.80512999999935</lat>
+			        <lon>-74.22462999999821</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18232</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>HARRISON AVE + WARREN PL</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.80485</lat>
+			        <lon>-74.22462</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.8039</lat>
+			        <lon>-74.22484</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.803734</lat>
+			        <lon>-74.224932</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.8036299999995</lat>
+			        <lon>-74.22499000000164</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>32524</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>HARRISON AVE + LLEWELLYN RD</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.80335</lat>
+			        <lon>-74.22497</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.80092</lat>
+			        <lon>-74.22555</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79959</lat>
+			        <lon>-74.22599</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.799305</lat>
+			        <lon>-74.22616</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79919999999896</lat>
+			        <lon>-74.22624000000032</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>32483</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>HARRISON AVE + TICHENOR PL</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.79892</lat>
+			        <lon>-74.22627</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79748</lat>
+			        <lon>-74.2269</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.797334</lat>
+			        <lon>-74.227039</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79725999999976</lat>
+			        <lon>-74.22711000000142</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>18146</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>HARRISON AVE + WARMAN ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.79698</lat>
+			        <lon>-74.22713</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79661</lat>
+			        <lon>-74.22736</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79581</lat>
+			        <lon>-74.22807</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79527</lat>
+			        <lon>-74.22863</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.795154</lat>
+			        <lon>-74.228812</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79504000000108</lat>
+			        <lon>-74.2289899999997</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19446</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>HARRISON AVE + KIRK ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.79483</lat>
+			        <lon>-74.22922</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79459</lat>
+			        <lon>-74.22966</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.794241</lat>
+			        <lon>-74.230509</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79419000000021</lat>
+			        <lon>-74.23067000000042</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19445</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>HARRISON AVE + ELM ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.79395</lat>
+			        <lon>-74.23111</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79239</lat>
+			        <lon>-74.22937</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.792185</lat>
+			        <lon>-74.229047</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79210999999984</lat>
+			        <lon>-74.22891000000128</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19422</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>CHESTNUT ST + OXFORD PL</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.79201</lat>
+			        <lon>-74.22839</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.791921</lat>
+			        <lon>-74.228184</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.79185000000109</lat>
+			        <lon>-74.22802000000063</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19423</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>CHESTNUT ST + FRANKLIN AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.7918</lat>
+			        <lon>-74.22766</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.791558</lat>
+			        <lon>-74.226956</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.791470000001155</lat>
+			        <lon>-74.22675999999937</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19424</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>CHESTNUT ST + WHITTLESEY AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.791341</lat>
+			        <lon>-74.226595</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.791212</lat>
+			        <lon>-74.226429</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.791150000001316</lat>
+			        <lon>-74.22635000000011</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19551</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WATSON AVE + CHESTNUT ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.788678</lat>
+			        <lon>-74.227604</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.788559999999435</lat>
+			        <lon>-74.22767999999824</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19552</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WATSON AVE + RIDGE AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.78829</lat>
+			        <lon>-74.22777</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78638</lat>
+			        <lon>-74.22877</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78627</lat>
+			        <lon>-74.22877</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78616</lat>
+			        <lon>-74.22844</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.786048</lat>
+			        <lon>-74.228254</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78597999999926</lat>
+			        <lon>-74.22814000000098</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>19546</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WASHINGTON ST + LIBERTY ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.78588</lat>
+			        <lon>-74.2278</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78548</lat>
+			        <lon>-74.22733</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.784375</lat>
+			        <lon>-74.226465</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78427999999903</lat>
+			        <lon>-74.22640999999886</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17444</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WASHINGTON ST + BRADFORD ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.78374</lat>
+			        <lon>-74.22586</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78318</lat>
+			        <lon>-74.22484</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78298</lat>
+			        <lon>-74.22459</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78262</lat>
+			        <lon>-74.22432</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78226</lat>
+			        <lon>-74.22316</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78225</lat>
+			        <lon>-74.22298</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78248</lat>
+			        <lon>-74.22213</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78252</lat>
+			        <lon>-74.22178</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78236</lat>
+			        <lon>-74.22075</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78209</lat>
+			        <lon>-74.22081</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.781931</lat>
+			        <lon>-74.22092</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78182999999983</lat>
+			        <lon>-74.22099000000163</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17433</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>THOMAS BLVD + DODD ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.78154</lat>
+			        <lon>-74.22094</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78128</lat>
+			        <lon>-74.22104</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78082</lat>
+			        <lon>-74.22145</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78067</lat>
+			        <lon>-74.22174</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.780298</lat>
+			        <lon>-74.223167</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.78025999999956</lat>
+			        <lon>-74.2233299999991</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17434</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>THOMAS BLVD + WASHINGTON ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.77995</lat>
+			        <lon>-74.2235</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77795</lat>
+			        <lon>-74.22229</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77636</lat>
+			        <lon>-74.22174</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.775872</lat>
+			        <lon>-74.221654</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.775840000001054</lat>
+			        <lon>-74.2216500000005</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17716</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WASHINGTON ST + PARK ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.77559</lat>
+			        <lon>-74.22149</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77503</lat>
+			        <lon>-74.2213</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77435</lat>
+			        <lon>-74.22096</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77433000000033</lat>
+			        <lon>-74.22101999999832</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17717</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WASHINGTON ST + PARK AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.77435</lat>
+			        <lon>-74.22096</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77411</lat>
+			        <lon>-74.22092</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77395</lat>
+			        <lon>-74.22066</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77357</lat>
+			        <lon>-74.22052</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7727</lat>
+			        <lon>-74.22004</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77143</lat>
+			        <lon>-74.21915</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77143000000096</lat>
+			        <lon>-74.21921999999888</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17718</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WASHINGTON ST + GLENWOOD AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.77143</lat>
+			        <lon>-74.21915</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.77127</lat>
+			        <lon>-74.21903</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.771</lat>
+			        <lon>-74.21892</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76873</lat>
+			        <lon>-74.21885</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7687299999995</lat>
+			        <lon>-74.21892999999996</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17719</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WASHINGTON ST + WILLIAM ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.76873</lat>
+			        <lon>-74.21885</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76855</lat>
+			        <lon>-74.21883</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76815</lat>
+			        <lon>-74.21905</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76775</lat>
+			        <lon>-74.21936</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7675</lat>
+			        <lon>-74.21966</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76683</lat>
+			        <lon>-74.21801</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76655</lat>
+			        <lon>-74.21764</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.7665100000013</lat>
+			        <lon>-74.21768999999972</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17550</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>ML KING JR BLVD + PROSPECT ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.76655</lat>
+			        <lon>-74.21764</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76587</lat>
+			        <lon>-74.21685</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76546</lat>
+			        <lon>-74.21725</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.765490000000284</lat>
+			        <lon>-74.21730000000147</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17539</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>HALSTED ST + MARTIN LUTHER KING BLVD</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.76546</lat>
+			        <lon>-74.21725</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76478</lat>
+			        <lon>-74.21796</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76446</lat>
+			        <lon>-74.2182</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76446</lat>
+			        <lon>-74.21821</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76313</lat>
+			        <lon>-74.21921</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76315000000038</lat>
+			        <lon>-74.21925000000134</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17540</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>HALSTED ST + HALSTED PL</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.76313</lat>
+			        <lon>-74.21921</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76201</lat>
+			        <lon>-74.22006</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.76202999999917</lat>
+			        <lon>-74.22009999999864</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17541</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>HALSTED ST + HARVARD ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.76201</lat>
+			        <lon>-74.22006</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75987</lat>
+			        <lon>-74.22167</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.759838</lat>
+			        <lon>-74.221904</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.75981999999911</lat>
+			        <lon>-74.22202999999881</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>17478</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>CENTRAL AVE + HALSTED ST</st> 
+					</bs>
+
+				</pt>
+
+			</pa>
+
+
+		</pas>
+	</route>
