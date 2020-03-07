@@ -516,16 +516,6 @@
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
         },
         {
-            "route": "308",
-            "nm": "Six Flags Great Adv-New York",
-            "ttl": "1d",
-            "description_long": "",
-            "description_short": "",
-            "frequency": "low",
-            "prettyname": "Six Flags Great Adv-New York",
-            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
-        },
-        {
             "route": "313",
             "nm": "Cape May-Wildwood-Phila",
             "ttl": "1d",
@@ -1935,16 +1925,7 @@
             "prettyname": "Newark - Somerville",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
         },
-        {
-            "route": "316",
-            "nm": "Cape May-Wildwood-Phila Exp",
-            "ttl": "1d",
-            "description_long": "",
-            "description_short": "",
-            "frequency": "low",
-            "prettyname": "Cape May-Wildwood-Phila Exp",
-            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
-        },
+
         {
             "route": "378",
             "nm": "Newark - Secaucus Express",
@@ -2013,16 +1994,6 @@
             "description_short": "",
             "frequency": "low",
             "prettyname": "Wayne Rt 23 Transit Ctr-NY X",
-            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
-        },
-        {
-            "route": "510",
-            "nm": "Cape May - Wildwood Shuttle",
-            "ttl": "1d",
-            "description_long": "",
-            "description_short": "",
-            "frequency": "low",
-            "prettyname": "Cape May - Wildwood Shuttle",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
         },
         {
@@ -2413,16 +2384,6 @@
             "description_short": "",
             "frequency": "low",
             "prettyname": "Metropark - Woodbridge Cente",
-            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
-        },
-        {
-            "route": "1",
-            "nm": "Newark",
-            "ttl": "1d",
-            "description_long": "",
-            "description_short": "Daily service between Newark Penn Station and Jersey City Exchange Place.",
-            "frequency": "low",
-            "prettyname": "Newark",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
         }
     ]

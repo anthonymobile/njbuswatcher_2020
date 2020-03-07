@@ -13,7 +13,8 @@ Get your API key
 Start by retrieving your API Key from the "Security" section in new Account admin panel to be able to make authenticated requests to the API.
 https://account.gandi.net/
 '''
-api_secret = '---my_secret_API_KEY----'
+# todo pass the secret to docker-compose https://docs.docker.com/compose/compose-file/#secrets-configuration-reference
+# api_secret = '---my_secret_API_KEY----'
 
 '''
 Gandiv5 LiveDNS API Location

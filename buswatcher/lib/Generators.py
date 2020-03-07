@@ -18,7 +18,7 @@ class Generator():
 
     def __init__(self):
         self.config_prefix = get_config_path()+"reports"
-        # self.db =  SQLAlchemyDBConnection() # future this can re stored to inherit the database session from parent class
+        # self.db =  SQLAlchemyDBConnection()
 
     def store_json(self, report_to_store): # filename format route_type_period
         filename = ('{a}/{b}_{c}_{d}.json').format(a=self.config_prefix,b=report_to_store['route'],c=report_to_store['type'],d=report_to_store['period'])
@@ -137,7 +137,7 @@ class RouteUpdater():
                         new_nm = a['nm'].split(' ', 1)[1]
                         system_map.route_descriptions['routedata'][index]['nm'] = new_nm
 
-                        # future more comprehensive mapping of API response to route_descriptions.json
+                        #  more comprehensive mapping of API response to route_descriptions.json
                         # for k,v in a.items():  # then iterate over API response keys
                         #     try:
                         #         if r[k] != v:  # if the value from the API response is different
@@ -225,9 +225,6 @@ class BunchingReport(Generator):
                     # https://stackoverflow.com/questions/72899/how-do-i-sort-a-list-of-dictionaries-by-a-value-of-the-dictionary
                     bunching_leaderboard = sorted(bunching_leaderboard_raw, key=lambda k: k['bunched_arrivals_in_period'],reverse=True)[:10]
 
-
-                    # todo aggregate any rows that have identical 'stop_name', even if stop_id is different
-
                     # log the results and dump
                     # bunching_report_template['bunching_leaderboard'] = bunching_leaderboard[:10]
                     bunching_report_template['bunching_leaderboard'] = bunching_leaderboard
@@ -237,7 +234,6 @@ class BunchingReport(Generator):
 
     ####################################################################################################
     # THIS CODE BLOCK IS AN ADAPTED DUPLICATE OF wwwAPI.StopReport.get_arrivals_here_this_route
-    # future refactor to remove duplication
     ####################################################################################################
 
     def get_arrivals_here_this_route(self,system_map, route, stop_id, period):
@@ -423,7 +419,7 @@ class GradeReport(Generator):
 
 
 
-class HeadwayReport(Generator): # future rewrite headway report
+class HeadwayReport(Generator):
 
     def __init__(self):
         super(HeadwayReport,self).__init__()
@@ -520,7 +516,7 @@ class HeadwayReport(Generator): # future rewrite headway report
             return headway
         return
 
-class TraveltimeReport(Generator): # future write traveltime reportt
+class TraveltimeReport(Generator):
 
     def __init__(self, system_map):
         super(TraveltimeReport,self).__init__()
