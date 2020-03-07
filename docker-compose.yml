@@ -33,7 +33,8 @@ services:
       dockerfile: ./docker/nginx/Dockerfile
     restart: always
     volumes:
-      - static_volume:/buswatcher/static
+      - static_volume:/buswatcher/static # todo is this mount point the problem?
+      # - static_volume:/buswatcher/buswatcher/static # todo try this instead?
     ports:
       - 80:80
       - 443:443
@@ -76,16 +77,16 @@ services:
     depends_on:
       - db
 
-##############################################################################
-#  generator:
-#    build:
-#      context: ./
-#      dockerfile: ./docker/generator/Dockerfile
-#    restart: always
-#    volumes:
-#      - buswatcher_config:/buswatcher/buswatcher/config
-#    depends_on:
-#      - db
+#############################################################################
+  generator:
+    build:
+      context: ./
+      dockerfile: ./docker/generator/Dockerfile
+    restart: always
+    volumes:
+      - buswatcher_config:/buswatcher/buswatcher/config
+    depends_on:
+      - db
 
 ##############################################################################
 #  dns_updater:
