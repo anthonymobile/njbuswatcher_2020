@@ -3,24 +3,16 @@ FROM nginx:alpine
 
 COPY ./docker/nginx/nginx.conf etc/nginx/conf.d/
 
+# timezone
+RUN apk update
+RUN apk upgrade
+RUN apk add ca-certificates && update-ca-certificates
+RUN apk add --update tzdata
+ENV TZ=America/New_York
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+RUN rm -rf /var/cache/apk/*
 
-#################################################
-## MY CONFIG
-#################################################
-#
-#
-#COPY ./docker/nginx/nginx.conf /etc/nginx/nginx.conf
-#
-### timezone
-##RUN apk update
-##RUN apk upgrade
-##RUN apk add ca-certificates && update-ca-certificates
-##RUN apk add --update tzdata
-##ENV TZ=America/New_York
-##RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-##RUN rm -rf /var/cache/apk/*
-#
-## copy project
-#WORKDIR /
-#RUN mkdir buswatcher
-#COPY ./buswatcher ./buswatcher
+# copy project
+WORKDIR /
+RUN mkdir buswatcher
+COPY ./buswatcher ./buswatcher
