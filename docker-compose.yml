@@ -27,22 +27,24 @@ services:
       - 8080:8080
 
 #############################################################################
-  www:
+  nginx:
     build:
       context: ./
       dockerfile: ./docker/nginx/Dockerfile
     restart: always
+    volumes:
+      - static_volume:/buswatcher/static
     ports:
       - 80:80
       - 443:443
     depends_on:
-      - flask_gunicorn
+      - gunicorn
 
 #############################################################################
-  flask_gunicorn:
+  gunicorn:
     build:
       context: ./
-      dockerfile: ./docker/www/Dockerfile
+      dockerfile: ./docker/gunicorn/Dockerfile
 
     command: /opt/conda/envs/buswatcher/bin/gunicorn www:app -w 4 -b 0.0.0.0:8000
     restart: always
@@ -51,7 +53,9 @@ services:
         - static_volume:/buswatcher/static
         - buswatcher_config:/buswatcher/buswatcher/config
     expose:
-      - 8000
+       - 8000
+#    ports:
+#      - 8000
     environment:
       - SQL_DB=buses
       - SQL_USER=buswatcher
@@ -61,17 +65,17 @@ services:
     depends_on:
       - db
 
-##############################################################################
-#  tripwatcher:
-#    build:
-#      context: ./
-#      dockerfile: ./docker/tripwatcher/Dockerfile
-#    restart: always
-#    volumes:
-#      - buswatcher_config:/buswatcher/buswatcher/config
-#    depends_on:
-#      - db
-#
+#############################################################################
+  tripwatcher:
+    build:
+      context: ./
+      dockerfile: ./docker/tripwatcher/Dockerfile
+    restart: always
+    volumes:
+      - buswatcher_config:/buswatcher/buswatcher/config
+    depends_on:
+      - db
+
 ##############################################################################
 #  generator:
 #    build:
@@ -82,7 +86,7 @@ services:
 #      - buswatcher_config:/buswatcher/buswatcher/config
 #    depends_on:
 #      - db
-#
+
 ##############################################################################
 #  dns_updater:
 #    restart: always

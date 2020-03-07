@@ -6,6 +6,10 @@ FROM continuumio/miniconda3
 ENV TZ=America/New_York
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
+RUN apt update
+RUN apt install -y build-essential
+
+RUN conda config --set channel_priority flexible
 RUN conda update -n base -c defaults conda
 
 # get environment from buswatcher folder
@@ -21,9 +25,7 @@ WORKDIR /
 RUN mkdir buswatcher
 COPY . ./buswatcher
 
-
 # copy the proper database config over for docker deployment (uses the docker server url 'db')
-COPY ./docker/www/DBconfig.py ./buswatcher/buswatcher/lib/DBconfig.py
+COPY ./docker/DBconfig.py ./buswatcher/buswatcher/lib/DBconfig.py
 
-# todo this should really be running through supervisor like the instructions in my docs -- https://advancedweb.hu/supervisor-with-docker-lessons-learned/
 CMD ["/opt/conda/envs/buswatcher/bin/python", "/buswatcher/buswatcher/tripwatcher.py"]
