@@ -24,8 +24,9 @@ ENV PYTHONPATH /buswatcher:PYTHONPATH
 
 # copy project
 WORKDIR /
-RUN mkdir buswatcher
+# RUN mkdir buswatcher
 COPY . ./buswatcher
+# COPY . .
 
 # copy the proper database config over for docker deployment (replaces the development version)
 COPY ./docker/DBconfig.py ./buswatcher/buswatcher/lib/DBconfig.py
