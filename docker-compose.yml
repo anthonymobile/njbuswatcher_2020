@@ -33,8 +33,7 @@ services:
       dockerfile: ./docker/nginx/Dockerfile
     restart: always
     volumes:
-      - static_volume:/buswatcher/static # todo is this mount point the problem?
-      # - static_volume:/buswatcher/buswatcher/static # todo try this instead?
+      - static_volume:/buswatcher/static
     ports:
       - 80:80
       - 443:443
@@ -42,6 +41,7 @@ services:
       - gunicorn
 
 #############################################################################
+# this container can't connect to the database
   gunicorn:
     build:
       context: ./
@@ -50,8 +50,9 @@ services:
     command: /opt/conda/envs/buswatcher/bin/gunicorn www:app -w 4 -b 0.0.0.0:8000
     restart: always
     volumes:
-        - ./buswatcher/:/buswatcher
-        - static_volume:/buswatcher/static
+        # - ./buswatcher/:/buswatcher
+        - static_volume:/buswatcher/buswatcher/static
+        # - buswatcher_config:/buswatcher/buswatcher/config
         - buswatcher_config:/buswatcher/buswatcher/config
     expose:
        - 8000
