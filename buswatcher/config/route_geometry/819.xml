@@ -1,0 +1,4408 @@
+<?xml version="1.0"?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<route>
+		<id>819</id> 
+		<rtpiFeedName></rtpiFeedName>
+		<sn>819</sn> 
+		<nm>819 Piscataway-Plainfield-Metuch</nm> 
+		<displayDesignator>819</displayDesignator> 
+		<vmode>1</vmode>   
+		
+		<sbs>
+
+
+
+		</sbs>
+
+		<c>#6666ff</c>
+
+		<pas>
+
+
+			<pa>
+				<id>1219</id>
+
+				<d>Metuchen/South Plainfield</d> 
+				<dd>Metuchen/South Plainfield</dd>  
+				<directionRtpiFeedName></directionRtpiFeedName>
+
+				<pt>
+					<lat>40.59450000000033</lat>
+			        <lon>-74.44626999999822</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>23864</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>4TH ST + RUSHMORE AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.59483</lat>
+			        <lon>-74.44595</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.595673</lat>
+			        <lon>-74.444947</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.59576999999949</lat>
+			        <lon>-74.44481000000162</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>23865</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WEST 4TH ST + EVONA AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.596</lat>
+			        <lon>-74.44461</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.597568</lat>
+			        <lon>-74.442771</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.5976600000005</lat>
+			        <lon>-74.44262999999918</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29182</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WEST 4TH ST + HUNTER AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.5979</lat>
+			        <lon>-74.44243</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.59913</lat>
+			        <lon>-74.441</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.599241</lat>
+			        <lon>-74.440813</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.59932000000053</lat>
+			        <lon>-74.44067999999929</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29183</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WEST 4TH ST + CLINTON AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.59956</lat>
+			        <lon>-74.44051</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.60162</lat>
+			        <lon>-74.43812</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.60171</lat>
+			        <lon>-74.437915</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.60178999999966</lat>
+			        <lon>-74.43773000000058</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29184</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WEST 4TH ST + STANLEY PL</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.60207</lat>
+			        <lon>-74.4376</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.6028</lat>
+			        <lon>-74.43677</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.603025</lat>
+			        <lon>-74.436401</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.60304999999929</lat>
+			        <lon>-74.43635999999854</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29185</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WEST 4TH ST + MONROE AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.60331</lat>
+			        <lon>-74.43619</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.603729</lat>
+			        <lon>-74.435652</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.60384000000121</lat>
+			        <lon>-74.43545999999829</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29186</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WEST 4TH ST + PRESCOTT PL</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.60409</lat>
+			        <lon>-74.43529</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.606476</lat>
+			        <lon>-74.432489</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.60656000000117</lat>
+			        <lon>-74.43236000000063</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29187</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WEST 4TH ST + GRANT AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.60679</lat>
+			        <lon>-74.43217</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.60794</lat>
+			        <lon>-74.43088</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.608035</lat>
+			        <lon>-74.430679</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.60811000000016</lat>
+			        <lon>-74.43051999999894</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29188</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WEST 4TH ST + SPOONER AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.60839</lat>
+			        <lon>-74.43038</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.61013</lat>
+			        <lon>-74.42834</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.610901</lat>
+			        <lon>-74.427511</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.61103000000075</lat>
+			        <lon>-74.42740000000174</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29189</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WEST 4TH ST + PLAINFIELD AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.61091</lat>
+			        <lon>-74.42708</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.61049</lat>
+			        <lon>-74.42637</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.61046</lat>
+			        <lon>-74.42623</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.611814</lat>
+			        <lon>-74.424629</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.6119299999997</lat>
+			        <lon>-74.42446999999878</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29174</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WEST 5TH ST + LIBERTY ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.61216</lat>
+			        <lon>-74.42427</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.6136</lat>
+			        <lon>-74.4226</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.613713</lat>
+			        <lon>-74.422416</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.61378999999988</lat>
+			        <lon>-74.42228999999844</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29175</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WEST 5TH ST + CENTRAL AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.61402</lat>
+			        <lon>-74.4221</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.614789</lat>
+			        <lon>-74.421158</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.61481000000076</lat>
+			        <lon>-74.42112999999871</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29176</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WEST 5TH ST + MADISON AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.61615</lat>
+			        <lon>-74.41963</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.616120000000166</lat>
+			        <lon>-74.4195900000003</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29177</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WEST 5TH ST + PARK AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.61615</lat>
+			        <lon>-74.41963</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.61624</lat>
+			        <lon>-74.41953</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.616360000000334</lat>
+			        <lon>-74.41970999999856</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29261</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PARK AVE + EAST 5TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.617239</lat>
+			        <lon>-74.421165</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.617320000000035</lat>
+			        <lon>-74.4212700000015</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29262</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PLAINFIELD RR STA PARK AVE + DEPOT PLACE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.61744</lat>
+			        <lon>-74.42159</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.617985</lat>
+			        <lon>-74.42247</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.61807999999977</lat>
+			        <lon>-74.42259999999823</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29263</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PARK AVE + EAST 2ND ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.61817</lat>
+			        <lon>-74.42296</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.61853</lat>
+			        <lon>-74.42392</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.61863</lat>
+			        <lon>-74.42387</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.618742</lat>
+			        <lon>-74.423685</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.61883000000002</lat>
+			        <lon>-74.42354000000157</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29208</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>EAST FRONT ST + PARK AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.61909</lat>
+			        <lon>-74.42338</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.62015</lat>
+			        <lon>-74.42225</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.620045</lat>
+			        <lon>-74.422058</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.619980000000446</lat>
+			        <lon>-74.42193999999981</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29354</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WATCHUNG AVE + E FRONT ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.61988</lat>
+			        <lon>-74.42159</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.618447</lat>
+			        <lon>-74.418877</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.618370000001015</lat>
+			        <lon>-74.4187700000017</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29355</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WATCHUNG AVE + E 4TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.61826</lat>
+			        <lon>-74.41843</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.61762</lat>
+			        <lon>-74.41705</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.617496</lat>
+			        <lon>-74.416879</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.61741000000089</lat>
+			        <lon>-74.41676000000156</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29356</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WATCHUNG AVE + EAST 6TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.61738</lat>
+			        <lon>-74.41638</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.61703</lat>
+			        <lon>-74.41583</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.61694</lat>
+			        <lon>-74.41577</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.61494</lat>
+			        <lon>-74.41732</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.61413</lat>
+			        <lon>-74.41587</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.613903</lat>
+			        <lon>-74.415576</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.61379999999927</lat>
+			        <lon>-74.41545999999975</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29268</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PARK AVE + WEST 8TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.61368</lat>
+			        <lon>-74.41512</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.61264</lat>
+			        <lon>-74.41345</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.611363</lat>
+			        <lon>-74.411262</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.61123999999878</lat>
+			        <lon>-74.41110000000172</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29269</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PARK AVE + STELLE AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.61103</lat>
+			        <lon>-74.41065</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.61011</lat>
+			        <lon>-74.40907</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.60985</lat>
+			        <lon>-74.40865</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.609427</lat>
+			        <lon>-74.408117</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.609320000000814</lat>
+			        <lon>-74.40800999999952</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29270</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PARK AVE + ELLSWORTH CT</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.60915</lat>
+			        <lon>-74.40772</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.60773</lat>
+			        <lon>-74.40602</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.60741</lat>
+			        <lon>-74.40568</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.60733</lat>
+			        <lon>-74.40566</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.6071</lat>
+			        <lon>-74.40853</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.607081</lat>
+			        <lon>-74.409184</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.607079999998724</lat>
+			        <lon>-74.40923999999988</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29286</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>RANDOLPH RD + ARLINGTON AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.60701</lat>
+			        <lon>-74.40959</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.60669</lat>
+			        <lon>-74.41335</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.60669</lat>
+			        <lon>-74.413587</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.6066900000001</lat>
+			        <lon>-74.41370999999943</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29287</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>RANDOLPH RD + KENYON AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.60644</lat>
+			        <lon>-74.41585</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.606449</lat>
+			        <lon>-74.416324</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.60645000000124</lat>
+			        <lon>-74.4163799999995</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29288</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>RANDOLPH RD + CENTRAL AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.60636</lat>
+			        <lon>-74.41673</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.60623</lat>
+			        <lon>-74.41834</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.606242</lat>
+			        <lon>-74.418576</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.60625000000073</lat>
+			        <lon>-74.41872999999862</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29289</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>RANDOLPH RD + FIELD AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.60617</lat>
+			        <lon>-74.41909</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.60602</lat>
+			        <lon>-74.42088</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.60594</lat>
+			        <lon>-74.42097</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.604391</lat>
+			        <lon>-74.420919</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.604259999999684</lat>
+			        <lon>-74.42094000000105</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29274</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PLAINFIELD AVE + SHERMAN AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.60399</lat>
+			        <lon>-74.42086</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.602992</lat>
+			        <lon>-74.420851</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.60283000000026</lat>
+			        <lon>-74.42087999999882</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29275</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PLAINFIELD AVE + ALLETTA ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.60256</lat>
+			        <lon>-74.42079</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.60146</lat>
+			        <lon>-74.42072</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.601002</lat>
+			        <lon>-74.420758</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.600899999999</lat>
+			        <lon>-74.42077999999901</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29276</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PLAINFIELD AVE + PEMBERTON AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.60063</lat>
+			        <lon>-74.42073</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.59927</lat>
+			        <lon>-74.42095</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.59872</lat>
+			        <lon>-74.42099</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.59762</lat>
+			        <lon>-74.42094</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.597444</lat>
+			        <lon>-74.42099</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.5973400000001</lat>
+			        <lon>-74.42101999999994</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>24078</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PLAINFIELD AVE + FIRTH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.59706</lat>
+			        <lon>-74.42092</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.595371</lat>
+			        <lon>-74.420848</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.59524999999957</lat>
+			        <lon>-74.42086000000143</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>24079</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PLAINFIELD AVE + WOOD ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.59498</lat>
+			        <lon>-74.42073</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.59186</lat>
+			        <lon>-74.42011</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.59168</lat>
+			        <lon>-74.420116</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.591540000000265</lat>
+			        <lon>-74.42011999999876</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>24080</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PLAINFIELD AVE + FRANKLIN AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.59127</lat>
+			        <lon>-74.41999</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.58978</lat>
+			        <lon>-74.41967</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.58933</lat>
+			        <lon>-74.419625</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.58916000000133</lat>
+			        <lon>-74.41962999999842</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>24081</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PLAINFIELD AVE + GEARY DR</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.58889</lat>
+			        <lon>-74.4195</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.58699</lat>
+			        <lon>-74.41913</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.58681</lat>
+			        <lon>-74.419136</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.58668999999978</lat>
+			        <lon>-74.4191399999987</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>24082</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PLAINFIELD AVE + SAMPTON AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.58643</lat>
+			        <lon>-74.41901</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.58589</lat>
+			        <lon>-74.4189</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.58576</lat>
+			        <lon>-74.41882</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.58566</lat>
+			        <lon>-74.41871</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.58459</lat>
+			        <lon>-74.4164</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.584342</lat>
+			        <lon>-74.416057</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.58432999999929</lat>
+			        <lon>-74.41604000000126</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>24083</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MUNICIPAL BLDG</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.58425</lat>
+			        <lon>-74.41569</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.5841</lat>
+			        <lon>-74.41539</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.58364</lat>
+			        <lon>-74.41472</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.58334</lat>
+			        <lon>-74.41435</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.58299</lat>
+			        <lon>-74.41407</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.58273</lat>
+			        <lon>-74.41395</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.58191</lat>
+			        <lon>-74.41382</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.581732</lat>
+			        <lon>-74.41385</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.58160999999868</lat>
+			        <lon>-74.41386999999841</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>24043</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>LAKEVIEW AVE + ELM ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.58135</lat>
+			        <lon>-74.41374</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.58014</lat>
+			        <lon>-74.41356</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.58023</lat>
+			        <lon>-74.41248</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.58016</lat>
+			        <lon>-74.4124</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57934</lat>
+			        <lon>-74.41225</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57921</lat>
+			        <lon>-74.41222</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57914</lat>
+			        <lon>-74.41213</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57925</lat>
+			        <lon>-74.4111</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57993</lat>
+			        <lon>-74.41123</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.58029</lat>
+			        <lon>-74.411221</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.580310000000516</lat>
+			        <lon>-74.4112199999987</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>24039</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>FRONT ST + S PLAINFIELD AVE(350N)</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.58057</lat>
+			        <lon>-74.41132</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.58248</lat>
+			        <lon>-74.41161</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.583297</lat>
+			        <lon>-74.410524</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.583319999999986</lat>
+			        <lon>-74.41049000000048</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>24044</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MAPLE AVE + LEONARD AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.58356</lat>
+			        <lon>-74.41031</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.585436</lat>
+			        <lon>-74.40841</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.585510000001065</lat>
+			        <lon>-74.40831000000061</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>24045</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MAPLE AVE + PINE ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.58576</lat>
+			        <lon>-74.40815</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.587237</lat>
+			        <lon>-74.406737</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.58735000000046</lat>
+			        <lon>-74.40660999999895</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>24046</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MAPLE AVE + MICHAEL ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.58887</lat>
+			        <lon>-74.40538</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.58929</lat>
+			        <lon>-74.40492</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.589601</lat>
+			        <lon>-74.404495</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.58968000000063</lat>
+			        <lon>-74.4043800000013</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>24047</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MAPLE AVE + CADY LN</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.59076</lat>
+			        <lon>-74.403</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.591081</lat>
+			        <lon>-74.402506</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.591110000000015</lat>
+			        <lon>-74.40245999999928</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>24048</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MAPLE AVE + NORMAN ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.59152</lat>
+			        <lon>-74.40199</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.59258</lat>
+			        <lon>-74.40058</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.592806</lat>
+			        <lon>-74.400212</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.59282000000002</lat>
+			        <lon>-74.40018999999937</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>24049</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MAPLE AVE + LEWIS PL</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.59343</lat>
+			        <lon>-74.39946</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.5934</lat>
+			        <lon>-74.39938</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.59212</lat>
+			        <lon>-74.3987</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.591768</lat>
+			        <lon>-74.398605</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.59174999999928</lat>
+			        <lon>-74.39859999999993</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>24068</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PARK AVE + WAVERLY PL</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.59152</lat>
+			        <lon>-74.39838</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.588676</lat>
+			        <lon>-74.396892</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.588519999999654</lat>
+			        <lon>-74.39683999999886</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>24069</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PARK AVE + WEST FAIRVIEW AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.58829</lat>
+			        <lon>-74.39664</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.584766</lat>
+			        <lon>-74.394831</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.584739999999165</lat>
+			        <lon>-74.39481999999893</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>24070</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PARK AVE + OAK MANOR PKWY</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.5845</lat>
+			        <lon>-74.39463</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.58146</lat>
+			        <lon>-74.39298</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.581155</lat>
+			        <lon>-74.392868</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.58105999999919</lat>
+			        <lon>-74.39284000000025</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>24071</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PARK AVE + MAY AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.58083</lat>
+			        <lon>-74.39265</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57729</lat>
+			        <lon>-74.39072</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57726</lat>
+			        <lon>-74.3891</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.577201</lat>
+			        <lon>-74.388876</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.577160000000504</lat>
+			        <lon>-74.3887200000015</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>24059</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>OAK TREE AVE + PARK AVE(610E)</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.57725</lat>
+			        <lon>-74.38835</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.577205</lat>
+			        <lon>-74.386135</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57717999999891</lat>
+			        <lon>-74.38590000000023</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>23283</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>OAK TREE RD + WOODLAND AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.57731</lat>
+			        <lon>-74.38556</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57744</lat>
+			        <lon>-74.38341</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57746</lat>
+			        <lon>-74.38287</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57732</lat>
+			        <lon>-74.38144</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57699</lat>
+			        <lon>-74.38007</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.576602</lat>
+			        <lon>-74.378863</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.576549999998704</lat>
+			        <lon>-74.37873999999852</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>23169</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>OAK TREE RD + ALPINE ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.57648</lat>
+			        <lon>-74.37838</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57598</lat>
+			        <lon>-74.37671</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57587</lat>
+			        <lon>-74.37664</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57541</lat>
+			        <lon>-74.37658</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57532000000032</lat>
+			        <lon>-74.3765799999988</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>23204</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PLAINFIELD RD + OAK TREE RD</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.57505</lat>
+			        <lon>-74.37646</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57424</lat>
+			        <lon>-74.37627</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57183</lat>
+			        <lon>-74.37556</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57165</lat>
+			        <lon>-74.375566</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.571540000000354</lat>
+			        <lon>-74.37557000000075</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>23205</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PLAINFIELD RD + LUCINDA CT</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.57129</lat>
+			        <lon>-74.37539</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.56914</lat>
+			        <lon>-74.37475</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.56693</lat>
+			        <lon>-74.374298</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.56681000000054</lat>
+			        <lon>-74.3742899999983</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>23206</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PLAINFIELD RD + STEPHENVILLE PKWY</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.56655</lat>
+			        <lon>-74.37418</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.564481</lat>
+			        <lon>-74.373741</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.56437000000021</lat>
+			        <lon>-74.37372999999951</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>23207</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PLAINFIELD RD + SOUTHFIELD RD</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.56116</lat>
+			        <lon>-74.37276</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.56098</lat>
+			        <lon>-74.372766</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.5608499999993</lat>
+			        <lon>-74.37277000000084</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>23208</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PLAINFIELD RD + PARK AVE(50N)</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.5606</lat>
+			        <lon>-74.37259</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.55806</lat>
+			        <lon>-74.37184</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.55788</lat>
+			        <lon>-74.371845</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.557709999999304</lat>
+			        <lon>-74.37185000000177</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>23209</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PLAINFIELD RD + OAK GROVE LANE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.55746</lat>
+			        <lon>-74.37169</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.55651</lat>
+			        <lon>-74.37147</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.55501</lat>
+			        <lon>-74.37136</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.554833</lat>
+			        <lon>-74.371403</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.554679999999806</lat>
+			        <lon>-74.37144000000143</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>23210</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PLAINFIELD RD + PADDOCK CT</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.55441</lat>
+			        <lon>-74.37133</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.55018</lat>
+			        <lon>-74.37101</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.55009</lat>
+			        <lon>-74.36885</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.55005</lat>
+			        <lon>-74.36724</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.55008</lat>
+			        <lon>-74.36689</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.54725</lat>
+			        <lon>-74.36504</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.54617</lat>
+			        <lon>-74.36427</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.54369</lat>
+			        <lon>-74.36273</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.543512</lat>
+			        <lon>-74.362695</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.54333000000009</lat>
+			        <lon>-74.3626600000003</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>23335</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MAIN ST + NJ 27</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.54311</lat>
+			        <lon>-74.3624</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.54125</lat>
+			        <lon>-74.36124</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.541046</lat>
+			        <lon>-74.360851</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.54103999999969</lat>
+			        <lon>-74.36083999999886</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>23338</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PENNSYLVANIA AVE + METUCHEN RAIL STA</st> 
+					</bs>
+
+				</pt>
+
+			</pa>
+
+			<pa>
+				<id>571</id>
+
+				<d>Plainfield/Piscataway</d> 
+				<dd>Plainfield/Piscataway</dd>  
+				<directionRtpiFeedName></directionRtpiFeedName>
+
+				<pt>
+					<lat>40.54103999999969</lat>
+			        <lon>-74.36083999999886</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>23338</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PENNSYLVANIA AVE + METUCHEN RAIL STA</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.54134</lat>
+			        <lon>-74.36027</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.54209</lat>
+			        <lon>-74.36073</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.54216</lat>
+			        <lon>-74.36084</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.54199</lat>
+			        <lon>-74.36169</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.543766</lat>
+			        <lon>-74.362772</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.54388999999865</lat>
+			        <lon>-74.36283999999856</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>23334</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MAIN ST + NJ 27</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.54624</lat>
+			        <lon>-74.36431</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.54696</lat>
+			        <lon>-74.36484</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.55003</lat>
+			        <lon>-74.36686</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.55008</lat>
+			        <lon>-74.36699</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.55005</lat>
+			        <lon>-74.36734</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.55016</lat>
+			        <lon>-74.37058</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.55018</lat>
+			        <lon>-74.37094</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.55024</lat>
+			        <lon>-74.37104</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.55449</lat>
+			        <lon>-74.37133</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.554669</lat>
+			        <lon>-74.371305</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.554779999999</lat>
+			        <lon>-74.37128999999938</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>23197</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PLAINFIELD RD + OAK HILLS RD</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.55518</lat>
+			        <lon>-74.37138</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.55655</lat>
+			        <lon>-74.37147</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.5579</lat>
+			        <lon>-74.3718</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.55808</lat>
+			        <lon>-74.3718</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.55825000000098</lat>
+			        <lon>-74.37179999999876</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>23198</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PLAINFIELD RD + OAK GROVE LANE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.5585</lat>
+			        <lon>-74.37198</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.560688</lat>
+			        <lon>-74.372605</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.56086999999998</lat>
+			        <lon>-74.37263999999868</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>23199</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PLAINFIELD RD + PARK AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.5634</lat>
+			        <lon>-74.37343</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.564168</lat>
+			        <lon>-74.373586</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.56420000000136</lat>
+			        <lon>-74.37358999999843</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>23200</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PLAINFIELD RD + SOUTHFIELD RD</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.56459</lat>
+			        <lon>-74.37374</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.56689</lat>
+			        <lon>-74.37426</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.567069</lat>
+			        <lon>-74.374241</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.56717000000105</lat>
+			        <lon>-74.37423000000038</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>23201</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PLAINFIELD RD + STEPHENVILLE PKWY</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.56743</lat>
+			        <lon>-74.37438</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.570077</lat>
+			        <lon>-74.374976</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.570099999998824</lat>
+			        <lon>-74.37498000000069</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>23202</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PLAINFIELD RD + BRADFORD RD</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.57036</lat>
+			        <lon>-74.37511</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.5741</lat>
+			        <lon>-74.37623</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57523</lat>
+			        <lon>-74.376466</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57534000000088</lat>
+			        <lon>-74.37646999999853</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>23203</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PLAINFIELD RD + OAK TREE RD</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.57598</lat>
+			        <lon>-74.37672</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.576185</lat>
+			        <lon>-74.377243</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.576270000001294</lat>
+			        <lon>-74.37740000000029</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>23180</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>OAK TREE RD + PLAINFIELD RD</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.5763</lat>
+			        <lon>-74.37777</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.577</lat>
+			        <lon>-74.38012</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57729</lat>
+			        <lon>-74.38132</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57746</lat>
+			        <lon>-74.38292</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57742</lat>
+			        <lon>-74.38364</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57742</lat>
+			        <lon>-74.38382</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57734</lat>
+			        <lon>-74.38525</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57722</lat>
+			        <lon>-74.3865</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57728</lat>
+			        <lon>-74.39046</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57734</lat>
+			        <lon>-74.39078</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57765</lat>
+			        <lon>-74.390861</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57779000000006</lat>
+			        <lon>-74.39087000000015</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>24063</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PARK AVE + OAK TREE AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.578</lat>
+			        <lon>-74.39113</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.580085</lat>
+			        <lon>-74.392203</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.58020999999899</lat>
+			        <lon>-74.39224000000081</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>24064</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PARK AVE + CAFFERY TER</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.58045</lat>
+			        <lon>-74.39244</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.58451</lat>
+			        <lon>-74.39464</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.584856</lat>
+			        <lon>-74.394768</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.58489000000122</lat>
+			        <lon>-74.39478000000041</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>24065</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PARK AVE + CLARK LN</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.58512</lat>
+			        <lon>-74.39497</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.588603</lat>
+			        <lon>-74.396787</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.58873999999902</lat>
+			        <lon>-74.39683999999951</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>24066</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PARK AVE + EAST FAIRVIEW AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.5891</lat>
+			        <lon>-74.39709</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.591565</lat>
+			        <lon>-74.398364</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.591680000000885</lat>
+			        <lon>-74.3984000000002</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>24067</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PARK AVE + MORRIL DR</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.59192</lat>
+			        <lon>-74.39859</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.59344</lat>
+			        <lon>-74.3994</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.592893</lat>
+			        <lon>-74.400211</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.59280999999897</lat>
+			        <lon>-74.40036000000026</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>24050</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MAPLE AVE + LEWIS PL</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.59258</lat>
+			        <lon>-74.40057</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.59123</lat>
+			        <lon>-74.40236</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.591035</lat>
+			        <lon>-74.402682</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.59096000000061</lat>
+			        <lon>-74.4028200000005</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>24051</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MAPLE AVE + NORMAN ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.59073</lat>
+			        <lon>-74.40303</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.58995</lat>
+			        <lon>-74.40405</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.589645</lat>
+			        <lon>-74.40456</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.58964000000131</lat>
+			        <lon>-74.40456999999874</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>24052</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MAPLE AVE + CEDAR AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.58941</lat>
+			        <lon>-74.40476</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.58901</lat>
+			        <lon>-74.40526</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.587821</lat>
+			        <lon>-74.40627</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.58769999999947</lat>
+			        <lon>-74.4063999999985</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>24053</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MAPLE AVE + FAYE ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.58745</lat>
+			        <lon>-74.40656</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.58567</lat>
+			        <lon>-74.40823</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.585547</lat>
+			        <lon>-74.408403</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.585449999999135</lat>
+			        <lon>-74.40853999999864</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>24054</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MAPLE AVE + FAULKS PL</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.5852</lat>
+			        <lon>-74.40869</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.58366</lat>
+			        <lon>-74.41021</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.58324</lat>
+			        <lon>-74.41067</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.583128</lat>
+			        <lon>-74.410855</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.583039999999386</lat>
+			        <lon>-74.41099999999854</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>24055</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MAPLE AVE + LINCOLN AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.58281</lat>
+			        <lon>-74.41119</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.58254</lat>
+			        <lon>-74.41159</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.58046</lat>
+			        <lon>-74.411324</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.58033999999885</lat>
+			        <lon>-74.41131999999895</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>24040</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>FRONT ST + S PLAINFIELD AVE(350N)</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.57926</lat>
+			        <lon>-74.4111</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57914</lat>
+			        <lon>-74.41212</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.5792</lat>
+			        <lon>-74.41222</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.58233</lat>
+			        <lon>-74.41271</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.58243</lat>
+			        <lon>-74.41277</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.58233</lat>
+			        <lon>-74.41385</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.58271</lat>
+			        <lon>-74.41395</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.58297</lat>
+			        <lon>-74.41406</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.58332</lat>
+			        <lon>-74.41433</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.58353</lat>
+			        <lon>-74.41457</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.584282</lat>
+			        <lon>-74.415696</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.58435000000085</lat>
+			        <lon>-74.41580999999917</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>24072</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MUNICIPAL BLDG</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.58446</lat>
+			        <lon>-74.41614</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.5856</lat>
+			        <lon>-74.4186</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.5858</lat>
+			        <lon>-74.41885</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.5866</lat>
+			        <lon>-74.41905</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.586779</lat>
+			        <lon>-74.419034</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.58694</lat>
+			        <lon>-74.41901999999939</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>24073</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PLAINFIELD AVE + SAMPTON AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.58719</lat>
+			        <lon>-74.41917</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.58882</lat>
+			        <lon>-74.41949</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.589319</lat>
+			        <lon>-74.419539</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.58932999999875</lat>
+			        <lon>-74.41953999999822</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>24074</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PLAINFIELD AVE + LAKE ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.5896</lat>
+			        <lon>-74.41964</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.59209</lat>
+			        <lon>-74.42013</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.59227000000074</lat>
+			        <lon>-74.42014000000016</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>24075</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PLAINFIELD AVE + RISOLI TER</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.59254</lat>
+			        <lon>-74.42025</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.59448</lat>
+			        <lon>-74.420606</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.59460999999964</lat>
+			        <lon>-74.420609999999</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>24076</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PLAINFIELD AVE + THOMAS ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.59487</lat>
+			        <lon>-74.42071</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.59569</lat>
+			        <lon>-74.42086</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.597509</lat>
+			        <lon>-74.420909</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.597670000001074</lat>
+			        <lon>-74.42089000000117</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>24077</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PLAINFIELD AVE + FIRTH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.59795</lat>
+			        <lon>-74.42096</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.59877</lat>
+			        <lon>-74.42099</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.600858</lat>
+			        <lon>-74.420697</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.60100000000052</lat>
+			        <lon>-74.42067000000063</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29272</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PLAINFIELD AVE + PEMBERTON AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.60255</lat>
+			        <lon>-74.420767</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.602649999999755</lat>
+			        <lon>-74.42076000000013</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29273</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PLAINFIELD AVE + ALLETTA ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.60594</lat>
+			        <lon>-74.42097</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.605987</lat>
+			        <lon>-74.420741</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.60602000000013</lat>
+			        <lon>-74.42058000000067</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29277</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>RANDOLPH RD + PLAINFIELD AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.60615</lat>
+			        <lon>-74.419263</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.606159999999896</lat>
+			        <lon>-74.41903000000106</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29278</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>RANDOLPH RD + FIELD AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.60635</lat>
+			        <lon>-74.416825</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.606370000000105</lat>
+			        <lon>-74.41659000000085</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29279</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>RANDOLPH RD + CENTRAL AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.60659</lat>
+			        <lon>-74.41444</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.6066</lat>
+			        <lon>-74.413966</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.606599999999695</lat>
+			        <lon>-74.41394999999976</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29280</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>RANDOLPH RD + KENYON AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.60667</lat>
+			        <lon>-74.41359</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.60697</lat>
+			        <lon>-74.41019</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.607069</lat>
+			        <lon>-74.408466</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.60706999999905</lat>
+			        <lon>-74.4084300000018</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29281</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>RANDOLPH RD + ARLINGTON AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.60714</lat>
+			        <lon>-74.40807</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.60732</lat>
+			        <lon>-74.40574</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.60736</lat>
+			        <lon>-74.40564</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.607721</lat>
+			        <lon>-74.405997</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.60782999999983</lat>
+			        <lon>-74.4061100000002</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29376</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PARK AVE + RANDOLPH RD</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.60903</lat>
+			        <lon>-74.40757</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.60962</lat>
+			        <lon>-74.40833</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.6099</lat>
+			        <lon>-74.40873</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.611031</lat>
+			        <lon>-74.410602</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.611150000001274</lat>
+			        <lon>-74.41075000000059</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29258</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PARK AVE + MARTINE AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.61128</lat>
+			        <lon>-74.41108</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.6126</lat>
+			        <lon>-74.41338</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.61407</lat>
+			        <lon>-74.41577</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.614229</lat>
+			        <lon>-74.41588</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.61432999999936</lat>
+			        <lon>-74.41594999999982</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29259</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PARK AVE + CRESCENT AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.61439</lat>
+			        <lon>-74.41634</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.61463</lat>
+			        <lon>-74.41677</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.614713</lat>
+			        <lon>-74.417231</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.614720000000176</lat>
+			        <lon>-74.41727000000057</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29260</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>PARK AVE + EAST 7TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.61503</lat>
+			        <lon>-74.41728</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.61715</lat>
+			        <lon>-74.41561</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.61722</lat>
+			        <lon>-74.41567</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.617365</lat>
+			        <lon>-74.416241</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.6173999999996</lat>
+			        <lon>-74.41636000000003</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29350</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WATCHUNG AVE + EAST 6TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.61755</lat>
+			        <lon>-74.41687</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.617821</lat>
+			        <lon>-74.417414</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.61783000000035</lat>
+			        <lon>-74.41743000000163</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29351</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WATCHUNG AVE + EAST 5TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.61794</lat>
+			        <lon>-74.41776</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.61854</lat>
+			        <lon>-74.41898</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.618668</lat>
+			        <lon>-74.419147</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.6187699999989</lat>
+			        <lon>-74.41927999999922</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29352</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WATCHUNG AVE + E 4TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.61886</lat>
+			        <lon>-74.41963</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.62017</lat>
+			        <lon>-74.42217</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.620073</lat>
+			        <lon>-74.42237</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.620009999998715</lat>
+			        <lon>-74.42249999999946</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29232</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>E FRONT ST + WATCHUNG AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.61976</lat>
+			        <lon>-74.42267</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.619001</lat>
+			        <lon>-74.423528</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.61888000000071</lat>
+			        <lon>-74.42370999999864</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29233</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>EAST FRONT ST + SOMERSET ST(75E)</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.61863</lat>
+			        <lon>-74.42387</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.6181</lat>
+			        <lon>-74.42444</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.61771</lat>
+			        <lon>-74.42495</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.617412</lat>
+			        <lon>-74.425477</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.61739999999947</lat>
+			        <lon>-74.42550000000018</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29234</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WEST FRONT ST + MADISON AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.61709</lat>
+			        <lon>-74.42586</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.616909</lat>
+			        <lon>-74.426204</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.61683000000067</lat>
+			        <lon>-74.42638000000022</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29235</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WEST FRONT ST + GROVE ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.61661</lat>
+			        <lon>-74.4266</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.61617</lat>
+			        <lon>-74.42729</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.616002</lat>
+			        <lon>-74.427206</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.61588999999884</lat>
+			        <lon>-74.42714999999839</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29256</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>NEW ST + WEST FRONT ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.61575</lat>
+			        <lon>-74.42682</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.61508</lat>
+			        <lon>-74.42568</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.61427</lat>
+			        <lon>-74.42446</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.614004</lat>
+			        <lon>-74.424141</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.613969999998936</lat>
+			        <lon>-74.4241000000011</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29255</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>NEW ST + WEST 4TH ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.6137</lat>
+			        <lon>-74.42423</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.61286</lat>
+			        <lon>-74.425237</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.61277000000133</lat>
+			        <lon>-74.4253700000003</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29190</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WEST 4TH ST + LIBERTY ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.61254</lat>
+			        <lon>-74.42557</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.6111</lat>
+			        <lon>-74.42724</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.610939</lat>
+			        <lon>-74.427346</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.61077999999996</lat>
+			        <lon>-74.42744999999913</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29191</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WEST 4TH ST + PLAINFIELD AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.61063</lat>
+			        <lon>-74.42778</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.60887</lat>
+			        <lon>-74.4298</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.608321</lat>
+			        <lon>-74.430502</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.6083000000001</lat>
+			        <lon>-74.43052999999877</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29192</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WEST 4TH ST + SPOONER AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.60744</lat>
+			        <lon>-74.43143</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.606184</lat>
+			        <lon>-74.432911</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.60612000000051</lat>
+			        <lon>-74.4330099999991</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29193</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WEST 4TH ST + GRANT AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.60589</lat>
+			        <lon>-74.43321</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.60454</lat>
+			        <lon>-74.43475</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.604124</lat>
+			        <lon>-74.435291</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.60403999999991</lat>
+			        <lon>-74.43542000000114</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29194</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WEST 4TH ST + PRESCOTT PL</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.6038</lat>
+			        <lon>-74.43563</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.603371</lat>
+			        <lon>-74.436158</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.603250000000436</lat>
+			        <lon>-74.4363400000001</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29195</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WEST 4TH ST + MONROE AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.60291</lat>
+			        <lon>-74.43664</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.601962</lat>
+			        <lon>-74.437769</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.601849999999935</lat>
+			        <lon>-74.43793999999835</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29196</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WEST 4TH ST + MCDOWELL ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.60161</lat>
+			        <lon>-74.43812</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.599338</lat>
+			        <lon>-74.440804</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.59927000000089</lat>
+			        <lon>-74.44090000000021</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29197</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WEST 4TH ST + CLINTON AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.59936</lat>
+			        <lon>-74.44128</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.600157</lat>
+			        <lon>-74.442656</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.600180000000684</lat>
+			        <lon>-74.44268999999883</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29370</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>CLINTON AVE + CLINTON PL</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.60065</lat>
+			        <lon>-74.44358</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.600576</lat>
+			        <lon>-74.443796</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.60052000000003</lat>
+			        <lon>-74.44396000000066</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29347</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WEST 3RD ST + CLINTON AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.60023</lat>
+			        <lon>-74.44433</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.599316</lat>
+			        <lon>-74.44583</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.59929000000071</lat>
+			        <lon>-74.4458799999993</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29348</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WEST 3RD ST + RUSHMORE AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.59909</lat>
+			        <lon>-74.44612</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.59677</lat>
+			        <lon>-74.44968</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.596676</lat>
+			        <lon>-74.449882</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.59662000000106</lat>
+			        <lon>-74.45000000000051</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>29349</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>WEST 3RD ST + LESLIE AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.59641</lat>
+			        <lon>-74.45025</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.59591</lat>
+			        <lon>-74.4511</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.59572</lat>
+			        <lon>-74.45137</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.59562</lat>
+			        <lon>-74.45141</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.59282</lat>
+			        <lon>-74.44826</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.592934</lat>
+			        <lon>-74.448077</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.59299999999906</lat>
+			        <lon>-74.44797000000013</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>23863</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>4TH ST + RUSHMORE AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.59324</lat>
+			        <lon>-74.44779</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.594392</lat>
+			        <lon>-74.446425</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.59450000000033</lat>
+			        <lon>-74.44626999999822</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>23864</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>4TH ST + RUSHMORE AVE</st> 
+					</bs>
+
+				</pt>
+
+			</pa>
+
+
+		</pas>
+	</route>
