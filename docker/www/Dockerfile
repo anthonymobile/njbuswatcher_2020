@@ -8,6 +8,10 @@ FROM continuumio/miniconda3
 ENV TZ=America/New_York
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
+RUN apt update
+RUN apt install -y build-essential
+
+RUN conda config --set channel_priority flexible
 RUN conda update -n base -c defaults conda
 
 ADD ./docker/environment.yml /tmp/environment.yml
@@ -29,6 +33,8 @@ COPY ./docker/www/DBconfig.py ./buswatcher/buswatcher/lib/DBconfig.py
 
 # various workdir permutations to test
 WORKDIR /buswatcher/buswatcher
+
+# todo this should really be running through supervisor like the instructions in my docs -- https://advancedweb.hu/supervisor-with-docker-lessons-learned/
 
 # not sure if better to run it here in docker-compose.yml
 # CMD ["/opt/conda/envs/buswatcher/bin/gunicorn", "www:app", "-w", "4", "-b", "0.0.0.0:8000"]
