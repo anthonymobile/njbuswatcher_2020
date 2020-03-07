@@ -1,7 +1,9 @@
+# based on https://testdriven.io/blog/dockerizing-flask-with-postgres-gunicorn-and-nginx/
 
 FROM nginx:alpine
 
-COPY ./docker/nginx/nginx.conf etc/nginx/conf.d/
+RUN rm /etc/nginx/conf.d/default.conf
+COPY ./docker/nginx/nginx.conf etc/nginx/conf.d
 
 # timezone
 RUN apk update
@@ -15,4 +17,4 @@ RUN rm -rf /var/cache/apk/*
 # copy project
 WORKDIR /
 RUN mkdir buswatcher
-COPY ./buswatcher ./buswatcher
+COPY . ./buswatcher

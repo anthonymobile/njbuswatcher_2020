@@ -28,13 +28,6 @@ RUN mkdir buswatcher
 COPY . ./buswatcher
 
 # copy the proper database config over for docker deployment (replaces the development version)
-COPY ./docker/www/DBconfig.py ./buswatcher/buswatcher/lib/DBconfig.py
+COPY ./docker/DBconfig.py ./buswatcher/buswatcher/lib/DBconfig.py
 
-
-# various workdir permutations to test
 WORKDIR /buswatcher/buswatcher
-
-# todo this should really be running through supervisor like the instructions in my docs -- https://advancedweb.hu/supervisor-with-docker-lessons-learned/
-
-# not sure if better to run it here in docker-compose.yml
-# CMD ["/opt/conda/envs/buswatcher/bin/gunicorn", "www:app", "-w", "4", "-b", "0.0.0.0:8000"]
