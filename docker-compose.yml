@@ -1,0 +1,111 @@
+# install with: docker-compose up -d --build
+
+version: '3.7'
+
+services:
+  db:
+    image: mysql:5.7
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 'root'
+      MYSQL_DATABASE: 'buses'
+      MYSQL_USER: 'buswatcher'
+      MYSQL_PASSWORD: 'njtransit'
+      TZ: 'America/New_York'
+    ports:
+      - 3306:3306
+    expose:
+      - 3306
+    volumes:
+      - database_volume:/var/lib/mysql
+#############################################################################
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
+#############################################################################
+  nginx:
+    build:
+      context: ./
+      dockerfile: ./docker/nginx/Dockerfile
+    restart: always
+    volumes:
+      - static_volume:/buswatcher/static
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - gunicorn
+
+#############################################################################
+# this container can't connect to the database
+  gunicorn:
+    build:
+      context: ./
+      dockerfile: ./docker/gunicorn/Dockerfile
+
+    command: /opt/conda/envs/buswatcher/bin/gunicorn www:app -w 4 -b 0.0.0.0:8000
+    restart: always
+    volumes:
+        # - ./buswatcher/:/buswatcher
+        - static_volume:/buswatcher/buswatcher/static
+        # - buswatcher_config:/buswatcher/buswatcher/config
+        - buswatcher_config:/buswatcher/buswatcher/config
+    expose:
+       - 8000
+#    ports:
+#      - 8000
+    environment:
+      - SQL_DB=buses
+      - SQL_USER=buswatcher
+      - SQL_PASSWORD=njtransit
+      - SQL_HOST=db
+      - SQL_PORT=5432
+    depends_on:
+      - db
+
+#############################################################################
+  tripwatcher:
+    build:
+      context: ./
+      dockerfile: ./docker/tripwatcher/Dockerfile
+    restart: always
+    volumes:
+      - buswatcher_config:/buswatcher/buswatcher/config
+    depends_on:
+      - db
+
+#############################################################################
+  generator:
+    build:
+      context: ./
+      dockerfile: ./docker/generator/Dockerfile
+    restart: always
+    volumes:
+      - buswatcher_config:/buswatcher/buswatcher/config
+    depends_on:
+      - db
+
+##############################################################################
+#  dns_updater:
+#    restart: always
+#    build:
+#      context: ./
+#      dockerfile: ./dns_updater/docker/Dockerfile
+
+volumes:
+  database_volume:
+  static_volume:
+  buswatcher_config:
+
+
+##############################################################################
+# docs
+##############################################################################
+# https://medium.com/@chrischuck35/how-to-create-a-mysql-instance-with-docker-compose-1598f3cc1bee
+# https://github.com/testdrivenio/django-on-docker
+# https://serverfault.com/questions/596994/how-can-i-debug-a-docker-container-initialization
+
