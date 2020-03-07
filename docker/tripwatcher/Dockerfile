@@ -9,7 +9,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN conda update -n base -c defaults conda
 
 # get environment from buswatcher folder
-ADD ./buswatcher/docker/environment.yml /tmp/environment.yml
+ADD ./docker/environment.yml /tmp/environment.yml
 RUN conda env create -f /tmp/environment.yml
 
 # Pull the environment name out of the environment.yml.bak
@@ -23,8 +23,7 @@ COPY . ./buswatcher
 
 
 # copy the proper database config over for docker deployment (uses the docker server url 'db')
-COPY ./buswatcher/docker/DBconfig.py ./buswatcher/buswatcher/lib/DBconfig.py
+COPY ./docker/www/DBconfig.py ./buswatcher/buswatcher/lib/DBconfig.py
 
-# use one or the other
-
-CMD ["/opt/conda/envs/buswatcher/bin/python", "/buswatcher/buswatcher/tripwatcher.py","--statewide"]
+# todo this should really be running through supervisor like the instructions in my docs -- https://advancedweb.hu/supervisor-with-docker-lessons-learned/
+CMD ["/opt/conda/envs/buswatcher/bin/python", "/buswatcher/buswatcher/tripwatcher.py"]

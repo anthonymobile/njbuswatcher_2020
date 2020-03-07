@@ -25,5 +25,5 @@ COPY . ./buswatcher
 COPY ./buswatcher/docker/DBconfig.py ./buswatcher/buswatcher/lib/DBconfig.py
 
 
-
+# todo this should really be running through supervisor like the instructions in my docs -- https://advancedweb.hu/supervisor-with-docker-lessons-learned/
 CMD ["/opt/conda/envs/buswatcher/bin/python", "/buswatcher/buswatcher/generator.py","--production"]

@@ -11,6 +11,9 @@ COPY . .
 
 RUN apk add --no-cache bash
 
-# todo how to safely copy the API key?
+# todo how to safely copy the API key to ./buswatcher/dns_updater/config.py
+# maybe cat it to the file?
+# echo "api_secret = '---my_secret_API_KEY----'" > ./buswatcher/dns_updater/config.py
+
 
 CMD ["python", "/dns_updater/gandi-live-dns.py"]
