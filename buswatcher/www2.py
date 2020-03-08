@@ -34,7 +34,7 @@ navbar = dbc.NavbarSimple(
             ],
         ),
     ],
-    brand="Demo",
+    brand="NJBusWatcher",
     brand_href="#",
     sticky="top",
 )
@@ -45,7 +45,7 @@ body = dbc.Container(
             [
                 dbc.Col(
                     [
-                        html.H2("NJBusWatcher"),
+                        html.H1("How Are New Jersey's Buses Doing Today?"),
                         html.P(
                             """\
 Residents and businesses depend on NJTransit buses every day. But its hard to evaluate the quality of bus service. \
@@ -58,7 +58,7 @@ Here you can see data on past performance and view maps of current service."""
                 ),
                 dbc.Col(
                     [
-                        html.H2("Graph"),
+                        html.H3("When Do Buses Come?"),
                         dcc.Graph(id='arrival-histogram',
                                   figure={
                                       'data': [
@@ -66,7 +66,7 @@ Here you can see data on past performance and view maps of current service."""
                                            'type': 'bar', 'name': 'Arrivals'}
                                       ],
                                       'layout': {
-                                          'title': 'Arrivals By Hour For A Route'
+                                          'title': 'Arrivals By Hour For A Route (all history)'
                                       }
                                   }
                                   ),
