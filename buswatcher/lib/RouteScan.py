@@ -45,7 +45,7 @@ class RouteScan:
             keeper_list = []
             for k,v in system_map.collection_descriptions.items():
                 keeper_list = keeper_list + v['routelist']
-            self.buses = [x for x in catches if x.rt in keeper_list]
+            self.buses = [x for x in catches if x.rt is in keeper_list]
             print('\rfetched ' + str(len(self.buses)) + ' buses on ' + str(route_count) + ' routes...')
             # self.clean_buses()
 
@@ -73,8 +73,8 @@ class RouteScan:
                     else:
                         continue
                 except:
-                    # print("couldn't find route in route_descriptions.json, please add it. route " + str(
-                    #    bus.rt))
+                    print("couldn't find route in route_descriptions.json, please add it. route " + str(
+                       bus.rt))
 
                 db.__relax__()  # disable foreign key checks before...
                 try:
