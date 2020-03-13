@@ -73,8 +73,9 @@ class RouteScan:
                     else:
                         continue
                 except:
-                    print("couldn't find route in route_descriptions.json, please add it. route " + str(
-                       bus.rt))
+                    # print("couldn't find route in route_descriptions.json, please add it. route " + str(
+                    #    bus.rt))
+                    print('.')
 
                 db.__relax__()  # disable foreign key checks before...
                 try:
