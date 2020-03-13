@@ -30,19 +30,27 @@ class RouteScan:
 
         # generate scan data and results
 
-        self.fetch_positions()
+        self.fetch_positions(system_map)
         self.parse_positions(system_map)
         self.localize_positions(system_map)
         self.assign_positions()
         self.interpolate_missed_stops()
 
-    def fetch_positions(self):
+    def fetch_positions(self,system_map):
 
         try:
-            self.buses = NJTransitAPI.parse_xml_getBusesForRouteAll(NJTransitAPI.get_xml_data('nj', 'all_buses'))
+            catches = NJTransitAPI.parse_xml_getBusesForRouteAll(NJTransitAPI.get_xml_data('nj', 'all_buses'))
             route_count = len(list(set([v.rt for v in self.buses])))
+
+            keeper_list = []
+            for k,v in system_map.collection_descriptions.items():
+                keeper_list = keeper_list + v['routelist']
+            self.buses = [x for x in catches if x.rt in keeper_list]
             print('\rfetched ' + str(len(self.buses)) + ' buses on ' + str(route_count) + ' routes...')
             # self.clean_buses()
+
+
+
         except:
             pass
 
@@ -65,8 +73,8 @@ class RouteScan:
                     else:
                         continue
                 except:
-                    print("couldn't find route in route_descriptions.json, please add it. route " + str(
-                        bus.rt))
+                    # print("couldn't find route in route_descriptions.json, please add it. route " + str(
+                    #    bus.rt))
 
                 db.__relax__()  # disable foreign key checks before...
                 try:
