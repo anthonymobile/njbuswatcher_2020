@@ -11,7 +11,7 @@ import pandas as pd
 
 from lib.wwwAPI import StopReport
 from lib.NJTransitAPI import *
-from lib.DataBases import SQLAlchemyDBConnection, ScheduledStop, Trip
+from lib.DataBases import SQLAlchemyDBConnection, Stop, Trip
 from lib.CommonTools import get_config_path
 
 class Generator():
@@ -33,8 +33,8 @@ class Generator():
         return report_retrieved
 
     def query_factory(self, system_map, query, **kwargs):
-        query = query.filter(ScheduledStop.arrival_timestamp != None). \
-            filter(ScheduledStop.arrival_timestamp >= func.ADDDATE(func.CURRENT_TIMESTAMP(), text(system_map.period_descriptions[kwargs['period']]['sql'])))
+        query = query.filter(Stop.arrival_timestamp != None). \
+            filter(Stop.arrival_timestamp >= func.ADDDATE(func.CURRENT_TIMESTAMP(), text(system_map.period_descriptions[kwargs['period']]['sql'])))
         return query
 
 class RouteUpdater():
@@ -167,7 +167,7 @@ class RouteUpdater():
             print ('didnt update route_descriptions.json because ttl not expired')
             return
 
-class BunchingReport(Generator):
+class BunchingReport(Generator): # todo rebuild this based on geographic distance (e.g. for every tripscan, flag buses that are less than 250m as crow flies from the bus ahead of them on the route
 
     def __init__(self):
         super(BunchingReport,self).__init__()
@@ -203,7 +203,7 @@ class BunchingReport(Generator):
                     for path in paths:
                         for point in path.points:
                             if isinstance(point,Route.Stop) is True:
-                                 # first query to make sure there are ScheduledStop instances
+                                 # first query to make sure there are Stop instances
                                 bunch_total = 0
                                 arrival_total = 0
                                 stop_report, query = self.get_arrivals_here_this_route(system_map, route, point.identity, period)
@@ -240,18 +240,18 @@ class BunchingReport(Generator):
         with SQLAlchemyDBConnection() as db:
 
             # build query and load into df
-            query=db.session.query(Trip.rt, # base query
-                                        Trip.v,
-                                        Trip.pid,
-                                        Trip.trip_id,
-                                        ScheduledStop.stop_id,
-                                        ScheduledStop.stop_name,
-                                        ScheduledStop.arrival_timestamp) \
-                                        .join(ScheduledStop) \
+            query=db.session.query(Trip.rt,  # base query
+                                   Trip.v,
+                                   Trip.pid,
+                                   Trip.trip_id,
+                                   Stop.stop_id,
+                                   Stop.stop_name,
+                                   Stop.arrival_timestamp) \
+                                        .join(Stop) \
                                         .filter(Trip.rt == route) \
-                                        .filter(ScheduledStop.stop_id == stop_id) \
-                                        .filter(ScheduledStop.arrival_timestamp != None) \
-                                        .order_by(ScheduledStop.arrival_timestamp.asc())
+                                        .filter(Stop.stop_id == stop_id) \
+                                        .filter(Stop.arrival_timestamp != None) \
+                                        .order_by(Stop.arrival_timestamp.asc())
 
             query=self.query_factory(system_map, query, period=period) # add the period
             query=query.statement
@@ -439,29 +439,29 @@ class HeadwayReport(Generator):
             # build the query
             x, trips_on_road_now = self.__get_current_trips()
 
-            query = db.session.query(ScheduledStop). \
-                add_columns(ScheduledStop.trip_id,
-                            ScheduledStop.stop_id,
-                            ScheduledStop.stop_name,
-                            ScheduledStop.arrival_timestamp)
+            query = db.session.query(Stop). \
+                add_columns(Stop.trip_id,
+                            Stop.stop_id,
+                            Stop.stop_name,
+                            Stop.arrival_timestamp)
 
             # example of multi-table query -- would it require re-setting the relationships in DataBases.py class definitions?
-            # # query = df.session.query(Trip, ScheduledStop, BusPosition).join(ScheduledStop).join(BusPosition)
+            # # query = df.session.query(Trip, Stop, BusPosition).join(Stop).join(BusPosition)
 
             # add the period
             query = self.__query_factory(db, query,
                                          period=self.period)
             # # add extra filters -- EXCLUDES current trips
             # query=query\
-            #     .filter(ScheduledStop.trip_id.notin_(trips_on_road_now))\
-            #     .order_by(ScheduledStop.trip_id.asc())\
-            #     .order_by(ScheduledStop.pkey.asc())\
+            #     .filter(Stop.trip_id.notin_(trips_on_road_now))\
+            #     .order_by(Stop.trip_id.asc())\
+            #     .order_by(Stop.pkey.asc())\
             #     .statement
 
             # add extra filters -- INCLUDES current trips
             query = query \
-                .order_by(ScheduledStop.trip_id.asc()) \
-                .order_by(ScheduledStop.pkey.asc()) \
+                .order_by(Stop.trip_id.asc()) \
+                .order_by(Stop.pkey.asc()) \
                 .statement
 
             # execute query + if the database didn't have results, return an dummy dataframe
@@ -540,15 +540,15 @@ class TraveltimeReport(Generator):
 
             # elif self.period == 'today':
             #     arrivals_in_completed_trips = pd.read_sql(
-            #         db.session.query(ScheduledStop.trip_id,
-            #                          ScheduledStop.stop_id,
-            #                          ScheduledStop.stop_name,
-            #                          ScheduledStop.arrival_timestamp)
-            #             .filter(ScheduledStop.arrival_timestamp != None)
-            #             .filter(func.date(ScheduledStop.arrival_timestamp) == todays_date)
-            #             .filter(ScheduledStop.trip_id.notin_(trips_on_road_now))
-            #             .order_by(ScheduledStop.trip_id.asc())
-            #             .order_by(ScheduledStop.arrival_timestamp.asc())
+            #         db.session.query(Stop.trip_id,
+            #                          Stop.stop_id,
+            #                          Stop.stop_name,
+            #                          Stop.arrival_timestamp)
+            #             .filter(Stop.arrival_timestamp != None)
+            #             .filter(func.date(Stop.arrival_timestamp) == todays_date)
+            #             .filter(Stop.trip_id.notin_(trips_on_road_now))
+            #             .order_by(Stop.trip_id.asc())
+            #             .order_by(Stop.arrival_timestamp.asc())
             #             .statement,
             #         db.session.bind)
             #
