@@ -1,12 +1,14 @@
 import datetime, time
 from sqlalchemy import create_engine, ForeignKeyConstraint, Index, Date, Column, Integer, DateTime, Float, String, Text, Boolean, ForeignKey, JSON
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy.exc import OperationalError
 
 from . import NJTransitAPI, DBconfig
 
 Base = declarative_base()
+
+# todo how to create database 'buses' if it doesnt exist?
 
 class SQLAlchemyDBConnection(object):
 
@@ -96,9 +98,10 @@ class Trip(Base):
     date = Column(Date())
     stoplist = Column(JSON)
 
-    # relationships
-    # children_ScheduledStop = relationship("Stop", back_populates='parent_Trip')
-    # children_BusPosition = relationship("BusPosition", back_populates='parent_Trip')
+    #relationships
+    stops=relationship("Stop")
+    buspositions=relationship("BusPositions")
+
 
     def __repr__(self):
         return '[Trip: \trt {} \ttrip_id {}]'.format(self.rt, self.trip_id)
@@ -136,6 +139,10 @@ class Stop(Base):
     # foreign keys
     trip_id = Column(String(127), ForeignKey('trips.trip_id'), index=True)
     __table_args__ = (Index('trip_id_stop_id',"trip_id","stop_id"),{'extend_existing': True})
+
+
+    # relationships
+    trip = relationship("Trip")
 
     def __repr__(self):
         return '[Stop: \ttrip_id {} \tstop_id {} \tarrival_timestamp {} \tinterpolated_arrival_flag {}]'.format(self.trip_id, self.stop_id, self.arrival_timestamp, self.interpolated_arrival_flag)
@@ -176,11 +183,15 @@ class BusPosition(Base):
     arrival_flag = Column(Boolean())
 
     # foreign keys
-    trip_id = Column(String(127), index=True)
-    stop_id = Column(Integer(), index=True)
+    trip_id = Column(String(127), ForeignKey('trips.trip_id'), index=True)
+    stop_id = Column(Integer(), ForeignKey('stops.stop_id'), index=True)
     __table_args__ = (ForeignKeyConstraint([trip_id, stop_id],
                                            [Stop.trip_id, Stop.stop_id]),
                                             {'extend_existing': True})
+
+    # relationships
+    trip = relationship("Trip")
+    stop = relationship("Stop")
 
     def __repr__(self):
         return '[BusPosition: \trt \ttrip_id {} \tstop_id \tdistance \tarrival_flag {}]'.format(self.rt,self.trip_id,self.stop_id,self.distance_to_stop,self.arrival_flag)
