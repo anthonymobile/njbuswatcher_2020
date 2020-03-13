@@ -8,14 +8,14 @@ import pandas as pd
 from sqlalchemy import func, text
 
 from . import NJTransitAPI
-from .DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
+from .DataBases import SQLAlchemyDBConnection, Trip, BusPosition, Stop
 
 
 class GenericReport: # all Report classes inherit query_factory
 
     def query_factory(self, db, query, **kwargs):
-        query = query.filter(ScheduledStop.arrival_timestamp != None). \
-            filter(ScheduledStop.arrival_timestamp >= func.ADDDATE(func.CURRENT_TIMESTAMP(), text(self.period_descriptions[self.period]['sql'])))
+        query = query.filter(Stop.arrival_timestamp != None). \
+            filter(Stop.arrival_timestamp >= func.ADDDATE(func.CURRENT_TIMESTAMP(), text(self.period_descriptions[self.period]['sql'])))
 
         return query
 
@@ -108,12 +108,12 @@ class RouteReport(GenericReport):
 
                 # OLD
                 # load the trip card - limit 1
-                most_recent_stop = db.session.query(ScheduledStop) \
+                most_recent_stop = db.session.query(Stop) \
                     .join(Trip) \
                     .filter(Trip.trip_id == trip_id) \
-                    .filter(ScheduledStop.arrival_timestamp != None) \
-                    .filter(ScheduledStop.arrival_timestamp < five_mins_ago) \
-                    .order_by(ScheduledStop.arrival_timestamp.desc()) \
+                    .filter(Stop.arrival_timestamp != None) \
+                    .filter(Stop.arrival_timestamp < five_mins_ago) \
+                    .order_by(Stop.arrival_timestamp.desc()) \
                     .limit(1) \
                     .all()
                 trip_dict=dict()
@@ -193,18 +193,18 @@ class StopReport(GenericReport):
         with self.db as db:
 
             # build query and load into df
-            query=db.session.query(Trip.rt, # base query
-                                        Trip.v,
-                                        Trip.pid,
-                                        Trip.trip_id,
-                                        ScheduledStop.stop_id,
-                                        ScheduledStop.stop_name,
-                                        ScheduledStop.arrival_timestamp) \
-                                        .join(ScheduledStop) \
+            query=db.session.query(Trip.rt,  # base query
+                                   Trip.v,
+                                   Trip.pid,
+                                   Trip.trip_id,
+                                   Stop.stop_id,
+                                   Stop.stop_name,
+                                   Stop.arrival_timestamp) \
+                                        .join(Stop) \
                                         .filter(Trip.rt == self.route) \
-                                        .filter(ScheduledStop.stop_id == self.stop_id) \
-                                        .filter(ScheduledStop.arrival_timestamp != None) \
-                                        .order_by(ScheduledStop.arrival_timestamp.asc())
+                                        .filter(Stop.stop_id == self.stop_id) \
+                                        .filter(Stop.arrival_timestamp != None) \
+                                        .order_by(Stop.arrival_timestamp.asc())
 
             query=self.query_factory(db, query,period=self.period) # add the period
             query=query.statement
@@ -222,12 +222,12 @@ class StopReport(GenericReport):
             query = db.session.query(Trip.rt,  # base query
                                      Trip.v,
                                      Trip.pd,
-                                     ScheduledStop.stop_id,
-                                     ScheduledStop.stop_name,
-                                     ScheduledStop.arrival_timestamp) \
-                .join(ScheduledStop) \
-                .filter(ScheduledStop.stop_id == self.stop_id) \
-                .filter(ScheduledStop.arrival_timestamp != None)
+                                     Stop.stop_id,
+                                     Stop.stop_name,
+                                     Stop.arrival_timestamp) \
+                .join(Stop) \
+                .filter(Stop.stop_id == self.stop_id) \
+                .filter(Stop.arrival_timestamp != None)
 
             query = self.query_factory(db, query, period=self.period)  # add the period
             query = query.filter(Trip.rt != self.route) # exclude the current route
@@ -350,17 +350,17 @@ class TripReport(GenericReport):
             # grab all stop arrivals in the last 90 minutes
             # ninety_mins_ago = datetime.datetime.now() - datetime.timedelta(minutes=90)
             # trip_dict['stoplist']= \
-            #     db.session.query(ScheduledStop) \
+            #     db.session.query(Stop) \
             #         .join(Trip) \
             #         .filter(Trip.trip_id == self.trip_id) \
-            #         .filter(ScheduledStop.arrival_timestamp < ninety_mins_ago  ) \
-            #         .order_by(ScheduledStop.pkey.asc()) \
+            #         .filter(Stop.arrival_timestamp < ninety_mins_ago  ) \
+            #         .order_by(Stop.pkey.asc()) \
             #         .all()
             trip_dict['stoplist']= \
-                db.session.query(ScheduledStop) \
+                db.session.query(Stop) \
                     .join(Trip) \
                     .filter(Trip.trip_id == self.trip_id) \
-                    .order_by(ScheduledStop.pkey.asc()) \
+                    .order_by(Stop.pkey.asc()) \
                     .all()
 
             trip_dict['pd'] = trip_metadata['pd']

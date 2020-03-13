@@ -1,5 +1,4 @@
 # bus buswatcher v3.0
-# todo rebuild the app a single-page app that updates based on your choices
 # mar 2020 - by anthony@starcitygroup.us
 
 
@@ -15,7 +14,7 @@ from lib.TransitSystem import load_system_map
 ######################################### my logic
 
 route=27
-df_arrivals_by_hour=dh.get_arrivals_by_hour(route)
+df_arrivals_by_hour=dh.get_arrivals_hourly_histogram(route)
 
 
 ######################################### page template (dash bootstrap)
@@ -58,7 +57,8 @@ Here you can see data on past performance and view maps of current service."""
                 ),
                 dbc.Col(
                     [
-                        html.H3("When Do Buses Come?"),
+                        html.H3("When Did Buses Arrive Today?"),
+                        # todo change this to a scatterplot showing exact time for each arrival(x) vs headway(y) using dh.get_arrivals_today_all
                         dcc.Graph(id='arrival-histogram',
                                   figure={
                                       'data': [
@@ -66,7 +66,7 @@ Here you can see data on past performance and view maps of current service."""
                                            'type': 'bar', 'name': 'Arrivals'}
                                       ],
                                       'layout': {
-                                          'title': 'Arrivals By Hour For A Route (all history)'
+                                          'title': 'Arrivals By Hour For A Route (today)'
                                       }
                                   }
                                   ),

@@ -3,7 +3,7 @@ import geojson
 import pandas as pd
 
 from . import NJTransitAPI
-from .DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
+from .DataBases import SQLAlchemyDBConnection, Trip, BusPosition, Stop
 from sqlalchemy import func, text
 
 def current_buspositions_from_db_for_index():

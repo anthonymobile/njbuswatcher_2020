@@ -10,7 +10,7 @@ from pymysql import IntegrityError
 from scipy.spatial import cKDTree
 from shapely.geometry import Point
 
-from .DataBases import SQLAlchemyDBConnection, Trip, BusPosition, ScheduledStop
+from .DataBases import SQLAlchemyDBConnection, Trip, BusPosition, Stop
 from . import NJTransitAPI
 from .CommonTools import timeit
 # from .TransitSystem import load_system_map
@@ -115,16 +115,16 @@ class RouteScan:
             for trip_id in self.trip_list:
 
                 # load the trip card for reference
-                scheduled_stops = db.session.query(Trip, ScheduledStop) \
-                    .join(ScheduledStop) \
+                scheduled_stops = db.session.query(Trip, Stop) \
+                    .join(Stop) \
                     .filter(Trip.trip_id == trip_id) \
                     .all()
 
                 # select all the BusPositions on ScheduledStops where there is no arrival flag yet
                 arrival_candidates = db.session.query(BusPosition) \
-                    .join(ScheduledStop) \
+                    .join(Stop) \
                     .filter(BusPosition.trip_id == trip_id) \
-                    .filter(ScheduledStop.arrival_timestamp == None) \
+                    .filter(Stop.arrival_timestamp == None) \
                     .order_by(BusPosition.timestamp.asc()) \
                     .all()
 
@@ -138,10 +138,10 @@ class RouteScan:
                     position_list = position_groups[x]
 
                     # GRAB THE STOP RECORD FROM DB FOR UPDATING ARRIVAL INFO
-                    stop_to_update = db.session.query(ScheduledStop, BusPosition) \
+                    stop_to_update = db.session.query(Stop, BusPosition) \
                         .join(BusPosition) \
-                        .filter(ScheduledStop.trip_id == position_list[0].trip_id) \
-                        .filter(ScheduledStop.stop_id == position_list[0].stop_id) \
+                        .filter(Stop.trip_id == position_list[0].trip_id) \
+                        .filter(Stop.stop_id == position_list[0].stop_id) \
                         .all()
 
                     ##############################################
@@ -274,10 +274,10 @@ class RouteScan:
         for trip_id in self.trip_list:
 
             with self.db as db:
-                trip_card = db.session.query(ScheduledStop) \
+                trip_card = db.session.query(Stop) \
                     .join(Trip) \
                     .filter(Trip.trip_id == trip_id) \
-                    .order_by(ScheduledStop.pkey.asc()) \
+                    .order_by(Stop.pkey.asc()) \
                     .all()
 
                 # count up the number of arrivals
@@ -348,14 +348,14 @@ class RouteScan:
                     average_time_between_stops = (end_time - start_time) / interval_length
                     print('\tinterval starts at {a} ends at {b} has {c} gaps averaging {d} seconds'.format(a=interval_sequence[0].stop_id, b= interval_sequence[-1].stop_id, c=interval_length, d=average_time_between_stops))
 
-                    # update the ScheduledStop objects
+                    # update the Stop objects
                     n = 1
                     for x in range(1,(len(interval_sequence)-1)):
                         adder = average_time_between_stops * n
                         interval_sequence[x].arrival_timestamp = start_time + adder
                         interval_sequence[x].interpolated_arrival_flag = True
                         n += 1
-                        print('\t\tarrival_timestamp added to ScheduledStop instance for stop {a}\t{b}\tincrement {c}'.format(a=interval_sequence[x].stop_id, b=interval_sequence[x].arrival_timestamp, c=adder))
+                        print('\t\tarrival_timestamp added to Stop instance for stop {a}\t{b}\tincrement {c}'.format(a=interval_sequence[x].stop_id, b=interval_sequence[x].arrival_timestamp, c=adder))
 
                 # when we are done with this trip, write to the db
                 db.session.commit()

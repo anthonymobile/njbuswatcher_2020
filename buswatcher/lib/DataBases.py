@@ -53,23 +53,27 @@ class Trip(Base):
         self.pid = pid
         self.date = datetime.datetime.today().strftime('%Y%m%d')
         self.trip_id=('{v}_{run}_{date}').format(v=v,run=run,date=self.date)
+        self.stop_list = self.get_stoplist()
 
-        # create a corresponding set of ScheduledStop records for each new Trip
+    def get_stoplist(self):
+        # create a corresponding set of Stop records for each new Trip
         # and populate the self.stoplist and self.coordinates_bundle
 
         with SQLAlchemyDBConnection() as db:
 
             self.db = db
-            self.stop_list = []
+            self.stop_list = dict()
             routes, self.coordinates_bundle = system_map.get_single_route_paths_and_coordinatebundle(self.rt)
 
             self.routename = routes[0].nm
+            trip_stop_sequence=0
             for path in routes[0].paths:
                 if path.id == self.pid:
                     for point in path.points:
                         if isinstance(point, NJTransitAPI.Route.Stop):
-                            this_stop = ScheduledStop(self.trip_id, self.v, self.run, self.date, point.identity,
-                                                      point.st, point.lat, point.lon)
+                            trip_stop_sequence =+ 1
+                            this_stop = Stop(self.trip_id, trip_stop_sequence, self.v, self.run, self.date, point.identity,
+                                             point.st, point.lat, point.lon)
                             self.stop_list.append((point.identity, point.st))
                             for stop in self.stop_list:
                                 self.db.session.add(this_stop)
@@ -77,8 +81,9 @@ class Trip(Base):
                     pass
             self.db.__relax__() # relax so we dont trigger the foreign key constraint
             self.db.session.commit()
+            return
 
-    __tablename__ = 'trip_log'
+    __tablename__ = 'trips'
     __table_args__ = {'extend_existing': True}
 
     trip_id = Column(String(127), primary_key=True, index=True, unique=True)
@@ -89,22 +94,23 @@ class Trip(Base):
     pd = Column(String(127))
     pid = Column(Integer())
     date = Column(Date())
-    coordinate_bundle = Column(Text())
+    stoplist = Column(JSON)
 
     # relationships
-    # children_ScheduledStop = relationship("ScheduledStop", back_populates='parent_Trip')
+    # children_ScheduledStop = relationship("Stop", back_populates='parent_Trip')
     # children_BusPosition = relationship("BusPosition", back_populates='parent_Trip')
 
     def __repr__(self):
         return '[Trip: \trt {} \ttrip_id {}]'.format(self.rt, self.trip_id)
 
-class ScheduledStop(Base):
+class Stop(Base):
     ################################################################
-    # CLASS ScheduledStop
+    # CLASS Stop
     ################################################################
 
-    def __init__(self, trip_id,v,run,date,stop_id,stop_name,lat,lon):
+    def __init__(self, trip_id,trip_stop_sequence, v,run,date,stop_id,stop_name,lat,lon):
         self.trip_id = trip_id
+        self.trip_stop_sequence = trip_stop_sequence
         self.v = v
         self.run = run
         self.date = date
@@ -113,7 +119,7 @@ class ScheduledStop(Base):
         self.lat = lat
         self.lon = lon
 
-    __tablename__ = 'scheduledstop_log'
+    __tablename__ = 'stops'
 
 
     pkey = Column(Integer(), primary_key=True)
@@ -132,14 +138,14 @@ class ScheduledStop(Base):
     __table_args__ = (Index('trip_id_stop_id',"trip_id","stop_id"),{'extend_existing': True})
 
     def __repr__(self):
-        return '[ScheduledStop: \ttrip_id {} \tstop_id {} \tarrival_timestamp {} \tinterpolated_arrival_flag {}]'.format(self.trip_id, self.stop_id, self.arrival_timestamp, self.interpolated_arrival_flag)
+        return '[Stop: \ttrip_id {} \tstop_id {} \tarrival_timestamp {} \tinterpolated_arrival_flag {}]'.format(self.trip_id, self.stop_id, self.arrival_timestamp, self.interpolated_arrival_flag)
 
 class BusPosition(Base):
     #####################################################
     # CLASS BusPosition
     #####################################################
 
-    __tablename__ ='position_log'
+    __tablename__ ='positions'
 
     pkey = Column(Integer(), primary_key=True)
     lat = Column(Float)
@@ -173,7 +179,7 @@ class BusPosition(Base):
     trip_id = Column(String(127), index=True)
     stop_id = Column(Integer(), index=True)
     __table_args__ = (ForeignKeyConstraint([trip_id, stop_id],
-                                           [ScheduledStop.trip_id, ScheduledStop.stop_id]),
+                                           [Stop.trip_id, Stop.stop_id]),
                                             {'extend_existing': True})
 
     def __repr__(self):

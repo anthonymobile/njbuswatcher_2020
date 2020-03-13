@@ -10,7 +10,7 @@ import time
 from . import NJTransitAPI, Generators
 from .wwwAPI import RouteReport
 from .CommonTools import get_config_path
-from .DataBases import SQLAlchemyDBConnection, ScheduledStop
+from .DataBases import SQLAlchemyDBConnection, Stop
 
 class SystemMap:
 
@@ -140,10 +140,10 @@ class SystemMap:
                 # query the db and grab the lat lon for the first record that stop_id matches this one
                 with self.db as db:
                     stop_query = db.session.query(
-                        ScheduledStop.stop_id,
-                        ScheduledStop.lat,
-                        ScheduledStop.lon) \
-                        .filter(ScheduledStop.stop_id == args['stop_id']) \
+                        Stop.stop_id,
+                        Stop.lat,
+                        Stop.lon) \
+                        .filter(Stop.stop_id == args['stop_id']) \
                         .first()
                     # format for geojson
                     stop_point = geojson.Point((float(stop_query[2]), float(stop_query[1])))
