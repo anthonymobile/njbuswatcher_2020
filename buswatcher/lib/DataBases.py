@@ -134,7 +134,7 @@ class Stop(Base):
     interpolated_arrival_flag = Column(Boolean())
 
     # foreign keys
-    trip_id = Column(String(127), ForeignKey('trip_log.trip_id'), index=True)
+    trip_id = Column(String(127), ForeignKey('trips.trip_id'), index=True)
     __table_args__ = (Index('trip_id_stop_id',"trip_id","stop_id"),{'extend_existing': True})
 
     def __repr__(self):
