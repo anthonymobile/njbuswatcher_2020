@@ -1,5 +1,6 @@
 import datetime, time
 import itertools
+import sys
 import collections
 
 import pandas as pd
@@ -40,7 +41,7 @@ class RouteScan:
 
         try:
             catches = NJTransitAPI.parse_xml_getBusesForRouteAll(NJTransitAPI.get_xml_data('nj', 'all_buses'))
-            route_count = len(list(set([v.rt for v in self.buses])))
+            route_count = len(list(set([v.rt for v in catches])))
 
             keeper_list = []
             for k,v in system_map.collection_descriptions.items():
@@ -75,7 +76,7 @@ class RouteScan:
                 except:
                     # print("couldn't find route in route_descriptions.json, please add it. route " + str(
                     #    bus.rt))
-                    print('.')
+                    sys.stdout.write('.')
 
                 db.__relax__()  # disable foreign key checks before...
                 try:
@@ -489,7 +490,8 @@ def get_nearest_stop(system_map, buses, route):
         stoplist = system_map.get_single_route_stoplist_for_localizer(route)
     except:
 
-        print("couldn't find route in route_descriptions.json, please add it. route " + str(route))
+        # todo why is this always throwing an exception for route 1?
+        # print("couldn't find route in route_descriptions.json, please add it. route " + str(route))
         return
 
     result = collections.defaultdict(list)
