@@ -1,4 +1,4 @@
-import datetime, time
+import datetime, time, os
 from sqlalchemy import create_engine, ForeignKeyConstraint, Index, Date, Column, Integer, DateTime, Float, String, Text, Boolean, ForeignKey, JSON
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
@@ -8,7 +8,6 @@ from . import NJTransitAPI, DBconfig
 
 Base = declarative_base()
 
-# todo how to create database 'buses' if it doesnt exist?
 
 class SQLAlchemyDBConnection(object):
 
@@ -41,6 +40,8 @@ class SQLAlchemyDBConnection(object):
         self.session.execute('SET FOREIGN_KEY_CHECKS = 1;')
         self.session.close()
 
+
+
 class Trip(Base):
     #####################################################
     # CLASS Trip
@@ -55,9 +56,9 @@ class Trip(Base):
         self.pid = pid
         self.date = datetime.datetime.today().strftime('%Y%m%d')
         self.trip_id=('{v}_{run}_{date}').format(v=v,run=run,date=self.date)
-        self.stop_list = self.get_stoplist()
+        self.stop_list = self.get_stoplist(system_map)
 
-    def get_stoplist(self):
+    def get_stoplist(self,system_map):
         # create a corresponding set of Stop records for each new Trip
         # and populate the self.stoplist and self.coordinates_bundle
 
@@ -86,7 +87,7 @@ class Trip(Base):
             return
 
     __tablename__ = 'trips'
-    __table_args__ = {'extend_existing': True}
+    # __table_args__ = {'extend_existing': True}
 
     trip_id = Column(String(127), primary_key=True, index=True, unique=True)
     source = Column(String(8))
@@ -100,7 +101,7 @@ class Trip(Base):
 
     #relationships
     stops=relationship("Stop")
-    buspositions=relationship("BusPositions")
+    positions=relationship("BusPosition")
 
 
     def __repr__(self):
@@ -138,7 +139,7 @@ class Stop(Base):
 
     # foreign keys
     trip_id = Column(String(127), ForeignKey('trips.trip_id'), index=True)
-    __table_args__ = (Index('trip_id_stop_id',"trip_id","stop_id"),{'extend_existing': True})
+    # __table_args__ = (Index('trip_id_stop_id',"trip_id","stop_id"),{'extend_existing': True})
 
 
     # relationships
@@ -185,9 +186,9 @@ class BusPosition(Base):
     # foreign keys
     trip_id = Column(String(127), ForeignKey('trips.trip_id'), index=True)
     stop_id = Column(Integer(), ForeignKey('stops.stop_id'), index=True)
-    __table_args__ = (ForeignKeyConstraint([trip_id, stop_id],
-                                           [Stop.trip_id, Stop.stop_id]),
-                                            {'extend_existing': True})
+    # __table_args__ = (ForeignKeyConstraint([trip_id, stop_id],
+    #                                        [Stop.trip_id, Stop.stop_id]),
+    #                                         {'extend_existing': True})
 
     # relationships
     trip = relationship("Trip")

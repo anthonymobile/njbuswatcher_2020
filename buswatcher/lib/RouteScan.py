@@ -72,18 +72,18 @@ class RouteScan:
                         trip_id = Trip('nj', system_map, bus.rt, bus.id, bus.run, bus.pd, bus.pid)
                         db.session.add(trip_id)
                     else:
-                        continue
+                        print('error creating Trip')
                 except:
                     # print("couldn't find route in route_descriptions.json, please add it. route " + str(
                     #    bus.rt))
                     sys.stdout.write('.')
 
-                db.__relax__()  # disable foreign key checks before...
-                try:
-                    db.session.commit()  # we save the position_log.
-                except IntegrityError:
-                    print('another integrity error writing these arrivals to the db')
-                    db.session.rollback()
+            db.__relax__()  # disable foreign key checks before...
+            try:
+                db.session.commit()  # we save the position_log.
+            except IntegrityError:
+                print('another integrity error writing these arrivals to the db')
+                db.session.rollback()
             # print ('parsed {a} trips'.format(a=len(self.trip_list)))
             return
 
@@ -278,7 +278,7 @@ class RouteScan:
     def interpolate_missed_stops(self):
 
 
-        print ('starting interpolations for {a} trips...'.format(a=len(self.trip_list)))
+        # print ('starting interpolations for {a} trips...'.format(a=len(self.trip_list)))
 
         # grab a trip
         for trip_id in self.trip_list:
@@ -370,7 +370,7 @@ class RouteScan:
                 # when we are done with this trip, write to the db
                 db.session.commit()
 
-        print ('****************** interpolation done ******************')
+        # print ('****************** interpolation done ******************')
 
 
     def get_current_trips(self):
