@@ -37,7 +37,7 @@ class RouteScan:
         self.assign_positions()
         self.interpolate_missed_stops()
 
-    def fetch_positions(self,system_map):
+    def fetch_positions(self,system_map): #todo debug why isnt it dropping all the routes not in collectiosn
 
         try:
             catches = NJTransitAPI.parse_xml_getBusesForRouteAll(NJTransitAPI.get_xml_data('nj', 'all_buses'))
@@ -48,7 +48,7 @@ class RouteScan:
                 keeper_list = keeper_list + v['routelist']
             self.buses = [x for x in catches if x.rt in keeper_list]
             print('\rfetched ' + str(len(self.buses)) + ' buses on ' + str(route_count) + ' routes...')
-            # self.clean_buses()
+
 
 
 
@@ -63,28 +63,26 @@ class RouteScan:
 
             # PARSE trips, create missing trip records first, to honor foreign key constraints
             for bus in self.buses:
+
                 bus.trip_id = ('{id}_{run}_{dt}').format(id=bus.id, run=bus.run, dt=datetime.datetime.today().strftime('%Y%m%d'))
                 self.trip_list.append(bus.trip_id)
-                result = db.session.query(Trip).filter(Trip.trip_id == bus.trip_id).first()
+
+                existing_trips = db.session.query(Trip).filter(Trip.trip_id == bus.trip_id).first()
 
                 try:
-                    if result is None:
-                        trip_id = Trip('nj', system_map, bus.rt, bus.id, bus.run, bus.pd, bus.pid)
-                        db.session.add(trip_id)
-                    else:
-                        print('error creating Trip')
+                    # if the trip_id is not db, create one and add to db session queue
+                    if existing_trips is None:
+                        new_trip = Trip('nj', system_map, bus.rt, bus.id, bus.run, bus.pd, bus.pid)
+                        db.session.add(new_trip)
                 except:
-                    # print("couldn't find route in route_descriptions.json, please add it. route " + str(
-                    #    bus.rt))
-                    sys.stdout.write('.')
+                    print('error writing {} to db'.format(bus.rt))
 
             db.__relax__()  # disable foreign key checks before...
             try:
                 db.session.commit()  # we save the position_log.
             except IntegrityError:
-                print('another integrity error writing these arrivals to the db')
+                print('integrity error writing these arrivals to the db')
                 db.session.rollback()
-            # print ('parsed {a} trips'.format(a=len(self.trip_list)))
             return
 
     def localize_positions(self, system_map):

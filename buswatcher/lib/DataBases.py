@@ -56,33 +56,31 @@ class Trip(Base):
         self.pid = pid
         self.date = datetime.datetime.today().strftime('%Y%m%d')
         self.trip_id=('{v}_{run}_{date}').format(v=v,run=run,date=self.date)
-        self.stop_list = self.get_stoplist(system_map)
 
-    def get_stoplist(self,system_map):
+        # todo replace everywhere that calls self.stop_list with trip.stops
         # create a corresponding set of Stop records for each new Trip
-        # and populate the self.stoplist and self.coordinates_bundle
-
+        # and populate self.coordinates_bundle
         with SQLAlchemyDBConnection() as db:
 
             self.db = db
-            self.stop_list = dict()
+            stop_list = []
             routes, self.coordinates_bundle = system_map.get_single_route_paths_and_coordinatebundle(self.rt)
 
             self.routename = routes[0].nm
-            trip_stop_sequence=0
+            sequence_id=0
             for path in routes[0].paths:
                 if path.id == self.pid:
                     for point in path.points:
                         if isinstance(point, NJTransitAPI.Route.Stop):
-                            trip_stop_sequence =+ 1
-                            this_stop = Stop(self.trip_id, trip_stop_sequence, self.v, self.run, self.date, point.identity,
+                            sequence_id =+ 1
+                            this_stop = Stop(self.trip_id, sequence_id, self.v, self.run, self.date, point.identity,
                                              point.st, point.lat, point.lon)
-                            self.stop_list.append((point.identity, point.st))
-                            for stop in self.stop_list:
+                            stop_list.append((point.identity, point.st))
+                            for stop in stop_list:
                                 self.db.session.add(this_stop)
                 else:
                     pass
-            self.db.__relax__() # relax so we dont trigger the foreign key constraint
+            # self.db.__relax__() # relax so we dont trigger the foreign key constraint
             self.db.session.commit()
             return
 
@@ -112,9 +110,9 @@ class Stop(Base):
     # CLASS Stop
     ################################################################
 
-    def __init__(self, trip_id,trip_stop_sequence, v,run,date,stop_id,stop_name,lat,lon):
+    def __init__(self, trip_id,sequence_id, v,run,date,stop_id,stop_name,lat,lon):
         self.trip_id = trip_id
-        self.trip_stop_sequence = trip_stop_sequence
+        self.sequence_id = sequence_id
         self.v = v
         self.run = run
         self.date = date
@@ -127,6 +125,7 @@ class Stop(Base):
 
 
     pkey = Column(Integer(), primary_key=True)
+    sequence_id = Column(Integer())
     run = Column(String(8))
     v = Column(Integer())
     date = Column(Date())
