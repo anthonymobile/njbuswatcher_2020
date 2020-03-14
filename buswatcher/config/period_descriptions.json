@@ -1,42 +1,73 @@
 {
-    "day": {
-        "name": "day",
-        "label": "today",
-        "possessive_label": "today's",
-        "adverb_label": "daily",
-        "descriptive_label": "last 24 hours",
-        "narrative_label": "Today",
-        "sql":"INTERVAL -1 DAY",
-        "strftime_format":"%a %I:%M %p"
+"summary_periods":
+    {
+        "today": {
+            "label_last": "24 days",
+            "possessive_label": "today's",
+            "adverb_label": "daily",
+            "strftime_format": "%a %I:%M %p",
+            "sql": "DATE(NOW())"
+        },
+        "last7": {
+            "label_last": "week",
+            "possessive_label": "this week's",
+            "adverb_label": "weekly",
+            "strftime_format": "%a %I:%M %p",
+            "sql": "INTERVAL -1 WEEK"
+        },
+        "last30": {
+            "label_last": "month",
+            "possessive_label": "this month's",
+            "adverb_label": "monthly",
+            "strftime_format": "%a %I:%M %p",
+            "sql": "INTERVAL -7 DAY"
+        },
+        "lastyear": {
+            "label_last": "year",
+            "possessive_label": "this year's",
+            "adverb_label": "yearly",
+            "strftime_format": "%Y-%m-%d %I:%M %p",
+            "sql_interval": "INTERVAL -30 DAY"
+        }
     },
-    "week": {
-        "name": "week",
-        "label": "this week",
-        "possessive_label": "this week's",
-        "adverb_label": "weekly",
-        "descriptive_label": "last 7 days",
-        "narrative_label": "This week",
-        "sql":"INTERVAL -1 WEEK",
-        "strftime_format":"%a %I:%M %p"
-    },
-    "month": {
-        "name": "month",
-        "label": "this month",
-        "possessive_label": "this month's",
-        "adverb_label": "monthly",
-        "descriptive_label": "last month",
-        "narrative_label": "This month",
-        "sql":"INTERVAL -1 MONTH",
-        "strftime_format":"%a %I:%M %p"
-    },
-    "year": {
-        "name": "year",
-        "label": "this year",
-        "possessive_label": "this year's",
-        "adverb_label": "yearly",
-        "descriptive_label": "last year",
-        "narrative_label": "This year",
-        "sql":"INTERVAL -1 YEAR",
-        "strftime_format":"%Y-%m-%d %I:%M %p"
+
+"crosstab_periods":
+    {
+        "morning_rush": {
+            "label": "morning rush",
+            "days": "MTWRFxxx",
+            "start": "0700",
+            "end": "1000"
+        },
+        "mid_day": {
+            "label": "mid-day",
+            "days": "MTWRFxxx",
+            "start": "1000",
+            "end": "1600"
+        },
+        "evening_rush": {
+            "label": "evening rush",
+            "days": "MTWRFxxx",
+            "start": "1600",
+            "end": "1900"
+        },
+        "night": {
+            "label": "night",
+            "days": "MTWRFxxx",
+            "start": "1900",
+            "end": "2400"
+        },
+        "owl": {
+            "label": "overnight",
+            "days": "xTWRFSxx",
+            "start": "0000",
+            "end": "0300"
+        },
+        "weekend": {
+            "label": "weekend",
+            "days": "xxxxxSSH",
+            "start": "0000",
+            "end": "2400"
+        }
     }
 }
