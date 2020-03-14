@@ -80,7 +80,7 @@ class Trip(Base):
                                 self.db.session.add(this_stop)
                 else:
                     pass
-            # self.db.__relax__() # relax so we dont trigger the foreign key constraint
+            self.db.__relax__() # relax so we dont trigger the foreign key constraint
             self.db.session.commit()
             return
 

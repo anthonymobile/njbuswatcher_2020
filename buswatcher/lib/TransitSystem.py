@@ -7,8 +7,9 @@ import os
 import sys
 import time
 
-# from . import NJTransitAPI, Generators
-# from .wwwAPI import RouteReport
+from . import NJTransitAPI
+# from . import Generators
+from .wwwAPI import RouteReport
 from .CommonTools import get_config_path
 from .DataBases import SQLAlchemyDBConnection, Stop
 
@@ -33,7 +34,7 @@ class SystemMap:
         # load the route geometries
         self.route_geometries = self.get_route_geometries()
         self.routelist = self.get_routelist()
-        self.grade_roster = self.get_grade_roster()
+        # self.grade_roster = self.get_grade_roster()
 
         # create database connection
         self.db = SQLAlchemyDBConnection()
@@ -189,16 +190,16 @@ class SystemMap:
             abort(404)
             pass
 
-    def get_grade_roster(self):
-        grade_roster=dict()
-        for rt in self.routelist:
-            report_fetcher = Generators.Generator()
-            try:
-                grade_report = report_fetcher.retrieve_json(rt, 'grade', 'day')
-            except:
-                grade_report = {'grade':'N/A'}
-            grade_roster[rt]=grade_report['grade']
-        return grade_roster
+    # def get_grade_roster(self):
+    #     grade_roster=dict()
+    #     for rt in self.routelist:
+    #         report_fetcher = Generators.Generator()
+    #         try:
+    #             grade_report = report_fetcher.retrieve_json(rt, 'grade', 'day')
+    #         except:
+    #             grade_report = {'grade':'N/A'}
+    #         grade_roster[rt]=grade_report['grade']
+    #     return grade_roster
 
 
 
@@ -252,5 +253,11 @@ def load_system_map(**kwargs):
         system_map = SystemMap()
         with open(pickle_filename, "wb") as f:
             pickle.dump(system_map, f)
+
+    # report what routes we're tracking
+    sys.stdout.write('tripwatcher is watching routes ') # todo why doesnt this run if we loaded existing system_map pickle?
+    for k,v in system_map.collection_descriptions.items():
+        for r in v['routelist']:
+            sys.stdout.write ('{} '.format(r))
 
     return system_map

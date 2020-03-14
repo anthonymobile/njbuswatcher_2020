@@ -43,11 +43,11 @@ class RouteScan:
             catches = NJTransitAPI.parse_xml_getBusesForRouteAll(NJTransitAPI.get_xml_data('nj', 'all_buses'))
             route_count = len(list(set([v.rt for v in catches])))
 
-            keeper_list = []
+            routes_to_keep = []
             for k,v in system_map.collection_descriptions.items():
-                keeper_list = keeper_list + v['routelist']
-            self.buses = [x for x in catches if x.rt in keeper_list]
-            print('\rfetched ' + str(len(self.buses)) + ' buses on ' + str(route_count) + ' routes...')
+                routes_to_keep = routes_to_keep + v['routelist']
+            self.buses = [x for x in catches if x.rt in routes_to_keep]
+            print('\rfetched ' + str(len(self.buses)) + ' buses on ' + str(len(routes_to_keep)) + ' routes...')
 
 
 
