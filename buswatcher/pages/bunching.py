@@ -25,7 +25,7 @@ def create_layout(app):
                             html.Div(
                                 [
                                     html.H6(
-                                        ["Distributions"], className="subtitle padded"
+                                        ["Bunching"], className="subtitle padded"
                                     ),
                                     html.P(
                                         [

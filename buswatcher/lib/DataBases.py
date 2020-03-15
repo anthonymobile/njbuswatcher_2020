@@ -181,6 +181,10 @@ class BusPosition(Base):
 
     distance_to_stop = Column(Float())
     arrival_flag = Column(Boolean())
+    distance_to_next_bus = Column(Float())
+    distance_to_previous_bus = Column(Float())
+    bunched_flag = Column(Boolean())
+    # gapped_flag = Column(Boolean())
 
     # foreign keys
     trip_id = Column(String(127), ForeignKey('trips.trip_id'), index=True)

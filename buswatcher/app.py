@@ -8,7 +8,7 @@ from pages import (
     pricePerformance,
     portfolioManagement,
     feesMins,
-    distributions,
+    bunching,
     newsReviews,
 )
 
@@ -31,8 +31,8 @@ def display_page(pathname):
         return portfolioManagement.create_layout(app)
     elif pathname == "/dash-financial-report/fees":
         return feesMins.create_layout(app)
-    elif pathname == "/dash-financial-report/distributions":
-        return distributions.create_layout(app)
+    elif pathname == "/dash-financial-report/bunching":
+        return bunching.create_layout(app)
     elif pathname == "/dash-financial-report/news-and-reviews":
         return newsReviews.create_layout(app)
     elif pathname == "/dash-financial-report/full-view":
@@ -41,7 +41,7 @@ def display_page(pathname):
             pricePerformance.create_layout(app),
             portfolioManagement.create_layout(app),
             feesMins.create_layout(app),
-            distributions.create_layout(app),
+            bunching.create_layout(app),
             newsReviews.create_layout(app),
         )
     else:

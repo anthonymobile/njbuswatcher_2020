@@ -9,23 +9,11 @@ def Header(app):
 def get_header(app):
     header = html.Div(
         [
-            html.Div(
-                [
-                    html.Img(
-                        src=app.get_asset_url("dash-financial-logo.png"),
-                        className="logo",
-                    ),
-                    html.A(
-                        html.Button("Learn More", id="learn-more-button"),
-                        href="https://plot.ly/dash/pricing/",
-                    ),
-                ],
-                className="row",
-            ),
+
             html.Div(
                 [
                     html.Div(
-                        [html.H5("Calibre Financial Index Fund Investor Shares")],
+                        [html.H5("NJ Bus Watcher")],
                         className="seven columns main-title",
                     ),
                     html.Div(
@@ -57,21 +45,21 @@ def get_menu():
                 className="tab first",
             ),
             dcc.Link(
-                "Price Performance",
+                "Speed",
                 href="/dash-financial-report/price-performance",
                 className="tab",
             ),
             dcc.Link(
-                "Portfolio & Management",
+                "Frequency",
                 href="/dash-financial-report/portfolio-management",
                 className="tab",
             ),
             dcc.Link(
-                "Fees & Minimums", href="/dash-financial-report/fees", className="tab"
+                "Reliability", href="/dash-financial-report/fees", className="tab"
             ),
             dcc.Link(
-                "Distributions",
-                href="/dash-financial-report/distributions",
+                "Bunching",
+                href="/dash-financial-report/bunching",
                 className="tab",
             ),
             dcc.Link(

@@ -49,9 +49,6 @@ class RouteScan:
             self.buses = [x for x in catches if x.rt in routes_to_keep]
             print('\rfetched ' + str(len(self.buses)) + ' buses on ' + str(len(routes_to_keep)) + ' routes...')
 
-
-
-
         except:
             pass
 
@@ -91,6 +88,7 @@ class RouteScan:
 
             try:
 
+                # todo is this really "statewide"? refactor name for more informative
                 statewide_route_list = sorted(
                     list(set([bus.rt for bus in self.buses])))  # find all the routes unique
                 for r in statewide_route_list:  # loop over each route
@@ -99,6 +97,8 @@ class RouteScan:
                         buses_for_this_route = [b for b in self.buses if b.rt == r]
                         bus_positions = get_nearest_stop(system_map, buses_for_this_route, r)
 
+                        # todo this is the place to call a get_bunched_status function for each bus, which will then be copied to a stop record if/when it is generated
+
                         for group in bus_positions:
                             for bus in group:
                                 db.session.add(bus)
@@ -106,8 +106,6 @@ class RouteScan:
                         db.session.commit()
                     except:
                         pass
-
-
 
             except (IntegrityError) as e:
                 error_count = + 1
@@ -369,6 +367,17 @@ class RouteScan:
                 db.session.commit()
 
         # print ('****************** interpolation done ******************')
+
+
+    def get_bunched_status(self): # todo need other params?
+
+        # todo create, or ingest as param, list of buses by order along the route
+        # todo iterate over the list and computer distance between buses along the route
+        # print ('bus 6504 is approaching stop 30189 and is 125 meters behind bus 3403 BUNCHED')
+        # print ('bus 6504 is approaching stop 30189 and is 275 meters behind bus 3403 clear')
+        # todo if any are less than threshold (set at top), then return bunched and set that to the bus_position
+
+        return
 
 
     def get_current_trips(self):

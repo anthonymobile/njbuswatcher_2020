@@ -29,19 +29,15 @@ def create_layout(app):
                         [
                             html.Div(
                                 [
-                                    html.H5("Product Summary"),
+                                    html.H5("How Are New Jersey's Buses Doing?"),
                                     html.Br([]),
                                     html.P(
                                         "\
-                                    As the industry’s first index fund for individual investors, \
-                                    the Calibre Index Fund is a low-cost way to gain diversified exposure \
-                                    to the U.S. equity market. The fund offers exposure to 500 of the \
-                                    largest U.S. companies, which span many different industries and \
-                                    account for about three-fourths of the U.S. stock market’s value. \
-                                    The key risk for the fund is the volatility that comes with its full \
-                                    exposure to the stock market. Because the Calibre Index Fund is broadly \
-                                    diversified within the large-capitalization market, it may be \
-                                    considered a core equity holding in a portfolio.",
+                                        Residents and businesses depend on NJTransit buses every day. But its hard to\
+                                        evaluate the quality of bus service.\
+                                        That's why we built this site to provide a one-stop shop for bus performance\
+                                        information. Here you can see data on past performance and view maps of current\
+                                        service.",
                                         style={"color": "#ffffff"},
                                         className="row",
                                     ),
@@ -95,7 +91,7 @@ def create_layout(app):
                                                             "width": 2,
                                                         },
                                                     },
-                                                    name="Calibre Index Fund",
+                                                    name="NJ Bus Watcher",
                                                 ),
                                                 go.Bar(
                                                     x=[
