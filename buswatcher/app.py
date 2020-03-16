@@ -5,9 +5,9 @@ import dash_html_components as html
 from dash.dependencies import Input, Output
 from pages import (
     overview,
-    pricePerformance,
-    portfolioManagement,
-    feesMins,
+    speed,
+    frequency,
+    reliability,
     bunching,
     newsReviews,
 )
@@ -25,12 +25,12 @@ app.layout = html.Div(
 # Update page
 @app.callback(Output("page-content", "children"), [Input("url", "pathname")])
 def display_page(pathname):
-    if pathname == "/dash-financial-report/price-performance":
-        return pricePerformance.create_layout(app)
-    elif pathname == "/dash-financial-report/portfolio-management":
-        return portfolioManagement.create_layout(app)
-    elif pathname == "/dash-financial-report/fees":
-        return feesMins.create_layout(app)
+    if pathname == "/dash-financial-report/speed":
+        return speed.create_layout(app)
+    elif pathname == "/dash-financial-report/frequency":
+        return frequency.create_layout(app)
+    elif pathname == "/dash-financial-report/reliability":
+        return reliability.create_layout(app)
     elif pathname == "/dash-financial-report/bunching":
         return bunching.create_layout(app)
     elif pathname == "/dash-financial-report/news-and-reviews":
@@ -38,9 +38,9 @@ def display_page(pathname):
     elif pathname == "/dash-financial-report/full-view":
         return (
             overview.create_layout(app),
-            pricePerformance.create_layout(app),
-            portfolioManagement.create_layout(app),
-            feesMins.create_layout(app),
+            speed.create_layout(app),
+            frequency.create_layout(app),
+            reliability.create_layout(app),
             bunching.create_layout(app),
             newsReviews.create_layout(app),
         )

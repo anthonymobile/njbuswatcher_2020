@@ -46,16 +46,18 @@ def get_menu():
             ),
             dcc.Link(
                 "Speed",
-                href="/dash-financial-report/price-performance",
+                href="/dash-financial-report/speed",
                 className="tab",
             ),
             dcc.Link(
                 "Frequency",
-                href="/dash-financial-report/portfolio-management",
+                href="/dash-financial-report/frequency",
                 className="tab",
             ),
             dcc.Link(
-                "Reliability", href="/dash-financial-report/fees", className="tab"
+                "Reliability",
+                href="/dash-financial-report/reliability",
+                className="tab"
             ),
             dcc.Link(
                 "Bunching",
