@@ -11,6 +11,12 @@ from . import NJTransitAPI
 from .DataBases import SQLAlchemyDBConnection, Trip, BusPosition, Stop
 
 
+
+def get_route_summary(route):
+
+    return pd.read_csv('data/df_route_summary.csv') # todo generate this here, or read this file made by Generator
+
+
 class GenericReport: # all Report classes inherit query_factory
 
     def query_factory(self, db, query, **kwargs):

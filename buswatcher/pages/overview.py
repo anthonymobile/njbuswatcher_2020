@@ -1,6 +1,7 @@
 import dash_core_components as dcc
 import dash_html_components as html
 import plotly.graph_objs as go
+import lib.wwwAPI as api
 
 from utils import Header, make_dash_table
 
@@ -12,15 +13,23 @@ PATH = pathlib.Path(__file__).parent
 DATA_PATH = PATH.joinpath("../data").resolve()
 
 
-df_fund_facts = pd.read_csv(DATA_PATH.joinpath("df_fund_facts.csv"))
+# todo plug in live data source by making a call to wwwAPI here
+# e.g. df_route_summary = wwwAPI.get_route_summary(route) where route is a callback from a dropdown
+routes=[85,87,119]
+route = 87
+# df_route_summary = pd.read_csv(DATA_PATH.joinpath("df_route_summary.csv"))
+df_route_summary = api.get_route_summary(route)
 df_price_perf = pd.read_csv(DATA_PATH.joinpath("df_price_perf.csv"))
 
 
-def create_layout(app):
+
+
+
+def create_layout(app,routes):
     # Page layouts
     return html.Div(
         [
-            html.Div([Header(app)]),
+            html.Div([Header(app,routes)]),
             # page 1
             html.Div(
                 [
@@ -29,7 +38,7 @@ def create_layout(app):
                         [
                             html.Div(
                                 [
-                                    html.H5("How Are New Jersey's Buses Doing?"),
+                                    html.H5("How Is the 87 to Journal Square Doing?"),
                                     html.Br([]),
                                     html.P(
                                         "\
@@ -41,28 +50,35 @@ def create_layout(app):
                                         style={"color": "#ffffff"},
                                         className="row",
                                     ),
+
+
+
+
+
                                 ],
                                 className="product",
-                            )
+                            ),
+
                         ],
                         className="row",
                     ),
+
                     # Row 4
                     html.Div(
                         [
                             html.Div(
                                 [
                                     html.H6(
-                                        ["Fund Facts"], className="subtitle padded"
+                                        ["Key Indicators"], className="subtitle padded"
                                     ),
-                                    html.Table(make_dash_table(df_fund_facts)),
+                                    html.Table(make_dash_table(df_route_summary)),
                                 ],
                                 className="six columns",
                             ),
                             html.Div(
                                 [
                                     html.H6(
-                                        "Average annual performance",
+                                        "Trouble Spots",
                                         className="subtitle padded",
                                     ),
                                     dcc.Graph(
@@ -85,7 +101,7 @@ def create_layout(app):
                                                         "11.11",
                                                     ],
                                                     marker={
-                                                        "color": "#97151c",
+                                                        "color": "#e5bbed",
                                                         "line": {
                                                             "color": "rgb(255, 255, 255)",
                                                             "width": 2,
@@ -171,7 +187,7 @@ def create_layout(app):
                             html.Div(
                                 [
                                     html.H6(
-                                        "Hypothetical growth of $10,000",
+                                        "Frequency",
                                         className="subtitle padded",
                                     ),
                                     dcc.Graph(
@@ -205,7 +221,7 @@ def create_layout(app):
                                                         "20500",
                                                         "24000",
                                                     ],
-                                                    line={"color": "#97151c"},
+                                                    line={"color": "#e5bbed"},
                                                     mode="lines",
                                                     name="Calibre Index Fund Inv",
                                                 )
@@ -264,7 +280,7 @@ def create_layout(app):
                             html.Div(
                                 [
                                     html.H6(
-                                        "Price & Performance (%)",
+                                        "Reliability",
                                         className="subtitle padded",
                                     ),
                                     html.Table(make_dash_table(df_price_perf)),
@@ -274,7 +290,7 @@ def create_layout(app):
                             html.Div(
                                 [
                                     html.H6(
-                                        "Risk Potential", className="subtitle padded"
+                                        "Overall Grade", className="subtitle padded"
                                     ),
                                     html.Img(
                                         src=app.get_asset_url("risk_reward.png"),

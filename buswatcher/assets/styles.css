@@ -106,7 +106,7 @@ table.reversed tr:nth-child(even) {
 }
 
 table {
-  font-size: 1rem;
+  font-size: 1.2rem;
   border-spacing: 0;
   border-collapse: collapse;
 }
@@ -174,7 +174,7 @@ li {
 }
 .all-tabs {
   text-align: center;
-  font-size: 13px;
+  font-size: 18px;
   margin-top: 10px;
 }
 .main-title {

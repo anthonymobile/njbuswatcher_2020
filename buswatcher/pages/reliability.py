@@ -25,24 +25,27 @@ def create_layout(app):
                     html.Div(
                         [
                             html.Div(
-                                [html.H6(["Expenses"], className="subtitle padded")],
+                                [
+                                    html.H5(
+                                        ["Reliability"],
+                                    ),
+                                    html.P(
+                                        [
+                                            "A pseudo-Latin text used in web design, typography, layout, and printing in place of English to emphasize design elements over content. It's also called placeholder (or filler) text. It's a convenient tool for mock-ups. It helps to outline the visual elements of a document or presentation, eg typography, font, or layout. A mostly a part of a Latin text by the classical author and philosopher Cicero."
+                                        ],
+                                        style={"color": "#7a7a7a"},
+                                    ),
+                                ],
                                 className="twelve columns",
-                            )
+                            ),
+
                         ],
                         className="row ",
                     ),
                     # Row 2
                     html.Div(
                         [
-                            html.Div(
-                                [
-                                    html.Strong(),
-                                    html.Table(make_dash_table(df_expenses)),
-                                    html.H6(["Minimums"], className="subtitle padded"),
-                                    html.Table(make_dash_table(df_minimums)),
-                                ],
-                                className="six columns",
-                            ),
+
                             html.Div(
                                 [
                                     html.Br([]),
@@ -57,7 +60,7 @@ def create_layout(app):
                                                 go.Bar(
                                                     x=["Category Average", "This fund"],
                                                     y=["2242", "329"],
-                                                    marker={"color": "#97151c"},
+                                                    marker={"color": "#e5bbed"},
                                                     name="A",
                                                 ),
                                                 go.Bar(

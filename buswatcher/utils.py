@@ -2,8 +2,9 @@ import dash_html_components as html
 import dash_core_components as dcc
 
 
-def Header(app):
-    return html.Div([get_header(app), html.Br([]), get_menu()])
+
+def Header(app,routes):
+    return html.Div([get_header(app), html.Br([]), get_dropdown(routes),html.Br([]), get_menu()])
 
 
 def get_header(app):
@@ -16,6 +17,7 @@ def get_header(app):
                         [html.H5("NJ Bus Watcher")],
                         className="seven columns main-title",
                     ),
+
                     html.Div(
                         [
                             dcc.Link(
@@ -69,10 +71,30 @@ def get_menu():
                 href="/news-and-reviews",
                 className="tab",
             ),
+
+            html.H5(id="active_route"),
+
         ],
         className="row all-tabs",
     )
     return menu
+
+
+def get_dropdown(routes):
+    # todo then build it and the callback https://dash.plot.ly/dash-core-components/dropdown
+    dropdown = html.Div(
+        [
+            dcc.Dropdown(
+                id='route_chooser',
+                options=[{'label': r, 'value': r} for r in routes],
+                value='87 Journal Square',
+            )
+        ],
+        className="row",)
+
+        # style={'width': '48%', 'display': 'inline-block'})
+
+    return dropdown
 
 
 def make_dash_table(df):

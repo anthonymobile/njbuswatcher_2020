@@ -134,6 +134,7 @@ class Stop(Base):
     lat = Column(Float())
     lon = Column(Float())
     arrival_timestamp = Column(DateTime(), index=True)
+    bunched_arrival_flag = Column(Boolean())
     interpolated_arrival_flag = Column(Boolean())
 
     # foreign keys

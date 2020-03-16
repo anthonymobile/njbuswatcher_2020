@@ -18,13 +18,33 @@ df_recent_returns = pd.read_csv(DATA_PATH.joinpath("df_recent_returns.csv"))
 df_graph = pd.read_csv(DATA_PATH.joinpath("df_graph.csv"))
 
 
-def create_layout(app):
+def create_layout(app,routes):
     return html.Div(
         [
-            Header(app),
+            Header(app,routes),
             # page 2
             html.Div(
                 [
+                    # Row 1
+                    html.Div(
+                        [
+                            html.Div(
+                                [
+                                    html.H5(
+                                        ["Speed"],
+                                    ),
+                                    html.P(
+                                        [
+                                            "A pseudo-Latin text used in web design, typography, layout, and printing in place of English to emphasize design elements over content. It's also called placeholder (or filler) text. It's a convenient tool for mock-ups. It helps to outline the visual elements of a document or presentation, eg typography, font, or layout. A mostly a part of a Latin text by the classical author and philosopher Cicero."
+                                        ],
+                                        style={"color": "#7a7a7a"},
+                                    ),
+                                ],
+                                className="twelve columns",
+                            )
+                        ],
+                        className="row ",
+                    ),
                     # Row
                     html.Div(
                         [
@@ -63,7 +83,7 @@ def create_layout(app):
                                                 go.Scatter(
                                                     x=df_graph["Date"],
                                                     y=df_graph["Calibre Index Fund"],
-                                                    line={"color": "#97151c"},
+                                                    line={"color": "#e5bbed"},
                                                     mode="lines",
                                                     name="Calibre Index Fund",
                                                 ),

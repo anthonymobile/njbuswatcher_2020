@@ -37,12 +37,13 @@ class RouteScan:
         self.fetch_positions(system_map)
         self.parse_trips(system_map)
         self.localize_positions(system_map)
+        self.flag_bunched()
         self.assign_to_stops()
         self.interpolate_missed_stops()
-        # self.flag_bunched()
+
 
     @timeit
-    def fetch_positions(self,system_map): #todo debug why isnt it dropping all the routes not in collectiosn
+    def fetch_positions(self,system_map):
 
         try:
             catches = NJTransitAPI.parse_xml_getBusesForRouteAll(NJTransitAPI.get_xml_data('nj', 'all_buses'))
@@ -114,6 +115,17 @@ class RouteScan:
                 print(e + 'mysql integrity error #' + error_count)
 
         return
+
+    @timeit
+    def flag_bunched(self): #todo build bunching algorithm
+
+        # 1 compute the distance between every pair of buses (A,B,C) = AB,AC, BC
+
+        # 2 if a bus is too close set bus.bunched_arrival_flag = True
+            # caveat this will set BOTH buses in a bunched pair to bunched. is there a way to pick which one is behidn the other?
+
+        return
+
 
     @timeit
     def assign_to_stops(self):
@@ -371,49 +383,6 @@ class RouteScan:
 
         # print ('****************** interpolation done ******************')
 
-    @timeit
-    def flag_bunched(self):
-
-        # iterate over watched routes
-        for r in self.watched_route_list:
-
-            # all buses on this route
-            buses_for_this_route = [b for b in self.buses if b.rt == r]
-
-            with self.db as db:
-
-                bus_sequence=[]
-
-                # for each bus
-                for bus in buses_for_this_route:
-
-                    # get the last position record (the one we just wrote)
-                    position = db.session.query(BusPosition) \
-                                .order_by(desc(BusPosition.timestamp)\
-                                .one())
-
-                    # get the trip card for this bus
-                    scheduled_stops = db.session.query(Trip) \
-                        .filter(Trip.trip_id == bus.trip_id) \
-                        .all()
-
-                    # put it in the bus_sequence?
-
-                    # sort?
-
-                    # commit everything?
-
-                    # get the trip card for one of them as a reference
-                    # build a list that reflects the order of buses on the route
-                    # compute the distance between each pair
-                    # flag the later bus as bunched if it is too close (<250m, 750ft)
-
-                    # distance = dist(a,b)
-
-                    # print ('bus 6504 is approaching stop 30189 and is 125 meters behind bus 3403 BUNCHED')
-                    # print ('bus 6504 is approaching stop 30189 and is 275 meters behind bus 3403 clear')
-
-        return
 
     @timeit
     def get_current_trips(self):

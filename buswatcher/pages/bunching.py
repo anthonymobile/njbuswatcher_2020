@@ -24,15 +24,20 @@ def create_layout(app):
                         [
                             html.Div(
                                 [
-                                    html.H6(
-                                        ["Bunching"], className="subtitle padded"
-                                    ),
-                                    html.P(
+                                    html.Div(
                                         [
-                                            "Distributions for this fund are scheduled quaterly"
+                                            html.H5(
+                                                ["Bunching"],
+                                            ),
+                                            html.P(
+                                                [
+                                                    "A pseudo-Latin text used in web design, typography, layout, and printing in place of English to emphasize design elements over content. It's also called placeholder (or filler) text. It's a convenient tool for mock-ups. It helps to outline the visual elements of a document or presentation, eg typography, font, or layout. A mostly a part of a Latin text by the classical author and philosopher Cicero."
+                                                ],
+                                                style={"color": "#7a7a7a"},
+                                            ),
                                         ],
-                                        style={"color": "#7a7a7a"},
-                                    ),
+                                        className="twelve columns",
+                                    )
                                 ],
                                 className="twelve columns",
                             )
