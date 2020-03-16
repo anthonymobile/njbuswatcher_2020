@@ -1,11 +1,14 @@
 import datetime, time
 import itertools
+import math
 import sys
 import collections
 
 import pandas as pd
 import numpy as np
 import geopandas
+
+from sqlalchemy import desc
 
 from pymysql import IntegrityError
 from scipy.spatial import cKDTree
@@ -32,11 +35,13 @@ class RouteScan:
         # generate scan data and results
 
         self.fetch_positions(system_map)
-        self.parse_positions(system_map)
+        self.parse_trips(system_map)
         self.localize_positions(system_map)
-        self.assign_positions()
+        self.assign_to_stops()
         self.interpolate_missed_stops()
+        # self.flag_bunched()
 
+    @timeit
     def fetch_positions(self,system_map): #todo debug why isnt it dropping all the routes not in collectiosn
 
         try:
@@ -54,7 +59,8 @@ class RouteScan:
 
         return
 
-    def parse_positions(self, system_map):
+    @timeit
+    def parse_trips(self, system_map):
 
         with self.db as db:
 
@@ -82,23 +88,19 @@ class RouteScan:
                 db.session.rollback()
             return
 
+    @timeit
     def localize_positions(self, system_map):
 
         with self.db as db:
 
             try:
 
-                # todo is this really "statewide"? refactor name for more informative
-                statewide_route_list = sorted(
-                    list(set([bus.rt for bus in self.buses])))  # find all the routes unique
-                for r in statewide_route_list:  # loop over each route
+                self.watched_route_list = sorted(list(set([bus.rt for bus in self.buses])))  # find all the routes unique
+                for r in self.watched_route_list:  # loop over each route
 
                     try:
                         buses_for_this_route = [b for b in self.buses if b.rt == r]
                         bus_positions = get_nearest_stop(system_map, buses_for_this_route, r)
-
-                        # todo this is the place to call a get_bunched_status function for each bus, which will then be copied to a stop record if/when it is generated
-
                         for group in bus_positions:
                             for bus in group:
                                 db.session.add(bus)
@@ -113,7 +115,8 @@ class RouteScan:
 
         return
 
-    def assign_positions(self):
+    @timeit
+    def assign_to_stops(self):
 
         with self.db as db:
 
@@ -338,7 +341,7 @@ class RouteScan:
                             interval_stops.append(scheduled_stop)
                             continue
                     else:
-                        print ('****************** This one fell through the gap {a}'.format(a=scheduled_stop))
+                        # print ('****************** This one fell through the gap {a}'.format(a=scheduled_stop))
                         continue
 
                 # INTERPOLATION LOOP
@@ -346,13 +349,13 @@ class RouteScan:
                 # analyze all_the_intervals
                 for stop_id, interval_sequence in all_this_trips_intervals.items():
 
-                    print('trip {a}'.format(a=trip_id))
+                    # print('trip {a}'.format(a=trip_id))
 
                     start_time = interval_sequence[0].arrival_timestamp
                     end_time = interval_sequence[-1].arrival_timestamp
                     interval_length = (len(interval_sequence) - 1)
                     average_time_between_stops = (end_time - start_time) / interval_length
-                    print('\tinterval starts at {a} ends at {b} has {c} gaps averaging {d} seconds'.format(a=interval_sequence[0].stop_id, b= interval_sequence[-1].stop_id, c=interval_length, d=average_time_between_stops))
+                    # print('\tinterval starts at {a} ends at {b} has {c} gaps averaging {d} seconds'.format(a=interval_sequence[0].stop_id, b= interval_sequence[-1].stop_id, c=interval_length, d=average_time_between_stops))
 
                     # update the Stop objects
                     n = 1
@@ -361,25 +364,58 @@ class RouteScan:
                         interval_sequence[x].arrival_timestamp = start_time + adder
                         interval_sequence[x].interpolated_arrival_flag = True
                         n += 1
-                        print('\t\tarrival_timestamp added to Stop instance for stop {a}\t{b}\tincrement {c}'.format(a=interval_sequence[x].stop_id, b=interval_sequence[x].arrival_timestamp, c=adder))
+                        # print('\t\tarrival_timestamp added to Stop instance for stop {a}\t{b}\tincrement {c}'.format(a=interval_sequence[x].stop_id, b=interval_sequence[x].arrival_timestamp, c=adder))
 
                 # when we are done with this trip, write to the db
                 db.session.commit()
 
         # print ('****************** interpolation done ******************')
 
+    @timeit
+    def flag_bunched(self):
 
-    def get_bunched_status(self): # todo need other params?
+        # iterate over watched routes
+        for r in self.watched_route_list:
 
-        # todo create, or ingest as param, list of buses by order along the route
-        # todo iterate over the list and computer distance between buses along the route
-        # print ('bus 6504 is approaching stop 30189 and is 125 meters behind bus 3403 BUNCHED')
-        # print ('bus 6504 is approaching stop 30189 and is 275 meters behind bus 3403 clear')
-        # todo if any are less than threshold (set at top), then return bunched and set that to the bus_position
+            # all buses on this route
+            buses_for_this_route = [b for b in self.buses if b.rt == r]
+
+            with self.db as db:
+
+                bus_sequence=[]
+
+                # for each bus
+                for bus in buses_for_this_route:
+
+                    # get the last position record (the one we just wrote)
+                    position = db.session.query(BusPosition) \
+                                .order_by(desc(BusPosition.timestamp)\
+                                .one())
+
+                    # get the trip card for this bus
+                    scheduled_stops = db.session.query(Trip) \
+                        .filter(Trip.trip_id == bus.trip_id) \
+                        .all()
+
+                    # put it in the bus_sequence?
+
+                    # sort?
+
+                    # commit everything?
+
+                    # get the trip card for one of them as a reference
+                    # build a list that reflects the order of buses on the route
+                    # compute the distance between each pair
+                    # flag the later bus as bunched if it is too close (<250m, 750ft)
+
+                    # distance = dist(a,b)
+
+                    # print ('bus 6504 is approaching stop 30189 and is 125 meters behind bus 3403 BUNCHED')
+                    # print ('bus 6504 is approaching stop 30189 and is 275 meters behind bus 3403 clear')
 
         return
 
-
+    @timeit
     def get_current_trips(self):
         # get a list of trips current running the route
         v_on_route = NJTransitAPI.parse_xml_getBusesForRoute(
@@ -496,9 +532,6 @@ def get_nearest_stop(system_map, buses, route):
     try:
         stoplist = system_map.get_single_route_stoplist_for_localizer(route)
     except:
-
-        # todo why is this always throwing an exception for route 1?
-        # print("couldn't find route in route_descriptions.json, please add it. route " + str(route))
         return
 
     result = collections.defaultdict(list)
@@ -544,3 +577,6 @@ def get_nearest_stop(system_map, buses, route):
                 pass
 
     return bus_positions
+
+def dist(a, b):
+    return math.hypot(b[0] - a[0], b[1] - a[1])

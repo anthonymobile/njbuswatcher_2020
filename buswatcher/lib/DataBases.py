@@ -182,8 +182,8 @@ class BusPosition(Base):
     distance_to_stop = Column(Float())
     arrival_flag = Column(Boolean())
     distance_to_next_bus = Column(Float())
-    distance_to_previous_bus = Column(Float())
     bunched_flag = Column(Boolean())
+    # distance_to_previous_bus = Column(Float())
     # gapped_flag = Column(Boolean())
 
     # foreign keys
@@ -198,4 +198,4 @@ class BusPosition(Base):
     stop = relationship("Stop")
 
     def __repr__(self):
-        return '[BusPosition: \trt \ttrip_id {} \tstop_id \tdistance \tarrival_flag {}]'.format(self.rt,self.trip_id,self.stop_id,self.distance_to_stop,self.arrival_flag)
+        return '[BusPosition: \trt {} \ttrip_id {} \tstop_id {} \tdistance {} \tarrival_flag {}]'.format(self.rt,self.trip_id,self.stop_id,self.distance_to_stop,self.arrival_flag)
