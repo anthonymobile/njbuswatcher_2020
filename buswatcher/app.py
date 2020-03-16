@@ -25,17 +25,17 @@ app.layout = html.Div(
 # Update page
 @app.callback(Output("page-content", "children"), [Input("url", "pathname")])
 def display_page(pathname):
-    if pathname == "/dash-financial-report/speed":
+    if pathname == "/speed":
         return speed.create_layout(app)
-    elif pathname == "/dash-financial-report/frequency":
+    elif pathname == "/frequency":
         return frequency.create_layout(app)
-    elif pathname == "/dash-financial-report/reliability":
+    elif pathname == "/reliability":
         return reliability.create_layout(app)
-    elif pathname == "/dash-financial-report/bunching":
+    elif pathname == "/bunching":
         return bunching.create_layout(app)
-    elif pathname == "/dash-financial-report/news-and-reviews":
+    elif pathname == "/news-and-reviews":
         return newsReviews.create_layout(app)
-    elif pathname == "/dash-financial-report/full-view":
+    elif pathname == "/full-view":
         return (
             overview.create_layout(app),
             speed.create_layout(app),

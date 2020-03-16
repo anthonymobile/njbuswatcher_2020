@@ -20,7 +20,7 @@ def get_header(app):
                         [
                             dcc.Link(
                                 "Full View",
-                                href="/dash-financial-report/full-view",
+                                href="/full-view",
                                 className="full-view-link",
                             )
                         ],
@@ -41,32 +41,32 @@ def get_menu():
         [
             dcc.Link(
                 "Overview",
-                href="/dash-financial-report/overview",
+                href="/overview",
                 className="tab first",
             ),
             dcc.Link(
                 "Speed",
-                href="/dash-financial-report/speed",
+                href="/speed",
                 className="tab",
             ),
             dcc.Link(
                 "Frequency",
-                href="/dash-financial-report/frequency",
+                href="/frequency",
                 className="tab",
             ),
             dcc.Link(
                 "Reliability",
-                href="/dash-financial-report/reliability",
+                href="/reliability",
                 className="tab"
             ),
             dcc.Link(
                 "Bunching",
-                href="/dash-financial-report/bunching",
+                href="/bunching",
                 className="tab",
             ),
             dcc.Link(
                 "News & Reviews",
-                href="/dash-financial-report/news-and-reviews",
+                href="/news-and-reviews",
                 className="tab",
             ),
         ],
