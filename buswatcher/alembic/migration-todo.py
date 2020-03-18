@@ -1,1 +1,1 @@
-#todo write migration for changes to table names, and changes to trip table (add stoplist, remove coordinate_bundles columns)
+#todo autogenerate migration for tablename changes and new columns

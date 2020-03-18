@@ -3,8 +3,6 @@ import pymysql as db
 from sqlalchemy import create_engine
 
 
-# todo many of these could use wwwAPI.RouteReport functions
-
 def get_arrivals_hourly_histogram(route):
 
     # database variables
@@ -65,6 +63,6 @@ def get_arrivals_today_all(route, period):
 
     df = pd.read_sql_query(q, conn)
 
-    # todo add a column with headway from the previous arrival (use wwwAPI.RouteReport)
+
 
     return df

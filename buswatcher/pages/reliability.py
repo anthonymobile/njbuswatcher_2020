@@ -14,10 +14,10 @@ df_expenses = pd.read_csv(DATA_PATH.joinpath("df_expenses.csv"))
 df_minimums = pd.read_csv(DATA_PATH.joinpath("df_minimums.csv"))
 
 
-def create_layout(app):
+def create_layout(app,routes):
     return html.Div(
         [
-            Header(app),
+            Header(app,routes),
             # page 4
             html.Div(
                 [

@@ -2,10 +2,10 @@ import dash_html_components as html
 from utils import Header
 
 
-def create_layout(app):
+def create_layout(app,routes):
     return html.Div(
         [
-            Header(app),
+            Header(app,routes),
             # page 6
             html.Div(
                 [

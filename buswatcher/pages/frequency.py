@@ -14,10 +14,10 @@ df_equity_char = pd.read_csv(DATA_PATH.joinpath("df_equity_char.csv"))
 df_equity_diver = pd.read_csv(DATA_PATH.joinpath("df_equity_diver.csv"))
 
 
-def create_layout(app):
+def create_layout(app,routes):
     return html.Div(
         [
-            Header(app),
+            Header(app,routes),
             # page 3
             html.Div(
                 [
