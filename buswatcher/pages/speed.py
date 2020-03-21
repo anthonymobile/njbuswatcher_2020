@@ -45,7 +45,7 @@ def create_layout(app,routes):
                         ],
                         className="row ",
                     ),
-                    # Row
+                    # Row 2
                     html.Div(
                         [
                             html.Div(
@@ -70,7 +70,7 @@ def create_layout(app,routes):
                         ],
                         className="row ",
                     ),
-                    # Row 2
+                    # Row 3
                     html.Div(
                         [
                             html.Div(

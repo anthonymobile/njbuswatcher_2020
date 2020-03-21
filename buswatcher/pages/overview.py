@@ -1,102 +1,82 @@
+import pandas as pd
+import pathlib
+
 import dash_core_components as dcc
 import dash_html_components as html
 import plotly.graph_objs as go
-import lib.wwwAPI as api
 
 from utils import Header, make_dash_table
 
-import pandas as pd
-import pathlib
+import lib.Reports as reports
+import lib.Maps as maps
+# import lib.TransitSystem as system
+# system_map = system.load_system_map()
 
 # get relative data folder
 PATH = pathlib.Path(__file__).parent
 DATA_PATH = PATH.joinpath("../data").resolve()
 
 # added by AT 17 march 2020
-mapbox_token = "pk.eyJ1IjoiYml0c2FuZGF0b21zIiwiYSI6ImNrN3dsb3Q1ODAzbTYzZHFwMzM4c2FmZjMifQ.HNRse1oELixf7zWOqVfbgA"
+mapbox_access_token = 'pk.eyJ1IjoiYml0c2FuZGF0b21zIiwiYSI6ImNrN3dsb3Q1ODAzbTYzZHFwMzM4c2FmZjMifQ.HNRse1oELixf7zWOqVfbgA'
 
 
+route = 87 #todo set this from the callback
+
+_df_route_summary = reports.get_route_summary(route)
 # todo plug in live data source by making a call to wwwAPI here e.g. df_route_summary = wwwAPI.get_route_summary(route) where route is a callback from a dropdown
-route = 87
-_df_route_summary = api.get_route_summary(route)
-_df_reliability_overview = pd.read_csv(DATA_PATH.joinpath("_df_reliability_overview.csv"))
+_87_reliability_overview = pd.read_csv(DATA_PATH.joinpath("_87_reliability_overview.csv"))
 
+# get current bus locations from NJTransit
+map_data = maps.get_positions_byargs(route)
 
+#  Layouts
+# todo fix lat/lon center and zoom level using algo from old JS map?
+layout_map = dict(
+    autosize=True,
+    height=500,
+    font=dict(color="#191A1A"),
+    titlefont=dict(color="#191A1A", size='14'),
+    margin=dict(
+        l=35,
+        r=35,
+        b=35,
+        t=45
+    ),
+    hovermode="closest",
+    plot_bgcolor='#fffcfc',
+    paper_bgcolor='#fffcfc',
+    legend=dict(font=dict(size=10), orientation='h'),
+    title=str(route),
+    mapbox=dict(
+        accesstoken=mapbox_access_token,
+        style="light",
+        center=dict(
+            lon=-74.042520,
+            lat=40.750650
+        ),
+        zoom=10,
+    )
+)
 
-# todo replace with API call (and move those routines into wwwAPI
-# get data
-buses = pd.read_csv(DATA_PATH.joinpath("_df_87_buses.csv"), low_memory=False)
-
-# from https://github.com/plotly/dash-sample-apps/blob/master/apps/dash-spatial-clustering/app.py
-
-
-# 
-# geo_colors = [
-#     "#8dd3c7",
-#     "#ffd15f",
-#     "#bebada",
-#     "#fb8072",
-#     "#80b1d3",
-#     "#fdb462",
-#     "#b3de69",
-#     "#fccde5",
-#     "#d9d9d9",
-#     "#bc80bd",
-#     "#ccebc5",
-# ]
-
-# def make_base_map():
-#     # Scattermapbox with geojson layer, plot all listings on mapbox
-#     customdata = list(
-#         zip(
-#             buses["rt"],
-#             buses["v"],
-#             buses["trip"],
-#         )
-#     )
-#     mapbox_figure = dict(
-#         type="scattermapbox",
-#         lat=buses["lat"],
-#         lon=buses["lon"],
-#         marker=dict(size=7, opacity=0.7, color="#550100"),
-#         customdata=customdata,
-#         name="Buses",
-#         hovertemplate="<b>Route: %{customdata[0]}</b><br><br>"
-#         "<b>Vehicle No.: %{customdata[1]}</b><br>"
-#         "<b>Trip No.: </b>%{customdata[2]}<br>",
-#     )
-# 
-#     layout = dict(
-#         mapbox=dict(
-#             style="streets",
-#             uirevision=True,
-#             accesstoken=mapbox_token,
-#             zoom=9,
-#             center=dict(
-#                 lon=buses["lon"].mean(),
-#                 lat=buses["lat"].mean(),
-#             ),
-#         ),
-#         shapes=[
-#             {
-#                 "type": "rect",
-#                 "xref": "paper",
-#                 "yref": "paper",
-#                 "x0": 0,
-#                 "y0": 0,
-#                 "x1": 1,
-#                 "y1": 1,
-#                 "line": {"width": 1, "color": "#B0BEC5"},
-#             }
-#         ],
-#         margin=dict(l=10, t=10, b=10, r=10),
-#         height=400,
-#         showlegend=False,
-#         hovermode="closest",
-#     )
-# 
-#     figure = {"data": [mapbox_figure], "layout": layout}
-#     return figure
+# functions
+def gen_map(map_data):
+    return {
+        "data": [{
+                "type": "scattermapbox",
+                "lat": list(map_data['lat']),
+                "lon": list(map_data['lon']),
+                "hoverinfo": "text",
+                "hovertext": [["Route: {} <br>Vehicle: {} <br>Run: {}".format(i,j,k)]
+                                for i,j,k in zip(map_data['rt'], map_data['id'],map_data['run'])],
+                "mode": "markers",
+                "name": list(map_data['id']),
+                "marker": {
+                    "size": 6,
+                    "opacity": 0.7
+                }
+        }],
+        "layout": layout_map
+    }
 
 
 
@@ -108,12 +88,12 @@ def create_layout(app,routes):
             # page 1
             html.Div(
                 [
-                    # Row 3
+                    # Row 1
                     html.Div(
                         [
                             html.Div(
                                 [
-                                    html.H5("How Is the 87 Doing?"),
+                                    html.H5("How Is the 87 Doing?"), # todo inject callback here
                                     html.H6("Journal Square — Hoboken"),
                                     html.Br([]),
                                     html.P(
@@ -135,43 +115,36 @@ def create_layout(app,routes):
                         ],
                         className="row",
                     ),
-
-                    # Row 4
+                    # Row 2
                     html.Div(
                         [
                             html.Div(
                                 [
                                     html.H6(
-                                        ["Key Indicators"], className="subtitle padded"
+                                        ["Route Overview"], className="subtitle padded"
                                     ),
                                     html.Table(make_dash_table(_df_route_summary)),
                                 ],
                                 className="six columns",
                             ),
-                            # todo redo layout to restore column break here
                             html.Div(
                                 [
-
-                                    html.Div(
-                                        [
-                                            html.H6(
-                                                "Overall Grade", className="subtitle padded"
-                                            ),
-                                            html.Img(
-                                                src=app.get_asset_url("risk_reward.png"),
-                                                className="risk-reward",
-                                            ),
-                                        ],
-                                        className="six columns",
+                                    html.H6(
+                                        "Overall Grade", className="subtitle padded"
                                     ),
-
-
+                                    html.Img(
+                                        src=app.get_asset_url("risk_reward.png"),
+                                        className="risk-reward",
+                                    ),
+                                ],
+                                className="six columns",
+                            ),
                         ],
-                        className="row",
-                        style={"margin-bottom": "35px"},
+                        className="row ",
                     ),
-                    # Row 5
-                    # todo this row dissappeared?
+
+
+                    # Row 3
                     html.Div(
                         [
                             html.Div(
@@ -186,34 +159,34 @@ def create_layout(app,routes):
                                             "data": [
                                                 go.Scatter(
                                                     x=[
-                                                        "2008",
-                                                        "2009",
-                                                        "2010",
-                                                        "2011",
-                                                        "2012",
-                                                        "2013",
-                                                        "2014",
-                                                        "2015",
-                                                        "2016",
-                                                        "2017",
-                                                        "2018",
+                                                        "6",
+                                                        "7",
+                                                        "8",
+                                                        "9",
+                                                        "10",
+                                                        "11",
+                                                        "12",
+                                                        "13",
+                                                        "14",
+                                                        "15",
+                                                        "16",
                                                     ],
                                                     y=[
-                                                        "10000",
-                                                        "7500",
-                                                        "9000",
-                                                        "10000",
-                                                        "10500",
-                                                        "11000",
-                                                        "14000",
-                                                        "18000",
-                                                        "19000",
-                                                        "20500",
-                                                        "24000",
+                                                        "20",
+                                                        "20",
+                                                        "8",
+                                                        "7",
+                                                        "5",
+                                                        "16",
+                                                        "22",
+                                                        "25",
+                                                        "8",
+                                                        "4",
+                                                        "2",
                                                     ],
                                                     line={"color": "#e5bbed"},
                                                     mode="lines",
-                                                    name="Calibre Index Fund Inv",
+                                                    name="87 Weekdays",
                                                 )
                                             ],
                                             "layout": go.Layout(
@@ -239,7 +212,7 @@ def create_layout(app,routes):
                                                     "autorange": True,
                                                     "linecolor": "rgb(0, 0, 0)",
                                                     "linewidth": 1,
-                                                    "range": [2008, 2018],
+                                                    "range": [6, 16],
                                                     "showgrid": False,
                                                     "showline": True,
                                                     "title": "",
@@ -250,12 +223,12 @@ def create_layout(app,routes):
                                                     "gridcolor": "rgba(127, 127, 127, 0.2)",
                                                     "mirror": False,
                                                     "nticks": 4,
-                                                    "range": [0, 30000],
+                                                    "range": [0, 30],
                                                     "showgrid": True,
                                                     "showline": True,
                                                     "ticklen": 10,
                                                     "ticks": "outside",
-                                                    "title": "$",
+                                                    "title": "minutes",
                                                     "type": "linear",
                                                     "zeroline": False,
                                                     "zerolinewidth": 4,
@@ -264,129 +237,156 @@ def create_layout(app,routes):
                                         },
                                         config={"displayModeBar": False},
                                     ),
+
+                                    html.H6(
+                                        "Reliability",
+                                        className="subtitle padded",
+                                    ),
+                                    dcc.Graph(
+                                        id="graph-2",
+                                        figure={
+                                            "data": [
+                                                go.Scatter(
+                                                    x=[
+                                                        "6",
+                                                        "7",
+                                                        "8",
+                                                        "9",
+                                                        "10",
+                                                        "11",
+                                                        "12",
+                                                        "13",
+                                                        "14",
+                                                        "15",
+                                                        "16",
+                                                    ],
+                                                    y=[
+                                                        "65",
+                                                        "65",
+                                                        "75",
+                                                        "95",
+                                                        "75",
+                                                        "65",
+                                                        "65",
+                                                        "75",
+                                                        "95",
+                                                        "75",
+                                                        "65",
+                                                    ],
+                                                    line={"color": "#e5bbed"},
+                                                    mode="lines",
+                                                    name="87 Weekdays",
+                                                )
+                                            ],
+                                            "layout": go.Layout(
+                                                autosize=True,
+                                                title="",
+                                                font={"family": "Raleway", "size": 10},
+                                                height=200,
+                                                width=340,
+                                                hovermode="closest",
+                                                legend={
+                                                    "x": -0.0277108433735,
+                                                    "y": -0.142606516291,
+                                                    "orientation": "h",
+                                                },
+                                                margin={
+                                                    "r": 20,
+                                                    "t": 20,
+                                                    "b": 20,
+                                                    "l": 50,
+                                                },
+                                                showlegend=True,
+                                                xaxis={
+                                                    "autorange": True,
+                                                    "linecolor": "rgb(0, 0, 0)",
+                                                    "linewidth": 1,
+                                                    "range": [6, 16],
+                                                    "showgrid": False,
+                                                    "showline": True,
+                                                    "title": "",
+                                                    "type": "linear",
+                                                },
+                                                yaxis={
+                                                    "autorange": False,
+                                                    "gridcolor": "rgba(127, 127, 127, 0.2)",
+                                                    "mirror": False,
+                                                    "nticks": 4,
+                                                    "range": [0, 120],
+                                                    "showgrid": True,
+                                                    "showline": True,
+                                                    "ticklen": 10,
+                                                    "ticks": "outside",
+                                                    "title": "minutes",
+                                                    "type": "linear",
+                                                    "zeroline": False,
+                                                    "zerolinewidth": 4,
+                                                },
+                                            ),
+                                        },
+                                        config={"displayModeBar": False},
+                                    ),
+
+
+
+
+
+
+
+                                    # html.Div(
+                                    #     [
+                                    #         html.H6(
+                                    #             "Reliability",
+                                    #             className="subtitle padded",
+                                    #         ),
+                                    #         html.Table(make_dash_table(_87_reliability_overview)),
+                                    #     ],
+                                    #     className="twelve columns",
+                                    # ),
                                 ],
                                 className="six columns",
                             ),
-
+                            html.Div(
+                                [
                             html.H6(
                                 "Route Map",
                                 className="subtitle padded",
                             ),
                             # good spot for the map
-                            dcc.Graph(id="map", config={"responsive": True}),
+                            dcc.Graph(id="map", config={"responsive": True},
+                                      figure=gen_map(map_data)
+                                    ),
 
-                            # dcc.Graph(
-                            #     id="graph-1",
-                            #     figure={
-                            #         "data": [
-                            #             go.Bar(
-                            #                 x=[
-                            #                     "1 Year",
-                            #                     "3 Year",
-                            #                     "5 Year",
-                            #                     "10 Year",
-                            #                     "41 Year",
-                            #                 ],
-                            #                 y=[
-                            #                     "21.67",
-                            #                     "11.26",
-                            #                     "15.62",
-                            #                     "8.37",
-                            #                     "11.11",
-                            #                 ],
-                            #                 marker={
-                            #                     "color": "#e5bbed",
-                            #                     "line": {
-                            #                         "color": "rgb(255, 255, 255)",
-                            #                         "width": 2,
-                            #                     },
-                            #                 },
-                            #                 name="NJ Bus Watcher",
-                            #             ),
-                            #             go.Bar(
-                            #                 x=[
-                            #                     "1 Year",
-                            #                     "3 Year",
-                            #                     "5 Year",
-                            #                     "10 Year",
-                            #                     "41 Year",
-                            #                 ],
-                            #                 y=[
-                            #                     "21.83",
-                            #                     "11.41",
-                            #                     "15.79",
-                            #                     "8.50",
-                            #                 ],
-                            #                 marker={
-                            #                     "color": "#dddddd",
-                            #                     "line": {
-                            #                         "color": "rgb(255, 255, 255)",
-                            #                         "width": 2,
-                            #                     },
-                            #                 },
-                            #                 name="S&P 500 Index",
-                            #             ),
-                            #         ],
-                            #         "layout": go.Layout(
-                            #             autosize=False,
-                            #             bargap=0.35,
-                            #             font={"family": "Raleway", "size": 10},
-                            #             height=200,
-                            #             hovermode="closest",
-                            #             legend={
-                            #                 "x": -0.0228945952895,
-                            #                 "y": -0.189563896463,
-                            #                 "orientation": "h",
-                            #                 "yanchor": "top",
-                            #             },
-                            #             margin={
-                            #                 "r": 0,
-                            #                 "t": 20,
-                            #                 "b": 10,
-                            #                 "l": 10,
-                            #             },
-                            #             showlegend=True,
-                            #             title="",
-                            #             width=330,
-                            #             xaxis={
-                            #                 "autorange": True,
-                            #                 "range": [-0.5, 4.5],
-                            #                 "showline": True,
-                            #                 "title": "",
-                            #                 "type": "category",
-                            #             },
-                            #             yaxis={
-                            #                 "autorange": True,
-                            #                 "range": [0, 22.9789473684],
-                            #                 "showgrid": True,
-                            #                 "showline": True,
-                            #                 "title": "",
-                            #                 "type": "linear",
-                            #                 "zeroline": False,
-                            #             },
-                            #         ),
-                            #     },
-                            #     config={"displayModeBar": False},
-                            # ),
+
                         ],
                         className="six columns",
                     ),
 
-                            html.Div(
-                                [
-                                    html.H6(
-                                        "Reliability",
-                                        className="subtitle padded",
-                                    ),
-                                    html.Table(make_dash_table(_df_reliability_overview)),
-                                ],
-                                className="six columns",
-                            ),
+
                         ],
                         className="row ",
                     ),
+
+                    # # Row 4
+                    # html.Div(
+                    #     [
+                    #         html.Div(
+                    #             [
+                    #                 html.H6(
+                    #                     "Reliability",
+                    #                     className="subtitle padded",
+                    #                 ),
+                    #                 html.Table(make_dash_table(_df_reliability_overview)),
+                    #             ],
+                    #             className="six columns",
+                    #         ),
+                    #
+                    #     ],
+                    #     className="row ",
+                    # ),
                 ],
-                className="sub_page",
+
+            className="sub_page",
             ),
         ],
         className="page",

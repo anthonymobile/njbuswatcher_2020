@@ -86,7 +86,7 @@ def get_dropdown(routes):
         [
             dcc.Dropdown(
                 id='route_chooser',
-                options=[{'label': r, 'value': r} for r in routes],
+                options=[{'label': '{} {}'.format(r,prettyname), 'value': r} for r,prettyname in routes.items()],
                 value='87 Journal Square',
             )
         ],

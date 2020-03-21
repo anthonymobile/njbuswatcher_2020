@@ -9,7 +9,7 @@ import time
 
 from . import NJTransitAPI
 # from . import Generators
-from .wwwAPI import RouteReport
+from .Reports import RouteReport
 from .CommonTools import get_config_path
 from .DataBases import SQLAlchemyDBConnection, Stop
 
@@ -255,7 +255,7 @@ def load_system_map(**kwargs):
             pickle.dump(system_map, f)
 
     # report what routes we're tracking
-    sys.stdout.write('tripwatcher is watching routes ') # todo why doesnt this run if we loaded existing system_map pickle?
+    sys.stdout.write('watching routes ') # todo why doesnt this run if we loaded existing system_map pickle?
     for k,v in system_map.collection_descriptions.items():
         for r in v['routelist']:
             sys.stdout.write ('{} '.format(r))
