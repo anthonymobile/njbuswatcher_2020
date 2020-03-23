@@ -13,8 +13,15 @@ from .DataBases import SQLAlchemyDBConnection, Trip, BusPosition, Stop
 
 
 def get_route_summary(route):
+    return pd.read_csv('data/_df_route_summary.csv', quotechar='"') # todo call to a new Generator
 
-    return pd.read_csv('data/_df_route_summary.csv') # todo generate this here, or read this file made by Generator
+def get_grade(route):
+    return pd.read_csv('data/_df_grade.csv') # todo generate this here, or read a file made by an updated Generator (that outputs a df to csv not json)
+
+def get_frequency(route):
+    return pd.read_csv('data/_df_frequency.csv') # todo generate this here, or read a file made by an updated Generator (that outputs a df to csv not json)
+
+
 
 
 class GenericReport: # all Report classes inherit query_factory

@@ -2,6 +2,7 @@ from pathlib import Path
 import pickle
 from operator import itemgetter
 import json
+import csv
 import datetime
 from dateutil import parser
 from datetime import timedelta
@@ -9,7 +10,7 @@ from sqlalchemy import func, text
 
 import pandas as pd
 
-from lib.wwwAPI import StopReport
+from lib.Reports import StopReport
 from lib.NJTransitAPI import *
 from lib.DataBases import SQLAlchemyDBConnection, Stop, Trip
 from lib.CommonTools import get_config_path
@@ -20,10 +21,12 @@ class Generator():
         self.config_prefix = get_config_path()+"reports"
         # self.db =  SQLAlchemyDBConnection()
 
-    def store_json(self, report_to_store): # filename format route_type_period
-        filename = ('{a}/{b}_{c}_{d}.json').format(a=self.config_prefix,b=report_to_store['route'],c=report_to_store['type'],d=report_to_store['period'])
-        with open(filename, 'w') as f:
-            json.dump(report_to_store, f, sort_keys=True,indent=4)
+    def store_csv(self, report_to_store): # filename format route_type_period
+        filename = ('{a}/{b}_{c}_{d}.csv').format(a=self.config_prefix,b=report_to_store['route'],c=report_to_store['type'],d=report_to_store['period'])
+        with open(filename, 'wb') as csvfile:
+            writer = csv.writer(csvfile, delimiter=',', quoting=csv.QUOTE_ALL)
+            for row in report_to_store:
+                writer.writerow(row)
         return
 
     def retrieve_json(self, route, type, period):
@@ -37,137 +40,17 @@ class Generator():
             filter(Stop.arrival_timestamp >= func.ADDDATE(func.CURRENT_TIMESTAMP(), text(system_map.period_descriptions[kwargs['period']]['sql'])))
         return query
 
-class RouteUpdater():
 
-    def __init__(self,system_map):
-        self.refresh_routedata(system_map)
-
-    def refresh_routedata(self, system_map):
-        now = datetime.datetime.now()
-
-        # even though this now runs on a daily schedule
-        # load existing reports and check ttl anyways
-        try:
-            # if os.getcwd() == "/":  # docker
-            #     prefix = "/buswatcher/buswatcher/"
-            # elif "Users" in os.getcwd():
-            #     prefix = ""
-            # else:
-            #     prefix = ""
-            prefix=get_config_path()
-            with open(prefix+'route_descriptions.json') as f:
-                route_descriptions_file = json.load(f)
-            route_descriptions_last_updated = parser.parse(route_descriptions_file['last_updated'])
-
-        except:
-            route_descriptions_last_updated = parser.parse('2000-01-01 01:01:01')
-
-        route_descriptions_ttl = timedelta(seconds=int(system_map.route_descriptions['ttl']))
-
-        expired = False
-
-        # if TTL expired, update route geometry local XMLs
-        if (now - route_descriptions_last_updated) > route_descriptions_ttl:
-
-            expired = True
-            print ('Updating XML route definitions from remote source (NJTransit API getRoutePoints.jsp)')
-
-            # UPDATE ROUTES FROM API
-
-            # 1. list all routes from current definitions file and sort it by route number
-            routelist_from_file = sorted([r['route'] for r in route_descriptions_file['routedata']])
-
-            # 2. grab current buses list and see if there's any route #s we don't know yet
-
-            # get list of active routes
-            buses = parse_xml_getBusesForRouteAll(get_xml_data('nj', 'all_buses'))
-            routelist_from_api_active = [b.rt for b in buses]
-            # remove any bus not on a numeric route
-            routes_active = list()
-            for b in routelist_from_api_active:
-                try:
-                    dummy = int(b)
-                    routes_active.append(b)
-                except:
-                    continue
-            routes_active=list(set(routes_active))
-            routes_active=sorted(routes_active)
-
-            # merge the two and remove duplicates
-            merged_routelist =sorted(list(set(routelist_from_file + routes_active)))
-
-            # 3. create blank system_map.route_descriptions entries for any newly seen routes
-
-            new_routes = [x for x in routes_active if x not in routelist_from_file]
-
-            for new_route in new_routes:
-                update = {"route": new_route, "nm": '', "ttl": "1d",
-                          "description_long": "", "description_short": "", "frequency": "low",
-                          "prettyname": "",
-                          "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"}
-                system_map.route_descriptions['routedata'].append(update)
-
-            # 4. fetch route xml metadata from NJT API
-            # the route and its nm e.g. '119 Bayonne-Jersey City-NY'
-            api_response = list()
-            for r in merged_routelist:
-                try:
-
-                    # fetch data
-                    xml_data = get_xml_data('nj', 'routes', route=r)
-
-                    #dump it to disk
-                    if expired == True: # but only if the files are older than the ttl
-                        print (r)
-                        outfile = ('config/route_geometry/' + r + '.xml')
-                        with open(outfile, 'wb') as f:  # overwrite existing file
-                            f.write(xml_data)
-
-                    #parse it
-                    parsed_route_xml = parse_xml_getRoutePoints(xml_data)
-                    route_entry = {'route': parsed_route_xml[0][0].identity, 'nm': parsed_route_xml[0][0].nm}
-                    api_response.append(route_entry)
-                except:
-                    continue
-
-            # 5. merge API data into system_map.route_descriptions
-            for a in api_response: # iterate over routes fetched from API
-                for index,r in enumerate(system_map.route_descriptions['routedata']):  # iterate over defined routes
-                    if a['route'] == r['route']:  # match on route number
-                        new_nm = a['nm'].split(' ', 1)[1]
-                        system_map.route_descriptions['routedata'][index]['nm'] = new_nm
-
-                        #  more comprehensive mapping of API response to route_descriptions.json
-                        # for k,v in a.items():  # then iterate over API response keys
-                        #     try:
-                        #         if r[k] != v:  # if the value from the API response is different
-                        #             r[k] = v.split(' ', 1)[1]  # update the defined routes value with the API response one, splitting the route number off the front
-                        #     except: # if the r[k] key is missing
-                        #         r[k] = v.split(' ', 1)[1]
+class BunchingReport(Generator):    # todo 2 rebuild this based on simply tallying bus.bunched_arrival_flag
 
 
-            # 6. make one last scan of system_map.route_descriptions -- if prettyname is blank, should copy nm to prettyname
-            for index, r in enumerate(system_map.route_descriptions['routedata']):
-                if r['prettyname'] == "":
-                    system_map.route_descriptions['routedata'][r]['prettyname'] = r['nm']
-
-            # 7. create data to dump with last_updated and ttl
-            outdata = dict()
-            now = datetime.datetime.now()
-            outdata['last_updated'] = now.strftime("%Y-%m-%d %H:%M:%S")
-            outdata['ttl'] = '86400'
-            outdata['routedata'] = system_map.route_descriptions['routedata'] # ? sort the routes inside this dict -->  https://www.pythoncentral.io/how-to-sort-python-dictionaries-by-key-or-value/
-            # delete existing route_definition.json and dump new complete as a json
-            with open('config/route_descriptions.json','w') as f:
-                json.dump(outdata, f, indent=4)
-
-            return
-
-        else:
-            print ('didnt update route_descriptions.json because ttl not expired')
-            return
-
-class BunchingReport(Generator): # todo rebuild this based on geographic distance (e.g. for every tripscan, flag buses that are less than 250m as crow flies from the bus ahead of them on the route
+    # # sample bunching report (new CSV version)
+    #
+    # "stop_name", "stop_id", "bunched_arrivals_in_period"
+    # "31822","STREET AND STREET","54"
+    # "31822","STREET AND STREET","54"
+    # "31822","STREET AND STREET","54"
+    # "31822","STREET AND STREET","54"
 
     def __init__(self):
         super(BunchingReport,self).__init__()
@@ -213,29 +96,31 @@ class BunchingReport(Generator): # todo rebuild this based on geographic distanc
                                         bunch_total += 1
                                 cum_bunch_total = cum_bunch_total+bunch_total
                                 cum_arrival_total = cum_arrival_total + arrival_total
-                                leaderboard_entry = {
-                                                        'stop_name':point.st,
-                                                        'stop_id':point.identity,
-                                                        'bunched_arrivals_in_period':bunch_total,
-                                                        'query': str(query)
-                                                     }
+                                leaderboard_entry = [point.identity,
+                                                     point.st,
+                                                     bunch_total]
 
                                 bunching_leaderboard_raw.append(leaderboard_entry)
-                    # bunching_leaderboard.sort(key=itemgetter(1), reverse=True)
-                    # https://stackoverflow.com/questions/72899/how-do-i-sort-a-list-of-dictionaries-by-a-value-of-the-dictionary
-                    bunching_leaderboard = sorted(bunching_leaderboard_raw, key=lambda k: k['bunched_arrivals_in_period'],reverse=True)[:10]
+
+                    # reverse sort the list
+                    bunching_leaderboard = sorted(bunching_leaderboard_raw, key=lambda k: k[2],reverse=True)[:10]
+
+                    # add column titles at top
+                    bunching_leaderboard.insert(0, ["stop_name", "stop_id", "bunched_arrivals_in_period"])
 
                     # log the results and dump
                     # bunching_report_template['bunching_leaderboard'] = bunching_leaderboard[:10]
-                    bunching_report_template['bunching_leaderboard'] = bunching_leaderboard
-                    bunching_report_template['cum_bunch_total'] = cum_bunch_total
-                    bunching_report_template['cum_arrival_total'] = cum_arrival_total
-                    self.store_json(bunching_report_template)
+                    # bunching_report_template['bunching_leaderboard'] = bunching_leaderboard
+                    # bunching_report_template['cum_bunch_total'] = cum_bunch_total
+                    # bunching_report_template['cum_arrival_total'] = cum_arrival_total
+                    self.store_csv(bunching_report_template)
 
     ####################################################################################################
     # THIS CODE BLOCK IS AN ADAPTED DUPLICATE OF wwwAPI.StopReport.get_arrivals_here_this_route
     ####################################################################################################
 
+
+    # todo this is probably deprecated with new bunching algo
     def get_arrivals_here_this_route(self,system_map, route, stop_id, period):
         with SQLAlchemyDBConnection() as db:
 
@@ -264,7 +149,7 @@ class BunchingReport(Generator): # todo rebuild this based on geographic distanc
             except ValueError: # any error return a dummy df
                 return self.return_dummy_arrivals_df(), query
 
-
+    # todo this is probably deprecated with new bunching algo
     def return_dummy_arrivals_df(self):
         # to add more than one , simply add to the lists
         dummydata = {'rt': ['0','0'],
@@ -312,41 +197,16 @@ class BunchingReport(Generator): # todo rebuild this based on geographic distanc
     # ^^^^^^^THIS CODE BLOCK IS AN ADAPTED DUPLICATE OF wwwAPI.StopReport.get_arrivals_here_this_route
     ####################################################################################################
 
-# sample bunching report
-'''
-{
-    "rt": "119",
-    "type": "bunching",
-    "period": "day",
-    "created_timestamp": "2019-06-34 02:23:22",
-    "bunching_leaderboard": [
-        {
-         'stop_name':'STREET AND STREET',
-          'stop_id':'31822',
-          'bunched_arrivals_in_period':'54'
-          },
-        {
-         'stop_name':'STREET AND STREET',
-          'stop_id':'31822',
-          'bunched_arrivals_in_period':'54'
-          },
-          {
-         'stop_name':'STREET AND STREET',
-          'stop_id':'31822',
-          'bunched_arrivals_in_period':'54'
-          }
-          ],
-    "cum_bunch_total": "45",
-    "cum_arrival_total": "450"
-}
-
-        
-
-
-'''
 
 
 class GradeReport(Generator):
+
+    # # sample grade report (new CSV version)
+    #
+    # "rt", "type", "period", "created_timestamp", "grade", "grade_description", "pct_bunched"
+    # "119", "grade", "day", "2019-06-34 02:23:22", "B", "Something loaded from grade_descriptons.json", "10.0"
+    # "119", "grade", "day", "2019-06-34 02:23:22", "B", "Something loaded from grade_descriptons.json", "10.0"
+    # "119", "grade", "day", "2019-06-34 02:23:22", "B", "Something loaded from grade_descriptons.json", "10.0"
 
     def __init__(self):
         super(GradeReport,self).__init__()
@@ -360,12 +220,7 @@ class GradeReport(Generator):
 
             for period in system_map.period_descriptions:  # loop over all periods
 
-                report = {'route': route,
-                          'type': 'grade',
-                          'period': period,
-                          'created_timestamp': str((datetime.datetime.now))
-                     }
-
+                report = []
 
                 # make and pickle the report
 
@@ -391,31 +246,16 @@ class GradeReport(Generator):
                     pass
 
                 # 2. set the report results
-                report['grade'] = grade
-                report['grade_description'] =  grade_description,
-                report['pct_bunched'] = grade_numeric
-
+                report.insert["rt", "type", "period", "created_timestamp", "grade", "grade_description", "pct_bunched"]
+                report.insert([grade,grade_description,grade_numeric])
 
                 # 3. dump it
 
-                self.store_json(report)
-
+                self.store_csv(report)
 
         return
 
-# sample grade report
-'''
-{
-    "rt": "119",
-    "type": "grade",
-    "period": "day",
-    "created_timestamp": "2019-06-34 02:23:22",
-    "grade": "B",
-    "grade_description": "Something loaded from grade_descriptons.json",
-    "pct_bunched": "10.0"
-}
 
-'''
 
 
 
@@ -571,3 +411,135 @@ class TraveltimeReport(Generator):
 
             return traveltime
 
+
+class RouteUpdater():
+
+    def __init__(self,system_map):
+        self.refresh_routedata(system_map)
+
+    def refresh_routedata(self, system_map):
+        now = datetime.datetime.now()
+
+        # even though this now runs on a daily schedule
+        # load existing reports and check ttl anyways
+        try:
+            # if os.getcwd() == "/":  # docker
+            #     prefix = "/buswatcher/buswatcher/"
+            # elif "Users" in os.getcwd():
+            #     prefix = ""
+            # else:
+            #     prefix = ""
+            prefix=get_config_path()
+            with open(prefix+'route_descriptions.json') as f:
+                route_descriptions_file = json.load(f)
+            route_descriptions_last_updated = parser.parse(route_descriptions_file['last_updated'])
+
+        except:
+            route_descriptions_last_updated = parser.parse('2000-01-01 01:01:01')
+
+        route_descriptions_ttl = timedelta(seconds=int(system_map.route_descriptions['ttl']))
+
+        expired = False
+
+        # if TTL expired, update route geometry local XMLs
+        if (now - route_descriptions_last_updated) > route_descriptions_ttl:
+
+            expired = True
+            print ('Updating XML route definitions from remote source (NJTransit API getRoutePoints.jsp)')
+
+            # UPDATE ROUTES FROM API
+
+            # 1. list all routes from current definitions file and sort it by route number
+            routelist_from_file = sorted([r['route'] for r in route_descriptions_file['routedata']])
+
+            # 2. grab current buses list and see if there's any route #s we don't know yet
+
+            # get list of active routes
+            buses = parse_xml_getBusesForRouteAll(get_xml_data('nj', 'all_buses'))
+            routelist_from_api_active = [b.rt for b in buses]
+            # remove any bus not on a numeric route
+            routes_active = list()
+            for b in routelist_from_api_active:
+                try:
+                    dummy = int(b)
+                    routes_active.append(b)
+                except:
+                    continue
+            routes_active=list(set(routes_active))
+            routes_active=sorted(routes_active)
+
+            # merge the two and remove duplicates
+            merged_routelist =sorted(list(set(routelist_from_file + routes_active)))
+
+            # 3. create blank system_map.route_descriptions entries for any newly seen routes
+
+            new_routes = [x for x in routes_active if x not in routelist_from_file]
+
+            for new_route in new_routes:
+                update = {"route": new_route, "nm": '', "ttl": "1d",
+                          "description_long": "", "description_short": "", "frequency": "low",
+                          "prettyname": "",
+                          "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"}
+                system_map.route_descriptions['routedata'].append(update)
+
+            # 4. fetch route xml metadata from NJT API
+            # the route and its nm e.g. '119 Bayonne-Jersey City-NY'
+            api_response = list()
+            for r in merged_routelist:
+                try:
+
+                    # fetch data
+                    xml_data = get_xml_data('nj', 'routes', route=r)
+
+                    #dump it to disk
+                    if expired == True: # but only if the files are older than the ttl
+                        print (r)
+                        outfile = ('config/route_geometry/' + r + '.xml')
+                        with open(outfile, 'wb') as f:  # overwrite existing file
+                            f.write(xml_data)
+
+                    #parse it
+                    if validate_xmldata(xml_data) is True:
+                        parsed_route_xml = parse_xml_getRoutePoints(xml_data)
+                        route_entry = {'route': parsed_route_xml[0][0].identity, 'nm': parsed_route_xml[0][0].nm}
+                        api_response.append(route_entry)
+                except:
+                    continue
+
+            # 5. merge API data into system_map.route_descriptions
+            for a in api_response: # iterate over routes fetched from API
+                for index,r in enumerate(system_map.route_descriptions['routedata']):  # iterate over defined routes
+                    if a['route'] == r['route']:  # match on route number
+                        new_nm = a['nm'].split(' ', 1)[1]
+                        system_map.route_descriptions['routedata'][index]['nm'] = new_nm
+
+                        #  more comprehensive mapping of API response to route_descriptions.json
+                        # for k,v in a.items():  # then iterate over API response keys
+                        #     try:
+                        #         if r[k] != v:  # if the value from the API response is different
+                        #             r[k] = v.split(' ', 1)[1]  # update the defined routes value with the API response one, splitting the route number off the front
+                        #     except: # if the r[k] key is missing
+                        #         r[k] = v.split(' ', 1)[1]
+
+
+            # 6. make one last scan of system_map.route_descriptions -- if prettyname is blank, should copy nm to prettyname
+            for index, r in enumerate(system_map.route_descriptions['routedata']):
+                print(r)
+                if r['prettyname'] == "": #bug  route_desriptions incomplete, should work even if only a route number is in there)
+                    system_map.route_descriptions['routedata'][r]['prettyname'] = r['nm']
+
+            # 7. create data to dump with last_updated and ttl
+            outdata = dict()
+            now = datetime.datetime.now()
+            outdata['last_updated'] = now.strftime("%Y-%m-%d %H:%M:%S")
+            outdata['ttl'] = '86400'
+            outdata['routedata'] = system_map.route_descriptions['routedata'] # ? sort the routes inside this dict -->  https://www.pythoncentral.io/how-to-sort-python-dictionaries-by-key-or-value/
+            # delete existing route_definition.json and dump new complete as a json
+            with open('config/route_descriptions.json','w') as f:
+                json.dump(outdata, f, indent=4)
+
+            return
+
+        else:
+            print ('didnt update route_descriptions.json because ttl not expired')
+            return

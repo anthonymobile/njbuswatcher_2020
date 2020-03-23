@@ -5,7 +5,7 @@ import dash_core_components as dcc
 import dash_html_components as html
 import plotly.graph_objs as go
 
-from utils import Header, make_dash_table
+from utils import Header, make_dash_table, make_dash_chart_data
 
 import lib.Reports as reports
 import lib.Maps as maps
@@ -24,29 +24,28 @@ route = 87 #todo set this from the callback
 
 _df_route_summary = reports.get_route_summary(route)
 # todo plug in live data source by making a call to wwwAPI here e.g. df_route_summary = wwwAPI.get_route_summary(route) where route is a callback from a dropdown
-_87_reliability_overview = pd.read_csv(DATA_PATH.joinpath("_87_reliability_overview.csv"))
 
 # get current bus locations from NJTransit
 map_data = maps.get_positions_byargs(route)
 
 #  Layouts
 # todo fix lat/lon center and zoom level using algo from old JS map?
+# todo pull some styling from old JS map
 layout_map = dict(
     autosize=True,
     height=500,
     font=dict(color="#191A1A"),
     titlefont=dict(color="#191A1A", size='14'),
     margin=dict(
-        l=35,
-        r=35,
-        b=35,
-        t=45
+        l=3,
+        r=3,
+        b=3,
+        t=3
     ),
     hovermode="closest",
     plot_bgcolor='#fffcfc',
     paper_bgcolor='#fffcfc',
     legend=dict(font=dict(size=10), orientation='h'),
-    title=str(route),
     mapbox=dict(
         accesstoken=mapbox_access_token,
         style="light",
@@ -54,7 +53,7 @@ layout_map = dict(
             lon=-74.042520,
             lat=40.750650
         ),
-        zoom=10,
+        zoom=12,
     )
 )
 
@@ -72,7 +71,9 @@ def gen_map(map_data):
                 "name": list(map_data['id']),
                 "marker": {
                     "size": 6,
-                    "opacity": 0.7
+                    "opacity": 0.7,
+                    "color": "#f6c"
+
                 }
         }],
         "layout": layout_map
@@ -132,10 +133,7 @@ def create_layout(app,routes):
                                     html.H6(
                                         "Overall Grade", className="subtitle padded"
                                     ),
-                                    html.Img(
-                                        src=app.get_asset_url("risk_reward.png"),
-                                        className="risk-reward",
-                                    ),
+                                    html.Table(make_dash_table(reports.get_grade(route))),
                                 ],
                                 className="six columns",
                             ),
@@ -156,7 +154,9 @@ def create_layout(app,routes):
                                     dcc.Graph(
                                         id="graph-2",
                                         figure={
-                                            "data": [
+                                            "data": make_dash_chart_data(reports.get_frequency(route)),
+
+                                                '''[
                                                 go.Scatter(
                                                     x=[
                                                         "6",
@@ -188,7 +188,8 @@ def create_layout(app,routes):
                                                     mode="lines",
                                                     name="87 Weekdays",
                                                 )
-                                            ],
+                                            ]'''
+                                            
                                             "layout": go.Layout(
                                                 autosize=True,
                                                 title="",
@@ -215,7 +216,7 @@ def create_layout(app,routes):
                                                     "range": [6, 16],
                                                     "showgrid": False,
                                                     "showline": True,
-                                                    "title": "",
+                                                    "title": "hour of day",
                                                     "type": "linear",
                                                 },
                                                 yaxis={

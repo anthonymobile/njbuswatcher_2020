@@ -58,8 +58,7 @@ Here you can see data on past performance and view maps of current service."""
                 dbc.Col(
                     [
                         html.H3("When Did Buses Arrive Today?"),
-                        # todo change this to a scatterplot showing exact time for each arrival(x) vs headway(y) using dh.get_arrivals_today_all
-                        dcc.Graph(id='arrival-histogram',
+                         dcc.Graph(id='arrival-histogram',
                                   figure={
                                       'data': [
                                           {'x': df_arrivals_by_hour.index, 'y': df_arrivals_by_hour['arrivals'],
@@ -83,7 +82,7 @@ Here you can see data on past performance and view maps of current service."""
 ######################################### app logic
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
-# todo add a callback with a dropdown to pick the route
+
 app.layout = html.Div([navbar, body])
 
 

@@ -1,6 +1,6 @@
 import dash_html_components as html
 import dash_core_components as dcc
-
+import plotly.graph_objs as go
 
 
 def Header(app,routes):
@@ -105,4 +105,18 @@ def make_dash_table(df):
         for i in range(len(row)):
             html_row.append(html.Td([row[i]]))
         table.append(html.Tr(html_row))
+        print (table)
     return table
+
+
+def make_dash_chart_data(df):
+    fig = []
+    data = go.Scatter(
+            x=[x for x in df.loc[0]],
+            y=[y for y in df.loc[1]],
+            line={"color": "#e5bbed"},
+            mode="lines",
+            name="Weekdays",
+        )
+    return fig.append(data)
+

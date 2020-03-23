@@ -23,31 +23,29 @@ from apscheduler.jobstores.sqlalchemy import SQLAlchemyJobStore
 from apscheduler.executors.pool import ThreadPoolExecutor,ProcessPoolExecutor
 
 
-# figure out context
-
+# jobstore is in a sqlite file
+# future move jobstore to mysql
 db_url = (get_config_path()+'apscheduler.sqlite')
-
 jobstores = {'default': SQLAlchemyJobStore(url='sqlite:///'+db_url)}
-# jobstores = {'default': SQLAlchemyJobStore(url=connection_string))}
 
-
+# settings
 executors = {'default': ThreadPoolExecutor(20)}
 job_defaults = {'coalesce': True, 'max_instances': 5 }
 
 def minutely(system_map):
     # task_trigger_1 = HeadwayReport(system_map)
-    print ('minute_tasks just ran')
+    print ('\nminute_tasks just ran')
     return
 
 def quarter_hourly(system_map):
     # task_trigger_1 = TravelTimeReport(system_map)
-    print ('quarter_hour_tasks just ran')
+    print ('\nquarter_hour_tasks just ran')
     return
 
 def hourly(system_map):
     task_trigger_1 = RouteUpdater(system_map) # refresh route descriptions
-    task_trigger_2 = flush_system_map() # delete the system_map.pickle file. this will trigger one of the other processes to rebuild it and hopefully www, tripwatcher will rebuild
-    print ('hourly_tasks just ran')
+    task_trigger_2 = flush_system_map() # delete and rebuild the system map
+    print ('\nhourly_tasks just ran')
 
     return
 
@@ -55,10 +53,10 @@ def daily(system_map):
     # runs at 2am
     task_trigger_1 = BunchingReport().generate_reports(system_map) # rebuild bunching reports
     task_trigger_2 = GradeReport().generate_reports(system_map) # rebuild grade report
-    task_trigger_3 = flush_system_map() # delete the system_map_pickle
+    task_trigger_3 = flush_system_map() # delete and rebuild the system map
     task_trigger_4 = load_system_map(force_regen=True) # regenerate the new system map pickle (re-downloads XML route points and fetches new grades)
 
-    print ('daily_tasks just ran')
+    print ('\ndaily_tasks just ran')
     return
 
 def initialize_scheduler(system_map):

@@ -19,7 +19,7 @@ from . import NJTransitAPI
 from .CommonTools import timeit
 # from .TransitSystem import load_system_map
 
-class RouteScan:
+class BusProcessor:
 
     def __init__(self, system_map):
 
@@ -42,7 +42,7 @@ class RouteScan:
         self.interpolate_missed_stops()
 
 
-    @timeit
+    # @timeit
     def fetch_positions(self,system_map):
 
         try:
@@ -60,7 +60,7 @@ class RouteScan:
 
         return
 
-    @timeit
+    # @timeit
     def parse_trips(self, system_map):
 
         with self.db as db:
@@ -89,7 +89,7 @@ class RouteScan:
                 db.session.rollback()
             return
 
-    @timeit
+    # @timeit
     def localize_positions(self, system_map):
 
         with self.db as db:
@@ -116,8 +116,8 @@ class RouteScan:
 
         return
 
-    @timeit
-    def flag_bunched(self): #todo build bunching algorithm
+    # @timeit
+    def flag_bunched(self): #todo 2 build geometry-based bunching algorithm
 
         # 1 compute the distance between every pair of buses (A,B,C) = AB,AC, BC
 
@@ -127,7 +127,7 @@ class RouteScan:
         return
 
 
-    @timeit
+    # @timeit
     def assign_to_stops(self):
 
         with self.db as db:
@@ -285,7 +285,7 @@ class RouteScan:
 
             return
 
-    @timeit
+    # @timeit
     def interpolate_missed_stops(self):
 
 
@@ -384,7 +384,7 @@ class RouteScan:
         # print ('****************** interpolation done ******************')
 
 
-    @timeit
+    # @timeit
     def get_current_trips(self):
         # get a list of trips current running the route
         v_on_route = NJTransitAPI.parse_xml_getBusesForRoute(

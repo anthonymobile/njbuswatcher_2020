@@ -40,25 +40,20 @@ class SystemMap:
         self.db = SQLAlchemyDBConnection()
 
 
-    # def watch_system_map_pickle(self):
-    #     # Call this function each time a change happens
-    #     def custom_action(text):
-    #         self.__reset__()
-    #     watch_file = find_pickle_file()
-    #     # watcher = Watcher(watch_file)  # simple
-    #     watcher = Watcher(watch_file, custom_action, text='pickle file changed, resetting system_map')  # also call custom action function
-    #     watcher.watch()  # start the watch going
-
     def get_route_geometries(self):
         route_geometries={}
+
         for rd in self.route_descriptions['routedata']:
-            # print('getting route geometry for '+rd['route'])
-            route_geometries[rd['route']]={
-                'route':rd['route'],
-                'xml':self.get_single_route_xml(rd['route']),
-                'paths': self.get_single_route_Paths(rd['route'])[0],
-                'coordinate_bundle': self.get_single_route_Paths(rd['route'])[1]
-            }
+            xmldata = self.get_single_route_xml(rd['route'])
+            if NJTransitAPI.validate_xmldata(rd['route']) is True: #todo now we are trying to validate before we've downloaded the file!
+                route_geometries[rd['route']]={
+                    'route':rd['route'],
+                    'xml':xmldata,
+                    'paths': self.get_single_route_Paths(rd['route'])[0],
+                    'coordinate_bundle': self.get_single_route_Paths(rd['route'])[1]
+                }
+            else:
+                continue # skip the bad route
         return route_geometries
 
     def get_routelist(self):
@@ -84,14 +79,16 @@ class SystemMap:
                     return f.read()
 
     def get_single_route_Paths(self, route):
-        while True:
-            try:
-                infile = (get_config_path() + 'route_geometry/' + route + '.xml')
-                with open(infile, 'rb') as f:
-                    print('parsing Paths for route ' + route)
-                    return NJTransitAPI.parse_xml_getRoutePoints(f.read()) # bug trap error here if the XML file is bad (for instance, because the route is inactive like the seasonal 308 route to Great Adventure, 316)
-            except:
-                pass
+        try:
+            infile = (get_config_path() + 'route_geometry/' + route + '.xml')
+            with open(infile, 'rb') as f:
+                print('parsing Paths for route ' + route)
+                if NJTransitAPI.validate_xmldata(route) is True:
+                    return NJTransitAPI.parse_xml_getRoutePoints(f.read())
+                else:
+                    pass
+        except:
+            pass
 
     def get_single_route_paths_and_coordinatebundle(self, route):
         routes = self.route_geometries[route]['paths']
@@ -190,18 +187,6 @@ class SystemMap:
             abort(404)
             pass
 
-    # def get_grade_roster(self):
-    #     grade_roster=dict()
-    #     for rt in self.routelist:
-    #         report_fetcher = Generators.Generator()
-    #         try:
-    #             grade_report = report_fetcher.retrieve_json(rt, 'grade', 'day')
-    #         except:
-    #             grade_report = {'grade':'N/A'}
-    #         grade_roster[rt]=grade_report['grade']
-    #     return grade_roster
-
-
 
 
 ##################################################################
@@ -216,6 +201,7 @@ def flush_system_map():
     except:
         print ('error. could NOT delete system_map.pickle file')
         pass
+    load_system_map() # trigger a rebuild
     return
 
 def find_pickle_file():
@@ -255,7 +241,7 @@ def load_system_map(**kwargs):
             pickle.dump(system_map, f)
 
     # report what routes we're tracking
-    sys.stdout.write('watching routes ') # todo why doesnt this run if we loaded existing system_map pickle?
+    sys.stdout.write('watching routes ')
     for k,v in system_map.collection_descriptions.items():
         for r in v['routelist']:
             sys.stdout.write ('{} '.format(r))

@@ -36,7 +36,7 @@ for k, v in system_map.collection_descriptions.items():
     for r in v['routelist']:
         for rr in system_map.route_descriptions['routedata']:
                 if rr['route'] == r:
-                    routes[r]=rr['prettyname']
+                    routes[r]=rr['prettyname'] #bug dies here if this isnt defined in route_desrptions.json
 
 
 # Update page

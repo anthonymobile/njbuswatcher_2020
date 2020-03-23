@@ -2,8 +2,7 @@
     "last_updated": "2019-07-13 22:43:07",
     "ttl": "86400",
     "routedata": [
-
-        {
+          {
             "description_long": "tbd.",
             "description_short": "JFK Boulevard service between Journal Square Path Station and Secaucus Plaza.",
             "frequency": "low",
@@ -1545,6 +1544,26 @@
             "description_short": "",
             "frequency": "low",
             "prettyname": "Cape May-Wildwood-Phila",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "316",
+            "nm": "N/A",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "N/A",
+            "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
+        },
+        {
+            "route": "318",
+            "nm": "N/A",
+            "ttl": "1d",
+            "description_long": "",
+            "description_short": "",
+            "frequency": "low",
+            "prettyname": "N/A",
             "schedule_url": "https://www.njtransit.com/sf/sf_servlet.srv?hdnPageAction=BusTo"
         },
         {

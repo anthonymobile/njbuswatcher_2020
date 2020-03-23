@@ -4,6 +4,8 @@ import datetime
 import xml.etree.ElementTree
 import geojson
 
+from .CommonTools import get_config_path
+
 # API like: https://github.com/harperreed/transitapi/wiki/Unofficial-Bustracker-API
 
 _sources = {
@@ -191,6 +193,20 @@ def clean_buses(buses):
 #     results = ''
 #     return results
 
+
+def validate_xmldata(rd):
+
+    # load the route file
+    infile = (get_config_path() + 'route_geometry/' + str(rd) + '.xml')
+    with open(infile, 'rb') as f:
+        e = xml.etree.ElementTree.fromstring(f.read())
+        for child in e.getchildren():
+            if child.tag == 'pas':
+                if len(child.findall('pa')) == 0:
+                    print('Route not valid')
+                    return False
+                elif len(child.findall('pa')) > 0:
+                    return True
 
 
 # http://mybusnow.njtransit.com/bustime/map/getRoutePoints.jsp?route=119

@@ -27,8 +27,7 @@ map.on('load', function() {
             type: 'geojson',
             data: geojson
         });
-        map.fitBounds(turf.bbox(geojson), {padding: 20}); // future Use turf.js to smooth the vehicle markers from old to update -- simpler than this which does it along a route https://docs.mapbox.com/mapbox-gl-js/example/animate-point-along-route/
-
+        map.fitBounds(turf.bbox(geojson), {padding: 20});
         map.addLayer({
             "id": "vehicles",
             "type": "circle",

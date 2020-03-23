@@ -57,7 +57,7 @@ class Trip(Base):
         self.date = datetime.datetime.today().strftime('%Y%m%d')
         self.trip_id=('{v}_{run}_{date}').format(v=v,run=run,date=self.date)
 
-        # todo replace everywhere that calls self.stop_list with trip.stops
+        # todo 3 replace everywhere that calls self.stop_list with trip.stops
         # create a corresponding set of Stop records for each new Trip
         # and populate self.coordinates_bundle
         with SQLAlchemyDBConnection() as db:
