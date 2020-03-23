@@ -25,6 +25,7 @@ route = 87 #todo set this from the callback
 _df_route_summary = reports.get_route_summary(route)
 # todo plug in live data source by making a call to wwwAPI here e.g. df_route_summary = wwwAPI.get_route_summary(route) where route is a callback from a dropdown
 
+
 # get current bus locations from NJTransit
 map_data = maps.get_positions_byargs(route)
 
@@ -156,40 +157,6 @@ def create_layout(app,routes):
                                         figure={
                                             "data": make_dash_chart_data(reports.get_frequency(route)),
 
-                                                '''[
-                                                go.Scatter(
-                                                    x=[
-                                                        "6",
-                                                        "7",
-                                                        "8",
-                                                        "9",
-                                                        "10",
-                                                        "11",
-                                                        "12",
-                                                        "13",
-                                                        "14",
-                                                        "15",
-                                                        "16",
-                                                    ],
-                                                    y=[
-                                                        "20",
-                                                        "20",
-                                                        "8",
-                                                        "7",
-                                                        "5",
-                                                        "16",
-                                                        "22",
-                                                        "25",
-                                                        "8",
-                                                        "4",
-                                                        "2",
-                                                    ],
-                                                    line={"color": "#e5bbed"},
-                                                    mode="lines",
-                                                    name="87 Weekdays",
-                                                )
-                                            ]'''
-                                            
                                             "layout": go.Layout(
                                                 autosize=True,
                                                 title="",
@@ -224,7 +191,7 @@ def create_layout(app,routes):
                                                     "gridcolor": "rgba(127, 127, 127, 0.2)",
                                                     "mirror": False,
                                                     "nticks": 4,
-                                                    "range": [0, 30],
+                                                    "range": [0, 60],
                                                     "showgrid": True,
                                                     "showline": True,
                                                     "ticklen": 10,

@@ -80,8 +80,8 @@ def get_menu():
     return menu
 
 
-def get_dropdown(routes):
-    # todo then build it and the callback https://dash.plot.ly/dash-core-components/dropdown
+def get_dropdown(routes): # todo then build it and the callback https://dash.plot.ly/dash-core-components/dropdown
+
     dropdown = html.Div(
         [
             dcc.Dropdown(
@@ -105,18 +105,18 @@ def make_dash_table(df):
         for i in range(len(row)):
             html_row.append(html.Td([row[i]]))
         table.append(html.Tr(html_row))
-        print (table)
     return table
 
 
 def make_dash_chart_data(df):
     fig = []
     data = go.Scatter(
-            x=[x for x in df.loc[0]],
-            y=[y for y in df.loc[1]],
+            x=[x for x in (df.iloc[:, 0].tolist())],
+            y=[y for y in (df.iloc[:, 1].tolist())],
             line={"color": "#e5bbed"},
             mode="lines",
             name="Weekdays",
         )
-    return fig.append(data)
+    fig.append(data)
+    return fig
 
