@@ -27,7 +27,20 @@ def gen_map(route):
     route_waypoints = get_route_waypoints(route)
 
     return {
-        "data": [{
+        "data": [
+
+            {
+                "type": 'scattermapbox',
+                "lat": list(route_waypoints['lat']),
+                "lon": list(route_waypoints['lon']),
+                "mode": "lines",
+                "line": {
+                    "width": "3",
+                    "color": "blue"
+                }
+            },
+
+            {
                 "type": "scattermapbox",
                 "lat": list(bus_positions['lat']),
                 "lon": list(bus_positions['lon']),
@@ -43,17 +56,8 @@ def gen_map(route):
 
                 },
 
-        },
-            {
-                "type": 'scattermapbox',
-                "lat": list(route_waypoints['lat']),
-                "lon": list(route_waypoints['lon']),
-                "mode": "lines",
-                "line": {
-                    "width": "3",
-                    "color": "blue"
-                }
-            }
+        }
+
 
 
         ],
@@ -66,7 +70,8 @@ def gen_map(route):
 def layout_map(map_data):
     layout_map = dict(
         autosize=True,
-        height=500,
+        height=340,
+        width=340,
         font=dict(color="#191A1A"),
         titlefont=dict(color="#191A1A", size='14'),
         margin=dict(

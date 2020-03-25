@@ -5,8 +5,7 @@ import dash_core_components as dcc
 import dash_html_components as html
 import plotly.graph_objs as go
 
-from utils import Header, make_dash_table, make_dash_chart_data
-
+from utils import Header, make_dash_table, make_dash_chart_lines, make_dash_chart_bar
 import lib.Reports as reports
 import lib.Maps as maps
 # import lib.TransitSystem as system
@@ -97,7 +96,7 @@ def create_layout(app,routes):
                                     dcc.Graph(
                                         id="graph-2",
                                         figure={
-                                            "data": make_dash_chart_data(reports.get_frequency(route)),
+                                            "data": make_dash_chart_bar(reports.get_frequency(route)),
 
                                             "layout": go.Layout(
                                                 autosize=True,
@@ -155,39 +154,8 @@ def create_layout(app,routes):
                                     dcc.Graph(
                                         id="graph-2",
                                         figure={
-                                            "data": [
-                                                go.Scatter(
-                                                    x=[
-                                                        "6",
-                                                        "7",
-                                                        "8",
-                                                        "9",
-                                                        "10",
-                                                        "11",
-                                                        "12",
-                                                        "13",
-                                                        "14",
-                                                        "15",
-                                                        "16",
-                                                    ],
-                                                    y=[
-                                                        "65",
-                                                        "65",
-                                                        "75",
-                                                        "95",
-                                                        "75",
-                                                        "65",
-                                                        "65",
-                                                        "75",
-                                                        "95",
-                                                        "75",
-                                                        "65",
-                                                    ],
-                                                    line={"color": "#e5bbed"},
-                                                    mode="lines",
-                                                    name="87 Weekdays",
-                                                )
-                                            ],
+                                            "data": make_dash_chart_bar(reports.get_reliability(route)),
+
                                             "layout": go.Layout(
                                                 autosize=True,
                                                 title="",
@@ -214,7 +182,7 @@ def create_layout(app,routes):
                                                     "range": [6, 16],
                                                     "showgrid": False,
                                                     "showline": True,
-                                                    "title": "",
+                                                    "title": "hour of day",
                                                     "type": "linear",
                                                 },
                                                 yaxis={
@@ -222,7 +190,7 @@ def create_layout(app,routes):
                                                     "gridcolor": "rgba(127, 127, 127, 0.2)",
                                                     "mirror": False,
                                                     "nticks": 4,
-                                                    "range": [0, 120],
+                                                    "range": [0, 60],
                                                     "showgrid": True,
                                                     "showline": True,
                                                     "ticklen": 10,
@@ -239,20 +207,6 @@ def create_layout(app,routes):
 
 
 
-
-
-
-
-                                    # html.Div(
-                                    #     [
-                                    #         html.H6(
-                                    #             "Reliability",
-                                    #             className="subtitle padded",
-                                    #         ),
-                                    #         html.Table(make_dash_table(_87_reliability_overview)),
-                                    #     ],
-                                    #     className="twelve columns",
-                                    # ),
                                 ],
                                 className="six columns",
                             ),
@@ -262,12 +216,10 @@ def create_layout(app,routes):
                                 "Route Map",
                                 className="subtitle padded",
                             ),
-                            # good spot for the map
-                            # todo how to add another layer to this?
+
                             dcc.Graph(id="map", config={"responsive": True},
                                       figure=maps.gen_map(route)
                                     ),
-
 
                         ],
                         className="six columns",
@@ -278,23 +230,7 @@ def create_layout(app,routes):
                         className="row ",
                     ),
 
-                    # # Row 4
-                    # html.Div(
-                    #     [
-                    #         html.Div(
-                    #             [
-                    #                 html.H6(
-                    #                     "Reliability",
-                    #                     className="subtitle padded",
-                    #                 ),
-                    #                 html.Table(make_dash_table(_df_reliability_overview)),
-                    #             ],
-                    #             className="six columns",
-                    #         ),
-                    #
-                    #     ],
-                    #     className="row ",
-                    # ),
+
                 ],
 
             className="sub_page",

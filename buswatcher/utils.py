@@ -108,15 +108,24 @@ def make_dash_table(df):
     return table
 
 
-def make_dash_chart_data(df):
+def make_dash_chart_lines(df):
     fig = []
     data = go.Scatter(
             x=[x for x in (df.iloc[:, 0].tolist())],
             y=[y for y in (df.iloc[:, 1].tolist())],
             line={"color": "#e5bbed"},
-            mode="lines",
+            mode='lines',
             name="Weekdays",
         )
     fig.append(data)
     return fig
 
+def make_dash_chart_bar(df):
+    fig = []
+    data = go.Bar(
+            x=[x for x in (df.iloc[:, 0].tolist())],
+            y=[y for y in (df.iloc[:, 1].tolist())],
+             name="Weekdays",
+        )
+    fig.append(data)
+    return fig
