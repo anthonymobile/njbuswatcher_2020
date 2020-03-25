@@ -66,8 +66,17 @@ def gen_map(route):
 
 
 # template for layout
-# todo calculate center and zoom level by looking at map_data extents_use algo from old JS map
+
+
 def layout_map(map_data):
+
+    center_lat = sum(map_data['lat'])/len(map_data['lat'])
+    center_lon = sum(map_data['lon']) / len(map_data['lon'])
+
+    # todo suppress hovermode for the line layer
+    # future dynamic zoom level to extent of bus locations with turf.js
+    # in JavaScript: map.fitBounds(turf.bbox(map_data), {padding: 50});
+
     layout_map = dict(
         autosize=True,
         height=340,
@@ -83,15 +92,15 @@ def layout_map(map_data):
         hovermode="closest",
         plot_bgcolor='#fffcfc',
         paper_bgcolor='#fffcfc',
-        legend=dict(font=dict(size=10), orientation='h'),
+        showlegend=False,
         mapbox=dict(
             accesstoken=mapbox_access_token,
             style="light",
             center=dict(
-                lon=-74.042520,
-                lat=40.750650
+                lon=center_lon,
+                lat=center_lat
             ),
-            zoom=12,
+            zoom=11,
         )
     )
 

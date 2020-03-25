@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import dash_html_components as html
 import dash_core_components as dcc
 import plotly.graph_objs as go
@@ -129,3 +131,14 @@ def make_dash_chart_bar(df):
         )
     fig.append(data)
     return fig
+
+#
+# def make_dash_chart_timeseries(df):
+#     fig = []
+#     data = go.Scatter(
+#             x=df.hour,
+#             y=[y for y in (df.iloc[:, 1].tolist())],
+#              name="Weekdays",
+#         )
+#     fig.append(data)
+#     return fig

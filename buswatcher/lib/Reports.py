@@ -13,10 +13,7 @@ from .DataBases import SQLAlchemyDBConnection, Trip, BusPosition, Stop
 
 
 def get_route_summary(route):
-    return pd.read_csv('data/_route_summary.csv', quotechar='"') # todo call to a new Generator
-
-def get_grade(route):
-    return pd.read_csv('data/_grade.csv') # todo generate this here, or read a file made by an updated Generator (that outputs a df to csv not json)
+    return pd.read_csv('data/_route_summary.csv', quotechar='"') # todo call to a new Generator that gets the route short_description from route_descriptions.json and generates the grade too
 
 def get_frequency(route):
     return pd.read_csv('data/_frequency.csv') # todo generate this here, or read a file made by an updated Generator (that outputs a df to csv not json)

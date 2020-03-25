@@ -70,21 +70,30 @@ def create_layout(app,routes):
                                 ],
                                 className="six columns",
                             ),
+
                             html.Div(
                                 [
                                     html.H6(
-                                        "Overall Grade", className="subtitle padded"
+                                        "Route Map",
+                                        className="subtitle padded",
                                     ),
-                                    html.Table(make_dash_table(reports.get_grade(route))),
+
+                                    dcc.Graph(id="map", config={"responsive": True},
+                                              figure=maps.gen_map(route)
+                                              ),
+
                                 ],
                                 className="six columns",
                             ),
+
+
+
+
                         ],
                         className="row ",
                     ),
 
-
-                    # Row 3
+                    # Row 3 NEW
                     html.Div(
                         [
                             html.Div(
@@ -146,6 +155,12 @@ def create_layout(app,routes):
                                         },
                                         config={"displayModeBar": False},
                                     ),
+                                ],
+                                className="six columns",
+                            ),
+
+                            html.Div(
+                                [
 
                                     html.H6(
                                         "Reliability",
@@ -204,31 +219,14 @@ def create_layout(app,routes):
                                         },
                                         config={"displayModeBar": False},
                                     ),
-
-
-
                                 ],
                                 className="six columns",
                             ),
-                            html.Div(
-                                [
-                            html.H6(
-                                "Route Map",
-                                className="subtitle padded",
-                            ),
-
-                            dcc.Graph(id="map", config={"responsive": True},
-                                      figure=maps.gen_map(route)
-                                    ),
-
-                        ],
-                        className="six columns",
-                    ),
-
 
                         ],
                         className="row ",
                     ),
+
 
 
                 ],
