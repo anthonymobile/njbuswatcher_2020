@@ -37,7 +37,7 @@ def gen_map(route):
                 "mode": "markers",
                 "name": list(bus_positions['id']),
                 "marker": {
-                    "size": 6,
+                    "size": 10,
                     "opacity": 0.7,
                     "color": "#f6c"
 
@@ -50,8 +50,8 @@ def gen_map(route):
                 "lon": list(route_waypoints['lon']),
                 "mode": "lines",
                 "line": {
-                    "width": "5",
-                    "color": "red"
+                    "width": "3",
+                    "color": "blue"
                 }
             }
 
@@ -99,10 +99,9 @@ def get_route_waypoints(route):
     # route_waypoints=pd.DataFrame.from_dict(test_data)
     # return route_waypoints
 
-    for k,v in system_map.route_geometries.items():
-        if k == route:
-            route_waypoints = v['coordinate_bundle']
-
+    # get waypoints and unzip
+    lat, lon = zip(*system_map.route_geometries[str(route)]['coordinate_bundle']['waypoints_coordinates'])
+    route_waypoints = {'lat': lat, 'lon': lon}
     return route_waypoints
 
 

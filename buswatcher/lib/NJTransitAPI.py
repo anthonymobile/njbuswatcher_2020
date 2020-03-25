@@ -270,8 +270,10 @@ def parse_xml_getRoutePoints(data):
     # dump waypoint coordinates to geojson
     waypoint_coordinates=[]
     for point in routes[0].paths[0].points:
+        # undo this for plot.ly
         # reversed lon, lat for some reason for MapBox
-        waypoint_coordinates.append((float(point.lon),float(point.lat)))
+        # waypoint_coordinates.append((float(point.lon),float(point.lat)))
+        waypoint_coordinates.append((float(point.lat),float(point.lon)))
     route_plot = geojson.LineString(waypoint_coordinates)
     waypoints_geojson = geojson.dumps(route_plot, sort_keys=True)
 

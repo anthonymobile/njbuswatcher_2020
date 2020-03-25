@@ -188,17 +188,6 @@ class SystemMap:
             pass
 
 
-    # return the waypoints for a single route as a df
-    def render_route_waypoints(self, route):
-
-        waypoints = []
-        waypoints_item, stops_item = self.extract_geojson_features_from_system_map(route)
-        waypoints.append(waypoints_item)
-        return waypoints
-
-
-
-
         #
         # try:
         #     # if we only want a single stop geojson
