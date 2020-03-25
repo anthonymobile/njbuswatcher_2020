@@ -1,12 +1,14 @@
 # import json
 # import geojson
 import pandas as pd
+from lib.TransitSystem import load_system_map
 
 from . import NJTransitAPI as njt
 
 # added by AT 17 march 2020
 mapbox_access_token = 'pk.eyJ1IjoiYml0c2FuZGF0b21zIiwiYSI6ImNrN3dsb3Q1ODAzbTYzZHFwMzM4c2FmZjMifQ.HNRse1oELixf7zWOqVfbgA'
 
+system_map=load_system_map()
 
 # generate the map code for dash Graph
 #todo add another dictionary in the data list for the routes
@@ -22,7 +24,7 @@ mapbox_access_token = 'pk.eyJ1IjoiYml0c2FuZGF0b21zIiwiYSI6ImNrN3dsb3Q1ODAzbTYzZH
 
 def gen_map(route):
     bus_positions = get_bus_positions(route)
-    route_lines = get_route_geometry(route)
+    route_waypoints = get_route_waypoints(route)
 
     return {
         "data": [{
@@ -44,8 +46,8 @@ def gen_map(route):
         },
             {
                 "type": 'scattermapbox',
-                "lat": list(route_lines['lat']),
-                "lon": list(route_lines['lon']),
+                "lat": list(route_waypoints['lat']),
+                "lon": list(route_waypoints['lon']),
                 "mode": "lines",
                 "line": {
                     "width": "5",
@@ -92,10 +94,18 @@ def layout_map(map_data):
 
 
 # get route geometry
-def get_route_geometry(route):
-    test_data = {'lat': [45, 46, 47], 'lon': [-72,-71,-70]}
-    route_geometry=pd.DataFrame.from_dict(test_data)
-    return route_geometry
+def get_route_waypoints(route):
+    # test_data = {'lat': [45, 46, 47], 'lon': [-72,-71,-70]}
+    # route_waypoints=pd.DataFrame.from_dict(test_data)
+    # return route_waypoints
+
+    for k,v in system_map.route_geometries.items():
+        if k == route:
+            route_waypoints = v['coordinate_bundle']
+
+    return route_waypoints
+
+
 
 
 # get bus positions for route as a df

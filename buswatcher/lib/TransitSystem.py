@@ -188,6 +188,81 @@ class SystemMap:
             pass
 
 
+    # return the waypoints for a single route as a df
+    def render_route_waypoints(self, route):
+
+        waypoints = []
+        waypoints_item, stops_item = self.extract_geojson_features_from_system_map(route)
+        waypoints.append(waypoints_item)
+        return waypoints
+
+
+
+
+        #
+        # try:
+        #     # if we only want a single stop geojson
+        #     if 'stop_id' in args.keys():
+        #         # query the db and grab the lat lon for the first record that stop_id matches this one
+        #         with self.db as db:
+        #             stop_query = db.session.query(
+        #                 Stop.stop_id,
+        #                 Stop.lat,
+        #                 Stop.lon) \
+        #                 .filter(Stop.stop_id == args['stop_id']) \
+        #                 .first()
+        #             # todo convert to tidy df
+        #             data = {'lat': ['Tom', 'nick', 'krish', 'jack'], 'Age': [20, 21, 19, 18]}
+        #
+        #             # Create DataFrame
+        #             df = pd.DataFrame(data)
+        #
+        #             # Print the output.
+        #             df
+        #
+        #             pd.DataFrame()
+        #             # stop_point = geojson.Point((float(stop_query[2]), float(stop_query[1])))
+        #             # stop_feature = geojson.Feature(geometry=stop_point)
+        #             return stop_feature
+        #
+        #     # otherwise continue to get waypoints/stops for all routes, one route
+        #     elif 'rt' in args.keys():
+        #         waypoints = []
+        #         stops = []
+        #         if args['rt'] == 'all':
+        #             for r in self.route_descriptions['routedata']:
+        #                 waypoints_item, stops_item = self.extract_geojson_features_from_system_map(r['route'])
+        #                 waypoints.append(waypoints_item)
+        #                 stops.append(stops_item)
+        #         else:
+        #
+        #
+        #     # or a collection of routes
+        #     elif 'collection' in args.keys():
+        #         waypoints = []
+        #         stops = []
+        #
+        #         # pick the right collection
+        #         for route in self.collection_descriptions[args['collection']]['routelist']:
+        #             waypoints_item, stops_item = self.extract_geojson_features_from_system_map(route)
+        #             waypoints.append(waypoints_item)
+        #             stops.append(stops_item)
+        #
+        #     # now render the layers as geojson
+        #     if args['layer'] == 'waypoints':
+        #         waypoints_featurecollection = geojson.FeatureCollection(waypoints)
+        #         return waypoints_featurecollection
+        #     elif args['layer'] == 'stops':
+        #         stops_featurecollection = geojson.FeatureCollection(stops)
+        #         return stops_featurecollection
+        #
+        #     return
+        # except:
+        #     from flask import abort
+        #     abort(404)
+        #     pass
+
+
 
 ##################################################################
 # Class TransitSystem bootstrappers
