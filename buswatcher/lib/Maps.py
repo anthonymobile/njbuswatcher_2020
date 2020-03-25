@@ -4,25 +4,102 @@ import pandas as pd
 
 from . import NJTransitAPI as njt
 
-# positions
-def get_positions_byargs(route):
-    return _fetch_positions_df(route)
-        # if args['rt'] == 'all':
-        #     return current_buspositions_from_db_for_index()[0] # just send the feature collection back
-        # else:
-        #     return _fetch_positions_df(args['rt'])
-    # elif 'collection' in args.keys():
-    #     positions_list = pd.DataFrame()
-    #     for city,citydata in system_map.collection_descriptions.items():
-    #         if args['collection'] == citydata['collection']:
-    #             # iterate over its routelist
-    #             for r in citydata['routelist']:
-    #                 positions_list = positions_list.append(_fetch_positions_df(r))
-    #                 # positions_list.append(positions_df)
-    #             return positions_list
+# added by AT 17 march 2020
+mapbox_access_token = 'pk.eyJ1IjoiYml0c2FuZGF0b21zIiwiYSI6ImNrN3dsb3Q1ODAzbTYzZHFwMzM4c2FmZjMifQ.HNRse1oELixf7zWOqVfbgA'
 
 
-def _fetch_positions_df(route):
+# generate the map code for dash Graph
+#todo add another dictionary in the data list for the routes
+'''
+
+"data": [{
+                "type": "scattermapbox",...
+                },
+
+
+'''
+
+
+def gen_map(route):
+    bus_positions = get_bus_positions(route)
+    route_lines = get_route_geometry(route)
+
+    return {
+        "data": [{
+                "type": "scattermapbox",
+                "lat": list(bus_positions['lat']),
+                "lon": list(bus_positions['lon']),
+                "hoverinfo": "text",
+                "hovertext": [["Route: {} <br>Vehicle: {} <br>Run: {}".format(i,j,k)]
+                                for i,j,k in zip(bus_positions['rt'], bus_positions['id'],bus_positions['run'])],
+                "mode": "markers",
+                "name": list(bus_positions['id']),
+                "marker": {
+                    "size": 6,
+                    "opacity": 0.7,
+                    "color": "#f6c"
+
+                },
+
+        },
+            {
+                "type": 'scattermapbox',
+                "lat": list(route_lines['lat']),
+                "lon": list(route_lines['lon']),
+                "mode": "lines",
+                "line": {
+                    "width": "5",
+                    "color": "red"
+                }
+            }
+
+
+        ],
+        "layout": layout_map(bus_positions)
+    }
+
+
+# template for layout
+# todo calculate center and zoom level by looking at map_data extents_use algo from old JS map
+def layout_map(map_data):
+    layout_map = dict(
+        autosize=True,
+        height=500,
+        font=dict(color="#191A1A"),
+        titlefont=dict(color="#191A1A", size='14'),
+        margin=dict(
+            l=3,
+            r=3,
+            b=3,
+            t=3
+        ),
+        hovermode="closest",
+        plot_bgcolor='#fffcfc',
+        paper_bgcolor='#fffcfc',
+        legend=dict(font=dict(size=10), orientation='h'),
+        mapbox=dict(
+            accesstoken=mapbox_access_token,
+            style="light",
+            center=dict(
+                lon=-74.042520,
+                lat=40.750650
+            ),
+            zoom=12,
+        )
+    )
+
+    return layout_map
+
+
+# get route geometry
+def get_route_geometry(route):
+    test_data = {'lat': [45, 46, 47], 'lon': [-72,-71,-70]}
+    route_geometry=pd.DataFrame.from_dict(test_data)
+    return route_geometry
+
+
+# get bus positions for route as a df
+def get_bus_positions(route):
     positions = njt.parse_xml_getBusesForRoute(njt.get_xml_data('nj', 'buses_for_route', route=route))
     labels = ['lat', 'lon', 'id', 'run']
     positions_log=pd.DataFrame(columns=labels)
@@ -40,77 +117,4 @@ def _fetch_positions_df(route):
     except:
         pass
     return positions_log
-
-
-
-
-# from .DataBases import SQLAlchemyDBConnection, Trip, BusPosition, Stop
-# from sqlalchemy import func, text
-
-# def current_buspositions_from_db_for_index():
-#     with SQLAlchemyDBConnection() as db:
-#         query = db.session.query(BusPosition).filter(BusPosition.timestamp >= func.ADDDATE(func.CURRENT_TIMESTAMP(), text('interval -1 minute'))).all()
-#         positions = query
-#         positions_list=[]
-#         for bus in positions:
-#             positions_list.append\
-#                     ({
-#                     'lon':bus.lon,
-#                     'lat':bus.lat,
-#                     'run':bus.run,
-#                     'op':bus.op,
-#                     'dn':bus.dn,
-#                     'pid':bus.pid,
-#                     'id': bus.id,
-#                     'fs': bus.fs,
-#                     'pd': bus.pd,
-#                     'rt': bus.rt
-#                     })
-#         f = lambda X: geojson.Feature(geometry=geojson.Point((float(X["lon"]),float(X["lat"])),
-#                             properties=dict(
-#                                 run=X["run"],
-#                                 op=X["op"],
-#                                 dn=X["dn"],
-#                                 pid=X["pid"],
-#                                 id=X["id"],
-#                                 fs=str(X["fs"]),
-#                                 pd=str(X["pd"]))
-#         ))
-#
-#         positions_features = [f(X) for X in positions_list]
-#         route_count = len(list(set([v['rt'] for v in positions_list])))
-#         return geojson.FeatureCollection(positions_features),len(positions_list), route_count
-#
-
-
-# # concatenate a list of geojson featurecollections into 1 -- per https://github.com/batpad/merge-geojson
-# def fc_concat(fc_list):
-#     fc = {
-#         'type': 'FeatureCollection',
-#         'features': []
-#     }
-#     text = str(fc_list)
-#     for line in text.splitlines():
-#         obj = json.loads(line)
-#         fc['features'].extend(obj['features'])
-#     return fc
-
-# # on-the-fly-GEOJSON-encoder
-# def __positions2geojson(df):
-#     features = []
-#     df.apply(lambda X: features.append(
-#             geojson.Feature(geometry=geojson.Point((X["lon"],
-#                                                     X["lat"]    )),
-#                 properties = dict(
-#                     run=X["run"],
-#                     op=X["op"],
-#                     dn=X["dn"],
-#                     pid=X["pid"],
-#                     dip=X["dip"],
-#                     id=X["id"],
-#                     fs=str(X["fs"]),
-#                     pd=str(X["pd"])))
-#                 )
-#                 , axis = 1)
-#     return geojson.FeatureCollection(features)
 

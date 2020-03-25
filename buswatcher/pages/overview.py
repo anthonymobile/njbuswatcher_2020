@@ -16,69 +16,11 @@ import lib.Maps as maps
 PATH = pathlib.Path(__file__).parent
 DATA_PATH = PATH.joinpath("../data").resolve()
 
-# added by AT 17 march 2020
-mapbox_access_token = 'pk.eyJ1IjoiYml0c2FuZGF0b21zIiwiYSI6ImNrN3dsb3Q1ODAzbTYzZHFwMzM4c2FmZjMifQ.HNRse1oELixf7zWOqVfbgA'
-
 
 route = 87 #todo set this from the callback
 
 _df_route_summary = reports.get_route_summary(route)
 # todo plug in live data source by making a call to wwwAPI here e.g. df_route_summary = wwwAPI.get_route_summary(route) where route is a callback from a dropdown
-
-
-# get current bus locations from NJTransit
-map_data = maps.get_positions_byargs(route)
-
-#  Layouts
-# todo fix lat/lon center and zoom level using algo from old JS map?
-# todo pull some styling from old JS map
-layout_map = dict(
-    autosize=True,
-    height=500,
-    font=dict(color="#191A1A"),
-    titlefont=dict(color="#191A1A", size='14'),
-    margin=dict(
-        l=3,
-        r=3,
-        b=3,
-        t=3
-    ),
-    hovermode="closest",
-    plot_bgcolor='#fffcfc',
-    paper_bgcolor='#fffcfc',
-    legend=dict(font=dict(size=10), orientation='h'),
-    mapbox=dict(
-        accesstoken=mapbox_access_token,
-        style="light",
-        center=dict(
-            lon=-74.042520,
-            lat=40.750650
-        ),
-        zoom=12,
-    )
-)
-
-# functions
-def gen_map(map_data):
-    return {
-        "data": [{
-                "type": "scattermapbox",
-                "lat": list(map_data['lat']),
-                "lon": list(map_data['lon']),
-                "hoverinfo": "text",
-                "hovertext": [["Route: {} <br>Vehicle: {} <br>Run: {}".format(i,j,k)]
-                                for i,j,k in zip(map_data['rt'], map_data['id'],map_data['run'])],
-                "mode": "markers",
-                "name": list(map_data['id']),
-                "marker": {
-                    "size": 6,
-                    "opacity": 0.7,
-                    "color": "#f6c"
-
-                }
-        }],
-        "layout": layout_map
-    }
 
 
 
@@ -321,8 +263,9 @@ def create_layout(app,routes):
                                 className="subtitle padded",
                             ),
                             # good spot for the map
+                            # todo how to add another layer to this?
                             dcc.Graph(id="map", config={"responsive": True},
-                                      figure=gen_map(map_data)
+                                      figure=maps.gen_map(route)
                                     ),
 
 

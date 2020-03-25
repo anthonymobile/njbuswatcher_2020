@@ -44,7 +44,7 @@ would help to do some profiling on `tripwatcher.py` and cythonize particularly s
 - `lib/API.py`
     - `current_buspositions_from_db_for_index()`
     - `__positions2geojson` current is 0.2 seconds per execution on t3a.large
-    - `_fetch_positions_df` use less pandas? (each route takes 0.1 to 0.2 seconds, kills the statewide map... maybe process that with its own process on a single buses_all df)
+    - `get_positions_byargs` use less pandas? (each route takes 0.1 to 0.2 seconds, kills the statewide map... maybe process that with its own process on a single buses_all df)
 - `lib/Generators.py`
     - `Generator.__init__` create a database session here? self.db =  SQLAlchemyDBConnection(), to inherit the database session from parent class?
     - `RouteUpdater` at step 5, parse all the fields from API response into our data structure
