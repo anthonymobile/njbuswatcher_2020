@@ -41,7 +41,7 @@ app.layout = html.Div(
                         [
                             dcc.Location(id="url", refresh=False),
                             html.Div(id="page-content"),
-                            html.Div(id='active-route', style={'display': 'none'})
+                            html.Div(id='active-route', style={'display': 'none'}) #todo dont need this anymore
                         ]
                       )
 
@@ -62,6 +62,7 @@ def display_page(pathname,active_route):
         return create_layout(app,routes,'87')
 
 
+# todo make this callback direct/explicit not hidden since we are no longer passing between multiple pages
 # pass the chosen route back
 # https://dash.plotly.com/sharing-data-between-callbacks
 # https://stackoverflow.com/questions/56762733/flask-dash-passing-a-variable-generated-in-a-callback-to-another-callback
@@ -94,7 +95,8 @@ def create_layout(app,routes,active_route):
                         [
                             html.Div(
                                 [
-                                    html.H5("How Is the {} Doing?".format(active_route)),
+                                    html.H5(id="active_route"), #bug this is the hidden callback
+                                    html.H5("How Is the {} Doing?".format(active_route)), #bug active_route is not getting updated here, because it was passed in?
                                     html.H6("Journal Square — Hoboken"),
                                     html.Br([]),
                                     html.P(
@@ -107,6 +109,7 @@ def create_layout(app,routes,active_route):
                                         style={"color": "#ffffff"},
                                         className="row",
                                     ),
+                                    get_dropdown(routes,active_route),
 
 
                                 ],
@@ -303,8 +306,8 @@ def create_layout(app,routes,active_route):
 
 
 def Header(app,routes,active_route):
-    return html.Div([get_header(app), html.Br([]), get_dropdown(routes,active_route),html.Br([]), get_menu()])
-
+    # return html.Div([get_header(app), html.Br([]), get_dropdown(routes,active_route),html.Br([]), get_menu()])
+    return html.Div([get_header(app), html.Br([])])
 
 def get_header(app):
     header = html.Div(
@@ -320,9 +323,9 @@ def get_header(app):
                     html.Div(
                         [
                             dcc.Link(
-                                "What Is This",
-                                href="/about", #todo create static about page
-                                className="about-link",
+                                "FAQ",
+                                href="/about",
+                                className="full-view-link",
                             )
                         ],
                         className="five columns",
@@ -337,46 +340,46 @@ def get_header(app):
     return header
 
 
-def get_menu():
-    menu = html.Div(
-        [
-            # dcc.Link(
-            #     "Overview",
-            #     href="/overview",
-            #     className="tab first",
-            # ),
-            # dcc.Link(
-            #     "Speed",
-            #     href="/speed",
-            #     className="tab",
-            # ),
-            # dcc.Link(
-            #     "Frequency",
-            #     href="/frequency",
-            #     className="tab",
-            # ),
-            # dcc.Link(
-            #     "Reliability",
-            #     href="/reliability",
-            #     className="tab"
-            # ),
-            # dcc.Link(
-            #     "Bunching",
-            #     href="/bunching",
-            #     className="tab",
-            # ),
-            # dcc.Link(
-            #     "News & Reviews",
-            #     href="/news-and-reviews",
-            #     className="tab",
-            # ),
-
-            html.H5(id="active_route"),
-
-        ],
-        className="row all-tabs",
-    )
-    return menu
+# def get_menu():
+#     menu = html.Div(
+#         [
+#             # dcc.Link(
+#             #     "Overview",
+#             #     href="/overview",
+#             #     className="tab first",
+#             # ),
+#             # dcc.Link(
+#             #     "Speed",
+#             #     href="/speed",
+#             #     className="tab",
+#             # ),
+#             # dcc.Link(
+#             #     "Frequency",
+#             #     href="/frequency",
+#             #     className="tab",
+#             # ),
+#             # dcc.Link(
+#             #     "Reliability",
+#             #     href="/reliability",
+#             #     className="tab"
+#             # ),
+#             # dcc.Link(
+#             #     "Bunching",
+#             #     href="/bunching",
+#             #     className="tab",
+#             # ),
+#             # dcc.Link(
+#             #     "News & Reviews",
+#             #     href="/news-and-reviews",
+#             #     className="tab",
+#             # ),
+#
+#             html.H5(id="active_route"),
+#
+#         ],
+#         className="row all-tabs",
+#     )
+#     return menu
 
 
 def get_dropdown(routes,active_route):
