@@ -26,11 +26,10 @@ app.layout = html.Div(
     [dcc.Location(id="url", refresh=False), html.Div(id="page-content")]
 )
 
-# get routes defined in collection_descriptions
-#     {
-#     '87 Chicken Sandwich': '87',
-#     '119 New York': '119'
-# }
+# suppress callback warnings
+app.config['suppress_callback_exceptions'] = True
+
+# get routes defined in config/collection_descriptions.json
 routes = dict()
 for k, v in system_map.collection_descriptions.items():
     for r in v['routelist']:
@@ -40,7 +39,9 @@ for k, v in system_map.collection_descriptions.items():
 
 
 # Update page
-@app.callback(Output("page-content", "children"), [Input("url", "pathname")])
+@app.callback(
+        Output("page-content", "children"),
+        [Input("url", "pathname")])
 def display_page(pathname):
 
     if pathname == "/speed":
@@ -66,12 +67,11 @@ def display_page(pathname):
         return overview.create_layout(app,routes)
 
 
-# todo callback for the route dropdown, this loads a new data file (easier just to have one report data file for all watched routes?)
-# https://dash.plot.ly/dash-core-components/dropdown
-# https://towardsdatascience.com/dash-a-beginners-guide-d118bd620b5d
-# @app.callback(Output('active_route', 'children'), [Input('route_choice', 'value')])
-# def output_active_route(route):
-#     return u'{}'.format(route)
+
+# todo pass active_route back into the other callback to load the data, or do it here
+@app.callback(Output('active_route', 'children'), [Input('route_choice', 'value')])
+def output_active_route(route):
+    return u'{}'.format(route)
 
 if __name__ == "__main__":
     app.run_server(debug=True)

@@ -27,7 +27,7 @@ def create_layout(app,routes):
     # Page layouts
     return html.Div(
         [
-            html.Div([Header(app,routes)]),
+            Header(app,routes),
             # page 1
             html.Div(
                 [

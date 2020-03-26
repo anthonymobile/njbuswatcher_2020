@@ -82,12 +82,12 @@ def get_menu():
     return menu
 
 
-def get_dropdown(routes): # todo then build it and the callback https://dash.plot.ly/dash-core-components/dropdown
+def get_dropdown(routes): #todo set active route from route_choice
 
     dropdown = html.Div(
         [
             dcc.Dropdown(
-                id='route_chooser',
+                id='route_choice',
                 options=[{'label': '{} {}'.format(r,prettyname), 'value': r} for r,prettyname in routes.items()],
                 value='87 Journal Square',
             )
