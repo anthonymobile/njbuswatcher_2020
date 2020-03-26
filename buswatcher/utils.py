@@ -82,14 +82,14 @@ def get_menu():
     return menu
 
 
-def get_dropdown(routes): #todo set active route from route_choice
+def get_dropdown(routes): #bug value cant be active_route and also default to 87?
 
     dropdown = html.Div(
         [
             dcc.Dropdown(
                 id='route_choice',
                 options=[{'label': '{} {}'.format(r,prettyname), 'value': r} for r,prettyname in routes.items()],
-                value='87 Journal Square',
+                value='87',
             )
         ],
         className="row",)

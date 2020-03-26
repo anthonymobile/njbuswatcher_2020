@@ -22,8 +22,7 @@ _df_route_summary = reports.get_route_summary(route)
 # todo plug in live data source by making a call to wwwAPI here e.g. df_route_summary = wwwAPI.get_route_summary(route) where route is a callback from a dropdown
 
 
-
-def create_layout(app,routes):
+def create_layout(app,routes,active_route):
     # Page layouts
     return html.Div(
         [

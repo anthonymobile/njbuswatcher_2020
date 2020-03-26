@@ -23,7 +23,11 @@ server = app.server
 
 # Describe the layout/ UI of the app
 app.layout = html.Div(
-    [dcc.Location(id="url", refresh=False), html.Div(id="page-content")]
+    [
+        dcc.Location(id="url", refresh=False),
+        html.Div(id="page-content"),
+        html.Div(id='active-route', style={'display': 'none'})
+    ]
 )
 
 # suppress callback warnings
@@ -37,41 +41,48 @@ for k, v in system_map.collection_descriptions.items():
                 if rr['route'] == r:
                     routes[r]=rr['prettyname'] #bug dies here if this isnt defined in route_desrptions.json
 
+#     active_route = '{"active_route":"87"}'
 
 # Update page
 @app.callback(
         Output("page-content", "children"),
-        [Input("url", "pathname")])
-def display_page(pathname):
+        [Input("url", "pathname"),
+         Input("active-route","children")])
+def display_page(pathname,active_route):
 
     if pathname == "/speed":
-        return speed.create_layout(app,routes)
+        return speed.create_layout(app,routes) #todo add (app,routes,active_route) and so on
     elif pathname == "/frequency":
-        return frequency.create_layout(app,routes)
+        return frequency.create_layout(app,routes) #todo add (app,routes,active_route) and so on
     elif pathname == "/reliability":
-        return reliability.create_layout(app,routes)
+        return reliability.create_layout(app,routes) #todo add (app,routes,active_route) and so on
     elif pathname == "/bunching":
-        return bunching.create_layout(app,routes)
+        return bunching.create_layout(app,routes) #todo add (app,routes,active_route) and so on
     elif pathname == "/news-and-reviews":
-        return newsReviews.create_layout(app,routes)
+        return newsReviews.create_layout(app,routes) #todo add (app,routes,active_route) and so on
     elif pathname == "/full-view":
         return (
-            overview.create_layout(app,routes),
-            speed.create_layout(app,routes),
-            frequency.create_layout(app,routes),
-            reliability.create_layout(app,routes),
-            bunching.create_layout(app,routes),
-            newsReviews.create_layout(app,routes),
+            overview.create_layout(app,routes,active_route), #todo add (app,routes,active_route) and so on
+            speed.create_layout(app,routes), #todo add (app,routes,active_route) and so on
+            frequency.create_layout(app,routes), #todo add (app,routes,active_route) and so on
+            reliability.create_layout(app,routes), #todo add (app,routes,active_route) and so on
+            bunching.create_layout(app,routes), #todo add (app,routes,active_route) and so on
+            newsReviews.create_layout(app,routes), #todo add (app,routes,active_route) and so on
         )
     else:
-        return overview.create_layout(app,routes)
+
+        return overview.create_layout(app,routes,active_route)
 
 
 
-# todo pass active_route back into the other callback to load the data, or do it here
+# pass the chosen route back
+# https://dash.plotly.com/sharing-data-between-callbacks
+#  https://stackoverflow.com/questions/56762733/flask-dash-passing-a-variable-generated-in-a-callback-to-another-callback
 @app.callback(Output('active_route', 'children'), [Input('route_choice', 'value')])
 def output_active_route(route):
-    return u'{}'.format(route)
+    active_route_json = "{'active_route':{}}".format(route)
+
+    return active_route_json
 
 if __name__ == "__main__":
     app.run_server(debug=True)
