@@ -18,15 +18,14 @@ DATA_PATH = PATH.joinpath("../data").resolve()
 
 route = 87 #todo set this from the callback
 
-_df_route_summary = reports.get_route_summary(route)
-# todo plug in live data source by making a call to wwwAPI here e.g. df_route_summary = wwwAPI.get_route_summary(route) where route is a callback from a dropdown
+_df_route_summary = reports.get_route_summary(route) # todo plug in live data source by making a call to wwwAPI here e.g. df_route_summary = wwwAPI.get_route_summary(route) where route is a callback from a dropdown
 
 
 def create_layout(app,routes,active_route):
     # Page layouts
     return html.Div(
         [
-            Header(app,routes),
+            Header(app,routes,active_route),
             # page 1
             html.Div(
                 [
@@ -35,7 +34,7 @@ def create_layout(app,routes,active_route):
                         [
                             html.Div(
                                 [
-                                    html.H5("How Is the 87 Doing?"), # todo inject callback here
+                                    html.H5("How Is the {} Doing?".format(active_route)),
                                     html.H6("Journal Square — Hoboken"),
                                     html.Br([]),
                                     html.P(

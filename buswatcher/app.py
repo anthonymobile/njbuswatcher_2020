@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import json
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
@@ -79,9 +80,10 @@ def display_page(pathname,active_route):
 # https://dash.plotly.com/sharing-data-between-callbacks
 #  https://stackoverflow.com/questions/56762733/flask-dash-passing-a-variable-generated-in-a-callback-to-another-callback
 @app.callback(Output('active_route', 'children'), [Input('route_choice', 'value')])
-def output_active_route(route):
-    active_route_json = "{'active_route':{}}".format(route)
-
+def output_active_route(route_choice):
+    active_route_dict = {}
+    active_route_dict['active_route'] = route_choice
+    active_route_json = json.dumps(active_route_dict)
     return active_route_json
 
 if __name__ == "__main__":
