@@ -50,6 +50,7 @@ for k, v in system_map.collection_descriptions.items():
         [Input("url", "pathname"),
          Input("active-route","children")])
 def display_page(pathname,active_route):
+    print ('the url callback thinks active_route is {}'.format(active_route))
 
     if pathname == "/speed":
         return speed.create_layout(app,routes) #todo add (app,routes,active_route) and so on
@@ -84,6 +85,8 @@ def output_active_route(route_choice):
     active_route_dict = {}
     active_route_dict['active_route'] = route_choice
     active_route_json = json.dumps(active_route_dict)
+    print ('the active_route callback thinks active_route is {}'.format(active_route_json))
+
     return active_route_json #bug this doesnt seem to be updating active route -- look in the html for the hidden div
 
 if __name__ == "__main__":
