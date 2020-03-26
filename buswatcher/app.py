@@ -40,9 +40,9 @@ for k, v in system_map.collection_descriptions.items():
     for r in v['routelist']:
         for rr in system_map.route_descriptions['routedata']:
                 if rr['route'] == r:
-                    routes[r]=rr['prettyname'] #bug dies here if this isnt defined in route_desrptions.json
+                    routes[r]=rr['prettyname'] #bug dies here if this isnt defined in route_descrptions.json
 
-#     active_route = '{"active_route":"87"}'
+
 
 # Update page
 @app.callback(
@@ -84,7 +84,7 @@ def output_active_route(route_choice):
     active_route_dict = {}
     active_route_dict['active_route'] = route_choice
     active_route_json = json.dumps(active_route_dict)
-    return active_route_json
+    return active_route_json #bug this doesnt seem to be updating active route -- look in the html for the hidden div
 
 if __name__ == "__main__":
     app.run_server(debug=True)

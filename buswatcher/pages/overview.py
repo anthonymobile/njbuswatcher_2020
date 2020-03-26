@@ -22,6 +22,8 @@ _df_route_summary = reports.get_route_summary(route) # todo plug in live data so
 
 
 def create_layout(app,routes,active_route):
+
+    print ('overview.py thinks active_route is {}'.format(active_route))
     # Page layouts
     return html.Div(
         [

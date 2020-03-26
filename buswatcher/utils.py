@@ -1,4 +1,4 @@
-from datetime import datetime
+import json
 
 import dash_html_components as html
 import dash_core_components as dcc
@@ -6,7 +6,7 @@ import plotly.graph_objs as go
 
 
 def Header(app,routes,active_route):
-    return html.Div([get_header(app), html.Br([]), get_dropdown(routes),html.Br([]), get_menu()])
+    return html.Div([get_header(app), html.Br([]), get_dropdown(routes,active_route),html.Br([]), get_menu()])
 
 
 def get_header(app):
@@ -82,13 +82,19 @@ def get_menu():
     return menu
 
 
-def get_dropdown(routes): #bug value cant be active_route and also default to 87?
+def get_dropdown(routes,active_route):
+
+    # default route to start
+    if active_route is None:
+        active_route = '87'
+
 
     dropdown = html.Div(
         [
             dcc.Dropdown(
                 id='route_choice',
                 options=[{'label': '{} {}'.format(r,prettyname), 'value': r} for r,prettyname in routes.items()],
+                value=active_route
              )
         ],
         className="row",)
