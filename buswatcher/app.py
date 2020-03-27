@@ -45,6 +45,8 @@ app.layout = html.Div(
                       )
 
 
+
+# todo replace dropdown with a list of linked route #s each links to the URL /87 and active_route is populated by reading the URL
 # Update page
 @app.callback(
         Output("page-content", "children"),
@@ -56,6 +58,15 @@ def display_page(pathname):
         active_route = '87'
 
     return create_layout(app, routes, active_route)
+
+# # different approach
+# @app.callback(
+#     Output("page-content", "children"),
+#     [Input("route_choice", "value")])
+#
+# def display_page(route_choice):
+#
+#     return create_layout(app, routes, route_choice)
 
 
 def create_layout(app, routes, active_route):
@@ -92,7 +103,7 @@ def create_layout(app, routes, active_route):
                                         style={"color": "#ffffff"},
                                         className="row",
                                     ),
-                                    get_dropdown(routes,active_route),
+                                    get_route_menu(routes, active_route),
 
 
                                 ],
@@ -316,70 +327,34 @@ def get_header(app):
     return header
 
 
-# def get_menu():
-#     menu = html.Div(
-#         [
-#             # dcc.Link(
-#             #     "Overview",
-#             #     href="/overview",
-#             #     className="tab first",
-#             # ),
-#             # dcc.Link(
-#             #     "Speed",
-#             #     href="/speed",
-#             #     className="tab",
-#             # ),
-#             # dcc.Link(
-#             #     "Frequency",
-#             #     href="/frequency",
-#             #     className="tab",
-#             # ),
-#             # dcc.Link(
-#             #     "Reliability",
-#             #     href="/reliability",
-#             #     className="tab"
-#             # ),
-#             # dcc.Link(
-#             #     "Bunching",
-#             #     href="/bunching",
-#             #     className="tab",
-#             # ),
-#             # dcc.Link(
-#             #     "News & Reviews",
-#             #     href="/news-and-reviews",
-#             #     className="tab",
-#             # ),
-#
-#             html.H5(id="active_route"),
-#
-#         ],
-#         className="row all-tabs",
-#     )
-#     return menu
+
+def get_route_menu(routes, active_route):
 
 
-def get_dropdown(routes, active_route):
+    # todo replace dropdown with a list of linked route #s each links to the URL /87 and active_route is populated by reading the URL
+    # route_menu = html.Div(
+    #     [
+    #         dcc.Dropdown(
+    #             id='route_choice',
+    #             options=[{'label': '{} {}'.format(r,prettyname), 'value': r} for r,prettyname in routes.items()],
+    #             value=active_route,
+    #             clearable=False,
+    #             style={'width': '60%'}
+    #          )
+    #     ],
+    #     className="row",)
+
+    route_html=[]
+    for route in routes:
+        route_html.append(dcc.Link(
+            href='/{}'.format(route)
+        ))
+    route_menu = html.Div(
+        [route_html]
+    )
 
 
-    #todo make the href for the dropdown item the /route"
-    # use the 2nd example here https://dash.plotly.com/urls
-
-    # todo oerride 'Select-value-label' class using style={css...}
-
-    dropdown = html.Div(
-        [
-            dcc.Dropdown(
-                id='route_choice',
-                options=[{'label': '{} {}'.format(r,prettyname), 'value': r} for r,prettyname in routes.items()],
-                value=active_route,
-                clearable=False,
-                style={'width': '60%'}
-             )
-        ],
-        className="row",)
-
-
-    return dropdown
+    return route_menu
 
 
 def make_dash_table(df):
