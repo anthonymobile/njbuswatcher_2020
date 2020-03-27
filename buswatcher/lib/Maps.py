@@ -11,16 +11,6 @@ mapbox_access_token = 'pk.eyJ1IjoiYml0c2FuZGF0b21zIiwiYSI6ImNrN3dsb3Q1ODAzbTYzZH
 system_map=load_system_map()
 
 # generate the map code for dash Graph
-#todo add another dictionary in the data list for the routes
-'''
-
-"data": [{
-                "type": "scattermapbox",...
-                },
-
-
-'''
-
 
 def gen_map(route):
     bus_positions = get_bus_positions(route)

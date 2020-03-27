@@ -1,22 +1,15 @@
 # -*- coding: utf-8 -*-
-import json
-import pathlib
 
-# dash libraries
+from pathlib import Path
+import pandas as pd
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
 import plotly.graph_objs as go
 from dash.dependencies import Input, Output
-
-# buswatcher libraries
 from lib.TransitSystem import load_system_map
-import lib.Reports as reports
 import lib.Maps as maps
 
-# get relative data folder
-PATH = pathlib.Path(__file__).parent
-DATA_PATH = PATH.joinpath("../data").resolve()
 
 ### GET buswatcher CONFIG
 
@@ -45,39 +38,27 @@ app.layout = html.Div(
                       )
 
 
-
-# todo replace dropdown with a list of linked route #s each links to the URL /87 and active_route is populated by reading the URL
 # Update page
 @app.callback(
         Output("page-content", "children"),
         [Input("url", "pathname")])
 def display_page(pathname):
-    try:
-        active_route = int(pathname)
-    except ValueError:
+    print (type(pathname))
+    if type(pathname) is None:
         active_route = '87'
-    print('the callback thinks the pathname is {}'.format(pathname))
-    print('the callback thinks the active_route is {}'.format(active_route))
+        pass
+    elif (pathname[1:]).isdigit():
+        active_route=(pathname[1:])
+    else:
+        active_route = '87'
 
     return create_layout(app, routes, active_route)
-
-# # different approach
-# @app.callback(
-#     Output("page-content", "children"),
-#     [Input("route_choice", "value")])
-#
-# def display_page(route_choice):
-#
-#     return create_layout(app, routes, route_choice)
 
 
 def create_layout(app, routes, active_route):
 
-    # print('create_layout thinks active_route is {}'.format(active_route)) #debugging
-
     # load data
-    # todo plug in live data source by making a call to wwwAPI here e.g. df_route_summary = wwwAPI.get_route_summary(route) where route is a callback from a dropdown
-    _df_route_summary = reports.get_route_summary(active_route)
+    _df_route_summary = get_report(active_route,"summary")
 
     # Page layouts
     return html.Div(
@@ -166,7 +147,7 @@ def create_layout(app, routes, active_route):
                                     dcc.Graph(
                                         id="graph-2",
                                         figure={
-                                            "data": make_dash_chart_bar(reports.get_frequency(active_route)),
+                                            "data": make_dash_chart_bar(get_report(active_route,"frequency")),
 
                                             "layout": go.Layout(
                                                 autosize=True,
@@ -225,7 +206,7 @@ def create_layout(app, routes, active_route):
                                     dcc.Graph(
                                         id="graph-2",
                                         figure={
-                                            "data": make_dash_chart_bar(reports.get_reliability(active_route)),
+                                            "data": make_dash_chart_bar(get_report(active_route,"reliability")),
 
                                             "layout": go.Layout(
                                                 autosize=True,
@@ -295,45 +276,16 @@ def create_layout(app, routes, active_route):
 #######################################################################################
 
 
-def Header(app, routes, active_route):
-    return html.Div([get_header(app), html.Br([])])
-
-def get_header(app):
-    header = html.Div(
-        [
-
-            html.Div(
-                [
-                    html.Div(
-                        [html.H5("NJ Bus Watcher")],
-                        className="seven columns main-title",
-                    ),
-
-                    html.Div(
-                        [
-                            dcc.Link(
-                                "FAQ",
-                                href="/about",
-                                className="full-view-link",
-                            )
-                        ],
-                        className="five columns",
-                    ),
-                ],
-                className="twelve columns",
-                style={"padding-left": "0"},
-            ),
-        ],
-        className="row",
-    )
-    return header
-
+# todo move this up into app.py
+# report loader function
+def get_report(route,report):
+    PATH = Path(__file__).parent
+    DATA_PATH = PATH.joinpath("../data").resolve()
+    return pd.read_csv('{}/{}_{}.csv'.format(DATA_PATH,route,report), quotechar='"')
 
 
 def get_route_menu(routes, active_route):
-
-
-    # todo replace dropdown with a list of linked route #s each links to the URL /87 and active_route is populated by reading the URL
+    ## future restore old dropdown version
     # route_menu = html.Div(
     #     [
     #         dcc.Dropdown(
@@ -346,6 +298,7 @@ def get_route_menu(routes, active_route):
     #     ],
     #     className="row",)
 
+    # todo cleanup display of routes in header block
     route_html=[]
     for route in routes:
         route_html.append(dcc.Link('{}•'.format(route), href='/{}'.format(route)
@@ -353,7 +306,6 @@ def get_route_menu(routes, active_route):
     route_menu = html.Div(
         route_html
     )
-
 
     return route_menu
 
@@ -402,7 +354,38 @@ def make_dash_chart_bar(df):
 #     fig.append(data)
 #     return fig
 
+def Header(app, routes, active_route):
+    return html.Div([get_header(app), html.Br([])])
 
+def get_header(app):
+    header = html.Div(
+        [
+
+            html.Div(
+                [
+                    html.Div(
+                        [html.H5("NJ Bus Watcher")],
+                        className="seven columns main-title",
+                    ),
+
+                    html.Div(
+                        [
+                            dcc.Link(
+                                "FAQ",
+                                href="/about",
+                                className="full-view-link",
+                            )
+                        ],
+                        className="five columns",
+                    ),
+                ],
+                className="twelve columns",
+                style={"padding-left": "0"},
+            ),
+        ],
+        className="row",
+    )
+    return header
 
 
 if __name__ == "__main__":

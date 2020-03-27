@@ -1,19 +1,19 @@
-from pathlib import Path
-import pickle
-from operator import itemgetter
+# import pickle
+# from operator import itemgetter
+# import datetime
 import json
 import csv
-import datetime
+from pathlib import Path
 from dateutil import parser
 from datetime import timedelta
 from sqlalchemy import func, text
-
 import pandas as pd
 
-from lib.Reports import StopReport
 from lib.NJTransitAPI import *
 from lib.DataBases import SQLAlchemyDBConnection, Stop, Trip
 from lib.CommonTools import get_config_path
+#from lib.Reports import StopReport
+
 
 class Generator():
 
@@ -22,7 +22,12 @@ class Generator():
         # self.db =  SQLAlchemyDBConnection()
 
     def store_csv(self, report_to_store): # filename format route_type_period
-        filename = ('{a}/{b}_{c}_{d}.csv').format(a=self.config_prefix,b=report_to_store['route'],c=report_to_store['type'],d=report_to_store['period'])
+
+        # get relative data folder
+        PATH = Path(__file__).parent
+        DATA_PATH = PATH.joinpath("../data").resolve()
+
+        filename='{}/{}_{}.csv'.format(DATA_PATH, report_to_store['route'], report_to_store['type']) # todo check trailing slash?
         with open(filename, 'wb') as csvfile:
             writer = csv.writer(csvfile, delimiter=',', quoting=csv.QUOTE_ALL)
             for row in report_to_store:
@@ -41,8 +46,162 @@ class Generator():
         return query
 
 
-class BunchingReport(Generator):    # todo 2 rebuild this based on simply tallying bus.bunched_arrival_flag
+class RouteSummaryReport(Generator):
 
+    def __init__(self):
+        super(BunchingReport,self).__init__()
+        self.db = SQLAlchemyDBConnection()
+        self.type='summary'
+
+    def generate_reports(self, system_map):
+
+        pass
+
+        # todo gets the route short_description from route_descriptions.json and generates the grade too
+        # todo grade gets generated here
+        # # sample grade report (new CSV version)
+        #
+        # "rt", "type", "period", "created_timestamp", "grade", "grade_description", "pct_bunched"
+        # "119", "grade", "day", "2019-06-34 02:23:22", "B", "Something loaded from grade_descriptons.json", "10.0"
+        # "119", "grade", "day", "2019-06-34 02:23:22", "B", "Something loaded from grade_descriptons.json", "10.0"
+        # "119", "grade", "day", "2019-06-34 02:23:22", "B", "Something loaded from grade_descriptons.json", "10.0"
+
+        # def __init__(self):
+        #     super(GradeReport, self).__init__()
+        #     self.db = SQLAlchemyDBConnection()
+        #     self.type = 'grade'
+        #
+        # def generate_reports(self, system_map):
+        #
+        #     for r in system_map.route_descriptions['routedata']:  # loop over all routes
+        #         route = r['route']
+        #
+        #         for period in system_map.period_descriptions:  # loop over all periods
+        #
+        #             report = []
+        #
+        #             # make and pickle the report
+        #
+        #             # 1. load the bunching report and compute the absolute number of arrivals, number bunched, percent, and assign a letter grade based on grade_descriptions
+        #
+        #             try:
+        #                 bunching_report_fetched = self.retrieve_json(route, 'bunching', period)
+        #             except FileNotFoundError:  # if the file doesn't exist quit this report and try next period
+        #                 continue
+        #
+        #             # compute grade based on pct of all stops on route during period that were bunched
+        #             try:
+        #                 grade_numeric = (bunching_report_fetched['cum_bunch_total'] / bunching_report_fetched[
+        #                     'cum_arrival_total']) * 100
+        #                 for g, g_desc in system_map.grade_descriptions.items():
+        #                     if (grade_numeric >= float(g_desc['bounds'][0])) and (
+        #                             grade_numeric < float(g_desc['bounds'][1])):
+        #                         grade = g_desc['grade']
+        #                         grade_description = g_desc['description']
+        #                         break
+        #
+        #             except:
+        #                 grade = 'N/A'
+        #                 grade_description = 'Unable to determine grade.'
+        #                 pass
+        #
+        #             # 2. set the report results
+        #             report.insert[
+        #                 "rt", "type", "period", "created_timestamp", "grade", "grade_description", "pct_bunched"]
+        #             report.insert([grade, grade_description, grade_numeric])
+        #
+        #             # 3. dump it
+        #
+        #             self.store_csv(report)
+        #
+        #     return
+
+
+class FrequencyReport(Generator): # todo build this
+
+    # # sample frequency report (new CSV version)
+
+    # todo figure out right structure to allow multiple views
+    # "rt", "type", "period", ""
+    # "119", "frequency", "day", ""
+    # "119", "frequency", "day", ""
+    # "119", "frequency", "day", ""
+
+
+    def __init__(self):
+        super(FrequencyReport,self).__init__()
+        self.db = SQLAlchemyDBConnection()
+        self.type='frequency'
+
+    def generate_reports(self, system_map):
+        pass
+
+
+class ReliabilityReport(Generator): # todo build this
+
+    # # sample reliability report (new CSV version)
+    #
+    # todo figure out right structure to allow multiple views
+    # "rt", "type", "period", ""
+    # "119", "reliability", "day", ""
+    # "119", "reliability", "day", ""
+    # "119", "reliability", "day", ""
+
+    def __init__(self):
+        super(ReliabilityReport,self).__init__()
+        self.db = SQLAlchemyDBConnection()
+        self.type='reliability'
+
+    def generate_reports(self, system_map):
+        pass
+
+        # traveltime = dict()
+        #
+        # # # get a list of all COMPLETED trips on this route for this period
+        # #
+        # # todays_date = datetime.date.today()
+        # # yesterdays_date = datetime.date.today() - datetime.timedelta(1)
+        # # one_hour_ago = datetime.datetime.now() - datetime.timedelta(hours=1)
+        # #
+        # # x, trips_on_road_now = self.get_current_trips()
+        # #
+        # #
+        #
+        # # elif self.period == 'today':
+        # #     arrivals_in_completed_trips = pd.read_sql(
+        # #         db.session.query(Stop.trip_id,
+        # #                          Stop.stop_id,
+        # #                          Stop.stop_name,
+        # #                          Stop.arrival_timestamp)
+        # #             .filter(Stop.arrival_timestamp != None)
+        # #             .filter(func.date(Stop.arrival_timestamp) == todays_date)
+        # #             .filter(Stop.trip_id.notin_(trips_on_road_now))
+        # #             .order_by(Stop.trip_id.asc())
+        # #             .order_by(Stop.arrival_timestamp.asc())
+        # #             .statement,
+        # #         db.session.bind)
+        # #
+        # #
+        # #
+        # #
+        # # # now, using pandas, find the difference in arrival_timestamp between first and last row of each group
+        # #
+        # # # Group the data frame by month and item and extract a number of stats from each group
+        # #
+        # # trip_start_end_times = arrivals_in_completed_trips.groupby("trip_id").agg({"arrival_timestamp": "min", "arrival_timestamp": "max"})
+        # #
+        # # travel_times = []
+        # # # now calculate the duration of the min:max tuples in trip_start_end_times, then average of those
+        # # for min,max in trip_start_end_times:
+        # #     travel_times.append(str(max-min))
+        # # traveltime['time'] = '%.0f' % (sum(travel_times) / float(len(travel_times))
+        #
+        # traveltime['time'] = 20
+        #
+        # return traveltime
+
+
+class BunchingReport(Generator):    # todo rebuild this based on simply tallying bus.bunched_arrival_flag
 
     # # sample bunching report (new CSV version)
     #
@@ -120,50 +279,50 @@ class BunchingReport(Generator):    # todo 2 rebuild this based on simply tallyi
     ####################################################################################################
 
 
-    # todo this is probably deprecated with new bunching algo
-    def get_arrivals_here_this_route(self,system_map, route, stop_id, period):
-        with SQLAlchemyDBConnection() as db:
-
-            # build query and load into df
-            query=db.session.query(Trip.rt,  # base query
-                                   Trip.v,
-                                   Trip.pid,
-                                   Trip.trip_id,
-                                   Stop.stop_id,
-                                   Stop.stop_name,
-                                   Stop.arrival_timestamp) \
-                                        .join(Stop) \
-                                        .filter(Trip.rt == route) \
-                                        .filter(Stop.stop_id == stop_id) \
-                                        .filter(Stop.arrival_timestamp != None) \
-                                        .order_by(Stop.arrival_timestamp.asc())
-
-            query=self.query_factory(system_map, query, period=period) # add the period
-            query=query.statement
-            try:
-                arrivals_here_this_route=pd.read_sql(query, db.session.bind)
-                if len(arrivals_here_this_route.index) == 0: # no results return dummy df
-                    return self.return_dummy_arrivals_df(), query
-                else:
-                    return self.filter_arrivals(arrivals_here_this_route), query
-            except ValueError: # any error return a dummy df
-                return self.return_dummy_arrivals_df(), query
-
-    # todo this is probably deprecated with new bunching algo
-    def return_dummy_arrivals_df(self):
-        # to add more than one , simply add to the lists
-        dummydata = {'rt': ['0','0'],
-                     'v': ['0000','0000'],
-                     'pid': ['0','0'],
-                     'trip_id': ['0000_000_00000000','0000_000_00000000'],
-                     'stop_name': ['N/A','N/A'],
-                     'arrival_timestamp': [datetime.time(0, 1),datetime.time(0, 1)],
-                     'delta': datetime.timedelta(seconds=0)
-                    }
-        arrivals_list_final_df = pd.DataFrame(dummydata, columns=['rt','v','pid','trip_id','stop_name','arrival_timestamp','delta'])
-        stop_name = 'N/A'
-        self.arrivals_table_time_created = datetime.datetime.now()  # log creation time and return
-        return arrivals_list_final_df, stop_name, self.arrivals_table_time_created
+    # # this is probably deprecated with new bunching algo
+    # def get_arrivals_here_this_route(self,system_map, route, stop_id, period):
+    #     with SQLAlchemyDBConnection() as db:
+    #
+    #         # build query and load into df
+    #         query=db.session.query(Trip.rt,  # base query
+    #                                Trip.v,
+    #                                Trip.pid,
+    #                                Trip.trip_id,
+    #                                Stop.stop_id,
+    #                                Stop.stop_name,
+    #                                Stop.arrival_timestamp) \
+    #                                     .join(Stop) \
+    #                                     .filter(Trip.rt == route) \
+    #                                     .filter(Stop.stop_id == stop_id) \
+    #                                     .filter(Stop.arrival_timestamp != None) \
+    #                                     .order_by(Stop.arrival_timestamp.asc())
+    #
+    #         query=self.query_factory(system_map, query, period=period) # add the period
+    #         query=query.statement
+    #         try:
+    #             arrivals_here_this_route=pd.read_sql(query, db.session.bind)
+    #             if len(arrivals_here_this_route.index) == 0: # no results return dummy df
+    #                 return self.return_dummy_arrivals_df(), query
+    #             else:
+    #                 return self.filter_arrivals(arrivals_here_this_route), query
+    #         except ValueError: # any error return a dummy df
+    #             return self.return_dummy_arrivals_df(), query
+    #
+    #  # this is probably deprecated with new bunching algo
+    # def return_dummy_arrivals_df(self):
+    #     # to add more than one , simply add to the lists
+    #     dummydata = {'rt': ['0','0'],
+    #                  'v': ['0000','0000'],
+    #                  'pid': ['0','0'],
+    #                  'trip_id': ['0000_000_00000000','0000_000_00000000'],
+    #                  'stop_name': ['N/A','N/A'],
+    #                  'arrival_timestamp': [datetime.time(0, 1),datetime.time(0, 1)],
+    #                  'delta': datetime.timedelta(seconds=0)
+    #                 }
+    #     arrivals_list_final_df = pd.DataFrame(dummydata, columns=['rt','v','pid','trip_id','stop_name','arrival_timestamp','delta'])
+    #     stop_name = 'N/A'
+    #     self.arrivals_table_time_created = datetime.datetime.now()  # log creation time and return
+    #     return arrivals_list_final_df, stop_name, self.arrivals_table_time_created
 
     def filter_arrivals(self, arrivals_here):
             # Otherwise, cleanup the query results -- split by vehicle and calculate arrival intervals
@@ -196,220 +355,6 @@ class BunchingReport(Generator):    # todo 2 rebuild this based on simply tallyi
     ####################################################################################################
     # ^^^^^^^THIS CODE BLOCK IS AN ADAPTED DUPLICATE OF wwwAPI.StopReport.get_arrivals_here_this_route
     ####################################################################################################
-
-
-
-class GradeReport(Generator):
-
-    # # sample grade report (new CSV version)
-    #
-    # "rt", "type", "period", "created_timestamp", "grade", "grade_description", "pct_bunched"
-    # "119", "grade", "day", "2019-06-34 02:23:22", "B", "Something loaded from grade_descriptons.json", "10.0"
-    # "119", "grade", "day", "2019-06-34 02:23:22", "B", "Something loaded from grade_descriptons.json", "10.0"
-    # "119", "grade", "day", "2019-06-34 02:23:22", "B", "Something loaded from grade_descriptons.json", "10.0"
-
-    def __init__(self):
-        super(GradeReport,self).__init__()
-        self.db = SQLAlchemyDBConnection()
-        self.type='grade'
-
-    def generate_reports(self, system_map):
-
-        for r in system_map.route_descriptions['routedata']:  # loop over all routes
-            route = r['route']
-
-            for period in system_map.period_descriptions:  # loop over all periods
-
-                report = []
-
-                # make and pickle the report
-
-                # 1. load the bunching report and compute the absolute number of arrivals, number bunched, percent, and assign a letter grade based on grade_descriptions
-
-                try:
-                    bunching_report_fetched = self.retrieve_json(route, 'bunching', period)
-                except FileNotFoundError: # if the file doesn't exist quit this report and try next period
-                    continue
-
-                # compute grade based on pct of all stops on route during period that were bunched
-                try:
-                    grade_numeric = (bunching_report_fetched['cum_bunch_total'] / bunching_report_fetched['cum_arrival_total']) * 100
-                    for g,g_desc in system_map.grade_descriptions.items():
-                        if (grade_numeric >= float(g_desc['bounds'][0])) and (grade_numeric < float(g_desc['bounds'][1])):
-                                grade = g_desc['grade']
-                                grade_description = g_desc['description']
-                                break
-
-                except:
-                    grade = 'N/A'
-                    grade_description = 'Unable to determine grade.'
-                    pass
-
-                # 2. set the report results
-                report.insert["rt", "type", "period", "created_timestamp", "grade", "grade_description", "pct_bunched"]
-                report.insert([grade,grade_description,grade_numeric])
-
-                # 3. dump it
-
-                self.store_csv(report)
-
-        return
-
-
-
-
-
-class HeadwayReport(Generator):
-
-    def __init__(self):
-        super(HeadwayReport,self).__init__()
-        self.db = SQLAlchemyDBConnection()
-        self.type='headway'
-
-    def f_timing(self, stop_df):
-        stop_df['delta'] = (stop_df['arrival_timestamp'] - stop_df['arrival_timestamp'].shift(1)).fillna(
-            0)  # calc interval between last bus for each row, fill NaNs
-        stop_df = stop_df.dropna()  # drop the NaN (probably just the first one)
-        return stop_df
-
-    def generate_reports(self, system_map):
-
-        with self.db as db:
-
-            # build the query
-            x, trips_on_road_now = self.__get_current_trips()
-
-            query = db.session.query(Stop). \
-                add_columns(Stop.trip_id,
-                            Stop.stop_id,
-                            Stop.stop_name,
-                            Stop.arrival_timestamp)
-
-            # example of multi-table query -- would it require re-setting the relationships in DataBases.py class definitions?
-            # # query = df.session.query(Trip, Stop, BusPosition).join(Stop).join(BusPosition)
-
-            # add the period
-            query = self.__query_factory(db, query,
-                                         period=self.period)
-            # # add extra filters -- EXCLUDES current trips
-            # query=query\
-            #     .filter(Stop.trip_id.notin_(trips_on_road_now))\
-            #     .order_by(Stop.trip_id.asc())\
-            #     .order_by(Stop.pkey.asc())\
-            #     .statement
-
-            # add extra filters -- INCLUDES current trips
-            query = query \
-                .order_by(Stop.trip_id.asc()) \
-                .order_by(Stop.pkey.asc()) \
-                .statement
-
-            # execute query + if the database didn't have results, return an dummy dataframe
-            arrivals_in_completed_trips = pd.read_sql(query, db.session.bind)
-            if len(arrivals_in_completed_trips.index) == 0:
-                arrivals_in_completed_trips = pd.DataFrame(
-                    columns=['trip_id', 'stop_id', 'stop_name', 'arrival_timestamp'],
-                    data=[['666_666_20100101', '38000', 'Dummy Stop', datetime.datetime(2010, 1, 1, 7, 0, 0)],
-                          ['123_666_20100101', '38000', 'Dummy Stop', datetime.datetime(2010, 1, 1, 7, 10, 0)],
-                          ['666_666_20100101', '38001', 'Dummy Stop', datetime.datetime(2010, 1, 1, 7, 10, 0)],
-                          ['123_666_20100101', '38001', 'Dummy Stop', datetime.datetime(2010, 1, 1, 7, 21, 0)],
-                          ['666_666_20100101', '38002', 'Dummy Stop', datetime.datetime(2010, 1, 1, 7, 20, 0)],
-                          ['123_666_20100101', '38002', 'Dummy Stop', datetime.datetime(2010, 1, 1, 7, 28, 0)]]
-                )
-
-            # split by stop_id and calculate arrival intervals at each stop
-            stop_dfs = [g for i, g in arrivals_in_completed_trips.groupby(
-                arrivals_in_completed_trips['stop_id'].ne(arrivals_in_completed_trips['stop_id'].shift()).cumsum())]
-            headways_df = pd.DataFrame()
-
-            for stop_df in stop_dfs:  # iterate over every stop
-                headways_df = headways_df.append(self.f_timing(stop_df))  # dump all these rows into the headways list
-
-            # assemble the results and return
-            headway = dict()
-            # average headway for route -- entire period
-            headway['period_mean'] = headways_df['delta'].mean()
-            headway['period_std'] = headways_df['delta'].std()
-
-            # average headway for route -- by hour
-            times = pd.DatetimeIndex(headways_df.arrival_timestamp)
-            # hourly_arrival_groups = headways_df.groupby([times.hour, times.minute])
-            hourly_arrival_groups = headways_df.groupby([times.hour])
-            headway['hourly_table'] = list()
-
-            for hourly_arrivals in hourly_arrival_groups:
-                df_hourly_arrivals = hourly_arrivals[1]  # grab the df from the tuple
-                hour = datetime.time(7)
-
-                # try this https://stackoverflow.com/questions/45239742/aggregations-for-timedelta-values-in-the-python-dataframe
-                mean = df_hourly_arrivals.delta.mean(numeric_only=False)
-                std = df_hourly_arrivals.delta.std(numeric_only=False)
-
-                # compute the summary stats using numpy per https://stackoverflow.com/questions/44616546/finding-the-mean-and-standard-deviation-of-a-timedelta-object-in-pandas-df
-                # mean2 = df_hourly_arrivals.delta.apply(lambda x: np.mean(x))
-                # std2 = df_hourly_arrivals.delta.apply(lambda x: np.std(x))
-
-                headway['hourly_table'].append((hour, mean, std))
-
-            # to do average headway -- by hour, by stop
-
-            return headway
-        return
-
-class TraveltimeReport(Generator):
-
-    def __init__(self, system_map):
-        super(TraveltimeReport,self).__init__()
-        self.db = SQLAlchemyDBConnection()
-        self.type='traveltime'
-
-    def generate_reports(self, period):
-
-        with self.db as db:
-            traveltime = dict()
-
-            # # get a list of all COMPLETED trips on this route for this period
-            #
-            # todays_date = datetime.date.today()
-            # yesterdays_date = datetime.date.today() - datetime.timedelta(1)
-            # one_hour_ago = datetime.datetime.now() - datetime.timedelta(hours=1)
-            #
-            # x, trips_on_road_now = self.get_current_trips()
-            #
-            #
-
-            # elif self.period == 'today':
-            #     arrivals_in_completed_trips = pd.read_sql(
-            #         db.session.query(Stop.trip_id,
-            #                          Stop.stop_id,
-            #                          Stop.stop_name,
-            #                          Stop.arrival_timestamp)
-            #             .filter(Stop.arrival_timestamp != None)
-            #             .filter(func.date(Stop.arrival_timestamp) == todays_date)
-            #             .filter(Stop.trip_id.notin_(trips_on_road_now))
-            #             .order_by(Stop.trip_id.asc())
-            #             .order_by(Stop.arrival_timestamp.asc())
-            #             .statement,
-            #         db.session.bind)
-            #
-            #
-            #
-            #
-            # # now, using pandas, find the difference in arrival_timestamp between first and last row of each group
-            #
-            # # Group the data frame by month and item and extract a number of stats from each group
-            #
-            # trip_start_end_times = arrivals_in_completed_trips.groupby("trip_id").agg({"arrival_timestamp": "min", "arrival_timestamp": "max"})
-            #
-            # travel_times = []
-            # # now calculate the duration of the min:max tuples in trip_start_end_times, then average of those
-            # for min,max in trip_start_end_times:
-            #     travel_times.append(str(max-min))
-            # traveltime['time'] = '%.0f' % (sum(travel_times) / float(len(travel_times))
-
-            traveltime['time'] = 20
-
-            return traveltime
 
 
 class RouteUpdater():

@@ -1,18 +1,18 @@
+# -*- coding: utf-8 -*-
+
 # generator.py
 #
 # description:
-# does hourly, daily RouteReport,StopReport generation to db or json so they don't run on page loads
+# does hourly, daily RouteReport, StopReport generation to db or json so they don't run on page loads
 #
 # usage:
-# bypasses apscheduler           generator.py --testmode
-#                                generator.py
-#
-#
-import argparse, time
+# general/production            generator.py --production
+# bypasses apscheduler          generator.py --testmode --tasks={minutely,quarter_hourly,hourly,daily}
 
-from lib.Generators import RouteUpdater, GradeReport, BunchingReport, TraveltimeReport, HeadwayReport
+
+import argparse, time
+from lib.Generators import *
 from lib.TransitSystem import load_system_map, flush_system_map
-from lib.DBconfig import connection_string
 from lib.CommonTools import get_config_path
 
 ####################################################################3
@@ -21,7 +21,6 @@ from lib.CommonTools import get_config_path
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.jobstores.sqlalchemy import SQLAlchemyJobStore
 from apscheduler.executors.pool import ThreadPoolExecutor,ProcessPoolExecutor
-
 
 # jobstore is in a sqlite file
 # future move jobstore to mysql
@@ -44,15 +43,16 @@ def quarter_hourly(system_map):
 
 def hourly(system_map):
     task_trigger_1 = RouteUpdater(system_map) # refresh route descriptions
-    task_trigger_2 = flush_system_map() # delete and rebuild the system map
+    task_trigger_2 = FrequencyReport(system_map)
+    task_trigger_3 = ReliabilityReport(system_map)
+    # task_trigger_4 = flush_system_map() # delete and rebuild the system map
     print ('\nhourly_tasks just ran')
-
     return
 
 def daily(system_map):
     # runs at 2am
     task_trigger_1 = BunchingReport().generate_reports(system_map) # rebuild bunching reports
-    task_trigger_2 = GradeReport().generate_reports(system_map) # rebuild grade report
+    task_trigger_2 = RouteSummaryReport().generate_reports(system_map) # best to run this after the other reports
     task_trigger_3 = flush_system_map() # delete and rebuild the system map
     task_trigger_4 = load_system_map(force_regen=True) # regenerate the new system map pickle (re-downloads XML route points and fetches new grades)
 

@@ -1,1 +1,0 @@
-This file simply ensures taht this folder will persist in the git repo.

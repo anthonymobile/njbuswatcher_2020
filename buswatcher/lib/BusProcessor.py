@@ -117,7 +117,7 @@ class BusProcessor:
         return
 
     # @timeit
-    def flag_bunched(self): #todo 2 build geometry-based bunching algorithm
+    def flag_bunched(self): #todo 1 build geometry-based bunching algorithm
 
         # 1 compute the distance between every pair of buses (A,B,C) = AB,AC, BC
 
