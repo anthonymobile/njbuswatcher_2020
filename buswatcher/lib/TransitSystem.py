@@ -9,7 +9,7 @@ import time
 
 from . import NJTransitAPI
 # from . import Generators
-from .Reports import RouteReport
+# from .Reports import RouteReport
 from .CommonTools import get_config_path
 from .DataBases import SQLAlchemyDBConnection, Stop
 
@@ -45,7 +45,7 @@ class SystemMap:
 
         for rd in self.route_descriptions['routedata']:
             xmldata = self.get_single_route_xml(rd['route'])
-            if NJTransitAPI.validate_xmldata(rd['route']) is True: #todo now we are trying to validate before we've downloaded the file!
+            if NJTransitAPI.validate_xmldata(rd['route']) is True:
                 route_geometries[rd['route']]={
                     'route':rd['route'],
                     'xml':xmldata,
@@ -107,23 +107,23 @@ class SystemMap:
                             {'stop_id': p.identity, 'st': p.st, 'd': p.d, 'lat': p.lat, 'lon': p.lon})
         return stoplist
 
-    def get_single_route_stoplist_for_wwwAPI(self, route):
-        route_stop_list = []
-
-        for direction in self.get_single_route_Paths(route)[0]:
-            path_list = []
-            for path in direction.paths:
-                stops_points = RouteReport.Path()
-                for point in path.points:
-                    if isinstance(point, NJTransitAPI.Route.Stop):
-                        stops_points.stops.append(point)
-                stops_points.id = path.id
-                stops_points.d = path.d
-                stops_points.dd = path.dd
-                path_list.append(
-                    stops_points)  # path_list is now a couple of Path instances, plus the metadata id,d,dd fields
-            route_stop_list.append(path_list)
-            return route_stop_list[0]  # transpose a single copy since the others are all repeats (can be verified by path ids)
+    # def get_single_route_stoplist_for_wwwAPI(self, route):
+    #     route_stop_list = []
+    #
+    #     for direction in self.get_single_route_Paths(route)[0]:
+    #         path_list = []
+    #         for path in direction.paths:
+    #             stops_points = RouteReport.Path()
+    #             for point in path.points:
+    #                 if isinstance(point, NJTransitAPI.Route.Stop):
+    #                     stops_points.stops.append(point)
+    #             stops_points.id = path.id
+    #             stops_points.d = path.d
+    #             stops_points.dd = path.dd
+    #             path_list.append(
+    #                 stops_points)  # path_list is now a couple of Path instances, plus the metadata id,d,dd fields
+    #         route_stop_list.append(path_list)
+    #         return route_stop_list[0]  # transpose a single copy since the others are all repeats (can be verified by path ids)
 
     def extract_geojson_features_from_system_map(self, route):
         waypoints_feature = geojson.Feature(geometry=json.loads(self.route_geometries[route]['coordinate_bundle']['waypoints_geojson']))

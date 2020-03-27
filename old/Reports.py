@@ -15,8 +15,8 @@ from .DataBases import SQLAlchemyDBConnection, Trip, BusPosition, Stop
 
 
 # todo 1 this entire library might be deprecated since nothing is being generated during page loads anymore
-# class GenericReport: # all Report classes inherit query_factory
-#     def query_factory(self, db, query, **kwargs):
+# class GenericReport: # all Report classes inherit query_template
+#     def query_template(self, db, query, **kwargs):
 #         query = query.filter(Stop.arrival_timestamp != None). \
 #             filter(Stop.arrival_timestamp >= func.ADDDATE(func.CURRENT_TIMESTAMP(), text(self.period_descriptions[self.period]['sql'])))
 #         return query
@@ -209,7 +209,7 @@ from .DataBases import SQLAlchemyDBConnection, Trip, BusPosition, Stop
 #                                         .filter(Stop.arrival_timestamp != None) \
 #                                         .order_by(Stop.arrival_timestamp.asc())
 #
-#             query=self.query_factory(db, query,period=self.period) # add the period
+#             query=self.query_template(db, query,period=self.period) # add the period
 #             query=query.statement
 #             try:
 #                 arrivals_here_this_route=pd.read_sql(query, db.session.bind)
@@ -232,7 +232,7 @@ from .DataBases import SQLAlchemyDBConnection, Trip, BusPosition, Stop
 #                 .filter(Stop.stop_id == self.stop_id) \
 #                 .filter(Stop.arrival_timestamp != None)
 #
-#             query = self.query_factory(db, query, period=self.period)  # add the period
+#             query = self.query_template(db, query, period=self.period)  # add the period
 #             query = query.filter(Trip.rt != self.route) # exclude the current route
 #             query = query.statement
 #             try:

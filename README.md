@@ -1,5 +1,5 @@
 # NJ BusWatcher
-**updated 2020 mar 8**
+**updated 2020 mar 27**
 
 
 ## Overview
@@ -40,7 +40,6 @@ This branch is for work on v3 of `buswatcher` which will entail a number of big 
 
 
 #### optimization (many of these will be deprecated by dash?)
-would help to do some profiling on `tripwatcher.py` and cythonize particularly slow parts?
 - `lib/API.py`
     - `current_buspositions_from_db_for_index()`
     - `__positions2geojson` current is 0.2 seconds per execution on t3a.large
@@ -57,11 +56,10 @@ would help to do some profiling on `tripwatcher.py` and cythonize particularly s
     - `RouteScan.interpolate_missed_stops` this could be moved to `Generator.quarterly_hour_tasks` as a batch job
     - `RouteScan.get_current_trips` filter by current collections routes only? (Eg. discasrd non-active routes)
 
-#### refactoring
-- move other pieces of common code to `lib/CommonTools.py`
+#### other improvements
 - `lib/RouteScan.py
     - `parse_positions` add route # to construction of trip_id, so its concatenated in the form rt_v_run_date and propagate system wide       
-    - `ckdnearst` implement haversine for nearest stops
+    - `ckdnearst` implement distance for nearest stops
 - `generator.py`
     - move jobstore to mysql db
     - make --test and --setup mutually exclusive, and require --tasks if --test is set

@@ -4,7 +4,7 @@ import datetime
 import xml.etree.ElementTree
 import geojson
 
-from .CommonTools import get_config_path
+import lib.CommonTools as tools
 
 # API like: https://github.com/harperreed/transitapi/wiki/Unofficial-Bustracker-API
 
@@ -88,6 +88,8 @@ class Route(KeyValueData):
             self.lat = ''
             self.lon = ''
             self.d = ''
+            self.seq_id = ''
+            self.distance_since_last_seen = ''
 
     class Stop:
         def __init__(self):
@@ -197,7 +199,7 @@ def clean_buses(buses):
 def validate_xmldata(rd):
 
     # load the route file
-    infile = (get_config_path() + 'route_geometry/' + str(rd) + '.xml')
+    infile = (tools.get_config_path() + 'route_geometry/' + str(rd) + '.xml')
     with open(infile, 'rb') as f:
         e = xml.etree.ElementTree.fromstring(f.read())
         for child in e.getchildren():
@@ -225,6 +227,10 @@ def parse_xml_getRoutePoints(data):
                 route.add_kv(child.tag, child.text)
 
         if child.tag == 'pas':
+
+            n = 0 # reinitialize
+            p_prev = None # reinitialize
+
             for pa in child.findall('pa'):
                 path = Route.Path()
 
@@ -258,14 +264,19 @@ def parse_xml_getRoutePoints(data):
                         p.d = path.d
                         p.lat = _cond_get_single(pt, 'lat')
                         p.lon = _cond_get_single(pt, 'lon')
+                        p.seq_id = n
+                        # todo 0 calculate distance traveled since previous observation
+                        if n != 0:
+                            p.distance_since_last_seen = tools.distance(p_prev, p) # returns geometric distance in feet between waypoints
+                            p_prev = p # make this p the p_prev for next iteration
+
+                        n =+ 1 # increment waypoint sequence counter
 
                         path.points.append(p) # <------ dont append to same list each time
 
                 route.paths.append(path)
                 routes.append(route)
             break
-
-
 
     # dump waypoint coordinates to geojson
     waypoint_coordinates=[]
@@ -291,6 +302,7 @@ def parse_xml_getRoutePoints(data):
     coordinates_bundle['stops_geojson'] = stops_geojson
 
     return routes, coordinates_bundle
+
 
 def get_xml_data(source, function, **kwargs):
     import urllib.request

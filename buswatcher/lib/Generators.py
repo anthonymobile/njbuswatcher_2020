@@ -19,7 +19,7 @@ class Generator():
 
     def __init__(self):
         self.config_prefix = get_config_path()+"reports"
-        # self.db =  SQLAlchemyDBConnection()
+        self.db =  SQLAlchemyDBConnection()
 
     def store_csv(self, report_to_store): # filename format route_type_period
 
@@ -33,14 +33,16 @@ class Generator():
             for row in report_to_store:
                 writer.writerow(row)
         return
+    #
+    # def retrieve_json(self, route, type, period):
+    #     filename = ('{a}/{b}_{c}_{d}.json').format(a=self.config_prefix, b=route,c=type, d=period)
+    #     with open(filename,"r") as f:
+    #         report_retrieved = json.load(f)
+    #     return report_retrieved
 
-    def retrieve_json(self, route, type, period):
-        filename = ('{a}/{b}_{c}_{d}.json').format(a=self.config_prefix, b=route,c=type, d=period)
-        with open(filename,"r") as f:
-            report_retrieved = json.load(f)
-        return report_retrieved
 
-    def query_factory(self, system_map, query, **kwargs):
+    # query_template filters out stops without arrival data, takes period kwarg?
+    def query_template(self, system_map, query, **kwargs):
         query = query.filter(Stop.arrival_timestamp != None). \
             filter(Stop.arrival_timestamp >= func.ADDDATE(func.CURRENT_TIMESTAMP(), text(system_map.period_descriptions[kwargs['period']]['sql'])))
         return query
@@ -50,7 +52,7 @@ class RouteSummaryReport(Generator):
 
     def __init__(self):
         super(BunchingReport,self).__init__()
-        self.db = SQLAlchemyDBConnection()
+        # self.db = SQLAlchemyDBConnection()
         self.type='summary'
 
     def generate_reports(self, system_map):
@@ -149,7 +151,7 @@ class ReliabilityReport(Generator): # todo build this
 
     def __init__(self):
         super(ReliabilityReport,self).__init__()
-        self.db = SQLAlchemyDBConnection()
+        # self.db = SQLAlchemyDBConnection()
         self.type='reliability'
 
     def generate_reports(self, system_map):
@@ -213,7 +215,7 @@ class BunchingReport(Generator):    # todo rebuild this based on simply tallying
 
     def __init__(self):
         super(BunchingReport,self).__init__()
-        self.db = SQLAlchemyDBConnection()
+        # self.db = SQLAlchemyDBConnection()
         self.type='bunching'
 
     def generate_reports(self, system_map):
@@ -297,7 +299,7 @@ class BunchingReport(Generator):    # todo rebuild this based on simply tallying
     #                                     .filter(Stop.arrival_timestamp != None) \
     #                                     .order_by(Stop.arrival_timestamp.asc())
     #
-    #         query=self.query_factory(system_map, query, period=period) # add the period
+    #         query=self.query_template(system_map, query, period=period) # add the period
     #         query=query.statement
     #         try:
     #             arrivals_here_this_route=pd.read_sql(query, db.session.bind)

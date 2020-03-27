@@ -116,13 +116,29 @@ class BusProcessor:
 
         return
 
-    # @timeit
-    def flag_bunched(self): #todo 1 build geometry-based bunching algorithm
+    @timeit
+    def flag_bunched(self):
 
-        # 1 compute the distance between every pair of buses (A,B,C) = AB,AC, BC
+        with self.db as db:
 
-        # 2 if a bus is too close set bus.bunched_arrival_flag = True
-            # caveat this will set BOTH buses in a bunched pair to bunched. is there a way to pick which one is behidn the other?
+            try:
+                self.watched_route_list = sorted(list(set([bus.rt for bus in self.buses])))  # find all the routes unique
+                for r in self.watched_route_list:  # loop over each route
+
+
+                    #2 todo load the waypoints for that route from system_map.route_geometries['waypoint_coordinates']
+
+                    #3 assign each bus to the nearest waypoint
+                    # use / rewrite get_nearest_stop(system_map, buses, route) function below
+
+                    #4 sort them along the route
+
+                    #5 calculate distance between each set of buses and assign flag to following bus
+
+
+            except (IntegrityError) as e:
+                error_count = + 1
+                print(e + 'mysql integrity error #' + error_count)
 
         return
 
@@ -458,7 +474,7 @@ def ckdnearest(gdA, gdB, bcol):
     # # new method based on https://gis.stackexchange.com/questions/279109/calculate-distance-between-a-coordinate-and-a-county-in-geopandas
     # from math import radians, cos, sin, asin, sqrt
     #
-    # def haversine(lon1, lat1, lon2, lat2):
+    # def distance(lon1, lat1, lon2, lat2):
     #     # Calculate the great circle distance between two points on the earth (specified in decimal degrees)
     #     lon1, lat1, lon2, lat2 = map(radians, [lon1, lat1, lon2, lat2])
     #     dlon = lon2 - lon1
@@ -468,7 +484,7 @@ def ckdnearest(gdA, gdB, bcol):
     #     r = 3956  # Radius of earth in miles. Use 6371 for kilometers
     #     return c * r
     #
-    # df = pd.DataFrame.from_dict({'distance': (haversine(gdA.geometry.x, gdA.geometry.y, gdB.geometry.x, gdB.geometry.y)),bcol : gdB.loc[idx, bcol].values })
+    # df = pd.DataFrame.from_dict({'distance': (distance(gdA.geometry.x, gdA.geometry.y, gdB.geometry.x, gdB.geometry.y)),bcol : gdB.loc[idx, bcol].values })
     #
     # # EXAMPLE OF ITERATING OVER A GDF
     # # for index, row in gdf.iterrows():
