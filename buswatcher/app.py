@@ -56,6 +56,8 @@ def display_page(pathname):
         active_route = int(pathname)
     except ValueError:
         active_route = '87'
+    print('the callback thinks the pathname is {}'.format(pathname))
+    print('the callback thinks the active_route is {}'.format(active_route))
 
     return create_layout(app, routes, active_route)
 
@@ -346,11 +348,10 @@ def get_route_menu(routes, active_route):
 
     route_html=[]
     for route in routes:
-        route_html.append(dcc.Link(
-            href='/{}'.format(route)
+        route_html.append(dcc.Link('{}•'.format(route), href='/{}'.format(route)
         ))
     route_menu = html.Div(
-        [route_html]
+        route_html
     )
 
 
