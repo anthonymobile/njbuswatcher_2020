@@ -1,0 +1,865 @@
+<?xml version="1.0"?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<route>
+		<id>801</id> 
+		<rtpiFeedName></rtpiFeedName>
+		<sn>801</sn> 
+		<nm>801 Metropark - JFK Hospital</nm> 
+		<displayDesignator>801</displayDesignator> 
+		<vmode>1</vmode>   
+		
+		<sbs>
+
+
+
+		</sbs>
+
+		<c>#006699</c>
+
+		<pas>
+
+
+			<pa>
+				<id>2059</id>
+
+				<d>P.M. Loop</d> 
+				<dd>P.M. Loop</dd>  
+				<directionRtpiFeedName></directionRtpiFeedName>
+
+				<pt>
+					<lat>40.56729000000107</lat>
+			        <lon>-74.33058999999966</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>30532</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>METROPARK RAIL STATION BUS LANE 1</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.566961</lat>
+			        <lon>-74.330398</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.56652</lat>
+			        <lon>-74.3299</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.56652</lat>
+			        <lon>-74.32977</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.56708</lat>
+			        <lon>-74.32898</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.56809</lat>
+			        <lon>-74.32728</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.56902</lat>
+			        <lon>-74.32595</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57016</lat>
+			        <lon>-74.32465</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57073</lat>
+			        <lon>-74.32388</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.570824</lat>
+			        <lon>-74.323678</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57087999999988</lat>
+			        <lon>-74.32355999999913</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>24186</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>MIDDLESEX-ESSEX TPKE + JULIET ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.5711</lat>
+			        <lon>-74.32333</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57265</lat>
+			        <lon>-74.32106</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57311</lat>
+			        <lon>-74.32047</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57338</lat>
+			        <lon>-74.32149</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.573747</lat>
+			        <lon>-74.32347</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.573779999999765</lat>
+			        <lon>-74.3235799999998</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>24207</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>OAK TREE RD + MIDDLESEX AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.57387</lat>
+			        <lon>-74.32465</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57386</lat>
+			        <lon>-74.32483</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57386</lat>
+			        <lon>-74.32501</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57372</lat>
+			        <lon>-74.32626</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.573725</lat>
+			        <lon>-74.326497</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57373000000003</lat>
+			        <lon>-74.32672000000112</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>24208</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>OAK TREE RD + CORREJA AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.57363</lat>
+			        <lon>-74.32706</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57329</lat>
+			        <lon>-74.33045</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57329</lat>
+			        <lon>-74.33063</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57323</lat>
+			        <lon>-74.33171</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.573246</lat>
+			        <lon>-74.331946</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57325999999916</lat>
+			        <lon>-74.33213999999937</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>24209</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>OAK TREE RD + PLYMOUTH DR</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.5732</lat>
+			        <lon>-74.33249</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.573</lat>
+			        <lon>-74.33608</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.573</lat>
+			        <lon>-74.33626</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57299</lat>
+			        <lon>-74.33644</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57299</lat>
+			        <lon>-74.33662</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57298</lat>
+			        <lon>-74.3368</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57298</lat>
+			        <lon>-74.33716</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57297</lat>
+			        <lon>-74.33734</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57297</lat>
+			        <lon>-74.33752</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57296</lat>
+			        <lon>-74.3377</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57296</lat>
+			        <lon>-74.33806</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57295</lat>
+			        <lon>-74.33824</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57295</lat>
+			        <lon>-74.33842</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57294</lat>
+			        <lon>-74.3386</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57294</lat>
+			        <lon>-74.33896</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57293</lat>
+			        <lon>-74.33914</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.572962</lat>
+			        <lon>-74.339373</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.5729900000013</lat>
+			        <lon>-74.33958000000166</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>23175</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>OAK TREE RD + HENRY ST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.57291</lat>
+			        <lon>-74.33993</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57289</lat>
+			        <lon>-74.34029</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57289</lat>
+			        <lon>-74.34047</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57287</lat>
+			        <lon>-74.34083</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57287</lat>
+			        <lon>-74.34101</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57284</lat>
+			        <lon>-74.34154</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57284</lat>
+			        <lon>-74.34172</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57272</lat>
+			        <lon>-74.3437</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.572752</lat>
+			        <lon>-74.343933</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.572770000000965</lat>
+			        <lon>-74.34405999999949</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>23176</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>OAK TREE RD + SUGAR RD</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.57267</lat>
+			        <lon>-74.3444</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57238</lat>
+			        <lon>-74.34834</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.572397</lat>
+			        <lon>-74.348576</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57240999999922</lat>
+			        <lon>-74.34874999999997</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>23177</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>OAK TREE RD + ELLMYER RD</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.57229</lat>
+			        <lon>-74.34909</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57211</lat>
+			        <lon>-74.35051</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.572115</lat>
+			        <lon>-74.350747</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.572119999999174</lat>
+			        <lon>-74.35096999999914</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>23178</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>OAK TREE RD + VENTNOR DR</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.572</lat>
+			        <lon>-74.35132</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57161</lat>
+			        <lon>-74.3547</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.571643</lat>
+			        <lon>-74.354933</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.5716600000012</lat>
+			        <lon>-74.3550499999989</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>23179</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>OAK TREE RD + MONICA DR</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.57157</lat>
+			        <lon>-74.3554</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.5716</lat>
+			        <lon>-74.35612</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.5717</lat>
+			        <lon>-74.35682</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57188</lat>
+			        <lon>-74.3575</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57182</lat>
+			        <lon>-74.3576</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57086</lat>
+			        <lon>-74.357976</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.57076000000076</lat>
+			        <lon>-74.35801999999994</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>23126</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>GROVE AVE + OAK TREE RD</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.57048</lat>
+			        <lon>-74.35796</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.567691</lat>
+			        <lon>-74.357912</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.5675500000002</lat>
+			        <lon>-74.35793000000132</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>23127</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>GROVE AVE + GEORGE AVE EAST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.56728</lat>
+			        <lon>-74.35786</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.56522</lat>
+			        <lon>-74.35773</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.565042</lat>
+			        <lon>-74.357767</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.56492999999863</lat>
+			        <lon>-74.35779000000134</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>23128</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>GROVE AVE + MARLIN AVE WEST</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.56466</lat>
+			        <lon>-74.35772</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.56274</lat>
+			        <lon>-74.3577</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.562562</lat>
+			        <lon>-74.357738</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.562460000000705</lat>
+			        <lon>-74.35776000000142</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>23129</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>GROVE AVE + MONROE AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.56218</lat>
+			        <lon>-74.3577</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.560352</lat>
+			        <lon>-74.357723</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.56021000000128</lat>
+			        <lon>-74.35775000000066</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>23130</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>GROVE AVE + TWIN OAKS DRIVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.55993</lat>
+			        <lon>-74.3577</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.55774</lat>
+			        <lon>-74.35785</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.55747</lat>
+			        <lon>-74.35782</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.55742</lat>
+			        <lon>-74.35772</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.557539</lat>
+			        <lon>-74.355144</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.557529999999794</lat>
+			        <lon>-74.35493999999967</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>23141</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JAMES ST + MUNDY AVE</st> 
+					</bs>
+
+				</pt>
+
+				<pt>
+					<lat>40.55759</lat>
+			        <lon>-74.35459</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.557735</lat>
+			        <lon>-74.351304</lon>
+			        <dtr>false</dtr> 
+
+				</pt>
+
+				<pt>
+					<lat>40.55772000000115</lat>
+			        <lon>-74.35105999999988</lon>
+			        <dtr>false</dtr> 
+
+					<bs>
+						<id>23142</id>
+						<rtpiFeedName></rtpiFeedName>
+						<st>JFK MEDICAL CENTER</st> 
+					</bs>
+
+				</pt>
+
+			</pa>
+
+
+		</pas>
+	</route>

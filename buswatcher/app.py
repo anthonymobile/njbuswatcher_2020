@@ -40,8 +40,7 @@ app.config['suppress_callback_exceptions'] = True # # suppress callback warnings
 app.layout = html.Div(
                         [
                             dcc.Location(id="url", refresh=False),
-                            html.Div(id="page-content"),
-                            html.Div(id='active-route', style={'display': 'none'}) #todo dont need this anymore
+                            html.Div(id="page-content")
                         ]
                       )
 
@@ -49,44 +48,28 @@ app.layout = html.Div(
 # Update page
 @app.callback(
         Output("page-content", "children"),
-        [Input("url", "pathname"),
-         Input("active-route","children")])
-def display_page(pathname,active_route):
+        [Input("url", "pathname")])
+def display_page(pathname):
     try:
-        if int(pathname) is True:
-            return create_layout(app,routes,str(pathname))
-        else:
-            return create_layout(app, routes, '87')
-    except:
-        print ("something borked")
-        return create_layout(app,routes,'87')
+        active_route = int(pathname)
+    except ValueError:
+        active_route = '87'
+
+    return create_layout(app, routes, active_route)
 
 
-# todo make this callback direct/explicit not hidden since we are no longer passing between multiple pages
-# pass the chosen route back
-# https://dash.plotly.com/sharing-data-between-callbacks
-# https://stackoverflow.com/questions/56762733/flask-dash-passing-a-variable-generated-in-a-callback-to-another-callback
-@app.callback(Output('active_route', 'children'), [Input('route_choice', 'value')])
-def output_active_route(route_choice):
-    active_route_dict = {}
-    active_route_dict['active_route'] = route_choice
-    active_route_json = json.dumps(active_route_dict)
-
-    return active_route_json #bug this doesnt seem to be updating active route -- look in the html for the hidden div
-
-
-def create_layout(app,routes,active_route):
+def create_layout(app, routes, active_route):
 
     # print('create_layout thinks active_route is {}'.format(active_route)) #debugging
 
     # load data
-    _df_route_summary = reports.get_route_summary(active_route)  # todo plug in live data source by making a call to wwwAPI here e.g. df_route_summary = wwwAPI.get_route_summary(route) where route is a callback from a dropdown
-
+    # todo plug in live data source by making a call to wwwAPI here e.g. df_route_summary = wwwAPI.get_route_summary(route) where route is a callback from a dropdown
+    _df_route_summary = reports.get_route_summary(active_route)
 
     # Page layouts
     return html.Div(
         [
-            Header(app,routes,active_route),
+            Header(app, routes, active_route),
             # page 1
             html.Div(
                 [
@@ -128,6 +111,7 @@ def create_layout(app,routes,active_route):
                                         ["Route Overview"], className="subtitle padded"
                                     ),
                                     html.Table(make_dash_table(_df_route_summary)),
+                                    html.Br([]),
                                 ],
                                 className="six columns",
                             ),
@@ -142,10 +126,13 @@ def create_layout(app,routes,active_route):
                                     dcc.Graph(id="map", config={"responsive": True},
                                               figure=maps.gen_map(active_route)
                                               ),
+                                    html.Br([]),
 
                                 ],
+
                                 className="six columns",
                             ),
+
 
 
 
@@ -175,18 +162,13 @@ def create_layout(app,routes,active_route):
                                                 height=200,
                                                 width=340,
                                                 hovermode="closest",
-                                                legend={
-                                                    "x": -0.0277108433735,
-                                                    "y": -0.142606516291,
-                                                    "orientation": "h",
-                                                },
                                                 margin={
                                                     "r": 20,
                                                     "t": 20,
-                                                    "b": 20,
+                                                    "b": 40,
                                                     "l": 50,
                                                 },
-                                                showlegend=True,
+                                                showlegend=False,
                                                 xaxis={
                                                     "autorange": True,
                                                     "linecolor": "rgb(0, 0, 0)",
@@ -239,18 +221,13 @@ def create_layout(app,routes,active_route):
                                                 height=200,
                                                 width=340,
                                                 hovermode="closest",
-                                                legend={
-                                                    "x": -0.0277108433735,
-                                                    "y": -0.142606516291,
-                                                    "orientation": "h",
-                                                },
                                                 margin={
                                                     "r": 20,
                                                     "t": 20,
-                                                    "b": 20,
+                                                    "b": 40,
                                                     "l": 50,
                                                 },
-                                                showlegend=True,
+                                                showlegend=False,
                                                 xaxis={
                                                     "autorange": True,
                                                     "linecolor": "rgb(0, 0, 0)",
@@ -305,8 +282,7 @@ def create_layout(app,routes,active_route):
 #######################################################################################
 
 
-def Header(app,routes,active_route):
-    # return html.Div([get_header(app), html.Br([]), get_dropdown(routes,active_route),html.Br([]), get_menu()])
+def Header(app, routes, active_route):
     return html.Div([get_header(app), html.Br([])])
 
 def get_header(app):
@@ -382,24 +358,26 @@ def get_header(app):
 #     return menu
 
 
-def get_dropdown(routes,active_route):
+def get_dropdown(routes, active_route):
 
-    # default route to start
-    if active_route is None:
-        active_route = '87'
 
+    #todo make the href for the dropdown item the /route"
+    # use the 2nd example here https://dash.plotly.com/urls
+
+    # todo oerride 'Select-value-label' class using style={css...}
 
     dropdown = html.Div(
         [
             dcc.Dropdown(
                 id='route_choice',
                 options=[{'label': '{} {}'.format(r,prettyname), 'value': r} for r,prettyname in routes.items()],
-                value=active_route
+                value=active_route,
+                clearable=False,
+                style={'width': '60%'}
              )
         ],
         className="row",)
 
-        # style={'width': '48%', 'display': 'inline-block'})
 
     return dropdown
 
