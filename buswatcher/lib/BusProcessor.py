@@ -101,7 +101,7 @@ class BusProcessor:
 
                     try:
                         buses_for_this_route = [b for b in self.buses if b.rt == r]
-                        bus_positions = get_nearest_stop(system_map, buses_for_this_route, r)
+                        bus_positions = get_nearest(system_map, buses_for_this_route, r)
                         for group in bus_positions:
                             for bus in group:
                                 db.session.add(bus)
@@ -117,30 +117,30 @@ class BusProcessor:
         return
 
     @timeit
-    def flag_bunched(self):
+    def flag_bunched(self): #todo scaffold this
 
-        with self.db as db:
+        # with self.db as db:
+        #
+        #     try:
+        #         self.watched_route_list = sorted(list(set([bus.rt for bus in self.buses])))  # find all the routes unique
+        #         for r in self.watched_route_list:  # loop over each route
+        #
+        #             try:
+        #                 buses_for_this_route = [b for b in self.buses if b.rt == r]
+        #
+        #
+        #             #2 load the waypoints for that route from system_map.route_geometries['waypoint_coordinates']
+        #
+        #             #3 assign each bus to the nearest waypoint
+        #             # use / rewrite get_nearest_stop(system_map, buses, route) function below
+        #
+        #             #4 sort them along the route
+        #
+        #             #5 calculate distance between each set of buses and assign flag to following bus
+        #
+        #             if d < 750:
+        pass
 
-            try:
-                self.watched_route_list = sorted(list(set([bus.rt for bus in self.buses])))  # find all the routes unique
-                for r in self.watched_route_list:  # loop over each route
-
-
-                    #2 todo load the waypoints for that route from system_map.route_geometries['waypoint_coordinates']
-
-                    #3 assign each bus to the nearest waypoint
-                    # use / rewrite get_nearest_stop(system_map, buses, route) function below
-
-                    #4 sort them along the route
-
-                    #5 calculate distance between each set of buses and assign flag to following bus
-
-
-            except (IntegrityError) as e:
-                error_count = + 1
-                print(e + 'mysql integrity error #' + error_count)
-
-        return
 
 
     # @timeit
@@ -493,11 +493,12 @@ def ckdnearest(gdA, gdB, bcol):
 
     return df
 
-def get_nearest_stop(system_map, buses, route):
+def get_nearest(system_map, buses, route):
     ###########################################################################
-    # GET_NEAREST_STOP
+    # GET_NEAREST
     #
     # Finds the nearest stop, distance to it, from each item in a list of Bus objects.
+    # Finds the nearest waypoint and saves it
     # Returns as a list of BusPosition objects.
     #
     ###########################################################################
@@ -516,8 +517,11 @@ def get_nearest_stop(system_map, buses, route):
 
     try:
         stoplist = system_map.get_single_route_stoplist_for_localizer(route)
+        waypointlist = system_map.get_single_route_waypointlist_for_localizer(route)
     except:
         return
+
+    # todo add to routine below, same for the nearest waypoint in waypointlist
 
     result = collections.defaultdict(list)
     for d in stoplist:
@@ -553,6 +557,7 @@ def get_nearest_stop(system_map, buses, route):
 
                 gdf1['stop_id'] = inferred_stops['stop_id']
                 gdf1['distance'] = inferred_stops['distance']
+
 
                 bus_list = gdf1.apply(lambda row: turn_row_into_BusPosition(row), axis=1)
 

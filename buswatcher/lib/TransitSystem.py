@@ -45,7 +45,9 @@ class SystemMap:
 
         for rd in self.route_descriptions['routedata']:
             xmldata = self.get_single_route_xml(rd['route'])
-            if NJTransitAPI.validate_xmldata(rd['route']) is True:
+
+            # validate here
+            if NJTransitAPI.validate_xmldata(xmldata) is True:
                 route_geometries[rd['route']]={
                     'route':rd['route'],
                     'xml':xmldata,
@@ -53,7 +55,8 @@ class SystemMap:
                     'coordinate_bundle': self.get_single_route_Paths(rd['route'])[1]
                 }
             else:
-                continue # skip the bad route
+                continue # skip the bad XML bad route
+
         return route_geometries
 
     def get_routelist(self):
@@ -78,15 +81,17 @@ class SystemMap:
                 with open(infile, 'rb') as f:
                     return f.read()
 
+
+
+
     def get_single_route_Paths(self, route):
         try:
             infile = (get_config_path() + 'route_geometry/' + route + '.xml')
             with open(infile, 'rb') as f:
                 print('parsing Paths for route ' + route)
-                if NJTransitAPI.validate_xmldata(route) is True:
-                    return NJTransitAPI.parse_xml_getRoutePoints(f.read())
-                else:
-                    pass
+                paths = NJTransitAPI.parse_xml_getRoutePoints(f.read())
+                return paths
+
         except:
             pass
 
@@ -106,6 +111,18 @@ class SystemMap:
                         stoplist.append(
                             {'stop_id': p.identity, 'st': p.st, 'd': p.d, 'lat': p.lat, 'lon': p.lon})
         return stoplist
+
+    def get_single_route_waypointlist_for_localizer(self, route):
+
+        routedata, coordinate_bundle = self.get_single_route_paths_and_coordinatebundle(route)
+        waypointlist=[]
+        for rt in routedata:
+            for path in rt.paths:
+                for p in path.points:
+                    waypointlist.append(
+                        {'waypoint_id': p.identity, 'd': p.d, 'lat': p.lat, 'lon': p.lon})
+        return waypointlist
+
 
     # def get_single_route_stoplist_for_wwwAPI(self, route):
     #     route_stop_list = []

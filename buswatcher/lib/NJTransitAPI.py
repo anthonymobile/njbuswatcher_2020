@@ -32,6 +32,7 @@ def _gen_command(source, func, **kwargs):
         params = params + k + '=' + str(v) + '&'
     if params:
         result += '?' + params[:-1]
+    print (result)
     return result
 
 def _cond_get_single(tree, key, default=''):
@@ -88,8 +89,8 @@ class Route(KeyValueData):
             self.lat = ''
             self.lon = ''
             self.d = ''
-            self.seq_id = ''
-            self.distance_since_last_seen = ''
+            self.waypoint_id = ''
+            self.distance_to_prev = ''
 
     class Stop:
         def __init__(self):
@@ -196,19 +197,15 @@ def clean_buses(buses):
 #     return results
 
 
-def validate_xmldata(rd):
-
-    # load the route file
-    infile = (tools.get_config_path() + 'route_geometry/' + str(rd) + '.xml')
-    with open(infile, 'rb') as f:
-        e = xml.etree.ElementTree.fromstring(f.read())
-        for child in e.getchildren():
-            if child.tag == 'pas':
-                if len(child.findall('pa')) == 0:
-                    print('Route not valid')
-                    return False
-                elif len(child.findall('pa')) > 0:
-                    return True
+def validate_xmldata(xmldata):
+    e = xml.etree.ElementTree.fromstring(xmldata)
+    for child in e.getchildren():
+        if child.tag == 'pas':
+            if len(child.findall('pa')) == 0:
+                print('Route not valid')
+                return False
+            elif len(child.findall('pa')) > 0:
+                return True
 
 
 # http://mybusnow.njtransit.com/bustime/map/getRoutePoints.jsp?route=119
@@ -264,12 +261,10 @@ def parse_xml_getRoutePoints(data):
                         p.d = path.d
                         p.lat = _cond_get_single(pt, 'lat')
                         p.lon = _cond_get_single(pt, 'lon')
-                        p.seq_id = n
-                        # todo 0 calculate distance traveled since previous observation
+                        p.waypoint_id = n
                         if n != 0:
-                            p.distance_since_last_seen = tools.distance(p_prev, p) # returns geometric distance in feet between waypoints
-                            p_prev = p # make this p the p_prev for next iteration
-
+                            p.distance_to_prev = tools.distance(p_prev, p) # returns geometric distance in feet between waypoints
+                        p_prev = p # make this p the p_prev for next iteration
                         n =+ 1 # increment waypoint sequence counter
 
                         path.points.append(p) # <------ dont append to same list each time
