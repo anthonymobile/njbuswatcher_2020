@@ -112,7 +112,7 @@ class Stop(Base):
 
     def __init__(self, trip_id,sequence_id, v,run,date,stop_id,stop_name,lat,lon):
         self.trip_id = trip_id
-        self.sequence_id = sequence_id
+        self.sequence_id = sequence_id # todo deprecate?
         self.v = v
         self.run = run
         self.date = date
@@ -182,10 +182,9 @@ class BusPosition(Base):
 
     distance_to_stop = Column(Float())
     arrival_flag = Column(Boolean())
-    distance_to_next_bus = Column(Float())
     bunched_flag = Column(Boolean())
-    # distance_to_previous_bus = Column(Float())
-    # gapped_flag = Column(Boolean())
+    distance_to_prev_bus = Column(Float()) #nb this is different than distance_to_prev_waypoint in system_map
+
 
     # foreign keys
     trip_id = Column(String(127), ForeignKey('trips.trip_id'), index=True)

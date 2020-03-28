@@ -90,7 +90,7 @@ class Route(KeyValueData):
             self.lon = ''
             self.d = ''
             self.waypoint_id = ''
-            self.distance_to_prev = ''
+            self.distance_to_prev_waypoint = ''
 
     class Stop:
         def __init__(self):
@@ -263,7 +263,7 @@ def parse_xml_getRoutePoints(data):
                         p.lon = _cond_get_single(pt, 'lon')
                         p.waypoint_id = n
                         if n != 0:
-                            p.distance_to_prev = tools.distance(p_prev, p) # returns geometric distance in feet between waypoints
+                            p.distance_to_prev_waypoint = tools.distance(p_prev, p) # returns geometric distance in feet between waypoints
                         p_prev = p # make this p the p_prev for next iteration
                         n =+ 1 # increment waypoint sequence counter
 

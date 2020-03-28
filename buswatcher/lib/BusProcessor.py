@@ -37,7 +37,7 @@ class BusProcessor:
         self.fetch_positions(system_map)
         self.parse_trips(system_map)
         self.localize_positions(system_map)
-        self.flag_bunched()
+        self.flag_bunched(system_map)
         self.assign_to_stops()
         self.interpolate_missed_stops()
 
@@ -101,7 +101,8 @@ class BusProcessor:
 
                     try:
                         buses_for_this_route = [b for b in self.buses if b.rt == r]
-                        bus_positions = get_nearest(system_map, buses_for_this_route, r)
+                        bus_positions = get_nearest_stop(system_map, buses_for_this_route, r)
+
                         for group in bus_positions:
                             for bus in group:
                                 db.session.add(bus)
@@ -117,30 +118,46 @@ class BusProcessor:
         return
 
     @timeit
-    def flag_bunched(self): #todo scaffold this
-
+    def flag_bunched(self, system_map):
+        print('running flag_bunched')
         # with self.db as db:
         #
-        #     try:
-        #         self.watched_route_list = sorted(list(set([bus.rt for bus in self.buses])))  # find all the routes unique
-        #         for r in self.watched_route_list:  # loop over each route
+        #     # for r in self.watched_route_list:  # loop over each active route
+        #     #
+        #     #     #1 get all the BusPosition records on the route that dont have a bunched_flag yet
+        #     #     bunched_candidates = db.session.query(BusPosition) \
+        #     #         .filter(BusPosition.rt == r) \
+        #     #         .filter(BusPosition.bunched_flag == None) \
+        #     #         .order_by(BusPosition.timestamp.asc()) \
+        #     #         .all()
+        #     #     print ('got the bunched candidates')  #todo WIP WIP WIP
+        #     #
+        #     #     #2 grab the route geometry
+        #     #     # system_map.route_geometries[r]
+        #     #         #  for path in paths
+        #     #             # make sure we are on the right direction
+        #     #
+        #     #     #3 assign each bus to the nearest waypoint
+        #     #     get_nearest_waypoint(system_map, buses, route)
+        #     #
+        #     #
+        #     #
+        #     #     #4 sort them along the route (using seq_id)
+        #     #     bunched_candidates.sort(seq_id)
+        #     #
+        #     #     #5 calculate the distance between each pair of buses along the route by adding distance between intervening waypoints (using the waypoint.seq_id)
+        #     #     for bus in bunched_candidates:
+        #     #
+        #     #         #6 if im too close to the bus ahead, set my flag
+        #     #         d = 750 # feet?
+        #     #         if something:
+        #     #             bus.bunched_flag = True
+        #     #         else:
+        #     #             bus.bunched_flag = False
+        #     #
+        #     # db.session.commit()
         #
-        #             try:
-        #                 buses_for_this_route = [b for b in self.buses if b.rt == r]
-        #
-        #
-        #             #2 load the waypoints for that route from system_map.route_geometries['waypoint_coordinates']
-        #
-        #             #3 assign each bus to the nearest waypoint
-        #             # use / rewrite get_nearest_stop(system_map, buses, route) function below
-        #
-        #             #4 sort them along the route
-        #
-        #             #5 calculate distance between each set of buses and assign flag to following bus
-        #
-        #             if d < 750:
-        pass
-
+        #     pass
 
 
     # @timeit
@@ -447,6 +464,7 @@ def turn_row_into_BusPosition(row):
     position.distance_to_stop = row.distance
     position.stop_id = row.stop_id
     position.timestamp = datetime.datetime.now()
+    position.distance_to_prev = row.distance_to_prev
 
     return position
 
@@ -471,6 +489,7 @@ def ckdnearest(gdA, gdB, bcol):
     df = pd.DataFrame.from_dict({'distance': (dist.astype(float) * 364320), bcol: gdB.loc[idx, bcol].values})
 
 
+    # todo replace with tools.distance
     # # new method based on https://gis.stackexchange.com/questions/279109/calculate-distance-between-a-coordinate-and-a-county-in-geopandas
     # from math import radians, cos, sin, asin, sqrt
     #
@@ -493,7 +512,7 @@ def ckdnearest(gdA, gdB, bcol):
 
     return df
 
-def get_nearest(system_map, buses, route):
+def get_nearest_stop(system_map, buses, route):
     ###########################################################################
     # GET_NEAREST
     #
@@ -517,11 +536,8 @@ def get_nearest(system_map, buses, route):
 
     try:
         stoplist = system_map.get_single_route_stoplist_for_localizer(route)
-        waypointlist = system_map.get_single_route_waypointlist_for_localizer(route)
     except:
         return
-
-    # todo add to routine below, same for the nearest waypoint in waypointlist
 
     result = collections.defaultdict(list)
     for d in stoplist:
@@ -567,6 +583,34 @@ def get_nearest(system_map, buses, route):
                 pass
 
     return bus_positions
+
+def get_nearest_waypoint(system_map,buses, route):
+    waypointlist = system_map.get_single_route_waypointlist_for_localizer(route)
+
+    # 1 create waypoint geodf
+    df2 = pd.DataFrame.from_records(waypointlist) # todo this wont work on this data structure
+    df2['lat'] = pd.to_numeric(df2['lat'])
+    df2['lon'] = pd.to_numeric(df2['lon'])
+
+    df2['coordinates'] = list(zip(df2.lon, df2.lat))
+    df2['coordinates'] = df2['coordinates'].apply(Point)
+    gdf2 = geopandas.GeoDataFrame(df2, geometry='coordinates')
+
+    for bus in buses:
+        # 2 create buses geodf
+        df1 = pd.DataFrame.from_records(bus)
+        df1['lat'] = pd.to_numeric(df1['lat'])
+        df1['lon'] = pd.to_numeric(df1['lon'])
+        df1['coordinates'] = list(zip(df1.lon, df1.lat))
+        df1['coordinates'] = df1['coordinates'].apply(Point)
+        gdf1 = geopandas.GeoDataFrame(df1, geometry='coordinates')
+
+        # 3 find nearest waypoint for each bus
+        closest_waypoint = ckdnearest(gdf1, gdf2, 'seq_id') #todo should have a unique id for each waypoint?
+
+        bus_list = gdf1.apply(lambda row: turn_row_into_BusPosition(row), axis=1) # todo waht are we returning?
+
+    return bus_list
 
 def dist(a, b):
     return math.hypot(b[0] - a[0], b[1] - a[1])
