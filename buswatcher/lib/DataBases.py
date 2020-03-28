@@ -57,7 +57,7 @@ class Trip(Base):
         self.date = datetime.datetime.today().strftime('%Y%m%d')
         self.trip_id=('{v}_{run}_{date}').format(v=v,run=run,date=self.date)
 
-        # todo 3 replace everywhere that calls self.stop_list with trip.stops
+        # future replace everywhere that calls self.stop_list with trip.stops
         # create a corresponding set of Stop records for each new Trip
         # and populate self.coordinates_bundle
         with SQLAlchemyDBConnection() as db:
@@ -88,6 +88,7 @@ class Trip(Base):
     # __table_args__ = {'extend_existing': True}
 
     trip_id = Column(String(127), primary_key=True, index=True, unique=True)
+    path_id = Column(Integer())
     source = Column(String(8))
     rt = Column(Integer())
     v = Column(Integer())
@@ -112,7 +113,7 @@ class Stop(Base):
 
     def __init__(self, trip_id,sequence_id, v,run,date,stop_id,stop_name,lat,lon):
         self.trip_id = trip_id
-        self.sequence_id = sequence_id # todo deprecate?
+        self.sequence_id = sequence_id # future deprecate?
         self.v = v
         self.run = run
         self.date = date

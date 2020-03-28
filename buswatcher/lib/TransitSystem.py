@@ -217,7 +217,7 @@ class SystemMap:
         #                 Stop.lon) \
         #                 .filter(Stop.stop_id == args['stop_id']) \
         #                 .first()
-        #             # todo convert to tidy df
+        #             #  convert to tidy df
         #             data = {'lat': ['Tom', 'nick', 'krish', 'jack'], 'Age': [20, 21, 19, 18]}
         #
         #             # Create DataFrame

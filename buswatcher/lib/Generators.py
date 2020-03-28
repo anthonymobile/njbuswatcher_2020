@@ -27,7 +27,7 @@ class Generator():
         PATH = Path(__file__).parent
         DATA_PATH = PATH.joinpath("../data").resolve()
 
-        filename='{}/{}_{}.csv'.format(DATA_PATH, report_to_store['route'], report_to_store['type']) # todo check trailing slash?
+        filename='{}/{}_{}.csv'.format(DATA_PATH, report_to_store['route'], report_to_store['type'])
         with open(filename, 'wb') as csvfile:
             writer = csv.writer(csvfile, delimiter=',', quoting=csv.QUOTE_ALL)
             for row in report_to_store:
@@ -59,8 +59,8 @@ class RouteSummaryReport(Generator):
 
         pass
 
-        # todo gets the route short_description from route_descriptions.json and generates the grade too
-        # todo grade gets generated here
+        # gets the route short_description from route_descriptions.json and generates the grade too
+        # grade gets generated here
         # # sample grade report (new CSV version)
         #
         # "rt", "type", "period", "created_timestamp", "grade", "grade_description", "pct_bunched"
@@ -119,11 +119,11 @@ class RouteSummaryReport(Generator):
         #     return
 
 
-class FrequencyReport(Generator): # todo build this
+class FrequencyReport(Generator):
 
     # # sample frequency report (new CSV version)
 
-    # todo figure out right structure to allow multiple views
+    # figure out right structure to allow multiple views
     # "rt", "type", "period", ""
     # "119", "frequency", "day", ""
     # "119", "frequency", "day", ""
@@ -139,11 +139,11 @@ class FrequencyReport(Generator): # todo build this
         pass
 
 
-class ReliabilityReport(Generator): # todo build this
+class ReliabilityReport(Generator): # build this
 
     # # sample reliability report (new CSV version)
     #
-    # todo figure out right structure to allow multiple views
+    # figure out right structure to allow multiple views
     # "rt", "type", "period", ""
     # "119", "reliability", "day", ""
     # "119", "reliability", "day", ""
@@ -203,7 +203,7 @@ class ReliabilityReport(Generator): # todo build this
         # return traveltime
 
 
-class BunchingReport(Generator):    # todo rebuild this based on simply tallying bus.bunched_arrival_flag
+class BunchingReport(Generator):    #  rebuild this based on simply tallying bus.bunched_arrival_flag
 
     # # sample bunching report (new CSV version)
     #
@@ -472,7 +472,7 @@ class RouteUpdater():
             # 6. make one last scan of system_map.route_descriptions -- if prettyname is blank, should copy nm to prettyname
             for index, r in enumerate(system_map.route_descriptions['routedata']):
                 print(r)
-                if r['prettyname'] == "": #bug  route_desriptions incomplete, should work even if only a route number is in there)
+                if r['prettyname'] == "":
                     system_map.route_descriptions['routedata'][r]['prettyname'] = r['nm']
 
             # 7. create data to dump with last_updated and ttl

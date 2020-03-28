@@ -76,6 +76,7 @@ class BusProcessor:
                 try:
                     # if the trip_id is not db, create one and add to db session queue
                     if existing_trips is None:
+                        # todo lookup and add path.id as path_id to trip record
                         new_trip = Trip('nj', system_map, bus.rt, bus.id, bus.run, bus.pd, bus.pid)
                         db.session.add(new_trip)
                 except:
@@ -120,44 +121,60 @@ class BusProcessor:
     @timeit
     def flag_bunched(self, system_map):
         print('running flag_bunched')
-        # with self.db as db:
-        #
-        #     # for r in self.watched_route_list:  # loop over each active route
-        #     #
-        #     #     #1 get all the BusPosition records on the route that dont have a bunched_flag yet
-        #     #     bunched_candidates = db.session.query(BusPosition) \
-        #     #         .filter(BusPosition.rt == r) \
-        #     #         .filter(BusPosition.bunched_flag == None) \
-        #     #         .order_by(BusPosition.timestamp.asc()) \
-        #     #         .all()
-        #     #     print ('got the bunched candidates')  #todo WIP WIP WIP
-        #     #
-        #     #     #2 grab the route geometry
-        #     #     # system_map.route_geometries[r]
-        #     #         #  for path in paths
-        #     #             # make sure we are on the right direction
-        #     #
-        #     #     #3 assign each bus to the nearest waypoint
-        #     #     get_nearest_waypoint(system_map, buses, route)
-        #     #
-        #     #
-        #     #
-        #     #     #4 sort them along the route (using seq_id)
-        #     #     bunched_candidates.sort(seq_id)
-        #     #
-        #     #     #5 calculate the distance between each pair of buses along the route by adding distance between intervening waypoints (using the waypoint.seq_id)
-        #     #     for bus in bunched_candidates:
-        #     #
-        #     #         #6 if im too close to the bus ahead, set my flag
-        #     #         d = 750 # feet?
-        #     #         if something:
-        #     #             bus.bunched_flag = True
-        #     #         else:
-        #     #             bus.bunched_flag = False
-        #     #
-        #     # db.session.commit()
-        #
-        #     pass
+
+        for route in self.watched_route_list:  # loop over each active route
+
+        with self.db as db:
+
+            # todo START debugging here
+
+
+
+            #1 get all the BusPosition records on the route that dont have a bunched_flag yet, and their Trip data
+            bunched_candidates = db.session.query(BusPosition) \
+                .join(Trip) \
+                .filter(BusPosition.trip_id == Trip.trip_id) \
+                .filter(BusPosition.rt == route) \
+                .filter(BusPosition.bunched_flag == None) \
+                .order_by(BusPosition.timestamp.asc()) \
+                .all()
+            print ('got the bunched candidates')
+
+            # iterate over the buses we are watching
+            for bus in bunched_candidates:
+
+                # figure out which path we are on
+                # iterate over the paths for this route
+                for path in system_map.route_geometries[route]['paths']:
+
+                    # create a temporary positional index seq_id for the path
+                    seq = 0
+                    for p in path.points:
+                        print ()
+                        p.seq_id = seq
+                        seq =+ 1
+
+                    # match against path_id in the current trips
+                    if bus.path_id == path.id:
+
+                        # assign each bus to the nearest waypoint
+                            # get_nearest_waypoint(system_map, buses, route)
+
+            # put them in order from start to finish along the route path
+                # along the route (using waypoint's seq_id)
+                # bunched_candidates.sort(waypoint's seq_id)
+
+            # calculate the distance between each pair of buses along the route
+                # loop along the route path from first waypoint's seq_id to last waypoints seq_id
+                # add the distances up to a total
+                # if it is higher than a distance threshold then
+                    # bus.bunched_flag = True
+                    # distance_to_prev_bus = d
+                # else:
+                    # bus.bunched_flag = False
+
+            # save all the updates -- per route
+            db.session.commit()
 
 
     # @timeit
@@ -489,7 +506,7 @@ def ckdnearest(gdA, gdB, bcol):
     df = pd.DataFrame.from_dict({'distance': (dist.astype(float) * 364320), bcol: gdB.loc[idx, bcol].values})
 
 
-    # todo replace with tools.distance
+    # future replace with tools.distance
     # # new method based on https://gis.stackexchange.com/questions/279109/calculate-distance-between-a-coordinate-and-a-county-in-geopandas
     # from math import radians, cos, sin, asin, sqrt
     #
