@@ -207,6 +207,9 @@ class ReliabilityReport(Generator): # build this
 
 class BunchingReport(Generator):    #  rebuild this based on simply tallying bus.bunched_arrival_flag
 
+
+    # todo explore more graph types before deciding what to do here
+
     # # sample bunching report (new CSV version)
     #
     # "stop_name", "stop_id", "bunched_arrivals_in_period"

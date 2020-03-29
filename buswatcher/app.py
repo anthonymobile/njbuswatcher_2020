@@ -10,6 +10,10 @@ from dash.dependencies import Input, Output
 from lib.TransitSystem import load_system_map
 import lib.Maps as maps
 
+import numpy as np
+import plotly.figure_factory as ff
+from plotly.colors import n_colors
+
 
 ### GET buswatcher CONFIG
 
@@ -269,7 +273,11 @@ def create_layout(app, routes, active_route):
                                         className="subtitle padded",
                                     ),
                                     dcc.Graph(
-                                        figure=make_curve_and_rug_plot(get_report(active_route, "bunching"))),
+                                        figure=make_curve_and_rug_plot(active_route)),
+
+                                    html.Br([]),
+                                    dcc.Graph(
+                                        figure=make_ridgeline_plot(active_route)),
 
                                     html.Br([]),
 
@@ -303,7 +311,31 @@ def get_report(route,report):
     PATH = Path(__file__).parent
     # DATA_PATH = PATH.joinpath("../data").resolve()
     DATA_PATH = PATH.joinpath("data").resolve()
-    return pd.read_csv('{}/{}_{}.csv'.format(DATA_PATH,route,report), quotechar='"')
+    
+    if report == "summary": #todo then generate on the fly, pulling together various pieces of data
+        # from route_desciptions.json:
+        #       origin, destination, geometry statistics=distance between stops, turns per mile (todo in TransitSystem)
+        # from travel_time? #todo Generators
+        #       average speed
+        # from a new all-routes-grades.csv file (todo in Generators)
+        #       overall_grade
+
+        summary_template = {
+            'label': 'value',
+            'Route number': '87',
+            'Origin': 'Summary Template',
+            'Destination': 'Summary Template',
+            'Average Speed': '9.8 mph',
+            'Distance between stops': '750',
+            'Turns per mile': '2.1',
+            'Overall grade': 'D',
+            'Notes': 'Summary Template'
+            }
+        
+        return pd.DataFrame.from_dict(summary_template,orient='index')
+        
+    else:
+        return pd.read_csv('{}/{}_{}.csv'.format(DATA_PATH,route,report), quotechar='"')
 
 
 def get_route_menu(routes, active_route):
@@ -328,6 +360,18 @@ def get_route_menu(routes, active_route):
     route_menu = html.Div(
         route_html
     )
+
+    # todo cleanup display of routes in header block
+    route_html=[]
+    for route in routes:
+        #button = html.Button(('label'), href=href='/{}'.format(route)))
+        #button = html.Button(route)
+        route_html.append(dcc.Link(html.Button(route,className="button-primary"),href='/{}'.format(route)))
+
+    route_menu = html.Div(
+        route_html
+    )
+
 
     return route_menu
 
@@ -365,30 +409,48 @@ def make_chart_bar(df):
     fig.append(data)
     return fig
 
-def make_curve_and_rug_plot(df):
+def make_curve_and_rug_plot(route):
 
     # TEST DUMMY CURVE
     # https://plotly.com/python/distplot/
     # assumes that data is distance of each bunching incident on the route from the start
-    # format of csv/df
-    # period1_label,period2_label,period3_label
-    # 23,12,23
-    #
-    #
-    import numpy as np
-    import plotly.figure_factory as ff
 
-    period1_data = np.random.randn(100) -1
-    period2_data = np.random.randn(100)
-    period3_data = np.random.randn(100) +1
+    periods, data, colors = get_bunching_sample_data(route)
 
-    hist_data = [period1_data, period2_data, period3_data]
-    group_labels = ['Weekdays', 'Weekends', 'Late Night']
-    colors = ['#333F44', '#37AA9C', '#94F3E4']
-
-    fig = ff.create_distplot(hist_data, group_labels, show_hist=False, colors=colors)
+    fig = ff.create_distplot(data, periods, show_hist=False, colors=colors)
 
     return fig
+
+
+def make_ridgeline_plot(route):
+
+    periods, data, colors = get_bunching_sample_data(route)
+
+
+    fig = go.Figure()
+
+    for data_line, color in zip(data, colors):
+        fig.add_trace(go.Violin(x=data_line, line_color=color))
+
+    fig.update_traces(orientation='h', side='positive', width=3, points=False)
+    fig.update_layout(xaxis_showgrid=False, xaxis_zeroline=False)
+
+    return fig
+
+def get_bunching_sample_data(route):
+
+    # get sample data
+    PATH = Path(__file__).parent
+    # DATA_PATH = PATH.joinpath("../data").resolve()
+    DATA_PATH = PATH.joinpath("data").resolve()
+    periods = ['am', 'midday', 'pm', 'late', 'weekends']
+    data = []
+    for period in periods:
+        data.append(np.loadtxt('{}/{}_{}_{}.csv'.format(DATA_PATH, route, "bunching", period), skiprows=1))
+
+    colors = n_colors('rgb(5, 200, 200)', 'rgb(200, 10, 10)', 5, colortype='rgb')
+
+    return periods, data, colors
 
 def Header(app, routes, active_route):
     return html.Div([get_header(app), html.Br([])])
