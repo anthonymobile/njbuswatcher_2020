@@ -46,12 +46,21 @@ class BusProcessor:
     def fetch_positions(self,system_map):
 
         try:
-            catches = NJTransitAPI.parse_xml_getBusesForRouteAll(NJTransitAPI.get_xml_data('nj', 'all_buses'))
-            route_count = len(list(set([v.rt for v in catches])))
-
             routes_to_keep = []
-            for k,v in system_map.collection_descriptions.items():
+            for k, v in system_map.collection_descriptions.items():
                 routes_to_keep = routes_to_keep + v['routelist']
+
+            # fetch all buses statewide and filter out just the ones we want
+            catches = NJTransitAPI.parse_xml_getBusesForRouteAll(NJTransitAPI.get_xml_data('nj', 'all_buses'))
+
+            # # fetch each route individually
+            # catches=[]
+            # for route in routes_to_keep:
+            #     catches.append(NJTransitAPI.parse_xml_getBusesForRoute(NJTransitAPI.get_xml_data('nj', 'buses_for_route',route=route)))
+
+            ## deprecated
+            # route_count = len(list(set([v.rt for v in catches])))
+
             self.buses = [x for x in catches if x.rt in routes_to_keep]
             print('\rfetched ' + str(len(self.buses)) + ' buses on ' + str(len(routes_to_keep)) + ' routes...')
 
@@ -124,57 +133,56 @@ class BusProcessor:
 
         for route in self.watched_route_list:  # loop over each active route
 
-        with self.db as db:
+            with self.db as db:
 
-            # todo START debugging here
+                # todo START debugging here
 
+                #1 get all the BusPosition records on the route that dont have a bunched_flag yet, and their Trip data
+                bunched_candidates = db.session.query(BusPosition) \
+                    .join(Trip) \
+                    .filter(BusPosition.trip_id == Trip.trip_id) \
+                    .filter(BusPosition.rt == route) \
+                    .filter(BusPosition.bunched_flag == None) \
+                    .order_by(BusPosition.timestamp.asc()) \
+                    .all()
+                print ('got the bunched candidates')
 
+                # iterate over the buses we are watching
+                for bus in bunched_candidates:
 
-            #1 get all the BusPosition records on the route that dont have a bunched_flag yet, and their Trip data
-            bunched_candidates = db.session.query(BusPosition) \
-                .join(Trip) \
-                .filter(BusPosition.trip_id == Trip.trip_id) \
-                .filter(BusPosition.rt == route) \
-                .filter(BusPosition.bunched_flag == None) \
-                .order_by(BusPosition.timestamp.asc()) \
-                .all()
-            print ('got the bunched candidates')
+                    # figure out which path we are on
+                    # iterate over the paths for this route
+                    for path in system_map.route_geometries[route]['paths']:
 
-            # iterate over the buses we are watching
-            for bus in bunched_candidates:
+                        # create a temporary positional index seq_id for the path
+                        seq = 0
+                        for p in path.points:
+                            print ()
+                            p.seq_id = seq
+                            seq =+ 1
 
-                # figure out which path we are on
-                # iterate over the paths for this route
-                for path in system_map.route_geometries[route]['paths']:
+                        # match against path_id in the current trips
+                        if bus.path_id == path.id:
+                            pass
 
-                    # create a temporary positional index seq_id for the path
-                    seq = 0
-                    for p in path.points:
-                        print ()
-                        p.seq_id = seq
-                        seq =+ 1
+                            # assign each bus to the nearest waypoint
+                                # get_nearest_waypoint(system_map, buses, route)
 
-                    # match against path_id in the current trips
-                    if bus.path_id == path.id:
+                # put them in order from start to finish along the route path
+                    # along the route (using waypoint's seq_id)
+                    # bunched_candidates.sort(waypoint's seq_id)
 
-                        # assign each bus to the nearest waypoint
-                            # get_nearest_waypoint(system_map, buses, route)
+                # calculate the distance between each pair of buses along the route
+                    # loop along the route path from first waypoint's seq_id to last waypoints seq_id
+                    # add the distances up to a total
+                    # if it is higher than a distance threshold then
+                        # bus.bunched_flag = True
+                        # distance_to_prev_bus = d
+                    # else:
+                        # bus.bunched_flag = False
 
-            # put them in order from start to finish along the route path
-                # along the route (using waypoint's seq_id)
-                # bunched_candidates.sort(waypoint's seq_id)
-
-            # calculate the distance between each pair of buses along the route
-                # loop along the route path from first waypoint's seq_id to last waypoints seq_id
-                # add the distances up to a total
-                # if it is higher than a distance threshold then
-                    # bus.bunched_flag = True
-                    # distance_to_prev_bus = d
-                # else:
-                    # bus.bunched_flag = False
-
-            # save all the updates -- per route
-            db.session.commit()
+                # save all the updates -- per route
+                db.session.commit()
 
 
     # @timeit

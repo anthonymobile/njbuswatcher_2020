@@ -43,16 +43,15 @@ app.layout = html.Div(
         Output("page-content", "children"),
         [Input("url", "pathname")])
 def display_page(pathname):
-    print (type(pathname))
-    if type(pathname) is None:
-        active_route = '87'
-        pass
-    elif (pathname[1:]).isdigit():
-        active_route=(pathname[1:])
-    else:
-        active_route = '87'
 
-    return create_layout(app, routes, active_route)
+    if pathname is None:
+        return 'Loading...'
+    elif pathname == '/':
+        active_route='87'
+        return create_layout(app, routes, active_route)
+    else:
+        active_route=(pathname[1:])
+        return create_layout(app, routes, active_route)
 
 
 def create_layout(app, routes, active_route):
@@ -117,9 +116,9 @@ def create_layout(app, routes, active_route):
                                         className="subtitle padded",
                                     ),
 
-                                    dcc.Graph(id="map", config={"responsive": True},
-                                              figure=maps.gen_map(active_route)
-                                              ),
+                                    # dcc.Graph(id="map", config={"responsive": True},
+                                    #           figure=maps.gen_map(active_route)
+                                    #           ),
                                     html.Br([]),
 
                                 ],
@@ -147,7 +146,7 @@ def create_layout(app, routes, active_route):
                                     dcc.Graph(
                                         id="graph-2",
                                         figure={
-                                            "data": make_dash_chart_bar(get_report(active_route,"frequency")),
+                                            "data": make_chart_bar(get_report(active_route, "frequency")),
 
                                             "layout": go.Layout(
                                                 autosize=True,
@@ -206,7 +205,7 @@ def create_layout(app, routes, active_route):
                                     dcc.Graph(
                                         id="graph-2",
                                         figure={
-                                            "data": make_dash_chart_bar(get_report(active_route,"reliability")),
+                                            "data": make_chart_bar(get_report(active_route, "reliability")),
 
                                             "layout": go.Layout(
                                                 autosize=True,
@@ -259,6 +258,29 @@ def create_layout(app, routes, active_route):
                         className="row ",
                     ),
 
+                    # Row 3
+                    html.Div(
+                        [
+
+                            html.Div(
+                                [
+                                    html.H6(
+                                        "Bunching Report",
+                                        className="subtitle padded",
+                                    ),
+                                    dcc.Graph(
+                                        figure=make_curve_and_rug_plot(get_report(active_route, "bunching"))),
+
+                                    html.Br([]),
+
+                                ],
+
+                                className="twelve columns",
+                            ),
+
+                        ],
+                        className="row ",
+                    ),
 
 
                 ],
@@ -275,12 +297,12 @@ def create_layout(app, routes, active_route):
 # HELPERS
 #######################################################################################
 
-
-# todo move this up into app.py
+# future these can also call the Generator explicitly and ask for a df response
 # report loader function
 def get_report(route,report):
     PATH = Path(__file__).parent
-    DATA_PATH = PATH.joinpath("../data").resolve()
+    # DATA_PATH = PATH.joinpath("../data").resolve()
+    DATA_PATH = PATH.joinpath("data").resolve()
     return pd.read_csv('{}/{}_{}.csv'.format(DATA_PATH,route,report), quotechar='"')
 
 
@@ -321,7 +343,7 @@ def make_dash_table(df):
     return table
 
 
-def make_dash_chart_lines(df):
+def make_chart_lines(df):
     fig = []
     data = go.Scatter(
             x=[x for x in (df.iloc[:, 0].tolist())],
@@ -333,7 +355,7 @@ def make_dash_chart_lines(df):
     fig.append(data)
     return fig
 
-def make_dash_chart_bar(df):
+def make_chart_bar(df):
     fig = []
     data = go.Bar(
             x=[x for x in (df.iloc[:, 0].tolist())],
@@ -343,16 +365,30 @@ def make_dash_chart_bar(df):
     fig.append(data)
     return fig
 
-#
-# def make_dash_chart_timeseries(df):
-#     fig = []
-#     data = go.Scatter(
-#             x=df.hour,
-#             y=[y for y in (df.iloc[:, 1].tolist())],
-#              name="Weekdays",
-#         )
-#     fig.append(data)
-#     return fig
+def make_curve_and_rug_plot(df):
+
+    # TEST DUMMY CURVE
+    # https://plotly.com/python/distplot/
+    # assumes that data is distance of each bunching incident on the route from the start
+    # format of csv/df
+    # period1_label,period2_label,period3_label
+    # 23,12,23
+    #
+    #
+    import numpy as np
+    import plotly.figure_factory as ff
+
+    period1_data = np.random.randn(100) -1
+    period2_data = np.random.randn(100)
+    period3_data = np.random.randn(100) +1
+
+    hist_data = [period1_data, period2_data, period3_data]
+    group_labels = ['Weekdays', 'Weekends', 'Late Night']
+    colors = ['#333F44', '#37AA9C', '#94F3E4']
+
+    fig = ff.create_distplot(hist_data, group_labels, show_hist=False, colors=colors)
+
+    return fig
 
 def Header(app, routes, active_route):
     return html.Div([get_header(app), html.Br([])])

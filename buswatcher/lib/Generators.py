@@ -17,6 +17,8 @@ from lib.CommonTools import get_config_path
 
 class Generator():
 
+    # future add a function that wraps the child and returns a df instead of writing a file, if requestedm or by default, and it can be ignored
+
     def __init__(self):
         self.config_prefix = get_config_path()+"reports"
         self.db =  SQLAlchemyDBConnection()

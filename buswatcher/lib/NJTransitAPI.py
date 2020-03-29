@@ -32,7 +32,7 @@ def _gen_command(source, func, **kwargs):
         params = params + k + '=' + str(v) + '&'
     if params:
         result += '?' + params[:-1]
-    print (result)
+    print ('to fetch {}'.format(result))
     return result
 
 def _cond_get_single(tree, key, default=''):
