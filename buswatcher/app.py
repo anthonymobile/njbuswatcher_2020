@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+
+
 from pathlib import Path
 import pandas as pd
 import dash
@@ -9,6 +11,8 @@ import plotly.graph_objs as go
 from dash.dependencies import Input, Output
 from lib.TransitSystem import load_system_map
 import lib.Maps as maps
+from sklearn.datasets import make_blobs
+import random
 
 import numpy as np
 import plotly.figure_factory as ff
@@ -28,12 +32,19 @@ for k, v in system_map.collection_descriptions.items():
                 if rr['route'] == r:
                     routes[r]=rr['prettyname'] #bug dies here if this isnt defined in route_descrptions.json
 
-### INITIALIZE dash app
+
+
+
+#######################################################################################
+# APP SETUP + PAGE LAYOUT
+#######################################################################################
+
+# init
 app = dash.Dash( __name__, meta_tags=[{"name": "viewport", "content": "width=device-width"}])
 server = app.server
 app.config['suppress_callback_exceptions'] = True # # suppress callback warnings
 
-# Describe the layout/ UI of the app
+# basic structure for callback
 app.layout = html.Div(
                         [
                             dcc.Location(id="url", refresh=False),
@@ -41,8 +52,7 @@ app.layout = html.Div(
                         ]
                       )
 
-
-# Update page
+# callback implementation
 @app.callback(
         Output("page-content", "children"),
         [Input("url", "pathname")])
@@ -57,7 +67,7 @@ def display_page(pathname):
         active_route=(pathname[1:])
         return create_layout(app, routes, active_route)
 
-
+# layout
 def create_layout(app, routes, active_route):
 
     # load data
@@ -209,7 +219,7 @@ def create_layout(app, routes, active_route):
                                     dcc.Graph(
                                         id="graph-2",
                                         figure={
-                                            "data": make_chart_bar(get_report(active_route, "reliability")),
+                                            "data": make_chart_line(get_report(active_route, "reliability")),
 
                                             "layout": go.Layout(
                                                 autosize=True,
@@ -240,7 +250,7 @@ def create_layout(app, routes, active_route):
                                                     "gridcolor": "rgba(127, 127, 127, 0.2)",
                                                     "mirror": False,
                                                     "nticks": 4,
-                                                    "range": [0, 60],
+                                                    "range": [0, 150],
                                                     "showgrid": True,
                                                     "showline": True,
                                                     "ticklen": 10,
@@ -300,13 +310,46 @@ def create_layout(app, routes, active_route):
     )
 
 
-
 #######################################################################################
 # HELPERS
 #######################################################################################
-
 # future these can also call the Generator explicitly and ask for a df response
 # report loader function
+
+def Header(app, routes, active_route):
+    return html.Div([get_header(app), html.Br([])])
+
+def get_header(app):
+    header = html.Div(
+        [
+
+            html.Div(
+                [
+                    html.Div(
+                        [html.H5("NJ Bus Watcher")],
+                        className="seven columns main-title",
+                    ),
+
+                    html.Div(
+                        [
+                            dcc.Link(
+                                "FAQ",
+                                href="/about",
+                                className="full-view-link",
+                            )
+                        ],
+                        className="five columns",
+                    ),
+                ],
+                className="twelve columns",
+                style={"padding-left": "0"},
+            ),
+        ],
+        className="row",
+    )
+    return header
+
+
 def get_report(route,report):
     PATH = Path(__file__).parent
     # DATA_PATH = PATH.joinpath("../data").resolve()
@@ -336,7 +379,6 @@ def get_report(route,report):
         
     else:
         return pd.read_csv('{}/{}_{}.csv'.format(DATA_PATH,route,report), quotechar='"')
-
 
 def get_route_menu(routes, active_route):
     ## future restore old dropdown version
@@ -375,7 +417,6 @@ def get_route_menu(routes, active_route):
 
     return route_menu
 
-
 def make_dash_table(df):
     """ Return a dash definition of an HTML table for a Pandas dataframe """
     table = []
@@ -386,8 +427,7 @@ def make_dash_table(df):
         table.append(html.Tr(html_row))
     return table
 
-
-def make_chart_lines(df):
+def make_chart_line(df): #todo making a line chart look good requires a lot of data points (every 10 mins all day)
     fig = []
     data = go.Scatter(
             x=[x for x in (df.iloc[:, 0].tolist())],
@@ -419,6 +459,26 @@ def make_curve_and_rug_plot(route):
 
     fig = ff.create_distplot(data, periods, show_hist=False, colors=colors)
 
+    fig.update_layout(
+        autosize=False,
+        width=700,
+        height=200,
+        margin=dict(
+            l=10,
+            r=10,
+            b=10,
+            t=10,
+            pad=4
+        ),
+        paper_bgcolor="White",
+        font=dict(
+            family="Garamond",
+            size=12,
+            color="#000000"
+        )
+    )
+
+
     return fig
 
 
@@ -429,62 +489,65 @@ def make_ridgeline_plot(route):
 
     fig = go.Figure()
 
-    for data_line, color in zip(data, colors):
-        fig.add_trace(go.Violin(x=data_line, line_color=color))
+    for data_line, color,period in zip(data, colors,periods):
+        fig.add_trace(go.Violin(x=data_line, line_color=color, name=period))
 
     fig.update_traces(orientation='h', side='positive', width=3, points=False)
     fig.update_layout(xaxis_showgrid=False, xaxis_zeroline=False)
 
+    # fig.update_xaxes(showticklabels=False)
+    fig.update_yaxes(showticklabels=False)
+
+    fig.update_layout(
+        autosize=False,
+        width=700,
+        height=200,
+        margin=dict(
+            l=10,
+            r=10,
+            b=10,
+            t=10,
+            pad=4
+        ),
+        paper_bgcolor="White",
+        font=dict(
+            family="Garamond",
+            size=12,
+            color="#000000"
+        )
+    )
+
     return fig
 
-def get_bunching_sample_data(route):
 
+def get_bunching_sample_data(route):
     # get sample data
     PATH = Path(__file__).parent
     # DATA_PATH = PATH.joinpath("../data").resolve()
     DATA_PATH = PATH.joinpath("data").resolve()
+
     periods = ['am', 'midday', 'pm', 'late', 'weekends']
     data = []
     for period in periods:
-        data.append(np.loadtxt('{}/{}_{}_{}.csv'.format(DATA_PATH, route, "bunching", period), skiprows=1))
+        ## load data from CSV
+        # data.append(np.loadtxt('{}/{}_{}_{}.csv'.format(DATA_PATH, route, "bunching", period), skiprows=1))
+
+        # generate random data
+        n_centers = 50  # no of bunching points
+        bunches, y = make_blobs(n_samples=random.randint(1, 501), centers=n_centers, n_features=1,
+                                center_box=(0.0, 25000))
+        data.append(bunches.flatten())
 
     colors = n_colors('rgb(5, 200, 200)', 'rgb(200, 10, 10)', 5, colortype='rgb')
-
     return periods, data, colors
 
-def Header(app, routes, active_route):
-    return html.Div([get_header(app), html.Br([])])
-
-def get_header(app):
-    header = html.Div(
-        [
-
-            html.Div(
-                [
-                    html.Div(
-                        [html.H5("NJ Bus Watcher")],
-                        className="seven columns main-title",
-                    ),
-
-                    html.Div(
-                        [
-                            dcc.Link(
-                                "FAQ",
-                                href="/about",
-                                className="full-view-link",
-                            )
-                        ],
-                        className="five columns",
-                    ),
-                ],
-                className="twelve columns",
-                style={"padding-left": "0"},
-            ),
-        ],
-        className="row",
-    )
-    return header
 
 
+
+
+
+#######################################################################################
+# __MAIN__
+#######################################################################################
 if __name__ == "__main__":
     app.run_server(debug=True)
