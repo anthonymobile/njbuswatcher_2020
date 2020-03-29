@@ -381,18 +381,7 @@ def get_report(route,report):
         return pd.read_csv('{}/{}_{}.csv'.format(DATA_PATH,route,report), quotechar='"')
 
 def get_route_menu(routes, active_route):
-    ## future restore old dropdown version
-    # route_menu = html.Div(
-    #     [
-    #         dcc.Dropdown(
-    #             id='route_choice',
-    #             options=[{'label': '{} {}'.format(r,prettyname), 'value': r} for r,prettyname in routes.items()],
-    #             value=active_route,
-    #             clearable=False,
-    #             style={'width': '60%'}
-    #          )
-    #     ],
-    #     className="row",)
+
 
     # todo cleanup display of routes in header block
     route_html=[]
@@ -408,7 +397,7 @@ def get_route_menu(routes, active_route):
     for route in routes:
         #button = html.Button(('label'), href=href='/{}'.format(route)))
         #button = html.Button(route)
-        route_html.append(dcc.Link(html.Button(route,className="button-primary"),href='/{}'.format(route)))
+        route_html.append(dcc.Link(html.Button(route,className="button-route"),href='/{}'.format(route)))
 
     route_menu = html.Div(
         route_html

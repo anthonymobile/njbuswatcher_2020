@@ -325,6 +325,40 @@ input[type="button"].button-primary:focus {
   border-color: #1eaedb;
 }
 
+.button-route {
+	box-shadow:inset 0px 1px 0px 0px #efdcfb;
+	background:linear-gradient(to bottom, #dfbdfa 5%, #bc80ea 100%);
+	background-color:#dfbdfa;
+	border-radius:10px;
+	border:1px solid #c584f3;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+  line-height: 22px;
+  margin:3px;
+	padding:6px 12px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #9752cc;
+  text-align:center;
+  vertical-align:middle;
+}
+.myButton:hover {
+	background:linear-gradient(to bottom, #bc80ea 5%, #dfbdfa 100%);
+	background-color:#bc80ea;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+
+
+
+
+
+
 /* Forms */
 input[type="email"],
 input[type="number"],
