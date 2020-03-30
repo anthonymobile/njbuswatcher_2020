@@ -47,13 +47,14 @@ class Trip(Base):
     # CLASS Trip
     #####################################################
 
-    def __init__(self, source, system_map, route, v, run, pd, pid):
+    def __init__(self, source, system_map, route, v, run, pd, pid,path_id):
         self.source = source
         self.rt = route
         self.v = v
         self.run = run
         self.pd = pd
         self.pid = pid
+        self.path_id = path_id
         self.date = datetime.datetime.today().strftime('%Y%m%d')
         self.trip_id=('{v}_{run}_{date}').format(v=v,run=run,date=self.date)
 

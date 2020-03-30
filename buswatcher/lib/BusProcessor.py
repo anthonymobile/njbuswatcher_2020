@@ -85,8 +85,13 @@ class BusProcessor:
                 try:
                     # if the trip_id is not db, create one and add to db session queue
                     if existing_trips is None:
-                        # todo lookup and add path.id as path_id to trip record
-                        new_trip = Trip('nj', system_map, bus.rt, bus.id, bus.run, bus.pd, bus.pid)
+
+                        # look up path_id todo test path_id lookup
+                        for path in system_map.route_geometries[bus.rt]['paths']:
+                            if bus.d == path.d:
+                                bus.path_id = path.id
+
+                        new_trip = Trip('nj', system_map, bus.rt, bus.id, bus.run, bus.pd, bus.pid, bus.path_id)
                         db.session.add(new_trip)
                 except:
                     print('error writing {} to db'.format(bus.rt))
@@ -150,23 +155,16 @@ class BusProcessor:
                 # iterate over the buses we are watching
                 for bus in bunched_candidates:
 
-                    # figure out which path we are on
-                    # iterate over the paths for this route
-                    for path in system_map.route_geometries[route]['paths']:
-
-                        # create a temporary positional index seq_id for the path
-                        seq = 0
-                        for p in path.points:
-                            print ()
-                            p.seq_id = seq
+                    # create a temporary positional index seq_id for the path #todo this could also be done when the route geomtery is built
+                    seq = 0
+                    for p in system_map.route_geometries[bus.rt]['paths']:
+                        if p.path_id == bus.path_id:
+                            for pt in p.points:
+                                pt.seq_id = seq
                             seq =+ 1
 
-                        # match against path_id in the current trips
-                        if bus.path_id == path.id:
-                            pass
-
-                            # assign each bus to the nearest waypoint
-                                # get_nearest_waypoint(system_map, buses, route)
+                    # assign each bus to the nearest waypoint
+                        # get_nearest_waypoint(system_map, buses, route)
 
                 # put them in order from start to finish along the route path
                     # along the route (using waypoint's seq_id)
