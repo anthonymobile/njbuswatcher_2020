@@ -99,7 +99,7 @@ def create_layout(app, routes, active_route):
                                         style={"color": "#ffffff"},
                                         className="row",
                                     ),
-                                    # get_route_menu(routes, active_route), #todo put it back somewhere else nicer
+                                    get_route_menu(routes, active_route),
 
 
                                 ],
@@ -459,20 +459,10 @@ def get_report(route,report):
 def get_route_menu(routes, active_route):
 
 
-    # todo cleanup display of routes in header block
+    # todo cleanup display of route menu, possibly move
+    # future restore the dropdown menu?
     route_html=[]
     for route in routes:
-        route_html.append(dcc.Link('{}•'.format(route), href='/{}'.format(route)
-        ))
-    route_menu = html.Div(
-        route_html
-    )
-
-    # todo cleanup display of routes in header block
-    route_html=[]
-    for route in routes:
-        #button = html.Button(('label'), href=href='/{}'.format(route)))
-        #button = html.Button(route)
         route_html.append(dcc.Link(html.Button(route,className="button-route"),href='/{}'.format(route)))
 
     route_menu = html.Div(
