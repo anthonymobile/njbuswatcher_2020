@@ -70,7 +70,7 @@ def layout_map(map_data):
     layout_map = dict(
         autosize=True,
         height=340,
-        width=340,
+        width=700,
         font=dict(color="#191A1A"),
         titlefont=dict(color="#191A1A", size='14'),
         margin=dict(

@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 
-
-
 from pathlib import Path
 import pandas as pd
+from sklearn.datasets import make_blobs
+import random
+import numpy as np
+
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
@@ -11,12 +13,10 @@ import plotly.graph_objs as go
 from dash.dependencies import Input, Output
 from lib.TransitSystem import load_system_map
 import lib.Maps as maps
-from sklearn.datasets import make_blobs
-import random
 
-import numpy as np
 import plotly.figure_factory as ff
 from plotly.colors import n_colors
+import plotly.express as px
 
 
 ### GET buswatcher CONFIG
@@ -99,7 +99,7 @@ def create_layout(app, routes, active_route):
                                         style={"color": "#ffffff"},
                                         className="row",
                                     ),
-                                    get_route_menu(routes, active_route),
+                                    # get_route_menu(routes, active_route), #todo put it back somewhere else nicer
 
 
                                 ],
@@ -115,18 +115,35 @@ def create_layout(app, routes, active_route):
                             html.Div(
                                 [
                                     html.H6(
-                                        ["Route Overview"], className="subtitle padded"
+                                        ["How Well Does this Route Work?"], className="subtitle padded"
                                     ),
-                                    html.Table(make_dash_table(_df_route_summary)),
+                                    html.P('Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. \
+                                    Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. \
+                                    Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.',
+                                           ),
+                                    # html.Table(make_dash_table(_df_route_summary)),
                                     html.Br([]),
                                 ],
-                                className="six columns",
+                                className="twelve columns",
                             ),
+
+
+
+
+
+
+                        ],
+                        className="row ",
+                    ),
+
+                    # Row 3
+                    html.Div(
+                        [
 
                             html.Div(
                                 [
                                     html.H6(
-                                        "Route Map",
+                                        "Where Does the {} Go? ".format(active_route),
                                         className="subtitle padded",
                                     ),
 
@@ -137,30 +154,67 @@ def create_layout(app, routes, active_route):
 
                                 ],
 
-                                className="six columns",
+                                className="twelve columns",
                             ),
-
-
-
-
 
                         ],
                         className="row ",
                     ),
 
-                    # Row 3 NEW
+                    # Row 3
                     html.Div(
                         [
+
                             html.Div(
                                 [
                                     html.H6(
-                                        "Frequency",
+                                        "How Often Do Buses Arrive?",
                                         className="subtitle padded",
                                     ),
                                     html.P('Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. \
                                     Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. \
                                     Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim',
                                     ),
+                                ],
+
+                                className="six columns",
+                            ),
+                            html.Div(
+                                [
+                                    html.H6(
+                                        "How Reliable Is Travel Time?",
+                                        className="subtitle padded",
+                                    ),
+                                    html.P('Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. \
+                                            Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. \
+                                            Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim',
+                                           ),
+
+                                ],
+
+                                className="six columns",
+                            ),
+
+                        ],
+                        className="row ",
+                    ),
+
+
+
+
+                    # Row 3
+                    html.Div(
+                        [
+                            html.Div(
+                                [
+                                    # html.H6(
+                                    #     "How Often Do Buses Arrive?",
+                                    #     className="subtitle padded",
+                                    # ),
+                                    # html.P('Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. \
+                                    # Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. \
+                                    # Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim',
+                                    # ),
                                     dcc.Graph(
                                         id="graph-2",
                                         figure={
@@ -215,63 +269,70 @@ def create_layout(app, routes, active_route):
 
                             html.Div(
                                 [
-
-                                    html.H6(
-                                        "Reliability",
-                                        className="subtitle padded",
-                                    ),
-                                    html.P('Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. \
-                                            Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. \
-                                            Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim',
-                                           ),
                                     dcc.Graph(
-                                        id="graph-2",
-                                        figure={
-                                            "data": make_chart_line(get_report(active_route, "reliability")),
+                                        figure=make_chart_line_new(get_report(active_route, "reliability"))),
 
-                                            "layout": go.Layout(
-                                                autosize=True,
-                                                title="",
-                                                font={"family": "Raleway", "size": 10},
-                                                height=200,
-                                                width=340,
-                                                hovermode="closest",
-                                                margin={
-                                                    "r": 20,
-                                                    "t": 20,
-                                                    "b": 40,
-                                                    "l": 50,
-                                                },
-                                                showlegend=False,
-                                                xaxis={
-                                                    "autorange": True,
-                                                    "linecolor": "rgb(0, 0, 0)",
-                                                    "linewidth": 1,
-                                                    "range": [6, 16],
-                                                    "showgrid": False,
-                                                    "showline": True,
-                                                    "title": "hour of day",
-                                                    "type": "linear",
-                                                },
-                                                yaxis={
-                                                    "autorange": False,
-                                                    "gridcolor": "rgba(127, 127, 127, 0.2)",
-                                                    "mirror": False,
-                                                    "nticks": 4,
-                                                    "range": [0, 150],
-                                                    "showgrid": True,
-                                                    "showline": True,
-                                                    "ticklen": 10,
-                                                    "ticks": "outside",
-                                                    "title": "minutes",
-                                                    "type": "linear",
-                                                    "zeroline": False,
-                                                    "zerolinewidth": 4,
-                                                },
-                                            ),
-                                        },
-                                        config={"displayModeBar": False},
-                                    ),
+                                    html.Br([]),
+
+                                    # html.H6(
+                                    #     "How Reliable Is Travel Time?",
+                                    #     className="subtitle padded",
+                                    # ),
+                                    # html.P('Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. \
+                                    #         Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. \
+                                    #         Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim',
+                                    #        ),
+                                    # dcc.Graph(
+                                    #                                     #     id="graph-2",
+                                    #                                     #     figure={
+                                    #                                     #         "data": make_chart_line(get_report(active_route, "reliability")),
+                                    #                                     #
+                                    #                                     #         "layout": go.Layout(
+                                    #                                     #             autosize=True,
+                                    #                                     #             title="",
+                                    #                                     #             font={"family": "Raleway", "size": 10},
+                                    #                                     #             height=200,
+                                    #                                     #             width=340,
+                                    #                                     #             hovermode="closest",
+                                    #                                     #             margin={
+                                    #                                     #                 "r": 20,
+                                    #                                     #                 "t": 20,
+                                    #                                     #                 "b": 40,
+                                    #                                     #                 "l": 50,
+                                    #                                     #             },
+                                    #                                     #             showlegend=False,
+                                    #                                     #             xaxis={
+                                    #                                     #                 "autorange": True,
+                                    #                                     #                 "linecolor": "rgb(0, 0, 0)",
+                                    #                                     #                 "linewidth": 1,
+                                    #                                     #                 "range": [6, 16],
+                                    #                                     #                 "showgrid": False,
+                                    #                                     #                 "showline": True,
+                                    #                                     #                 "title": "hour of day",
+                                    #                                     #                 "type": "linear",
+                                    #                                     #             },
+                                    #                                     #             yaxis={
+                                    #                                     #                 "autorange": False,
+                                    #                                     #                 "gridcolor": "rgba(127, 127, 127, 0.2)",
+                                    #                                     #                 "mirror": False,
+                                    #                                     #                 "nticks": 4,
+                                    #                                     #                 "range": [0, 150],
+                                    #                                     #                 "showgrid": True,
+                                    #                                     #                 "showline": True,
+                                    #                                     #                 "ticklen": 10,
+                                    #                                     #                 "ticks": "outside",
+                                    #                                     #                 "title": "minutes",
+                                    #                                     #                 "type": "linear",
+                                    #                                     #                 "zeroline": False,
+                                    #                                     #                 "zerolinewidth": 4,
+                                    #                                     #             },
+                                    #                                     #         ),
+                                    #                                     #     },
+                                    #                                     #     config={"displayModeBar": False},
+                                    #                                     # ),
+
+
+
                                 ],
                                 className="six columns",
                             ),
@@ -280,7 +341,7 @@ def create_layout(app, routes, active_route):
                         className="row ",
                     ),
 
-                    # Row 3
+                    # Row 4
                     html.Div(
                         [
 
@@ -289,13 +350,14 @@ def create_layout(app, routes, active_route):
 
 
                                     html.H6(
-                                        "Bottlenecks",
+                                        "Where Are the Bottlenecks?",
                                         className="subtitle padded",
                                     ),
                                     html.P('Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. \
     Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. \
     Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim',
                                            ),
+                                    html.Br([]),
                                     # dcc.Graph(
                                     #     figure=make_curve_and_rug_plot(active_route)),
                                     #
@@ -430,6 +492,58 @@ def make_dash_table(df):
         table.append(html.Tr(html_row))
     return table
 
+
+def make_chart_line_new(df):
+
+    fig = px.line(df, x="hour", y=" minutes", title='End-to-End Travel time')
+
+    fig.update_layout(autosize = True,
+        title = "",
+        font = {"family": "Raleway", "size": 10},
+        height = 200,
+        width = 340,
+        hovermode = "closest",
+        margin = {
+                     "r": 20,
+                     "t": 20,
+                     "b": 40,
+                     "l": 50,
+                 },
+        showlegend = False,
+        xaxis = {
+                    "autorange": True,
+                    "linecolor": "rgb(0, 0, 0)",
+                    "linewidth": 1,
+                    "range": [6, 16],
+                    "showgrid": False,
+                    "showline": True,
+                    "title": "",
+                    "type": "linear",
+                },
+        yaxis = {
+                    "autorange": False,
+                    "gridcolor": "rgba(127, 127, 127, 0.2)",
+                    "mirror": False,
+                    "nticks": 4,
+                    "range": [0, 150],
+                    "showgrid": True,
+                    "showline": True,
+                    "ticklen": 10,
+                    "ticks": "outside",
+                    "title": "minutes",
+                    "type": "linear",
+                    "zeroline": False,
+                    "zerolinewidth": 4,
+                },
+                          )
+
+    fig.update_xaxes(
+        ticktext=["6am", "12pm", "6pm"],
+        tickvals=['6','12','18'],
+    )
+
+    return fig
+
 def make_chart_line(df): #todo making a line chart look good requires a lot of data points (every 10 mins all day)
     fig = []
     data = go.Scatter(
@@ -505,11 +619,9 @@ def make_curve_and_rug_plot(route):
 
     return fig
 
-
 def make_ridgeline_plot(route):
 
     periods, data, colors = get_bunching_sample_data(route)
-
 
     fig = go.Figure()
 
@@ -529,15 +641,16 @@ def make_ridgeline_plot(route):
     fig.update_yaxes(showticklabels=False)
 
     fig.update_layout(
-        autosize=False,
-        width=700,
-        height=200,
+        # legend_orientation="h",
+        autosize=True,
+        width=720,
+        height=400,
         margin=dict(
-            l=10,
-            r=10,
-            b=10,
-            t=10,
-            pad=4
+            l=0,
+            r=0,
+            b=0,
+            t=0,
+            pad=0
         ),
         paper_bgcolor="White",
         font=dict(
@@ -547,8 +660,17 @@ def make_ridgeline_plot(route):
         )
     )
 
-    return fig
+    fig.update_layout(
+        legend=dict(
+            traceorder="reversed"
+        )
+    )
 
+
+    fig.update_xaxes(range=[0, 25000])
+
+
+    return fig
 
 def get_bunching_sample_data(route):
     # get sample data
