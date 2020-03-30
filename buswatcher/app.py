@@ -157,6 +157,10 @@ def create_layout(app, routes, active_route):
                                         "Frequency",
                                         className="subtitle padded",
                                     ),
+                                    html.P('Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. \
+                                    Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. \
+                                    Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim',
+                                    ),
                                     dcc.Graph(
                                         id="graph-2",
                                         figure={
@@ -216,6 +220,10 @@ def create_layout(app, routes, active_route):
                                         "Reliability",
                                         className="subtitle padded",
                                     ),
+                                    html.P('Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. \
+                                            Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. \
+                                            Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim',
+                                           ),
                                     dcc.Graph(
                                         id="graph-2",
                                         figure={
@@ -278,14 +286,20 @@ def create_layout(app, routes, active_route):
 
                             html.Div(
                                 [
+
+
                                     html.H6(
-                                        "Bunching Report",
+                                        "Bottlenecks",
                                         className="subtitle padded",
                                     ),
-                                    dcc.Graph(
-                                        figure=make_curve_and_rug_plot(active_route)),
-
-                                    html.Br([]),
+                                    html.P('Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. \
+    Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. \
+    Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim',
+                                           ),
+                                    # dcc.Graph(
+                                    #     figure=make_curve_and_rug_plot(active_route)),
+                                    #
+                                    # html.Br([]),
                                     dcc.Graph(
                                         figure=make_ridgeline_plot(active_route)),
 
@@ -425,7 +439,13 @@ def make_chart_line(df): #todo making a line chart look good requires a lot of d
             mode='lines',
             name="Weekdays",
         )
+
+
     fig.append(data)
+
+    # # todo filled lines / bands
+    # https://plotly.com/python/line-charts/#filled-lines
+
     return fig
 
 def make_chart_bar(df):
@@ -467,6 +487,21 @@ def make_curve_and_rug_plot(route):
         )
     )
 
+    # todo add enumerated labels with stop names -- https://plotly.com/python/axes/#enumerated-ticks-with-tickvals-and-ticktext
+
+    # Set custom x-axis labels
+    fig.update_xaxes(
+        ticktext=["Journal Square", "Palisade Av + Franklin Av", "Hoboken Terminal"],
+        tickvals=['0','12500','25000'],
+    )
+    #
+    # fig.update_xaxes(
+    #     ticktext=["a", "b", "c","d","e"],
+    #     tickvals=['0','5000','10000','12500','25000'],
+    # )
+
+    fig.update_yaxes(showticklabels=False)
+
 
     return fig
 
@@ -483,6 +518,12 @@ def make_ridgeline_plot(route):
 
     fig.update_traces(orientation='h', side='positive', width=3, points=False)
     fig.update_layout(xaxis_showgrid=False, xaxis_zeroline=False)
+
+    # Set custom x-axis labels
+    fig.update_xaxes(
+        ticktext=["Journal Square", "Palisade Av + Franklin Av", "Hoboken Terminal"],
+        tickvals=['0','12500','25000'],
+    )
 
     # fig.update_xaxes(showticklabels=False)
     fig.update_yaxes(showticklabels=False)
