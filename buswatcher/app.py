@@ -9,30 +9,30 @@ import numpy as np
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
-import plotly.graph_objs as go
 from dash.dependencies import Input, Output
-from lib.TransitSystem import load_system_map
-import lib.Maps as maps
+import dash_bootstrap_components as dbc
 
+import plotly.graph_objs as go
 import plotly.figure_factory as ff
 from plotly.colors import n_colors
 import plotly.express as px
 
 
-### GET buswatcher CONFIG
+from lib.TransitSystem import load_system_map
+import lib.Maps as maps
 
+
+### GET buswatcher CONFIG
 # get system map
 system_map=load_system_map()
 
 # get routes to watch defined in config/collection_descriptions.json
-routes = dict()
+routes_watching = dict()
 for k, v in system_map.collection_descriptions.items():
     for r in v['routelist']:
         for rr in system_map.route_descriptions['routedata']:
                 if rr['route'] == r:
-                    routes[r]=rr['prettyname'] #bug dies here if this isnt defined in route_descrptions.json
-
-
+                    routes_watching[r]=rr['prettyname'] #bug dies here if this isnt defined in route_descrptions.json
 
 
 #######################################################################################
@@ -40,7 +40,7 @@ for k, v in system_map.collection_descriptions.items():
 #######################################################################################
 
 # init
-app = dash.Dash( __name__, meta_tags=[{"name": "viewport", "content": "width=device-width"}])
+app = dash.Dash( __name__, meta_tags=[{"name": "viewport", "content": "width=device-width"}],external_stylesheets=[dbc.themes.FLATLY])
 server = app.server
 app.config['suppress_callback_exceptions'] = True # # suppress callback warnings
 
@@ -62,13 +62,13 @@ def display_page(pathname):
         return 'Loading...'
     elif pathname == '/':
         active_route='87'
-        return create_layout(app, routes, active_route)
+        return create_layout(app, routes_watching, active_route)
     else:
         active_route=(pathname[1:])
-        return create_layout(app, routes, active_route)
+        return create_layout(app, routes_watching, active_route)
 
 # layout
-def create_layout(app, routes, active_route):
+def create_layout(app, routes_watching, active_route):
 
     # load data
     _df_route_summary = get_report(active_route,"summary")
@@ -76,7 +76,7 @@ def create_layout(app, routes, active_route):
     # Page layouts
     return html.Div(
         [
-            Header(app, routes, active_route),
+            Header(app, routes_watching, active_route),
             # page 1
             html.Div(
                 [
@@ -85,7 +85,6 @@ def create_layout(app, routes, active_route):
                         [
                             html.Div(
                                 [
-                                    html.H5(id="active_route"), #bug this is the hidden callback
                                     html.H5("How Is the {} Doing?".format(active_route)), #bug active_route is not getting updated here, because it was passed in?
                                     html.H6("Journal Square — Hoboken"),
                                     html.Br([]),
@@ -99,7 +98,7 @@ def create_layout(app, routes, active_route):
                                         style={"color": "#ffffff"},
                                         className="row",
                                     ),
-                                    get_route_menu(routes, active_route),
+                                    get_route_menu(routes_watching, active_route),
 
 
                                 ],
