@@ -33,43 +33,93 @@ def create_layout(app, routes_watching, active_route):
 
                 [
 
+                    # header
 
-                dbc.Row(
-                    [
-                        dbc.Col(
+                    dbc.Row(
+                        [
+                            get_header(app)
 
-                            html.H5('Column1')
-                        ),
-                        dbc.Col(
+                        ]
+                    ),
 
-                            html.H5('Column2')
-                        ),
-                        dbc.Col(
+                    # call to action box
+                    dbc.Row(
+                        [
+                            dbc.Col(
+                                    [
+                                        html.H5('How Is the TK Doing?'),
 
-                            html.H5('Column3')
-                        )
-                    ]
-                ),
+                                        html.P("A pseudo-Latin text used in web design, typography, layout, and printing in \
+                                        place of English to emphasize design elements over content. It's also called placeholder \
+                                        (or filler) text. It's a convenient tool for mock-ups. It helps to outline the visual \
+                                        elements of a document or presentation, eg typography, font, or layout. A mostly a part \
+                                        of a Latin text by the classical author and philosopher Cicero.")
+                                    ]
+                            )
+                        ]
+                    ),
 
-                dbc.Row(
-                    [
-                        dbc.Col(
+                    # row1
+                    dbc.Row(
+                        [
+                            dbc.Col(
 
-                            html.H5('Column1')
-                        ),
-                        dbc.Col(
+                                    [
+                                        html.H5('Row1, Column1'),
 
-                            html.H5('Column2')
-                        ),
-                        dbc.Col(
+                                        html.P("A pseudo-Latin text used in web design, typography, layout, and printing in \
+                                                place of English to emphasize design elements over content. It's also called placeholder \
+                                                (or filler) text. It's a convenient tool for mock-ups. It helps to outline the visual \
+                                                elements of a document or presentation, eg typography, font, or layout. A mostly a part \
+                                                of a Latin text by the classical author and philosopher Cicero.")
+                                    ]
+                                ),
+                            dbc.Col(
 
-                            html.H5('Column3')
-                        )
-                    ]
-                )
+                                [
+                                    html.H5('Row1, Column2'),
 
-                    ]
+                                    html.P("A pseudo-Latin text used in web design, typography, layout, and printing in \
+                                            place of English to emphasize design elements over content. It's also called placeholder \
+                                            (or filler) text. It's a convenient tool for mock-ups. It helps to outline the visual \
+                                            elements of a document or presentation, eg typography, font, or layout. A mostly a part \
+                                            of a Latin text by the classical author and philosopher Cicero.")
+                                ]
+                            )
+                        ]
+                    ),
 
+                    # row2
+                    dbc.Row(
+                        [
+                            dbc.Col(
+
+                                    [
+                                        html.H5('Row2, Column1'),
+
+                                        html.P("A pseudo-Latin text used in web design, typography, layout, and printing in \
+                                                place of English to emphasize design elements over content. It's also called placeholder \
+                                                (or filler) text. It's a convenient tool for mock-ups. It helps to outline the visual \
+                                                elements of a document or presentation, eg typography, font, or layout. A mostly a part \
+                                                of a Latin text by the classical author and philosopher Cicero.")
+                                    ]
+                                ),
+                            dbc.Col(
+
+                                [
+                                    html.H5('Row2, Column2'),
+
+                                    html.P("A pseudo-Latin text used in web design, typography, layout, and printing in \
+                                            place of English to emphasize design elements over content. It's also called placeholder \
+                                            (or filler) text. It's a convenient tool for mock-ups. It helps to outline the visual \
+                                            elements of a document or presentation, eg typography, font, or layout. A mostly a part \
+                                            of a Latin text by the classical author and philosopher Cicero.")
+                                ]
+                            )
+                        ]
+                    )
+
+                ]
 
             )
 
@@ -89,33 +139,14 @@ def Header(app, routes, active_route):
 
 
 def get_header(app):
-    header = html.Div(
-        [
 
-            html.Div(
-                [
-                    html.Div(
-                        [html.H5("NJ Bus Watcher")],
-                        className="seven columns main-title",
-                    ),
+    header=dbc.Col(
+                    [
+                        html.H5('NJ Bus Watcher'),
+                        html.Br([])
+                    ]
+            )
 
-                    html.Div(
-                        [
-                            dcc.Link(
-                                "FAQ",
-                                href="/about",
-                                className="full-view-link",
-                            )
-                        ],
-                        className="five columns",
-                    ),
-                ],
-                className="twelve columns",
-                style={"padding-left": "0"},
-            ),
-        ],
-        className="row",
-    )
     return header
 
 
