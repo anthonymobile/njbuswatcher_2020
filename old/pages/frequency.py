@@ -315,7 +315,7 @@ def create_layout(app,routes):
                     #                     className="subtitle padded",
                     #                 ),
                     #                 html.Table(
-                    #                     make_dash_table(df_equity_diver),
+                    #                     make_table(df_equity_diver),
                     #                     className="tiny-header",
                     #                 ),
                     #             ],

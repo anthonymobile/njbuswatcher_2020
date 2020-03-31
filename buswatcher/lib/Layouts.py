@@ -20,44 +20,69 @@ import plotly.express as px
 import lib.Maps as maps
 from lib.TransitSystem import load_system_map
 
-
-### GET buswatcher CONFIG
-# get system map
 system_map=load_system_map()
+
+
+
+#######################################################################################
+# PAGE LAYOUT
+#######################################################################################
 
 def create_layout(app, routes_watching, active_route):
 
     return html.Div(
         [
             dbc.Container(
+                            [
+                                get_navbar(active_route),
+                                html.Br([]),
+                            ],
+                            fluid=True,
+                            className='p-0'
+            ),
+
+            dbc.Container (
 
                 [
-
-                    # header
-
-                    dbc.Row(
-                        [
-                            get_header(app)
-
-                        ]
-                    ),
 
                     # call to action box
                     dbc.Row(
                         [
                             dbc.Col(
-                                    [
-                                        html.H5('How Is the TK Doing?'),
+                                [
 
-                                        html.P("A pseudo-Latin text used in web design, typography, layout, and printing in \
-                                        place of English to emphasize design elements over content. It's also called placeholder \
-                                        (or filler) text. It's a convenient tool for mock-ups. It helps to outline the visual \
-                                        elements of a document or presentation, eg typography, font, or layout. A mostly a part \
-                                        of a Latin text by the classical author and philosopher Cicero.")
-                                    ]
+                                    dbc.Jumbotron(
+                                        [
+                                            html.H1("How Is My Bus Doing?".format(active_route), className="display-1"),
+                                            html.Br([]),
+                                            get_route_menu(routes_watching, active_route),
+                                            html.Br([]),
+                                            html.Br([]),
+                                            # html.P(
+                                            #     "Residents and businesses depend on NJTransit buses every day. \
+                                            #     But its hard to evaluate the quality of bus service.\
+                                            #     That's why we built this site to provide a one-stop shop for bus \
+                                            #     performance information. Here you can see data on past performance \
+                                            #     and view maps of current service.",
+                                            #     className="lead",
+                                            # ),
+                                            html.Hr(className="my-2"),
+                                            html.P(
+                                                "Residents and businesses depend on NJTransit buses every day. \
+                                                But its hard to evaluate the quality of bus service.\
+                                                That's why we built this site to provide a one-stop shop for bus \
+                                                performance information. Here you can see data on past performance \
+                                                and view maps of current service.",
+                                            ),
+                                            # html.P(dbc.Button("Learn more", color="primary"), className="lead"),
+                                        ]
+                                    )
+                                ]
+
                             )
                         ]
                     ),
+
 
                     # row1
                     dbc.Row(
@@ -65,26 +90,25 @@ def create_layout(app, routes_watching, active_route):
                             dbc.Col(
 
                                     [
-                                        html.H5('Row1, Column1'),
+                                        html.H5("Where Does the {} Go?".format(active_route),className="display-4"),
 
-                                        html.P("A pseudo-Latin text used in web design, typography, layout, and printing in \
-                                                place of English to emphasize design elements over content. It's also called placeholder \
-                                                (or filler) text. It's a convenient tool for mock-ups. It helps to outline the visual \
-                                                elements of a document or presentation, eg typography, font, or layout. A mostly a part \
-                                                of a Latin text by the classical author and philosopher Cicero.")
+                                        html.P(get_report(active_route, 'summary'))
                                     ]
                                 ),
                             dbc.Col(
 
-                                [
-                                    html.H5('Row1, Column2'),
+                                    [
+                                        # html.Img(src='/assets/placeholder-340h-200v.png'),
+                                        # html.P("340 by 200 map placeholder"),  # todo fix width
+                                        html.Img(src='/assets/placeholder-400h-300v.png'),
+                                        html.P("400 by 300 map placeholder"),
 
-                                    html.P("A pseudo-Latin text used in web design, typography, layout, and printing in \
-                                            place of English to emphasize design elements over content. It's also called placeholder \
-                                            (or filler) text. It's a convenient tool for mock-ups. It helps to outline the visual \
-                                            elements of a document or presentation, eg typography, font, or layout. A mostly a part \
-                                            of a Latin text by the classical author and philosopher Cicero.")
-                                ]
+                                        # todo reactivate live map
+                                        # dcc.Graph(id="map", config={"responsive": True},
+                                        #           figure=maps.gen_map(active_route)
+                                        #           ),
+                                        html.Br([])
+                                    ]
                             )
                         ]
                     ),
@@ -95,107 +119,189 @@ def create_layout(app, routes_watching, active_route):
                             dbc.Col(
 
                                     [
-                                        html.H5('Row2, Column1'),
+                                        html.H5("How Often Do Buses Arrive?",className="display-4"),
 
                                         html.P("A pseudo-Latin text used in web design, typography, layout, and printing in \
                                                 place of English to emphasize design elements over content. It's also called placeholder \
-                                                (or filler) text. It's a convenient tool for mock-ups. It helps to outline the visual \
-                                                elements of a document or presentation, eg typography, font, or layout. A mostly a part \
-                                                of a Latin text by the classical author and philosopher Cicero.")
+                                                (or filler) text. It's a convenient tool for mock-ups."),
+
+
+
+                                        html.Br([]),
+
                                     ]
                                 ),
                             dbc.Col(
 
                                 [
-                                    html.H5('Row2, Column2'),
+                                    html.H5("How Reliable Is Travel Time?",className="display-4"),
 
                                     html.P("A pseudo-Latin text used in web design, typography, layout, and printing in \
-                                            place of English to emphasize design elements over content. It's also called placeholder \
-                                            (or filler) text. It's a convenient tool for mock-ups. It helps to outline the visual \
-                                            elements of a document or presentation, eg typography, font, or layout. A mostly a part \
-                                            of a Latin text by the classical author and philosopher Cicero.")
+                                            place of English to emphasize design elements over content."),
+
+
+
+                                    html.Br([]),
                                 ]
                             )
                         ]
-                    )
+                    ),
+
+                    # row2
+                    dbc.Row(
+                        [
+                            dbc.Col(
+
+                                [
+
+                                    dcc.Graph(
+                                        figure=make_chart_bar(get_report(active_route, "frequency")),
+                                        style={'width': '50vh', 'height': '35vh'}
+                                    ),
+
+                                    html.Br([]),
+
+                                ]
+                            ),
+                            dbc.Col(
+
+                                [
+
+
+                                    dcc.Graph(
+                                        figure=make_chart_line(get_report(active_route, "reliability")),
+                                        style={'width': '50vh', 'height': '35vh'}
+                                    ),
+
+                                    html.Br([]),
+                                ]
+                            )
+                        ]
+                    ),
+
+                    # row3 bunching graph
+                    dbc.Row(
+                        [
+                            dbc.Col(
+                                [
+                                    html.H5("Where Are the Bottlenecks?".format(active_route),className="display-4"),
+
+                                    html.P("Lorem ipsum dolor sit amet, consectetuer adipiscing elit. \
+                                    Aenean commodo ligula eget dolor. Aenean massa.", ),
+
+                                    dcc.Graph(
+                                        figure=make_ridgeline_plot(active_route),
+                                    style={'width': '100vh', 'height': '50vh'}),
+
+                                    html.Br([]),
+
+
+
+                                ]
+                            )
+                        ]
+                    ),
+
+
 
                 ]
 
+
             )
 
-        ]
+        ],
+        # className="p-5",
+        style={'backgroundColor': 'white'}
     )
 
 
 
 #######################################################################################
-# HELPERS
+# LAYOUT COMPONENTS
 #######################################################################################
 # future these can also call the Generator explicitly and ask for a df response
 # report loader function
 
-def Header(app, routes, active_route):
-    return html.Div([get_header(app), html.Br([])])
+def get_navbar(active_route):
+
+    navbar = dbc.NavbarSimple(
+                                # children=[
+                                #     dbc.NavItem(dbc.NavLink("What is this?", href="/about")),
+                                #     dbc.DropdownMenu( # todo fix link and dropdown styling
+                                #         children=[
+                                #             dbc.DropdownMenuItem("More pages", header=True),
+                                #             dbc.DropdownMenuItem("Page 2", href="#"),
+                                #             dbc.DropdownMenuItem("Page 3", href="#"),
+                                #         ],
+                                #         nav=True,
+                                #         in_navbar=True,
+                                #         label="More",
+                                #     ),
+                                # ],
+                                brand="NJBusWatcher",
+                                brand_href="#",
+                                color="primary",
+                                dark=True,
+                            )
+    return navbar
 
 
-def get_header(app):
+def get_report(active_route, report):
 
-    header=dbc.Col(
-                    [
-                        html.H5('NJ Bus Watcher'),
-                        html.Br([])
-                    ]
-            )
+    DATA_PATH = get_data_path()
 
-    return header
+    if report == "summary":
 
+        # for now, just use this dummy static template
+        start = 'Hoboken Terminal'
+        end = 'Journal Square'
+        description = 'The 87 snakes through The Heights, linking to important rail stations at Journal Square, \
+        the 9th Street Light Rail Station, and Hoboken Terminal. It has the worst bunching problems of all NJTransit \
+        routes in the area due to heavy traffic, railroad grade crossings, and more.'
+        speed = 14.5
+        stop_interval = 750
+        tpm = 2.1
+        grade = 'D'
 
-def get_report(route, report):
-    PATH = Path(__file__).parent
-    # DATA_PATH = PATH.joinpath("../data").resolve()
-    DATA_PATH = PATH.joinpath("data").resolve()
+        summary_template = " The {routenum} runs from {start} to {end}. {description}. Average speed is {speed}, thanks \
+                           to an average of {stop_interval} feet between stops and {tpm} turns per mile. "\
+                            .format(routenum=active_route,start=start,end=end,description=description,\
+                                    speed=speed,stop_interval=stop_interval,tpm=tpm)
 
-    if report == "summary":  # todo then generate on the fly, pulling together various pieces of data
+        # todo then generate on the fly, pulling together various pieces of data
         # from route_desciptions.json:
-        #       origin, destination, geometry statistics=distance between stops, turns per mile (todo in TransitSystem)
-        # from travel_time? #todo Generators
+        #       origin, destination, geometry statistics=distance between stops, turns per mile (to build in TransitSystem)
+        # from travel_time? #to build in Generators
         #       average speed
-        # from a new all-routes-grades.csv file (todo in Generators)
+        # from a new all-routes-grades.csv file (to build in Generators)
         #       overall_grade
 
-        summary_template = {
-            'label': 'value',
-            'Route number': '87',
-            'Origin': 'Summary Template',
-            'Destination': 'Summary Template',
-            'Average Speed': '9.8 mph',
-            'Distance between stops': '750',
-            'Turns per mile': '2.1',
-            'Overall grade': 'D',
-            'Notes': 'Summary Template'
-        }
 
-        return pd.DataFrame.from_dict(summary_template, orient='index')
+        return summary_template
 
     else:
-        return pd.read_csv('{}/{}_{}.csv'.format(DATA_PATH, route, report), quotechar='"')
+        return pd.read_csv('{}/{}_{}.csv'.format(DATA_PATH, active_route, report), quotechar='"')
 
 
-def get_route_menu(routes, active_route):
-    # todo cleanup display of route menu, possibly move
+def get_route_menu(routes_watching, active_route):
+
     # future restore the dropdown menu?
-    route_html = []
-    for route in routes:
-        route_html.append(dcc.Link(html.Button(route, className="button-route"), href='/{}'.format(route)))
 
-    route_menu = html.Div(
-        route_html
-    )
+    #todo enlarge badge text
+
+    badges = []
+    for route in routes_watching:
+            if route==active_route:
+                badges.append(dbc.Badge(route, pill=True, color="primary", className="mr-1"))
+            else:
+                badges.append(dbc.Badge(route, href="/{}".format(route), pill=True, color="secondary", className="mr-1"))
+    route_menu = html.Span(badges)
+
 
     return route_menu
 
 
-def make_dash_table(df):
+def make_table(df): #todo rebuild with bootstrap table components
     """ Return a dash definition of an HTML table for a Pandas dataframe """
     table = []
     for index, row in df.iterrows():
@@ -206,14 +312,20 @@ def make_dash_table(df):
     return table
 
 
-def make_chart_line_new(df):
+def make_chart_line(df):
+
+    # todo making a line chart look good requires a lot of data points (every 10 mins all day)
+
+    # todo filled lines / bands
+    # https://plotly.com/python/line-charts/#filled-lines
+
     fig = px.line(df, x="hour", y=" minutes", title='End-to-End Travel time')
 
     fig.update_layout(autosize=True,
                       title="",
                       font={"family": "Raleway", "size": 10},
-                      height=200,
-                      width=340,
+                      # height=200,
+                      # width=340,
                       hovermode="closest",
                       margin={
                           "r": 20,
@@ -257,32 +369,54 @@ def make_chart_line_new(df):
     return fig
 
 
-def make_chart_line(df):  # todo making a line chart look good requires a lot of data points (every 10 mins all day)
-    fig = []
-    data = go.Scatter(
-        x=[x for x in (df.iloc[:, 0].tolist())],
-        y=[y for y in (df.iloc[:, 1].tolist())],
-        line={"color": "#e5bbed"},
-        mode='lines',
-        name="Weekdays",
-    )
-
-    fig.append(data)
-
-    # # todo filled lines / bands
-    # https://plotly.com/python/line-charts/#filled-lines
-
-    return fig
-
-
 def make_chart_bar(df):
-    fig = []
-    data = go.Bar(
-        x=[x for x in (df.iloc[:, 0].tolist())],
-        y=[y for y in (df.iloc[:, 1].tolist())],
-        name="Weekdays",
+    fig = px.bar(df, x="hour", y=" minutes", title='End-to-End Travel time')
+
+    fig.update_layout(autosize=True,
+                      title="",
+                      font={"family": "Raleway", "size": 10},
+                      # height=200,
+                      # width=340,
+                      hovermode="closest",
+                      margin={
+                          "r": 20,
+                          "t": 20,
+                          "b": 40,
+                          "l": 50,
+                      },
+                      showlegend=False,
+                      xaxis={
+                          "autorange": True,
+                          "linecolor": "rgb(0, 0, 0)",
+                          "linewidth": 1,
+                          "range": [6, 16],
+                          "showgrid": False,
+                          "showline": True,
+                          "title": "",
+                          "type": "linear",
+                      },
+                      yaxis={
+                          "autorange": False,
+                          "gridcolor": "rgba(127, 127, 127, 0.2)",
+                          "mirror": False,
+                          "nticks": 4,
+                          "range": [0, 150],
+                          "showgrid": True,
+                          "showline": True,
+                          "ticklen": 10,
+                          "ticks": "outside",
+                          "title": "minutes",
+                          "type": "linear",
+                          "zeroline": False,
+                          "zerolinewidth": 4,
+                      },
+                      )
+
+    fig.update_xaxes(
+        ticktext=["6am", "12pm", "6pm"],
+        tickvals=['6', '12', '18'],
     )
-    fig.append(data)
+
     return fig
 
 
@@ -297,8 +431,8 @@ def make_curve_and_rug_plot(route):
 
     fig.update_layout(
         autosize=False,
-        width=700,
-        height=200,
+        # width=700,
+        # height=200,
         margin=dict(
             l=10,
             r=10,
@@ -355,8 +489,8 @@ def make_ridgeline_plot(route):
     fig.update_layout(
         # legend_orientation="h",
         autosize=True,
-        width=720,
-        height=400,
+        # width=720,
+        # height=400,
         margin=dict(
             l=0,
             r=0,
@@ -383,11 +517,18 @@ def make_ridgeline_plot(route):
     return fig
 
 
-def get_bunching_sample_data(route):
-    # get sample data
+#######################################################################################
+# HELPERS
+#######################################################################################
+
+def get_data_path():
     PATH = Path(__file__).parent
-    # DATA_PATH = PATH.joinpath("../data").resolve()
-    DATA_PATH = PATH.joinpath("data").resolve()
+    return PATH.joinpath("../data").resolve()
+
+
+def get_bunching_sample_data(route):
+
+    DATA_PATH = get_data_path()
 
     periods = ['am', 'midday', 'pm', 'late', 'weekends']
     data = []
@@ -395,7 +536,7 @@ def get_bunching_sample_data(route):
         ## load data from CSV
         # data.append(np.loadtxt('{}/{}_{}_{}.csv'.format(DATA_PATH, route, "bunching", period), skiprows=1))
 
-        # generate random data
+        ## OR generate random data
         n_centers = 50  # no of bunching points
         bunches, y = make_blobs(n_samples=random.randint(1, 501), centers=n_centers, n_features=1,
                                 center_box=(0.0, 25000))
@@ -403,3 +544,4 @@ def get_bunching_sample_data(route):
 
     colors = n_colors('rgb(5, 200, 200)', 'rgb(200, 10, 10)', 5, colortype='rgb')
     return periods, data, colors
+
