@@ -1,1 +1,0 @@
-#todo autogenerate migration for tablename changes and new columns
