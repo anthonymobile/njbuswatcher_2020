@@ -23,7 +23,7 @@ for k, v in system_map.collection_descriptions.items():
 #######################################################################################
 
 # init
-app = dash.Dash( __name__, meta_tags=[{"name": "viewport", "content": "width=device-width"}],external_stylesheets=[dbc.themes.PULSE])
+app = dash.Dash( __name__, meta_tags=[{"name": "viewport", "content": "width=device-width"}],external_stylesheets=[dbc.themes.PULSE, '/assets/styles.css'])
 server = app.server
 app.config['suppress_callback_exceptions'] = True # # suppress callback warnings
 

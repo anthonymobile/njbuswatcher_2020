@@ -21,7 +21,7 @@ from .CommonTools import timeit
 
 class BusProcessor:
 
-    def __init__(self, system_map):
+    def __init__(self, system_map,**kwargs):
 
         self.source = 'nj'
 
@@ -34,9 +34,13 @@ class BusProcessor:
 
         # generate scan data and results
 
-        self.fetch_positions(system_map)
-        self.parse_trips(system_map)
-        self.localize_positions(system_map)
+        if kwargs['mode'] != 'offline': # skip these if working with live data
+
+            self.fetch_positions(system_map)
+            self.parse_trips(system_map)
+            self.localize_positions(system_map)
+
+        # these run for offline
         self.flag_bunched(system_map)
         self.assign_to_stops()
         self.interpolate_missed_stops()

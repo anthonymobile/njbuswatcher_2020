@@ -53,7 +53,7 @@ def create_layout(app, routes_watching, active_route):
 
                                     dbc.Jumbotron(
                                         [
-                                            html.H1("How Is My Bus Doing?".format(active_route), className="display-1"),
+                                            html.H1("How Is My Bus Doing?".format(active_route), className="display-3"),
                                             html.Br([]),
                                             get_route_menu(routes_watching, active_route),
                                             html.Br([]),
@@ -72,8 +72,9 @@ def create_layout(app, routes_watching, active_route):
                                                 But its hard to evaluate the quality of bus service.\
                                                 That's why we built this site to provide a one-stop shop for bus \
                                                 performance information. Here you can see data on past performance \
-                                                and view maps of current service.",
+                                                and view maps of current service.", className="lead"
                                             ),
+
                                             # html.P(dbc.Button("Learn more", color="primary"), className="lead"),
                                         ]
                                     )
@@ -90,23 +91,20 @@ def create_layout(app, routes_watching, active_route):
                             dbc.Col(
 
                                     [
-                                        html.H5("Where Does the {} Go?".format(active_route),className="display-4"),
+                                        html.H5("Where Does the {} Go?".format(active_route), className="display-5"),
 
-                                        html.P(get_report(active_route, 'summary'))
-                                    ]
-                                ),
-                            dbc.Col(
+                                        html.P(get_report(active_route, 'summary')),
 
-                                    [
                                         # html.Img(src='/assets/placeholder-340h-200v.png'),
                                         # html.P("340 by 200 map placeholder"),  # todo fix width
-                                        html.Img(src='/assets/placeholder-400h-300v.png'),
-                                        html.P("400 by 300 map placeholder"),
+                                        html.Img(src='/assets/placeholder-800h-400v.png'),
+                                        #html.P("n.b. Current bus locations are approximate. Not all services on every route shown."),
 
                                         # todo reactivate live map
                                         # dcc.Graph(id="map", config={"responsive": True},
                                         #           figure=maps.gen_map(active_route)
                                         #           ),
+                                        html.Br([]),
                                         html.Br([])
                                     ]
                             )
@@ -119,7 +117,7 @@ def create_layout(app, routes_watching, active_route):
                             dbc.Col(
 
                                     [
-                                        html.H5("How Often Do Buses Arrive?",className="display-4"),
+                                        html.H5("How Often Do Buses Arrive?", className="display-5"),
 
                                         html.P("A pseudo-Latin text used in web design, typography, layout, and printing in \
                                                 place of English to emphasize design elements over content. It's also called placeholder \
@@ -134,7 +132,7 @@ def create_layout(app, routes_watching, active_route):
                             dbc.Col(
 
                                 [
-                                    html.H5("How Reliable Is Travel Time?",className="display-4"),
+                                    html.H5("How Reliable Is Travel Time?", className="display-5"),
 
                                     html.P("A pseudo-Latin text used in web design, typography, layout, and printing in \
                                             place of English to emphasize design elements over content."),
@@ -184,7 +182,7 @@ def create_layout(app, routes_watching, active_route):
                         [
                             dbc.Col(
                                 [
-                                    html.H5("Where Are the Bottlenecks?".format(active_route),className="display-4"),
+                                    html.H5("Where Are the Bottlenecks?".format(active_route), className="display-5"),
 
                                     html.P("Lorem ipsum dolor sit amet, consectetuer adipiscing elit. \
                                     Aenean commodo ligula eget dolor. Aenean massa.", ),
