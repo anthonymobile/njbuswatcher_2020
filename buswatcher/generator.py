@@ -27,6 +27,7 @@ from apscheduler.executors.pool import ThreadPoolExecutor,ProcessPoolExecutor
 db_url = (get_config_path()+'apscheduler.sqlite')
 jobstores = {'default': SQLAlchemyJobStore(url='sqlite:///'+db_url)}
 
+
 # settings
 executors = {'default': ThreadPoolExecutor(20)}
 job_defaults = {'coalesce': True, 'max_instances': 5 }

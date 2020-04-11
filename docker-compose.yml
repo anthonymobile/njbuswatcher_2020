@@ -41,23 +41,17 @@ services:
       - gunicorn
 
 #############################################################################
-# this container can't connect to the database
   gunicorn:
     build:
       context: ./
       dockerfile: ./docker/gunicorn/Dockerfile
-
-    command: /opt/conda/envs/buswatcher/bin/gunicorn www:app -w 4 -b 0.0.0.0:8000
+    command: /opt/conda/envs/buswatcher/bin/gunicorn www:app.server -w 4 -b 0.0.0.0:8000
     restart: always
     volumes:
-        # - ./buswatcher/:/buswatcher
         - static_volume:/buswatcher/buswatcher/static
-        # - buswatcher_config:/buswatcher/buswatcher/config
         - buswatcher_config:/buswatcher/buswatcher/config
     expose:
        - 8000
-#    ports:
-#      - 8000
     environment:
       - SQL_DB=buses
       - SQL_USER=buswatcher
