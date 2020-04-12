@@ -91,7 +91,7 @@ class Route(KeyValueData):
             self.d = ''
             self.waypoint_id = ''
             self.distance_to_prev_waypoint = ''
-            self.seq_id
+            self.seq_id = ''
 
     class Stop:
         def __init__(self):

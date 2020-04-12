@@ -51,10 +51,11 @@ class SystemMap:
                 route_geometries[rd['route']]={
                     'route':rd['route'],
                     'xml':xmldata,
-                    'paths': self.get_single_route_Paths(rd['route'])[0],
-                    'coordinate_bundle': self.get_single_route_Paths(rd['route'])[1]
+                    'paths': NJTransitAPI.parse_xml_getRoutePoints(xmldata)[0],
+                    'coordinate_bundle': NJTransitAPI.parse_xml_getRoutePoints(xmldata)[1]
                 }
             else:
+                print ('didnt get a True back from validate xmldata')
                 continue # skip the bad XML bad route
 
         return route_geometries
@@ -82,18 +83,18 @@ class SystemMap:
                     return f.read()
 
 
-
-
-    def get_single_route_Paths(self, route):
-        try:
-            infile = (get_config_path() + 'route_geometry/' + route + '.xml')
-            with open(infile, 'rb') as f:
-                print('parsing Paths for route ' + route)
-                paths = NJTransitAPI.parse_xml_getRoutePoints(f.read())
-                return paths
-
-        except:
-            pass
+    ## deprecated redundant
+    #
+    # def get_single_route_Paths(self, route):
+    #     try:
+    #         infile = (get_config_path() + 'route_geometry/' + route + '.xml')
+    #         with open(infile, 'rb') as f:
+    #             print('parsing Paths for route ' + route)
+    #             paths = NJTransitAPI.parse_xml_getRoutePoints(f.read())
+    #             return paths
+    #
+    #     except:
+    #         pass
 
     def get_single_route_paths_and_coordinatebundle(self, route):
         routes = self.route_geometries[route]['paths']

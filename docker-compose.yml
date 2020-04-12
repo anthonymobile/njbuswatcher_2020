@@ -22,6 +22,8 @@ services:
 #############################################################################
   adminer:
     image: adminer
+#    environment:
+#      ADMINER_DEFAULT_SERVER: db
     restart: always
     ports:
       - 8080:8080
@@ -57,31 +59,31 @@ services:
       - SQL_USER=buswatcher
       - SQL_PASSWORD=njtransit
       - SQL_HOST=db
-      - SQL_PORT=5432
+      - SQL_PORT=3306
     depends_on:
       - db
 
-#############################################################################
-  tripwatcher:
-    build:
-      context: ./
-      dockerfile: ./docker/tripwatcher/Dockerfile
-    restart: always
-    volumes:
-      - buswatcher_config:/buswatcher/buswatcher/config
-    depends_on:
-      - db
-
-#############################################################################
-  generator:
-    build:
-      context: ./
-      dockerfile: ./docker/generator/Dockerfile
-    restart: always
-    volumes:
-      - buswatcher_config:/buswatcher/buswatcher/config
-    depends_on:
-      - db
+##############################################################################
+#  tripwatcher:
+#    build:
+#      context: ./
+#      dockerfile: ./docker/tripwatcher/Dockerfile
+#    restart: always
+#    volumes:
+#      - buswatcher_config:/buswatcher/buswatcher/config
+#    depends_on:
+#      - db
+#
+##############################################################################
+#  generator:
+#    build:
+#      context: ./
+#      dockerfile: ./docker/generator/Dockerfile
+#    restart: always
+#    volumes:
+#      - buswatcher_config:/buswatcher/buswatcher/config
+#    depends_on:
+#      - db
 
 ##############################################################################
 #  dns_updater:

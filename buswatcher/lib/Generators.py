@@ -247,7 +247,8 @@ class BunchingReport(Generator):    #  rebuild this based on simply tallying bus
                     cum_arrival_total = 0
                     cum_bunch_total = 0
 
-                    paths = system_map.get_single_route_Paths(route)[0][0].paths
+                    ## todo deprecate this
+                    # paths = system_map.get_single_route_Paths(route)[0][0].paths
 
                     for path in paths:
                         for point in path.points:

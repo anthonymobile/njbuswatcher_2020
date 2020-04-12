@@ -28,6 +28,9 @@ WORKDIR /
 COPY . ./buswatcher
 # COPY . .
 
+WORKDIR buswatcher
+RUN git checkout dash
+
 # copy the proper database config over for docker deployment (replaces the development version)
 COPY ./docker/DBconfig.py ./buswatcher/buswatcher/lib/DBconfig.py
 
