@@ -1,5 +1,7 @@
 # install with: docker-compose up -d --build
 
+#todo fix port conflicts https://stackoverflow.com/questions/48281970/how-do-i-avoid-port-collision-when-using-docker
+
 version: '3.7'
 
 services:
@@ -14,9 +16,9 @@ services:
       MYSQL_PASSWORD: 'njtransit'
       TZ: 'America/New_York'
     ports:
-      - 3306:3306
+      - 3307:3306
     expose:
-      - 3306
+      - 3307
     volumes:
       - database_volume:/var/lib/mysql
 #############################################################################
