@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
 
+
+#todo remove big files from repo https://stackoverflow.com/questions/2100907/how-to-remove-delete-a-large-file-from-commit-history-in-git-repository
+
+
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
@@ -31,8 +35,6 @@ app.config['suppress_callback_exceptions'] = True # # suppress callback warnings
 app.layout = html.Div([dcc.Location(id="url", refresh=False),html.Div(id="page-content")])
 
 
-# todo redesign callback / url routing
-# todo https://dash-bootstrap-components.opensource.faculty.ai/examples/simple-sidebar/#sourceCode
 # callback
 @app.callback(
         Output("page-content", "children"),

@@ -1,5 +1,5 @@
 # NJ BusWatcher
-**updated 2020 mar 27**
+**updated 2020april **
 
 
 ## Overview
@@ -14,7 +14,6 @@ The suite is fully dockerized. Simply grab the repo and install using docker-com
 cd buswatcher
 docker-compose up -d --build
 ```
-
 
 ## WIP
 
