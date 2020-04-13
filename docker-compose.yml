@@ -49,7 +49,7 @@ services:
     build:
       context: ./
       dockerfile: ./docker/gunicorn/Dockerfile
-    command: /opt/conda/envs/buswatcher/bin/gunicorn www:app.server -w 4 -b 0.0.0.0:8000
+    command: /opt/conda/envs/buswatcher/bin/gunicorn www:app -w 4 -b 0.0.0.0:8000
     restart: always
     volumes:
         - static_volume:/buswatcher/buswatcher/static
@@ -65,27 +65,27 @@ services:
     depends_on:
       - db
 
-##############################################################################
-#  tripwatcher:
-#    build:
-#      context: ./
-#      dockerfile: ./docker/tripwatcher/Dockerfile
-#    restart: always
-#    volumes:
-#      - buswatcher_config:/buswatcher/buswatcher/config
-#    depends_on:
-#      - db
-#
-##############################################################################
-#  generator:
-#    build:
-#      context: ./
-#      dockerfile: ./docker/generator/Dockerfile
-#    restart: always
-#    volumes:
-#      - buswatcher_config:/buswatcher/buswatcher/config
-#    depends_on:
-#      - db
+#############################################################################
+  tripwatcher:
+    build:
+      context: ./
+      dockerfile: ./docker/tripwatcher/Dockerfile
+    restart: always
+    volumes:
+      - buswatcher_config:/buswatcher/buswatcher/config
+    depends_on:
+      - db
+
+#############################################################################
+  generator:
+    build:
+      context: ./
+      dockerfile: ./docker/generator/Dockerfile
+    restart: always
+    volumes:
+      - buswatcher_config:/buswatcher/buswatcher/config
+    depends_on:
+      - db
 
 ##############################################################################
 #  dns_updater:
