@@ -34,11 +34,11 @@ class BusProcessor:
 
         # generate scan data and results
 
-        if kwargs['mode'] != 'offline': # skip these if working with live data
+        # if kwargs['mode'] != 'offline': # skip these if working with live data
 
-            self.fetch_positions(system_map)
-            self.parse_trips(system_map)
-            self.localize_positions(system_map)
+        self.fetch_positions(system_map)
+        self.parse_trips(system_map)
+        self.localize_positions(system_map)
 
         # these run for offline
         self.flag_bunched(system_map)
@@ -91,7 +91,7 @@ class BusProcessor:
                     if existing_trips is None:
 
                         # look up path_id todo test path_id lookup
-                        for path in system_map.route_geometries[bus.rt]['paths']:
+                        for path in system_map.route_geometries[bus.rt]['paths']: #bug not working
                             if bus.d == path.d:
                                 bus.path_id = path.id
 
