@@ -1,16 +1,11 @@
-# import json
-# import geojson
 import pandas as pd
 from lib.TransitSystem import load_system_map
-
 from . import NJTransitAPI as njt
 
 # added by AT 17 march 2020
 mapbox_access_token = 'pk.eyJ1IjoiYml0c2FuZGF0b21zIiwiYSI6ImNrN3dsb3Q1ODAzbTYzZHFwMzM4c2FmZjMifQ.HNRse1oELixf7zWOqVfbgA'
-
 system_map=load_system_map()
 
-# generate the map code for dash Graph
 
 def gen_map(route):
     bus_positions = get_bus_positions(route)
@@ -97,21 +92,11 @@ def layout_map(map_data):
     return layout_map
 
 
-# get route geometry
 def get_route_waypoints(route):
-    # test_data = {'lat': [45, 46, 47], 'lon': [-72,-71,-70]}
-    # route_waypoints=pd.DataFrame.from_dict(test_data)
-    # return route_waypoints
-
-    # get waypoints and unzip
     lat, lon = zip(*system_map.route_geometries[str(route)]['coordinate_bundle']['waypoints_coordinates'])
     route_waypoints = {'lat': lat, 'lon': lon}
     return route_waypoints
 
-
-
-
-# get bus positions for route as a df
 def get_bus_positions(route):
     positions = njt.parse_xml_getBusesForRoute(njt.get_xml_data('nj', 'buses_for_route', route=route))
     labels = ['lat', 'lon', 'id', 'run']
@@ -130,4 +115,3 @@ def get_bus_positions(route):
     except:
         pass
     return positions_log
-
