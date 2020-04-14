@@ -113,18 +113,9 @@ class StopPrediction(KeyValueData):
         self.name = 'StopPrediction' 
 
 
-#
-# parsers for specific API calls
-#
-# parsers done for all_buses, routes, stop_predictions
-# ignored: time_and_temp
-# not available / not fully documented: schedules (not sure what the right kwargs are, agency=1 & route=87 ?)
-
-
 def parse_xml_getStopPredictions(data):
     results = []
     e = xml.etree.ElementTree.fromstring(data)
-
     for atype in e.findall('pre'):
         fields = {}
         for field in atype.getchildren():
@@ -148,7 +139,6 @@ def parse_xml_getStopPredictions(data):
 
 def parse_xml_getBusesForRouteAll(data):
     results = []
-
     e = xml.etree.ElementTree.fromstring(data)
     for atype in e.findall('bus'):
         fields = {}
@@ -167,7 +157,6 @@ def parse_xml_getBusesForRouteAll(data):
 # http://mybusnow.njtransit.com/bustime/map/getBusesForRoute.jsp?route=119
 def parse_xml_getBusesForRoute(data):
     results = []
-
     e = xml.etree.ElementTree.fromstring(data)
     for atype in e.findall('bus'):
         fields = {}
@@ -191,12 +180,6 @@ def clean_buses(buses):
 
     return buses_clean
 
-#
-# # http://mybusnow.njtransit.com/bustime/map/getBusPredictions?bus=3452
-# def parse_xml_getBusPredictions(data): # dont think this API endpoint works on NJT
-#     results = ''
-#     return results
-
 
 def validate_xmldata(xmldata):
     e = xml.etree.ElementTree.fromstring(xmldata)
@@ -209,13 +192,10 @@ def validate_xmldata(xmldata):
                 return True
 
 
-# http://mybusnow.njtransit.com/bustime/map/getRoutePoints.jsp?route=119
 def parse_xml_getRoutePoints(data):
-
     coordinates_bundle=dict()
     routes = list()
     route = Route()
-
     e = xml.etree.ElementTree.fromstring(data)
     for child in e.getchildren():
         if len(child.getchildren()) == 0:
@@ -223,15 +203,11 @@ def parse_xml_getRoutePoints(data):
                 route.identity = child.text
             else:
                 route.add_kv(child.tag, child.text)
-
         if child.tag == 'pas':
-
-            n = 0 # reinitialize
-            p_prev = None # reinitialize
-
+            n = 0
+            p_prev = None
             for pa in child.findall('pa'):
                 path = Route.Path()
-
                 for path_child in pa.getchildren():
                     if len(path_child.getchildren()) == 0:
                         if path_child.tag == 'id':
@@ -250,7 +226,6 @@ def parse_xml_getRoutePoints(data):
                             _stop_id = _cond_get_single(bs, 'id')
                             _stop_st = _cond_get_single(bs, 'st')
                             break
-
                         p = None
                         if not stop:
                             p = Route.Point()
@@ -258,18 +233,15 @@ def parse_xml_getRoutePoints(data):
                             p = Route.Stop()
                             p.identity = _stop_id
                             p.st = _stop_st
-
                         p.d = path.d
                         p.lat = _cond_get_single(pt, 'lat')
                         p.lon = _cond_get_single(pt, 'lon')
                         p.waypoint_id = n
                         if n != 0:
-                            p.distance_to_prev_waypoint = tools.distance(p_prev, p) # returns geometric distance in feet between waypoints
-                        p_prev = p # make this p the p_prev for next iteration
-                        n =+ 1 # increment waypoint sequence counter
-
-                        path.points.append(p) # <------ dont append to same list each time
-
+                            p.distance_to_prev_waypoint = tools.distance(p_prev, p)
+                        p_prev = p
+                        n =+ 1
+                        path.points.append(p)
                 route.paths.append(path)
                 routes.append(route)
             break
@@ -281,21 +253,21 @@ def parse_xml_getRoutePoints(data):
         # reversed lon, lat for some reason for MapBox
         # waypoint_coordinates.append((float(point.lon),float(point.lat)))
         waypoint_coordinates.append((float(point.lat),float(point.lon)))
-    route_plot = geojson.LineString(waypoint_coordinates)
-    waypoints_geojson = geojson.dumps(route_plot, sort_keys=True)
+    # route_plot = geojson.LineString(waypoint_coordinates)
+    # waypoints_geojson = geojson.dumps(route_plot, sort_keys=True)
 
     # dump stop coordinates to geojson
     stops_coordinates = []
     for point in routes[0].paths[0].points:
         if isinstance(point, Route.Stop):
             stops_coordinates.append((float(point.lon), float(point.lat)))
-    stops_plot = geojson.MultiPoint(stops_coordinates)
-    stops_geojson = geojson.dumps(stops_plot, sort_keys=True)
+    # stops_plot = geojson.MultiPoint(stops_coordinates)
+    # stops_geojson = geojson.dumps(stops_plot, sort_keys=True)
 
     coordinates_bundle['waypoints_coordinates'] = waypoint_coordinates
     coordinates_bundle['stops_coordinates'] = stops_coordinates
-    coordinates_bundle['waypoints_geojson'] = waypoints_geojson
-    coordinates_bundle['stops_geojson'] = stops_geojson
+    # coordinates_bundle['waypoints_geojson'] = waypoints_geojson
+    # coordinates_bundle['stops_geojson'] = stops_geojson
 
     return routes, coordinates_bundle
 
@@ -309,7 +281,6 @@ def get_xml_data(source, function, **kwargs):
             if data:
                 break
         except:
-
             print (str(tries) + '/12 cant connect to NJT API... waiting 5s and retry')
             if tries < 12:
                 tries = tries + 1
@@ -317,7 +288,6 @@ def get_xml_data(source, function, **kwargs):
             else:
                 print('failed trying to connect to NJT API for 1 minute, giving up')
                 return
-
     return data
 
 
@@ -325,7 +295,6 @@ def get_xml_data_save_raw(source, function, raw_dir, **kwargs):
     data = get_xml_data(source, function, **kwargs)
     if not os.path.exists(raw_dir):
         os.makedirs(raw_dir)
-
     now = datetime.datetime.now()
     handle = open(raw_dir + '/' + now.strftime('%Y%m%d.%H%M%S') + '.' + source + '.xml', 'w')
     handle.write(data)
