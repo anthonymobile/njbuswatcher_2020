@@ -1,12 +1,9 @@
-
 from logging.config import fileConfig
 
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
 from alembic import context
-
-# from ..lib.DBconfig import connection_string # doesnt work on PyCharm
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -41,9 +38,11 @@ def run_migrations_offline():
 
     """
     url = config.get_main_option("sqlalchemy.url")
-    # url = DBconfig.connection_string #  doesnt work on PyCharm
     context.configure(
-        url=url, target_metadata=target_metadata, literal_binds=True
+        url=url,
+        target_metadata=target_metadata,
+        literal_binds=True,
+        dialect_opts={"paramstyle": "named"},
     )
 
     with context.begin_transaction():
