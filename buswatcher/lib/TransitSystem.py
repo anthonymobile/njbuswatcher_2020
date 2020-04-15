@@ -78,13 +78,16 @@ class SystemMap:
         return stoplist
 
     def get_single_route_waypointlist_for_localizer(self, route):
+        # this creates a waypoint list with a temporary sequence list for deciding bunching
         routedata, coordinate_bundle = self.get_single_route_paths_and_coordinatebundle(route)
         waypointlist=[]
+        waypoint_id = 0
         for rt in routedata:
             for path in rt.paths:
                 for p in path.points:
                     waypointlist.append(
-                        {'waypoint_id': p.identity, 'd': p.d, 'lat': p.lat, 'lon': p.lon})
+                        {'waypoint_id': waypoint_id, 'd': p.d, 'lat': p.lat, 'lon': p.lon})
+                    waypoint_id =+ 1
         return waypointlist
 
 

@@ -25,7 +25,6 @@ class BusProcessor:
         self.fetch_positions(system_map)
         self.parse_trips(system_map)
         self.localize_positions(system_map)
-        self.flag_bunched(system_map)
         self.assign_to_stops()
         self.interpolate_missed_stops()
 
@@ -58,7 +57,7 @@ class BusProcessor:
             db.__relax__()  # disable foreign key checks before saving
             try:
                 db.session.commit()
-                print ('buses saved')
+                print ('trips saved')
             except IntegrityError:
                 print('integrity error writing these arrivals to the db')
                 db.session.rollback()
@@ -71,8 +70,15 @@ class BusProcessor:
                 for r in self.watched_route_list:
                     try:
                         buses_for_this_route = [b for b in self.buses if b.rt == r]
-                        bus_positions = get_nearest_stop(system_map, buses_for_this_route, r)
+                        bus_positions = get_nearest_stop_for_buses(system_map, buses_for_this_route, r)
 
+
+                        # todo do the bunching analysis here
+                        # we already know route (r)
+                        # we have a list of bus objects ready to go to the db
+                        bus_positions = self.flag_bunched(system_map,bus_positions,r)
+
+                        # dump to db
                         for group in bus_positions:
                             for bus in group:
                                 db.session.add(bus)
@@ -85,52 +91,39 @@ class BusProcessor:
                 print(e + 'mysql integrity error #' + error_count)
         return
 
-    # todo START debugging bunching flag here---------------------------------------------------------------------------
-    def flag_bunched(self, system_map):
-        for route in self.watched_route_list:
-            with self.db as db:
 
-                #1 get all the BusPosition records on the route that dont have a bunched_flag yet, and their Trip data
-                bunched_candidates = db.session.query(BusPosition) \
-                    .join(Trip) \
-                    .filter(BusPosition.trip_id == Trip.trip_id) \
-                    .filter(BusPosition.rt == route) \
-                    .filter(BusPosition.bunched_flag == None) \
-                    .order_by(BusPosition.timestamp.asc()) \
-                    .all()
-                # print ('got the bunched candidates')
+    def flag_bunched(self, system_map, bus_positions,route):
 
-                # iterate over the buses we are watching
-                for bus in bunched_candidates:
+        bus_positions = get_nearest_waypoint_for_buses(system_map, bus_positions, route)
+
+        # iterate over the buses
+        for bus in bus_positions:
+            # ? create a temporary positional index seq_id for the path
+            # ? this could also be done when the route geomtery is built
+            # ? we can match trips against paths using trip.pd
+            seq = 0
+            for p in system_map.route_geometries[bus.rt]['paths']:
+                if p.path_id == bus.path_id:
+                    for pt in p.points:
+                        pt.seq_id = seq
+                    seq =+ 1
+            # assign each bus to the nearest waypoint
+
+        # put them in order from start to finish along the route path
+            # along the route (using waypoint's seq_id)
+            # bunched_candidates.sort(waypoint's seq_id)
+
+        # calculate the distance between each pair of buses along the route
+            # loop along the route path from first waypoint's seq_id to last waypoints seq_id
+            # add the distances up to a total
+            # if it is higher than a distance threshold then
+                # bus.bunched_flag = True
+                # distance_to_prev_bus = d
+            # else:
+                # bus.bunched_flag = False
 
 
-                    # create a temporary positional index seq_id for the path #todo this could also be done when the route geomtery is built
-                    # todo we can match trips against paths using trip.pd
-                    seq = 0
-                    for p in system_map.route_geometries[bus.rt]['paths']:
-                        if p.path_id == bus.path_id:
-                            for pt in p.points:
-                                pt.seq_id = seq
-                            seq =+ 1
-
-                    # assign each bus to the nearest waypoint
-                        # get_nearest_waypoint(system_map, buses, route)
-
-                # put them in order from start to finish along the route path
-                    # along the route (using waypoint's seq_id)
-                    # bunched_candidates.sort(waypoint's seq_id)
-
-                # calculate the distance between each pair of buses along the route
-                    # loop along the route path from first waypoint's seq_id to last waypoints seq_id
-                    # add the distances up to a total
-                    # if it is higher than a distance threshold then
-                        # bus.bunched_flag = True
-                        # distance_to_prev_bus = d
-                    # else:
-                        # bus.bunched_flag = False
-
-                # save all the updates -- per route
-                db.session.commit()
+        return bus_positions
 
     def assign_to_stops(self):
         with self.db as db:
@@ -377,7 +370,7 @@ def ckdnearest(gdA, gdB, bcol):
 
     return df
 
-def get_nearest_stop(system_map, buses, route):
+def get_nearest_stop_for_buses(system_map, buses, route):
     buses_as_dicts = [b.to_dict() for b in buses]
     result2 = collections.defaultdict(list)
     for b in buses_as_dicts:
@@ -403,7 +396,7 @@ def get_nearest_stop(system_map, buses, route):
         df1['coordinates'] = df1['coordinates'].apply(Point)
         gdf1 = geopandas.GeoDataFrame(df1, geometry='coordinates')
         for stop_direction in stops_by_direction:
-            if bus_direction[0]['dd'] == stop_direction[0]['d']:
+            if bus_direction[0]['dd'] == stop_direction[0]['d']: #todo DID THIS BREAK SOMEHOW? OR DO WE NEED MORE DATA BEFORE RESULTS?--------
                 df2 = pd.DataFrame.from_records(stop_direction)
                 df2['lat'] = pd.to_numeric(df2['lat'])
                 df2['lon'] = pd.to_numeric(df2['lon'])
@@ -420,33 +413,50 @@ def get_nearest_stop(system_map, buses, route):
     return bus_positions
 
 
-def get_nearest_waypoint(system_map,buses, route):
-    waypointlist = system_map.get_single_route_waypointlist_for_localizer(route)
+def get_nearest_waypoint_for_buses(system_map, buses, route):
+    buses_as_dicts = [b.to_dict() for b in buses]
+    result2 = collections.defaultdict(list)
+    for b in buses_as_dicts:
+        result2[b['dd']].append(b)
+    buses_by_direction = list(result2.values())
+    if len(buses) == 0:
+        bus_positions = []
+        return bus_positions
+    try:
+        waypointlist = system_map.get_single_route_waypointlist_for_localizer(route)
+    except:
+        return
 
-    # 1 create waypoint geodf
-    df2 = pd.DataFrame.from_records(waypointlist) # todo this wont work on this data structure
-    df2['lat'] = pd.to_numeric(df2['lat'])
-    df2['lon'] = pd.to_numeric(df2['lon'])
-
-    df2['coordinates'] = list(zip(df2.lon, df2.lat))
-    df2['coordinates'] = df2['coordinates'].apply(Point)
-    gdf2 = geopandas.GeoDataFrame(df2, geometry='coordinates')
-
-    for bus in buses:
-        # 2 create buses geodf
-        df1 = pd.DataFrame.from_records(bus)
+    # todo RESUME debugging bunching flag here april 14---------------------------------------------------------------
+    result = collections.defaultdict(list)
+    for d in waypointlist:
+        result[d['d']].append(d)
+    waypoints_by_direction = list(result.values())
+    bus_positions = []
+    for bus_direction in buses_by_direction:
+        df1 = pd.DataFrame.from_records(bus_direction)
         df1['lat'] = pd.to_numeric(df1['lat'])
         df1['lon'] = pd.to_numeric(df1['lon'])
         df1['coordinates'] = list(zip(df1.lon, df1.lat))
         df1['coordinates'] = df1['coordinates'].apply(Point)
         gdf1 = geopandas.GeoDataFrame(df1, geometry='coordinates')
+        for waypoint_direction in waypoints_by_direction:
+            if bus_direction[0]['dd'] == waypoint_direction[0]['d']:
+                df2 = pd.DataFrame.from_records(waypoint_direction)
+                df2['lat'] = pd.to_numeric(df2['lat'])
+                df2['lon'] = pd.to_numeric(df2['lon'])
+                df2['coordinates'] = list(zip(df2.lon, df2.lat))
+                df2['coordinates'] = df2['coordinates'].apply(Point)
+                gdf2 = geopandas.GeoDataFrame(df2, geometry='coordinates')
+                inferred_waypoints = ckdnearest(gdf1, gdf2, 'waypoint_id') # this works off the ephemeral waypoint_id
+                gdf1['stop_id'] = inferred_waypoints['waypoint_id']
+                gdf1['distance'] = inferred_waypoints['distance']
+                bus_list = gdf1.apply(lambda row: turn_row_into_BusPosition(row), axis=1)
+                bus_positions.append(bus_list)
+            else:
+                pass
+    return bus_positions
 
-        # 3 find nearest waypoint for each bus
-        closest_waypoint = ckdnearest(gdf1, gdf2, 'seq_id') #todo should have a unique id for each waypoint?
-
-        bus_list = gdf1.apply(lambda row: turn_row_into_BusPosition(row), axis=1) # todo waht are we returning?
-
-    return bus_list
 
 def dist(a, b):
     return math.hypot(b[0] - a[0], b[1] - a[1])
