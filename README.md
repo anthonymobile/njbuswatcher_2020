@@ -1,6 +1,15 @@
 # NJ BusWatcher
-**updated 2020april **
+**updated 14 april 2020**
 
+
+# branch: dash
+
+## development status
+
+- lib.BusProcessor
+    - *get_nearest_stop_for_buses* either got broke when removing comments at commit 13 april 2020
+    - *get_nearest_waypoint_for_buses* in progress building, untested, need to add logic to utilize the waypoint_id that's returned by system_map on the fly through *system_map.get_single_route_waypointlist_for_localizer*. we don't need to persist that because its only used to determine bunching status a this time
+    - watch out because *flag_bunched* is called by *localize_positions* not *__init__*
 
 ## Overview
 

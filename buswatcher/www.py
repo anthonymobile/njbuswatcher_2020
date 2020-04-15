@@ -19,7 +19,7 @@ for k, v in system_map.collection_descriptions.items():
     for r in v['routelist']:
         for rr in system_map.route_descriptions['routedata']:
                 if rr['route'] == r:
-                    routes_watching[r]=rr['prettyname'] #bug dies here if this isnt defined in route_descrptions.json
+                    routes_watching[r]=rr['prettyname'] #bug dies here if prettyname isnt defined in route_descrptions.json
 
 
 #######################################################################################

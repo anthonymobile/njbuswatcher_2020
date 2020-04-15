@@ -92,6 +92,7 @@ class BusProcessor:
         return
 
 
+    # todo n.b. this is called by localize_positions above not __init__
     def flag_bunched(self, system_map, bus_positions,route):
 
         bus_positions = get_nearest_waypoint_for_buses(system_map, bus_positions, route)
@@ -396,7 +397,7 @@ def get_nearest_stop_for_buses(system_map, buses, route):
         df1['coordinates'] = df1['coordinates'].apply(Point)
         gdf1 = geopandas.GeoDataFrame(df1, geometry='coordinates')
         for stop_direction in stops_by_direction:
-            if bus_direction[0]['dd'] == stop_direction[0]['d']: #todo DID THIS BREAK SOMEHOW? OR DO WE NEED MORE DATA BEFORE RESULTS?--------
+            if bus_direction[0]['dd'] == stop_direction[0]['d']: #todo DID THIS BREAK SOMEHOW? OR DO WE NEED MORE DATA BEFORE IT GIVES RESULTS?--------
                 df2 = pd.DataFrame.from_records(stop_direction)
                 df2['lat'] = pd.to_numeric(df2['lat'])
                 df2['lon'] = pd.to_numeric(df2['lon'])
