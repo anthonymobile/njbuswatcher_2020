@@ -2,16 +2,13 @@
 
 #############################################################################
 # nginx reverse proxy is handled manually outside the context of this stack
-
-##############################################################################
 # dynamic DNS is handled manually outside the context of this stack
 
 version: '3.7'
 
 services:
 
-  #############################################################################
-  buswatcher_db:
+  njbuswatcher_db:
     image: mysql:5.7
     command: --default-authentication-plugin=mysql_native_password
     restart: always
@@ -26,34 +23,40 @@ services:
     expose:
       - 3306
     volumes:
-      - database_volume:/var/lib/mysql
+      - njbuswatcher_db_volume:/var/lib/mysql
 
-
-  #############################################################################
-  adminer:
-    image: adminer
+  tripwatcher:
+    build:
+      context: ./
+      dockerfile: ./docker/tripwatcher/Dockerfile
     restart: always
-    ports:
-      - 8083:8083
+    volumes:
+      - njbuswatcher_config_volume:/app/app/config
+    depends_on:
+      - njbuswatcher_db
 
+  generator:
+    build:
+      context: ./
+      dockerfile: ./docker/generator/Dockerfile
+    restart: always
+    volumes:
+      - njbuswatcher_config_volume:/app/app/config
+    depends_on:
+      - njbuswatcher_db
 
-  #############################################################################
   gunicorn:
     build:
       context: ./
       dockerfile: ./docker/gunicorn/Dockerfile
-
-    command: /opt/conda/envs/app/bin/gunicorn www:app -w 4 -b 0.0.0.0:8000
+    # command: /opt/conda/envs/app/bin/gunicorn www:app -w 4 -b 0.0.0.0:8000
     restart: always
     volumes:
         # - ./app/:/app
-        - static_volume:/app/app/static
-        # - buswatcher_config:/app/app/config
-        - buswatcher_config:/app/app/config
+        - njbuswatcher_static_volume:/app/app/static
+        - njbuswatcher_config_volume:/app/app/config
     expose:
-       - 8000
-#    ports:
-#      - 8000
+       - 8082
     environment:
       - SQL_DB=buses
       - SQL_USER=app
@@ -61,32 +64,10 @@ services:
       - SQL_HOST=db
       - SQL_PORT=5432
     depends_on:
-      - buswatcher_db
-
-  #############################################################################
-  tripwatcher:
-    build:
-      context: ./
-      dockerfile: ./docker/tripwatcher/Dockerfile
-    restart: always
-    volumes:
-      - buswatcher_config:/app/app/config
-    depends_on:
-      - buswatcher_db
-
-  #############################################################################
-  generator:
-    build:
-      context: ./
-      dockerfile: ./docker/generator/Dockerfile
-    restart: always
-    volumes:
-      - buswatcher_config:/app/app/config
-    depends_on:
-      - buswatcher_db
+      - njbuswatcher_db
 
 
 volumes:
-  database_volume:
-  static_volume:
-  buswatcher_config:
+  njbuswatcher_db_volume:
+  njbuswatcher_static_volume:
+  njbuswatcher_config_volume:

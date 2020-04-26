@@ -79,7 +79,7 @@ assets.register(bundles)
 def activate_job():
     def run_job():
         while True:
-            print("www.py recurring task every 10 mins...")
+            print("app.py recurring task every 10 mins...")
             system_map=load_system_map()
             time.sleep(600)
 

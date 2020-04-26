@@ -1,4 +1,4 @@
-# locust -f locust-www.py --host http://0.0.0.0:5000
+# locust -f locust-app.py --host http://0.0.0.0:5000
 # view results at http://0.0.0.0:8089/
 #
 
