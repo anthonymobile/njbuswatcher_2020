@@ -1,4 +1,4 @@
-name: buswatcher
+name: app
 channels:
   - conda-forge
   - defaults
@@ -124,5 +124,5 @@ dependencies:
     - sqlalchemy
     - urllib3
     - visitor
-prefix: /opt/bin/anaconda3/envs/buswatcher
+prefix: /opt/bin/anaconda3/envs/app
 

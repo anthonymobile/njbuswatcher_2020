@@ -12,7 +12,7 @@ RUN apt install -y build-essential
 RUN conda config --set channel_priority flexible
 RUN conda update -n base -c defaults conda
 
-# get environment from buswatcher folder
+# get environment from app folder
 ADD ./docker/environment.yml /tmp/environment.yml
 RUN conda env create -f /tmp/environment.yml
 

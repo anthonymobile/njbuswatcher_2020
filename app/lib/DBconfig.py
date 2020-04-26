@@ -1,0 +1,1 @@
+connection_string = 'mysql+pymysql://app:njtransit@localhost/buses'

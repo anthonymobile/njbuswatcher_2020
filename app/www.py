@@ -1,4 +1,4 @@
-# bus buswatcher v2.0
+# bus app v2.0
 # june 2019 - by anthony@bitsandatoms.net
 
 import logging

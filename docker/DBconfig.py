@@ -1,1 +1,1 @@
-connection_string = 'mysql+pymysql://buswatcher:njtransit@db/buses'
+connection_string = 'mysql+pymysql://app:njtransit@db/buses'

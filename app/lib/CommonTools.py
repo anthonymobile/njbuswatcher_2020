@@ -23,7 +23,7 @@ def get_config_path():
 
     # docker
     if os.getcwd() == "/":  # docker
-        prefix = "/buswatcher/buswatcher/"
+        prefix = "/app/app/"
 
     # osx
     elif "Users" in os.getcwd():

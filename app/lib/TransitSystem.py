@@ -220,7 +220,7 @@ def flush_system_map():
 def find_pickle_file():
     # find the pickle file
     if os.getcwd() == "/":  # docker
-        prefix = "/buswatcher/buswatcher/"
+        prefix = "/app/app/"
     elif "Users" in os.getcwd():  # osx
         prefix = ""
     else:  # linux & default

@@ -49,7 +49,7 @@ class RouteUpdater():
         # load existing reports and check ttl anyways
         try:
             # if os.getcwd() == "/":  # docker
-            #     prefix = "/buswatcher/buswatcher/"
+            #     prefix = "/app/app/"
             # elif "Users" in os.getcwd():
             #     prefix = ""
             # else:

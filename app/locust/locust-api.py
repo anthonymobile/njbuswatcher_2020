@@ -6,7 +6,7 @@ from locust import HttpLocust, TaskSet, task
 from pyquery import PyQuery
 import random
 
-from buswatcher.lib.TransitSystem import load_system_map
+from app.lib.TransitSystem import load_system_map
 
 routelist=list(load_system_map().get_routelist())
 api_root="/api/v1/maps/"
