@@ -13,7 +13,7 @@ RUN conda config --set channel_priority flexible
 RUN conda update -n base -c defaults conda
 
 # get environment from app folder
-ADD ./docker/generator/environment.yml /tmp/environment.yml
+ADD ./docker/environment.yml /tmp/environment.yml
 # create env and cleanup
 # https://jcristharif.com/conda-docker-tips.html
 RUN conda env create -f /tmp/environment.yml \
@@ -33,6 +33,6 @@ RUN mkdir buswatcher
 COPY . ./buswatcher
 
 # copy the proper database config over for docker deployment (uses the docker server url 'db')
-COPY ./docker/DBconfig.py ./buswatcher/buswatcher/lib/DBconfig.py
+COPY ./docker/DBconfig.py ./buswatcher/app/lib/DBconfig.py
 
-CMD ["/opt/conda/envs/buswatcher/bin/python", "/buswatcher/buswatcher/generator.py","--production"]
+CMD ["/opt/conda/envs/buswatcher/bin/python", "/buswatcher/app/generator.py","--production"]
