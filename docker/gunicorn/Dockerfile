@@ -20,8 +20,7 @@ RUN conda env create -f /tmp/environment.yml \
     && conda clean -afy \
     && find /opt/conda/ -follow -type f -name '*.a' -delete \
     && find /opt/conda/ -follow -type f -name '*.pyc' -delete \
-    && find /opt/conda/ -follow -type f -name '*.js.map' -delete \
-    && find /opt/conda/lib/python*/site-packages/bokeh/server/static -follow -type f -name '*.js' ! -name '*.min.js' -delete
+    && find /opt/conda/ -follow -type f -name '*.js.map' -delete 
 
 
 # Pull the environment name out of the environment.yml
